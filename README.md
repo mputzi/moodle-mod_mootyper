@@ -1,7 +1,7 @@
 
 # Moodle Mootyper module
-- Moodle tracker component: https://github.com/jl2035/moodle_mod_mootyper/issues
-- Documentation: https://github.com/jl2035/moodle_mod_mootyper/wiki
+- Moodle tracker component: https://github.com/drachels/moodle-mod_mootyper/issues
+- Documentation: https://github.com/drachels/moodle-mod_mootyper/wiki
 - Source Code: https://github.com/drachels/moodle-mod_mootyper
 - License: http://www.gnu.org/licenses/gpl.txt
 
