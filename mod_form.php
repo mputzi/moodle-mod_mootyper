@@ -46,7 +46,7 @@ class mod_mootyper_mod_form extends moodleform_mod {
         $mform->addRule('name', null, 'required', null, 'client');
         $mform->addRule('name', get_string('maximumchars', '', 255), 'maxlength', 255, 'client');
         $mform->addHelpButton('name', 'mootypername', 'mootyper');
-        $this->standard_intro_eelements();
+        $this->standard_intro_elements();
 		global $CFG, $COURSE;
         $mform->addElement('date_time_selector', 'timeopen', get_string('mootyperopentime', 'mootyper'), array('optional' => true, 'step' => 1));
         $mform->addElement('date_time_selector', 'timeclose', get_string('mootyperclosetime', 'mootyper'), array('optional' => true, 'step' => 1));
