@@ -16,9 +16,12 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
+ * This file is used to edit exercise content. Called from exercises.php.
+ * 
  * @package    mod
  * @subpackage mootyper
  * @copyright  2011 Jaka Luthar (jaka.luthar@gmail.com)
+ * @copyright  2016 onwards AL Rachels (drachels@drachels.com)
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
@@ -38,6 +41,8 @@ else
 if($exercise_ID == 0)
 	error('No exercise to edit!');
 
+$context = context_course::instance($id);
+	
 require_login($course, true);
 if(isset($_POST['button']))
    $param1 = $_POST['button']; 
@@ -47,14 +52,22 @@ if(isset($param1) && get_string('fconfirm', 'mootyper') == $param1 )
 	$rcrd = $DB->get_record('mootyper_exercises', array('id' => $exercise_ID), '*', MUST_EXIST);
 	$updR = new stdClass();
 	$updR->id = $rcrd->id;
-	//$updR->texttotype = $newText;
 	$updR->texttotype = str_replace("\r\n", '\n', $newText);
 	$updR->exercisename = $rcrd->exercisename;
 	$updR->lesson = $rcrd->lesson;
 	$updR->snumber = $rcrd->snumber;
 	$DB->update_record('mootyper_exercises', $updR);
+	
+	// Trigger module exercise_edited event.
+	$event = \mod_mootyper\event\exercise_edited::create(array(
+		'objectid' => $course->id,
+		'context' => $context
+	));
+	$event->trigger();
+	
 	$webDir = $CFG->wwwroot . '/mod/mootyper/exercises.php?id='.$id;
 	echo '<script type="text/javascript">window.location="'.$webDir.'";</script>';
+
 }
 
 $PAGE->set_url('/mod/mootyper/eedit.php', array('id' => $course->id, 'ex' => $exercise_ID));
@@ -66,7 +79,7 @@ $exerciseToEdit = $DB->get_record('mootyper_exercises', array('id' => $exercise_
 
 <script type="text/javascript">
 function isLetter(str) {
-	var pattern = /[a-zčšžđćüöäèéàçâêîôº¡çñáéíóú]/i;
+	var pattern = /[a-zčšžđćüöäèéàçâêîôº¡çñ]/i;
 	return str.length === 1 && str.match(pattern);
 }
 function isNumber(n) {
@@ -78,7 +91,7 @@ var ok = true;
 function clClick()
 {
 	var exercise_text = document.getElementById("texttotype").value;
-	var allowed_chars = ['!','@','#','$','%','^','&','(',')','*','_','+',':',';','"','{','}','>','<','?','\'','-','/','=','.',',',' ','|','¡','`','º','¿','ª','·','\n','\r','\r\n', '\n\r', ']', '[', '¬', '´', '`'];
+	var allowed_chars = ['!','@','#','$','%','^','&','(',')','*','_','+',':',';','"','{','}','>','<','?','\'','-','/','=','.',',',' ','|','¡','`','ç','ñ','º','¿','ª','·','\n','\r','\r\n', '\n\r', ']', '[', '¬', '´', '`'];
 	var shown_text = "";
 	ok = true;
 	for(var i=0; i<exercise_text.length; i++) {

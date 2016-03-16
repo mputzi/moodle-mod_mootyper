@@ -18,32 +18,32 @@ function keyupCombined(e) {
 	}
 	var currentText = $('#tb1').val();
 	var lastChar = currentText.substring(currentText.length-1);
-	if(combinedChar && lastChar==currentChar) 
-	// && ((currentChar.toUpperCase() == currentChar && e.shiftKey) || (currentChar.toUpperCase() != currentChar))) 
+	if(combinedChar && lastChar==trenutniChar) 
+	// && ((trenutniChar.toUpperCase() == trenutniChar && e.shiftKey) || (trenutniChar.toUpperCase() != trenutniChar))) 
 	{
 		if(show_keyboard){
-			var thisE = new keyboardElement(currentChar);
+			var thisE = new keyboardElement(trenutniChar);
 			thisE.turnOff();
 		}
-		if(currentPos == fullText.length-1) {   //END   
+		if(trenutnaPos == fullText.length-1) {   //END   
 			doKonec();
 			return true;
 		}
-		if(currentPos < fullText.length-1){
-			var nextChar = fullText[currentPos+1];
+		if(trenutnaPos < fullText.length-1){
+			var nextChar = fullText[trenutnaPos+1];
 			if(show_keyboard){
 				var nextE = new keyboardElement(nextChar);
 				nextE.turnOn();
 			}
 			if(!isCombined(nextChar)) {            //If next char is not combined char
 				$("#form1").off("keyup", "#tb1");
-				$("#form1").on("keypress", "#tb1", keyPressed);
+				$("#form1").on("keypress", "#tb1", gumbPritisnjen);
 			}
 		}
 		combinedChar = false;
-		moveCursor(currentPos+1);
-		currentChar = fullText[currentPos+1];
-		currentPos++;
+		moveCursor(trenutnaPos+1);
+		trenutniChar = fullText[trenutnaPos+1];
+		trenutnaPos++;
 		return true;
 	}
 	else
@@ -51,7 +51,7 @@ function keyupCombined(e) {
 		combinedChar = false;
 		napake++;
 		var tbval = $('#tb1').val();
-		$('#tb1').val(tbval.substring(0, currentPos));
+		$('#tb1').val(tbval.substring(0, trenutnaPos));
 		return false;
 	}	
 }

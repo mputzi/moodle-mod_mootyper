@@ -1,10 +1,10 @@
 var startTime;
 var endTime;
 var napake;
-var currentPos;
+var trenutnaPos;
 var started = false;
 var ended = false;
-var currentChar;
+var trenutniChar;
 var fullText;
 var intervalID = -1;
 var interval2ID = -1;
@@ -22,7 +22,6 @@ function moveCursor(nextPos) {
 		$('#crka'+nextPos).addClass('txtModro');
 }
 
-// end of typing
 function doKonec() {
 	$('#crka'+(fullText.length-1)).addClass('txtZeleno');
 	$('#crka'+(fullText.length-1)).removeClass('txtModro');
@@ -79,7 +78,7 @@ function focusSet(e) {
 		return true;
 	}
 	else{
-		$('#tb1').val(fullText.substring(0, currentPos));
+		$('#tb1').val(fullText.substring(0, trenutnaPos));
 		return true;
 	}
 }
@@ -88,16 +87,16 @@ function doCheck() {
     var rpMootyperId = $('input[name="rpSityperId"]').val();
     var rpUser = $('input[name="rpUser"]').val();
     var rpAttId = $('input[name="rpAttId"]').val();
-    var juri =  app_url+"/mod/mootyper/atchk.php?status=2&attemptid="+rpAttId+"&mistakes="+napake+"&hits="+(currentPos+napake);
+    var juri =  app_url+"/mod/mootyper/atchk.php?status=2&attemptid="+rpAttId+"&mistakes="+napake+"&hits="+(trenutnaPos+napake);
 	$.get(juri, function( data ) { });
 }
 
 function doStart() {
 	startTime = new Date();
 	napake = 0;
-	currentPos = 0;
+	trenutnaPos = 0;
 	started = true;
-	currentChar = fullText[currentPos];
+	trenutniChar = fullText[trenutnaPos];
 	intervalID = setInterval('updTimeSpeed()', 1000);
     var rpMootyperId = $('input[name="rpSityperId"]').val();
     var rpUser = $('input[name="rpUser"]').val();
@@ -108,26 +107,26 @@ function doStart() {
 	interval2ID = setInterval('doCheck()', 4000);
 }
 
-function keyPressed(e) {
+function gumbPritisnjen(e) {
 	if(ended)
 		return false;
 	if(!started)
 		doStart();
 	var keychar = getPressedChar(e);
-	if(keychar == currentChar || ((currentChar == '\n' || currentChar == '\r\n' || currentChar == '\n\r' || currentChar == '\r') && (keychar == ' ')))
+	if(keychar == trenutniChar || ((trenutniChar == '\n' || trenutniChar == '\r\n' || trenutniChar == '\n\r' || trenutniChar == '\r') && (keychar == ' ')))
 	{
-		if(currentPos == fullText.length-1) {  //END
-			$('#tb1').val($('#tb1').val()+currentChar);
-			var elemOff = new keyboardElement(currentChar);
+		if(trenutnaPos == fullText.length-1) {  //END
+			$('#tb1').val($('#tb1').val()+trenutniChar);
+			var elemOff = new keyboardElement(trenutniChar);
 			elemOff.turnOff();
 			doKonec();
 			return true;
 	    }
 	    
-	    if(currentPos < fullText.length-1){
-			var nextChar = fullText[currentPos+1];
+	    if(trenutnaPos < fullText.length-1){
+			var nextChar = fullText[trenutnaPos+1];
 			if(show_keyboard){
-				var thisE = new keyboardElement(currentChar);
+				var thisE = new keyboardElement(trenutniChar);
 				thisE.turnOff();
 				if(isCombined(nextChar) && (thisE.shift || thisE.alt || thisE.pow || thisE.uppercase_umlaut))
 					combinedCharWait = true;
@@ -135,13 +134,13 @@ function keyPressed(e) {
 				nextE.turnOn();
 			}
 			if(isCombined(nextChar)) {
-				$("#form1").off("keypress", "#tb1", keyPressed);
+				$("#form1").off("keypress", "#tb1", gumbPritisnjen);
 				$("#form1").on("keyup", "#tb1", keyupFirst);
 			}
 		}
-		moveCursor(currentPos+1);
-		currentChar = fullText[currentPos+1];
-		currentPos++;
+		moveCursor(trenutnaPos+1);
+		trenutniChar = fullText[trenutnaPos+1];
+		trenutnaPos++;
 	    return true;	
 	}
 	else if(keychar == ' ')  //I don't remember why we're having this if
@@ -152,7 +151,6 @@ function keyPressed(e) {
 	}
 }
 
-// Calculate time to seconds
 function dobiSekunde(hrs, mins, seccs) {
 	if(hrs > 0)
 		mins = (hrs*60) + mins;
@@ -162,7 +160,6 @@ function dobiSekunde(hrs, mins, seccs) {
 		return (mins * 60) + seccs;
 }
 
-// Date difference
 function timeRazlika(t1, t2) {
 	var yrs = t1.getFullYear();
 	var mnth = t1.getMonth();
@@ -180,7 +177,7 @@ function timeRazlika(t1, t2) {
 }
 
 function initTextToEnter(ttext, tinprogress, tmistakes, thits, tstarttime, tattemptid, turl, tshowkeyboard) {
-	$("#form1").on("keypress", "#tb1", keyPressed);
+	$("#form1").on("keypress", "#tb1", gumbPritisnjen);
 	show_keyboard = tshowkeyboard;
 	fullText = ttext;
 	app_url = turl;
@@ -189,28 +186,28 @@ function initTextToEnter(ttext, tinprogress, tmistakes, thits, tstarttime, tatte
 		$('input[name="rpAttId"]').val(tattemptid);
 		startTime = new Date(tstarttime*1000);
 		napake = tmistakes;
-		currentPos = (thits - tmistakes);   //!!!!!!!!!!!!!!!!!!!!!!!!!!!
-	    currentChar = fullText[currentPos]; // current character (trenutni = current)
+		trenutnaPos = (thits - tmistakes);   //!!!!!!!!!!!!!!!!!!!!!!!!!!!
+	    trenutniChar = fullText[trenutnaPos];
 	    if(show_keyboard) {
-			var nextE = new keyboardElement(currentChar);
+			var nextE = new keyboardElement(trenutniChar);
 			nextE.turnOn();
-			if(isCombined(currentChar)) {
-				$("#form1").off("keypress", "#tb1", keyPressed);
+			if(isCombined(trenutniChar)) {
+				$("#form1").off("keypress", "#tb1", gumbPritisnjen);
 				$("#form1").on("keyup", "#tb1", keyupCombined);
 			}
 		}
 	    started = true;
 	    intervalID = setInterval('updTimeSpeed()', 1000);
 	    interval2ID = setInterval('doCheck()', 3000);
-		for(var i=0; i<currentPos; i++) {
+		for(var i=0; i<trenutnaPos; i++) {
 			var tChar = ttext[i];
 			if(tChar == '\n')
 				tempStr += "<span id='crka"+i+"' class='txtZeleno'>&darr;</span><br>";
 			else
 				tempStr += "<span id='crka"+i+"' class='txtZeleno'>"+tChar+"</span>";
 		}
-		tempStr += "<span id='crka"+currentPos+"' class='txtModro'>"+currentChar+"</span>";
-		for(var j=currentPos+1; j<ttext.length; j++) {
+		tempStr += "<span id='crka"+trenutnaPos+"' class='txtModro'>"+trenutniChar+"</span>";
+		for(var j=trenutnaPos+1; j<ttext.length; j++) {
 			var tChar = ttext[j];
 			if(tChar == '\n')
 				tempStr += "<span id='crka"+j+"' class='txtRdece'>&darr;</span><br>";
@@ -227,7 +224,7 @@ function initTextToEnter(ttext, tinprogress, tmistakes, thits, tstarttime, tatte
 			if(i==0) {
 				tempStr += "<span id='crka"+i+"' class='txtModro'>"+tChar+"</span>";
 				if(isCombined(tChar)) {
-					$("#form1").off("keypress", "#tb1", keyPressed);
+					$("#form1").off("keypress", "#tb1", gumbPritisnjen);
 					$("#form1").on("keyup", "#tb1", keyupCombined);
 				}
 			}
@@ -248,13 +245,13 @@ function isDigit(aChar) {
 }
 
 function izracunajHitrost(sc) {
-	return (((currentPos + napake) * 60) / sc);
+	return (((trenutnaPos + napake) * 60) / sc);
 }
 
 function izracunajTocnost() {
-	if(currentPos+napake == 0)
+	if(trenutnaPos+napake == 0)
 		return 0;
-	return ((currentPos * 100) / (currentPos+napake));
+	return ((trenutnaPos * 100) / (trenutnaPos+napake));
 }
 
 function updTimeSpeed() {	
@@ -264,7 +261,7 @@ function updTimeSpeed() {
 	$('#jsTime').html(secs);
 	//$('#jsSpeed').html(izracunajHitrost(fullText, napake, secs).toFixed(2));
 	$('#jsMistakes').html(napake);
-	$('#jsProgress').html(currentPos + "/" +fullText.length);
+	$('#jsProgress').html(trenutnaPos + "/" +fullText.length);
 	$('#jsSpeed').html(izracunajHitrost(secs).toFixed(2));
 	$('#jsAcc').html(izracunajTocnost(fullText, napake).toFixed(2));
 }

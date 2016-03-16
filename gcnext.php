@@ -45,6 +45,8 @@ $record->attemptid = $_POST['rpAttId'];
 //$record->wpm = $wpm - $record->mistakes;
 $record->wpm = ($record->hitsperminute / 5) - $record->mistakes;
 $DB->insert_record('mootyper_grades', $record, false);
+	debugging('In function gcnext');
+	print_object($record);
 $webDir = $CFG->wwwroot . '/mod/mootyper/view.php?n='.$_POST['rpSityperId'];
 echo '<script type="text/javascript">window.location="'.$webDir.'";</script>';
 ?>
