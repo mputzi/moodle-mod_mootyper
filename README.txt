@@ -45,7 +45,4 @@ this case try to validate your code with a tool like this...
 http://www.javascriptlint.com/online_lint.php
 
 For more info please visit the plugins wiki on github:
-https://github.com/jl2035/moodle_mod_mootyper/wiki
-
-This plugin is being maintained for 3 years now, by only one person, so
-donations are welcome: 1LxKs67fXMQemeAsSx3ancVZGtRD7kKBEE
+https://github.com/drachels/moodle-mod_mootyper/wiki
