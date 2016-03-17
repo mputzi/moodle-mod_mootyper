@@ -36,9 +36,7 @@ $course = $DB->get_record('course', array('id' => $id), '*', MUST_EXIST);
 
 require_course_login($course);
 
-add_to_log($course->id, 'mootyper', 'view all', 'index.php?id='.$course->id, '');
-
-$coursecontext = get_context_instance(CONTEXT_COURSE, $course->id);
+$coursecontext = context_course::instance($course->id);
 
 $PAGE->set_url('/mod/mootyper/index.php', array('id' => $id));
 $PAGE->set_title(format_string($course->fullname));
@@ -85,4 +83,13 @@ foreach ($mootypers as $mootyper) {
 
 echo $OUTPUT->heading(get_string('modulenameplural', 'mootyper'), 2);
 echo html_writer::table($table);
+
+// Trigger course module instance list event.
+$params = array(
+    'context' => context_course::instance($course->id)
+);
+$event = \mod_mootyper\event\course_module_instance_list_viewed::create($params);
+$event->add_record_snapshot('course', $course);
+$event->trigger();
+
 echo $OUTPUT->footer();
