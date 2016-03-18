@@ -109,8 +109,9 @@ function get_mootyperlessons($u, $c)
     $sql = "SELECT id, lessonname
               FROM ".$CFG->prefix."mootyper_lessons
               WHERE ((visible = 2 AND authorid = ".$u.") OR
-                    (visible = 1 AND ".is_user_enrolled($u, $c).") OR
-                    (".can_view_edit_all($u, $c)."))
+                    (visible = 1 AND ".is_user_enrolled($u, $c)." = 1) OR
+					(visible = 0 AND ".is_user_enrolled($u, $c)." = 1) OR
+                    (".can_view_edit_all($u, $c)." = 1))
               ORDER BY id";
 	/*
 	/// This was taken out, because we have some context_module::instance confusion
