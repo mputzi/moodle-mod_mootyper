@@ -1,0 +1,39 @@
+===2.7.1===
+===exercises.php
+When an editing teacher views the Manage MooTyper exercises page, the right side of the exercises table is missing in some browsers.
+*FIXED - Added an else echo that added the missing empty cell for teachers.
+===mod_setup.php
+incorrect permission setup from previous maintainer. The code for selecting which lesson title to use was being controlled by mootyper::aftersetup which really should be mootyper::editall, I think.
+FIXED - The permission was set for editall and module instance, but it needed to be aftersetup and course instance.
+//if(has_capability('mod/mootyper:editall', context_module::instance($cm->id))){
+if(has_capability('mod/mootyper:aftersetup', context_course::instance($course->id))){
+
+===System Permissions===
+FIXED - Invalid get_string() identifier: 'mootyper:addinstance' or component 'mod_mootyper'. Perhaps you are missing $string['mootyper:addinstance'] = ''; in mod/mootyper/lang/en/mootyper.php?
+
+    line 293 of /lib/classes/string_manager_standard.php: call to debugging()
+    line 6950 of /lib/moodlelib.php: call to core_string_manager_standard->get_string()
+    line 3000 of /lib/accesslib.php: call to get_string()
+    line 2858 of /lib/accesslib.php: call to get_capability_string()
+    line 113 of /admin/roles/classes/capability_table_base.php: call to get_capability_docs_link()
+    line 148 of /admin/roles/check.php: call to core_role_capability_table_base->display()
+
+FIXED - Invalid get_string() identifier: 'mootyper:editall' or component 'mod_mootyper'. Perhaps you are missing $string['mootyper:editall'] = ''; in mod/mootyper/lang/en/mootyper.php?
+
+    line 293 of /lib/classes/string_manager_standard.php: call to debugging()
+    line 6950 of /lib/moodlelib.php: call to core_string_manager_standard->get_string()
+    line 3000 of /lib/accesslib.php: call to get_string()
+    line 2858 of /lib/accesslib.php: call to get_capability_string()
+    line 113 of /admin/roles/classes/capability_table_base.php: call to get_capability_docs_link()
+    line 148 of /admin/roles/check.php: call to core_role_capability_table_base->display()
+	
+
+===2.7.0===
+$plugin->version   = 2016031500;	// The current module version (Date: YYYYMMDDXX)
+$plugin->requires  = 2014051200;	// Requires Moodle v2.7
+$plugin->cron      = 60;			// Period for cron to check this module (secs)
+$plugin->component = 'mod_mootyper';
+$plugin->maturity  = MATURITY_STABLE;
+$plugin->release   = '2.7.0 (Build: 2016031500)';
+
+When getting 2.6.6 ready to be replaced by 2.7.0, too many changes were made to version 2.6.6 to bother with putting them here. There were numerous changes for deprecated api calls, some new langugage strings were added, and the whole activity was updated to use events to replace the old log system. 
