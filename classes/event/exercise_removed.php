@@ -32,7 +32,7 @@ class exercise_removed extends \core\event\base {
      */
     protected function init() {
         $this->data['crud'] = 'd';
-        $this->data['edulevel'] = self::LEVEL_OTHER ;
+        $this->data['edulevel'] = self::LEVEL_TEACHING ;
         $this->data['objecttable'] = 'mootyper';
     }
 

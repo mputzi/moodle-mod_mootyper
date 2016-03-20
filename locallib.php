@@ -109,9 +109,8 @@ function get_mootyperlessons($u, $c)
     $sql = "SELECT id, lessonname
               FROM ".$CFG->prefix."mootyper_lessons
               WHERE ((visible = 2 AND authorid = ".$u.") OR
-                    (visible = 1 AND ".is_user_enrolled($u, $c)." = 1) OR
-					(visible = 0 AND ".is_user_enrolled($u, $c)." = 1) OR
-                    (".can_view_edit_all($u, $c)." = 1))
+                    (visible = 1 AND ".is_user_enrolled($u, $c).") OR
+                    (".can_view_edit_all($u, $c)."))
               ORDER BY id";
 	/*
 	/// This was taken out, because we have some context_module::instance confusion
@@ -137,7 +136,8 @@ function can_view_edit_all($usr, $c)
 		$cnt = context_system::instance();
 	else
 		$cnt = context_course::instance($c);    ///!!!!THIS IS NOW FIXED????!!!!
-	if(has_capability('mod/mootyper:editall', $cnt))
+	//if(has_capability('mod/mootyper:editall', $cnt))
+	if(has_capability('mod/mootyper:aftersetup', $cnt))
 		return 1;
 	else
 		return 0;

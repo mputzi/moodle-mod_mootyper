@@ -20,6 +20,7 @@
  * @package    mod
  * @subpackage mootyper
  * @copyright  2012 Jaka Luthar (jaka.luthar@gmail.com)
+ * @copyright  2016 onwards AL Rachels (drachels@drachels.com)
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
@@ -137,11 +138,18 @@ $disSelect = $ePO == 1 ? ' disabled="disabled"' : '';
 $htmlout .= '<table><tr><td>'.get_string('fmode', 'mootyper').'</td><td><select'.$disSelect.' onchange="this.form.submit()" name="mode" id="mode">';
 //$lessons = get_typerlessons();
 
-if(has_capability('mod/mootyper:editall', context_module::instance($cm->id)))
+//if(has_capability('mod/mootyper:editall', context_module::instance($cm->id))){
+//if(has_capability('mod/mootyper:editall', context_course::instance($course->id))){
+//if(has_capability('mod/mootyper:aftersetup', context_course::instance($course->id))){
+if(has_capability('mod/mootyper:aftersetup', context_module::instance($cm->id))){
 	$lessons = get_typerlessons();
-else
+		//debugging('In function if - get typerlessons');
+		//print_object($lessons);
+}else{
 	$lessons = get_mootyperlessons($USER->id, $course->id);
-
+		//debugging('In function in else get mootyperlessons');
+		//print_object($lessons);
+}
 if($modePO == 0 || is_null($modePO))
 {
 	$htmlout .= '<option selected="true" value="0">'.

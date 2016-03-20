@@ -96,7 +96,7 @@ if(is_editable_by_me($USER->id, $lessonPO))
     '\')" href="erem.php?id='.$course->id.'&l='.$lessons[$selected_lesson_index]['id'].'">'.
 	get_string('removeall','mootyper').'\''.$lessons[$selected_lesson_index]['lessonname'].'\'</a>';
 echo '</form><br>';
-echo '<table style="border: solid;"><tr><td>'.get_string('ename','mootyper').'</td><td>'.get_string('etext', 'mootyper').'</td><td></td><td></td></tr>';
+echo '<table style="border: solid;"><tr><td>'.get_string('ename','mootyper').'</td><td>'.get_string('etext', 'mootyper').'</td><td></td></tr>';
 $exercises = get_typerexercisesfull($lessonPO);
 foreach($exercises as $ex)
 {
@@ -109,9 +109,9 @@ foreach($exercises as $ex)
 	$jlink2 = '<a href="eedit.php?id='.$course->id.'&ex='.$ex['id'].'">'.get_string('eeditlabel', 'mootyper').'</a>';
 	echo '<tr style="border-top: solid;"><td>'.$ex['exercisename'].'</td><td>'.$strToCut.'</td>';
 	if(is_editable_by_me($USER->id, $lessonPO))
-		echo '<td>'.$jlink2.' | '.$jlink.'</td><td></td>';
+		echo '<td>'.$jlink2.' | '.$jlink.'</td>';
 	else
-		echo '<td></td><td></td>';
+		echo '<td></td>';
 	echo '</tr>';
 }
 echo '</table>';
