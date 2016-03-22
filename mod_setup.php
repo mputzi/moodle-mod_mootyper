@@ -24,7 +24,6 @@
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-
 global $USER;
 require_once(dirname(dirname(dirname(__FILE__))).'/config.php');
 require_once(dirname(__FILE__).'/lib.php');
@@ -95,32 +94,14 @@ if(isset($param1) && get_string('fconfirm', 'mootyper') == $param1)
 	header('Location: '.$CFG->wwwroot.'/mod/mootyper/view.php?n='.$n);
 }
 
-
-
 //add_to_log($course->id, 'mootyper', 'view', "view.php?id={$cm->id}", $mootyper->name, $cm->id);
 
 /// Print the page header
-
 $PAGE->set_url('/mod/mootyper/mod_setup.php', array('id' => $cm->id));
 $PAGE->set_title(format_string($mootyper->name));
 $PAGE->set_heading(format_string($course->fullname));
 $PAGE->set_context($context);
 $PAGE->set_cacheable(false);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 echo $OUTPUT->header();
 echo $OUTPUT->heading($mootyper->name);
@@ -138,18 +119,15 @@ $disSelect = $ePO == 1 ? ' disabled="disabled"' : '';
 $htmlout .= '<table><tr><td>'.get_string('fmode', 'mootyper').'</td><td><select'.$disSelect.' onchange="this.form.submit()" name="mode" id="mode">';
 //$lessons = get_typerlessons();
 
-//if(has_capability('mod/mootyper:editall', context_module::instance($cm->id))){
-//if(has_capability('mod/mootyper:editall', context_course::instance($course->id))){
-//if(has_capability('mod/mootyper:aftersetup', context_course::instance($course->id))){
+// 3/22/16 Modified to use only improved function get_mootyperlessons.
 if(has_capability('mod/mootyper:aftersetup', context_module::instance($cm->id))){
-	$lessons = get_typerlessons();
+//	$lessons = get_typerlessons();
 		//debugging('In function if - get typerlessons');
 		//print_object($lessons);
-}else{
+//}else{
 	$lessons = get_mootyperlessons($USER->id, $course->id);
-		//debugging('In function in else get mootyperlessons');
-		//print_object($lessons);
 }
+
 if($modePO == 0 || is_null($modePO))
 {
 	$htmlout .= '<option selected="true" value="0">'.
@@ -192,6 +170,7 @@ else if($modePO == 1)
 	}
     $htmlout .= '</select></td></tr>';
 }
+
 $htmlout .= '<tr><td>'.get_string('showkeyboard', 'mootyper').'</td><td>';
 $show_keyboard_checked = $showKeyboardPO == 'on' ? ' checked="checked"' : '';
 $htmlout .= '<input type="checkbox"'.$show_keyboard_checked.' onchange="this.form.submit()" name="showkeyboard">';
@@ -199,6 +178,7 @@ $layouts = get_keyboard_layouts_db();
 //$mform->addElement('select', 'layout', get_string('layout', 'mootyper'), $layouts);
 $defLayout = $mooCFG->defaultlayout;
 $htmlout .= '<tr><td>'.get_string('layout', 'mootyper').'</td><td><select name="layout">';
+
 foreach($layouts as $lkey => $lval)
 {
 	if((count($_POST) > 1) && ($lkey == $defLayout))
@@ -218,5 +198,3 @@ $htmlout .= '</form>';
 echo $htmlout;
 // Finish the page
 echo $OUTPUT->footer();
-
-

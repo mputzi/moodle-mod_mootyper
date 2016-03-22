@@ -24,11 +24,11 @@
  * @package    mod
  * @subpackage mootyper
  * @copyright  2012 Jaka Luthar (jaka.luthar@gmail.com)
+ * @Copyright  2016 onwards AL Rachels (drachels@drachels.com)
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
 defined('MOODLE_INTERNAL') || die();
-
 
 function get_keyboard_layouts_db()
 {
@@ -82,6 +82,8 @@ function suspicion($checks, $starttime)
 	return false;
 }
 
+// 3/22/16 Changed call from mod_setup so this is no longer used.
+// Keeping it here until I'm sure of the change.
 function get_typerlessons()
 {
 	global $CFG, $DB;
@@ -100,7 +102,8 @@ function get_typerlessons()
     return $lsToReturn;
 } 
 
-//Improved get_typerlessons() function
+//Improved get_typerlessons() function.
+// Modified 3/22/16 to improve reliability of correctly listing edit/remove capability.
 function get_mootyperlessons($u, $c)
 {
 	global $CFG, $DB;
@@ -109,14 +112,15 @@ function get_mootyperlessons($u, $c)
     $sql = "SELECT id, lessonname
               FROM ".$CFG->prefix."mootyper_lessons
               WHERE ((visible = 2 AND authorid = ".$u.") OR
-                    (visible = 1 AND ".is_user_enrolled($u, $c).") OR
-                    (".can_view_edit_all($u, $c)."))
+                    (visible = 1 AND editable <= 2 AND courseid = ".$c.") OR
+					(visible = 0) OR 
+					(".can_view_edit_all($u, $c)."))
               ORDER BY id";
 	/*
 	/// This was taken out, because we have some context_module::instance confusion
 	  OR
                     (visible = 0)) OR ".can_view_edit_all($u, $c).")
-    /// ... was added again 
+    /// ... 3/22/16 Was added again due to changes for 2.7.1 release.
                     
 	*/
     if ($lessons = $DB->get_records_sql($sql, $params)) 
@@ -131,13 +135,16 @@ function get_mootyperlessons($u, $c)
 
 function can_view_edit_all($usr, $c)
 {
-	if($c == 0) 
+// 3/22/16 Changed so that ONLY someone who is a site admin can modify sample lessons.
+// Old method allowed everyone to modify everything.
+	//if($c == 0) 
 		//$cnt = context_course::instance(CONTEXT_SYSTEM);
-		$cnt = context_system::instance();
-	else
-		$cnt = context_course::instance($c);    ///!!!!THIS IS NOW FIXED????!!!!
+	//	$cnt = context_system::instance();
+	//else
+	//	$cnt = context_course::instance($c);    ///!!!!THIS IS NOW FIXED????!!!!
 	//if(has_capability('mod/mootyper:editall', $cnt))
-	if(has_capability('mod/mootyper:aftersetup', $cnt))
+
+	if (is_siteadmin($usr))
 		return 1;
 	else
 		return 0;
@@ -160,11 +167,14 @@ function is_editable_by_me($usr, $lsn)
 		return false;
 }
 
+// 3/22/16 Modified Where clause. Previously, it was comparing a
+// course number to modifierid which was never going to match
+// except in the very rare case of being in course 2 in all of my Moodles.
 function is_user_enrolled($usr, $crs)
 {
 	global $DB, $CFG;
 	$sql2 = "SELECT * FROM ".$CFG->prefix."user_enrolments
-			 WHERE userid = ".$usr." AND modifierid = ".$crs;
+			 WHERE userid = ".$usr;
     $enrolls = $DB->get_records_sql($sql2, array());
     $rt = count($enrolls) > 0 ? 1 : 0;
     return $rt;
