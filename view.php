@@ -111,7 +111,7 @@ if ($mootyper->lesson != NULL) {
 ?>
 <div id="mainDiv">
 <form name='form1' id='form1' method='post' action='<?php echo $insertDir; ?>'> 
-<div id="tipkovnica" style="float: left; text-align:center; margin-left: auto; margin-right: auto;">
+<div id="keyboard" style="float: left; text-align:center; margin-left: auto; margin-right: auto;">
 <h4><?php
         if (!$mootyper->isexam) echo $exercise->exercisename; ?></h4>
 <br />
