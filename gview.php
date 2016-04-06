@@ -107,7 +107,7 @@ if (!has_capability('mod/mootyper:viewgrades', context_module::instance($cm->id)
 			foreach($grds as $gr)
 			{
 				if($gr->suspicion)
-				$klicaj = '<span style="color: red;">!!!!!</span>';
+				$klicaj = '<span style="color: yellow;">!!!!!</span>';
 				else
 				$klicaj = '';
 				
@@ -207,7 +207,7 @@ if (!has_capability('mod/mootyper:viewgrades', context_module::instance($cm->id)
 			foreach($grds as $gr)
 			{
 				if($gr->suspicion)
-				$klicaj = '<span style="color: red;">!!!!!</span>';
+				$klicaj = '<span style="color: yellow;">!!!!!</span>';
 				else
 				$klicaj = '';
 				if($gr->pass)

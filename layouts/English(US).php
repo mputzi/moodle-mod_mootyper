@@ -1,19 +1,20 @@
 <div id="innerKeyboard" style="margin: 0px auto;display: inline-block;<?php echo (isset($display_none) && ($display_none==true)) ? 'display:none;' : ''; ?>"><br>
-<span id="jkeybackquote" class="normal"><sup>~</sup><sub>`</sub></span>
-<span id="jkey1" class="normal"><sup>!</sup><sub>1</sub></span>
-<span id="jkey2" class="normal"><sup>@</sup><sub>2</sub></span>
-<span id="jkey3" class="normal"><sup>#</sup><sub>3</sub></span>
-<span id="jkey4" class="normal"><sup>$</sup><sub>4</sub></span>
-<span id="jkey5" class="normal"><sup>%</sup><sub>5</sub></span>
-<span id="jkey6" class="normal"><sup>^</sup><sub>6</sub></span>
-<span id="jkey7" class="normal"><sup>&</sup><sub>7</sub></span>
-<span id="jkey8" class="normal"><sup>*</sup><sub>8</sub></span>
-<span id="jkey9" class="normal"><sup>(</sup><sub>9</sub></span>
-<span id="jkey0" class="normal"><sup>)</sup><sub>0</sub></span>
-<span id="jkeyminus" class="normal"><sup>_</sup><sub>-</sub></span>
+<span id="xxx" class="keyboardback">English(US) Keyboard Layout<br><br>
+<span id="jkeybackquote" class="normal"><span class="textup">~ </span><span class="textdown">  `</span></span>
+<span id="jkey1" class="normal"><span class="textup">! </span> 1</span>
+<span id="jkey2" class="normal"><span class="textup">@</span> 2</span>
+<span id="jkey3" class="normal"><span class="textup">#</span> 3</span>
+<span id="jkey4" class="normal"><span class="textup">$</span> 4</span>
+<span id="jkey5" class="normal"><span class="textup">%</span> 5</span>
+<span id="jkey6" class="normal"><span class="textup">^</span> 6</span>
+<span id="jkey7" class="normal"><span class="textup">&</span> 7</span>
+<span id="jkey8" class="normal"><span class="textup">*</span> 8</span>
+<span id="jkey9" class="normal"><span class="textup">(</span> 9</span>
+<span id="jkey0" class="normal"><span class="textup">)</span> 0</span>
+<span id="jkeyminus" class="normal"><span class="textup">_</span><span class="textdown"> -</span></span>
 <!--span id="jkeyvprasaj" class="normal">?</span-->
 <!--span id="jkeyplus" class="normal">+</span-->
-<span id="jkeyequals" class="normal"><sup>+</sup><sub>=</sub></span>
+<span id="jkeyequals" class="normal"><span class="textup">+</span><span class="textdown"> =</span></span>
 <span id="jkeybackspace" class="normal" style="border-right-style: solid;">Backspace</span><br>
 <span id="jkeytab" class="normal" style="width: 40px;">Tab</span>
 <span id="jkeyq" class="normal">Q</span>
@@ -26,9 +27,9 @@
 <span id="jkeyi" class="normal">I</span>
 <span id="jkeyo" class="normal">O</span>
 <span id="jkeyp" class="normal">P</span>
-<span id="jkeybracketl" class="normal"><sup>{</sup><sub>[</sub></span>
-<span id="jkeybracketr" class="normal"><sup>}</sup><sub>]</sub></span>
-<span id="jkeybackslash" class="normal"><sup>|</sup><sub>\</sub></span>
+<span id="jkeybracketl" class="normal"><span class="textup">{</span> [</span>
+<span id="jkeybracketr" class="normal"><span class="textup">}</span> ]</span>
+<span id="jkeybackslash" class="dualkey"><span class="textup">|</span><span class="textdown"> \</span></span>
 <br>
 <span id="jkeycaps" class="normal" style="width: 60px;">C.lock</span>
 <span id="jkeya" class="finger4">A</span>
@@ -40,10 +41,10 @@
 <span id="jkeyj" class="finger1">J</span>
 <span id="jkeyk" class="finger2">K</span>
 <span id="jkeyl" class="finger3">L</span>
-<span id="jkeysemicolon" class="finger4"><sup>:</sup><sub>;</sub></span>
-<span id="jkeycrtica" class="normal"><sup>"</sup><sub>'</sub></span>
+<span id="jkeysemicolon" class="finger4"><span class="textup">:</span><span class="textdown"> ;</span></span>
+<span id="jkeycrtica" class="normal"><span class="textup">"</span><span class="textdown"> '</span></span>
 
-<span id="jkeyenter" class="normal" style="width: 80px;">Enter</span>
+<span id="jkeyenter" class="normal" style="width: 75px;">Enter</span>
 <br>
 <span id="jkeyshiftl" class="normal" style="width: 80px;">Shift</span>
 
@@ -54,10 +55,10 @@
 <span id="jkeyb" class="normal">B</span>
 <span id="jkeyn" class="normal">N</span>
 <span id="jkeym" class="normal">M</span>
-<span id="jkeycomma" class="normal"><sup>&lt;</sup><sub>,</sub></span>
-<span id="jkeyperiod" class="normal"><sup>&gt;</sup><sub>.</sub></span>
-<span id="jkeyslash" class="normal"><sup>?</sup><sub>/</sub></span>
-<span id="jkeyshiftd" class="normal" style="width: 75px; border-right-style: solid;">Shift</span>
+<span id="jkeycomma" class="normal"><span class="textup">&lt;</span> ,</span>
+<span id="jkeyperiod" class="normal"><span class="textup">&gt;</span> .</span>
+<span id="jkeyslash" class="normal"><span class="textup">?</span><span class="textdown"> /</span></span>
+<span id="jkeyshiftd" class="normal" style="width: 95px; border-right-style: solid;">Shift</span>
 <br>
 <span id="jkeyctrll" class="normal" style="width: 60px;">Ctrl</span>
 <span id="jkeyfn" class="normal">Fn</span>
@@ -66,5 +67,6 @@
 <span id="jkeyaltgr" class="normal" style="width: 45px;">Alt</span>
 <span id="jkeyfn" class="normal">Fn</span>
 <!--span id="jempty" class="normal" style="width: 30px;">&nbsp;</span-->
-<span id="jkeyctrlr" class="normal" style="width: 60px; border-right-style: solid;">Ctrl</span><br>
+<span id="jkeyctrlr" class="normal" style="width: 65px; border-right-style: solid;">Ctrl</span><br>
+</span>
 </div>

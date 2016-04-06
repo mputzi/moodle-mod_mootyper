@@ -27,6 +27,7 @@
  * @package    mod
  * @subpackage mootyper
  * @copyright  2012 Jaka Luthar (jaka.luthar@gmail.com)
+ * @copyright  2016 onwards AL Rachels (drachels@drachels.com)
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
@@ -641,5 +642,34 @@ function mootyper_pluginfile($course, $cm, $context, $filearea, array $args, $fo
  * @param settings_navigation $settingsnav {@link settings_navigation}
  * @param navigation_node $mootypernode {@link navigation_node}
  */
-function mootyper_extend_settings_navigation(settings_navigation $settingsnav, navigation_node $mootypernode=null) {
+function mootyper_extend_settings_navigation(settings_navigation $settingsnav, navigation_node $navref) {
+    global $PAGE, $DB;
+
+    $cm = $PAGE->cm;
+    if (!$cm) {
+        return;
+    }
+
+    $context = $cm->context;
+    $course = $PAGE->course;
+
+    if (!$course) {
+        return;
+    }
+	
+    // Link to exercise management page.
+    if (has_capability('mod/mootyper:aftersetup', $cm->context)) {
+        $link = new moodle_url('exercises.php', array('id' => $course->id));
+        $linkname = get_string('pluginadministration', 'mootyper');
+		$icon = new pix_icon('icon', '', 'mootyper', array('class'=>'icon'));
+        $node = $navref->add($linkname, $link, navigation_node::TYPE_SETTING, null, null, $icon);
+    }	
+    // Link to Add new exercise / category page.
+    if (has_capability('mod/mootyper:aftersetup', $cm->context)) {
+        $link = new moodle_url('eins.php', array('id' => $course->id));
+        $linkname = get_string('eaddnew', 'mootyper');
+		$icon = new pix_icon('icon', '', 'mootyper', array('class'=>'icon'));
+        $node = $navref->add($linkname, $link, navigation_node::TYPE_SETTING, null, null, $icon);
+    }	
+
 }
