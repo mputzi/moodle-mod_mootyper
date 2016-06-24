@@ -20,54 +20,46 @@
  * @copyright  2012 Jaka Luthar (jaka.luthar@gmail.com)
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
- 
+
 require_once(dirname(dirname(dirname(__FILE__))).'/config.php');
 require_once(dirname(__FILE__).'/locallib.php');
 global $DB;
 $record = new stdClass();
 $st = $_GET['status'];
-if($st == 1){
-	
-	$record->mootyperid = $_GET['mootyperid'];
-	$record->userid = $_GET['userid'];
-	$record->timetaken = $_GET['time'];
-	$record->inprogress = 1;
-	$record->suspicion = 0;
-    $newID = $DB->insert_record('mootyper_attempts', $record, true);
-    echo $newID;
-}
-else if($st == 2)
-{
-	$record->attemptid = $_GET['attemptid'];
-	$record->mistakes = $_GET['mistakes'];
-	$record->hits = $_GET['hits'];
-	$record->checktime = time();
-	$DB->insert_record('mootyper_checks', $record, false);	
-}
-else if($st == 3)
-{
-	$att_id = optional_param('attemptid', 0, PARAM_INT);
-	$attemptOLD = $DB->get_record('mootyper_attempts', array('id' => $att_id), '*', MUST_EXIST);
-	$attemptNEW = new stdClass();
-	$attemptNEW->id = $attemptOLD->id;
-	$attemptNEW->mootyperid = $attemptOLD->mootyperid;
-	$attemptNEW->userid = $attemptOLD->userid;
-	$attemptNEW->timetaken = $attemptOLD->timetaken;
-	$attemptNEW->inprogress = 0;
-	$dbchcks = $DB->get_records('mootyper_checks', array('attemptid' => $attemptOLD->id));
-	$checks = array();
-	foreach($dbchcks as $c)
-	{
-		$checks[] = array('id' => $c->id, 'mistakes' => $c->mistakes, 'hits' => $c->hits, 'checktime' => $c->checktime);
-	}
-	if(suspicion($checks, $attemptOLD->timetaken))
-		$attemptNEW->suspicion = 1;
-	else
-		$attemptNEW->suspicion = $attemptOLD->suspicion;
-	$DB->update_record('mootyper_attempts', $attemptNEW);
-	$DB->delete_records('mootyper_checks', array('attemptid' => $att_id));
-}
-?>
+if ($st == 1) {
 
-
-
+    $record->mootyperid = $_GET['mootyperid'];
+    $record->userid = $_GET['userid'];
+    $record->timetaken = $_GET['time'];
+    $record->inprogress = 1;
+    $record->suspicion = 0;
+    $newid = $DB->insert_record('mootyper_attempts', $record, true);
+    echo $newid;
+} else if ($st == 2) {
+    $record->attemptid = $_GET['attemptid'];
+    $record->mistakes = $_GET['mistakes'];
+    $record->hits = $_GET['hits'];
+    $record->checktime = time();
+    $DB->insert_record('mootyper_checks', $record, false);
+} else if ($st == 3) {
+    $attid = optional_param('attemptid', 0, PARAM_INT);
+    $attemptold = $DB->get_record('mootyper_attempts', array('id' => $attid), '*', MUST_EXIST);
+    $attemptnew = new stdClass();
+    $attemptnew->id = $attemptold->id;
+    $attemptnew->mootyperid = $attemptold->mootyperid;
+    $attemptnew->userid = $attemptold->userid;
+    $attemptnew->timetaken = $attemptold->timetaken;
+    $attemptnew->inprogress = 0;
+    $dbchcks = $DB->get_records('mootyper_checks', array('attemptid' => $attemptold->id));
+    $checks = array();
+    foreach ($dbchcks as $c) {
+        $checks[] = array('id' => $c->id, 'mistakes' => $c->mistakes, 'hits' => $c->hits, 'checktime' => $c->checktime);
+    }
+    if (suspicion($checks, $attemptold->timetaken)) {
+        $attemptnew->suspicion = 1;
+    } else {
+        $attemptnew->suspicion = $attemptold->suspicion;
+    }
+    $DB->update_record('mootyper_attempts', $attemptnew);
+    $DB->delete_records('mootyper_checks', array('attemptid' => $attid));
+}

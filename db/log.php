@@ -1,5 +1,4 @@
 <?php
-
 // This file is part of Moodle - http://moodle.org/
 //
 // Moodle is free software: you can redistribute it and/or modify
@@ -33,8 +32,8 @@ defined('MOODLE_INTERNAL') || die();
 global $DB;
 
 $logs = array(
-    array('module'=>'mootyper', 'action'=>'add', 'mtable'=>'mootyper', 'field'=>'name'),
-    array('module'=>'mootyper', 'action'=>'update', 'mtable'=>'mootyper', 'field'=>'name'),
-    array('module'=>'mootyper', 'action'=>'view', 'mtable'=>'mootyper', 'field'=>'name'),
-    array('module'=>'mootyper', 'action'=>'view all', 'mtable'=>'mootyper', 'field'=>'name')
+    array('module' => 'mootyper', 'action' => 'add', 'mtable' => 'mootyper', 'field' => 'name'),
+    array('module' => 'mootyper', 'action' => 'update', 'mtable' => 'mootyper', 'field' => 'name'),
+    array('module' => 'mootyper', 'action' => 'view', 'mtable' => 'mootyper', 'field' => 'name'),
+    array('module' => 'mootyper', 'action' => 'view all', 'mtable' => 'mootyper', 'field' => 'name')
 );

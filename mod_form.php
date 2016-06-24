@@ -1,5 +1,4 @@
 <?php
-
 // This file is part of Moodle - http://moodle.org/
 //
 // Moodle is free software: you can redistribute it and/or modify
@@ -24,7 +23,8 @@
  * @package    mod
  * @subpackage mootyper
  * @copyright  2012 Jaka Luthar (jaka.luthar@gmail.com)
- * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ * @copyright  2016 onwards AL Rachels (drachels@drachels.com)
+ * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later.
  */
 
 defined('MOODLE_INTERNAL') || die();
@@ -38,19 +38,24 @@ class mod_mootyper_mod_form extends moodleform_mod {
     public function definition() {
         $mform = $this->_form;
         $mform->addElement('header', 'general', get_string('general', 'form'));
-        $mform->addElement('text', 'name', get_string('mootypername', 'mootyper'), array('size'=>'64'));
-        if (!empty($CFG->formatstringstriptags))
+        $mform->addElement('text', 'name', get_string('mootypername', 'mootyper'), array('size' => '64'));
+        if (!empty($CFG->formatstringstriptags)) {
             $mform->setType('name', PARAM_TEXT);
-        else
+        } else {
             $mform->setType('name', PARAM_CLEAN);
+        }
         $mform->addRule('name', null, 'required', null, 'client');
         $mform->addRule('name', get_string('maximumchars', '', 255), 'maxlength', 255, 'client');
         $mform->addHelpButton('name', 'mootypername', 'mootyper');
         $this->standard_intro_elements();
-		global $CFG, $COURSE;
-        $mform->addElement('date_time_selector', 'timeopen', get_string('mootyperopentime', 'mootyper'), array('optional' => true, 'step' => 1));
-        $mform->addElement('date_time_selector', 'timeclose', get_string('mootyperclosetime', 'mootyper'), array('optional' => true, 'step' => 1));
-        //$mform->addElement('passwordunmask', 'password', get_string('requirepassword', 'mootyper'));
+        global $CFG, $COURSE;
+        $mform->addElement('date_time_selector', 'timeopen',
+                           get_string('mootyperopentime', 'mootyper'),
+                           array('optional' => true, 'step' => 1));
+        $mform->addElement('date_time_selector', 'timeclose',
+                           get_string('mootyperclosetime', 'mootyper'),
+                           array('optional' => true, 'step' => 1));
+
         $mform->addElement('header', 'mootyperz', get_string('pluginadministration', 'mootyper'));
         $jlnk3 = $CFG->wwwroot . '/mod/mootyper/exercises.php?id='.$COURSE->id;
         $mform->addElement('html', '<a id="jlnk3" href="'.$jlnk3.'">'.get_string('emanage', 'mootyper').'</a>');

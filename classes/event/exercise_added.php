@@ -19,7 +19,7 @@
  *
  * @package     mod_mootyper
  * @copyright   2016 AL Rachels (drachels@drachels.com)
- * @license http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ * @license http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later.
  */
 
 namespace mod_mootyper\event;
@@ -32,7 +32,7 @@ class exercise_added extends \core\event\base {
      */
     protected function init() {
         $this->data['crud'] = 'u';
-        $this->data['edulevel'] = self::LEVEL_TEACHING ;
+        $this->data['edulevel'] = self::LEVEL_TEACHING;
         $this->data['objecttable'] = 'mootyper';
     }
 

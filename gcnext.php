@@ -18,15 +18,16 @@
  * @package    mod
  * @subpackage mootyper
  * @copyright  2012 Jaka Luthar (jaka.luthar@gmail.com)
- * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later.
  */
 require_once(dirname(dirname(dirname(__FILE__))).'/config.php');
 require_once(dirname(__FILE__).'/locallib.php');
 global $DB;
-if($_POST['rpAccInput'] >= $_POST['rpGoal']) 
-	$passField = 1;
-else
-	$passField = 0;
+if ($_POST['rpAccInput'] >= $_POST['rpGoal']) {
+    $passfield = 1;
+} else {
+    $passfield = 0;
+}
 $record = new stdClass();
 $record->mootyper = $_POST['rpSityperId'];
 $record->userid = $_POST['rpUser'];
@@ -38,13 +39,10 @@ $record->fullhits = $_POST['rpFullHits'];
 $record->precisionfield = $_POST['rpAccInput'];
 $record->timetaken = time();
 $record->exercise = $_POST['rpExercise'];
-$record->pass = $passField;
+$record->pass = $passfield;
 $record->attemptid = $_POST['rpAttId'];
-//$y = ($record->timeinseconds*100) / 60;
-//$wpm = ($_GET['words'] * 100) / $y;
-//$record->wpm = $wpm - $record->mistakes;
 $record->wpm = ($record->hitsperminute / 5) - $record->mistakes;
 $DB->insert_record('mootyper_grades', $record, false);
-$webDir = $CFG->wwwroot . '/mod/mootyper/view.php?n='.$_POST['rpSityperId'];
-echo '<script type="text/javascript">window.location="'.$webDir.'";</script>';
-?>
+$webdir = $CFG->wwwroot . '/mod/mootyper/view.php?n='.$_POST['rpSityperId'];
+echo '<script type="text/javascript">window.location="'.$webdir.'";</script>';
+

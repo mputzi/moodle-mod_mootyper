@@ -1,5 +1,4 @@
 <?php
-
 // This file is part of Moodle - http://moodle.org/
 //
 // Moodle is free software: you can redistribute it and/or modify
@@ -37,15 +36,18 @@ $string['course_exercises_viewed'] = 'Viewed exercises';
 $string['csvexport'] = 'Export to .csv';
 $string['defaultlayout'] = 'Default keyboard layout';
 $string['defaultprecision'] = 'Default typing precision %';
+$string['export'] = 'Export ';
+$string['exportconfirm'] = 'Confirm you want to export ';
 $string['eaccess0'] = 'Any teacher';
 $string['eaccess1'] = 'Teacher inside this course';
 $string['eaccess2'] = 'Only me';
 $string['eaddnew'] = 'Add new exercise / category';
 $string['editable'] = 'Can edit';
+$string['editexercises'] = 'Export / edit exercises';
 $string['eeditlabel'] = 'Edit';
 $string['eheading'] = 'Manage MooTyper Exercises';
 $string['emanage'] = 'To manage exercises and categories click here';
-$string['ename'] = 'Exercise title: ';
+$string['ename'] = 'Exercise: ';
 $string['endlesson'] = 'End of the category / lesson';
 $string['eremove'] = 'Remove';
 $string['etext'] = 'Text';
@@ -55,6 +57,7 @@ $string['excategory'] = 'Exercises category';
 $string['exercise_added'] = 'Added exercise/category';
 $string['exercise_edited'] = 'Edited exercise';
 $string['exercise_removed'] = 'Removed exercise/category';
+$string['eventlessonexport'] = 'Exported lesson';
 $string['fconfirm'] = 'Confirm';
 $string['fcontinue'] = 'Continue';
 $string['fexercise'] = 'Exercise';
@@ -71,8 +74,16 @@ $string['gviewmode'] = 'View';
 $string['hitsperminute'] = 'Hits/minute';
 $string['invalidaccess'] = 'You do not have permission to view this page.';
 $string['isexamtext'] = 'Exam';
+$string['keyboardbgc_title'] = 'Keyboard background color';
+$string['keyboardbgc_descr'] = 'This sets the background color around keyboard keys.';
+$string['keyboardbgc_colour'] = '#DDDDDD';
 $string['layout'] = 'Keyboard layout';
+$string['lesson_exported'] = 'Exported lesson/category';
+$string['lesson_imported'] = 'Imported lesson/category';
 $string['lsnname'] = 'category name';
+$string['lsnimport'] = 'Import exercise / category';
+$string['lsnimportadd'] = ' was successfully added to the database.';
+$string['lsnimportnotadd'] = ' already in the database. Nothing to do.';
 $string['modulename'] = 'MooTyper';
 $string['modulename_help'] = 'The mootyper module allows us to learn how to type';
 $string['modulenameplural'] = 'MooTypers';
@@ -91,11 +102,13 @@ $string['mootypername'] = 'Test title';
 $string['mootyperopentime'] = 'Open time';
 $string['nogrades'] = 'No grades yet...';
 $string['notreadyyet'] = 'Not ready yet...please try again later.';
+$string['noteditablebyme'] = 'Not editable by me.';
 $string['pluginadministration'] = 'MooTyper Administration';
 $string['pluginname'] = 'MooTyper';
 $string['precision'] = 'Precision';
 $string['removeall'] = 'Remove all from ';
-$string['removeconfirm'] = 'You are about to completly remove ';
+$string['removelsnconfirm'] = 'Confirm you are about to completly remove ';
+$string['removeexconfirm'] = 'Confirm you are about to remove an exercise from ';
 $string['reqfield'] = 'Required field';
 $string['requiredgoal'] = 'Required precision';
 $string['requirepassword'] = 'Require password';

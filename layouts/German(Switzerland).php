@@ -1,4 +1,8 @@
-<div id="innerTipkovnica" style="margin: 0px auto;display: inline-block;<?php echo (isset($display_none) && $display_none == true) ? 'display:none;' : ''; ?>"><br>
+<div id="innerKeyboard" style="margin: 0px auto;display: inline-block;
+<?php
+echo (isset($displaynone) && $displaynone == true) ? 'display:none;' : '';
+?>
+"><br>
 <span id="jkeytildo" class="normal keyboard_key">§</span>
 <span id="jkey1" class="normal keyboard_key">1</span>
 <span id="jkey2" class="normal keyboard_key">2</span>

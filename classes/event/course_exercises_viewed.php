@@ -39,7 +39,7 @@ class course_exercises_viewed extends \core\event\base {
         $this->data['objecttable'] = 'mootyper';
     }
 
-	    /**
+    /**
      * Returns localised general event name.
      *
      * @return string
@@ -57,7 +57,7 @@ class course_exercises_viewed extends \core\event\base {
         return "The user with id '$this->userid' viewed mootyper exercises while in the course with id
             '$this->contextinstanceid'";
     }
-	
+
     /**
      * Returns relevant URL.
      * @return \moodle_url

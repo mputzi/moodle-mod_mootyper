@@ -20,7 +20,8 @@
  * @package    mod
  * @subpackage mootyper
  * @copyright  2012 Jaka Luthar (jaka.luthar@gmail.com)
- * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ * @copyright  2016 onwards AL Rachels (drachels@drachels.com)
+ * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later.
  */
 
 
@@ -29,12 +30,22 @@ defined('MOODLE_INTERNAL') || die;
 if ($ADMIN->fulltree) {
     require_once($CFG->dirroot.'/mod/mootyper/lib.php');
     require_once($CFG->dirroot.'/mod/mootyper/locallib.php');
-	$layouts = get_keyboard_layouts_db();
-    $settings->add(new admin_setting_configselect('mootyper/defaultlayout', get_string('defaultlayout', 'mootyper'), '', 1, $layouts));
-	$precs = array();
-	for($i=0; $i<=100; $i++)
-	{
-		$precs[] = $i;
-	}
-	$settings->add(new admin_setting_configselect('mootyper/defaultprecision', get_string('defaultprecision', 'mootyper'), '', 97, $precs));
+
+    // Default keyboard layout.
+    $layouts = get_keyboard_layouts_db();
+    $settings->add(new admin_setting_configselect(
+    'mod_mootyper/defaultlayout',
+        get_string('defaultlayout', 'mootyper'),
+        '', 1, $layouts));
+    $precs = array();
+
+    // Default typing precision.
+    for ($i = 0; $i <= 100; $i++) {
+        $precs[] = $i;
+    }
+    $settings->add(new admin_setting_configselect(
+    'mod_mootyper/defaultprecision',
+        get_string('defaultprecision', 'mootyper'),
+        '', 97, $precs));
+
 }

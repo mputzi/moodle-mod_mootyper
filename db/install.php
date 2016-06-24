@@ -1,5 +1,4 @@
 <?php
-
 // This file is part of Moodle - http://moodle.org/
 //
 // Moodle is free software: you can redistribute it and/or modify
@@ -22,109 +21,108 @@
  * @package    mod
  * @subpackage mootyper
  * @copyright  2012 Jaka Luthar (jaka.luthar@gmail.com)
- * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ * @copyright  2016 onwards AL Rachels (drachels@drachels.com)
+ * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later.
  */
 
 /**
- * Post installation procedure
+ * Post installation procedure.
  *
- * @see upgrade_plugins_modules()
+ * @see upgrade_plugins_modules().
  */
 function xmldb_mootyper_install() {
-	require_once(dirname(dirname(dirname(dirname(__FILE__)))).'/config.php');
-	global $CFG, $USER;
-	$pth = $CFG->dirroot."/mod/mootyper/lessons";
-	$res = scandir($pth);
-	for($i=0; $i<count($res); $i++)
-	{
-		if(is_file($pth."/".$res[$i])){
-			$fl = $res[$i];//($daFile, $authorid_arg, $visible_arg, $editable_arg, $course_arg)
-			read_lessons_file($fl, $USER->id, 0, 2);
-		}
-	}
-	$pth2 = $CFG->dirroot."/mod/mootyper/layouts";
-	$res2 = scandir($pth2);
-	for($j=0; $j<count($res2); $j++)
-	{
-		if(is_file($pth2."/".$res2[$j]) && ( substr($res2[$j], (strripos($res2[$j], '.') + 1) ) == 'php'))
-		{
-			$fl2 = $res2[$j];
-			add_keyboard_layout($fl2);
-		}
-	}
+    require_once(dirname(dirname(dirname(dirname(__FILE__)))).'/config.php');
+    global $CFG, $USER;
+    $pth = $CFG->dirroot."/mod/mootyper/lessons";
+    $res = scandir($pth);
+    for ($i = 0; $i < count($res); $i++) {
+        if (is_file($pth."/".$res[$i])) {
+            $fl = $res[$i]; // Argument list ($daFile, $authorid_arg, $visible_arg, $editable_arg, $course_arg).
+            read_lessons_file($fl, $USER->id, 0, 2);
+        }
+    }
+    $pth2 = $CFG->dirroot."/mod/mootyper/layouts";
+    $res2 = scandir($pth2);
+    for ($j = 0; $j < count($res2); $j++) {
+        if (is_file($pth2."/".$res2[$j]) && ( substr($res2[$j], (strripos($res2[$j], '.') + 1) ) == 'php')) {
+            $fl2 = $res2[$j];
+            add_keyboard_layout($fl2);
+        }
+    }
 }
 
-function add_keyboard_layout($daFile)
-{
-	require_once(dirname(dirname(dirname(dirname(__FILE__)))).'/config.php');
-	global $DB, $CFG;
-	$theFile = $CFG->dirroot."/mod/mootyper/layouts/".$daFile;
-	$wwwFile = $CFG->wwwroot."/mod/mootyper/layouts/".$daFile;
-	$record = new stdClass();
-	$pikapos = strrpos($daFile, '.');
-	$layoutName = substr($daFile, 0, $pikapos);
-    $record->filepath = $theFile;
-    $record->name = $layoutName;
-    $record->jspath = substr($wwwFile, 0, strripos($wwwFile, '.')).'.js';
+function add_keyboard_layout($dafile) {
+    require_once(dirname(dirname(dirname(dirname(__FILE__)))).'/config.php');
+    global $DB, $CFG;
+    $thefile = $CFG->dirroot."/mod/mootyper/layouts/".$dafile;
+    $wwwfile = $CFG->wwwroot."/mod/mootyper/layouts/".$dafile;
+    $record = new stdClass();
+    $periodpos = strrpos($dafile, '.');
+    $layoutname = substr($dafile, 0, $periodpos);
+    $record->filepath = $thefile;
+    $record->name = $layoutname;
+    $record->jspath = substr($wwwfile, 0, strripos($wwwfile, '.')).'.js';
     $DB->insert_record('mootyper_layouts', $record, true);
 }
 
-function read_lessons_file($daFile, $authorid_arg, $visible_arg, $editable_arg, $course_arg=NULL)
-{
-	require_once(dirname(dirname(dirname(dirname(__FILE__)))).'/config.php');
-	global $DB, $CFG;
-	$theFile = $CFG->dirroot."/mod/mootyper/lessons/".$daFile;
-	//echo $theFile;
-	$record = new stdClass();
-	$pikapos = strrpos($daFile, '.');
-	$lessonName = substr($daFile, 0, $pikapos);
-	//echo $lessonName;
-    $record->lessonname = $lessonName;
-    $record->authorid = $authorid_arg;
-    $record->visible = $visible_arg;
-    $record->editable = $editable_arg;
-    if(!is_null($course_arg))
-		$record->courseid = $course_arg;
-    $lesson_id = $DB->insert_record('mootyper_lessons', $record, true);
-	$fh = fopen($theFile, 'r');
-	$theData = fread($fh, filesize($theFile));
-	fclose($fh);
-	$haha = "";
-	for($i=0; $i<strlen($theData); $i++)
-		$haha.=$theData[$i];
-	$haha = trim($haha);
-	$splitted = explode ('/**/' , $haha);
-	for($j=0; $j<count($splitted); $j++)
-	{
-		$vaja = trim($splitted[$j]);
-		$allowed = array('!','@','#','$','%','^','&','(',')','*','_','+',':',';','"','{','}','>','<','?','\'','-','/','=','.',',',' ','|');
-		$nm = "".($j+1);
-		$textToType = "";
-		for($k=0; $k<strlen($vaja); $k++)
-		{
-			//TODO
-			// * if it is not a letter
-			// * and if it is not a number
-			// * compare against $allowed array
-			// *    if not included
-			// *        die; // or something
-			$ch = $vaja[$k];
-			if($ch == "\n")
-				$textToType .= '\n';
-			else
-				$textToType .= $ch;
-		}
-		$erecord = new stdClass();
-		$erecord->texttotype = $textToType;
-		$erecord->exercisename = $nm;
-		$erecord->lesson = $lesson_id;
-		$erecord->snumber = $j+1;
-		$DB->insert_record('mootyper_exercises', $erecord, false);
-	}
+function read_lessons_file($dafile, $authoridarg, $visiblearg, $editablearg, $coursearg=null) {
+    require_once(dirname(dirname(dirname(dirname(__FILE__)))).'/config.php');
+    global $DB, $CFG;
+    $thefile = $CFG->dirroot."/mod/mootyper/lessons/".$dafile;
+    // Echo thefile.
+    $record = new stdClass();
+    $periodpos = strrpos($dafile, '.');
+    $lessonname = substr($dafile, 0, $periodpos);
+    // Echo lessonname.
+    $record->lessonname = $lessonname;
+    $record->authorid = $authoridarg;
+    $record->visible = $visiblearg;
+    $record->editable = $editablearg;
+    if (!is_null($coursearg)) {
+        $record->courseid = $coursearg;
+    }
+    $lessonid = $DB->insert_record('mootyper_lessons', $record, true);
+    $fh = fopen($thefile, 'r');
+    $thedata = fread($fh, filesize($thefile));
+    fclose($fh);
+    $haha = "";
+    for ($i = 0; $i < strlen($thedata); $i++) {
+        $haha .= $thedata[$i];
+    }
+    $haha = trim($haha);
+    $splitted = explode ('/**/' , $haha);
+    for ($j = 0; $j < count($splitted); $j++) {
+        $vaja = trim($splitted[$j]);
+        // Saved copy of allowed characters prior to adding missing ones.
+        // $allowed = array('!', '@', '#', '$', '%', '^', '&', '(', ')', '*', '_', '+', ':', ';', '"', '{', '}', '>', '<', '?', '\'', '-', '/', '=', '.', ',', ' ', '|');
+        $allowed = array('\\', '~', '!', '@', '#', '$', '%', '^', '&', '(', ')', '*', '_', '+', ':', ';', '"', '{', '}', '>', '<', '?', '\'', '-', '/', '=', '.', ',', ' ', '|', '¡', '`', 'ç', 'ñ', 'º', '¿', 'ª', '·', '\n', '\r', '\r\n', '\n\r', ']', '[', '¬', '´', '`');
+        $nm = "".($j + 1);
+        $texttotype = "";
+        for ($k = 0; $k < strlen($vaja); $k++) {
+            // TODO
+            // * If it is not a letter
+            // * and if it is not a number
+            // * compare against $allowed array.
+            // * Iif not included die
+            // * or something.
+            $ch = $vaja[$k];
+            if ($ch == "\n") {
+                $texttotype .= '\n';
+            } else {
+                $texttotype .= $ch;
+            }
+        }
+        $erecord = new stdClass();
+        $erecord->texttotype = $texttotype;
+        $erecord->exercisename = $nm;
+        $erecord->lesson = $lessonid;
+        $erecord->snumber = $j + 1;
+        $DB->insert_record('mootyper_exercises', $erecord, false);
+    }
 }
 
 /**
- * Post installation recovery procedure
+ * Post installation recovery procedure.
  *
  * @see upgrade_plugins_modules()
  */

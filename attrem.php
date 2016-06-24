@@ -1,4 +1,4 @@
-<?php 
+<?php
 // This file is part of Moodle - http://moodle.org/
 //
 // Moodle is free software: you can redistribute it and/or modify
@@ -15,28 +15,27 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * This file is used to remove a student attempt. Called from gview.php (View All Grades). 
+ * This file is used to remove a student attempt. Called from gview.php (View All Grades).
  *
  * @package    mod
  * @subpackage mootyper
  * @copyright  2011 Jaka Luthar (jaka.luthar@gmail.com)
  * @copyright  2016 onwards AL Rachels (drachels@drachels.com)
- * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later.
  */
 
 require_once(dirname(dirname(dirname(__FILE__))).'/config.php');
 
 global $DB;
 
-if(isset($_GET['g'])){
-	$gradeID = $_GET['g'];
-	$db_grade = $DB->get_record('mootyper_grades', array('id' => $gradeID));
-	$DB->delete_records('mootyper_attempts', array('id'=>$db_grade->attempt_id));
-	$DB->delete_records('mootyper_grades', array('id'=>$db_grade->id));
+if (isset($_GET['g'])) {
+    $gradeid = $_GET['g'];
+    $dbgrade = $DB->get_record('mootyper_grades', array('id' => $gradeid));
+    $DB->delete_records('mootyper_attempts', array('id' => $dbgrade->attempt_id));
+    $DB->delete_records('mootyper_grades', array('id' => $dbgrade->id));
 }
-$mID = $_GET['m_id'];
-$cID = $_GET['c_id'];
-$webDir = $CFG->wwwroot . '/mod/mootyper/gview.php?id='.$cID.'&n='.$mID;
-header('Location: '.$webDir);
+$mid = $_GET['m_id'];
+$cid = $_GET['c_id'];
+$webdir = $CFG->wwwroot . '/mod/mootyper/gview.php?id='.$cid.'&n='.$mid;
+header('Location: '.$webdir);
 
-?>

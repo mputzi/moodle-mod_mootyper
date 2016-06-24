@@ -55,7 +55,9 @@ http://www.youtube.com/watch?v=Twl-7CGrS0g
 
 4. ADDITIONAL KEYBOARD LAYOUTS
 
-Module currently includes support for English, Japanese, Russian Slovenian, Spanish and Swiss keyboard layouts.
+MooTyper currently includes support for new versions (V2) of English, Japanese,
+Russian Slovenian, Spanish and Swiss keyboard layouts, that include keys that 
+were not implemented in previous versions.
 
 To implement any other layout you have to:
 Create a php file with keyboard layout defined with HTML. Create a javascript
@@ -64,5 +66,19 @@ layout. If you have any mistakes in your js file the module won't work, so in
 this case try to validate your code with a tool like this...
 http://www.javascriptlint.com/online_lint.php
 
+5. SAVING YOUR OWN OR MODIFIED LESSONS
+
+In previous versions of MooTyper, if you created your own lessons there was
+no built in way to export a copy for backup purposes or for safekeeping.
+Once installed, there was no way to add additional lessons to MooTyper
+unless you used the built in editing capability, which is not as convienient
+as it would be to create lessons in a word processing program. If you wanted
+to add lessons to MooTyper without using the built in editor, you had to do
+a completely new installation of MooTyper which meant you would lose all
+student progress and grades.
+As of version 3.1, MooTyper now supports Import and Export of MooTyper Lessons
+via links in the Administration block, which overcomes these limitations.
+
+ 
 For more info please visit the plugins wiki on github:
 https://github.com/drachels/moodle-mod_mootyper/wiki

@@ -1,5 +1,5 @@
 <div id="innerKeyboard" style="margin: 0px auto;display: inline-block;<?php echo (isset($display_none) && ($display_none==true)) ? 'display:none;' : ''; ?>"><br>
-<span id="xxx" class="keyboardback">English(US) Keyboard Layout<br><br>
+<span id="keyboard" class="keyboardback">English(US) Keyboard Layout<br><br>
 <span id="jkeybackquote" class="normal"><span class="textup">~ </span><span class="textdown">  `</span></span>
 <span id="jkey1" class="normal"><span class="textup">! </span> 1</span>
 <span id="jkey2" class="normal"><span class="textup">@</span> 2</span>
@@ -12,10 +12,10 @@
 <span id="jkey9" class="normal"><span class="textup">(</span> 9</span>
 <span id="jkey0" class="normal"><span class="textup">)</span> 0</span>
 <span id="jkeyminus" class="normal"><span class="textup">_</span><span class="textdown"> -</span></span>
-<!--span id="jkeyvprasaj" class="normal">?</span-->
-<!--span id="jkeyplus" class="normal">+</span-->
 <span id="jkeyequals" class="normal"><span class="textup">+</span><span class="textdown"> =</span></span>
-<span id="jkeybackspace" class="normal" style="border-right-style: solid;">Backspace</span><br>
+<span id="jkeybackspace" class="normal" style="border-right-style: solid;">Backspace</span>
+<br>
+
 <span id="jkeytab" class="normal" style="width: 40px;">Tab</span>
 <span id="jkeyq" class="normal">Q</span>
 <span id="jkeyw" class="normal">W</span>
@@ -31,6 +31,7 @@
 <span id="jkeybracketr" class="normal"><span class="textup">}</span> ]</span>
 <span id="jkeybackslash" class="dualkey"><span class="textup">|</span><span class="textdown"> \</span></span>
 <br>
+
 <span id="jkeycaps" class="normal" style="width: 60px;">C.lock</span>
 <span id="jkeya" class="finger4">A</span>
 <span id="jkeys" class="finger3">S</span>
@@ -43,11 +44,10 @@
 <span id="jkeyl" class="finger3">L</span>
 <span id="jkeysemicolon" class="finger4"><span class="textup">:</span><span class="textdown"> ;</span></span>
 <span id="jkeycrtica" class="normal"><span class="textup">"</span><span class="textdown"> '</span></span>
-
 <span id="jkeyenter" class="normal" style="width: 75px;">Enter</span>
 <br>
-<span id="jkeyshiftl" class="normal" style="width: 80px;">Shift</span>
 
+<span id="jkeyshiftl" class="normal" style="width: 80px;">Shift</span>
 <span id="jkeyz" class="normal">Z</span>
 <span id="jkeyx" class="normal">X</span>
 <span id="jkeyc" class="normal">C</span>
@@ -60,13 +60,14 @@
 <span id="jkeyslash" class="normal"><span class="textup">?</span><span class="textdown"> /</span></span>
 <span id="jkeyshiftd" class="normal" style="width: 95px; border-right-style: solid;">Shift</span>
 <br>
+
 <span id="jkeyctrll" class="normal" style="width: 60px;">Ctrl</span>
 <span id="jkeyfn" class="normal">Fn</span>
 <span id="jkeyalt" class="normal" style="width: 40px;">Alt</span>
 <span id="jkeyspace" class="normal" style="width: 250px;">Space</span>
 <span id="jkeyaltgr" class="normal" style="width: 45px;">Alt</span>
 <span id="jkeyfn" class="normal">Fn</span>
-<!--span id="jempty" class="normal" style="width: 30px;">&nbsp;</span-->
-<span id="jkeyctrlr" class="normal" style="width: 65px; border-right-style: solid;">Ctrl</span><br>
+<span id="jkeyctrlr" class="normal" style="width: 65px; border-right-style: solid;">Ctrl</span>
+<br>
 </span>
 </div>

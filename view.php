@@ -1,5 +1,4 @@
 <?php
-
 // This file is part of Moodle - http://moodle.org/
 //
 // Moodle is free software: you can redistribute it and/or modify
@@ -24,29 +23,26 @@
  * @package    mod
  * @subpackage mootyper
  * @copyright  2012 Jaka Luthar (jaka.luthar@gmail.com)
- * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ * @copyright  2016 onwards AL Rachels (drachels@drachels.com)
+ * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later.
  */
 global $USER, $CFG;
-require_once (dirname(dirname(dirname(__FILE__))) . '/config.php');
+require_once(dirname(dirname(dirname(__FILE__))) . '/config.php');
+require_once(dirname(__FILE__) . '/lib.php');
+require_once(dirname(__FILE__) . '/locallib.php');
 
-require_once (dirname(__FILE__) . '/lib.php');
-
-require_once (dirname(__FILE__) . '/locallib.php');
-
-$id = optional_param('id', 0, PARAM_INT); // course_module ID, or
-$n = optional_param('n', 0, PARAM_INT); // mootyper instance ID - it should be named as the first character of the module
+$id = optional_param('id', 0, PARAM_INT); // Course_module ID, or
+$n = optional_param('n', 0, PARAM_INT); // Mootyper instance ID - it should be named as the first character of the module.
 
 if ($id) {
     $cm = get_coursemodule_from_id('mootyper', $id, 0, false, MUST_EXIST);
     $course = $DB->get_record('course', array('id' => $cm->course) , '*', MUST_EXIST);
     $mootyper = $DB->get_record('mootyper', array('id' => $cm->instance) , '*', MUST_EXIST);
-}
-elseif ($n) {
+} else if ($n) {
     $mootyper = $DB->get_record('mootyper', array('id' => $n), '*', MUST_EXIST);
     $course = $DB->get_record('course', array('id' => $mootyper->course), '*', MUST_EXIST);
     $cm = get_coursemodule_from_instance('mootyper', $mootyper->id, $course->id, false, MUST_EXIST);
-}
-else {
+} else {
     error('You must specify a course_module ID or an instance ID');
 }
 require_login($course, true, $cm);
@@ -59,9 +55,9 @@ $PAGE->set_heading(format_string($course->fullname));
 $PAGE->set_context($context);
 $PAGE->set_cacheable(false);
 
-// $PAGE->set_focuscontrol('tb1');
-// $PAGE->add_body_class('mootyper-'.$somevar);
-// Output starts here
+// Output starts here.
+
+
 
 echo $OUTPUT->header();
 echo '<script src="//code.jquery.com/jquery-1.11.0.min.js"></script>';
@@ -69,22 +65,22 @@ echo '<script src="//code.jquery.com/jquery-1.11.0.min.js"></script>';
 if ($mootyper->intro) {
     echo $OUTPUT->box(format_module_intro('mootyper', $mootyper, $cm->id) , 'generalbox mod_introbox', 'mootyperintro');
 }
-if ($mootyper->lesson != NULL) {
+if ($mootyper->lesson != null) {
     if ($mootyper->isexam) {
-        $exercise_ID = $mootyper->exercise;
-        $exercise = get_exercise_record($exercise_ID);
-        $textToEnter = $exercise->texttotype;
-        $insertDir = $CFG->wwwroot . '/mod/mootyper/gadd.php?words=' . str_word_count($textToEnter);
-    }
-    else {
-        $reqiredGoal = $mootyper->requiredgoal;
+        $exerciseid = $mootyper->exercise;
+        $exercise = get_exercise_record($exerciseid);
+        $texttoenter = $exercise->texttotype;
+        $insertdir = $CFG->wwwroot . '/mod/mootyper/gadd.php?words=' . str_word_count($texttoenter);
+    } else {
+        $reqiredgoal = $mootyper->requiredgoal;
         $exercise = get_exercise_from_mootyper($mootyper->id, $mootyper->lesson, $USER->id);
-        if ($exercise != FALSE) {
-            $exercise_ID = $exercise->id;
-            $textToEnter = $exercise->texttotype;
+        if ($exercise != false) {
+            $exerciseid = $exercise->id;
+            $texttoenter = $exercise->texttotype;
         }
-        if(isset($textToEnter))
-			$insertDir = $CFG->wwwroot . '/mod/mootyper/gcnext.php?words=' . str_word_count($textToEnter);
+        if (isset($texttoenter)) {
+            $insertdir = $CFG->wwwroot . '/mod/mootyper/gcnext.php?words=' . str_word_count($texttoenter);
+        }
     }
     if (exam_already_done($mootyper, $USER->id) && $mootyper->isexam) {
         echo get_string('examdone', 'mootyper');
@@ -98,43 +94,52 @@ if ($mootyper->lesson != NULL) {
             $jlnk7 = $CFG->wwwroot . "/mod/mootyper/owngrades.php?id=" . $id . "&n=" . $mootyper->id;
             echo '<a href="' . $jlnk7 . '">' . get_string('viewmygrades', 'mootyper') . '</a><br /><br />';
         }
-    }
-    else if ($exercise != FALSE) {
+    } else if ($exercise != false) {
         echo '<link rel="stylesheet" type="text/css" href="style.css">';
-        if ($mootyper->showkeyboard)
-			$display_none = false;
-        else
-			$display_none = true;
-		$keyboard_js = get_instance_layout_js_file($mootyper->layout);
-		echo '<script type="text/javascript" src="' . $keyboard_js . '"></script>';
+        if ($mootyper->showkeyboard) {
+            $displaynone = false;
+        } else {
+            $displaynone = true;
+        }
+        $keyboardjs = get_instance_layout_js_file($mootyper->layout);
+        echo '<script type="text/javascript" src="' . $keyboardjs . '"></script>';
         echo '<script type="text/javascript" src="typer.js"></script>';
 ?>
 <div id="mainDiv">
-<form name='form1' id='form1' method='post' action='<?php echo $insertDir; ?>'> 
+<form name='form1' id='form1' method='post' action='<?php echo $insertdir; ?>'> 
 <div id="keyboard" style="float: left; text-align:center; margin-left: auto; margin-right: auto;">
-<h4><?php
-        if (!$mootyper->isexam) echo $exercise->exercisename; ?></h4>
+<h4>
+        <?php
+        if (!$mootyper->isexam) {
+            echo $exercise->exercisename;
+        }
+        ?>
+</h4>
 <br />
-<div style="float: left; padding-bottom: 10px;" id="textToEnter"></div><br />
-<?php
-            
-        if ($mootyper->showkeyboard)
-			$display_none = false;
-        else
-			$display_none = true;
-		$keyboard = get_instance_layout_file($mootyper->layout);
-		include ($keyboard);
-?>
+<div style="float: left; padding-bottom: 10px;" id="texttoenter"></div><br />
+        <?php
+
+        if ($mootyper->showkeyboard) {
+            $displaynone = false;
+        } else {
+            $displaynone = true;
+        }
+        $keyboard = get_instance_layout_file($mootyper->layout);
+        include($keyboard);
+        ?>
 <br />
     <textarea name="tb1" wrap="off" id="tb1" class="tb1" onfocus="return focusSet(event)"  
             onpaste="return false" onselectstart="return false"
             onCopy="return false" onCut="return false" 
-            onDrag="return false" onDrop="return false" autocomplete="off"><?php
-        echo get_string('chere', 'mootyper') . '...'; ?></textarea>
+            onDrag="return false" onDrop="return false" autocomplete="off">
+            <?php
+            echo get_string('chere', 'mootyper') . '...';
+            ?>
+    </textarea>
                          
 </div>
 <div id="reportDiv" style="float: right; /*position: relative; right: 90px; top: 35px;*/">
-<?php
+        <?php
         if (has_capability('mod/mootyper:viewgrades', context_module::instance($cm->id))) {
             $jlnk4 = $CFG->wwwroot . '/mod/mootyper/gview.php?id=' . $id . '&n=' . $mootyper->id;;
             echo '<a href="' . $jlnk4 . '">' . get_string('viewgrades', 'mootyper') . '</a><br /><br />';
@@ -150,7 +155,7 @@ if ($mootyper->lesson != NULL) {
             echo '<a href="' . $jlnk7 . '">' . get_string('viewmygrades', 'mootyper') . '</a><br /><br />';
         }
 
-?>
+        ?>
 <input name='rpCourseId' type='hidden' value='<?php
         echo $course->id; ?>'>
 <input name='rpSityperId' type='hidden' value='<?php
@@ -158,11 +163,16 @@ if ($mootyper->lesson != NULL) {
 <input name='rpUser' type='hidden' value='<?php
         echo $USER->id; ?>'>
 <input name='rpExercise' type='hidden' value='<?php
-        echo $exercise_ID; ?>'>
+        echo $exerciseid; ?>'>
 <input name='rpAttId' type='hidden' value=''>
 <input name='rpFullHits' type='hidden' value=''>
-<input name='rpGoal' type='hidden' value='<?php
-        if (isset($reqiredGoal)) echo $reqiredGoal; ?>'>
+<input name='rpGoal' type='hidden' value='
+        <?php
+        if (isset($reqiredgoal)) {
+            echo $reqiredgoal;
+        }
+        ?>
+'>
     <input name='rpTimeInput' type='hidden'>
     <input name='rpMistakesInput' type='hidden'>
     <input name='rpAccInput' type='hidden'>
@@ -188,29 +198,27 @@ if ($mootyper->lesson != NULL) {
 
 </form>
 </div>
-<?php
-        $textToInit = '';
-        for ($it = 0; $it < strlen($textToEnter); $it++) {
-            if ($textToEnter[$it] == "\n") $textToInit.= '\n';
-            else
-            if ($textToEnter[$it] == '"') $textToInit.= '\"';
-            else
-            if ($textToEnter[$it] == "\\") $textToInit.= '\\';
-            else $textToInit.= $textToEnter[$it];
+        <?php
+        $texttoinit = '';
+        for ($it = 0; $it < strlen($texttoenter); $it++) {
+            if ($texttoenter[$it] == "\n") {
+                $texttoinit .= '\n';
+            } else if ($texttoenter[$it] == '"') {
+                $texttoinit .= '\"';
+            } else if ($texttoenter[$it] == "\\") {
+                $texttoinit .= '\\';
+            } else {
+                $texttoinit .= $texttoenter[$it];
+            }
         }
-
-        // initTextToEnter("'.$textToInit.'", 1, 3, 6, 1339333968);
-        // (ttext, tinprogress, tmistakes, thits, tprogress, tstarttime)
 
         $record = get_last_check($mootyper->id);
         if (is_null($record)) {
-            echo '<script type="text/javascript">initTextToEnter("' . $textToInit . '", 0, 0, 0, 0, 0, "' . $CFG->wwwroot . '", ' . $mootyper->showkeyboard . ');</script>';
+            echo '<script type="text/javascript">inittexttoenter("' . $texttoinit . '", 0, 0, 0, 0, 0, "' . $CFG->wwwroot . '", ' . $mootyper->showkeyboard . ');</script>';
+        } else {
+            echo '<script type="text/javascript">inittexttoenter("' . $texttoinit . '", 1, ' . $record->mistakes . ', ' . $record->hits . ', ' . $record->timetaken . ', ' . $record->attemptid . ', "' . $CFG->wwwroot . '", ' . $mootyper->showkeyboard . ');</script>';
         }
-        else {
-            echo '<script type="text/javascript">initTextToEnter("' . $textToInit . '", 1, ' . $record->mistakes . ', ' . $record->hits . ', ' . $record->timetaken . ', ' . $record->attemptid . ', "' . $CFG->wwwroot . '", ' . $mootyper->showkeyboard . ');</script>';
-        }
-    }
-    else {
+    } else {
         echo get_string('endlesson', 'mootyper');
         echo "<br />";
         if (has_capability('mod/mootyper:viewgrades', context_module::instance($cm->id))) {
@@ -222,14 +230,13 @@ if ($mootyper->lesson != NULL) {
             echo '<a href="' . $jlnk7 . '">' . get_string('viewmygrades', 'mootyper') . '</a><br /><br />';
         }
     }
-}
-else {
+} else {
     if (has_capability('mod/mootyper:setup', context_module::instance($cm->id))) {
-        $vaLnk = $CFG->wwwroot . "/mod/mootyper/mod_setup.php?n=" . $mootyper->id;
-        echo '<a href="' . $vaLnk . '">' . get_string('fsetup', 'mootyper') . '</a>';
+        $valnk = $CFG->wwwroot . "/mod/mootyper/mod_setup.php?n=" . $mootyper->id;
+        echo '<a href="' . $valnk . '">' . get_string('fsetup', 'mootyper') . '</a>';
+    } else {
+        echo get_string('notreadyyet', 'mootyper');
     }
-    else
-		echo get_string('notreadyyet', 'mootyper');
 }
 
 // Trigger module viewed event.
@@ -241,5 +248,4 @@ $event->add_record_snapshot('course_modules', $cm);
 $event->add_record_snapshot('course', $course);
 $event->add_record_snapshot('mootyper', $mootyper);
 $event->trigger();
-
 echo $OUTPUT->footer();

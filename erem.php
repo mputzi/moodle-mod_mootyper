@@ -1,4 +1,4 @@
-<?php 
+<?php
 // This file is part of Moodle - http://moodle.org/
 //
 // Moodle is free software: you can redistribute it and/or modify
@@ -24,41 +24,37 @@
  * @subpackage mootyper
  * @copyright  2011 Jaka Luthar (jaka.luthar@gmail.com)
  * @copyright  2016 onwards AL Rachels (drachels@drachels.com
- * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later.
  */
 require_once(dirname(dirname(dirname(__FILE__))).'/config.php');
 
 global $DB;
 
-$id = optional_param('id', 0, PARAM_INT); // course_module ID, or
-if ($id){
+$id = optional_param('id', 0, PARAM_INT); // Course_module ID.
+if ($id) {
     $course     = $DB->get_record('course', array('id' => $id), '*', MUST_EXIST);
-}
-else
+} else {
     error('You must specify a course_module ID or an instance ID');
-
+}
 $context = context_course::instance($id);
 
-if(isset($_GET['r'])){
-	$exerciseID = $_GET['r'];
-	$DB->delete_records('mootyper_exercises', array('id'=>$exerciseID));
-}
-else
-{
-	$lessonID = $_GET['l'];
-	$DB->delete_records('mootyper_exercises', array('lesson' =>$lessonID));
-	$DB->delete_records('mootyper_lessons', array('id' => $lessonID));
+if (isset($_GET['r'])) {
+    $exerciseid = $_GET['r'];
+    $DB->delete_records('mootyper_exercises', array('id' => $exerciseid));
+} else {
+    $lessonid = $_GET['l'];
+    $DB->delete_records('mootyper_exercises', array('lesson' => $lessonid));
+    $DB->delete_records('mootyper_lessons', array('id' => $lessonid));
 }
 
 // Trigger module exercise_removed event.
 $event = \mod_mootyper\event\exercise_removed::create(array(
-	'objectid' => $course->id,
-	'context' => $context
+    'objectid' => $course->id,
+    'context' => $context
 ));
 $event->trigger();
 
-$cID = $_GET['id'];
-$webDir = $CFG->wwwroot . '/mod/mootyper/exercises.php?id='.$cID;
-header('Location: '.$webDir);
+$cid = $_GET['id'];
+$webdir = $CFG->wwwroot . '/mod/mootyper/exercises.php?id='.$cid;
+header('Location: '.$webdir);
 
-?>
