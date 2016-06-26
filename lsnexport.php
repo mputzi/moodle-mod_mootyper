@@ -83,32 +83,25 @@ $sql = "SELECT mte.texttotype
         WHERE mtl.id = $lsn";
         
 if ($exercise = $DB->get_records_sql($sql, $params = null)) {
-
     foreach ($exercise as $txt) {
         // Decrement the exercise count so we know when to NOT include
         // a new exercise indicator.
         --$count;
         If ($count > 0) {
-            // Write out the next exercise with a new exercise indicator after it.
-            //$field = str_replace('\n', chr(10).chr(13), array($txt->texttotype.chr(13).'/**/'));
-            //$field = str_replace('\n', chr(13), array($txt->texttotype.chr(13).'/**/'));
-            $field = array($txt->texttotype.chr(13).'/**/');
-            
-            
+            // Write out the next exercise with a new exercise indicator and blank line after it.
+            // $field = str_replace('\n', chr(10).chr(13), array($txt->texttotype.chr(13).'/**/'));
+            $field = str_replace('\n', chr(13), array($txt->texttotype.chr(13).'/**/'.chr(13)));
+            // $field = array($txt->texttotype.chr(13).'/**/');
         } else {
-            //$field = str_replace('\n', chr(13), array($txt->texttotype.chr(13)));
-            $field = array($txt->texttotype.chr(13));
+            // Write out last exercise with no indicator and no blank line after it.
+            $field = str_replace('\n', chr(13), array($txt->texttotype));
+            //$field = array($txt->texttotype.chr(13));
         }
-
         // Write out the last exercise without a new exercise indicator after it.
-//        fputcsv($f, $field, $delimiter, chr(10));
-        
-        //fputcsv($f, $field, $delimiter, chr(0));
-        
-        // If I try to use fwrite, the $field needs to be a string instead of an array.
-        fwrite($f, implode(" ",$field)."\r\n");
+        // fputcsv($f, $field, $delimiter, chr(10));
+        // fputcsv($f, $field, $delimiter, chr(0));
+        fwrite($f, implode(" ",$field));
     }
     fclose($f);
-
 }
 return;
