@@ -133,22 +133,21 @@ for ($i = 0; $i < count($res); $i++) {
             // If we do not have a name match, then add the new lesson to the database.
             echo "<b>$lsn".get_string('lsnimportadd', 'mootyper').'</b><br>';
             read_lessons_file($fl, $USER->id, 0, 2);
+            // Since we added a new lesson, make a log entry about it.
+            $data = new StdClass();
+            $data->mootyper = $id;
+            //$context = context_module::instance($this->cm->id);
+            $context = context_course::instance($id);
+            // Trigger lesson_import event.
+            $event = \mod_mootyper\event\lesson_imported::create(array(
+                'objectid' => $data->mootyper,
+                'context' => $context
+            ));
+            $event->trigger();
         }
     }
 }
 
-//global $CFG, $DB, $USER;
-$data = new StdClass();
-$data->mootyper = $id;
-//$context = context_module::instance($this->cm->id);
-$context = context_course::instance($id);
-// Trigger lesson_import event.
-$event = \mod_mootyper\event\lesson_imported::create(array(
-    'objectid' => $data->mootyper,
-    'context' => $context
-));
-$event->trigger();
-            
 $jlnk2 = $CFG->wwwroot . '/mod/mootyper/exercises.php?id='.$id;
 echo '<a href="'.$jlnk2.'">'.get_string('fcontinue', 'mootyper').'</a><br><br>';
 echo $OUTPUT->footer();
