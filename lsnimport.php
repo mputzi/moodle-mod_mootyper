@@ -14,7 +14,7 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 /**
- * This file is used to import new lessons found in the lesson folder. 
+ * This file is used to import new lessons found in the lesson folder.
  * Called from admin block while in view.php.
  *
  * @package    mod
@@ -24,7 +24,6 @@
  */
 
 function read_lessons_file($dafile, $authoridarg, $visiblearg, $editablearg, $coursearg=null) {
-    //require_once(dirname(dirname(dirname(dirname(__FILE__)))).'/config.php');
     require_once(dirname(dirname(dirname(__FILE__))).'/config.php');
     global $DB, $CFG;
     $thefile = $CFG->dirroot."/mod/mootyper/lessons/".$dafile;
@@ -32,7 +31,7 @@ function read_lessons_file($dafile, $authoridarg, $visiblearg, $editablearg, $co
     $record = new stdClass();
     $periodpos = strrpos($dafile, '.');
     $lessonname = substr($dafile, 0, $periodpos);
-      
+
     // Echo lessonname.
     $record->lessonname = $lessonname;
     $record->authorid = $authoridarg;
@@ -78,7 +77,6 @@ function read_lessons_file($dafile, $authoridarg, $visiblearg, $editablearg, $co
         $erecord->lesson = $lessonid;
         $erecord->snumber = $j + 1;
         $DB->insert_record('mootyper_exercises', $erecord, false);
-        //}
     }
 }
 
@@ -123,7 +121,7 @@ for ($i = 0; $i < count($res); $i++) {
         $lsn = substr($fl, 0, $periodpos);
         // Create sql to see if lesson name is already an installed lesson.
         $sql = "SELECT lessonname
-            FROM {mootyper_lessons}  
+            FROM {mootyper_lessons}
             WHERE lessonname = '".$lsn."'";
 
         if ($exercise = $DB->get_record_sql($sql)) {
@@ -136,7 +134,7 @@ for ($i = 0; $i < count($res); $i++) {
             // Since we added a new lesson, make a log entry about it.
             $data = new StdClass();
             $data->mootyper = $id;
-            //$context = context_module::instance($this->cm->id);
+            // $context = context_module::instance($this->cm->id);
             $context = context_course::instance($id);
             // Trigger lesson_import event.
             $event = \mod_mootyper\event\lesson_imported::create(array(

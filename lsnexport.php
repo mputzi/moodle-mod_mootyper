@@ -55,7 +55,7 @@ $sql = "SELECT lessonname
 $fname = $DB->get_record_sql($sql);
 $filename = $fname->lessonname;
 // Keep next line commented out unless you want to include GMT as part of filename.
-//$filename .= '_'.gmdate("Ymd_Hi").'GMT';
+// $filename .= '_'.gmdate("Ymd_Hi").'GMT';
 $filename .= '.txt';
 
 $delimiter = " ";
@@ -66,7 +66,7 @@ header("Pragma: no-cache");
 header("Expires: 0");
 $f = fopen('php://output', 'w');
 // Commenting out next line as headers/field list not needed for lessons.
-//fputcsv($f, $params, $delimiter);
+// fputcsv($f, $params, $delimiter);
 // Find out how many exercises are in the lesson we are exporting.
 $sqlc = "SELECT COUNT(mte.texttotype)
         FROM {mootyper_lessons} mtl
@@ -81,13 +81,13 @@ $sql = "SELECT mte.texttotype
         LEFT JOIN {mootyper_exercises} mte
         ON mte.lesson =  mtl.id
         WHERE mtl.id = $lsn";
-        
+
 if ($exercise = $DB->get_records_sql($sql, $params = null)) {
     foreach ($exercise as $txt) {
         // Decrement the exercise count so we know when to NOT include
         // a new exercise indicator.
         --$count;
-        If ($count > 0) {
+        if ($count > 0) {
             // Write out the next exercise with a new exercise indicator and blank line after it.
             // $field = str_replace('\n', chr(10).chr(13), array($txt->texttotype.chr(13).'/**/'));
             $field = str_replace('\n', chr(13), array($txt->texttotype.chr(13).'/**/'.chr(13)));
@@ -95,7 +95,7 @@ if ($exercise = $DB->get_records_sql($sql, $params = null)) {
         } else {
             // Write out last exercise with no indicator and no blank line after it.
             $field = str_replace('\n', chr(13), array($txt->texttotype));
-            //$field = array($txt->texttotype.chr(13));
+            // $field = array($txt->texttotype.chr(13));
         }
         // Write out the last exercise without a new exercise indicator after it.
         // fputcsv($f, $field, $delimiter, chr(10));
