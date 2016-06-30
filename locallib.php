@@ -278,12 +278,11 @@ function mootyper_settings($css, $mootyper) {
 
     // Set the keyboard background color.
     if (empty($mootyper->settings->keyboardbgc)) {
-        $keyboardbgc = '#DDDDDD'; // default
+        $keyboardbgc = '#DDDDDD'; // Default color.
     } else {
         $keyboardbgc = $mootyper->settings->keyboardbgc;
     }
     $css = mootyper_set_keyboardbgc($css, $keyboardbgc);
-print_object($css);
     return $css;
 }
 
@@ -291,14 +290,4 @@ function mootyper_set_headerbgc($css, $keyboardbgc) {
     $tag = '[[setting:keyboardbgc]]';
     $css = str_replace($tag, $keyboardbgc, $css);
     return $css;
-}
-/**
- * Download lessons.
- * Under development. Not currently used.
- * @return;
- */
-function lesson_download($id, $lsn) {
-    debugging('I am in the lesson download function in locallib.');
-    print_object($id);
-    print_object($lsn); 
 }

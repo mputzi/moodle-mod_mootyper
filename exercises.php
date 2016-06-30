@@ -109,7 +109,6 @@ $jlink = '<a onclick="return confirm(\''.get_string('exportconfirm', 'mootyper')
 echo '<table><tr><td '.$style1.'>'.get_string('ename', 'mootyper').'</td>
                  <td '.$style1.'>'.$lessons[$selectedlessonindex]['lessonname'].'</td>
                  <td '.$style1.'>'.$jlink.'</td></tr>';
-// print_object($jlink);
 
 // Print table row for each of the exercises in the lesson currently being viewed.
 $exercises = get_typerexercisesfull($lessonpo);
@@ -125,7 +124,7 @@ foreach ($exercises as $ex) {
 
     // If user can edit, create a remove link to the current exerise.
     $jlink2 = '<a href="eedit.php?id='.$course->id.'&ex='.$ex['id'].'"><img src="pix/edit.png" alt='.get_string('eeditlabel', 'mootyper').'></a>';
-    
+
     echo '<tr><td '.$style1.'>'.$ex['exercisename'].'</td><td '.$style2.'>'.$strtocut.'</td>';
     if (is_editable_by_me($USER->id, $lessonpo)) {
         echo '<td '.$style1.'>'.$jlink2.' | '.$jlink1.'</td>';
@@ -135,12 +134,5 @@ foreach ($exercises as $ex) {
     echo '</tr>';
 }
 echo '</table>';
-
-// Trigger module exercise_viewed event.
-//$event = \mod_mootyper\event\course_exercises_viewed::create(array(
-//    'objectid' => $course->id,
-//    'context' => $context
-//));
-//$event->trigger();
 
 echo $OUTPUT->footer();

@@ -660,7 +660,7 @@ function mootyper_extend_settings_navigation(settings_navigation $settingsnav, n
         $icon = new pix_icon('icon', '', 'mootyper', array('class' => 'icon'));
         $node = $navref->add($linkname, $link, navigation_node::TYPE_SETTING, null, null, $icon);
     }
-    
+
     // Link to Import new exercise / category.
     if (has_capability('mod/mootyper:aftersetup', $cm->context)) {
         $link = new moodle_url('lsnimport.php', array('id' => $course->id));
