@@ -32,5 +32,5 @@ $plugin->version   = 2016063000;     // The current module version (Date: YYYYMM
 $plugin->requires  = 2015051100;     // Requires Moodle v2.9.
 $plugin->cron      = 60;             // Period for cron to check this module (secs).
 $plugin->component = 'mod_mootyper';
-$plugin->maturity  = MATURITY_BETA;
+$plugin->maturity  = MATURITY_STABLE;
 $plugin->release   = '3.1.0 (Build: 2016063000)';
