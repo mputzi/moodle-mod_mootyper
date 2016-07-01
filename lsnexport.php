@@ -90,11 +90,11 @@ if ($exercise = $DB->get_records_sql($sql, $params = null)) {
         if ($count > 0) {
             // Write out the next exercise with a new exercise indicator and blank line after it.
             // $field = str_replace('\n', chr(10).chr(13), array($txt->texttotype.chr(13).'/**/'));
-            $field = str_replace('\n', chr(13), array($txt->texttotype.chr(13).'/**/'.chr(13)));
+            $field = str_replace('\n', chr(13).chr(10), array($txt->texttotype.chr(13).chr(10).'/**/'.chr(13).chr(10)));
             // $field = array($txt->texttotype.chr(13).'/**/');
         } else {
             // Write out last exercise with no indicator and no blank line after it.
-            $field = str_replace('\n', chr(13), array($txt->texttotype));
+            $field = str_replace('\n', chr(13).chr(10), array($txt->texttotype.chr(13).chr(10)));
             // $field = array($txt->texttotype.chr(13));
         }
         // Write out the last exercise without a new exercise indicator after it.
