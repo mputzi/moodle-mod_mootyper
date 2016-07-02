@@ -36,16 +36,57 @@ if ($ADMIN->fulltree) {
     $settings->add(new admin_setting_configselect(
     'mod_mootyper/defaultlayout',
         get_string('defaultlayout', 'mootyper'),
-        '', 1, $layouts));
-    $precs = array();
+        '', 1, $layouts)
+    );
 
     // Default typing precision.
+    $precs = array();
     for ($i = 0; $i <= 100; $i++) {
         $precs[] = $i;
     }
     $settings->add(new admin_setting_configselect(
     'mod_mootyper/defaultprecision',
         get_string('defaultprecision', 'mootyper'),
-        '', 97, $precs));
+        '', 97, $precs)
+    );
+
+    // Date format setting.
+    $settings->add(new admin_setting_configtext('mod_mootyper/dateformat', new lang_string('dateformat', 'mootyper'), new lang_string('configdateformat', 'mootyper'), 'M d, Y G:i', PARAM_TEXT, 15));
+
+    // Passing grade background colour setting.
+    $settings->add(new admin_setting_configcolourpicker(
+    'mod_mootyper/passbgc',
+        get_string('passbgc_title', 'mootyper'),
+        get_string('passbgc_descr', 'mootyper'),
+        get_string('passbgc_colour', 'mootyper'),
+        null)
+    );
+
+    // Failing grade background colour setting.
+    $settings->add(new admin_setting_configcolourpicker(
+    'mod_mootyper/failbgc',
+        get_string('failbgc_title', 'mootyper'),
+        get_string('failbgc_descr', 'mootyper'),
+        get_string('failbgc_colour', 'mootyper'),
+        null)
+    );
+
+    // Suspicion marks colour setting.
+    $settings->add(new admin_setting_configcolourpicker(
+    'mod_mootyper/suspicion',
+        get_string('suspicion_title', 'mootyper'),
+        get_string('suspicion_descr', 'mootyper'),
+        get_string('suspicion_colour', 'mootyper'),
+        null)
+    );
+    
+    // Keyboard background colour setting.
+//    $settings->add(new admin_setting_configcolourpicker(
+//    'mod_mootyper/keyboardbgc',
+//        get_string('keyboardbgc_title', 'mootyper'),
+//        get_string('keyboardbgc_descr', 'mootyper'),
+//        get_string('keyboardbgc_colour', 'mootyper'),
+//        null)
+//    );
 
 }

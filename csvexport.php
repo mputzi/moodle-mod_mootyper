@@ -41,7 +41,7 @@ function array_to_csv_download($array, $filename = "export.csv", $delimiter=";")
         $fields = array($gr->firstname.' '.$gr->lastname,
                         $gr->mistakes, format_time($gr->timeinseconds),
                         format_float($gr->hitsperminute),
-                        $gr->fullhits, format_float($gr->precisionfield).'%', date('d. M Y G:i',
+                        $gr->fullhits, format_float($gr->precisionfield).'%', date(get_config('mod_mootyper','dateformat'),
                         $gr->timetaken), $gr->wpm);
         fputcsv($f, $fields, $delimiter);
     }

@@ -48,8 +48,8 @@ Than go to Site Administration -> Notifications and click on the button below.
 Using MooTyper activity module is very simple. An instance can be added as a
 new activity in a course like Lesson or Quiz. Thanks to Mary Cooch from moodle.org
 we have this video, which shows how to add exercises, create mootyper instance,
-and than view grades. It's a little outdated (one of the first versions of
-mootyper), but I guess everything stil holds:
+and then view grades. It's a little outdated (one of the first versions of
+mootyper), but I guess everything still holds:
 
 http://www.youtube.com/watch?v=Twl-7CGrS0g
 
@@ -76,7 +76,7 @@ as it would be to create lessons in a word processing program. If you wanted
 to add lessons to MooTyper without using the built in editor, you had to do
 a completely new installation of MooTyper which meant you would lose all
 student progress and grades.
-As of version 3.1, MooTyper now supports Import and Export of MooTyper Lessons
+As of version 3.1.0, MooTyper now supports Import and Export of MooTyper Lessons
 via links in the Administration block, which overcomes these limitations.
 
  
