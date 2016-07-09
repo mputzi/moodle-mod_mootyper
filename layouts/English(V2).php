@@ -33,7 +33,7 @@ echo (isset($displaynone) && ($displaynone == true)) ? 'display:none;' : '';
 <span id="jkeyp" class="normal">P</span>
 <span id="jkeybracketl" class="normal"><span class="textup">{</span> [</span>
 <span id="jkeybracketr" class="normal"><span class="textup">}</span> ]</span>
-<span id="jkeybackslash" class="dualkey"><span class="textup">|</span><span class="textdown"> \</span></span>
+<span id="jkeybackslash" class="normal" style="width: 55px;"><span class="textup">|</span><span class="textdown"> \</span></span>
 <br>
 
 <span id="jkeycaps" class="normal" style="width: 60px;">C.lock</span>

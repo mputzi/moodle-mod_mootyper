@@ -80,14 +80,15 @@ if ($ADMIN->fulltree) {
         null)
     );
     
-//    // Keyboard background colour setting.
-//    $settings->add(new admin_setting_configcolourpicker(
-//    'mod_mootyper/keyboardbgc',
-//        get_string('keyboardbgc_title', 'mootyper'),
-//        get_string('keyboardbgc_descr', 'mootyper'),
-//        get_string('keyboardbgc_colour', 'mootyper'),
-//        null)
-//    );
+    // Key top colour setting.
+    $name = 'mod_mootyper/normalkeytops';
+    $title = get_string('normalkeytops_title', 'mootyper');
+    $description = get_string('normalkeytops_descr', 'mootyper');
+    $default = get_string('normalkeytops_colour', 'mootyper');
+    $setting = new admin_setting_configcolourpicker($name, $title, $description, $default);
+    $setting->set_updatedcallback('theme_reset_all_caches');
+    $settings->add($setting);
+    
     // Keyboard background colour setting.
     $name = 'mod_mootyper/keyboardbgc';
     $title = get_string('keyboardbgc_title', 'mootyper');
@@ -95,12 +96,15 @@ if ($ADMIN->fulltree) {
     $default = get_string('keyboardbgc_colour', 'mootyper');
     $setting = new admin_setting_configcolourpicker($name, $title, $description, $default);
     $setting->set_updatedcallback('theme_reset_all_caches');
-    $settings->add($setting);    
-    
-    
-$old = '[[setting:keyboardbgc]]';
-$new = get_config('mod_mootyper', 'keyboardbgc');
+    $settings->add($setting);
+
+
+$old1 = '[[setting:normalkeytops]]';
+$new1 = get_config('mod_mootyper', 'normalkeytops');
+$old2 = '[[setting:keyboardbgc]]';
+$new2 = get_config('mod_mootyper', 'keyboardbgc');
 $data = file_get_contents($CFG->dirroot.'/mod/mootyper/template.css');
-$newdata = str_replace($old, $new, $data);
+$newdata = str_replace($old1, $new1, $data);
+$newdata = str_replace($old2, $new2, $newdata);
 file_put_contents($CFG->dirroot.'/mod/mootyper/styles.css', $newdata);
 }
