@@ -80,7 +80,7 @@ if ($ADMIN->fulltree) {
         null)
     );
     
-    // Keyboard background colour setting.
+//    // Keyboard background colour setting.
 //    $settings->add(new admin_setting_configcolourpicker(
 //    'mod_mootyper/keyboardbgc',
 //        get_string('keyboardbgc_title', 'mootyper'),
@@ -88,5 +88,19 @@ if ($ADMIN->fulltree) {
 //        get_string('keyboardbgc_colour', 'mootyper'),
 //        null)
 //    );
-
+    // Keyboard background colour setting.
+    $name = 'mod_mootyper/keyboardbgc';
+    $title = get_string('keyboardbgc_title', 'mootyper');
+    $description = get_string('keyboardbgc_descr', 'mootyper');
+    $default = get_string('keyboardbgc_colour', 'mootyper');
+    $setting = new admin_setting_configcolourpicker($name, $title, $description, $default);
+    $setting->set_updatedcallback('theme_reset_all_caches');
+    $settings->add($setting);    
+    
+    
+$old = '[[setting:keyboardbgc]]';
+$new = get_config('mod_mootyper', 'keyboardbgc');
+$data = file_get_contents($CFG->dirroot.'/mod/mootyper/template.css');
+$newdata = str_replace($old, $new, $data);
+file_put_contents($CFG->dirroot.'/mod/mootyper/styles.css', $newdata);
 }

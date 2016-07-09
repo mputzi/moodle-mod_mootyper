@@ -18,7 +18,7 @@ function keyboardElement(ltr) {
     if (isLetter(ltr)) {
         this.shift = ltr.toUpperCase() == ltr;
     } else {
-        if(ltr == '"' || ltr == '!' || ltr == '@' || ltr == '#' || ltr == '$' || ltr == '%' || ltr == '"' ||
+        if(ltr == '"' || ltr == '!' || ltr == '@' || ltr == '#' || ltr == '$' || ltr == '%' || ltr == '¨' ||
            ltr == '&' || ltr == '*' || ltr == '(' || ltr == ')' || ltr == '_' || ltr == '+' ||
            ltr == '`' || ltr == '{' || ltr == '^' || ltr == '}' ||
            ltr == '|' || ltr == '<' || ltr == '>' || ltr == ':' || ltr == '?') {
@@ -77,7 +77,7 @@ function thenFinger(t_crka) {
         return 5;
     } else if(t_crka == 'z' || t_crka == 'a' || t_crka == 'q' || t_crka == '1' || t_crka == '!' || t_crka == '\\' || t_crka == '~' ||
             t_crka == '/' || t_crka == '?' || t_crka == ';' || t_crka == ':' || t_crka == 'p' || t_crka == '0' || t_crka == ')' ||
-            t_crka == '\'' || t_crka == '"' || t_crka == '[' || t_crka == '{' || t_crka == '-' || t_crka == '_' ||
+            t_crka == '\'' || t_crka == '"' || t_crka == '[' || t_crka == '{' || t_crka == '-' || t_crka == '_' || t_crka == '`' || t_crka == '´' ||
             t_crka == ']' || t_crka == '}' || t_crka == '=' || t_crka == '+' || t_crka == '\\' || t_crka == '|' || t_crka == 'ç') {
         return 4;
     } else if(t_crka == 'x' || t_crka == 's' || t_crka == 'w' || t_crka == '2' || t_crka == '@' ||
@@ -137,7 +137,7 @@ function thenPressId(t_crka) {
         return "jkeybracketl";
     } else if(t_crka == ']' || t_crka == '}') {
         return "jkeybracketr";
-    } else if(t_crka == ';' || t_crka == ':') {
+    } else if(t_crka == ';' || t_crka == 'ç') {
         return "jkeysemicolon";
     } else if(t_crka == "\'" || t_crka == '"') {
         return "jkeycrtica";
@@ -159,5 +159,5 @@ function thenPressId(t_crka) {
 }
 
 function isLetter(str) {
-    return str.length === 1 && str.match(/[a-z]/i);
+    return str.length === 1 && str.match(/[a-zç]/i);
 }

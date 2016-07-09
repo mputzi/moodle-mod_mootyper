@@ -131,6 +131,7 @@ $string['student'] = 'Student';
 $string['suspicion_title'] = 'Suspicious grade warning color';
 $string['suspicion_descr'] = 'This sets the marker color for a grade with suspicious results.';
 $string['suspicion_colour'] = '#FFFF00';
+$string['testing'] = 'Testing code';
 $string['timeinseconds'] = 'Elapsed time';
 $string['timetaken'] = 'Completed';
 $string['vaccess0'] = 'All teachers';

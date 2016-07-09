@@ -18,7 +18,7 @@ function keyboardElement(ltr) {
     if (isLetter(ltr)) {
         this.shift = ltr.toUpperCase() == ltr;
     } else {
-        if (ltr == '"' || ltr == '!' || ltr == '@' || ltr == '#' || ltr == '$' || ltr == '%' || ltr == '"' ||
+        if (ltr == '"' || ltr == '!' || ltr == '@' || ltr == '#' || ltr == '$' || ltr == '%' || ltr == '¨' ||
             ltr == '&' || ltr == '*' || ltr == '(' || ltr == ')' || ltr == '_' || ltr == '+' ||
             ltr == '`' || ltr == '{' || ltr == '^' || ltr == '}' ||
             ltr == '|' || ltr == '<' || ltr == '>' || ltr == ':' || ltr == '?') {
@@ -89,7 +89,7 @@ function thenFinger(t_crka) {
     } else if (t_crka == 'v' || t_crka == 'f' || t_crka == 'r' || t_crka == '4' || t_crka == '$' ||
                t_crka == 'b' || t_crka == 'g' || t_crka == 't' || t_crka == '5' || t_crka == '%' ||
                t_crka == 'm' || t_crka == 'j' || t_crka == 'u' || t_crka == '7' || t_crka == '&' ||
-               t_crka == 'n' || t_crka == 'h' || t_crka == 'y' || t_crka == '6' || t_crka == '^') {
+               t_crka == 'n' || t_crka == 'h' || t_crka == 'y' || t_crka == '6' || t_crka == '¨') {
         return 1;
     } else {
         return 6;
@@ -119,7 +119,7 @@ function thenPressId(t_crka) {
         return "jkey4";
     } else if(t_crka == '%') {
         return "jkey5";
-    } else if(t_crka == '^') {
+    } else if(t_crka == '¨') {
         return "jkey6";
     } else if(t_crka == '&') {
         return "jkey7";
@@ -139,6 +139,8 @@ function thenPressId(t_crka) {
         return "jkeybracketr";
     } else if(t_crka == ';' || t_crka == ':') {
         return "jkeysemicolon";
+    } else if(t_crka == 'ç' || t_crka == 'Ç') {
+        return "jkeycedilla";
     } else if(t_crka == "\'" || t_crka == '"') {
         return "jkeycrtica";
     } else if(t_crka == "\\" || t_crka == '|') {
@@ -159,5 +161,5 @@ function thenPressId(t_crka) {
 }
 
 function isLetter(str) {
-    return str.length === 1 && str.match(/[a-z]/i);
+    return str.length === 1 && str.match(/[a-zç]/i);
 }

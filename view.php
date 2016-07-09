@@ -26,7 +26,7 @@
  * @copyright  2016 onwards AL Rachels (drachels@drachels.com)
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later.
  */
-global $USER, $CFG;
+global $USER, $CFG, $THEME;
 require_once(dirname(dirname(dirname(__FILE__))) . '/config.php');
 require_once(dirname(__FILE__) . '/lib.php');
 require_once(dirname(__FILE__) . '/locallib.php');
@@ -47,6 +47,10 @@ if ($id) {
 }
 require_login($course, true, $cm);
 $context = context_module::instance($cm->id);
+
+
+
+
 $PAGE->set_url('/mod/mootyper/view.php', array(
     'id' => $cm->id
 ));
@@ -95,7 +99,30 @@ if ($mootyper->lesson != null) {
             echo '<a href="' . $jlnk7 . '">' . get_string('viewmygrades', 'mootyper') . '</a><br /><br />';
         }
     } else if ($exercise != false) {
-        echo '<link rel="stylesheet" type="text/css" href="style.css">';
+        // This is where I am adding things to try changing keyboardbgc.
+        //echo '<span id="keyboard" class="keyboardback"></span>';
+        
+        //debugging('This is a test.');
+        //$css = mootyper_settings($css, $mootyper); //Fatal error: call to undefined function
+        //$THEME->csspostprocess = 'mootyper_process_css';
+        //$css = new StdClass();
+        
+        //$css = require("styles.css");
+        //$var = $PAGE->requires;
+        
+
+        //mod_mootyper_process_css($css, $mootyper);
+
+        //$css = $PAGE->theme->settings;
+        //$css->headerbgc = '#BBBBBB';
+
+        //print_object($css);
+        //$THEME->csspostprocess = 'mod_mootyper_settings';
+        // This is where my stuff ends.
+        
+        // I commented out the next line after changing filename to styles.css which
+        // automatically then gets loaded by Moodle.
+        //echo '<link rel="stylesheet" type="text/css" href="style.css">';
         if ($mootyper->showkeyboard) {
             $displaynone = false;
         } else {

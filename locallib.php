@@ -268,26 +268,3 @@ function get_typerexercisesfull($lsn = 0) {
     return $toreturn;
 }
 
-
-/**
- * Keyboard background color.
- * Under development.
- * @return $css;
- */
-function mootyper_settings($css, $mootyper) {
-
-    // Set the keyboard background color.
-    if (empty($mootyper->settings->keyboardbgc)) {
-        $keyboardbgc = '#DDDDDD'; // Default color.
-    } else {
-        $keyboardbgc = $mootyper->settings->keyboardbgc;
-    }
-    $css = mootyper_set_keyboardbgc($css, $keyboardbgc);
-    return $css;
-}
-
-function mootyper_set_headerbgc($css, $keyboardbgc) {
-    $tag = '[[setting:keyboardbgc]]';
-    $css = str_replace($tag, $keyboardbgc, $css);
-    return $css;
-}
