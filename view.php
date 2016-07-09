@@ -48,21 +48,13 @@ if ($id) {
 require_login($course, true, $cm);
 $context = context_module::instance($cm->id);
 
-
-
-
-$PAGE->set_url('/mod/mootyper/view.php', array(
-    'id' => $cm->id
-));
+$PAGE->set_url('/mod/mootyper/view.php', array('id' => $cm->id));
 $PAGE->set_title(format_string($mootyper->name));
 $PAGE->set_heading(format_string($course->fullname));
 $PAGE->set_context($context);
 $PAGE->set_cacheable(false);
 
 // Output starts here.
-
-
-
 echo $OUTPUT->header();
 echo '<script src="//code.jquery.com/jquery-1.11.0.min.js"></script>';
 
@@ -99,30 +91,9 @@ if ($mootyper->lesson != null) {
             echo '<a href="' . $jlnk7 . '">' . get_string('viewmygrades', 'mootyper') . '</a><br /><br />';
         }
     } else if ($exercise != false) {
-        // This is where I am adding things to try changing keyboardbgc.
-        //echo '<span id="keyboard" class="keyboardback"></span>';
-        
-        //debugging('This is a test.');
-        //$css = mootyper_settings($css, $mootyper); //Fatal error: call to undefined function
-        //$THEME->csspostprocess = 'mootyper_process_css';
-        //$css = new StdClass();
-        
-        //$css = require("styles.css");
-        //$var = $PAGE->requires;
-        
-
-        //mod_mootyper_process_css($css, $mootyper);
-
-        //$css = $PAGE->theme->settings;
-        //$css->headerbgc = '#BBBBBB';
-
-        //print_object($css);
-        //$THEME->csspostprocess = 'mod_mootyper_settings';
-        // This is where my stuff ends.
-        
         // I commented out the next line after changing filename to styles.css which
-        // automatically then gets loaded by Moodle.
-        //echo '<link rel="stylesheet" type="text/css" href="style.css">';
+        // automatically then gets loaded by Moodle. Leaving it here for the time being.
+        // echo '<link rel="stylesheet" type="text/css" href="style.css">';
         if ($mootyper->showkeyboard) {
             $displaynone = false;
         } else {

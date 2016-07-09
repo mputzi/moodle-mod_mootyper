@@ -47,9 +47,8 @@ the install.
 Right after an install or upgrade of the new MooTyper 3.1.1, you will then see
 the settings page. You can now set the date display format for the grade views.
 You can also set colors for grade views, the background of the new keyboard 
-layouts, the color for keytops that are not home row keys, and the font color
-for those keys. This allows you to color coordinate MooTyper with your 
-theme color scheme. 
+layouts, and the color for keytops that are not home row keys. This allows you
+to color coordinate MooTyper with your theme color scheme. 
 
 3. USING MOOTYPER
 
