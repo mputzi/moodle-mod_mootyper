@@ -114,11 +114,11 @@ if (!has_capability('mod/mootyper:viewmygrades', context_module::instance($cm->i
         get_string('wpm', 'mootyper').'</a>'.$arrtextadds[12].'</td></tr>';
         foreach ($grds as $gr) {
             if (!$mootyper->isexam && $gr->pass) {
-                //$stil = ' background-color: #7FEF6C;';
-                $stil = 'background-color: '.(get_config('mod_mootyper','passbgc')).';';
+                // $stil = ' background-color: #7FEF6C;';
+                $stil = 'background-color: '.(get_config('mod_mootyper', 'passbgc')).';';
             } else if (!$mootyper->isexam && !$gr->pass) {
-                //$stil = ' background-color: #FF6C6C;';
-                $stil = 'background-color: '.(get_config('mod_mootyper','failbgc')).';';
+                // $stil = ' background-color: #FF6C6C;';
+                $stil = 'background-color: '.(get_config('mod_mootyper', 'failbgc')).';';
             } else {
                 $stil = '';
             }
@@ -127,7 +127,7 @@ if (!has_capability('mod/mootyper:viewmygrades', context_module::instance($cm->i
                         .$gr->mistakes.'</td><td>'.format_time($gr->timeinseconds).
                         '</td><td>'.format_float($gr->hitsperminute).'</td><td>'.$gr->fullhits
                         .'</td><td>'.format_float($gr->precisionfield).'%</td><td>'
-                        .date(get_config('mod_mootyper','dateformat'), $gr->timetaken).'</td><td>'.$gr->wpm.'</td></tr>';
+                        .date(get_config('mod_mootyper', 'dateformat'), $gr->timetaken).'</td><td>'.$gr->wpm.'</td></tr>';
         }
         $avg = get_grades_avg($grds);
         if (!$mootyper->isexam) {

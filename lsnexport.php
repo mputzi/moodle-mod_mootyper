@@ -59,7 +59,7 @@ $filename = $fname->lessonname;
 $filename .= '.txt';
 
 $delimiter = " ";
-//header('Content-Type: application/txt');
+// header('Content-Type: application/txt');
 header('Content-Type: text/plain;charset=utf-8');
 header('Content-Disposition: attachement; filename="'.$filename.'";');
 header("Pragma: no-cache");
@@ -100,7 +100,7 @@ if ($exercise = $DB->get_records_sql($sql, $params = null)) {
         // Write out the last exercise without a new exercise indicator after it.
         // fputcsv($f, $field, $delimiter, chr(10));
         // fputcsv($f, $field, $delimiter, chr(0));
-        fwrite($f, implode(" ",$field));
+        fwrite($f, implode(" ", $field));
     }
     fclose($f);
 }

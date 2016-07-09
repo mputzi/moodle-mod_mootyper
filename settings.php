@@ -51,7 +51,12 @@ if ($ADMIN->fulltree) {
     );
 
     // Date format setting.
-    $settings->add(new admin_setting_configtext('mod_mootyper/dateformat', new lang_string('dateformat', 'mootyper'), new lang_string('configdateformat', 'mootyper'), 'M d, Y G:i', PARAM_TEXT, 15));
+    $settings->add(new admin_setting_configtext(
+        'mod_mootyper/dateformat',
+        new lang_string('dateformat', 'mootyper'),
+        new lang_string('configdateformat', 'mootyper'),
+        'M d, Y G:i', PARAM_TEXT, 15)
+    );
 
     // Passing grade background colour setting.
     $settings->add(new admin_setting_configcolourpicker(
@@ -79,7 +84,7 @@ if ($ADMIN->fulltree) {
         get_string('suspicion_colour', 'mootyper'),
         null)
     );
-    
+
     // Key top colour setting.
     $name = 'mod_mootyper/normalkeytops';
     $title = get_string('normalkeytops_title', 'mootyper');
@@ -88,7 +93,7 @@ if ($ADMIN->fulltree) {
     $setting = new admin_setting_configcolourpicker($name, $title, $description, $default);
     $setting->set_updatedcallback('theme_reset_all_caches');
     $settings->add($setting);
-    
+
     // Keyboard background colour setting.
     $name = 'mod_mootyper/keyboardbgc';
     $title = get_string('keyboardbgc_title', 'mootyper');
@@ -99,12 +104,12 @@ if ($ADMIN->fulltree) {
     $settings->add($setting);
 
 
-$old1 = '[[setting:normalkeytops]]';
-$new1 = get_config('mod_mootyper', 'normalkeytops');
-$old2 = '[[setting:keyboardbgc]]';
-$new2 = get_config('mod_mootyper', 'keyboardbgc');
-$data = file_get_contents($CFG->dirroot.'/mod/mootyper/template.css');
-$newdata = str_replace($old1, $new1, $data);
-$newdata = str_replace($old2, $new2, $newdata);
-file_put_contents($CFG->dirroot.'/mod/mootyper/styles.css', $newdata);
+    $old1 = '[[setting:normalkeytops]]';
+    $new1 = get_config('mod_mootyper', 'normalkeytops');
+    $old2 = '[[setting:keyboardbgc]]';
+    $new2 = get_config('mod_mootyper', 'keyboardbgc');
+    $data = file_get_contents($CFG->dirroot.'/mod/mootyper/template.css');
+    $newdata = str_replace($old1, $new1, $data);
+    $newdata = str_replace($old2, $new2, $newdata);
+    file_put_contents($CFG->dirroot.'/mod/mootyper/styles.css', $newdata);
 }
