@@ -45,7 +45,7 @@ echo (isset($displaynone) && ($displaynone == true)) ? 'display:none;' : '';
 <span id="jkeyj" class="finger1">J</span>
 <span id="jkeyk" class="finger2">K</span>
 <span id="jkeyl" class="finger3">L</span>
-<span id="jkeyccedilla" class="finger4">Ç</span>
+<span id="jkeyç" class="finger4">Ç</span>
 <span id="jkeytilde" class="normal"><span class="textup">^</span> ~</span>
 <span id="jkeybracketr" class="normal"><span class="textup">}</span> ] º</span>
 <span id="jkeyenter" class="normal" style="width: 36px;">Enter</span>

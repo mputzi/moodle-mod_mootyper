@@ -435,7 +435,104 @@ function mootyper_user_complete($course, $user, $mod, $mootyper) {
  * @return boolean
  */
 function mootyper_print_recent_activity($course, $viewfullnames, $timestart) {
-    return false;  // True if anything was printed, otherwise false.
+    global $CFG, $USER, $DB, $OUTPUT;
+
+    $dbparams = array($timestart, $course->id, 'mootyper');
+    $namefields = user_picture::fields('u', null, 'userid');
+    $sql = "SELECT mtg.id, mtg.mootyper, mtg.timetaken, cm.id AS cmid, $namefields
+         FROM {mootyper_grades} mtg
+              JOIN {mootyper} mt         ON mt.id = mtg.mootyper
+              JOIN {course_modules} cm ON cm.instance = mt.id
+              JOIN {modules} md        ON md.id = cm.module
+              JOIN {user} u            ON u.id = mtg.userid
+         WHERE mtg.timetaken > ? AND
+               mt.course = ? AND
+               md.name = ?
+         ORDER BY mtg.timetaken ASC
+    ";
+
+    $newentries = $DB->get_records_sql($sql, $dbparams);
+
+    $modinfo = get_fast_modinfo($course);
+    $show    = array();
+    $grader  = array();
+    $showrecententries = get_config('mootyper', 'showrecentactivity');
+
+    foreach ($newentries as $anentry) {
+
+        if (!array_key_exists($anentry->cmid, $modinfo->get_cms())) {
+            continue;
+        }
+        $cm = $modinfo->get_cm($anentry->cmid);
+
+        if (!$cm->uservisible) {
+            continue;
+        }
+        if ($anentry->userid == $USER->id) {
+            $show[] = $anentry;
+            continue;
+        }
+        $context = context_module::instance($anentry->cmid);
+
+        // The act of submitting of entries may be considered private -
+        // only graders will see it if specified.
+        if (empty($showrecententries)) {
+            if (!array_key_exists($cm->id, $grader)) {
+                $grader[$cm->id] = has_capability('moodle/grade:viewall', $context);
+            }
+            if (!$grader[$cm->id]) {
+                continue;
+            }
+        }
+
+        $groupmode = groups_get_activity_groupmode($cm, $course);
+
+        if ($groupmode == SEPARATEGROUPS &&
+                !has_capability('moodle/site:accessallgroups',  $context)) {
+            if (isguestuser()) {
+                // Shortcut - guest user does not belong into any group.
+                continue;
+            }
+
+            // This will be slow - show only users that share group with me in this cm.
+            if (!$modinfo->get_groups($cm->groupingid)) {
+                continue;
+            }
+            $usersgroups = groups_get_all_groups($course->id, $anentry->userid, $cm->groupingid);
+            if (is_array($usersgroups)) {
+                $usersgroups = array_keys($usersgroups);
+                $intersect = array_intersect($usersgroups, $modinfo->get_groups($cm->groupingid));
+                if (empty($intersect)) {
+                    continue;
+                }
+            }
+        }
+        $show[] = $anentry;
+    }
+
+    if (empty($show)) {
+        return false;
+    }
+
+    echo $OUTPUT->heading(get_string('modulenameplural', 'mootyper').':', 3);
+
+    foreach ($show as $submission) {
+        $cm = $modinfo->get_cm($submission->cmid);
+        $context = context_module::instance($submission->cmid);
+        if (has_capability('mod/mootyper:viewgrades', $context)) {
+            $link = $CFG->wwwroot.'/mod/mootyper/gview.php?id='.$cm->id.'&n='.$submission->mootyper;
+        } else {
+            $link = $CFG->wwwroot.'/mod/mootyper/owngrades.php?id='.$cm->id.'&n='.$submission->mootyper;
+        }
+        $name = $cm->name;
+        print_recent_activity_note($submission->timetaken,
+                                   $submission,
+                                   $name,
+                                   $link,
+                                   false,
+                                   $viewfullnames);
+    }
+    return true;
 }
 
 /**

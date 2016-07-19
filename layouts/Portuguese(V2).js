@@ -20,7 +20,7 @@ function keyboardElement(ltr) {
     } else {
         if (ltr == '"' || ltr == '!' || ltr == '@' || ltr == '#' || ltr == '$' || ltr == '%' || ltr == '¨' ||
             ltr == '&' || ltr == '*' || ltr == '(' || ltr == ')' || ltr == '_' || ltr == '+' ||
-            ltr == '`' || ltr == '{' || ltr == '^' || ltr == '}' ||
+            ltr == '`' || ltr == '{' || ltr == '^' || ltr == '}' || ltr == 'Ç' ||
             ltr == '|' || ltr == '<' || ltr == '>' || ltr == ':' || ltr == '?') {
             this.shift = true;
         } else {
@@ -49,13 +49,11 @@ function keyboardElement(ltr) {
     this.turnOff = function () {
         if (isLetter(this.chr)) {
             if (this.chr == 'a' || this.chr == 's' || this.chr == 'd' || this.chr == 'f' ||
-                this.chr == 'j' || this.chr == 'k' || this.chr == 'l') {
+                this.chr == 'j' || this.chr == 'k' || this.chr == 'l' || this.chr == 'ç') {
                 document.getElementById(thenPressId(this.chr)).className = "finger" + thenFinger(this.chr.toLowerCase());
             } else {
                 document.getElementById(thenPressId(this.chr)).className = "normal";
             }
-        } else if(this.chr == 'Ç' || this.chr == 'ç') {  // English specific ; and :.
-            document.getElementById(thenPressId(this.chr)).className = "finger4";
         } else {
             document.getElementById(thenPressId(this.chr)).className = "normal";
         }
@@ -139,8 +137,6 @@ function thenPressId(t_crka) {
         return "jkeybracketr";
     } else if(t_crka == ';' || t_crka == ':') {
         return "jkeysemicolon";
-    } else if(t_crka == 'ç' || t_crka == 'Ç') {
-        return "jkeycedilla";
     } else if(t_crka == "\'" || t_crka == '"') {
         return "jkeycrtica";
     } else if(t_crka == "\\" || t_crka == '|') {
@@ -161,5 +157,5 @@ function thenPressId(t_crka) {
 }
 
 function isLetter(str) {
-    return str.length === 1 && str.match(/[a-zç]/i);
+    return str.length === 1 && str.match(/[ça-z]/i);
 }

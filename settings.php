@@ -31,6 +31,14 @@ if ($ADMIN->fulltree) {
     require_once($CFG->dirroot.'/mod/mootyper/lib.php');
     require_once($CFG->dirroot.'/mod/mootyper/locallib.php');
 
+    // Recent activity setting.
+    $name = new lang_string('showrecentactivity', 'mootyper');
+    $description = new lang_string('showrecentactivityconfig', 'mootyper');
+    $settings->add(new admin_setting_configcheckbox('mootyper/showrecentactivity',
+                                                    $name,
+                                                    $description,
+                                                    0));
+
     // Default keyboard layout.
     $layouts = get_keyboard_layouts_db();
     $settings->add(new admin_setting_configselect(
