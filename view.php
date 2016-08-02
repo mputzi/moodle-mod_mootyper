@@ -33,6 +33,8 @@ require_once(dirname(__FILE__) . '/locallib.php');
 
 $id = optional_param('id', 0, PARAM_INT); // Course_module ID, or
 $n = optional_param('n', 0, PARAM_INT); // Mootyper instance ID - it should be named as the first character of the module.
+$userpassword = optional_param('userpassword','',PARAM_RAW);
+$backtocourse = optional_param('backtocourse', false, PARAM_RAW);
 
 if ($id) {
     $cm = get_coursemodule_from_id('mootyper', $id, 0, false, MUST_EXIST);
@@ -45,23 +47,93 @@ if ($id) {
 } else {
     error('You must specify a course_module ID or an instance ID');
 }
-require_login($course, true, $cm);
-$context = context_module::instance($cm->id);
 
+require_login($course, true, $cm);
+
+if ($backtocourse) {
+    redirect(new moodle_url('/course/view.php', array('id'=>$course->id)));
+}
+// I have moved set_title and set_heading to renederer.php. Need to check the other two.
 $PAGE->set_url('/mod/mootyper/view.php', array('id' => $cm->id));
-$PAGE->set_title(format_string($mootyper->name));
-$PAGE->set_heading(format_string($course->fullname));
-$PAGE->set_context($context);
-$PAGE->set_cacheable(false);
+//$PAGE->set_title(format_string($mootyper->name));
+//$PAGE->set_heading(format_string($course->fullname));
+//$PAGE->set_context($context);
+//$PAGE->set_cacheable(false);
+
+$context = context_module::instance($cm->id);
+//$canmanage = has_capability('mod/mootyper:setup', $context);
+
+$mootyperoutput = $PAGE->get_renderer('mod_mootyper');
+
+//if (!(is_available($mootyper))) {  // Availability restrictions.
+//debugging('Inside the if for availability.');
+//}
+
 
 // Output starts here.
-echo $OUTPUT->header();
+//echo $OUTPUT->header();
+echo $mootyperoutput->header($mootyper, $cm);
+//echo $mootyperoutput->header($mootyper, $cm, get_string('notavailable', 'mootyper'));
 echo '<script src="//code.jquery.com/jquery-1.11.0.min.js"></script>';
 
 if ($mootyper->intro) {
     echo $OUTPUT->box(format_module_intro('mootyper', $mootyper, $cm->id) , 'generalbox mod_introbox', 'mootyperintro');
 }
 if ($mootyper->lesson != null) {
+    // Need to check timeopen and timclose to control access to activity.
+    //$timeopen = $mootyper->timeopen;
+    //$timeclose = $mootyper->timeclose;
+    
+if (!(is_available($mootyper))) {  // Availability restrictions.
+//if (!$mootyper->is_available()) {  // Availability restrictions.
+//if (!(($timeopen == 0 || time() >= $timeopen) && ($timeclose == 0 || time() < $timeclose))){
+    
+    if ($mootyper->timeclose != 0 && time() > $mootyper->timeclose) {
+        //echo (get_string('mootyperclosed', 'mootyper', userdate($timeopen)));
+        echo $mootyperoutput->mootyper_inaccessible(get_string('mootyperclosed', 'mootyper', userdate($mootyper->timeopen)));
+    } else {
+        //echo (get_string('mootyperopen', 'mootyper', userdate($timeclose)));
+        echo $mootyperoutput->mootyper_inaccessible(get_string('mootyperopen', 'mootyper', userdate($mootyper->timeclose)));
+    }
+    echo $OUTPUT->footer();
+    exit();
+} else if ($mootyper->usepassword && empty($USER->mootyperloggedin[$mootyper->id])) { // Password protected mootyper code
+    $correctpass = false;
+        if (!empty($userpassword) && (($mootyper->password == md5(trim($userpassword))) || ($mootyper->password == trim($userpassword)))) {
+            require_sesskey();
+            // with or without md5 for backward compatibility (MDL-11090)
+            $correctpass = true;
+            $USER->mootyperloggedin[$mootyper->id] = true;
+
+        } else if (isset($mootyper->extrapasswords)) {
+
+            // Group overrides may have additional passwords.
+            foreach ($mootyper->extrapasswords as $password) {
+                if (strcmp($password, md5(trim($userpassword))) === 0 || strcmp($password, trim($userpassword)) === 0) {
+                    require_sesskey();
+                    $correctpass = true;
+                    $USER->mootyperloggedin[$mootyper->id] = true;
+                }
+            }
+        }
+        if (!$correctpass) {
+            // need to fix these two lines for password to work.
+            //debugging('executing password protected lesson');
+            //print_object(!$correctpass);
+
+            //echo $mootyperoutput->header($mootyper, $cm, get_string('passwordprotectedlesson', 'mootyper', format_string($mootyper->name)));
+            //debugging('executing login prompt');
+            echo $mootyperoutput->login_prompt($mootyper, $userpassword !== '');
+            //echo (login_prompt($mootyper, $userpassword !== ''));
+            //debugging('executing footer');
+            echo $mootyperoutput->footer();
+            exit();
+        }
+    }
+        
+        
+        
+        
     if ($mootyper->isexam) {
         $exerciseid = $mootyper->exercise;
         $exercise = get_exercise_record($exerciseid);
@@ -77,7 +149,8 @@ if ($mootyper->lesson != null) {
         if (isset($texttoenter)) {
             $insertdir = $CFG->wwwroot . '/mod/mootyper/gcnext.php?words=' . str_word_count($texttoenter);
         }
-    }
+    }   
+    
     if (exam_already_done($mootyper, $USER->id) && $mootyper->isexam) {
         echo get_string('examdone', 'mootyper');
         echo "<br>";
@@ -109,7 +182,8 @@ if ($mootyper->lesson != null) {
 <h4>
         <?php
         if (!$mootyper->isexam) {
-            echo $exercise->exercisename;
+            //echo $exercise->exercisename;
+            echo 'Exercise '.$exercise->exercisename;
         }
         ?>
 </h4>
@@ -228,6 +302,9 @@ if ($mootyper->lesson != null) {
             echo '<a href="' . $jlnk7 . '">' . get_string('viewmygrades', 'mootyper') . '</a><br /><br />';
         }
     }
+
+// IT WAS HERE========================
+
 } else {
     if (has_capability('mod/mootyper:setup', context_module::instance($cm->id))) {
         $valnk = $CFG->wwwroot . "/mod/mootyper/mod_setup.php?n=" . $mootyper->id;
@@ -246,4 +323,5 @@ $event->add_record_snapshot('course_modules', $cm);
 $event->add_record_snapshot('course', $course);
 $event->add_record_snapshot('mootyper', $mootyper);
 $event->trigger();
-echo $OUTPUT->footer();
+echo $mootyperoutput->footer();
+//echo $OUTPUT->footer();
