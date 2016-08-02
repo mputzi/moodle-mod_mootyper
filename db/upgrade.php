@@ -132,24 +132,21 @@ function xmldb_mootyper_upgrade($oldversion) {
         upgrade_mod_savepoint(true, 2007040101, 'mootyper');
     }
 
-    // Third example, the next day, 2007/04/02 (with the trailing 00), some actions were performed to install.php,
-    // related with the module.
-    if ($oldversion < 2007040200) {
+// New field added for version 3.1.2.
 
-        // Insert here code to perform some actions (same as in install.php).
+    if ($oldversion < 2016080200) {
 
-        upgrade_mod_savepoint(true, 2007040200, 'mootyper');
+        // Define field usepassword to be added to mootyper.
+        $table = new xmldb_table('mootyper');
+        $field = new xmldb_field('usepassword', XMLDB_TYPE_INTEGER, '3', null, XMLDB_NOTNULL, null, '0', 'timeclose');
+
+        // Conditionally launch add field usepassword.
+        if (!$dbman->field_exists($table, $field)) {
+            $dbman->add_field($table, $field);
+        }
+
+        // Mootyper savepoint reached.
+        upgrade_mod_savepoint(true, 2016080200, 'mootyper');
     }
-
-    // And that's all. Please, examine and understand the 3 example blocks above. Also
-    // it's interesting to look how other modules are using this script. Remember that
-    // the basic idea is to have "blocks" of code (each one being executed only once,
-    // when the module version (version.php) is updated.
-
-    // Lines above (this included) MUST BE DELETED once you get the first version of
-    // yout module working. Each time you need to modify something in the module (DB
-    // related, you'll raise the version and add one upgrade block here.
-
-    // Final return of upgrade result (true, all went good) to Moodle.
     return true;
 }
