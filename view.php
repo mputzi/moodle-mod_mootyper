@@ -90,7 +90,7 @@ if (!(is_available($mootyper))) {  // Availability restrictions.
     
     if ($mootyper->timeclose != 0 && time() > $mootyper->timeclose) {
         //echo (get_string('mootyperclosed', 'mootyper', userdate($timeopen)));
-        echo $mootyperoutput->mootyper_inaccessible(get_string('mootyperclosed', 'mootyper', userdate($mootyper->timeopen)));
+        echo $mootyperoutput->mootyper_inaccessible(get_string('mootyperclosed', 'mootyper', userdate($mootyper->timeclose)));
     } else {
         //echo (get_string('mootyperopen', 'mootyper', userdate($timeclose)));
         echo $mootyperoutput->mootyper_inaccessible(get_string('mootyperopen', 'mootyper', userdate($mootyper->timeopen)));
