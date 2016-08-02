@@ -29,6 +29,14 @@
 
 defined('MOODLE_INTERNAL') || die();
 
+function is_available($mootyper) {
+    //global $DB;
+    $timeopen = $mootyper->timeopen;
+    $timeclose = $mootyper->timeclose;
+    //debugging('I am in the available function now and this is timeopen '.$timeopen.' and this is timeclose '.$timeclose);
+    return (($timeopen == 0 || time() >= $timeopen) && ($timeclose == 0 || time() < $timeclose));
+}
+
 function get_keyboard_layouts_db() {
     global $DB;
     $lss = array();
