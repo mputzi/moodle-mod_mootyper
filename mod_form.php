@@ -35,10 +35,24 @@ require_once($CFG->dirroot.'/mod/mootyper/locallib.php');
  * Module instance settings form
  */
 class mod_mootyper_mod_form extends moodleform_mod {
+
+    protected $course = null;
+
+    public function __construct($current, $section, $cm, $course) {
+        $this->course = $course;
+        parent::__construct($current, $section, $cm, $course);
+    }
+
     public function definition() {
+        global $CFG, $COURSE, $DB;
         $mform = $this->_form;
+        
+        $mootyperconfig = get_config('mod_mootyper');
+        
         $mform->addElement('header', 'general', get_string('general', 'form'));
-        $mform->addElement('text', 'name', get_string('mootypername', 'mootyper'), array('size' => '64'));
+        
+        //$mform->addElement('text', 'name', get_string('mootypername', 'mootyper'), array('size' => '64'));
+        $mform->addElement('text', 'name', get_string('name'), array('size' => '64'));
         if (!empty($CFG->formatstringstriptags)) {
             $mform->setType('name', PARAM_TEXT);
         } else {
@@ -48,7 +62,12 @@ class mod_mootyper_mod_form extends moodleform_mod {
         $mform->addRule('name', get_string('maximumchars', '', 255), 'maxlength', 255, 'client');
         $mform->addHelpButton('name', 'mootypername', 'mootyper');
         $this->standard_intro_elements();
+        
         global $CFG, $COURSE;
+        
+        // Availability.
+        $mform->addElement('header', 'availabilityhdr', get_string('availability'));
+        
         $mform->addElement('date_time_selector', 'timeopen',
                            get_string('mootyperopentime', 'mootyper'),
                            array('optional' => true, 'step' => 1));
@@ -56,10 +75,52 @@ class mod_mootyper_mod_form extends moodleform_mod {
                            get_string('mootyperclosetime', 'mootyper'),
                            array('optional' => true, 'step' => 1));
 
+        // Time limit. Needs to be moved to mod_setup.php, I think.
+        $mform->addElement('duration', 'timelimit', get_string('timelimit', 'mootyper'),
+                array('optional' => true));
+        $mform->addHelpButton('timelimit', 'timelimit', 'mootyper');
+        $mform->setAdvanced('timelimit', $mootyperconfig->timelimit_adv);
+        $mform->setDefault('timelimit', $mootyperconfig->timelimit);
+
+        $mform->addElement('selectyesno', 'usepassword', get_string('usepassword', 'mootyper'));
+        $mform->addHelpButton('usepassword', 'usepassword', 'mootyper');
+        $mform->setDefault('usepassword', $mootyperconfig->password);
+        $mform->setAdvanced('usepassword', $mootyperconfig->password_adv);
+
+        $mform->addElement('passwordunmask', 'password', get_string('password', 'mootyper'));
+        $mform->setDefault('password', '');
+        $mform->setAdvanced('password', $mootyperconfig->password_adv);
+        $mform->setType('password', PARAM_RAW);
+        $mform->disabledIf('password', 'usepassword', 'eq', 0);
+        $mform->disabledIf('passwordunmask', 'usepassword', 'eq', 0);
+
+        // Link to exercises for this MooTyper activity.
         $mform->addElement('header', 'mootyperz', get_string('pluginadministration', 'mootyper'));
         $jlnk3 = $CFG->wwwroot . '/mod/mootyper/exercises.php?id='.$COURSE->id;
         $mform->addElement('html', '<a id="jlnk3" href="'.$jlnk3.'">'.get_string('emanage', 'mootyper').'</a>');
         $this->standard_coursemodule_elements();
         $this->add_action_buttons();
+    }
+    
+    /**
+     * Enforce validation rules here
+     *
+     * @param object $data Post data to validate
+     * @return array
+     **/
+    function validation($data, $files) {
+        $errors = parent::validation($data, $files);
+
+        // Check open and close times are consistent.
+        if ($data['timeopen'] != 0 && $data['timeclose'] != 0 &&
+                $data['timeclose'] < $data['timeopen']) {
+            $errors['timeclose'] = get_string('closebeforeopen', 'mootyper');
+        }
+
+        if (!empty($data['usepassword']) && empty($data['password'])) {
+            $errors['password'] = get_string('emptypassword', 'mootyper');
+        }
+
+        return $errors;
     }
 }
