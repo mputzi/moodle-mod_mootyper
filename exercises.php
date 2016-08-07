@@ -103,7 +103,12 @@ $style1 = 'style="border-color: #000000; border-style: solid; border-width: 3px;
 $style2 = 'style="border-color: #000000; border-style: solid; border-width: 3px; text-align: left;"';
 
 // Create a link with course id and lsn options to export the current Lesson.
-$jlink = '<a onclick="return confirm(\''.get_string('exportconfirm', 'mootyper').$lessons[$selectedlessonindex]['lessonname'].'\')" href="lsnexport.php?id='.$course->id.'&lsn='.$lessons[$selectedlessonindex]['id'].'"><img src="pix/download_all.svg" alt='.get_string('export', 'mootyper').'> '.$lessons[$selectedlessonindex]['lessonname'].'';
+$jlink = '<a onclick="return confirm(\''.get_string('exportconfirm', 'mootyper')
+         .$lessons[$selectedlessonindex]['lessonname'].'\')" href="lsnexport.php?id='
+         .$course->id.'&lsn='.$lessons[$selectedlessonindex]['id']
+         .'"><img src="pix/download_all.svg" alt='
+         .get_string('export', 'mootyper').'> '
+         .$lessons[$selectedlessonindex]['lessonname'].'';
 
 // Print header row for Lesson table currently being viewed.
 echo '<table><tr><td '.$style1.'>'.get_string('ename', 'mootyper').'</td>
@@ -119,11 +124,16 @@ foreach ($exercises as $ex) {
         $strtocut = substr($strtocut, 0, 65).'...';
     }
     // If user can edit, create an edit link to the current exerise.
-    $jlink1 = '<a onclick="return confirm(\''.get_string('removeexconfirm', 'mootyper').$lessons[$selectedlessonindex]['lessonname'].
-    '\')" href="erem.php?id='.$course->id.'&r='.$ex['id'].'"><img src="pix/delete.png" alt="'.get_string('eremove', 'mootyper').'"></a>';
+    $jlink1 = '<a onclick="return confirm(\''.get_string('removeexconfirm', 'mootyper')
+              .$lessons[$selectedlessonindex]['lessonname']
+              .'\')" href="erem.php?id='.$course->id.'&r='
+              .$ex['id'].'"><img src="pix/delete.png" alt="'
+              .get_string('eremove', 'mootyper').'"></a>';
 
     // If user can edit, create a remove link to the current exerise.
-    $jlink2 = '<a href="eedit.php?id='.$course->id.'&ex='.$ex['id'].'"><img src="pix/edit.png" alt='.get_string('eeditlabel', 'mootyper').'></a>';
+    $jlink2 = '<a href="eedit.php?id='.$course->id.'&ex='.$ex['id']
+              .'"><img src="pix/edit.png" alt='
+              .get_string('eeditlabel', 'mootyper').'></a>';
 
     echo '<tr><td '.$style1.'>'.$ex['exercisename'].'</td><td '.$style2.'>'.$strtocut.'</td>';
     if (is_editable_by_me($USER->id, $lessonpo)) {
