@@ -31,6 +31,32 @@ if ($ADMIN->fulltree) {
     require_once($CFG->dirroot.'/mod/mootyper/lib.php');
     require_once($CFG->dirroot.'/mod/mootyper/locallib.php');
 
+    // Availability settings.
+    $settings->add(new admin_setting_heading('mod_lesson/availibility', get_string('availability'), ''));
+
+    // Recent activity setting.
+    $name = new lang_string('showrecentactivity', 'mootyper');
+    $description = new lang_string('showrecentactivityconfig', 'mootyper');
+    $settings->add(new admin_setting_configcheckbox('mod_mootyper/showrecentactivity',
+                                                    $name,
+                                                    $description,
+                                                    0));
+
+    $settings->add(new admin_setting_configcheckbox_with_advanced('mod_mootyper/password',
+        get_string('password', 'mootyper'), get_string('configpassword_desc', 'mootyper'),
+        array('value' => 0, 'adv' => true)));
+
+    // Lesson export settings.
+    $settings->add(new admin_setting_heading('mod_mootyper/lesson_export', get_string('lesson_export', 'mootyper'), ''));
+
+    // Lesson export filename setting.
+    $name = new lang_string('lesson_export_filename', 'mootyper');
+    $description = new lang_string('lesson_export_filenameconfig', 'mootyper');
+    $settings->add(new admin_setting_configcheckbox('mod_mootyper/lesson_export_filename',
+                                                    $name,
+                                                    $description,
+                                                    0));
+
     // Appearance settings.
     $settings->add(new admin_setting_heading('mod_mootyper/appearance', get_string('appearance'), ''));
 
@@ -117,22 +143,4 @@ if ($ADMIN->fulltree) {
     $data = str_replace($old2, $new2, $data);
     file_put_contents($CFG->dirroot.'/mod/mootyper/styles.css', $data);
 
-    // Availability settings.
-    $settings->add(new admin_setting_heading('mod_lesson/availibility', get_string('availability'), ''));
-
-    // Recent activity setting.
-    $name = new lang_string('showrecentactivity', 'mootyper');
-    $description = new lang_string('showrecentactivityconfig', 'mootyper');
-    $settings->add(new admin_setting_configcheckbox('mootyper/showrecentactivity',
-                                                    $name,
-                                                    $description,
-                                                    0));
-
-    $settings->add(new admin_setting_configduration_with_advanced('mod_mootyper/timelimit',
-        get_string('timelimit', 'mootyper'), get_string('configtimelimit_desc', 'mootyper'),
-            array('value' => '0', 'adv' => false), 60));
-
-    $settings->add(new admin_setting_configcheckbox_with_advanced('mod_mootyper/password',
-        get_string('password', 'mootyper'), get_string('configpassword_desc', 'mootyper'),
-        array('value' => 0, 'adv' => true)));
 }
