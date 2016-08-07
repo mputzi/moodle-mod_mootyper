@@ -46,12 +46,11 @@ class mod_mootyper_mod_form extends moodleform_mod {
     public function definition() {
         global $CFG, $COURSE, $DB;
         $mform = $this->_form;
-        
+
         $mootyperconfig = get_config('mod_mootyper');
-        
+
         $mform->addElement('header', 'general', get_string('general', 'form'));
-        
-        //$mform->addElement('text', 'name', get_string('mootypername', 'mootyper'), array('size' => '64'));
+
         $mform->addElement('text', 'name', get_string('name'), array('size' => '64'));
         if (!empty($CFG->formatstringstriptags)) {
             $mform->setType('name', PARAM_TEXT);
@@ -62,25 +61,16 @@ class mod_mootyper_mod_form extends moodleform_mod {
         $mform->addRule('name', get_string('maximumchars', '', 255), 'maxlength', 255, 'client');
         $mform->addHelpButton('name', 'mootypername', 'mootyper');
         $this->standard_intro_elements();
-        
-        global $CFG, $COURSE;
-        
+
         // Availability.
         $mform->addElement('header', 'availabilityhdr', get_string('availability'));
-        
+
         $mform->addElement('date_time_selector', 'timeopen',
                            get_string('mootyperopentime', 'mootyper'),
                            array('optional' => true, 'step' => 1));
         $mform->addElement('date_time_selector', 'timeclose',
                            get_string('mootyperclosetime', 'mootyper'),
                            array('optional' => true, 'step' => 1));
-
-        // Time limit. Needs to be moved to mod_setup.php, I think.
-        $mform->addElement('duration', 'timelimit', get_string('timelimit', 'mootyper'),
-                array('optional' => true));
-        $mform->addHelpButton('timelimit', 'timelimit', 'mootyper');
-        $mform->setAdvanced('timelimit', $mootyperconfig->timelimit_adv);
-        $mform->setDefault('timelimit', $mootyperconfig->timelimit);
 
         $mform->addElement('selectyesno', 'usepassword', get_string('usepassword', 'mootyper'));
         $mform->addHelpButton('usepassword', 'usepassword', 'mootyper');
@@ -101,14 +91,14 @@ class mod_mootyper_mod_form extends moodleform_mod {
         $this->standard_coursemodule_elements();
         $this->add_action_buttons();
     }
-    
+
     /**
      * Enforce validation rules here
      *
      * @param object $data Post data to validate
      * @return array
      **/
-    function validation($data, $files) {
+    public function validation($data, $files) {
         $errors = parent::validation($data, $files);
 
         // Check open and close times are consistent.
