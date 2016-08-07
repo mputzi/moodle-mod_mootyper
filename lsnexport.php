@@ -54,8 +54,10 @@ $sql = "SELECT lessonname
         WHERE id = $lsn";
 $fname = $DB->get_record_sql($sql);
 $filename = $fname->lessonname;
-// Keep next line commented out unless you want to include GMT as part of filename.
-// $filename .= '_'.gmdate("Ymd_Hi").'GMT';
+// Check to see if we need GMT added to filename based on lesson export filename setting.
+if (get_config('mod_mootyper', 'lesson_export_filename')){
+    $filename .= '_'.gmdate("Ymd_Hi").'GMT';
+}
 $filename .= '.txt';
 
 $delimiter = " ";
