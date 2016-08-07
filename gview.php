@@ -113,7 +113,6 @@ if (!has_capability('mod/mootyper:viewgrades', context_module::instance($cm->id)
                        .'</td><td>'.get_string('eremove', 'mootyper').'</td></tr>';
             foreach ($grds as $gr) {
                 if ($gr->suspicion) {
-                    // $klicaj = '<span style="color: yellow;">!!!!!</span>';
                     $klicaj = '<span style="color: '.(get_config('mod_mootyper', 'suspicion')).';"><b>!!!!!</b></span>';
                 } else {
                     $klicaj = '';
@@ -231,16 +230,13 @@ if (!has_capability('mod/mootyper:viewgrades', context_module::instance($cm->id)
                        .'</td><td>'.get_string('eremove', 'mootyper').'</td></tr>';
             foreach ($grds as $gr) {
                 if ($gr->suspicion) {
-                    // $klicaj = '<span style="color: yellow;">!!!!!</span>';
                     $klicaj = '<span style="color: '.(get_config('mod_mootyper', 'suspicion')).';"><b>!!!!!</b></span>';
                 } else {
                     $klicaj = '';
                 }
                 if ($gr->pass) {
-                    // $stil = 'background-color: #7FEF6C;';
                     $stil = 'background-color: '.(get_config('mod_mootyper', 'passbgc')).';';
                 } else {
-                    // $stil = 'background-color: #FF6C6C;';
                     $stil = 'background-color: '.(get_config('mod_mootyper', 'failbgc')).';';
                 }
                 $removelnk = '<a href="'.$CFG->wwwroot . '/mod/mootyper/attrem.php?c_id='.$_GET['id']
