@@ -456,7 +456,7 @@ function mootyper_print_recent_activity($course, $viewfullnames, $timestart) {
     $modinfo = get_fast_modinfo($course);
     $show    = array();
     $grader  = array();
-    $showrecententries = get_config('mootyper', 'showrecentactivity');
+    $showrecententries = get_config('mod_mootyper', 'showrecentactivity');
 
     foreach ($newentries as $anentry) {
 
