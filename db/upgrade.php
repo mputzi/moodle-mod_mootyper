@@ -132,9 +132,8 @@ function xmldb_mootyper_upgrade($oldversion) {
         upgrade_mod_savepoint(true, 2007040101, 'mootyper');
     }
 
-// New field added for version 3.1.2.
-
-    if ($oldversion < 2016080200) {
+    // New field added for version 3.1.2.
+    if ($oldversion < 2016080700) {
 
         // Define field usepassword to be added to mootyper.
         $table = new xmldb_table('mootyper');
@@ -146,7 +145,7 @@ function xmldb_mootyper_upgrade($oldversion) {
         }
 
         // Mootyper savepoint reached.
-        upgrade_mod_savepoint(true, 2016080200, 'mootyper');
+        upgrade_mod_savepoint(true, 2016080700, 'mootyper');
     }
     return true;
 }
