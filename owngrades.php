@@ -114,10 +114,8 @@ if (!has_capability('mod/mootyper:viewmygrades', context_module::instance($cm->i
         get_string('wpm', 'mootyper').'</a>'.$arrtextadds[12].'</td></tr>';
         foreach ($grds as $gr) {
             if (!$mootyper->isexam && $gr->pass) {
-                // $stil = ' background-color: #7FEF6C;';
                 $stil = 'background-color: '.(get_config('mod_mootyper', 'passbgc')).';';
             } else if (!$mootyper->isexam && !$gr->pass) {
-                // $stil = ' background-color: #FF6C6C;';
                 $stil = 'background-color: '.(get_config('mod_mootyper', 'failbgc')).';';
             } else {
                 $stil = '';
