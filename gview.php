@@ -230,9 +230,9 @@ if (!has_capability('mod/mootyper:viewgrades', context_module::instance($cm->id)
                        .'</td><td>'.get_string('eremove', 'mootyper').'</td></tr>';
             foreach ($grds as $gr) {
                 if ($gr->suspicion) {
-                    $klicaj = '<span style="color: '.(get_config('mod_mootyper', 'suspicion')).';"><b>!!!!!</b></span>';
+                    $exclamation = '<span style="color: '.(get_config('mod_mootyper', 'suspicion')).';"><b>!!!!!</b></span>';
                 } else {
-                    $klicaj = '';
+                    $exclamation = '';
                 }
                 if ($gr->pass) {
                     $stil = 'background-color: '.(get_config('mod_mootyper', 'passbgc')).';';
@@ -244,7 +244,7 @@ if (!has_capability('mod/mootyper:viewgrades', context_module::instance($cm->id)
                 $namelnk = '<a href="'.$CFG->wwwroot.'/user/view.php?id='.$gr->u_id.'&amp;course='.$course->id
                            .'">'.$gr->firstname.' '.$gr->lastname.'</a>';
                 $htmlout .= '<tr style="border-top-style: solid;'.$stil.'">
-                             <td>'.$klicaj.' '.$namelnk.'</td>
+                             <td>'.$exclamation.' '.$namelnk.'</td>
                              <td>'.$gr->exercisename.'</td>
                              <td>'.$gr->mistakes.'</td>
                              <td>'.format_time($gr->timeinseconds).'</td>

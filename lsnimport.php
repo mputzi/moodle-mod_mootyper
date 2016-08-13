@@ -27,7 +27,7 @@ function read_lessons_file($dafile, $authoridarg, $visiblearg, $editablearg, $co
     require_once(dirname(dirname(dirname(__FILE__))).'/config.php');
     global $DB, $CFG;
     $thefile = $CFG->dirroot."/mod/mootyper/lessons/".$dafile;
-    // Echo thefile.
+    // Echo the file.
     $record = new stdClass();
     $periodpos = strrpos($dafile, '.');
     $lessonname = substr($dafile, 0, $periodpos);
@@ -49,22 +49,23 @@ function read_lessons_file($dafile, $authoridarg, $visiblearg, $editablearg, $co
         $haha .= $thedata[$i];
     }
     $haha = trim($haha);
+    // Break lesson into separate exercises.
     $splitted = explode ('/**/' , $haha);
     for ($j = 0; $j < count($splitted); $j++) {
-        $vaja = trim($splitted[$j]);
+        $exercise = trim($splitted[$j]);
         // Saved copy of allowed characters prior to adding missing ones.
         // $allowed = array('!', '@', '#', '$', '%', '^', '&', '(', ')', '*', '_', '+', ':', ';', '"', '{', '}', '>', '<', '?', '\'', '-', '/', '=', '.', ',', ' ', '|');
         $allowed = array('\\', '~', '!', '@', '#', '$', '%', '^', '&', '(', ')', '*', '_', '+', ':', ';', '"', '{', '}', '>', '<', '?', '\'', '-', '/', '=', '.', ',', ' ', '|', '¡', '`', 'ç', 'ñ', 'º', '¿', 'ª', '·', '\n', '\r', '\r\n', '\n\r', ']', '[', '¬', '´', '`');
         $nm = "".($j + 1);
         $texttotype = "";
-        for ($k = 0; $k < strlen($vaja); $k++) {
+        for ($k = 0; $k < strlen($exercise); $k++) {
             // TODO
             // * If it is not a letter
             // * and if it is not a number
             // * compare against $allowed array.
-            // * Iif not included die
+            // * If not included die
             // * or something.
-            $ch = $vaja[$k];
+            $ch = $exercise[$k];
             if ($ch == "\n") {
                 $texttotype .= '\n';
             } else {
@@ -124,11 +125,11 @@ for ($i = 0; $i < count($res); $i++) {
             FROM {mootyper_lessons}
             WHERE lessonname = '".$lsn."'";
 
-        if ($exercise = $DB->get_record_sql($sql)) {
-            // If we have a name match, do nothing.
+        if ($importlesson = $DB->get_record_sql($sql)) {
+            // If it's true the name is already in the database, do nothing.
             echo "$lsn".get_string('lsnimportnotadd', 'mootyper').'<br>';
         } else {
-            // If we do not have a name match, then add the new lesson to the database.
+            // If it's not found in the db, then add the new lesson to the database.
             echo "<b>$lsn".get_string('lsnimportadd', 'mootyper').'</b><br>';
             read_lessons_file($fl, $USER->id, 0, 2);
             // Since we added a new lesson, make a log entry about it.
