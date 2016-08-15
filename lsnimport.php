@@ -81,6 +81,21 @@ function read_lessons_file($dafile, $authoridarg, $visiblearg, $editablearg, $co
     }
 }
 
+function add_keyboard_layout($dafile) {
+    require_once(dirname(dirname(dirname(__FILE__))).'/config.php');
+    //require_once(dirname(dirname(dirname(dirname(__FILE__)))).'/config.php');
+    global $DB, $CFG;
+    $thefile = $CFG->dirroot."/mod/mootyper/layouts/".$dafile;
+    $wwwfile = $CFG->wwwroot."/mod/mootyper/layouts/".$dafile;
+    $record = new stdClass();
+    $periodpos = strrpos($dafile, '.');
+    $layoutname = substr($dafile, 0, $periodpos);
+    $record->filepath = $thefile;
+    $record->name = $layoutname;
+    $record->jspath = substr($wwwfile, 0, strripos($wwwfile, '.')).'.js';
+    $DB->insert_record('mootyper_layouts', $record, true);
+}
+
 global $DB, $CFG, $USER;
 require_once(dirname(dirname(dirname(__FILE__))).'/config.php');
 require_once(dirname(__FILE__).'/lib.php');
@@ -107,6 +122,8 @@ $PAGE->set_cacheable(false);
 
 // Output starts here.
 echo $OUTPUT->header();
+echo '<b>'.get_string('lsnimport', 'mootyper').'</b><br><br>';
+echo '<b>'.get_string('sflesson', 'mootyper').'</b><br>';
 
 // Set pointer to lessons folder, then get all lesson names in there.
 $pth = $CFG->dirroot."/mod/mootyper/lessons";
@@ -147,7 +164,46 @@ for ($i = 0; $i < count($res); $i++) {
     }
 }
 
+echo '<br><b>'.get_string('layout', 'mootyper').'</b><br>';
+// Set pointer to keyboard layouts folder, then get all names in there.
+$pth2 = $CFG->dirroot."/mod/mootyper/layouts";
+$res2 = scandir($pth2);
+for ($j = 0; $j < count($res2); $j++) {
+    if (is_file($pth2."/".$res2[$j]) && ( substr($res2[$j], (strripos($res2[$j], '.') + 1) ) == 'php')) {
+        // Get a filename from the lessons folder.
+        $fl2 = $res2[$j];
+        // Strip away the .txt portion of the filename.
+        $periodpos = strrpos($fl2, '.');
+        $kbl = substr($fl2, 0, $periodpos);
+        // Create sql to see if lesson name is already an installed lesson.
+        $sql = "SELECT name
+            FROM {mootyper_layouts}
+            WHERE name = '".$kbl."'";
+            
+        if ($importkbl = $DB->get_record_sql($sql)) {
+            // If it's true the name is already in the database, do nothing.
+            echo "$kbl".get_string('kblimportnotadd', 'mootyper').'<br>';
+        } else {
+            // If it's not found in the db, then add the new layout to the database.
+            echo "<b>$kbl".get_string('kblimportadd', 'mootyper').'</b><br>';
+            add_keyboard_layout($fl2);
+            // Since we added a new layout, make a log entry about it.
+            $data = new StdClass();
+            $data->mootyper = $id;
+            // $context = context_module::instance($this->cm->id);
+            $context = context_course::instance($id);
+            // Trigger lesson_import event.
+            $event = \mod_mootyper\event\layout_imported::create(array(
+                'objectid' => $data->mootyper,
+                'context' => $context
+            ));
+            $event->trigger();
+        }
+        
+    }
+}
+
 $jlnk2 = $CFG->wwwroot . '/mod/mootyper/exercises.php?id='.$id;
-echo '<a href="'.$jlnk2.'">'.get_string('fcontinue', 'mootyper').'</a><br><br>';
+echo '<br><a href="'.$jlnk2.'">'.get_string('fcontinue', 'mootyper').'</a><br><br>';
 echo $OUTPUT->footer();
 return;
