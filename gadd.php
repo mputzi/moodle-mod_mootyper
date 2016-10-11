@@ -36,7 +36,9 @@ $record->timetaken = time();
 $record->exercise = $_POST['rpExercise'];
 $record->pass = 0;
 $record->attemptid = $_POST['rpAttId'];
-$record->wpm = ($record->hitsperminute / 5) - $record->mistakes;
+// Modification needed to prevent negative WPM entries.
+// $record->wpm = ($record->hitsperminute / 5) - $record->mistakes;
+$record->wpm = (max(0,(($record->hitsperminute / 5) - $record->mistakes)));
 $DB->insert_record('mootyper_grades', $record, false);
 $webdir = $CFG->wwwroot . '/course/view.php?id='.$_POST['rpCourseId'];
 header('Location: '.$webdir);
