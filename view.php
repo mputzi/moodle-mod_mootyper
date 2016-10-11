@@ -70,7 +70,7 @@ if ($mootyper->intro) {
     echo $OUTPUT->box(format_module_intro('mootyper', $mootyper, $cm->id) , 'generalbox mod_introbox', 'mootyperintro');
 }
 if ($mootyper->lesson != null) {
-    if (!(is_available($mootyper))) {  // Availability restrictions.
+    if ((!(is_available($mootyper)))&& (!(has_capability('mod/mootyper:viewgrades', $context)))) {  // Availability restrictions applied to students only.
         if ($mootyper->timeclose != 0 && time() > $mootyper->timeclose) {
             echo $mootyperoutput->mootyper_inaccessible(get_string('mootyperclosed', 'mootyper', userdate($mootyper->timeclose)));
         } else {
