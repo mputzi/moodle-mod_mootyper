@@ -41,7 +41,7 @@ $record->timetaken = time();
 $record->exercise = $_POST['rpExercise'];
 $record->pass = $passfield;
 $record->attemptid = $_POST['rpAttId'];
-$record->wpm = ($record->hitsperminute / 5) - $record->mistakes;
+$record->wpm = (max(0,(($record->hitsperminute / 5) - $record->mistakes)));
 $DB->insert_record('mootyper_grades', $record, false);
 $webdir = $CFG->wwwroot . '/mod/mootyper/view.php?n='.$_POST['rpSityperId'];
 echo '<script type="text/javascript">window.location="'.$webdir.'";</script>';
