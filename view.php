@@ -72,9 +72,9 @@ if ($mootyper->intro) {
 if ($mootyper->lesson != null) {
     if (!(is_available($mootyper))) {  // Availability restrictions.
         if ($mootyper->timeclose != 0 && time() > $mootyper->timeclose) {
-            echo $mootyperoutput->mootyper_inaccessible(get_string('mootyperclosed', 'mootyper', userdate($mootyper->timeopen)));
+            echo $mootyperoutput->mootyper_inaccessible(get_string('mootyperclosed', 'mootyper', userdate($mootyper->timeclose)));
         } else {
-            echo $mootyperoutput->mootyper_inaccessible(get_string('mootyperopen', 'mootyper', userdate($mootyper->timeclose)));
+            echo $mootyperoutput->mootyper_inaccessible(get_string('mootyperopen', 'mootyper', userdate($mootyper->timeopen)));
         }
         echo $OUTPUT->footer();
         exit();
