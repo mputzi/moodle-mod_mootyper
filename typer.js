@@ -45,7 +45,9 @@ function doKonec() {
     $('input[name="rpSpeedInput"]').val(speed);
     $('#tb1').attr('disabled', 'disabled');
     $('#btnContinue').css('visibility', 'visible');
-    var wpm = (speed / 5) - napake;
+	// Change to preven negative WPM display.
+    // var wpm = (speed / 5) - napake;
+	var wpm = (Math.max(0,((speed / 5) - napake)));
     $('#jsWpm').html(wpm.toFixed(2));
     var juri = app_url + "/mod/mootyper/atchk.php?status=3&attemptid=" + $('input[name="rpAttId"]').val();
     $.get(juri, function( data ) { });
