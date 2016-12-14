@@ -149,7 +149,7 @@ function keyPressed(e) {
         currentChar = fullText[currentPos + 1];
         currentPos++;
         return true;
-    } else if(keychar == ' ') { // I don't remember why we're having this if.
+    } else if(keychar == ' ') { // Ignore mistyped spaces.
         return false;
     } else {
         napake++;
