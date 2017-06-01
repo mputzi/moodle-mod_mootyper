@@ -23,8 +23,7 @@
  * logic, should go to locallib.php. This will help to save some memory when
  * Moodle is performing actions across all modules.
  *
- * @package    mod
- * @subpackage mootyper
+ * @package    mod_mootyper
  * @copyright  2012 Jaka Luthar (jaka.luthar@gmail.com)
  * @copyright  2016 onwards AL Rachels (drachels@drachels.com)
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later.
@@ -47,14 +46,24 @@ defined('MOODLE_INTERNAL') || die();
  */
 function mootyper_supports($feature) {
     switch ($feature) {
-        case FEATURE_MOD_INTRO:               return true;
-        case FEATURE_BACKUP_MOODLE2:          return false;
-        case FEATURE_SHOW_DESCRIPTION:        return true;
+        case FEATURE_MOD_INTRO:
+            return true;
+        case FEATURE_BACKUP_MOODLE2:
+            return true;
+        case FEATURE_SHOW_DESCRIPTION:
+            return true;
+
         default:
             return null;
     }
 }
 
+/**
+ * Get users for this MooTyper.
+ *
+ * @param int $mootyperid
+ * @return array, false if none.
+ */
 function get_users_of_one_instance($mootyperid) {
     global $DB, $CFG;
     $params = array();
@@ -71,6 +80,16 @@ function get_users_of_one_instance($mootyperid) {
     return false;
 }
 
+/**
+ * Get grades for users for this MooTyper.
+ *
+ * @param int $mootyperid
+ * @param int $exerciseid
+ * @param int $userid
+ * @param int $orderby
+ * @param int $desc
+ * @return array, false if none.
+ */
 function get_typer_grades_adv($mootyperid, $exerciseid, $userid=0, $orderby=-1, $desc=false) {
     global $DB, $CFG;
     $params = array();
@@ -138,6 +157,12 @@ function get_typer_grades_adv($mootyperid, $exerciseid, $userid=0, $orderby=-1, 
     return false;
 }
 
+/**
+ * Get averages for users for this MooTyper.
+ *
+ * @param int $grads
+ * @return array.
+ */
 function get_grades_average($grads) {
     $povprecje = array();
     $cnt = count($grads);
@@ -156,6 +181,14 @@ function get_grades_average($grads) {
     return $povprecje;
 }
 
+/**
+ * Get grades for all users.
+ *
+ * @param int $sid
+ * @param int $orderby
+ * @param int $desc
+ * @return array, false if null.
+ */
 function get_typergradesfull($sid, $orderby=-1, $desc=false) {
     global $DB, $CFG;
     $params = array();
@@ -219,6 +252,15 @@ function get_typergradesfull($sid, $orderby=-1, $desc=false) {
     return false;
 }
 
+/**
+ * Get grades for one user.
+ *
+ * @param int $sid
+ * @param int $uid
+ * @param int $orderby
+ * @param int $desc
+ * @return array, false if null.
+ */
 function get_typergradesuser($sid, $uid, $orderby=-1, $desc=false) {
     global $DB, $CFG;
     $params = array();
@@ -282,7 +324,6 @@ function get_typergradesuser($sid, $uid, $orderby=-1, $desc=false) {
     return false;
 }
 
-
 /**
  * Saves a new instance of the mootyper into the database.
  *
@@ -291,7 +332,7 @@ function get_typergradesuser($sid, $uid, $orderby=-1, $desc=false) {
  * will create a new instance and return the id number
  * of the new instance.
  *
- * @param object $mootyper An object from the form in mod_form.php
+ * @param stdClass $mootyper An object from the form in mod_form.php
  * @param mod_mootyper_mod_form $mform
  * @return int The id of the newly inserted mootyper record.
  */
@@ -301,12 +342,24 @@ function mootyper_add_instance(stdClass $mootyper, mod_mootyper_mod_form $mform 
     return $DB->insert_record('mootyper', $mootyper);
 }
 
-
+/**
+ * Gets an instance of an exercise from the database.
+ *
+ * @param object $eid An exercise id.
+ * @return int The id of the exercise.
+ */
 function get_exercise_record($eid) {
     global $DB;
     return $DB->get_record('mootyper_exercises', array('id' => $eid));
 }
 
+/**
+ * Checks to see if exam is already done.
+ *
+ * @param object $mootyper
+ * @param int $userid
+ * @return boolean.
+ */
 function exam_already_done($mootyper, $userid) {
     global $DB;
     $table = 'mootyper_grades';
@@ -318,6 +371,14 @@ function exam_already_done($mootyper, $userid) {
     return false;
 }
 
+/**
+ * Get next exercise to do.
+ *
+ * @param object $mootyperid
+ * @param int $lessonid
+ * @param int $userid
+ * @return $lessonid
+ */
 function get_exercise_from_mootyper($mootyperid, $lessonid, $userid) {
     global $DB;
     $table = 'mootyper_grades';
@@ -338,6 +399,12 @@ function get_exercise_from_mootyper($mootyperid, $lessonid, $userid) {
     }
 }
 
+/**
+ * Get a record.
+ *
+ * @param int $sid
+ * @return $sid
+ */
 function jget_mootyper_record($sid) {
     global $DB;
     return $DB->get_record('mootyper', array('id' => $sid));
@@ -349,7 +416,7 @@ function jget_mootyper_record($sid) {
  * (defined by the form in mod_form.php) this function
  * will update an existing instance with new data.
  *
- * @param object $mootyper An object from the form in mod_form.php
+ * @param stdClass $mootyper An object from the form in mod_form.php
  * @param mod_mootyper_mod_form $mform
  * @return boolean Success/Fail
  */
@@ -383,6 +450,15 @@ function mootyper_delete_instance($id) {
     return true;
 }
 
+/**
+ * Removes all checks from the database.
+ *
+ * Given an ID of an instance of this module,
+ * this function will permanently delete the instance
+ * and any data that depends on it.
+ *
+ * @param int $mid Id of the module instance
+ */
 function mootyper_delete_all_checks($mid) {
     global $DB;
     $rcs = $DB->get_records('mootyper_attempts', array('mootyperid' => $mid));
@@ -391,6 +467,15 @@ function mootyper_delete_all_checks($mid) {
     }
 }
 
+/**
+ * Removes all grades from the database.
+ *
+ * Given an ID of an instance of this module,
+ * this function will permanently delete the instance
+ * and any data that depends on it.
+ *
+ * @param int $mootyper Id of the module instance
+ */
 function mootyper_delete_all_grades($mootyper) {
     global $DB;
     $DB->delete_records('mootyper_grades', array('mootyper' => $mootyper->id));
@@ -400,6 +485,10 @@ function mootyper_delete_all_grades($mootyper) {
  * Returns a small object with summary information about what a
  * user has done with a given particular instance of this module.
  * Used for user activity reports.
+ * @param int $course
+ * @param int $user
+ * @param int $mod
+ * @param int $mootyper
  * $return->time = The time they did it.
  * $return->info = A short text description.
  *
@@ -431,6 +520,9 @@ function mootyper_user_complete($course, $user, $mod, $mootyper) {
  * that has occurred in mootyper activities and print it out.
  * Return true if there was output, or false is there was none.
  *
+ * @param int $course
+ * @param int $viewfullnames
+ * @param int $timestart
  * @return boolean
  */
 function mootyper_print_recent_activity($course, $viewfullnames, $timestart) {
@@ -554,8 +646,12 @@ function mootyper_get_recent_mod_activity(&$activities, &$index, $timestart, $co
 }
 
 /**
- * Prints single activity item prepared by {@see mootyper_get_recent_mod_activity()}.
-
+ * Prints single activity item prepared by {mootyper_get_recent_mod_activity()}.
+ * @param int $activity
+ * @param int $courseid
+ * @param int $detail
+ * @param int $modnames
+ * @param int $viewfullnames
  * @return void
  */
 function mootyper_print_recent_mod_activity($activity, $courseid, $detail, $modnames, $viewfullnames) {
@@ -592,7 +688,6 @@ function mootyper_get_participants($mootyperid) {
 /**
  * Returns all other caps used in the module.
  *
- * @example return array('moodle/site:accessallgroups');
  * @return array
  */
 function mootyper_get_extra_capabilities() {
@@ -610,6 +705,7 @@ function mootyper_get_extra_capabilities() {
  * as reference.
  *
  * @param int $mootyperid ID of an instance of this module
+ * @param int $scaleid
  * @return bool true if the scale is used by the given mootyper instance
  */
 function mootyper_scale_used($mootyperid, $scaleid) {
@@ -621,7 +717,7 @@ function mootyper_scale_used($mootyperid, $scaleid) {
  *
  * This is used to find out if scale used anywhere.
  *
- * @param $scaleid int
+ * @param int $scaleid
  * @return boolean true if the scale is used by any mootyper instance
  */
 function mootyper_scale_used_anywhere($scaleid) {
@@ -732,7 +828,7 @@ function mootyper_pluginfile($course, $cm, $context, $filearea, array $args, $fo
  * so it is safe to rely on the $PAGE.
  *
  * @param settings_navigation $settingsnav {@link settings_navigation}
- * @param navigation_node $mootypernode {@link navigation_node}
+ * @param navigation_node $navref {@link navigation_node}
  */
 function mootyper_extend_settings_navigation(settings_navigation $settingsnav, navigation_node $navref) {
     global $PAGE, $DB;

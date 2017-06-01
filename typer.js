@@ -24,7 +24,7 @@ function moveCursor(nextPos) {
 }
 
 // End of typing.
-function doKonec() {
+function doendoftypingc() {
     $('#crka' + (fullText.length - 1)).addClass('txtZeleno');
     $('#crka' + (fullText.length - 1)).removeClass('txtModro');
     $('#crka' + (fullText.length - 1)).removeClass('txtRdece');
@@ -45,9 +45,8 @@ function doKonec() {
     $('input[name="rpSpeedInput"]').val(speed);
     $('#tb1').attr('disabled', 'disabled');
     $('#btnContinue').css('visibility', 'visible');
-	// Change to preven negative WPM display.
-    // var wpm = (speed / 5) - napake;
-	var wpm = (Math.max(0,((speed / 5) - napake)));
+    // Change to prevent negative WPM display.
+    var wpm = (Math.max(0,((speed / 5) - napake)));
     $('#jsWpm').html(wpm.toFixed(2));
     var juri = app_url + "/mod/mootyper/atchk.php?status=3&attemptid=" + $('input[name="rpAttId"]').val();
     $.get(juri, function( data ) { });
@@ -125,7 +124,7 @@ function keyPressed(e) {
             $('#tb1').val($('#tb1').val() + currentChar);
             var elemOff = new keyboardElement(currentChar);
             elemOff.turnOff();
-            doKonec();
+            doendoftypingc();
             return true;
         }
 
@@ -149,11 +148,30 @@ function keyPressed(e) {
         currentChar = fullText[currentPos + 1];
         currentPos++;
         return true;
-    } else if(keychar == ' ') { // I don't remember why we're having this if.
+    } else if(keychar == ' ') { // Ignore mistyped spaces.
         return false;
     } else {
-        napake++;
-        return false;
+        napake++;    // Increment mistake count.
+        if (currentPos < fullText.length - 1) {
+            var nextChar = fullText[currentPos + 1];
+            if (show_keyboard) {
+                var thisE = new keyboardElement(currentChar);
+                thisE.turnOff();
+                if (isCombined(nextChar) && (thisE.shift || thisE.alt || thisE.pow || thisE.uppercase_umlaut)) {
+                    combinedCharWait = true;
+                }
+                var nextE = new keyboardElement(nextChar);
+                nextE.turnOn();
+            }
+            if (isCombined(nextChar)) {
+                $("#form1").off("keypress", "#tb1", keyPressed);
+                $("#form1").on("keyup", "#tb1", keyupFirst);
+            }
+        }
+        moveCursor(currentPos + 1);
+        currentChar = fullText[currentPos + 1];
+        currentPos++;
+        return true;
     }
 }
 

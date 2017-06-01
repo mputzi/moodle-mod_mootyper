@@ -20,16 +20,17 @@
  * You can have a rather longer description of the file as well,
  * if you like, and it can span multiple lines.
  *
- * @package    mod
- * @subpackage mootyper
+ * @package    mod_mootyper
  * @copyright  2012 Jaka Luthar (jaka.luthar@gmail.com)
  * @copyright  2016 onwards AL Rachels (drachels@drachels.com)
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later.
  */
-global $USER, $CFG, $THEME;
+
 require_once(dirname(dirname(dirname(__FILE__))) . '/config.php');
 require_once(dirname(__FILE__) . '/lib.php');
 require_once(dirname(__FILE__) . '/locallib.php');
+
+global $USER, $CFG, $THEME;
 
 $id = optional_param('id', 0, PARAM_INT); // Course_module ID, or
 $n = optional_param('n', 0, PARAM_INT); // Mootyper instance ID - it should be named as the first character of the module.
@@ -57,20 +58,19 @@ if ($backtocourse) {
 $PAGE->set_url('/mod/mootyper/view.php', array('id' => $cm->id));
 
 $context = context_module::instance($cm->id);
-// $canmanage = has_capability('mod/mootyper:setup', $context);
 
 $mootyperoutput = $PAGE->get_renderer('mod_mootyper');
 
 // Output starts here.
 echo $mootyperoutput->header($mootyper, $cm);
-// echo $mootyperoutput->header($mootyper, $cm, get_string('notavailable', 'mootyper'));
 echo '<script src="//code.jquery.com/jquery-1.11.0.min.js"></script>';
 
 if ($mootyper->intro) {
     echo $OUTPUT->box(format_module_intro('mootyper', $mootyper, $cm->id) , 'generalbox mod_introbox', 'mootyperintro');
 }
 if ($mootyper->lesson != null) {
-    if ((!(is_available($mootyper)))&& (!(has_capability('mod/mootyper:viewgrades', $context)))) {  // Availability restrictions applied to students only.
+    // Availability restrictions applied to students only.
+    if ((!(is_available($mootyper)))&& (!(has_capability('mod/mootyper:viewgrades', $context)))) {
         if ($mootyper->timeclose != 0 && time() > $mootyper->timeclose) {
             echo $mootyperoutput->mootyper_inaccessible(get_string('mootyperclosed', 'mootyper', userdate($mootyper->timeclose)));
         } else {
@@ -80,7 +80,8 @@ if ($mootyper->lesson != null) {
         exit();
     } else if ($mootyper->usepassword && empty($USER->mootyperloggedin[$mootyper->id])) { // Password protected mootyper code.
         $correctpass = false;
-        if (!empty($userpassword) && (($mootyper->password == md5(trim($userpassword))) || ($mootyper->password == trim($userpassword)))) {
+        if (!empty($userpassword) && (($mootyper->password == md5(trim($userpassword))) ||
+            ($mootyper->password == trim($userpassword)))) {
             require_sesskey();
             // With or without md5 for backward compatibility (MDL-11090).
             $correctpass = true;
@@ -98,7 +99,6 @@ if ($mootyper->lesson != null) {
             }
         }
         if (!$correctpass) {
-            // echo $mootyperoutput->header($mootyper, $cm, get_string('passwordprotectedlesson', 'mootyper', format_string($mootyper->name)));
             echo $mootyperoutput->login_prompt($mootyper, $userpassword !== '');
             echo $mootyperoutput->footer();
             exit();
@@ -135,9 +135,6 @@ if ($mootyper->lesson != null) {
             echo '<a href="' . $jlnk7 . '">' . get_string('viewmygrades', 'mootyper') . '</a><br /><br />';
         }
     } else if ($exercise != false) {
-        // I commented out the next line after changing filename to styles.css which
-        // automatically then gets loaded by Moodle. Leaving it here for the time being.
-        // echo '<link rel="stylesheet" type="text/css" href="style.css">';
         if ($mootyper->showkeyboard) {
             $displaynone = false;
         } else {
@@ -264,9 +261,12 @@ if ($mootyper->lesson != null) {
 
         $record = get_last_check($mootyper->id);
         if (is_null($record)) {
-            echo '<script type="text/javascript">inittexttoenter("' . $texttoinit . '", 0, 0, 0, 0, 0, "' . $CFG->wwwroot . '", ' . $mootyper->showkeyboard . ');</script>';
+            echo '<script type="text/javascript">inittexttoenter("' . $texttoinit . '", 0, 0, 0, 0, 0, "' .
+                $CFG->wwwroot . '", ' . $mootyper->showkeyboard . ');</script>';
         } else {
-            echo '<script type="text/javascript">inittexttoenter("' . $texttoinit . '", 1, ' . $record->mistakes . ', ' . $record->hits . ', ' . $record->timetaken . ', ' . $record->attemptid . ', "' . $CFG->wwwroot . '", ' . $mootyper->showkeyboard . ');</script>';
+            echo '<script type="text/javascript">inittexttoenter("' . $texttoinit . '", 1, ' . $record->mistakes . ', ' .
+                $record->hits . ', ' . $record->timetaken . ', ' . $record->attemptid . ', "' . $CFG->wwwroot . '", ' .
+                $mootyper->showkeyboard . ');</script>';
         }
     } else {
         echo get_string('endlesson', 'mootyper');

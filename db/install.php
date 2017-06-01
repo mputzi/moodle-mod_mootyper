@@ -15,15 +15,19 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * This file replaces the legacy STATEMENTS section in db/install.xml,
- * lib.php/modulename_install() post installation hook and partially defaults.php
+ * This file replaces the legacy STATEMENTS section in:
  *
- * @package    mod
- * @subpackage mootyper
+ * db/install.xml,
+ * lib.php/modulename_install()
+ * post installation hook and partially defaults.php
+ *
+ * @package    mod_mootyper
  * @copyright  2012 Jaka Luthar (jaka.luthar@gmail.com)
  * @copyright  2016 onwards AL Rachels (drachels@drachels.com)
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later.
  */
+
+defined('MOODLE_INTERNAL') || die;
 
 /**
  * Post installation procedure.
@@ -37,7 +41,7 @@ function xmldb_mootyper_install() {
     $res = scandir($pth);
     for ($i = 0; $i < count($res); $i++) {
         if (is_file($pth."/".$res[$i])) {
-            $fl = $res[$i]; // Argument list ($daFile, $authorid_arg, $visible_arg, $editable_arg, $course_arg).
+            $fl = $res[$i]; // Argument list daFile, authorid_arg, visible_arg, editable_arg, course_arg.
             read_lessons_file($fl, $USER->id, 0, 2);
         }
     }
@@ -51,6 +55,11 @@ function xmldb_mootyper_install() {
     }
 }
 
+/**
+ * Install keyboard layouts into the database.
+ *
+ * @param string $dafile
+ */
 function add_keyboard_layout($dafile) {
     require_once(dirname(dirname(dirname(dirname(__FILE__)))).'/config.php');
     global $DB, $CFG;
@@ -65,6 +74,15 @@ function add_keyboard_layout($dafile) {
     $DB->insert_record('mootyper_layouts', $record, true);
 }
 
+/**
+ * Read lesson file and add into the database.
+ *
+ * @param string $dafile
+ * @param int $authoridarg
+ * @param int $visiblearg
+ * @param int $editablearg
+ * @param int $coursearg
+ */
 function read_lessons_file($dafile, $authoridarg, $visiblearg, $editablearg, $coursearg=null) {
     require_once(dirname(dirname(dirname(dirname(__FILE__)))).'/config.php');
     global $DB, $CFG;
@@ -93,8 +111,6 @@ function read_lessons_file($dafile, $authoridarg, $visiblearg, $editablearg, $co
     $splitted = explode ('/**/' , $haha);
     for ($j = 0; $j < count($splitted); $j++) {
         $vaja = trim($splitted[$j]);
-        // Saved copy of allowed characters prior to adding missing ones.
-        // $allowed = array('!', '@', '#', '$', '%', '^', '&', '(', ')', '*', '_', '+', ':', ';', '"', '{', '}', '>', '<', '?', '\'', '-', '/', '=', '.', ',', ' ', '|');
         $allowed = array('\\', '~', '!', '@', '#', '$', '%', '^', '&', '(', ')', '*', '_', '+', ':', ';', '"', '{', '}', '>', '<', '?', '\'', '-', '/', '=', '.', ',', ' ', '|', '¡', '`', 'ç', 'ñ', 'º', '¿', 'ª', '·', '\n', '\r', '\r\n', '\n\r', ']', '[', '¬', '´', '`');
         $nm = "".($j + 1);
         $texttotype = "";

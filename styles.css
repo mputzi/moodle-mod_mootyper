@@ -18,9 +18,7 @@
 /**
  * This is the css style sheet for MooTyper.
  *
- *
- * @package    mod
- * @subpackage mootyper
+ * @package    mod_mootyper
  * @copyright  2012 Jaka Luthar (jaka.luthar@gmail.com), Luka Pralica (pehtran@gmail.com)
  * @copyright  2016 onwards AL Rachels (drachels@drachels.com)
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later.
@@ -438,7 +436,7 @@ vertical-align: middle;
     margin: 0px 5px 0px 5x;
     background: #757500;
     color: #fff;
-    -webkit-border-radšius: 4px;
+    -webkit-border-radius: 4px;
     -moz-border-radius: 4px;
     border-radius: 4px;
     border: solid 1px #353500;

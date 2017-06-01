@@ -15,17 +15,14 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * This file is used to remove an exercise from a category.
+ * This file is used to remove all exercises from a category/lesson.
  *
- * You can have a rather longer description of the file as well,
- * if you like, and it can span multiple lines.
- *
- * @package    mod
- * @subpackage mootyper
+ * @package    mod_mootyper
  * @copyright  2011 Jaka Luthar (jaka.luthar@gmail.com)
  * @copyright  2016 onwards AL Rachels (drachels@drachels.com
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later.
  */
+
 require_once(dirname(dirname(dirname(__FILE__))).'/config.php');
 
 global $DB;

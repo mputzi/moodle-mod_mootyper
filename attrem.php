@@ -15,10 +15,12 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * This file is used to remove a student attempt. Called from gview.php (View All Grades).
+ * This file is used to remove the results of a student attempt.
  *
- * @package    mod
- * @subpackage mootyper
+ * This sub-module is called from gview.php (View All Grades).
+ * Currently it does NOT include an Are you sure check before it removes.
+ *
+ * @package    mod_mootyper
  * @copyright  2011 Jaka Luthar (jaka.luthar@gmail.com)
  * @copyright  2016 onwards AL Rachels (drachels@drachels.com)
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later.

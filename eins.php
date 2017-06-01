@@ -15,19 +15,21 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * This is is used to add a new exercise/category.
+ * This is is used to add a new lesson/category.
  *
- * @package    mod
- * @subpackage mootyper
+ * Settings for category name, visibility and who can edit the exercise, are included.
+ *
+ * @package    mod_mootyper
  * @copyright  2011 Jaka Luthar (jaka.luthar@gmail.com)
  * @copyright  2016 onwards AL Rachels (drachels@drachels.com)
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later.
  **/
 
-global $USER, $DB;
 require_once(dirname(dirname(dirname(__FILE__))).'/config.php');
 require_once(dirname(__FILE__).'/lib.php');
 require_once(dirname(__FILE__).'/locallib.php');
+
+global $USER, $DB;
 
 $id = optional_param('id', 0, PARAM_INT); // Course_module ID, or
 // $n = optional_param('n', 0, PARAM_INT); // Mootyper instance ID - it should be named as the first character of the module.

@@ -24,12 +24,19 @@
 
 defined('MOODLE_INTERNAL') || die();
 
+/**
+ * A custom renderer class that extends the plugin_renderer_base and is used by the mootyper module.
+ *
+ * @package mod_mootyper
+ * @copyright  2016 AL Rachels (drachels@drachels.com)
+ * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ */
 class mod_mootyper_renderer extends plugin_renderer_base {
     /**
      * Returns the header for the mootyper module.
      *
      * @param mootyper $mootyper a mootyper object.
-     * @param int    $mootyperpageid id of the mootyper page that needs to be displayed.
+     * @param int $cm id of the mootyper course module that needs to be displayed.
      * @param string $extrapagetitle String to append to the page title.
      * @return string.
      */

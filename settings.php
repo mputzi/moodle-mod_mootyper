@@ -17,8 +17,7 @@
 /**
  * Administration settings definitions for the quiz module.
  *
- * @package    mod
- * @subpackage mootyper
+ * @package    mod_mootyper
  * @copyright  2012 Jaka Luthar (jaka.luthar@gmail.com)
  * @copyright  2016 onwards AL Rachels (drachels@drachels.com)
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later.
@@ -46,6 +45,20 @@ if ($ADMIN->fulltree) {
         get_string('password', 'mootyper'), get_string('configpassword_desc', 'mootyper'),
         array('value' => 0, 'adv' => true)));
 
+    // Options settings.
+    $settings->add(new admin_setting_heading('mod_mootyper/options', get_string('options', 'mootyper'), ''));
+
+    // Default typing precision.
+    $precs = array();
+    for ($i = 0; $i <= 100; $i++) {
+        $precs[] = $i;
+    }
+    $settings->add(new admin_setting_configselect(
+    'mod_mootyper/defaultprecision',
+        get_string('defaultprecision', 'mootyper'),
+        '', 97, $precs)
+    );
+
     // Lesson export settings.
     $settings->add(new admin_setting_heading('mod_mootyper/lesson_export', get_string('lesson_export', 'mootyper'), ''));
 
@@ -68,16 +81,7 @@ if ($ADMIN->fulltree) {
         '', 1, $layouts)
     );
 
-    // Default typing precision.
-    $precs = array();
-    for ($i = 0; $i <= 100; $i++) {
-        $precs[] = $i;
-    }
-    $settings->add(new admin_setting_configselect(
-    'mod_mootyper/defaultprecision',
-        get_string('defaultprecision', 'mootyper'),
-        '', 97, $precs)
-    );
+
 
     // Date format setting.
     $settings->add(new admin_setting_configtext(

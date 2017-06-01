@@ -16,21 +16,19 @@
 
 
 /**
- * Code fragment to define the version of mootyper.
- * This fragment is called by moodle_needs_upgrading() and /admin/index.php
+ * Version information.
  *
- * @package    mod
- * @subpackage mootyper
+ * @package    mod_mootyper
  * @copyright  2012 Jaka Luthar (jaka.luthar@gmail.com)
- * @copyfight  2016 onwards AL Rachels (drachels@drachels.com)
+ * @copyright  2016 onwards AL Rachels (drachels@drachels.com)
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
 defined('MOODLE_INTERNAL') || die();
 
-$plugin->version   = 2016101101;     // The current module version (Date: YYYYMMDDXX).
+$plugin->version   = 2017060100;     // The current module version (Date: YYYYMMDDXX).
 $plugin->requires  = 2015051100;     // Requires Moodle v2.9.
 $plugin->cron      = 60;             // Period for cron to check this module (secs).
 $plugin->component = 'mod_mootyper';
-$plugin->maturity  = MATURITY_STABLE;
-$plugin->release   = '3.1.3 (Build: 2016101101)';
+$plugin->maturity  = MATURITY_BETA;
+$plugin->release   = '3.1.4 (Build: 2017060100)';

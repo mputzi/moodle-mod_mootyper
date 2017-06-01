@@ -26,6 +26,19 @@ namespace mod_mootyper\event;
 
 defined('MOODLE_INTERNAL') || die();
 
+/**
+ * The mod_mootyper exercises viewed event class.
+ *
+ * @property-read array $other {
+ *      Extra information about the event.
+ *
+ *      - int mootyperid: the id of the mootyper.
+ * }
+ *
+ * @package    mod_mootyper
+ * @copyright  2016 AL Rachels drachels@drachels.com
+ * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ */
 class course_exercises_viewed extends \core\event\base {
 
     /**
