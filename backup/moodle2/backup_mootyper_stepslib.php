@@ -121,8 +121,9 @@ class backup_mootyper_activity_structure_step extends backup_activity_structure_
         $mootyper->add_child($checks);
         $checks->add_child($check);
 
-        $mootyper->add_child($exercises);
-        $exercises->add_child($exercise);
+        // Not needed I think.
+        //$mootyper->add_child($exercises);
+        //$exercises->add_child($exercise);
 
         $mootyper->add_child($grades);
         $grades->add_child($grade);
@@ -135,21 +136,27 @@ class backup_mootyper_activity_structure_step extends backup_activity_structure_
 
         // Define sources.
         $mootyper->set_source_table('mootyper', array('id' => backup::VAR_ACTIVITYID));
+        // Not working and NOT needed I think.
         // $mootyper->set_source_table('mootyper_layouts', array('id' => backup::VAR_ACTIVITYID));
         // $mootyper->set_source_table('mootyper_layouts', array('id' => backup::VAR_PARENTID));
 
         // All the rest of elements only happen if we are including user info.
         if ($userinfo) {
-            $attempt->set_source_table('mootyper_attempts', array('mootyper' => backup::VAR_PARENTID));
-            $check->set_source_table('mootyper_checks', array('mootyper' => backup::VAR_PARENTID));
+            // Appears to be okay but NOT needed I think.
+            //$attempt->set_source_table('mootyper_attempts', array('mootyperid' => backup::VAR_PARENTID));
+            // Appears to be okay but NOT needed I think.
+            //$check->set_source_table('mootyper_checks', array('attemptid' => backup::VAR_PARENTID));
             $grade->set_source_table('mootyper_grades', array('mootyper' => backup::VAR_PARENTID));
-            $lesson->set_source_table('mootyper_lessons', array('mootyper' => backup::VAR_PARENTID));
+            // Appears to be okay but NOT needed I think.
+            //$lesson->set_source_table('mootyper_lessons', array('lessonname' => backup::VAR_PARENTID));
         }
 
         // Define id annotations.
-        $attempt->annotate_ids('mootyperid', 'mootyperid');
-        $attempt->annotate_ids('user', 'userid');
-        $check->annotate_ids('attempts', 'attemptid');
+        // Appears to be okay but NOT needed I think.
+        //$attempt->annotate_ids('mootyperid', 'mootyperid');
+        // Appears to be okay but NOT needed I think.
+        //$attempt->annotate_ids('user', 'userid');
+        //$check->annotate_ids('attempts', 'attemptid');
         $grade->annotate_ids('mootyper', 'mootyper');
         $grade->annotate_ids('user', 'userid');
         //$lesson->annotate_ids('user', 'authorid');
