@@ -29,6 +29,12 @@
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later.
  */
 
+require_once(dirname(dirname(dirname(__FILE__))).'/config.php');
+require_once(dirname(__FILE__).'/lib.php');
+require_once(dirname(__FILE__).'/locallib.php');
+
+global $DB, $CFG, $USER;
+
 /**
  * Define the lesson import function.
  * @param string $dafile
@@ -37,13 +43,6 @@
  * @param int $editablearg
  * @param int $coursearg
  */
-
-require_once(dirname(dirname(dirname(__FILE__))).'/config.php');
-require_once(dirname(__FILE__).'/lib.php');
-require_once(dirname(__FILE__).'/locallib.php');
-
-global $DB, $CFG, $USER;
-
 function read_lessons_file($dafile, $authoridarg, $visiblearg, $editablearg, $coursearg=null) {
     $thefile = $CFG->dirroot."/mod/mootyper/lessons/".$dafile;
     // Echo the file.

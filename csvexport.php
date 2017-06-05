@@ -22,7 +22,10 @@
  * @copyright  2016 onwards AL Rachels (drachels@drachels.com)
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later.
  */
-
+require_once(dirname(dirname(dirname(__FILE__))).'/config.php');
+require_once(dirname(__FILE__).'/lib.php');
+require_once(dirname(__FILE__).'/locallib.php');
+require_login($course, true, $cm);
 /**
  * The function for exporting results data from this MooTyper.
  *
@@ -31,11 +34,6 @@
  * @param string $delimiter
  * @return array, false if none.
  */
-
-require_once(dirname(dirname(dirname(__FILE__))).'/config.php');
-require_once(dirname(__FILE__).'/lib.php');
-require_once(dirname(__FILE__).'/locallib.php');
-
 function array_to_csv_download($array, $filename = "export.csv", $delimiter=";") {
     header('Content-Type: application/csv');
     header('Content-Disposition: attachement; filename="'.$filename.'";');

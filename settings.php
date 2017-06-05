@@ -59,6 +59,11 @@ if ($ADMIN->fulltree) {
         '', 97, $precs)
     );
 
+    // Default continuous typing setting.
+        $settings->add(new admin_setting_configcheckbox_with_advanced('mod_mootyper/continuoustype',
+        get_string('continuoustype', 'mootyper'), get_string('continuoustype_help', 'mootyper'),
+        array('value' => 0, 'adv' => true)));
+
     // Lesson export settings.
     $settings->add(new admin_setting_heading('mod_mootyper/lesson_export', get_string('lesson_export', 'mootyper'), ''));
 

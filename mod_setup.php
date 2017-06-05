@@ -54,8 +54,12 @@ $modepo = optional_param('mode', $mootyper->isexam, PARAM_INT);
 $exercisepo = optional_param('exercise', $mootyper->exercise, PARAM_INT);
 $lessonpo = optional_param('lesson', $mootyper->lesson, PARAM_INT);
 $showkeyboardpo = optional_param('showkeyboard', "off", PARAM_CLEAN);
+$continuoustypepo = optional_param('continuoustype', "off", PARAM_CLEAN);
 if (empty($_POST)) {
     $showkeyboardpo = $mootyper->showkeyboard == 1 ? "on" : "off";
+}
+if (empty($_POST)) {
+    $continuoustypepo = $mootyper->continuoustype == 1 ? "on" : "off";
 }
 if ($mootyper->layout == null || is_null($mootyper->layout)) {
     $dfly = $moocfg->defaultlayout;
@@ -86,10 +90,12 @@ if (isset($param1) && get_string('fconfirm', 'mootyper') == $param1) {
     $layoutpo = optional_param('layout', 0, PARAM_INT);
 
     $showkeyboardpo = optional_param('showkeyboard', null, PARAM_CLEAN);
+    $continuoustypepo = optional_param('continuoustype', null, PARAM_CLEAN);
     global $DB, $CFG;
     $mootyper  = $DB->get_record('mootyper', array('id' => $n), '*', MUST_EXIST);
     $mootyper->lesson = $lessonpo;
     $mootyper->showkeyboard = $showkeyboardpo == 'on';
+    $mootyper->continuoustype = $continuoustypepo == 'on';
     $mootyper->layout = $layoutpo;
     $mootyper->isexam = $modepo;
     $mootyper->requiredgoal = $goalpo;
@@ -175,6 +181,9 @@ if ($modepo == 0 || is_null($modepo)) {
 $htmlout .= '<tr><td>'.get_string('showkeyboard', 'mootyper').'</td><td>';
 $showkeyboardchecked = $showkeyboardpo == 'on' ? ' checked="checked"' : '';
 $htmlout .= '<input type="checkbox"'.$showkeyboardchecked.' onchange="this.form.submit()" name="showkeyboard">';
+$htmlout .= '<tr><td>'.get_string('continuoustype', 'mootyper').'</td><td>';
+$continuoustypechecked = $continuoustypepo == 'on' ? ' checked="checked"' : '';
+$htmlout .= '<input type="checkbox"'.$continuoustypechecked.' onchange="this.form.submit()" name="continuoustype">';
 $layouts = get_keyboard_layouts_db();
 
 $deflayout = $moocfg->defaultlayout;

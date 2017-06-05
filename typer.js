@@ -11,6 +11,7 @@ var interval2ID = -1;
 var app_url;
 var show_keyboard;
 var THE_LAYOUT;
+var continuous_type;
 
 function moveCursor(nextPos) {
     if(nextPos > 0 && nextPos <= fullText.length) {
@@ -24,7 +25,7 @@ function moveCursor(nextPos) {
 }
 
 // End of typing.
-function doendoftypingc() {
+function doKonec() {
     $('#crka' + (fullText.length - 1)).addClass('txtZeleno');
     $('#crka' + (fullText.length - 1)).removeClass('txtModro');
     $('#crka' + (fullText.length - 1)).removeClass('txtRdece');
@@ -45,8 +46,7 @@ function doendoftypingc() {
     $('input[name="rpSpeedInput"]').val(speed);
     $('#tb1').attr('disabled', 'disabled');
     $('#btnContinue').css('visibility', 'visible');
-    // Change to prevent negative WPM display.
-    var wpm = (Math.max(0,((speed / 5) - napake)));
+    var wpm = (speed / 5) - napake;
     $('#jsWpm').html(wpm.toFixed(2));
     var juri = app_url + "/mod/mootyper/atchk.php?status=3&attemptid=" + $('input[name="rpAttId"]').val();
     $.get(juri, function( data ) { });
@@ -124,7 +124,7 @@ function keyPressed(e) {
             $('#tb1').val($('#tb1').val() + currentChar);
             var elemOff = new keyboardElement(currentChar);
             elemOff.turnOff();
-            doendoftypingc();
+            doKonec();
             return true;
         }
 
@@ -148,20 +148,22 @@ function keyPressed(e) {
         currentChar = fullText[currentPos + 1];
         currentPos++;
         return true;
-    } else if(keychar == ' ') { // Ignore mistyped spaces.
+    } else if(keychar == ' ') { // Ignore mistyped extra spaces.
         return false;
     } else {
-        napake++;    // Increment mistake count.
-        if (currentPos < fullText.length - 1) {
-            var nextChar = fullText[currentPos + 1];
+        napake++; // Typed the wrong letter so increment mistake count.
+        if (!continuous_type) { // If not set for continuous typing, wait for correct letter.
+            return false;
+        } else if (currentPos < fullText.length - 1) { // If continuous typing, show wrong letter and move on.
+                var nextChar = fullText[currentPos + 1];
             if (show_keyboard) {
-                var thisE = new keyboardElement(currentChar);
-                thisE.turnOff();
+                    var thisE = new keyboardElement(currentChar);
+                    thisE.turnOff();
                 if (isCombined(nextChar) && (thisE.shift || thisE.alt || thisE.pow || thisE.uppercase_umlaut)) {
-                    combinedCharWait = true;
+                        combinedCharWait = true;
                 }
-                var nextE = new keyboardElement(nextChar);
-                nextE.turnOn();
+                    var nextE = new keyboardElement(nextChar);
+                    nextE.turnOn();
             }
             if (isCombined(nextChar)) {
                 $("#form1").off("keypress", "#tb1", keyPressed);
@@ -204,9 +206,10 @@ function timeRazlika(t1, t2) {
     return new Date(yrs, mnth, dys, ure, minute, secunde, 0);
 }
 
-function inittexttoenter(ttext, tinprogress, tmistakes, thits, tstarttime, tattemptid, turl, tshowkeyboard) {
+function inittexttoenter(ttext, tinprogress, tmistakes, thits, tstarttime, tattemptid, turl, tshowkeyboard, tcontinuoustype) {
     $("#form1").on("keypress", "#tb1", keyPressed);
     show_keyboard = tshowkeyboard;
+    continuous_type = tcontinuoustype;
     fullText = ttext;
     app_url = turl;
     var tempStr = "";
