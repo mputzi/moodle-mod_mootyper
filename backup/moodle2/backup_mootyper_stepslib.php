@@ -26,8 +26,11 @@ defined('MOODLE_INTERNAL') || die();
 
 /**
  * Define the complete mootyper structure for backup, with file and id annotations
+ *
+ * @package mod_mootyper
+ * @copyright 2016 onwards AL Rachels (drachels@drachels.co9m)
+ * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-
 class backup_mootyper_activity_structure_step extends backup_activity_structure_step {
 
     /**
@@ -55,7 +58,8 @@ class backup_mootyper_activity_structure_step extends backup_activity_structure_
                                               'isexam',
                                               'requiredgoal',
                                               'layout',
-                                              'showkeyboard'));
+                                              'showkeyboard',
+                                              'continuoustype'));
 
         $attempts = new backup_nested_element('attempts');
 
@@ -122,8 +126,8 @@ class backup_mootyper_activity_structure_step extends backup_activity_structure_
         $checks->add_child($check);
 
         // Not needed I think.
-        //$mootyper->add_child($exercises);
-        //$exercises->add_child($exercise);
+        // $mootyper->add_child($exercises);
+        // $exercises->add_child($exercise);
 
         $mootyper->add_child($grades);
         $grades->add_child($grade);
@@ -143,23 +147,23 @@ class backup_mootyper_activity_structure_step extends backup_activity_structure_
         // All the rest of elements only happen if we are including user info.
         if ($userinfo) {
             // Appears to be okay but NOT needed I think.
-            //$attempt->set_source_table('mootyper_attempts', array('mootyperid' => backup::VAR_PARENTID));
+            // $attempt->set_source_table('mootyper_attempts', array('mootyperid' => backup::VAR_PARENTID));
             // Appears to be okay but NOT needed I think.
-            //$check->set_source_table('mootyper_checks', array('attemptid' => backup::VAR_PARENTID));
+            // $check->set_source_table('mootyper_checks', array('attemptid' => backup::VAR_PARENTID));
             $grade->set_source_table('mootyper_grades', array('mootyper' => backup::VAR_PARENTID));
             // Appears to be okay but NOT needed I think.
-            //$lesson->set_source_table('mootyper_lessons', array('lessonname' => backup::VAR_PARENTID));
+            // $lesson->set_source_table('mootyper_lessons', array('lessonname' => backup::VAR_PARENTID));
         }
 
         // Define id annotations.
         // Appears to be okay but NOT needed I think.
-        //$attempt->annotate_ids('mootyperid', 'mootyperid');
+        // $attempt->annotate_ids('mootyperid', 'mootyperid');
         // Appears to be okay but NOT needed I think.
-        //$attempt->annotate_ids('user', 'userid');
-        //$check->annotate_ids('attempts', 'attemptid');
+        // $attempt->annotate_ids('user', 'userid');
+        // $check->annotate_ids('attempts', 'attemptid');
         $grade->annotate_ids('mootyper', 'mootyper');
         $grade->annotate_ids('user', 'userid');
-        //$lesson->annotate_ids('user', 'authorid');
+        // $lesson->annotate_ids('user', 'authorid');
 
         // Define file annotations.
         // These file areas don't have an itemid.

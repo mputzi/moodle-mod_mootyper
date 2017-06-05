@@ -28,8 +28,11 @@ require_once($CFG->dirroot . '/mod/mootyper/backup/moodle2/backup_mootyper_steps
 // require_once($CFG->dirroot . '/mod/mootyper/backup/moodle2/backup_mootyper_settingslib.php'); // Because it exists (optional).
 
 /**
- * Mootyper backup task that provides all the settings and steps to perform one
- * complete backup of the activity.
+ * Mootyper backup task that provides all the settings and steps to perform one complete backup of the activity.
+ *
+ * @package mod_mootyper
+ * @copyright 2016 onwards AL Rachels (drachels@drachels.com).
+ * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later.
  */
 class backup_mootyper_activity_task extends backup_activity_task {
 
