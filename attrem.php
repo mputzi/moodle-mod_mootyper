@@ -27,7 +27,7 @@
  */
 
 require_once(dirname(dirname(dirname(__FILE__))).'/config.php');
-
+require_login($course, true, $cm);
 global $DB;
 
 if (isset($_GET['g'])) {

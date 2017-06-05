@@ -28,7 +28,7 @@ global $DB;
 
 require_once(dirname(dirname(dirname(__FILE__))).'/config.php');
 require_once(dirname(__FILE__).'/locallib.php');
-
+require_login($course, true, $cm);
 $record = new stdClass();
 $st = $_GET['status'];
 if ($st == 1) {

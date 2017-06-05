@@ -24,7 +24,7 @@
  */
 
 require_once(dirname(dirname(dirname(__FILE__))).'/config.php');
-
+require_login($course, true, $cm);
 global $DB;
 
 $id = optional_param('id', 0, PARAM_INT); // Course_module ID.
