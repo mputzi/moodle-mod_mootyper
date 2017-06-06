@@ -27,7 +27,7 @@ require_once(dirname(dirname(dirname(__FILE__))).'/config.php');
 require_once(dirname(__FILE__).'/locallib.php');
 
 global $DB;
-
+require_login($course, true, $cm);
 if ($_POST['rpAccInput'] >= $_POST['rpGoal']) {
     $passfield = 1;
 } else {

@@ -36,8 +36,8 @@ defined('MOODLE_INTERNAL') || die;
  */
 function xmldb_mootyper_install() {
     require_once(dirname(dirname(dirname(dirname(__FILE__)))).'/config.php');
-    require_login($course, true, $cm);
     global $CFG, $USER;
+    require_login(0, true, null, false);
     $pth = $CFG->dirroot."/mod/mootyper/lessons";
     $res = scandir($pth);
     for ($i = 0; $i < count($res); $i++) {
@@ -112,7 +112,9 @@ function read_lessons_file($dafile, $authoridarg, $visiblearg, $editablearg, $co
     $splitted = explode ('/**/' , $haha);
     for ($j = 0; $j < count($splitted); $j++) {
         $vaja = trim($splitted[$j]);
-        $allowed = array('\\', '~', '!', '@', '#', '$', '%', '^', '&', '(', ')', '*', '_', '+', ':', ';', '"', '{', '}', '>', '<', '?', '\'', '-', '/', '=', '.', ',', ' ', '|', '¡', '`', 'ç', 'ñ', 'º', '¿', 'ª', '·', '\n', '\r', '\r\n', '\n\r', ']', '[', '¬', '´', '`');
+        $allowed = array('\\', '~', '!', '@', '#', '$', '%', '^', '&', '(', ')', '*', '_',
+        '+', ':', ';', '"', '{', '}', '>', '<', '?', '\'', '-', '/', '=', '.', ',', ' ',
+        '|', '¡', '`', 'ç', 'ñ', 'º', '¿', 'ª', '·', '\n', '\r', '\r\n', '\n\r', ']', '[', '¬', '´', '`');
         $nm = "".($j + 1);
         $texttotype = "";
         for ($k = 0; $k < strlen($vaja); $k++) {
