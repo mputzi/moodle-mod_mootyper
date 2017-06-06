@@ -49,12 +49,7 @@ class restore_mootyper_activity_structure_step extends restore_activity_structur
         // Define each element separated.
         $paths[] = new restore_path_element('mootyper', '/activity/mootyper');
         if ($userinfo) {
-            // $paths[] = new restore_path_element('mootyper_attempt', '/activity/mootyper/attempts/attempt');
-            // $paths[] = new restore_path_element('mootyper_check', '/activity/mootyper/checks/check');
-            // $paths[] = new restore_path_element('mootyper_exercise', '/activity/mootyper/exercises/exercise');
             $paths[] = new restore_path_element('mootyper_grade', '/activity/mootyper/grades/grade');
-            // $paths[] = new restore_path_element('mootyper_layout', '/activity/mootyper/layouts/layout');
-            // $paths[] = new restore_path_element('mootyper_lesson', '/activity/mootyper/lessons/lesson');
         }
 
         // Return the paths wrapped into standard activity structure.
@@ -117,8 +112,6 @@ class restore_mootyper_activity_structure_step extends restore_activity_structur
         $data->endtime = $this->apply_date_offset($data->endtime);
 
         $newitemid = $DB->insert_record('mootyper_checks', $data);
-        // No need to save this mapping as far as nothing depend on it
-        // (child paths, file areas nor links decoder).
     }
 
     /**
@@ -134,7 +127,6 @@ class restore_mootyper_activity_structure_step extends restore_activity_structur
 
         $data->mootyper = $this->get_new_parentid('mootyper');
         $data->userid = $this->get_mappingid('user', $data->userid);
-        // $data->time = $this->apply_date_offset($data->time);
         $data->timetaken = $this->apply_date_offset($data->timetaken);
 
         $newitemid = $DB->insert_record('mootyper_grades', $data);
@@ -153,8 +145,6 @@ class restore_mootyper_activity_structure_step extends restore_activity_structur
         $oldid = $data->id;
 
         $data->mootyper = $this->get_new_parentid('mootyper');
-        // $data->userid = $this->get_mappingid('user', $data->userid);
-        // $data->time = $this->apply_date_offset($data->time);
 
         $newitemid = $DB->insert_record('mootyper_layouts', $data);
         $this->set_mapping('mootyper_layout', $oldid, $newitemid);
@@ -171,8 +161,6 @@ class restore_mootyper_activity_structure_step extends restore_activity_structur
         $oldid = $data->id;
 
         $data->mootyper = $this->get_new_parentid('mootyper');
-        // $data->userid = $this->get_mappingid('user', $data->userid);
-        // $data->time = $this->apply_date_offset($data->time);
 
         $newitemid = $DB->insert_record('mootyper_lessons', $data);
         $this->set_mapping('mootyper_lesson', $oldid, $newitemid);
@@ -191,14 +179,11 @@ class restore_mootyper_activity_structure_step extends restore_activity_structur
         $oldlesson = $data->lesson;
 
         $data->mootyper = $this->get_new_parentid('lesson');
-        // $data->userid = $this->get_mappingid('user', $data->userid);
-        // $data->time = $this->apply_date_offset($data->time);
 
         $newitemid = $DB->insert_record('mootyper_exercises', $data);
         $this->set_mapping('mootyper_exercise', $oldid, $newitemid);
         $this->set_mapping('mootyper_exercise', $oldlesson, $newitemid);
     }
-    // Seem to be missing the functions for layouts and lessons.
 
     /**
      * Once the database tables have been fully restored, restore the files
