@@ -15,11 +15,9 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * This will list all the MooTyper activities in a course and is
- * accessed from the an Activities block.
+ * This will list all the MooTyper activities in a course and is accessed from the an Activities block.
  *
- * @package    mod
- * @subpackage mootyper
+ * @package    mod_mootyper
  * @copyright  2012 Jaka Luthar (jaka.luthar@gmail.com)
  * @copyright  2016 onwards AL Rachels (drachels@drachels.com)
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later.

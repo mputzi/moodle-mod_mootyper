@@ -15,15 +15,20 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * @package    mod
- * @subpackage mootyper
+ * This file checks results and for suspicious performance.
+ *
+ * @package    mod_mootyper
  * @copyright  2012 Jaka Luthar (jaka.luthar@gmail.com)
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
+defined('MOODLE_INTERNAL') || die;
+
+global $DB;
+
 require_once(dirname(dirname(dirname(__FILE__))).'/config.php');
 require_once(dirname(__FILE__).'/locallib.php');
-global $DB;
+require_login($course, true, $cm);
 $record = new stdClass();
 $st = $_GET['status'];
 if ($st == 1) {

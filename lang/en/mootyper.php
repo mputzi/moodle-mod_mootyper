@@ -17,8 +17,7 @@
 /**
  * English strings for mootyper
  *
- * @package    mod
- * @subpackage mootyper
+ * @package    mod_mootyper
  * @copyright  2012 Jaka Luthar (jaka.luthar@gmail.com)
  * @copyright  2016 onwards AL Rachels (drachels@drachels.com)
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
@@ -38,6 +37,8 @@ $string['configrequirepassword'] = 'Configure password';
 $string['configpassword_desc'] = 'Whether a password is required in order to access the lesson.';
 $string['configtimelimit_desc'] = 'If a time limit is set, a warning is displayed at the beginning of the lesson and there is a countdown timer. If set to zero, then there is no time limit.';
 $string['continue'] = 'Continue';
+$string['continuoustype'] = 'Continuous typing';
+$string['continuoustype_help'] = 'If enabled, a mistyped character does not have to be corrected.';
 $string['course_exercises_viewed'] = 'Viewed exercises';
 $string['csvexport'] = 'Export to .csv';
 $string['dateformat'] = 'Default date format';
@@ -128,8 +129,9 @@ $string['normalkeytops_colour'] = '#CCCCCC';
 $string['notavailable'] = '<b>Not currently available!<br></b>';
 $string['noteditablebyme'] = 'Not editable by me.';
 $string['notreadyyet'] = 'Not ready yet...please try again later.';
+$string['options'] = 'Options';
 $string['overview'] = 'Overview';
-$string['overview_help'] = 'MooTyper is an activity for learning to type using a computer keyboard. Some lessons with multiple exercises are included and teachers, managers, and admins can add more. Lessons can be download for backup or transfer to other Moodle users. Lessons can also be uploaded to augment those already installed.';
+$string['overview_help'] = 'MooTyper is an activity for learning to type using a computer keyboard. Some lessons with multiple exercises are included and teachers, managers, and admins can add more. Lessons can be downloaded for backup or transfer to other Moodle users. Lessons can also be uploaded to augment those already installed.';
 $string['passbgc_title'] = 'Passing grade background color';
 $string['passbgc_descr'] = 'This sets the background color for a passing grade.';
 $string['passbgc_colour'] = '#7FEF6C';

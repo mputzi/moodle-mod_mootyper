@@ -24,8 +24,7 @@
  * it cannot do itself, it will tell you what you need to do.  The commands in
  * here will all be database-neutral, using the functions defined in DLL libraries.
  *
- * @package    mod
- * @subpackage mootyper
+ * @package    mod_mootyper
  * @copyright  2012 Jaka Luthar (jaka.luthar@gmail.com
  * @copyright  2016 onwards AL Rachels (drachels@drachels.com)
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later.
@@ -132,7 +131,7 @@ function xmldb_mootyper_upgrade($oldversion) {
         upgrade_mod_savepoint(true, 2007040101, 'mootyper');
     }
 
-    // New field added for version 3.1.2.
+    // New field usepassword added after timeclose for version 3.1.2.
     if ($oldversion < 2016080700) {
 
         // Define field usepassword to be added to mootyper.
@@ -146,6 +145,21 @@ function xmldb_mootyper_upgrade($oldversion) {
 
         // Mootyper savepoint reached.
         upgrade_mod_savepoint(true, 2016080700, 'mootyper');
+    }
+    // New field continuoustyping added after showkeyboard for version 3.1.4.
+    if ($oldversion < 2017060400.2) {
+
+        // Define field continuoustype to be added to mootyper.
+        $table = new xmldb_table('mootyper');
+        $field = new xmldb_field('continuoustype', XMLDB_TYPE_INTEGER, '3', null, XMLDB_NOTNULL, null, '0', 'showkeyboard');
+
+        // Conditionally launch add field continuoustype.
+        if (!$dbman->field_exists($table, $field)) {
+            $dbman->add_field($table, $field);
+        }
+
+        // Mootyper savepoint reached.
+        upgrade_mod_savepoint(true, 2017060400.2, 'mootyper');
     }
     return true;
 }

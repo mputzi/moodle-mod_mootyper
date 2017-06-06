@@ -20,8 +20,7 @@
  * It uses the standard core Moodle formslib. For more info about them, please
  * visit: http://docs.moodle.org/en/Development:lib/formslib.php
  *
- * @package    mod
- * @subpackage mootyper
+ * @package    mod_mootyper
  * @copyright  2012 Jaka Luthar (jaka.luthar@gmail.com)
  * @copyright  2016 onwards AL Rachels (drachels@drachels.com)
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later.
@@ -32,17 +31,37 @@ defined('MOODLE_INTERNAL') || die();
 require_once($CFG->dirroot.'/course/moodleform_mod.php');
 require_once($CFG->dirroot.'/mod/mootyper/locallib.php');
 /**
- * Module instance settings form
+ * Module instance settings form.
+ *
+ * @package    mod_mootyper
+ * @copyright  2012 Jaka Luthar (jaka.luthar@gmail.com)
+ * @copyright  2016 onwards AL Rachels (drachels@drachels.com)
+ * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later.
  */
 class mod_mootyper_mod_form extends moodleform_mod {
 
+    /**
+     * @var $course Protected modifier.
+     */
     protected $course = null;
 
+    /**
+     * Constructor for the base mootyper class.
+     *
+     * @param mixed $current
+     * @param mixed $section
+     * @param int $cm
+     * @param mixed $course the current course  if it was already loaded,
+     *                      otherwise this class will load one from the context as required.
+     */
     public function __construct($current, $section, $cm, $course) {
         $this->course = $course;
         parent::__construct($current, $section, $cm, $course);
     }
 
+    /**
+     * Define the MooTyper mod_form.
+     */
     public function definition() {
         global $CFG, $COURSE, $DB;
         $mform = $this->_form;
@@ -84,18 +103,25 @@ class mod_mootyper_mod_form extends moodleform_mod {
         $mform->disabledIf('password', 'usepassword', 'eq', 0);
         $mform->disabledIf('passwordunmask', 'usepassword', 'eq', 0);
 
+        // Options.
+        $mform->addElement('header', 'optionhdr', get_string('options', 'mootyper'));
+        $mform->addElement('selectyesno', 'continuoustype', get_string('continuoustype', 'mootyper'));
+        $mform->addHelpButton('continuoustype', 'continuoustype', 'mootyper');
+
         // Link to exercises for this MooTyper activity.
         $mform->addElement('header', 'mootyperz', get_string('pluginadministration', 'mootyper'));
         $jlnk3 = $CFG->wwwroot . '/mod/mootyper/exercises.php?id='.$COURSE->id;
         $mform->addElement('html', '<a id="jlnk3" href="'.$jlnk3.'">'.get_string('emanage', 'mootyper').'</a>');
         $this->standard_coursemodule_elements();
+        $this->apply_admin_defaults();
         $this->add_action_buttons();
     }
 
     /**
-     * Enforce validation rules here
+     * Enforce validation rules here.
      *
-     * @param object $data Post data to validate
+     * @param array $data Post data to validate
+     * @param array $files
      * @return array
      **/
     public function validation($data, $files) {

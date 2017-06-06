@@ -15,14 +15,19 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * @package    mod
- * @subpackage mootyper
+ * This file adds grade and performance info to an exercise page while the user is typing.
+ *
+ * @package    mod_mootyper
  * @copyright  2012 Jaka Luthar (jaka.luthar@gmail.com)
+ * @copyright  2016 onwards AL Rachels (drachels@drachels.com)
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later.
  */
+
 require_once(dirname(dirname(dirname(__FILE__))).'/config.php');
 require_once(dirname(__FILE__).'/locallib.php');
+require_login($course, true, $cm);
 global $DB;
+
 $record = new stdClass();
 $record->mootyper = $_POST['rpSityperId'];
 $record->userid = $_POST['rpUser'];
@@ -37,9 +42,7 @@ $record->exercise = $_POST['rpExercise'];
 $record->pass = 0;
 $record->attemptid = $_POST['rpAttId'];
 // Modification needed to prevent negative WPM entries.
-// $record->wpm = ($record->hitsperminute / 5) - $record->mistakes;
-$record->wpm = (max(0,(($record->hitsperminute / 5) - $record->mistakes)));
+$record->wpm = (max(0, (($record->hitsperminute / 5) - $record->mistakes)));
 $DB->insert_record('mootyper_grades', $record, false);
 $webdir = $CFG->wwwroot . '/course/view.php?id='.$_POST['rpCourseId'];
 header('Location: '.$webdir);
-

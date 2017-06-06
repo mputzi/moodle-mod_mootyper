@@ -13,19 +13,37 @@
 //
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
+
 /**
- * This file is used to import new lessons found in the lesson folder.
- * Called from admin block while in view.php.
+ * This file is used to import new lessons and keyboard layouts.
  *
- * @package    mod
- * @subpackage mootyper
+ * Can be called from the MooTyper admin block anytime it is visible.
+ * The file scans the lesson and layout folders and checks the files
+ * found there against the ones already in the database.
+ * Duplicates are skipped while new ones are added with the results
+ * listed for the user to see. Continue at the end will take the
+ * user to exercises.php for possible editing.
+ *
+ * @package    mod_mootyper
  * @copyright  2016 AL Rachels (drachels@drachels.com)
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later.
  */
 
+require_once(dirname(dirname(dirname(__FILE__))).'/config.php');
+require_once(dirname(__FILE__).'/lib.php');
+require_once(dirname(__FILE__).'/locallib.php');
+
+global $DB, $CFG, $USER;
+
+/**
+ * Define the lesson import function.
+ * @param string $dafile
+ * @param int $authoridarg
+ * @param int $visiblearg
+ * @param int $editablearg
+ * @param int $coursearg
+ */
 function read_lessons_file($dafile, $authoridarg, $visiblearg, $editablearg, $coursearg=null) {
-    require_once(dirname(dirname(dirname(__FILE__))).'/config.php');
-    global $DB, $CFG;
     $thefile = $CFG->dirroot."/mod/mootyper/lessons/".$dafile;
     // Echo the file.
     $record = new stdClass();
@@ -53,9 +71,10 @@ function read_lessons_file($dafile, $authoridarg, $visiblearg, $editablearg, $co
     $splitted = explode ('/**/' , $haha);
     for ($j = 0; $j < count($splitted); $j++) {
         $exercise = trim($splitted[$j]);
-        // Saved copy of allowed characters prior to adding missing ones.
-        // $allowed = array('!', '@', '#', '$', '%', '^', '&', '(', ')', '*', '_', '+', ':', ';', '"', '{', '}', '>', '<', '?', '\'', '-', '/', '=', '.', ',', ' ', '|');
-        $allowed = array('\\', '~', '!', '@', '#', '$', '%', '^', '&', '(', ')', '*', '_', '+', ':', ';', '"', '{', '}', '>', '<', '?', '\'', '-', '/', '=', '.', ',', ' ', '|', '¡', '`', 'ç', 'ñ', 'º', '¿', 'ª', '·', '\n', '\r', '\r\n', '\n\r', ']', '[', '¬', '´', '`');
+        $allowed = array('\\', '~', '!', '@', '#', '$', '%', '^', '&', '(', ')', '*', '_'
+            , '+', ':', ';', '"', '{', '}', '>', '<', '?', '\'', '-', '/', '=', '.', ',', ' '
+            , '|', '¡', '`', 'ç', 'ñ', 'º', '¿', 'ª', '·', '\n', '\r', '\r\n', '\n\r', ']'
+            , '[', '¬', '´', '`');
         $nm = "".($j + 1);
         $texttotype = "";
         for ($k = 0; $k < strlen($exercise); $k++) {
@@ -81,10 +100,11 @@ function read_lessons_file($dafile, $authoridarg, $visiblearg, $editablearg, $co
     }
 }
 
+/**
+ * Define the keyboard import function.
+ * @param string $dafile
+ */
 function add_keyboard_layout($dafile) {
-    require_once(dirname(dirname(dirname(__FILE__))).'/config.php');
-    //require_once(dirname(dirname(dirname(dirname(__FILE__)))).'/config.php');
-    global $DB, $CFG;
     $thefile = $CFG->dirroot."/mod/mootyper/layouts/".$dafile;
     $wwwfile = $CFG->wwwroot."/mod/mootyper/layouts/".$dafile;
     $record = new stdClass();
@@ -95,11 +115,6 @@ function add_keyboard_layout($dafile) {
     $record->jspath = substr($wwwfile, 0, strripos($wwwfile, '.')).'.js';
     $DB->insert_record('mootyper_layouts', $record, true);
 }
-
-global $DB, $CFG, $USER;
-require_once(dirname(dirname(dirname(__FILE__))).'/config.php');
-require_once(dirname(__FILE__).'/lib.php');
-require_once(dirname(__FILE__).'/locallib.php');
 
 $id = optional_param('id', 0, PARAM_INT); // Course ID.
 $lsn = optional_param('lsn', 0, PARAM_INT); // Lesson ID to download.
@@ -132,7 +147,7 @@ $res = scandir($pth);
 for ($i = 0; $i < count($res); $i++) {
     if (is_file($pth."/".$res[$i])) {
         // Get a filename from the lessons folder.
-        $fl = $res[$i]; // Argument list ($dafile, $authorid_arg, $visible_arg, $editable_arg, $course_arg).
+        $fl = $res[$i]; // Argument list dafile, authorid_arg, visible_arg, editable_arg, course_arg.
 
         // Strip away the .txt portion of the filename.
         $periodpos = strrpos($fl, '.');
@@ -152,7 +167,6 @@ for ($i = 0; $i < count($res); $i++) {
             // Since we added a new lesson, make a log entry about it.
             $data = new StdClass();
             $data->mootyper = $id;
-            // $context = context_module::instance($this->cm->id);
             $context = context_course::instance($id);
             // Trigger lesson_import event.
             $event = \mod_mootyper\event\lesson_imported::create(array(
@@ -179,7 +193,7 @@ for ($j = 0; $j < count($res2); $j++) {
         $sql = "SELECT name
             FROM {mootyper_layouts}
             WHERE name = '".$kbl."'";
-            
+
         if ($importkbl = $DB->get_record_sql($sql)) {
             // If it's true the name is already in the database, do nothing.
             echo "$kbl".get_string('kblimportnotadd', 'mootyper').'<br>';
@@ -190,7 +204,6 @@ for ($j = 0; $j < count($res2); $j++) {
             // Since we added a new layout, make a log entry about it.
             $data = new StdClass();
             $data->mootyper = $id;
-            // $context = context_module::instance($this->cm->id);
             $context = context_course::instance($id);
             // Trigger lesson_import event.
             $event = \mod_mootyper\event\layout_imported::create(array(
@@ -199,7 +212,6 @@ for ($j = 0; $j < count($res2); $j++) {
             ));
             $event->trigger();
         }
-        
     }
 }
 

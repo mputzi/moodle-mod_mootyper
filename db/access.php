@@ -15,10 +15,9 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Capability definitions for the mootyper module
+ * Capability definitions for the mootyper module.
  *
- * @package    mod
- * @subpackage mootyper
+ * @package    mod_mootyper
  * @copyright  2011 Jaka Luthar (jaka.luthar@gmail.com)
  * @copyright  2016 onwards AL Rachels drachels@drachels.com
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later

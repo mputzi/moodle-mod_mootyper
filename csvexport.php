@@ -13,14 +13,26 @@
 //
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
+
 /**
  * This file is used to export attempts in csv format. Called from gview.php (View All Grades).
  *
- * @package    mod
- * @subpackage mootyper
+ * @package    mod_mootyper
  * @copyright  2011 Jaka Luthar (jaka.luthar@gmail.com)
  * @copyright  2016 onwards AL Rachels (drachels@drachels.com)
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later.
+ */
+require_once(dirname(dirname(dirname(__FILE__))).'/config.php');
+require_once(dirname(__FILE__).'/lib.php');
+require_once(dirname(__FILE__).'/locallib.php');
+require_login($course, true, $cm);
+/**
+ * The function for exporting results data from this MooTyper.
+ *
+ * @param array $array
+ * @param string $filename
+ * @param string $delimiter
+ * @return array, false if none.
  */
 function array_to_csv_download($array, $filename = "export.csv", $delimiter=";") {
     header('Content-Type: application/csv');
@@ -41,16 +53,14 @@ function array_to_csv_download($array, $filename = "export.csv", $delimiter=";")
         $fields = array($gr->firstname.' '.$gr->lastname,
                         $gr->mistakes, format_time($gr->timeinseconds),
                         format_float($gr->hitsperminute),
-                        $gr->fullhits, format_float($gr->precisionfield).'%', date(get_config('mod_mootyper', 'dateformat'),
+                        $gr->fullhits,
+                        format_float($gr->precisionfield).'%',
+                        date(get_config('mod_mootyper', 'dateformat'),
                         $gr->timetaken), $gr->wpm);
         fputcsv($f, $fields, $delimiter);
     }
     fclose($f);
 }
-
-require_once(dirname(dirname(dirname(__FILE__))).'/config.php');
-require_once(dirname(__FILE__).'/lib.php');
-require_once(dirname(__FILE__).'/locallib.php');
 
 $mid = optional_param('mootyperid', 0, PARAM_INT);
 $misexam = optional_param('isexam', 0, PARAM_INT);

@@ -17,18 +17,17 @@
 /**
  * This file is used to edit exercise content. Called from exercises.php.
  *
- * @package    mod
- * @subpackage mootyper
+ * @package    mod_mootyper
  * @copyright  2011 Jaka Luthar (jaka.luthar@gmail.com)
  * @copyright  2016 onwards AL Rachels (drachels@drachels.com)
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-global $USER;
-global $DB;
 require_once(dirname(dirname(dirname(__FILE__))).'/config.php');
 require_once(dirname(__FILE__).'/lib.php');
 require_once(dirname(__FILE__).'/locallib.php');
+
+global $DB, $USER;
 
 $id = optional_param('id', 0, PARAM_INT); // Course_module ID.
 $exerciseid = optional_param('ex', 0, PARAM_INT);

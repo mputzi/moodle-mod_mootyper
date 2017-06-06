@@ -20,21 +20,28 @@
  * All the mootyper specific functions, needed to implement the module
  * logic, should go here. Never include this file from your lib.php!
  *
- * @package    mod
- * @subpackage mootyper
+ * @package    mod_mootyper
  * @copyright  2012 Jaka Luthar (jaka.luthar@gmail.com)
- * @Copyright  2016 onwards AL Rachels (drachels@drachels.com)
+ * @copyright  2016 onwards AL Rachels (drachels@drachels.com)
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
 defined('MOODLE_INTERNAL') || die();
 
+/**
+ * Check to see if this MooTyper is available for use.
+ * @param int $mootyper
+ */
 function is_available($mootyper) {
     $timeopen = $mootyper->timeopen;
     $timeclose = $mootyper->timeclose;
     return (($timeopen == 0 || time() >= $timeopen) && ($timeclose == 0 || time() < $timeclose));
 }
 
+/**
+ * Get a list of MooTyper keyboards.
+ * @return array
+ */
 function get_keyboard_layouts_db() {
     global $DB;
     $lss = array();
@@ -46,18 +53,30 @@ function get_keyboard_layouts_db() {
     return $lss;
 }
 
+/**
+ * Get the MooTyper keyboard definition to use.
+ * @param int $lid
+ */
 function get_instance_layout_file($lid) {
     global $DB;
     $dbrec = $DB->get_record('mootyper_layouts', array('id' => $lid));
     return $dbrec->filepath;
 }
 
+/**
+ * Get the MooTyper keyboard keystroke checker to use.
+ * @param int $lid
+ */
 function get_instance_layout_js_file($lid) {
     global $DB;
     $dbrec = $DB->get_record('mootyper_layouts', array('id' => $lid));
     return $dbrec->jspath;
 }
 
+/**
+ * Get the last keystroke and check if correct.
+ * @param int $mid
+ */
 function get_last_check($mid) {
     global $USER, $DB, $CFG;
     $sql = "SELECT * FROM ".$CFG->prefix."mootyper_checks".
@@ -77,6 +96,12 @@ function get_last_check($mid) {
     }
 }
 
+/**
+ * Check for suspicous results.
+ * @param int $checks
+ * @param int $starttime
+ * @return boolean
+ */
 function suspicion($checks, $starttime) {
     for ($i = 1; $i < count($checks); $i++) {
         $udarci1 = $checks[$i]['mistakes'] + $checks[$i]['hits'];
@@ -91,8 +116,13 @@ function suspicion($checks, $starttime) {
     return false;
 }
 
-// 3/22/16 Changed call from mod_setup so this is no longer used.
-// Keeping it here until I'm sure of the change.
+/** 3/22/16 Changed call from mod_setup so this is no longer used.
+ * Keeping it here until I'm sure of the change.
+ *
+ * Get the current lesson.
+ *
+ * @return string
+ */
 function get_typerlessons() {
     global $CFG, $DB;
     $params = array();
@@ -111,8 +141,14 @@ function get_typerlessons() {
     return $lstoreturn;
 }
 
-// Improved get_typerlessons() function.
-// Modified 3/22/16 to improve reliability of correctly listing edit/remove capability.
+/** Improved get_typerlessons() function.
+ * Modified 3/22/16 to improve reliability of correctly listing edit/remove capability.
+ *
+ * If correct user and in a course, get list of lessons.
+ * @param int $u
+ * @param int $c
+ * @return string
+ */
 function get_mootyperlessons($u, $c) {
     global $CFG, $DB;
     $params = array();
@@ -142,9 +178,15 @@ function get_mootyperlessons($u, $c) {
     return $lstoreturn;
 }
 
+/**
+ * Check if admin or other user.
+ * 22 Mar 16 Changed so that ONLY someone who is a site admin can modify sample lessons.
+ * Old method allowed everyone to modify everything.
+ * @param int $usr
+ * @param int $c
+ * @return boolean
+ */
 function can_view_edit_all($usr, $c) {
-    // 3/22/16 Changed so that ONLY someone who is a site admin can modify sample lessons.
-    // Old method allowed everyone to modify everything.
     if (is_siteadmin($usr)) {
         return 1;
     } else {
@@ -152,6 +194,12 @@ function can_view_edit_all($usr, $c) {
     }
 }
 
+/**
+ * Check if current user can edit.
+ * @param int $usr
+ * @param int $lsn
+ * @return boolean
+ */
 function is_editable_by_me($usr, $lsn) {
     global $DB;
     $lesson = $DB->get_record('mootyper_lessons', array('id' => $lsn));
@@ -170,9 +218,15 @@ function is_editable_by_me($usr, $lsn) {
     }
 }
 
-// 3/22/16 Modified Where clause. Previously, it was comparing a
-// course number to modifierid which was never going to match
-// except in the very rare case of being in course 2 in all of my Moodles.
+/** 3/22/16 Modified Where clause. Previously, it was comparing a
+ * course number to modifierid which was never going to match
+ * except in the very rare case of being in course 2 in all of my Moodles.
+ *
+ * Check to see if user is enrolled in current course.
+ * @param int $usr
+ * @param int $crs
+ * @return string
+ */
 function is_user_enrolled($usr, $crs) {
     global $DB, $CFG;
     $sql2 = "SELECT * FROM ".$CFG->prefix."user_enrolments
@@ -182,6 +236,11 @@ function is_user_enrolled($usr, $crs) {
     return $rt;
 }
 
+/**
+ * Calculate averages.
+ * @param int $grades
+ * @return string
+ */
 function get_grades_avg($grades) {
     $avg = array();
     $avg['mistakes'] = 0;
@@ -211,6 +270,11 @@ function get_grades_avg($grades) {
     return $avg;
 }
 
+/**
+ * Get current exercise name for current lesson.
+ *
+ * @return string
+ */
 function get_typerexercises() {
     global $USER, $CFG, $DB;
     $params = array();
@@ -225,6 +289,12 @@ function get_typerexercises() {
     return $exestoreturn;
 }
 
+/**
+ * Get current exercise for current lesson.
+ *
+ * @param int $less
+ * @return string
+ */
 function get_exercises_by_lesson($less) {
     global $USER, $CFG, $DB;
     $params = array();
@@ -242,6 +312,12 @@ function get_exercises_by_lesson($less) {
     return $toreturn;
 }
 
+/**
+ * Get keystroke count for this lesson.
+ *
+ * @param int $lsnid
+ * @return int
+ */
 function get_new_snumber($lsnid) {
     $exes = get_exercises_by_lesson($lsnid);
     if (count($exes) == 0) {
@@ -256,6 +332,12 @@ function get_new_snumber($lsnid) {
     return $max + 1;
 }
 
+/**
+ * Get info for this lesson.
+ *
+ * @param int $lsn
+ * @return array
+ */
 function get_typerexercisesfull($lsn = 0) {
     global $USER, $CFG, $DB;
     $params = array();
