@@ -18,9 +18,7 @@
 /**
  * This is the css style sheet for MooTyper.
  *
- *
- * @package    mod
- * @subpackage mootyper
+ * @package    mod_mootyper
  * @copyright  2012 Jaka Luthar (jaka.luthar@gmail.com), Luka Pralica (pehtran@gmail.com)
  * @copyright  2016 onwards AL Rachels (drachels@drachels.com)
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later.
@@ -88,7 +86,6 @@ font-weight: bold;
 font-family: Courier;
 color: black;
 background-color: #D8D8D8;
-/*padding: 0px 2px 0px 2px;*/
 border: 0px solid #2288ff;
 line-hight: 1.5em;
 
@@ -116,7 +113,7 @@ vertical-align: middle;
 font-size: small;
     padding: 6px 6px;
     margin: 0px 5px 0px 5px;
-    background-color: #FFFF00;
+    background-color: #DDDDDD;
     color: #000;
     -webkit-border-radius: 4px;
     -moz-border-radius: 4px;
@@ -145,7 +142,7 @@ text-align: center;
 vertical-align: middle;
 font-size: small;
     padding: 6px 6px;
-    margin: 0px 5px 0px 5px;
+    margin: 0px 5px 0px 5x;
     background: #CCCCCC;
     color: #000;
     -webkit-border-radius: 4px;
@@ -174,7 +171,7 @@ border-right-style: white-space-collapse;
 text-align: center;
 vertical-align: middle;
     padding: 6px 6px;
-    margin: 0px 5px 0px 5px;
+    margin: 0px 5px 0px 5x;
     background: #ffaaaa;
     color: #000;
     -webkit-border-radius: 4px;
@@ -203,7 +200,7 @@ border-right-style: white-space-collapse;
 text-align: center;
 vertical-align: middle;
     padding: 6px 6px;
-    margin: 0px 5px 0px 5px;
+    margin: 0px 5px 0px 5x;
     background: #bbff99;
     color: #000;
     -webkit-border-radius: 4px;
@@ -232,7 +229,7 @@ border-right-style: white-space-collapse;
 text-align: center;
 vertical-align: middle;
     padding: 6px 6px;
-    margin: 0px 5px 0px 5px;
+    margin: 0px 5px 0px 5x;
     background: #fdff99;
     color: #000;
     -webkit-border-radius: 4px;
@@ -261,7 +258,7 @@ border-right-style: white-space-collapse;
 text-align: center;
 vertical-align: middle;
     padding: 6px 6px;
-    margin: 0px 5px 0px 5px;
+    margin: 0px 5px 0px 5x;
     background: #99ddff;
     color: #000;
     -webkit-border-radius: 4px;
@@ -290,7 +287,7 @@ border-right-style: white-space-collapse;
 text-align: center;
 vertical-align: middle;
     padding: 6px 6px;
-    margin: 0px 5px 0px 5px;
+    margin: 0px 5px 0px 5x;
     background: #99ddff;
     color: #000;
     -webkit-border-radius: 4px;
@@ -319,7 +316,7 @@ border-right-style: white-space-collapse;
 text-align: center;
 vertical-align: middle;
     padding: 6px 6px;
-    margin: 0px 5px 0px 5px;
+    margin: 0px 5px 0px 5x;
     background: #0070c1;
     color: #fff;
     -webkit-border-radius: 4px;
@@ -348,7 +345,7 @@ border-right-style: white-space-collapse;
 text-align: center;
 vertical-align: middle;
     padding: 6px 6px;
-    margin: 0px 5px 0px 5px;
+    margin: 0px 5px 0px 5x;
     background: #c17400;
     color: #fff;
     -webkit-border-radius: 4px;
@@ -377,7 +374,7 @@ border-right-style: white-space-collapse;
 text-align: center;
 vertical-align: middle;
     padding: 6px 6px;
-    margin: 0px 5px 0px 5px;
+    margin: 0px 5px 0px 5x;
     background: #2e8901;
     color: #fff;
     -webkit-border-radius: 4px;
@@ -406,7 +403,7 @@ border-right-style: white-space-collapse;
 text-align: center;
 vertical-align: middle;
     padding: 6px 6px;
-    margin: 0px 5px 0px 5px;
+    margin: 0px 5px 0px 5x;
     background: #d90000;
     color: #fff;
     -webkit-border-radius: 4px;
@@ -435,10 +432,10 @@ border-right-style: white-space-collapse;
 text-align: center;
 vertical-align: middle;
     padding: 6px 6px;
-    margin: 0px 5px 0px 5px;
+    margin: 0px 5px 0px 5x;
     background: #757500;
     color: #fff;
-    -webkit-border-radius: 4px;
+    -webkit-border-radius: 4px;
     -moz-border-radius: 4px;
     border-radius: 4px;
     border: solid 1px #353500;
