@@ -113,6 +113,7 @@ class mod_mootyper_mod_form extends moodleform_mod {
         $jlnk3 = $CFG->wwwroot . '/mod/mootyper/exercises.php?id='.$COURSE->id;
         $mform->addElement('html', '<a id="jlnk3" href="'.$jlnk3.'">'.get_string('emanage', 'mootyper').'</a>');
         $this->standard_coursemodule_elements();
+        $this->apply_admin_defaults();
         $this->add_action_buttons();
     }
 
