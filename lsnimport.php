@@ -33,8 +33,6 @@ require_once(dirname(dirname(dirname(__FILE__))).'/config.php');
 require_once(dirname(__FILE__).'/lib.php');
 require_once(dirname(__FILE__).'/locallib.php');
 
-global $DB, $CFG, $USER;
-
 /**
  * Define the lesson import function.
  * @param string $dafile
@@ -44,6 +42,7 @@ global $DB, $CFG, $USER;
  * @param int $coursearg
  */
 function read_lessons_file($dafile, $authoridarg, $visiblearg, $editablearg, $coursearg=null) {
+    global $DB, $CFG, $USER;
     $thefile = $CFG->dirroot."/mod/mootyper/lessons/".$dafile;
     // Echo the file.
     $record = new stdClass();
