@@ -104,6 +104,7 @@ function read_lessons_file($dafile, $authoridarg, $visiblearg, $editablearg, $co
  * @param string $dafile
  */
 function add_keyboard_layout($dafile) {
+    global $DB, $CFG, $USER;
     $thefile = $CFG->dirroot."/mod/mootyper/layouts/".$dafile;
     $wwwfile = $CFG->wwwroot."/mod/mootyper/layouts/".$dafile;
     $record = new stdClass();
