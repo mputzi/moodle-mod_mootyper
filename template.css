@@ -24,17 +24,17 @@
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later.
  */
 
-div#mainDiv
+#mainDiv
 {
 text-align:center;
 width: 100%;
 }
-div#mainDiv table td
+#mainDiv table td
 {
 padding-right: 7px;
 text-align: center;
 }
-div#texttoenter
+#texttoenter
 {
 width: 100%;
 text-align: left;
@@ -59,35 +59,35 @@ padding: 5px;
 {
 width: 620px;
 height: 100px;
-font-size: extra-small;
+font-size: 90%;
 font-family: Courier;
 overflow-x: scroll;
 }
-.txtZeleno
+.txtGreen
 {
 font-size: 16px;
 font-weight: bold;
 color: green;
 font-family: Courier;
-line-hight: 1.5em;
+
 }
-.txtRdece
+.txtRed
 {
 font-size: 16px;
 font-weight: bold;
 color: black;
 font-family: Courier;
-line-hight: 1.5em;
+
 }
-.txtModro
+.txtBlue
 {
 font-size: 16px;
 font-weight: bold;
 font-family: Courier;
-color: black;
+color: blue;
 background-color: #D8D8D8;
 border: 0px solid #2288ff;
-line-hight: 1.5em;
+
 
 }
 .textup
@@ -107,12 +107,12 @@ line-hight: 1.5em;
 display: table-cell;
 width: 610px;
 height: 320px;
-border-right-style: white-space-collapse;
+
 text-align: center;
 vertical-align: middle;
 font-size: small;
     padding: 6px 6px;
-    margin: 0px 5px 0px 5px;
+
     background-color: [[setting:keyboardbgc]];
     color: #000;
     -webkit-border-radius: 4px;
@@ -130,19 +130,19 @@ font-size: small;
     -webkit-user-select:none;
     -moz-user-select:none;
     -ms-user-select:none;
-    user-select:none;
+
 }
 .normal
 {
 display: table-cell;
-width: 27px;
-height: 27px;
-border-right-style: white-space-collapse;
+width: 36px;
+height: 30px;
+
 text-align: center;
 vertical-align: middle;
 font-size: small;
     padding: 6px 6px;
-    margin: 0px 5px 0px 5x;
+
     background: [[setting:normalkeytops]];
     color: #000;
     -webkit-border-radius: 4px;
@@ -160,18 +160,18 @@ font-size: small;
     -webkit-user-select:none;
     -moz-user-select:none;
     -ms-user-select:none;
-    user-select:none;
+
 }
 .finger4
 {
 display: table-cell;
-width: 27px;
-height: 27px;
-border-right-style: white-space-collapse;
+width: 36px;
+height: 30px;
+
 text-align: center;
 vertical-align: middle;
     padding: 6px 6px;
-    margin: 0px 5px 0px 5x;
+
     background: #ffaaaa;
     color: #000;
     -webkit-border-radius: 4px;
@@ -189,18 +189,18 @@ vertical-align: middle;
     -webkit-user-select:none;
     -moz-user-select:none;
     -ms-user-select:none;
-    user-select:none;
+
 }
 .finger3
 {
 display: table-cell;
-width: 27px;
-height: 27px;
-border-right-style: white-space-collapse;
+width: 36px;
+height: 30px;
+
 text-align: center;
 vertical-align: middle;
     padding: 6px 6px;
-    margin: 0px 5px 0px 5x;
+
     background: #bbff99;
     color: #000;
     -webkit-border-radius: 4px;
@@ -218,18 +218,18 @@ vertical-align: middle;
     -webkit-user-select:none;
     -moz-user-select:none;
     -ms-user-select:none;
-    user-select:none;
+
 }
 .finger2
 {
 display: table-cell;
-width: 27px;
-height: 27px;
-border-right-style: white-space-collapse;
+width: 36px;
+height: 30px;
+
 text-align: center;
 vertical-align: middle;
     padding: 6px 6px;
-    margin: 0px 5px 0px 5x;
+
     background: #fdff99;
     color: #000;
     -webkit-border-radius: 4px;
@@ -247,18 +247,18 @@ vertical-align: middle;
     -webkit-user-select:none;
     -moz-user-select:none;
     -ms-user-select:none;
-    user-select:none;
+
 }
 .finger1
 {
 display: table-cell;
-width: 27px;
-height: 27px;
-border-right-style: white-space-collapse;
+width: 36px;
+height: 30px;
+
 text-align: center;
 vertical-align: middle;
     padding: 6px 6px;
-    margin: 0px 5px 0px 5x;
+
     background: #99ddff;
     color: #000;
     -webkit-border-radius: 4px;
@@ -276,18 +276,18 @@ vertical-align: middle;
     -webkit-user-select:none;
     -moz-user-select:none;
     -ms-user-select:none;
-    user-select:none;
+
 }
 .fingerSpace
 {
 display: table-cell;
-width: 27px;
-height: 27px;
-border-right-style: white-space-collapse;
+width: 36px;
+height: 30px;
+
 text-align: center;
 vertical-align: middle;
     padding: 6px 6px;
-    margin: 0px 5px 0px 5x;
+
     background: #99ddff;
     color: #000;
     -webkit-border-radius: 4px;
@@ -305,18 +305,18 @@ vertical-align: middle;
     -webkit-user-select:none;
     -moz-user-select:none;
     -ms-user-select:none;
-    user-select:none;
+
 }
 .next1
 {
 display: table-cell;
-width: 27px;
-height: 27px;
-border-right-style: white-space-collapse;
+width: 36px;
+height: 30px;
+
 text-align: center;
 vertical-align: middle;
     padding: 6px 6px;
-    margin: 0px 5px 0px 5x;
+
     background: #0070c1;
     color: #fff;
     -webkit-border-radius: 4px;
@@ -334,18 +334,18 @@ vertical-align: middle;
     -webkit-user-select:none;
     -moz-user-select:none;
     -ms-user-select:none;
-    user-select:none;
+
 }
 .next2
 {
 display: table-cell;
-width: 27px;
-height: 27px;
-border-right-style: white-space-collapse;
+width: 36px;
+height: 30px;
+
 text-align: center;
 vertical-align: middle;
     padding: 6px 6px;
-    margin: 0px 5px 0px 5x;
+
     background: #c17400;
     color: #fff;
     -webkit-border-radius: 4px;
@@ -363,18 +363,18 @@ vertical-align: middle;
     -webkit-user-select:none;
     -moz-user-select:none;
     -ms-user-select:none;
-    user-select:none;
+
 }
 .next3
 {
 display: table-cell;
-width: 27px;
-height: 27px;
-border-right-style: white-space-collapse;
+width: 36px;
+height: 30px;
+
 text-align: center;
 vertical-align: middle;
     padding: 6px 6px;
-    margin: 0px 5px 0px 5x;
+
     background: #2e8901;
     color: #fff;
     -webkit-border-radius: 4px;
@@ -392,18 +392,18 @@ vertical-align: middle;
     -webkit-user-select:none;
     -moz-user-select:none;
     -ms-user-select:none;
-    user-select:none;
+
 }
 .next4
 {
 display: table-cell;
-width: 27px;
-height: 27px;
-border-right-style: white-space-collapse;
+width: 36px;
+height: 30px;
+
 text-align: center;
 vertical-align: middle;
     padding: 6px 6px;
-    margin: 0px 5px 0px 5x;
+
     background: #d90000;
     color: #fff;
     -webkit-border-radius: 4px;
@@ -421,18 +421,18 @@ vertical-align: middle;
     -webkit-user-select:none;
     -moz-user-select:none;
     -ms-user-select:none;
-    user-select:none;
+
 }
 .nextSpace
 {
 display: table-cell;
-width: 27px;
-height: 27px;
-border-right-style: white-space-collapse;
+width: 36px;
+height: 30px;
+
 text-align: center;
 vertical-align: middle;
     padding: 6px 6px;
-    margin: 0px 5px 0px 5x;
+
     background: #757500;
     color: #fff;
     -webkit-border-radius: 4px;
@@ -450,7 +450,7 @@ vertical-align: middle;
     -webkit-user-select:none;
     -moz-user-select:none;
     -ms-user-select:none;
-    user-select:none;
+
 }
 
 .arrow-n,

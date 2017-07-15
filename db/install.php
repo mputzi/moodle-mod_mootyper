@@ -37,7 +37,7 @@ defined('MOODLE_INTERNAL') || die;
 function xmldb_mootyper_install() {
     require_once(dirname(dirname(dirname(dirname(__FILE__)))).'/config.php');
     global $CFG, $USER;
-    require_login(0, true, null, false);
+   // require_login(0, true, null, false);
     $pth = $CFG->dirroot."/mod/mootyper/lessons";
     $res = scandir($pth);
     for ($i = 0; $i < count($res); $i++) {
