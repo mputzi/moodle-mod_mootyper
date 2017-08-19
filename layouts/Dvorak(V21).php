@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * This file defines the English(V2)keyboard layout.
+ * This file defines the English(V2.1)keyboard layout.
  *
  * @package    mod_mootyper
  * @copyright  2012 Jaka Luthar (jaka.luthar@gmail.com)
@@ -30,7 +30,7 @@
 echo (isset($displaynone) && ($displaynone == true)) ? 'display:none;' : '';
 ?>
 "><br>
-<span id="keyboard" class="keyboardback">Dvorak(V2) Keyboard Layout<br><br>
+<span id="keyboard" class="keyboardback">Dvorak(V2.1) Keyboard Layout<br><br>
 <span id="jkeybackquote" class="normal"><span class="textup">~ </span><span class="textdown">  `</span></span>
 <span id="jkey1" class="normal"><span class="textup">! </span> 1</span>
 <span id="jkey2" class="normal"><span class="textup">@</span> 2</span>

@@ -9,7 +9,7 @@ function keyupCombined(e) {
 function keyupFirst(event) {
     return false;
 }
-THE_LAYOUT = 'Slovenian';
+THE_LAYOUT = 'Slovenian(V2.1)';
 function keyboardElement(ltr) {
     this.chr = ltr.toLowerCase();
     this.alt = false;

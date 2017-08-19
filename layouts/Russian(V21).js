@@ -10,6 +10,8 @@ function keyupFirst(event) {
     return false;
 }
 
+THE_LAYOUT = 'Russian(V2.1)';
+
 function keyboardElement(ltr) {
     this.chr = ltr.toLowerCase();
     this.alt = false;

@@ -2,6 +2,8 @@ function isCombined(chr) {
     return (chr === '´' || chr === '`');
 }
 
+THE_LAYOUT = 'Spanish(V2.1)';
+
 function keyupCombined(e) {
     if (ended) {
         return false;

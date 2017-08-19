@@ -10,7 +10,7 @@ function keyupFirst(event) {
     return false;
 }
 
-THE_LAYOUT = 'Japanese';
+THE_LAYOUT = 'Japanese(V2.1)';
 
 function keyboardElement(ltr) {
     this.chr = ltr.toLowerCase();

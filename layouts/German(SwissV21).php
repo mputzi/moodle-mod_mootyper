@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * This file defines the German(SwissV2)keyboard layout.
+ * This file defines the German(SwissV2.1)keyboard layout.
  *
  * @package    mod_mootyper
  * @copyright  2016 onwards AL Rachels (drachels@drachels.com)
@@ -29,7 +29,7 @@
 echo (isset($displaynone) && $displaynone == true) ? 'display:none;' : '';
 ?>
 "><br>
-<span id="keyboard" class="keyboardback">German(SwissV2) Keyboard Layout<br><br>
+<span id="keyboard" class="keyboardback">German(SwissV2.1) Keyboard Layout<br><br>
 <span id="jkeytilde" class="normal"><span class="textup">° </span> §</span>
 <span id="jkey1" class="normal"><span class="textup">+</span> 1 |</span>
 <span id="jkey2" class="normal"><span class="textup">"</span>2@</span>

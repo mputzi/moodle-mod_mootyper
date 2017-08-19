@@ -10,7 +10,7 @@ function keyupFirst(event) {
     return false;
 }
 
-THE_LAYOUT = 'English(V2)';
+THE_LAYOUT = 'English(V2.1)';
 
 function keyboardElement(ltr) {
     this.chr = ltr.toLowerCase();
