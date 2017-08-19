@@ -46,7 +46,8 @@ echo (isset($displaynone) && $displaynone == true) ? 'display:none;' : '';
 <!--span id="jkeyplus" class="normal keyboard_key">+</span>
 <span id="jkeyequals" class="normal keyboard_key">=</span-->
 <span id="jkeybackspace" class="normal keyboard_key" style="border-right-style: solid;">Backspace</span><br>
-<span id="jkeytab" class="normal keyboard_key" style="width: 50px;">Tab</span>
+<div style="float: left;">
+<span id="jkeytab" class="normal keyboard_key" style="width: 60px;">Tab</span>
 <span id="jkeyq" class="normal keyboard_key">Q</span>
 <span id="jkeyw" class="normal keyboard_key">W</span>
 <span id="jkeye" class="normal keyboard_key">E</span>
@@ -73,9 +74,12 @@ echo (isset($displaynone) && $displaynone == true) ? 'display:none;' : '';
 <span id="jkeyö" class="finger4">ö</span>
 <span id="jkeyä" class="normal keyboard_key">ä</span>
 <span id="jkeygerdollar" class="normal keyboard_key">$</span>
-<span id="jkeyenter" class="normal keyboard_key" style="border-right-style: solid;">Enter</span>
-<br>
-<span id="jkeyshiftl" class="normal keyboard_key" style="width: 50px;">Shift</span>
+<!--span id="jkeyenter" class="normal keyboard_key" style="border-right-style: solid;">Enter</span-->
+</div>
+<span id="jkeyenter" class="normal" style="width: 50px; border-right-style: solid; float: left; height: 102px;">Enter</span>
+<br style="clear:both;" /><br />
+
+<span id="jkeyshiftl" class="normal keyboard_key" style="width: 80px;">Shift</span>
 <span id="jkeyckck" class="normal keyboard_key">&lt; &gt;</span>
 <span id="jkeyy" class="normal keyboard_key">Y</span>
 <span id="jkeyx" class="normal keyboard_key">X</span>
@@ -87,13 +91,14 @@ echo (isset($displaynone) && $displaynone == true) ? 'display:none;' : '';
 <span id="jkeyvejica" class="normal keyboard_key">,</span>
 <span id="jkeypika" class="normal keyboard_key">.</span>
 <span id="jkeypomislaj" class="normal keyboard_key">-</span>
-<span id="jkeyshiftd" class="normal keyboard_key" style="width: 75px; border-right-style: solid;">Shift</span>
+<span id="jkeyshiftd" class="normal keyboard_key" style="width: 80px; border-right-style: solid;">Shift</span>
 <br>
-<span id="jkeyctrll" class="normal keyboard_key" style="width: 40px;">Ctrl</span>
+<span id="jkeyctrll" class="normal keyboard_key" style="width: 80px;">Ctrl</span>
 <span id="jkeyfn" class="normal keyboard_key">Fn</span>
 <span id="jkeyalt" class="normal keyboard_key" style="width: 40px;">Alt</span>
 <span id="jkeyspace" class="normal keyboard_key" style="width: 250px;">Space</span>
 <span id="jkeyaltgr" class="normal keyboard_key" style="width: 45px;">Alt gr</span>
-<!--span id="jempty" class="normal keyboard_key" style="width: 30px;">&nbsp;</span-->
-<span id="jkeyctrlr" class="normal keyboard_key" style="width: 60px; border-right-style: solid;">Ctrl</span><br>
+<span id="jkeyfn" class="normal keyboard_key">Fn</span>
+<span id="jempty" class="normal keyboard_key" style="width: 30px;">&nbsp;</span>
+<span id="jkeyctrlr" class="normal keyboard_key" style="width: 80px; border-right-style: solid;">Ctrl</span><br>
 </div>

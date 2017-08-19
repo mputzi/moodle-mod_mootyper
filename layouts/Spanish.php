@@ -73,7 +73,7 @@ echo (isset($displaynone) && ($displaynone == true)) ? 'display:none;' : '';
 <span id="jkeyç" class="normal">Ç</span>
 <span id="jkeyenter" class="normal" style="border-right-style: solid;">Enter</span>
 <br>
-<span id="jkeyshiftl" class="normal" style="width: 50px;">Mayús</span>
+<span id="jkeyshiftl" class="normal" style="width: 95px;">Mayús</span>
 <span id="jkeyckck" class="normal">&lt; &gt;</span>
 <span id="jkeyz" class="normal">Z</span>
 <span id="jkeyx" class="normal">X</span>
@@ -85,13 +85,14 @@ echo (isset($displaynone) && ($displaynone == true)) ? 'display:none;' : '';
 <span id="jkeyvejica" class="normal">,</span>
 <span id="jkeypika" class="normal">.</span>
 <span id="jkeypomislaj" class="normal">-</span>
-<span id="jkeyshiftd" class="normal" style="width: 75px; border-right-style: solid;">Mayús</span>
+<span id="jkeyshiftd" class="normal" style="width: 95px; border-right-style: solid;">Mayús</span>
 <br>
-<span id="jkeyctrll" class="normal" style="width: 40px;">Ctrl</span>
-<span id="jkeyfn" class="normal">Fn</span>
+<span id="jkeyctrll" class="normal" style="width: 65px;">Ctrl</span>
+<span id="jkeyfn" class="normal" style="width: 40px;">Fn</span>
 <span id="jkeyalt" class="normal" style="width: 40px;">Alt</span>
-<span id="jkeyspace" class="normal" style="width: 250px;">Espacio</span>
+<span id="jkeyspace" class="normal" style="width: 290px;">Espacio</span>
 <span id="jkeyaltgr" class="normal" style="width: 45px;">Alt gr</span>
-<!--span id="jempty" class="normal" style="width: 30px;">&nbsp;</span-->
-<span id="jkeyctrlr" class="normal" style="width: 60px; border-right-style: solid;">Ctrl</span><br>
+<span id="jkeyfn" class="normal" style="width: 45px;">Fn</span>
+<span id="jempty" class="normal" style="width: 45px;">Menu</span>
+<span id="jkeyctrlr" class="normal" style="width: 65px;">Ctrl</span>
 </div>

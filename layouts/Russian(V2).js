@@ -16,6 +16,7 @@ function keyboardElement(ltr) {
     if (isLetter(ltr)) {
         this.shift = ltr.toUpperCase() === ltr;
     } else {
+		// @codingStandardsIgnoreLine
         if (ltr.match(/[!"№;%:?*()_+/,]/i)) {
             this.shift = true;
         } else {
@@ -67,6 +68,7 @@ function keyboardElement(ltr) {
 function dobiFinger(t_crka) {
     if (t_crka === ' ') {
         return 5;
+		// @codingStandardsIgnoreLine
     } else if (t_crka.match(/[ё1!йфя0\-=\\)_+/зхъжэ.,]/i)) {
         return 4;
     } else if (t_crka.match(/[2цыч"9щдю(]/i)) {
