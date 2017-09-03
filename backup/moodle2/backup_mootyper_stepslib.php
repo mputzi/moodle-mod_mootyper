@@ -59,7 +59,8 @@ class backup_mootyper_activity_structure_step extends backup_activity_structure_
                                               'requiredgoal',
                                               'layout',
                                               'showkeyboard',
-                                              'continuoustype'));
+                                              'continuoustype',
+											  'countmistypedspaces'));
 
         $attempts = new backup_nested_element('attempts');
 

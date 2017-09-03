@@ -157,9 +157,24 @@ function xmldb_mootyper_upgrade($oldversion) {
         if (!$dbman->field_exists($table, $field)) {
             $dbman->add_field($table, $field);
         }
-
+		
         // Mootyper savepoint reached.
         upgrade_mod_savepoint(true, 2017060400.2, 'mootyper');
+    }
+	// New field countmistypedsp added after continuoustype for version 3.3.0.
+    if ($oldversion < 2017090200) {
+
+        // Define field countmistypedspaces to be added to mootyper.
+        $table = new xmldb_table('mootyper');
+        $field = new xmldb_field('countmistypedspaces', XMLDB_TYPE_INTEGER, '3', null, XMLDB_NOTNULL, null, '0', 'continuoustype');
+
+        // Conditionally launch add field countmistypedspaces.
+        if (!$dbman->field_exists($table, $field)) {
+            $dbman->add_field($table, $field);
+        }
+
+        // Mootyper savepoint reached.
+        upgrade_mod_savepoint(true, 2017090200, 'mootyper');
     }
     return true;
 }
