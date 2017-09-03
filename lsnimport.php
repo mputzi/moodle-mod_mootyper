@@ -72,9 +72,7 @@ function read_lessons_file($dafile, $authoridarg, $visiblearg, $editablearg, $co
         $exercise = trim($splitted[$j]);
         $allowed = array('\\', '~', '!', '@', '#', '$', '%', '^', '&', '(', ')', '*', '_'
             , '+', ':', ';', '"', '{', '}', '>', '<', '?', '\'', '-', '/', '=', '.', ',', ' '
-			// @codingStandardsIgnoreLine
             , '|', '¡', '`', 'ç', 'ñ', 'º', '¿', 'ª', '·', '\n', '\r', '\r\n', '\n\r', ']'
-			// @codingStandardsIgnoreLine
             , '[', '¬', '´', '`');
         $nm = "".($j + 1);
         $texttotype = "";
