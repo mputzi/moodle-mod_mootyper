@@ -107,6 +107,13 @@ class mod_mootyper_mod_form extends moodleform_mod {
         $mform->addElement('header', 'optionhdr', get_string('options', 'mootyper'));
         $mform->addElement('selectyesno', 'continuoustype', get_string('continuoustype', 'mootyper'));
         $mform->addHelpButton('continuoustype', 'continuoustype', 'mootyper');
+        $mform->setDefault('continuoustype', $mootyperconfig->continuoustype);
+        $mform->setAdvanced('continuoustype', $mootyperconfig->continuoustype_adv);
+		
+        $mform->addElement('selectyesno', 'countmistypedspaces', get_string('countmistypedspaces', 'mootyper'));
+        $mform->addHelpButton('countmistypedspaces', 'countmistypedspaces', 'mootyper');
+        $mform->setDefault('countmistypedspaces', $mootyperconfig->countmistypedspaces);
+        $mform->setAdvanced('countmistypedspaces', $mootyperconfig->countmistypedspaces_adv);
 
         // Link to exercises for this MooTyper activity.
         $mform->addElement('header', 'mootyperz', get_string('pluginadministration', 'mootyper'));

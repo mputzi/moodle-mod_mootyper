@@ -55,11 +55,15 @@ $exercisepo = optional_param('exercise', $mootyper->exercise, PARAM_INT);
 $lessonpo = optional_param('lesson', $mootyper->lesson, PARAM_INT);
 $showkeyboardpo = optional_param('showkeyboard', "off", PARAM_CLEAN);
 $continuoustypepo = optional_param('continuoustype', "off", PARAM_CLEAN);
+$countmistypedspaceso = optional_param('countmistypedspaces', "off", PARAM_CLEAN);
 if (empty($_POST)) {
     $showkeyboardpo = $mootyper->showkeyboard == 1 ? "on" : "off";
 }
 if (empty($_POST)) {
     $continuoustypepo = $mootyper->continuoustype == 1 ? "on" : "off";
+}
+if (empty($_POST)) {
+    $countmistypedspaceso = $mootyper->countmistypedspaces == 1 ? "on" : "off";
 }
 if ($mootyper->layout == null || is_null($mootyper->layout)) {
     $dfly = $moocfg->defaultlayout;
@@ -91,11 +95,13 @@ if (isset($param1) && get_string('fconfirm', 'mootyper') == $param1) {
 
     $showkeyboardpo = optional_param('showkeyboard', null, PARAM_CLEAN);
     $continuoustypepo = optional_param('continuoustype', null, PARAM_CLEAN);
+	$countmistypedspaceso = optional_param('countmistypedspaces', null, PARAM_CLEAN);
     global $DB, $CFG;
     $mootyper  = $DB->get_record('mootyper', array('id' => $n), '*', MUST_EXIST);
     $mootyper->lesson = $lessonpo;
     $mootyper->showkeyboard = $showkeyboardpo == 'on';
     $mootyper->continuoustype = $continuoustypepo == 'on';
+	$mootyper->countmistypedspaces = $countmistypedspaceso == 'on';
     $mootyper->layout = $layoutpo;
     $mootyper->isexam = $modepo;
     $mootyper->requiredgoal = $goalpo;
@@ -184,6 +190,11 @@ $htmlout .= '<input type="checkbox"'.$showkeyboardchecked.' onchange="this.form.
 $htmlout .= '<tr><td>'.get_string('continuoustype', 'mootyper').'</td><td>';
 $continuoustypechecked = $continuoustypepo == 'on' ? ' checked="checked"' : '';
 $htmlout .= '<input type="checkbox"'.$continuoustypechecked.' onchange="this.form.submit()" name="continuoustype">';
+
+$htmlout .= '<tr><td>'.get_string('countmistypedspaces', 'mootyper').'</td><td>';
+$countmistypedspaceschecked = $countmistypedspaceso == 'on' ? ' checked="checked"' : '';
+$htmlout .= '<input type="checkbox"'.$countmistypedspaceschecked.' onchange="this.form.submit()" name="countmistypedspaces">';
+
 $layouts = get_keyboard_layouts_db();
 
 $deflayout = $moocfg->defaultlayout;
