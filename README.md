@@ -62,9 +62,9 @@ http://www.youtube.com/watch?v=Twl-7CGrS0g
 
 4. ADDITIONAL KEYBOARD LAYOUTS
 
-MooTyper currently includes support for new versions (V2) of English, Japanese,
-Russian Slovenian, Spanish and Swiss keyboard layouts, that include keys that 
-were not implemented in previous versions.
+This MooTyper currently includes support for new versions (V21) of English, Japanese,
+Russian Slovenian, Spanish and Swiss keyboard layouts, that are compatible with both
+the new Boost theme as well as Clean.
 
 To implement any other layout you have to:
 Create a php file with keyboard layout defined with HTML. Create a javascript
@@ -86,6 +86,15 @@ student progress and grades.
 As of version 3.1.0, MooTyper now supports Import and Export of MooTyper Lessons
 via links in the Administration block, which overcomes these limitations.
 
+6. NEW IN THIS RELEASE
+
+You have the option of counting mistyped spaces as a mistake. It works with
+continous typing on or off.
+If a user clicks 'Views my grades' they will now see a horizontal bar chart beneath
+their grade table that charts Hits per minute, Presision, and WPM results.
+If a non-editing teacher, teacher, manager, or admin, clicks on 'View all grades'
+they will see the normal grade table as well as horizontal bar charts showing
+Hits per minute, Prescison, and WPM for each exercise for each student.
  
 For more info please visit the plugins wiki on github:
 https://github.com/drachels/moodle-mod_mootyper/wiki
