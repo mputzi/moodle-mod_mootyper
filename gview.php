@@ -256,6 +256,10 @@ if (!has_capability('mod/mootyper:viewgrades', context_module::instance($cm->id)
                              <td>'.date(get_config('mod_mootyper', 'dateformat'), $gr->timetaken).'</td>
                              <td>'.$gr->wpm.'</td>
                              <td>'.$removelnk.'</td></tr>';
+            $labels[] = $gr->firstname.' '.$gr->lastname.' Ex-'.$gr->exercisename;  // This gets the exercise number.
+            $serieshitsperminute[] = format_float($gr->hitsperminute); // Get the hits per minute value.
+            $seriesprecision[] = format_float($gr->precisionfield);  // Get the precision percentage value.
+            $serieswpm[] = $gr->wpm; // Get the corrected words per minute rate.
             }
             $avg = get_grades_avg($grds);
             $htmlout .= '<tr style="border-top-style: solid;"><td><strong>'.get_string('average', 'mootyper').': </strong></td>
@@ -278,5 +282,22 @@ if (!has_capability('mod/mootyper:viewgrades', context_module::instance($cm->id)
                 .$mootyper->id.'&isexam='.$mootyper->isexam.'">'.get_string('csvexport', 'mootyper').'</a></p>';
 }
 echo $htmlout;
+if ($grds != false) {  // If there are NOT any grades, DON'T draw the chart.
+    // Create the info the api needs passed to it for each series I want to chart.
+    $serie1 = new core\chart_series(get_string('hitsperminute', 'mootyper'), $serieshitsperminute);
+    $serie2 = new core\chart_series(get_string('precision', 'mootyper'), $seriesprecision);
+    $serie3 = new core\chart_series(get_string('wpm', 'mootyper'), $serieswpm);
+
+    $chart = new core\chart_bar();  // Tell the api I want a bar chart.
+    $chart->set_horizontal(true); // Calling set_horizontal() passing true as parameter will display horizontal bar charts.
+    $chart->set_title(get_string('charttitleallgrades', 'mootyper')); // Tell the api what I want for a the chart title.
+    $chart->add_series($serie1);  // Pass the hits per minute data to the api.
+    $chart->add_series($serie2);  // Pass the precision data to the api.
+    $chart->add_series($serie3);  // Pass the words per minute data to the api.
+    $chart->set_labels($labels);  // Pass the exercise number data to the api.
+    $chart->get_xaxis(0, true)->set_label("Range");  // Pass a label to add to the x-axis.
+    $chart->get_yaxis(0, true)->set_label(get_string('fexercise', 'mootyper')); // Pass the label to add to the y-axis.
+    echo $OUTPUT->render($chart); // Draw the chart on the output page.
+}
 echo $OUTPUT->footer();
 
