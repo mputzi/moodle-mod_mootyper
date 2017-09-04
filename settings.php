@@ -53,21 +53,20 @@ if ($ADMIN->fulltree) {
     for ($i = 0; $i <= 100; $i++) {
         $precs[] = $i;
     }
-    $settings->add(new admin_setting_configselect(
-    'mod_mootyper/defaultprecision',
+    $settings->add(new admin_setting_configselect('mod_mootyper/defaultprecision',
         get_string('defaultprecision', 'mootyper'),
         '', 97, $precs)
     );
 
     // Default continuous typing setting.
-        $settings->add(new admin_setting_configcheckbox_with_advanced('mod_mootyper/continuoustype',
+    $settings->add(new admin_setting_configcheckbox_with_advanced('mod_mootyper/continuoustype',
         get_string('continuoustype', 'mootyper'), get_string('continuoustype_help', 'mootyper'),
-        array('value' => 0, 'adv' => true)));
+        array('value' => 0, 'adv' => false)));
 
     // Default count space as a mistake typing setting.
-        $settings->add(new admin_setting_configcheckbox_with_advanced('mod_mootyper/countmistypedspaces',
+    $settings->add(new admin_setting_configcheckbox_with_advanced('mod_mootyper/countmistypedspaces',
         get_string('countmistypedspaces', 'mootyper'), get_string('countmistypedspaces_help', 'mootyper'),
-        array('value' => 0, 'adv' => true)));
+        array('value' => 0, 'adv' => false)));
 
     // Lesson export settings.
     $settings->add(new admin_setting_heading('mod_mootyper/lesson_export', get_string('lesson_export', 'mootyper'), ''));
@@ -88,7 +87,7 @@ if ($ADMIN->fulltree) {
     $settings->add(new admin_setting_configselect(
     'mod_mootyper/defaultlayout',
         get_string('defaultlayout', 'mootyper'),
-        '', 1, $layouts)
+        '', 3, $layouts)
     );
 
 
