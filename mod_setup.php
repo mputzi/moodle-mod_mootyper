@@ -95,13 +95,13 @@ if (isset($param1) && get_string('fconfirm', 'mootyper') == $param1) {
 
     $showkeyboardpo = optional_param('showkeyboard', null, PARAM_CLEAN);
     $continuoustypepo = optional_param('continuoustype', null, PARAM_CLEAN);
-	$countmistypedspaceso = optional_param('countmistypedspaces', null, PARAM_CLEAN);
+    $countmistypedspaceso = optional_param('countmistypedspaces', null, PARAM_CLEAN);
     global $DB, $CFG;
     $mootyper  = $DB->get_record('mootyper', array('id' => $n), '*', MUST_EXIST);
     $mootyper->lesson = $lessonpo;
     $mootyper->showkeyboard = $showkeyboardpo == 'on';
     $mootyper->continuoustype = $continuoustypepo == 'on';
-	$mootyper->countmistypedspaces = $countmistypedspaceso == 'on';
+    $mootyper->countmistypedspaces = $countmistypedspaceso == 'on';
     $mootyper->layout = $layoutpo;
     $mootyper->isexam = $modepo;
     $mootyper->requiredgoal = $goalpo;
