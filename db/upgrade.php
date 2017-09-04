@@ -157,11 +157,11 @@ function xmldb_mootyper_upgrade($oldversion) {
         if (!$dbman->field_exists($table, $field)) {
             $dbman->add_field($table, $field);
         }
-		
+
         // Mootyper savepoint reached.
         upgrade_mod_savepoint(true, 2017060400.2, 'mootyper');
     }
-	// New field countmistypedsp added after continuoustype for version 3.3.0.
+    // New field countmistypedspaces added after continuoustype for version 3.3.0.
     if ($oldversion < 2017090200) {
 
         // Define field countmistypedspaces to be added to mootyper.
