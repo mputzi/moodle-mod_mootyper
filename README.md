@@ -88,8 +88,16 @@ via links in the Administration block, which overcomes these limitations.
 
 6. NEW IN THIS RELEASE
 
-You have the option of counting mistyped spaces as a mistake. It works with
-continous typing on or off.
+There are now three typing modes. 
+  1.The original mode -This mode requires you to type the correct letter before
+  you can move to the next letter. Extra spaces are ignored. Mistyped letters
+  are counted as mistakes.
+  2. Count mistyped spaces - Same as the original mode, but counts mistyped spaces
+  as well as mistyped letters.
+  3. Continuous typing - In this mode you do not have to type the correct letter
+  before moving to the next letter. All mistyped letters and space are counted
+  as mistakes.
+
 If a user clicks 'Views my grades' they will now see a horizontal bar chart beneath
 their grade table that charts Hits per minute, Presision, and WPM results.
 If a non-editing teacher, teacher, manager, or admin, clicks on 'View all grades'
