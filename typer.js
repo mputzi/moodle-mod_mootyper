@@ -12,7 +12,7 @@ var startTime,
     showKeyboard,
     THE_LAYOUT,
     continuousType,
-	countMistypedSpaces,
+    countMistypedSpaces,
     keyupCombined,
     keyupFirst;
 
@@ -151,7 +151,7 @@ function keyPressed(e) {
         currentChar = fullText[currentPos + 1];
         currentPos++;
         return true;
-    } else if (keychar === ' ' && countMistypedSpaces) { // Ignore mistyped extra spaces unless set to count them.
+    } else if (keychar === ' ' && !countMistypedSpaces) { // Ignore mistyped extra spaces unless set to count them.
         return false;
     } else {
         mistakes++; // Typed the wrong letter so increment mistake count.
