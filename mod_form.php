@@ -109,7 +109,7 @@ class mod_mootyper_mod_form extends moodleform_mod {
         $mform->addHelpButton('continuoustype', 'continuoustype', 'mootyper');
         $mform->setDefault('continuoustype', $mootyperconfig->continuoustype);
         $mform->setAdvanced('continuoustype', $mootyperconfig->continuoustype_adv);
-		
+
         $mform->addElement('selectyesno', 'countmistypedspaces', get_string('countmistypedspaces', 'mootyper'));
         $mform->addHelpButton('countmistypedspaces', 'countmistypedspaces', 'mootyper');
         $mform->setDefault('countmistypedspaces', $mootyperconfig->countmistypedspaces);
