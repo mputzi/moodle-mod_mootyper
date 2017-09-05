@@ -129,22 +129,22 @@ function keyboardElement(ltr) {
 function dobiFinger(t_crka) {
     if (t_crka === ' ') {
         return 5;
-    } else if (t_crka === 'q' || t_crka === 'a' || t_crka === '1' ||  t_crka === '2' || t_crka === 'z' || t_crka === '<' ||
+    } else if (t_crka === 'q' || t_crka === 'a' || t_crka === 'á' || t_crka === '1' ||  t_crka === '2' || t_crka === 'z' || t_crka === '<' ||
                t_crka === 'p' || t_crka === '\'' || t_crka === '=' || t_crka === '-' || t_crka === '!' || t_crka === '@' ||
                t_crka === '>' || t_crka === '{' || t_crka === '}' || t_crka === '[' || t_crka === ']' || t_crka === ':' ||
                t_crka === '"' || t_crka === '|' || t_crka === '?' || t_crka === "'" || t_crka === '_' || t_crka === '+' ||
-               t_crka === '¡' || t_crka === '¿' || t_crka === 'ç' || t_crka === 'ñ' || t_crka === 'ª' || t_crka === 'º' ||
+               t_crka === '¡' || t_crka === 'í' || t_crka === '¿' || t_crka === 'ç' || t_crka === 'ñ' || t_crka === 'ª' || t_crka === 'º' ||
                t_crka === '`' || t_crka === '´') {
         return 4;
     } else if (t_crka === 'w' || t_crka === 's' || t_crka === 'x' || t_crka === '3' || t_crka === '#' || t_crka === '.' || t_crka === ':' ||
-               t_crka === 'l' || t_crka === 'o' || t_crka === '0' || t_crka === ')' || t_crka === '·') {
+               t_crka === 'l' || t_crka === 'o' || t_crka === 'ó' || t_crka === '0' || t_crka === ')' || t_crka === '·') {
         return 3;
-    } else if (t_crka === 'd' || t_crka === 'e' || t_crka === 'c' || t_crka === '4' || t_crka === 'k' || t_crka === 'i' ||
+    } else if (t_crka === 'd' || t_crka === 'e' || t_crka === 'é' || t_crka === 'c' || t_crka === '4' || t_crka === 'k' || t_crka === 'i' ||
                t_crka === '9' || t_crka === ',' || t_crka === ';' || t_crka === '$' || t_crka === '(') {
         return 2;
     } else if (t_crka === 'v' || t_crka === 'b' || t_crka === 'f' || t_crka === 'g' || t_crka === 'r' || t_crka === 't' ||
                t_crka === '5' || t_crka === '6' || t_crka === '7' || t_crka === '8' || t_crka === '%' || t_crka === '^' || t_crka === '/' ||
-               t_crka === 'm' || t_crka === 'n' || t_crka === 'j' || t_crka === 'h' || t_crka === 'u' || t_crka === 'y' ||
+               t_crka === 'm' || t_crka === 'n' || t_crka === 'j' || t_crka === 'h' || t_crka === 'u' || t_crka === 'ú' || t_crka === 'y' ||
                t_crka === '*' || t_crka === '&' || t_crka === '¬') {
         return 1;
     } else {
@@ -206,12 +206,22 @@ function dobiTipkoId(t_crka) {
     } else if (t_crka === 'º' || t_crka === 'ª') {
         return "jkeytildo";
     } else if (t_crka === '¿') {
-        return 'jkey¡'
+        return 'jkey¡';
+    } else if (t_crka === 'a' || t_crka === 'á') {
+        return "jkeya";
+    } else if (t_crka === 'e' || t_crka === 'é') {
+        return "jkeya";
+    } else if (t_crka === 'i' || t_crka === 'í') {
+        return "jkeya";
+    } else if (t_crka === 'o' || t_crka === 'ó') {
+        return "jkeya";
+    } else if (t_crka === 'u' || t_crka === 'ú') {
+        return "jkeya";
     } else {
         return "jkey" + t_crka;
     }
 }
 
 function isLetter(str) {
-    return str.length === 1 && str.match(/[0-9a-z¡ñç]/i);
+    return str.length === 1 && str.match(/[0-9a-z¡ñçáéíóú]/i);
 }
