@@ -78,7 +78,7 @@ $exercisetoedit = $DB->get_record('mootyper_exercises', array('id' => $exercisei
 
 <script type="text/javascript">
 function isLetter(str) {
-    var pattern = /[a-zčšžđćüöäèéàçâêîôº¡çñ]/i;
+    var pattern = /[a-zčšžđćüöäáèéàçâêîíôóúº¡çñ]/i;
     return str.length === 1 && str.match(pattern);
 }
 function isNumber(n) {
@@ -90,7 +90,7 @@ var ok = true;
 function clClick()
 {
     var exercise_text = document.getElementById("texttotype").value;
-    var allowed_chars = ['á', 'é', 'í', 'ó', 'ú', '\\', '~', '!', '@', '#', '$', '%', '^', '&', '(', ')',
+    var allowed_chars = ['\\', '~', '!', '@', '#', '$', '%', '^', '&', '(', ')',
                          '*', '_', '+', ':', ';', '"', '{', '}', '>', '<', '?', '\'',
                          '-', '/', '=', '.', ',', ' ', '|', '¡', '`', 'ç', 'ñ', 'º',
                          '¿', 'ª', '·', '\n', '\r', '\r\n', '\n\r', ']', '[', '¬',
