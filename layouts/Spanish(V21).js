@@ -210,13 +210,13 @@ function dobiTipkoId(t_crka) {
     } else if (t_crka === 'a' || t_crka === 'á') {
         return "jkeya";
     } else if (t_crka === 'e' || t_crka === 'é') {
-        return "jkeya";
+        return "jkeye";
     } else if (t_crka === 'i' || t_crka === 'í') {
-        return "jkeya";
+        return "jkeyi";
     } else if (t_crka === 'o' || t_crka === 'ó') {
-        return "jkeya";
+        return "jkeyo";
     } else if (t_crka === 'u' || t_crka === 'ú') {
-        return "jkeya";
+        return "jkeyu";
     } else {
         return "jkey" + t_crka;
     }
