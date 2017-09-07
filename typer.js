@@ -122,7 +122,7 @@ function keyPressed(e) {
         doStart();
     }
     var keychar = getPressedChar(e);
-    if(keychar === currentChar || ((currentChar === '\n' || currentChar === '\r\n' || currentChar === '\n\r' || currentChar === '\r') && (keychar === ' '))) {
+    if (keychar === currentChar || ((currentChar === '\n' || currentChar === '\r\n' || currentChar === '\n\r' || currentChar === '\r') && (keychar === ' '))) {
         if(currentPos === fullText.length - 1) {  // END.
             $('#tb1').val($('#tb1').val() + currentChar);
             var elemOff = new keyboardElement(currentChar);
@@ -151,11 +151,11 @@ function keyPressed(e) {
         currentChar = fullText[currentPos + 1];
         currentPos++;
         return true;
-    } else if (keychar === ' ' && countMistypedSpaces) { // Ignore mistyped extra spaces unless set to count them.
-        return false;
+    } else if (keychar === ' ' && !countMistypedSpaces) { // Ignore mistyped extra spaces unless set to count them.
+		return false;
     } else {
         mistakes++; // Typed the wrong letter so increment mistake count.
-        if (!continuousType) { // If not set for continuous typing, wait for correct letter.
+        if ((!continuousType && !countMistypedSpaces) || (!continuousType && countMistypedSpaces)) { // If not set for continuous typing, wait for correct letter.
             return false;
         } else if (currentPos < fullText.length - 1) { // If continuous typing, show wrong letter and move on.
                 var nextChar = fullText[currentPos + 1];
@@ -209,10 +209,11 @@ function timeDifference(t1, t2) {
     return new Date(yrs, mnth, dys, ure, minute, secunde, 0);
 }
 
-function inittexttoenter(ttext, tinprogress, tmistakes, thits, tstarttime, tattemptid, turl, tshowkeyboard, tcontinuoustype) {
+function inittexttoenter(ttext, tinprogress, tmistakes, thits, tstarttime, tattemptid, turl, tshowkeyboard, tcontinuoustype, tcountmistypedspaces) {
     $("#form1").on("keypress", "#tb1", keyPressed);
     showKeyboard = tshowkeyboard;
     continuousType = tcontinuoustype;
+	countMistypedSpaces = tcountmistypedspaces;
     fullText = ttext;
     appUrl = turl;
     var tempStr = "";

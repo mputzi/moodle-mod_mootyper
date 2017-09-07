@@ -262,11 +262,11 @@ if ($mootyper->lesson != null) {
         $record = get_last_check($mootyper->id);
         if (is_null($record)) {
             echo '<script type="text/javascript">inittexttoenter("' . $texttoinit . '", 0, 0, 0, 0, 0, "' .
-                $CFG->wwwroot . '", ' . $mootyper->showkeyboard . ', ' . $mootyper->continuoustype . ');</script>';
+                $CFG->wwwroot . '", ' . $mootyper->showkeyboard . ', ' . $mootyper->continuoustype .', '. $mootyper->countmistypedspaces . ');</script>';
         } else {
             echo '<script type="text/javascript">inittexttoenter("' . $texttoinit . '", 1, ' . $record->mistakes . ', ' .
                 $record->hits . ', ' . $record->timetaken . ', ' . $record->attemptid . ', "' . $CFG->wwwroot . '", ' .
-                $mootyper->showkeyboard . ', ' . $mootyper->continuoustype . ');</script>';
+                $mootyper->showkeyboard . ', ' . $mootyper->continuoustype .', '. $mootyper->countmistypedspaces . ');</script>';
         }
     } else {
         echo get_string('endlesson', 'mootyper');
