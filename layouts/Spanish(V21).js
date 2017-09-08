@@ -67,6 +67,7 @@ THE_LAYOUT = 'Spanish';
 function keyboardElement(ltr) {
     this.chr = ltr.toLowerCase();
     this.alt = false;
+	this.accent = false;
     if (isLetter(ltr)) {
         this.shift = ltr.toUpperCase() === ltr && ltr != '¡';
     } else {
@@ -81,6 +82,16 @@ function keyboardElement(ltr) {
             this.alt = true;
         }
     }
+    if (ltr === 'á' || ltr === 'é' || ltr === 'í' || ltr === 'ó' || ltr === 'ú') {
+        this.shift = false;
+        this.alt = false;
+		this.accent = true;
+    }
+    if (ltr === 'Á' || ltr === 'É' || ltr === 'Í' || ltr === 'Ó'|| ltr === 'Ú') {
+        this.shift = true;
+        this.alt = false;
+		this.accent = true;
+    }	
     this.turnOn = function () {
         if (isLetter(this.chr)) {
             document.getElementById(dobiTipkoId(this.chr)).className = "next" + dobiFinger(this.chr.toLowerCase());
@@ -98,6 +109,9 @@ function keyboardElement(ltr) {
         }
         if (this.alt) {
             document.getElementById('jkeyaltgr').className = "nextSpace";
+        }
+        if (this.accent) {
+            document.getElementById('jkeyrighttick').className = "next4";
         }
     };
     this.turnOff = function () {
@@ -122,6 +136,9 @@ function keyboardElement(ltr) {
         }
         if (this.alt) {
             document.getElementById('jkeyaltgr').className = "normal";
+        }
+        if (this.accent) {
+            document.getElementById('jkeyrighttick').className = "normal";
         }
     };
 }
