@@ -91,7 +91,22 @@ function keyboardElement(ltr) {
         this.shift = true;
         this.alt = false;
 		this.accent = true;
-    }	
+    }
+    if (ltr === 'ü') {
+        this.shift = true;
+        this.alt = false;
+		this.accent = true;
+    }
+    if (ltr === 'Ü') {
+        this.shift = true;
+        this.alt = false;
+		this.accent = true;
+    }
+    if (ltr === '€') {
+        this.shift = false;
+        this.alt = true;
+		this.accent = false;
+    }
     this.turnOn = function () {
         if (isLetter(this.chr)) {
             document.getElementById(dobiTipkoId(this.chr)).className = "next" + dobiFinger(this.chr.toLowerCase());
@@ -108,7 +123,7 @@ function keyboardElement(ltr) {
             document.getElementById('jkeyshiftl').className = "next4";
         }
         if (this.alt) {
-            document.getElementById('jkeyaltgr').className = "nextSpace";
+            document.getElementById('jkeyaltgr').className = "next2";
         }
         if (this.accent) {
             document.getElementById('jkeyrighttick').className = "next4";
@@ -160,8 +175,8 @@ function dobiFinger(t_crka) {
                t_crka === '9' || t_crka === ',' || t_crka === ';' || t_crka === '$' || t_crka === '(') {
         return 2;
     } else if (t_crka === 'v' || t_crka === 'b' || t_crka === 'f' || t_crka === 'g' || t_crka === 'r' || t_crka === 't' ||
-               t_crka === '5' || t_crka === '6' || t_crka === '7' || t_crka === '8' || t_crka === '%' || t_crka === '^' || t_crka === '/' ||
-               t_crka === 'm' || t_crka === 'n' || t_crka === 'j' || t_crka === 'h' || t_crka === 'u' || t_crka === 'ú' || t_crka === 'y' ||
+               t_crka === '5' || t_crka === '€' || t_crka === '6' || t_crka === '7' || t_crka === '8' || t_crka === '%' || t_crka === '^' || t_crka === '/' ||
+               t_crka === 'm' || t_crka === 'n' || t_crka === 'j' || t_crka === 'h' || t_crka === 'u' || t_crka === 'ú' || t_crka === 'ü' || t_crka === 'y' ||
                t_crka === '*' || t_crka === '&' || t_crka === '¬') {
         return 1;
     } else {
@@ -188,7 +203,7 @@ function dobiTipkoId(t_crka) {
         return "jkey3";
     } else if (t_crka === '$') {
         return "jkey4";
-    } else if (t_crka === '%') {
+    } else if (t_crka === '%' || t_crka === '€') {
         return "jkey5";
     } else if (t_crka === '&' || t_crka === '¬') {
         return "jkey6";
@@ -204,7 +219,7 @@ function dobiTipkoId(t_crka) {
         return "jkeylefttick";
     } else if (t_crka === ']') {
         return "jkeyplus";
-    } else if (t_crka === '´' || t_crka === '{') {
+    } else if (t_crka === '´' || t_crka === '"' || t_crka === '{') {
         return "jkeyrighttick";
     } else if (t_crka === '}') {
         return "jkeyç";
@@ -232,7 +247,7 @@ function dobiTipkoId(t_crka) {
         return "jkeyi";
     } else if (t_crka === 'o' || t_crka === 'ó') {
         return "jkeyo";
-    } else if (t_crka === 'u' || t_crka === 'ú') {
+    } else if (t_crka === 'u' || t_crka === 'ú' || t_crka === 'ü') {
         return "jkeyu";
     } else {
         return "jkey" + t_crka;
