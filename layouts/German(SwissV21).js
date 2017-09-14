@@ -169,7 +169,7 @@ function thenFinger(t_crka) {
     if (t_crka === ' ') {
         return 5;
     } else if (t_crka === '<' || t_crka === '>' || t_crka === 'y' || t_crka === 'a' || t_crka === 'â' || t_crka === 'â' || t_crka === 'q' ||
-            t_crka === '§' || t_crka === '°' || t_crka === '1' || t_crka === '+' ||t_crka === '|' ||
+            t_crka === '§' || t_crka === '°' || t_crka === '1' || t_crka === '+' ||t_crka === '¦' ||
             t_crka === '-' || t_crka === '_' || t_crka === 'ö' || t_crka === 'é' || t_crka === 'p' || t_crka === '0' || t_crka === '=' ||
             t_crka === 'ä' || t_crka === 'à' || t_crka === '{' || t_crka === 'ü' || t_crka === 'è' || t_crka === '[' ||
             t_crka === '\'' || t_crka === '?' || t_crka === '´' ||    t_crka === '$' || t_crka === '£' || t_crka === '}' ||
@@ -184,7 +184,7 @@ function thenFinger(t_crka) {
     } else if (t_crka === 'v' || t_crka === 'f' || t_crka === 'r' || t_crka === '4' || t_crka === 'ç' ||
             t_crka === 'b' || t_crka === 'g' || t_crka === 't' || t_crka === '5' || t_crka === '%' ||
             t_crka === 'n' || t_crka === 'h' || t_crka === 'z' || t_crka === '6' || t_crka === '&' || t_crka === '¬' ||
-            t_crka === 'm' || t_crka === 'j' || t_crka === 'u' || t_crka === '7' || t_crka === '/' || t_crka === '¦') {
+            t_crka === 'm' || t_crka === 'j' || t_crka === 'u' || t_crka === '7' || t_crka === '/' || t_crka === '|') {
         return 1;
     } else {
         return 6;
@@ -246,7 +246,7 @@ function thenPressID(t_crka) {
         return "jkeyü";
     } else if (t_crka === 'é') {
         return "jkeyö";
-    } else if (t_crka === 'à') {
+    } else if (t_crka === 'à' || t_crka === '{') {
         return "jkeyä";
     } else if (t_crka === 'î') {
         return "jkeyi";

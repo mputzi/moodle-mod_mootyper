@@ -31,24 +31,24 @@ echo (isset($displaynone) && ($displaynone == true)) ? 'display:none;' : '';
 "><br>
 <span id="keyboard" class="keyboardback">Portuguese(V2.1)(Brazil) Keyboard Layout<br><br>
 <span id="jkeycrtica" class="normal"><span class="textup">"</span><span class="textdown"> '</span></span>
-<span id="jkey1" class="normal"><span class="textup">!</span><span class="textdown">1¹</span></span>
-<span id="jkey2" class="normal"><span class="textup">@</span><span class="textdown">2²</span></span>
-<span id="jkey3" class="normal"><span class="textup">#</span><span class="textdown">3³</span></span>
-<span id="jkey4" class="normal"><span class="textup">$</span><span class="textdown">4£</span></span>
-<span id="jkey5" class="normal"><span class="textup">%</span><span class="textdown">5¢</span></span>
-<span id="jkey6" class="normal"><span class="textup">¨</span><span class="textdown">6¬</span></span>
+<span id="jkey1" class="normal"><span class="textup">!</span><span class="textdown">1 Â¹</span></span>
+<span id="jkey2" class="normal"><span class="textup">@</span><span class="textdown">2 Â²</span></span>
+<span id="jkey3" class="normal"><span class="textup">#</span><span class="textdown">3 Â³</span></span>
+<span id="jkey4" class="normal"><span class="textup">$</span><span class="textdown">4 Â£</span></span>
+<span id="jkey5" class="normal"><span class="textup">%</span><span class="textdown">5 Â¢</span></span>
+<span id="jkey6" class="normal"><span class="textup">Â¨</span><span class="textdown">6 Â¬</span></span>
 <span id="jkey7" class="normal"><span class="textup">&</span><span class="textdown">7</span></span>
 <span id="jkey8" class="normal"><span class="textup">*</span><span class="textdown">8</span></span>
 <span id="jkey9" class="normal"><span class="textup">(</span><span class="textdown">9</span></span>
 <span id="jkey0" class="normal"><span class="textup">)</span><span class="textdown">0</span></span>
 <span id="jkeyminus" class="normal"><span class="textup">_</span><span class="textdown">-</span></span>
-<span id="jkeyequals" class="normal"><span class="textup">+</span><span class="textdown">=§</span></span>
+<span id="jkeyequals" class="normal"><span class="textup">+</span><span class="textdown">= Â§</span></span>
 <span id="jkeybackspace" class="normal" style="width: 68px;">B.Space</span>
 <br>
 <span id="jkeytab" class="normal" style="width: 65px;">Tab</span>
 <span id="jkeyq" class="normal">Q <sub>/</sub></span>
 <span id="jkeyw" class="normal">W <sub>?</sub></span>
-<span id="jkeye" class="normal">E <sub>€</sub></span>
+<span id="jkeye" class="normal">E <sub>Â°</sub></span>
 <span id="jkeyr" class="normal">R</span>
 <span id="jkeyt" class="normal">T</span>
 <span id="jkeyy" class="normal">Y</span>
@@ -56,8 +56,8 @@ echo (isset($displaynone) && ($displaynone == true)) ? 'display:none;' : '';
 <span id="jkeyi" class="normal">I</span>
 <span id="jkeyo" class="normal">O</span>
 <span id="jkeyp" class="normal">P</span>
-<span id="jkeyacuteaccent" class="normal"><span class="textup">`</span><span class="textdown">´</span></span>
-<span id="jkeybracketl" class="normal"><span class="textup">{</span><span class="textdown"> [ ª</span></span>
+<span id="jkeyacuteaccent" class="normal"><span class="textup">`</span><span class="textdown">Â´</span></span>
+<span id="jkeybracketl" class="normal"><span class="textup">{</span><span class="textdown"> [ Âª</span></span>
 <span id="jempty" class="normal" style="width: 46px;">&nbsp;</span>
 <br>
 <span id="jkeycaps" class="normal" style="width: 60px;">C.lock</span>
@@ -70,16 +70,16 @@ echo (isset($displaynone) && ($displaynone == true)) ? 'display:none;' : '';
 <span id="jkeyj" class="finger1">J</span>
 <span id="jkeyk" class="finger2">K</span>
 <span id="jkeyl" class="finger3">L</span>
-<span id="jkeyç" class="finger4">Ç</span>
+<span id="jkeyÃ§" class="finger4">Ã§</span>
 <span id="jkeytilde" class="normal"><span class="textup">^</span> ~</span>
-<span id="jkeybracketr" class="normal"><span class="textup">}</span><span class="textdown"> ] º</span></span>
+<span id="jkeybracketr" class="normal"><span class="textup">}</span><span class="textdown"> ] Âº</span></span>
 <span id="jkeyenter" class="normal" style="width: 50px;">Enter</span>
 <br>
 <span id="jkeyshiftl" class="normal" style="width: 55px;">Shift</span>
 <span id="jkeybackslash" class="normal"><span class="textup">|</span><span class="textdown"> \</span></span>
 <span id="jkeyz" class="normal">Z</span>
 <span id="jkeyx" class="normal">X</span>
-<span id="jkeyc" class="normal">C <sub>?</sub></span>
+<span id="jkeyc" class="normal">C <sub>â‚¢</sub></span>
 <span id="jkeyv" class="normal">V</span>
 <span id="jkeyb" class="normal">B</span>
 <span id="jkeyn" class="normal">N</span>
@@ -99,6 +99,6 @@ echo (isset($displaynone) && ($displaynone == true)) ? 'display:none;' : '';
 <span id="jkeywin" class="normal">Win</span>
 <span id="jkeyfn" class="normal">Menu</span>
 <!--span id="jempty" class="normal" style="width: 30px;">&nbsp;</span-->
-<span id="jkeyctrlr" class="normal" style="width: 45px; border-right-style: solid;">Ctrl</span><br>
+<span id="jkeyctrlr" class="normal" style="width: 55px; border-right-style: solid;">Ctrl</span><br>
 </span>
 </div>

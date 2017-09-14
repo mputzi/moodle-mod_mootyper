@@ -85,6 +85,8 @@ function dobiTipkoId(t_crka) {
         return "jkeyspace";
     } else if (t_crka === '\n') {
         return "jkeyenter";
+    } else if (t_crka === 'ё') {
+        return "jkeyё";
     } else if (t_crka === '!') {
         return "jkey1";
     } else if (t_crka === '"') {

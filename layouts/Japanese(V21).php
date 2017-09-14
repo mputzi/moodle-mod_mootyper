@@ -61,7 +61,7 @@ echo (isset($displaynone) && ($displaynone == true)) ? 'display:none;' : '';
     <span id="jkeyat" class="normal">@</span>
     <span id="jkeybracketopen" class="normal" style="border-right-style: solid;">[</span>
     <br>
-    <span id="jkeycaps" class="normal" style="width: 54px;">C.lock</span>
+    <span id="jkeycaps" class="normal" style="width: 60px;">C.lock</span>
     <span id="jkeya" class="finger4">A</span>
     <span id="jkeys" class="finger3">S</span>
     <span id="jkeyd" class="finger2">D</span>
@@ -75,7 +75,7 @@ echo (isset($displaynone) && ($displaynone == true)) ? 'display:none;' : '';
     <span id="jkeycolon" class="normal">:</span>
     <span id="jkeybracketclose" class="normal">]</span>
 </div>
-<span id="jkeyenter" class="normal" style="width: 50px; border-right-style: solid; float: left; height: 102px;">Enter</span>
+<span id="jkeyenter" class="normal" style="width: 50px; border-right-style: solid; float: right; height: 102px;">Enter</span>
 <br style="clear:both;" /><br />
 
 <span id="jkeyshiftl" class="normal" style="width: 75px;">Shift</span>

@@ -30,7 +30,7 @@ echo (isset($displaynone) && ($displaynone == true)) ? 'display:none;' : '';
 ?>
 "><br>
 <span id="keyboard" class="keyboardback">Russian(V2.1) Keyboard Layout<br><br>
-<span id="jkey?" class="normal">Ё</span>
+<span id="jkeyё" class="normal">Ё</span>
 <span id="jkey1" class="normal"><span class="textup">! </span> 1</span>
 <span id="jkey2" class="normal"><span class="textup">" </span> 2</span>
 <span id="jkey3" class="normal"><span class="textup">№</span> 3</span>

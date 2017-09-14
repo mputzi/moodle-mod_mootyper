@@ -152,7 +152,7 @@ function keyPressed(e) {
         currentPos++;
         return true;
     } else if (keychar === ' ' && !countMistypedSpaces) { // Ignore mistyped extra spaces unless set to count them.
-		return false;
+        return false;
     } else {
         mistakes++; // Typed the wrong letter so increment mistake count.
         if ((!continuousType && !countMistypedSpaces) || (!continuousType && countMistypedSpaces)) { // If not set for continuous typing, wait for correct letter.
@@ -213,7 +213,7 @@ function inittexttoenter(ttext, tinprogress, tmistakes, thits, tstarttime, tatte
     $("#form1").on("keypress", "#tb1", keyPressed);
     showKeyboard = tshowkeyboard;
     continuousType = tcontinuoustype;
-	countMistypedSpaces = tcountmistypedspaces;
+    countMistypedSpaces = tcountmistypedspaces;
     fullText = ttext;
     appUrl = turl;
     var tempStr = "";
