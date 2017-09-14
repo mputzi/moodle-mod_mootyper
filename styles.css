@@ -25,7 +25,7 @@
  */
 
 #mainDiv{
-    text-align:center;
+    text-align: center;
     width: 100%;
 }
 #mainDiv table td{
@@ -108,9 +108,9 @@
         -webkit-transition-duration: 0.2s;
         -moz-transition-duration: 0.2s;
         transition-duration: 0.2s;
-        -webkit-user-select:none;
-        -moz-user-select:none;
-        -ms-user-select:none;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
 }
 .normal{
     display: table-cell;
@@ -136,9 +136,9 @@
         -webkit-transition-duration: 0.2s;
         -moz-transition-duration: 0.2s;
         transition-duration: 0.2s;
-        -webkit-user-select:none;
-        -moz-user-select:none;
-        -ms-user-select:none;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
 }
 .finger4{
     display: table-cell;
@@ -162,9 +162,9 @@
         -webkit-transition-duration: 0.2s;
         -moz-transition-duration: 0.2s;
         transition-duration: 0.2s;
-        -webkit-user-select:none;
-        -moz-user-select:none;
-        -ms-user-select:none;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
 }
 .finger3{
     display: table-cell;
@@ -188,9 +188,9 @@
         -webkit-transition-duration: 0.2s;
         -moz-transition-duration: 0.2s;
         transition-duration: 0.2s;
-        -webkit-user-select:none;
-        -moz-user-select:none;
-        -ms-user-select:none;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
 }
 .finger2{
     display: table-cell;
@@ -214,9 +214,9 @@
         -webkit-transition-duration: 0.2s;
         -moz-transition-duration: 0.2s;
         transition-duration: 0.2s;
-        -webkit-user-select:none;
-        -moz-user-select:none;
-        -ms-user-select:none;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
 }
 .finger1{
     display: table-cell;
@@ -240,9 +240,9 @@
         -webkit-transition-duration: 0.2s;
         -moz-transition-duration: 0.2s;
         transition-duration: 0.2s;
-        -webkit-user-select:none;
-        -moz-user-select:none;
-        -ms-user-select:none;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
 }
 .fingerSpace{
     display: table-cell;
@@ -266,9 +266,9 @@
         -webkit-transition-duration: 0.2s;
         -moz-transition-duration: 0.2s;
         transition-duration: 0.2s;
-        -webkit-user-select:none;
-        -moz-user-select:none;
-        -ms-user-select:none;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
 }
 .next1{
     display: table-cell;
@@ -292,9 +292,9 @@
         -webkit-transition-duration: 0.2s;
         -moz-transition-duration: 0.2s;
         transition-duration: 0.2s;
-        -webkit-user-select:none;
-        -moz-user-select:none;
-        -ms-user-select:none;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
 }
 .next2{
     display: table-cell;
@@ -318,9 +318,9 @@
         -webkit-transition-duration: 0.2s;
         -moz-transition-duration: 0.2s;
         transition-duration: 0.2s;
-        -webkit-user-select:none;
-        -moz-user-select:none;
-        -ms-user-select:none;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
 }
 .next3{
     display: table-cell;
@@ -344,9 +344,9 @@
         -webkit-transition-duration: 0.2s;
         -moz-transition-duration: 0.2s;
         transition-duration: 0.2s;
-        -webkit-user-select:none;
-        -moz-user-select:none;
-        -ms-user-select:none;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
 }
 .next4{
     display: table-cell;
@@ -370,9 +370,9 @@
         -webkit-transition-duration: 0.2s;
         -moz-transition-duration: 0.2s;
         transition-duration: 0.2s;
-        -webkit-user-select:none;
-        -moz-user-select:none;
-        -ms-user-select:none;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
 }
 .nextSpace{
     display: table-cell;
@@ -396,9 +396,9 @@
         -webkit-transition-duration: 0.2s;
         -moz-transition-duration: 0.2s;
         transition-duration: 0.2s;
-        -webkit-user-select:none;
-        -moz-user-select:none;
-        -ms-user-select:none;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
 }
 
 .arrow-n,
