@@ -17,9 +17,11 @@ function keyboardElement(ltr) {
         this.shift = ltr.toUpperCase() === ltr;
     } else if (ltr === 'Đ' || ltr === 'Ć' || ltr === 'Č' || ltr === 'Š' || ltr === 'Ž') {
         this.shift = true;
-    } else if (ltr === '@') {
+    } else if (ltr === '\\' || ltr === '|' || ltr === '€' || ltr === '÷' || ltr === '×' || ltr === '[' ||
+               ltr === ']' || ltr === 'ł' || ltr === 'Ł' || ltr === 'ß' || ltr === '¤' || ltr === '@' ||
+               ltr === '{' || ltr === '}' || ltr === '§') {
         this.shift = false;
-        this.alt = true;
+         this.alt = true;
     } else {
         if (ltr === '!' || ltr === '"' || ltr === '#' || ltr === '$' || ltr === '%' || ltr === '&' ||
            ltr === '/' || ltr === '(' || ltr === ')' || ltr === '=' || ltr === '?' || ltr === '*' ||
@@ -61,25 +63,28 @@ function keyboardElement(ltr) {
 
 function dobiFinger(t_crka) {
     if (t_crka === ' ') {
-        return 5;
-    } else if (t_crka === 'q' || t_crka === 'a' || t_crka === 'p' || t_crka === 'č' || t_crka === 'ć' ||
-              t_crka === 'š' || t_crka === 'đ' || t_crka === 'ž' || t_crka === 'đ' || t_crka === 'y' || t_crka === '1' ||
-              t_crka === '2' || t_crka === '\'' || t_crka === '+' || t_crka === '*' || t_crka === '?' || t_crka === '!' ||
-              t_crka === '\n' || t_crka === '-' || t_crka === '_' || t_crka === '<' || t_crka === '>') {
-        return 4;
-    } else if (t_crka === 'w' || t_crka === 's' || t_crka === 'x' || t_crka === ':' || t_crka === 'l' || t_crka === 'o' ||
-              t_crka === '0' || t_crka === '3' || t_crka === '#' || t_crka === '=' || t_crka === '.') {
-        return 3;
-    } else if (t_crka === 'd' || t_crka === 'e' || t_crka === 'c' || t_crka === '4' || t_crka === 'k' || t_crka === 'i' ||
-              t_crka === '9' || t_crka === ',' || t_crka === '$' || t_crka === ')' || t_crka === ';') {
-        return 2;
-    } else if (t_crka === 'r' || t_crka === 't' || t_crka === 'f' || t_crka === 'v' || t_crka === 'b' || t_crka === 'g' ||
-              t_crka === '5' || t_crka === '6' || t_crka === '7' || t_crka === '8' || t_crka === 'j' || t_crka === 'h' ||
-              t_crka === 'n' || t_crka === 'm' || t_crka === 'u' || t_crka === 'z' || t_crka === '%' || t_crka === '&' ||
-              t_crka === '/' || t_crka === '(' || t_crka === '@') {
-        return 1;
+        return 5; // Highlight the spacebar.
+    } else if (t_crka === '\n' || t_crka === '¸' || t_crka === '¨' || t_crka === '1' || t_crka === '!' || t_crka === '~' ||
+               t_crka === 'q' || t_crka === '\\' || t_crka === 'a' || t_crka === '>' || t_crka === '<' ||
+               t_crka === '0' || t_crka === '=' || t_crka === '˝' || t_crka === 'p' || t_crka === 'č' || t_crka === '.' || t_crka === ':' ||
+               t_crka === '\'' || t_crka === '?' || t_crka === 'š' || t_crka === '÷' || t_crka === 'ć' || t_crka === 'ß' || t_crka === '-' ||
+               t_crka === '_' || t_crka === '+' || t_crka === '*' || t_crka === '¸' || t_crka === 'đ' || t_crka === '×' ||
+               t_crka === 'ž' || t_crka === '¤') {
+        return 4; // Highlight the correct key above in red.
+    } else if (t_crka === '2' || t_crka === '"' || t_crka === 'ˇ' || t_crka === 'w' || t_crka === '|' || t_crka === 's' || t_crka === 'y' ||
+               t_crka === '9' || t_crka === ')' || t_crka === '´' || t_crka === 'o' || t_crka === 'l' || t_crka === 'Ł' || t_crka === ',' || t_crka === ';') {
+        return 3; // Highlight the correct key above in green.
+    } else if (t_crka === '3' || t_crka === '#' || t_crka === '^' || t_crka === 'e' || t_crka === '€' || t_crka === 'd' || t_crka === 'x' ||
+               t_crka === '8' || t_crka === '(' || t_crka === '˙' || t_crka === 'i' || t_crka === 'k' || t_crka === 'ł' ||
+               t_crka === 'm' || t_crka === '§') {
+        return 2; // Highlight the correct key above in yellow.
+    } else if (t_crka === '4' || t_crka === '$' || t_crka === '˘' || t_crka === 'r' || t_crka === 'f' || t_crka === '[' || t_crka === 'c' ||
+               t_crka === '5' || t_crka === '%' || t_crka === '°' || t_crka === 't' || t_crka === 'g' || t_crka === ']' || t_crka === 'v' || t_crka === '@' ||
+               t_crka === '6' || t_crka === '&' || t_crka === '˛' || t_crka === 'z' || t_crka === 'h' || t_crka === 'b' || t_crka === '{' ||
+               t_crka === '7' || t_crka === '/' || t_crka === '`' || t_crka === 'u' || t_crka === 'j' || t_crka === 'n' || t_crka === '}') {
+        return 1; // Highlight the correct key above in blue.
     } else {
-        return 6;
+        return 6; // Do not change any highlight.
     }
 }
 
@@ -87,7 +92,7 @@ function dobiTipkoId(t_crka) {
     if (t_crka === ' ') {
         return "jkeyspace";
     } else if (t_crka === ',' || t_crka === ';') {
-        return "jkeyvejica";
+        return "jkeycomma";
     } else if (t_crka === '\n') {
         return "jkeyenter";
     } else if (t_crka === '.' || t_crka === ':') {
@@ -114,14 +119,42 @@ function dobiTipkoId(t_crka) {
         return "jkey9";
     } else if (t_crka === '=') {
         return "jkey0";
+    } else if (t_crka === '\\') {
+        return "jkeyq";
+    } else if (t_crka === '|') {
+        return "jkeyw";
+    } else if (t_crka === '€') {
+        return "jkeye";
+    } else if (t_crka === '÷') {
+        return "jkeyš";
+    } else if (t_crka === '×') {
+        return "jkeyđ";
+    } else if (t_crka === '[') {
+        return "jkeyf";
+    } else if (t_crka === ']') {
+        return "jkeyg";
+    } else if (t_crka === 'ł') {
+        return "jkeyk";
+    } else if (t_crka === 'Ł') {
+        return "jkeyl";
+    } else if (t_crka === 'ß') {
+        return "jkeyć";
+    } else if (t_crka === '¤') {
+        return "jkeyž";
+    } else if (t_crka === '@') {
+        return "jkeyv";
+    } else if (t_crka === '{') {
+        return "jkeyb";
+    } else if (t_crka === '}') {
+        return "jkeyn";
+    } else if (t_crka === '§') {
+        return "jkeym";
     } else if (t_crka === '?' || t_crka === '\'') {
-        return "jkeyvprasaj";
+        return "jkeyapotrophe";
     } else if (t_crka === '*' || t_crka === '+') {
         return "jkeyplus";
     } else if (t_crka === '<' || t_crka === '>') {
         return "jkeyckck";
-    } else if (t_crka === '@') {
-        return "jkeyv";
     } else if (this.chr === '\n' || this.chr === '\r\n' || this.chr === '\n\r' || this.chr === '\r') {
         return "jkeyenter";
     } else {

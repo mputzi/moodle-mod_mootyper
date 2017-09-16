@@ -85,6 +85,11 @@ function keyboardElement(ltr) {
         this.alt = true;
         this.accent = false;
     }
+    if (ltr === 'ë') {
+        this.shift = true;
+        this.alt = false;
+        this.accent = false;
+    }
     this.turnOn = function () {
         if (isLetter(this.chr)) {
             document.getElementById(thenPressId(this.chr)).className = "next" + dobiFinger(this.chr.toLowerCase());
@@ -92,6 +97,11 @@ function keyboardElement(ltr) {
             document.getElementById(thenPressId(this.chr)).className = "nextSpace";
         } else {
             document.getElementById(thenPressId(this.chr)).className = "next" + dobiFinger(this.chr.toLowerCase());
+        }
+        if (this.chr === 'ë') {
+            document.getElementById('jkeycaret').className = "next4";
+            document.getElementById('jkeyshiftd').className = "next4";
+            document.getElementById('jkeyshiftl').className = "next4";
         }
         if (this.chr === '\n' || this.chr === '\r\n' || this.chr === '\n\r' || this.chr === '\r') {
             document.getElementById('jkeyenter').className = "next4";
@@ -117,6 +127,11 @@ function keyboardElement(ltr) {
             }
         } else {
             document.getElementById(thenPressId(this.chr)).className = "normal";
+        }
+        if (this.chr === 'ë') {
+            document.getElementById('jkeycaret').className = "normal";
+            document.getElementById('jkeyshiftd').className = "normal";
+            document.getElementById('jkeyshiftl').className = "normal";
         }
         if (this.chr === '\n' || this.chr === '\r\n' || this.chr === '\n\r' || this.chr === '\r') {
             document.getElementById('jkeyenter').classname = "normal";
@@ -147,8 +162,9 @@ function dobiFinger(t_crka) {
     } else if (t_crka === 'é' || t_crka === '2' || t_crka === '@' || t_crka === 'z' || t_crka === 's' || t_crka === 'w' ||
                t_crka === 'ç' || t_crka === '9' || t_crka === '{' || t_crka === 'o' || t_crka === 'ó' || t_crka === 'l' || t_crka === ';' || t_crka === '.') {
         return 3; // Highlight the correct key above in green.
-    } else if (t_crka === '"' || t_crka === '3' || t_crka === '#' || t_crka === 'e' || t_crka === 'é' || t_crka === '€' || t_crka === 'd' || t_crka === 'x' ||
-               t_crka === '!' || t_crka === '8' || t_crka === 'i' || t_crka === 'í' || t_crka === 'k' || t_crka === ',' || t_crka === '?') {
+    } else if (t_crka === '"' || t_crka === '3' || t_crka === '#' || t_crka === 'e' || t_crka === 'é' || t_crka === 'ë' || t_crka === '€' ||
+               t_crka === 'd' || t_crka === 'x' || t_crka === '!' || t_crka === '8' || t_crka === 'i' || t_crka === 'í' || t_crka === 'k' ||
+               t_crka === ',' || t_crka === '?') {
         return 2; // Highlight the correct key above in yellow.
     } else if (t_crka === '\'' || t_crka === '4' || t_crka === 'r' || t_crka === 'f' || t_crka === 'c' ||
                t_crka === '(' || t_crka === '5' || t_crka === 't' || t_crka === 'g' || t_crka === 'v' ||
@@ -213,7 +229,9 @@ function thenPressId(t_crka) {
         return "jkeytildo";
     } else if (t_crka === 'a' || t_crka === 'á') {
         return "jkeya";
-    } else if (t_crka === '€' || t_crka === 'é') {
+    } else if (t_crka === '¨') {
+        return "jkeycaret";
+    } else if (t_crka === '€' || t_crka === 'é' || t_crka === 'ë') {
         return "jkeye";
     } else if (t_crka === 'i' || t_crka === 'í') {
         return "jkeyi";

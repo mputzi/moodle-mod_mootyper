@@ -178,7 +178,7 @@ function dobiFinger(t_crka) {
                t_crka === '7' || t_crka === '/' || t_crka === 'u' || t_crka === 'ú' || t_crka === 'ü' || t_crka === 'j' || t_crka === 'n') {
         return 1; // Highlight the correct key above in blue.
     } else {
-        return 6;
+        return 6; // Do not change any highlight.
     }
 }
 

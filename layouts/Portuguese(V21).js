@@ -77,26 +77,26 @@ function keyboardElement(ltr) {
 
 function thenFinger(t_crka) {
     if (t_crka === ' ') {
-        return 5;
+        return 5; // Highlight the spacebar.
     } else if (t_crka === 'z' || t_crka === 'a' || t_crka === 'q' || t_crka === '1' || t_crka === '!' || t_crka === '¹' || t_crka === '\\' || t_crka === '~' ||
                t_crka === '/' || t_crka === '?' || t_crka === ';' || t_crka === ':' || t_crka === 'ç' || t_crka === 'p' || t_crka === '0' ||
                t_crka === ')' || t_crka === '\'' || t_crka === '"' || t_crka === '[' || t_crka === '{' || t_crka === 'ª' || t_crka === '-' || t_crka === '_' ||
                t_crka === ']' || t_crka === '}' || t_crka === 'º' || t_crka === '=' || t_crka === '+' || t_crka === '§' || t_crka === '\\' || t_crka === '|' || t_crka === '´' ||
                t_crka === '`') {
-        return 4;
+        return 4; // Highlight the correct key above in red.
     } else if (t_crka === 'x' || t_crka === 's' || t_crka === 'w' || t_crka === '2' || t_crka === '@' || t_crka === '²' ||
                t_crka === '.' || t_crka === '>' || t_crka === 'l' || t_crka === 'o' || t_crka === '9' || t_crka === '(') {
-        return 3;
+        return 3; // Highlight the correct key above in green.
     } else if (t_crka === 'c' ||t_crka === '₢' || t_crka === 'd' || t_crka === 'e' || t_crka === '°' || t_crka === '3' || t_crka === '#' || t_crka === '³' ||
                t_crka === ',' || t_crka === '<' || t_crka === 'k' || t_crka === 'i' || t_crka === '8' || t_crka === '*') {
-        return 2;
+        return 2; // Highlight the correct key above in yellow.
     } else if (t_crka === 'v' || t_crka === 'f' || t_crka === 'r' || t_crka === '4' || t_crka === '$' || t_crka === '£' ||
                t_crka === 'b' || t_crka === 'g' || t_crka === 't' || t_crka === '5' || t_crka === '%' || t_crka === '¢' ||
                t_crka === 'm' || t_crka === 'j' || t_crka === 'u' || t_crka === '7' || t_crka === '&' ||
                t_crka === 'n' || t_crka === 'h' || t_crka === 'y' || t_crka === '6' || t_crka === '¨' || t_crka === '¬') {
-        return 1;
+        return 1; // Highlight the correct key above in blue.
     } else {
-        return 6;
+        return 6; // Do not change any highlight.
     }
 }
 
@@ -105,7 +105,6 @@ function thenPressId(t_crka) {
         return "jkeyspace";
     } else if (t_crka === '\n') {
         return "jkeyenter";
-
     } else if (t_crka === "\'" || t_crka === '"') {
         return "jkeycrtica";
     } else if (t_crka === '!' || t_crka === '¹') {
