@@ -64,7 +64,8 @@ echo (isset($displaynone) && ($displaynone == true)) ? 'display:none;' : '';
 <span id="jkeyi" class="normal">I</span>
 <span id="jkeyo" class="normal">O</span>
 <span id="jkeyp" class="normal">P</span>
-<span id="jkeyacuteaccent" class="normal"><span class="textup" style="color:red">`</span><span class="textdown" style="color:red">´</span></span>
+<span id="jkeyacuteaccent" class="normal"><span class="textup" style="color:red">`</span>
+    <span class="textdown" style="color:red">´</span></span>
 <span id="jkeybracketl" class="normal"><span class="textup">{</span><span class="textdown"> [ </span>
     <span class="textdown" style="color:blue"> ª</span></span>
 <br>
