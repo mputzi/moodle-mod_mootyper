@@ -156,7 +156,7 @@ if ($modepo == 0 || is_null($modepo)) {
         }
     }
     $htmlout .= '</select></td></tr><tr><td>'.get_string('requiredgoal', 'mootyper').'</td>
-                 <td><input value="'.$goalpo.'" style="width: 20px;" type="text" name="requiredgoal"> % </td></tr>';
+                 <td><input value="'.$goalpo.'" style="width: 25px;" type="text" name="requiredgoal"> % </td></tr>';
 } else if ($modepo == 1) {
     $htmlout .= '<option value="0">'.
             get_string('sflesson', 'mootyper').'</option><option value="1" selected="true">'.
