@@ -78,7 +78,7 @@ $exercisetoedit = $DB->get_record('mootyper_exercises', array('id' => $exercisei
 
 <script type="text/javascript">
 function isLetter(str) {
-    var pattern = /[a-z¸čšžđćüöäёëáèéàçâêîíïôóúùµº¡çñ№]/i;
+    var pattern = /[a-z¸čšžđćüöäёëáèéàçâêîíïôóúùµº¡çñ№йцукенгшщзхъфывапролджэячсмитьбю]/i;
     return str.length === 1 && str.match(pattern);
 }
 function isNumber(n) {
@@ -128,7 +128,7 @@ function clClick()
 </script>
 <?php echo '<form method="POST">';
 echo '<span id="text_holder_span" class=""></span><br>'.get_string('fexercise', 'mootyper').':<br>'.
-     '<textarea name="texttotype" id="texttotype">'.str_replace('\n', "&#10;", $exercisetoedit->texttotype).'</textarea><br>'.
-     '<br><input name="button" onClick="return clClick()" type="submit" value="'.get_string('fconfirm', 'mootyper').'">'.
-     '</form>';
+     '<textarea name="texttotype" id="texttotype" rows="3" cols="60">'.str_replace('\n', "&#10;", $exercisetoedit->texttotype).
+     '</textarea><br>'.'<br><input name="button" onClick="return clClick()" type="submit" value="'.
+     get_string('fconfirm', 'mootyper').'">'.'</form>';
 echo $OUTPUT->footer();
