@@ -41,10 +41,11 @@ echo (isset($displaynone) && ($displaynone == true)) ? 'display:none;' : '';
 <span id="jkey8" class="normal"><span class="textup">* </span> 8</span>
 <span id="jkey9" class="normal"><span class="textup">( </span> 9</span>
 <span id="jkey0" class="normal"><span class="textup">) </span> 0</span>
-<span id="jkeypomislaj" class="normal"><span class="textup">_ </span><span class="textdown"> -</span></span>
+<span id="jkeyminus" class="normal"><span class="textup">_ </span><span class="textdown"> -</span></span>
 <span id="jkeyequals" class="normal"><span class="textup">+ </span><span class="textdown"> =</span></span>
 <span id="jkeybackspace" class="normal" style="border-right-style: solid;">Backspace</span>
 <br>
+<div style="float: left;">
 <span id="jkeytab" class="normal" style="width: 50px;">Tab</span>
 <span id="jkeyй" class="normal">Й</span>
 <span id="jkeyц" class="normal">Ц</span>
@@ -71,9 +72,10 @@ echo (isset($displaynone) && ($displaynone == true)) ? 'display:none;' : '';
 <span id="jkeyд" class="finger3">Д</span>
 <span id="jkeyж" class="finger4">Ж</span>
 <span id="jkeyэ" class="normal">Э</span>
-<span id="jkeyslash" class="normal"><span class="textup">/</span><span class="textdown"> \</span></span>
-<span id="jkeyenter" class="normal" style="border-right-style: solid; width: 35px;">Enter</span>
-<br>
+<span id="jkeybackslash" class="normal"><span class="textup">/</span><span class="textdown"> \</span></span>
+</div>
+<span id="jkeyenter" class="normal" style="width: 50px; border-right-style: solid; float: right; height: 105px;">Enter</span>
+<br style="clear:both;" /><br />
 <span id="jkeyshiftl" class="normal" style="width: 75px;">Shift</span>
 <span id="jkeyslash" class="normal"><span class="textup">|</span><span class="textdown"> \</span></span>
 <span id="jkeyя" class="normal">Я</span>
@@ -85,7 +87,7 @@ echo (isset($displaynone) && ($displaynone == true)) ? 'display:none;' : '';
 <span id="jkeyь" class="normal">Ь</span>
 <span id="jkeyб" class="normal">Б</span>
 <span id="jkeyю" class="normal">Ю</span>
-<span id="jkeypika" class="normal"><span class="textup">, </span><span class="textdown"> .</span></span>
+<span id="jkeyperiod" class="normal"><span class="textup">, </span><span class="textdown"> .</span></span>
 <span id="jkeyshiftd" class="normal" style="width: 75px; border-right-style: solid;">Shift</span>
 <br>
 <span id="jkeyctrll" class="normal" style="width: 45px;">Ctrl</span>

@@ -30,7 +30,7 @@ echo (isset($displaynone) && ($displaynone == true)) ? 'display:none;' : '';
 ?>
 "><br>
 <span id="keyboard" class="keyboardback">Spanish(V2.1) Keyboard Layout<br><br>
-<span id="jkeytildo" class="normal"><span class="textup">ª </span><span class="textdown">º</span>
+<span id="jkeytilde" class="normal"><span class="textup">ª </span><span class="textdown">º</span>
     <span class="textdown" style="color:blue"> \</span></span>
 <span id="jkey1" class="normal"><span class="textup">!</span><span class="textdown">1</span>
     <span class="textdown" style="color:blue"> |</span></span>
@@ -48,7 +48,7 @@ echo (isset($displaynone) && ($displaynone == true)) ? 'display:none;' : '';
 <span id="jkey8" class="normal"><span class="textup">(</span><span class="textdown">8</span></span>
 <span id="jkey9" class="normal"><span class="textup">)</span><span class="textdown">9</span></span>
 <span id="jkey0" class="normal"><span class="textup">=</span><span class="textdown">0</span></span>
-<span id="jkeycrtica" class="normal"><span class="textup">? </span><span class="textdown"> '</span></span>
+<span id="jkeyapostrophe" class="normal"><span class="textup">? </span><span class="textdown"> '</span></span>
 <span id="jkey¡" class="normal"><span class="textup">¿ </span>¡</span>
 <span id="jkeybackspace" class="normal" style="border-right-style: solid;">Retroceso</span>
 <br>
@@ -56,7 +56,7 @@ echo (isset($displaynone) && ($displaynone == true)) ? 'display:none;' : '';
 <span id="jkeytab" class="normal" style="width: 50px;">Tab</span>
 <span id="jkeyq" class="normal">Q</span>
 <span id="jkeyw" class="normal">W</span>
-<span id="jkeye" class="normal">E</span>
+<span id="jkeye" class="normal">E<span class="textdown" style="color:blue"> €</span></span></span>
 <span id="jkeyr" class="normal">R</span>
 <span id="jkeyt" class="normal">T</span>
 <span id="jkeyy" class="normal">Y</span>
@@ -96,9 +96,9 @@ echo (isset($displaynone) && ($displaynone == true)) ? 'display:none;' : '';
 <span id="jkeyb" class="normal">B</span>
 <span id="jkeyn" class="normal">N</span>
 <span id="jkeym" class="normal">M</span>
-<span id="jkeyvejica" class="normal"><span class="textup">;</span><span class="textdown">,</span></span>
-<span id="jkeypika" class="normal"><span class="textup">:</span><span class="textdown">.</span></span>
-<span id="jkeypomislaj" class="normal"><span class="textup">_</span><span class="textdown"> -</span></span>
+<span id="jkeycomma" class="normal"><span class="textup">;</span><span class="textdown">,</span></span>
+<span id="jkeyperiod" class="normal"><span class="textup">:</span><span class="textdown">.</span></span>
+<span id="jkeyminus" class="normal"><span class="textup">_</span><span class="textdown"> -</span></span>
 <span id="jkeyshiftd" class="normal" style="width: 75px; border-right-style: solid;">Mayús</span>
 <br>
 <span id="jkeyctrll" class="normal" style="width: 40px;">Ctrl</span>

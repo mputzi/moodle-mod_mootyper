@@ -109,11 +109,11 @@ function keyboardElement(ltr) {
     }
     this.turnOn = function () {
         if (isLetter(this.chr)) {
-            document.getElementById(dobiTipkoId(this.chr)).className = "next" + dobiFinger(this.chr.toLowerCase());
+            document.getElementById(getKeyID(this.chr)).className = "next" + thenFinger(this.chr.toLowerCase());
         } else if (this.chr === ' ') {
-            document.getElementById(dobiTipkoId(this.chr)).className = "nextSpace";
+            document.getElementById(getKeyID(this.chr)).className = "nextSpace";
         } else {
-            document.getElementById(dobiTipkoId(this.chr)).className = "next" + dobiFinger(this.chr.toLowerCase());
+            document.getElementById(getKeyID(this.chr)).className = "next" + thenFinger(this.chr.toLowerCase());
         }
         if (this.chr === '\n' || this.chr === '\r\n' || this.chr === '\n\r' || this.chr === '\r') {
             document.getElementById('jkeyenter').className = "next4";
@@ -133,12 +133,12 @@ function keyboardElement(ltr) {
         if (isLetter(this.chr)) {
             if (this.chr === 'a' || this.chr === 's' || this.chr === 'd' || this.chr === 'f' ||
                 this.chr === 'j' || this.chr === 'k' || this.chr === 'l' || this.chr === 'ñ') {
-                document.getElementById(dobiTipkoId(this.chr)).className = "finger" + dobiFinger(this.chr.toLowerCase());
+                document.getElementById(getKeyID(this.chr)).className = "finger" + thenFinger(this.chr.toLowerCase());
             } else {
-                document.getElementById(dobiTipkoId(this.chr)).className = "normal";
+                document.getElementById(getKeyID(this.chr)).className = "normal";
             }
         } else {
-            document.getElementById(dobiTipkoId(this.chr)).className = "normal";
+            document.getElementById(getKeyID(this.chr)).className = "normal";
         }
         if (this.chr === '\n' || this.chr === '\r\n' || this.chr === '\n\r' || this.chr === '\r') {
             document.getElementById('jkeyenter').classname = "normal";
@@ -156,7 +156,7 @@ function keyboardElement(ltr) {
     };
 }
 
-function dobiFinger(t_crka) {
+function thenFinger(t_crka) {
     if (t_crka === ' ') {
         return 5; // Highlight the spacebar.
     } else if (t_crka === 'º' || t_crka === 'ª' || t_crka === '\\' || t_crka === '1' ||  t_crka === '!' || t_crka === '|' ||
@@ -182,17 +182,17 @@ function dobiFinger(t_crka) {
     }
 }
 
-function dobiTipkoId(t_crka) {
+function getKeyID(t_crka) {
     if (t_crka === ' ') {
         return "jkeyspace";
-    } else if (t_crka === ',') {
-        return "jkeyvejica";
+    } else if (t_crka === ',' || t_crka === ';') {
+        return "jkeycomma";
     } else if (t_crka === '\n') {
         return "jkeyenter";
-    } else if (t_crka === '.') {
-        return "jkeypika";
+    } else if (t_crka === '.' || t_crka === ':') {
+        return "jkeyperiod";
     } else if (t_crka === '-' || t_crka === '_') {
-        return "jkeypomislaj";
+        return "jkeyminus";
     } else if (t_crka === '!' || t_crka === '|') {
         return "jkey1";
     } else if (t_crka === '"' || t_crka === '@') {
@@ -215,31 +215,23 @@ function dobiTipkoId(t_crka) {
         return "jkey0";
     } else if (t_crka === '`' || t_crka === '^' || t_crka === '[') {
         return "jkeylefttick";
-    } else if (t_crka === ']') {
-        return "jkeyplus";
     } else if (t_crka === '´' || t_crka === '¨' || t_crka === '{') {
         return "jkeyrighttick";
     } else if (t_crka === 'ç' || t_crka === '}') {
         return "jkeyç";
-    } else if (t_crka === '-' || t_crka === '_') {
-        return "jkeypomislaj";
     } else if (t_crka === "'" || t_crka === '?') {
-        return "jkeycrtica";
-    } else if (t_crka === ',' || t_crka === ';') {
-        return "jkeyvejica";
-    } else if (t_crka === '.' || t_crka === ':') {
-        return "jkeypika";
-    } else if (t_crka === '*' || t_crka === '+') {
+        return "jkeyapostrophe";
+    } else if (t_crka === '*' || t_crka === '+' || t_crka === ']') {
         return "jkeyplus";
     } else if (t_crka === '<' || t_crka === '>') {
         return "jkeyckck";
     } else if (t_crka === 'º' || t_crka === 'ª' || t_crka === '\\') {
-        return "jkeytildo";
+        return "jkeytilde";
     } else if (t_crka === '¿') {
         return 'jkey¡';
     } else if (t_crka === 'a' || t_crka === 'á') {
         return "jkeya";
-    } else if (t_crka === 'e' || t_crka === 'é') {
+    } else if (t_crka === 'e' || t_crka === 'é' || t_crka === '€') {
         return "jkeye";
     } else if (t_crka === 'i' || t_crka === 'í') {
         return "jkeyi";

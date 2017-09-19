@@ -28,11 +28,11 @@ function keyboardElement(ltr) {
     }
     this.turnOn = function() {
         if (isLetter(this.chr)) {
-            document.getElementById(thenPressId(this.chr)).className = "next" + thenFinger(this.chr.toLowerCase());
+            document.getElementById(getKeyID(this.chr)).className = "next" + thenFinger(this.chr.toLowerCase());
         } else if (this.chr === ' ') {
-            document.getElementById(thenPressId(this.chr)).className = "nextSpace";
+            document.getElementById(getKeyID(this.chr)).className = "nextSpace";
         } else {
-            document.getElementById(thenPressId(this.chr)).className = "next" + thenFinger(this.chr.toLowerCase());
+            document.getElementById(getKeyID(this.chr)).className = "next" + thenFinger(this.chr.toLowerCase());
         }
         if (this.chr === '\n' || this.chr === '\r\n' || this.chr === '\n\r' || this.chr === '\r') {
             document.getElementById('jkeyenter').className = "next4";
@@ -49,14 +49,14 @@ function keyboardElement(ltr) {
         if (isLetter(this.chr)) {
             if (this.chr === 'a' || this.chr === 's' || this.chr === 'd' || this.chr === 'f' ||
                 this.chr === 'j' || this.chr === 'k' || this.chr === 'l') {
-                document.getElementById(thenPressId(this.chr)).className = "finger" + thenFinger(this.chr.toLowerCase());
+                document.getElementById(getKeyID(this.chr)).className = "finger" + thenFinger(this.chr.toLowerCase());
             } else {
-                document.getElementById(thenPressId(this.chr)).className = "normal";
+                document.getElementById(getKeyID(this.chr)).className = "normal";
             }
         } else if (this.chr === ':' || this.chr === ';') {  // English specific ; and :.
-            document.getElementById(thenPressId(this.chr)).className = "finger4";
+            document.getElementById(getKeyID(this.chr)).className = "finger4";
         } else {
-            document.getElementById(thenPressId(this.chr)).className = "normal";
+            document.getElementById(getKeyID(this.chr)).className = "normal";
         }
         if (this.chr === '\n' || this.chr === '\r\n' || this.chr === '\n\r' || this.chr === '\r') {
             document.getElementById('jkeyenter').classname = "normal";
@@ -95,7 +95,7 @@ function thenFinger(t_crka) {
     }
 }
 
-function thenPressId(t_crka) {
+function getKeyID(t_crka) {
     if (t_crka === ' ') {
         return "jkeyspace";
     } else if (t_crka === ',') {
