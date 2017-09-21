@@ -71,16 +71,16 @@ function keyboardElement(ltr) {
 function thenFinger(t_crka) {
     if (t_crka === ' ') {
         return 5; // Highlight the spacebar.
-        // @codingStandardsIgnoreLine
+    // @codingStandardsIgnoreLine
     } else if (t_crka.match(/[`~1!qaz0)p;:/?\-_[{'"=+\]}\\|]/i)) {
         return 4; // Highlight the correct key above in red.
-        // @codingStandardsIgnoreLine
+    // @codingStandardsIgnoreLine
     } else if (t_crka.match(/[2@wsx9(ol.>]/i)) {
         return 3; // Highlight the correct key above in green.
-        // @codingStandardsIgnoreLine
+    // @codingStandardsIgnoreLine
     } else if (t_crka.match(/[3#edc8*ik,<]/i)) {
         return 2; // Highlight the correct key above in yellow.
-        // @codingStandardsIgnoreLine
+    // @codingStandardsIgnoreLine
     } else if (t_crka.match(/[4$rfv5%tgb6^yhn7&ujm]/i)) {
         return 1; // Highlight the correct key above in blue.
     } else {

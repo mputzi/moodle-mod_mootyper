@@ -18,7 +18,7 @@ function keyboardElement(ltr) {
     if (isLetter(ltr)) {
         this.shift = ltr.toUpperCase() === ltr;
     } else {
-		// @codingStandardsIgnoreLine
+        // @codingStandardsIgnoreLine
         if (ltr.match(/[!"№;%:?*()_+/,]/i)) {
             this.shift = true;
         } else {
