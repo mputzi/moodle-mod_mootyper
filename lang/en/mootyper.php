@@ -98,6 +98,7 @@ $string['keyboardbgc_title'] = 'Keyboard background color';
 $string['keyboardbgc_descr'] = 'This sets the background color around keyboard keys.';
 $string['keyboardbgc_colour'] = '#DDDDDD';
 $string['layout'] = 'Keyboard layout';
+$string['layout_imported'] = 'Keyboard layout imported';
 $string['lesson_export'] = 'Lesson export setting';
 $string['lesson_export_filename'] = 'Lesson export filename';
 $string['lesson_export_filenameconfig'] = 'Add GMT as part of exported lesson filenames for simple versioning system.';
