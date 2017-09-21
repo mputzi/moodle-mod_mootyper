@@ -136,7 +136,7 @@ function keyPressed(e) {
             if (showKeyboard) {
                 var thisE = new keyboardElement(currentChar);
                 thisE.turnOff();
-                if (isCombined(nextChar) && (thisE.shift || thisE.alt || thisE.pow || thisE.uppercase_umlaut)) {
+                if (isCombined(nextChar) && (thisE.shift || thisE.alt || thisE.pow || thisE.uppercase_umlaut || thisE.accent)) {
                     combinedCharWait = true;
                 }
                 var nextE = new keyboardElement(nextChar);
@@ -162,7 +162,7 @@ function keyPressed(e) {
             if (showKeyboard) {
                     var thisE = new keyboardElement(currentChar);
                     thisE.turnOff();
-                if (isCombined(nextChar) && (thisE.shift || thisE.alt || thisE.pow || thisE.uppercase_umlaut)) {
+                if (isCombined(nextChar) && (thisE.shift || thisE.alt || thisE.pow || thisE.uppercase_umlaut || thisE.accent)) {
                         combinedCharWait = true;
                 }
                     var nextE = new keyboardElement(nextChar);
