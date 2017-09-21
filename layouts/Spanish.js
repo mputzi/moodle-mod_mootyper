@@ -26,7 +26,7 @@ function keyupCombined(e) {
             thisE.turnOff();
         }
         if (currentPos === fullText.length - 1) {   // END.
-            doKonec();
+            doTheEnd();
             return true;
         }
         if (currentPos < fullText.length - 1){
