@@ -9,23 +9,20 @@ function keyupCombined(e) {
 function keyupFirst(event) {
     return false;
 }
-THE_LAYOUT = 'Slovenian(V2.1)';
+THE_LAYOUT = 'Slovenian(V3)';
 function keyboardElement(ltr) {
     this.chr = ltr.toLowerCase();
     this.alt = false;
     if (isLetter(ltr)) {
         this.shift = ltr.toUpperCase() === ltr;
-    } else if (ltr === 'Đ' || ltr === 'Ć' || ltr === 'Č' || ltr === 'Š' || ltr === 'Ž') {
+    } else if (ltr.match(/[ĐĆČŠŽ]/)) {
         this.shift = true;
-    } else if (ltr === '\\' || ltr === '|' || ltr === '€' || ltr === '÷' || ltr === '×' || ltr === '[' ||
-               ltr === ']' || ltr === 'ł' || ltr === 'Ł' || ltr === 'ß' || ltr === '¤' || ltr === '@' ||
-               ltr === '{' || ltr === '}' || ltr === '§') {
+    } else if (ltr.match(/[\\|€÷×\[\]łŁß¤@{}§]/)) {
         this.shift = false;
         this.alt = true;
     } else {
-        if (ltr === '!' || ltr === '"' || ltr === '#' || ltr === '$' || ltr === '%' || ltr === '&' ||
-           ltr === '/' || ltr === '(' || ltr === ')' || ltr === '=' || ltr === '?' || ltr === '*' ||
-           ltr === ':' || ltr === ';' || ltr === '>' || ltr === '_') {
+        // @codingStandardsIgnoreLine
+        if (ltr.match(/[¨!"#$%&/()=?*>;:_]/i)) {
             this.shift = true;
         } else {
             this.shift = false;
@@ -33,9 +30,9 @@ function keyboardElement(ltr) {
     }
     this.turnOn = function () {
         if (this.chr === ' ') {
-            document.getElementById(dobiTipkoId(this.chr)).className = "nextSpace";
+            document.getElementById(getKeyID(this.chr)).className = "nextSpace";
         } else {
-            document.getElementById(dobiTipkoId(this.chr)).className = "next" + dobiFinger(this.chr.toLowerCase());
+            document.getElementById(getKeyID(this.chr)).className = "next" + thenFinger(this.chr.toLowerCase());
         }
         if (this.shift) {
             document.getElementById('jkeyshiftd').className = "next4";
@@ -46,10 +43,11 @@ function keyboardElement(ltr) {
         }
     };
     this.turnOff = function () {
-        if (this.chr === 'a' || this.chr === 's' || this.chr === 'd' || this.chr === 'f' || this.chr === 'j' || this.chr === 'k' || this.chr === 'l' || this.chr === 'č') {
-            document.getElementById(dobiTipkoId(this.chr)).className = "finger" + dobiFinger(this.chr.toLowerCase());
+        // @codingStandardsIgnoreLine
+            if (this.chr.match(/[asdfjklč]/i)) {
+            document.getElementById(getKeyID(this.chr)).className = "finger" + thenFinger(this.chr.toLowerCase());
         } else {
-            document.getElementById(dobiTipkoId(this.chr)).className = "normal";
+            document.getElementById(getKeyID(this.chr)).className = "normal";
         }
         if (this.shift) {
             document.getElementById('jkeyshiftd').className = "normal";
@@ -61,44 +59,39 @@ function keyboardElement(ltr) {
     };
 }
 
-function dobiFinger(t_crka) {
+function thenFinger(t_crka) {
     if (t_crka === ' ') {
         return 5; // Highlight the spacebar.
-    } else if (t_crka === '\n' || t_crka === '¸' || t_crka === '¨' || t_crka === '1' || t_crka === '!' || t_crka === '~' ||
-               t_crka === 'q' || t_crka === '\\' || t_crka === 'a' || t_crka === '>' || t_crka === '<' ||
-               t_crka === '0' || t_crka === '=' || t_crka === '˝' || t_crka === 'p' || t_crka === 'č' || t_crka === '.' || t_crka === ':' ||
-               t_crka === '\'' || t_crka === '?' || t_crka === 'š' || t_crka === '÷' || t_crka === 'ć' || t_crka === 'ß' || t_crka === '-' ||
-               t_crka === '_' || t_crka === '+' || t_crka === '*' || t_crka === '¸' || t_crka === 'đ' || t_crka === '×' ||
-               t_crka === 'ž' || t_crka === '¤') {
+    // @codingStandardsIgnoreLine
+    } else if (t_crka.match(/[\n¸¨1!~q\\a><0=˝pč.:\'?š÷ćß\-_+*¸đ×ž¤]/i)) {
         return 4; // Highlight the correct key above in red.
-    } else if (t_crka === '2' || t_crka === '"' || t_crka === 'ˇ' || t_crka === 'w' || t_crka === '|' || t_crka === 's' || t_crka === 'y' ||
-               t_crka === '9' || t_crka === ')' || t_crka === '´' || t_crka === 'o' || t_crka === 'l' || t_crka === 'Ł' || t_crka === ',' || t_crka === ';') {
+    // @codingStandardsIgnoreLine
+    } else if (t_crka.match(/[2"ˇw|sy9)´olŁ,;]/)) {
         return 3; // Highlight the correct key above in green.
-    } else if (t_crka === '3' || t_crka === '#' || t_crka === '^' || t_crka === 'e' || t_crka === '€' || t_crka === 'd' || t_crka === 'x' ||
-               t_crka === '8' || t_crka === '(' || t_crka === '˙' || t_crka === 'i' || t_crka === 'k' || t_crka === 'ł' ||
-               t_crka === 'm' || t_crka === '§') {
+    // @codingStandardsIgnoreLine
+    } else if (t_crka.match(/[3#^e€dx8(˙ikłm§]/)) {
         return 2; // Highlight the correct key above in yellow.
-    } else if (t_crka === '4' || t_crka === '$' || t_crka === '˘' || t_crka === 'r' || t_crka === 'f' || t_crka === '[' || t_crka === 'c' ||
-               t_crka === '5' || t_crka === '%' || t_crka === '°' || t_crka === 't' || t_crka === 'g' || t_crka === ']' || t_crka === 'v' || t_crka === '@' ||
-               t_crka === '6' || t_crka === '&' || t_crka === '˛' || t_crka === 'z' || t_crka === 'h' || t_crka === 'b' || t_crka === '{' ||
-               t_crka === '7' || t_crka === '/' || t_crka === '`' || t_crka === 'u' || t_crka === 'j' || t_crka === 'n' || t_crka === '}') {
+    // @codingStandardsIgnoreLine
+    } else if (t_crka.match(/[4$˘rf\[c5%°tg\]v@6&˛zhb{7/`ujn}]/i)) {
         return 1; // Highlight the correct key above in blue.
     } else {
         return 6; // Do not change any highlight.
     }
 }
 
-function dobiTipkoId(t_crka) {
+function getKeyID(t_crka) {
     if (t_crka === ' ') {
         return "jkeyspace";
     } else if (t_crka === ',' || t_crka === ';') {
         return "jkeycomma";
     } else if (t_crka === '\n') {
         return "jkeyenter";
+    } else if (t_crka === '¸' || t_crka === '¨') {
+        return "jkeytildo";
     } else if (t_crka === '.' || t_crka === ':') {
-        return "jkeypika";
+        return "jkeyperiod";
     } else if (t_crka === '-' || t_crka === '_') {
-        return "jkeypomislaj";
+        return "jkeyminus";
     } else if (t_crka === '!') {
         return "jkey1";
     } else if (t_crka === '"') {
@@ -150,7 +143,7 @@ function dobiTipkoId(t_crka) {
     } else if (t_crka === '§') {
         return "jkeym";
     } else if (t_crka === '?' || t_crka === '\'') {
-        return "jkeyapotrophe";
+        return "jkeyapostrophe";
     } else if (t_crka === '*' || t_crka === '+') {
         return "jkeyplus";
     } else if (t_crka === '<' || t_crka === '>') {

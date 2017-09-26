@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * This file defines the Slovenian(V2.1) keyboard layout.
+ * This file defines the Slovenian(V3) keyboard layout.
  *
  * @package    mod_mootyper
  * @copyright  2016 onwards AL Rachels (drachels@drachels.com)
@@ -29,7 +29,7 @@
 echo (isset($displaynone) && ($displaynone == true)) ? 'display:none;' : '';
 ?>
 "><br>
-<span id="keyboard" class="keyboardback">Slovenian(V2.1) Keyboard Layout<br><br>
+<span id="keyboard" class="keyboardback">Slovenian(V3) Keyboard Layout<br><br>
 <span id="jkeytildo" class="normal"><span class="textup">¨ </span> ¸</span>
 <span id="jkey1" class="normal"><span class="textup">! </span><span class="textdown"> 1</span>
     <span class="textdown" style="color:red"> ~</span></span>
@@ -51,7 +51,7 @@ echo (isset($displaynone) && ($displaynone == true)) ? 'display:none;' : '';
     <span class="textdown" style="color:red"> ´</span></span>
 <span id="jkey0" class="normal"><span class="textup">= </span><span class="textdown">0</span>
     <span class="textdown" style="color:red"> ˝</span></span>
-<span id="jkeyapotrophe" class="normal"><span class="textup">? </span><span class="textdown">'</span>
+<span id="jkeyapostrophe" class="normal"><span class="textup">? </span><span class="textdown">'</span>
     <span class="textdown" style="color:red"> ¨</span></span>
 <span id="jkeyplus" class="normal"><span class="textup">* </span><span class="textdown">+</span>
     <span style="color:red"> ¸</span></span>
@@ -98,8 +98,8 @@ echo (isset($displaynone) && ($displaynone == true)) ? 'display:none;' : '';
 <span id="jkeyn" class="normal">N <sub style="color:blue">}</sub></span>
 <span id="jkeym" class="normal">M <sub style="color:blue">§</sub></span>
 <span id="jkeycomma" class="normal"><span class="textup">; </span><span class="textdown"> ,</span></span>
-<span id="jkeypika" class="normal"><span class="textup">: </span><span class="textdown"> .</span></span>
-<span id="jkeypomislaj" class="normal"><span class="textup">_ </span><span class="textdown"> -</span></span>
+<span id="jkeyperiod" class="normal"><span class="textup">: </span><span class="textdown"> .</span></span>
+<span id="jkeyminus" class="normal"><span class="textup">_ </span><span class="textdown"> -</span></span>
 <span id="jkeyshiftd" class="normal" style="width: 80px; border-right-style: solid;">Shift</span>
 <br>
 <span id="jkeyctrll" class="normal" style="width: 55px;">Ctrl</span>
