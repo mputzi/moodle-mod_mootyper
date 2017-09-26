@@ -78,7 +78,7 @@ $exercisetoedit = $DB->get_record('mootyper_exercises', array('id' => $exercisei
 
 <script type="text/javascript">
 function isLetter(str) {
-    var pattern = /[a-z¸čšžđćüöäёëáèéàçâêîíïôóúùµº¡çñ№йцукенгшщзхъфывапролджэячсмитьбю]/i;
+    var pattern = /[a-z¸čšžđćüöäёëëáèéàçâêîíïôóúùûµº¡çñ№йцукенгшщзхъфывапролджэячсмитьбю]/i;
     return str.length === 1 && str.match(pattern);
 }
 function isNumber(n) {
