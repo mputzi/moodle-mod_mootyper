@@ -67,7 +67,7 @@ echo (isset($displaynone) && $displaynone == true) ? 'display:none;' : '';
 <span id="jkeyp" class="normal">P</span>
 <span id="jkeyü" class="normal"><span class="textup">è</span><span class="textdown">ü</span>
     <span class="textdown" style="color:blue">[</span></span>
-<span id="jkeygerklicaj" class="normal"><span class="textup">!</span><span class="textdown"> ¨</span>
+<span id="jkeyumlaut" class="normal"><span class="textup">!</span><span class="textdown"> ¨</span>
     <span class="textdown" style="color:blue">]</span></span>
 <br>
 <span id="jkeycaps" class="normal" style="width: 60px;">C.lock</span>

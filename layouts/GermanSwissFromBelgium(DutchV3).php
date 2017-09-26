@@ -67,7 +67,7 @@ echo (isset($displaynone) && ($displaynone == true)) ? 'display:none;' : '';
 <span id="jkeyp" class="normal">P</span>
 <span id="jkeyü" class="normal"><span class="textup">è</span><span class="textdown">ü</span>
     <span class="textdown" style="color:blue">[</span></span>
-<span id="jkeygerklicaj" class="normal"><span class="textup">!</span><span class="textdown"> ¨</span>
+<span id="jkeyumlaut" class="normal"><span class="textup">!</span><span class="textdown"> ¨</span>
     <span class="textdown" style="color:blue">]</span></span>
 <br>
 <span id="jkeycaps" class="normal" style="width: 60px; font-size: 12px !important;">Caps Lock</span>
@@ -81,7 +81,7 @@ echo (isset($displaynone) && ($displaynone == true)) ? 'display:none;' : '';
 <span id="jkeyk" class="finger2">K</span>
 <span id="jkeyl" class="finger3">L</span>
 <span id="jkeyö" class="finger4"><span class="textup">é</span><span class="textdown"> ö</span></span>
-<span id="jkeyä" class="normal"><span class="textup">à</span><span class="textdown">ä</span>
+<span id="jkeyumlauta" class="normal"><span class="textup">à</span><span class="textdown">ä</span>
     <span class="textdown" style="color:blue"> {</span></span>
 <span id="jkeydollar" class="normal"><span class="textup">£</span><span class="textdown">$</span>
     <span class="textdown" style="color:blue">}</span></span>
