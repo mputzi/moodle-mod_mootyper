@@ -11,7 +11,11 @@ function keyupFirst(event) {
 }
 THE_LAYOUT = 'Slovenian(V3)';
 function keyboardElement(ltr) {
-    this.chr = ltr.toLowerCase();
+    if (ltr !== 'Ł') {
+        this.chr = ltr.toLowerCase();
+    } else {
+        this.chr = ltr.toUpperCase();
+    }
     this.alt = false;
     if (isLetter(ltr)) {
         this.shift = ltr.toUpperCase() === ltr;
