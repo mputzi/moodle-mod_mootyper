@@ -50,7 +50,7 @@ function keyupCombined(e) {
         return true;
     } else {
         combinedChar = false;
-        napake++;
+        mistake++;
         var tbval = $('#tb1').val();
         $('#tb1').val(tbval.substring(0, currentPos));
         return false;
@@ -64,7 +64,12 @@ function keyupFirst(event) {
 }
 
 function keyboardElement(ltr) {
-    this.chr = ltr.toLowerCase();
+//    if (ltr === 'Ä' || ltr === 'Ö' || ltr === 'Ü') {
+    if (ltr.match(/[ÄÖÜ]/)) {
+        this.chr = ltr.toUpperCase();
+    } else {
+        this.chr = ltr.toLowerCase();
+    }
     this.alt = false;
     this.accent = false;
     this.pow = false;
@@ -87,7 +92,6 @@ function keyboardElement(ltr) {
         this.umlaut = true;
     }
     if (ltr.match(/[ÄËÏÖÜ]/)) {
-alert('this letter is Ä');
         this.shift = true;
         this.umlaut = true;
     }
@@ -182,7 +186,7 @@ function thenFinger(t_crka) {
     } else if (t_crka.match(/[\n§°1+¦qaây<>\\0=pöé.:'?´üè\[äà{\-_^`~¨!\]$£}]/i)) {
         return 4; // Highlight the correct key above in red.
     // @codingStandardsIgnoreLine
-    } else if (t_crka.match(/[2"@wsx9)oôl.:]/i)) {
+    } else if (t_crka.match(/[2"@wsx9)oôöl.:]/i)) {
         return 3; // Highlight the correct key above in green.
     // @codingStandardsIgnoreLine
     } else if (t_crka.match(/[3*#eëê€dc8(¢iïîk,;]/i)) {
@@ -228,11 +232,11 @@ function getKeyID(t_crka) {
         return "jkeypow";
     } else if (t_crka.match(/[€ëËê]/)) {
         return "jkeye";
-    } else if (t_crka === 'u' || t_crka === 'û') {
+    } else if (t_crka.match(/[uûÜ]/)) {
         return "jkeyu";
     } else if (t_crka === 'i' || t_crka === 'î' || t_crka === 'í' || t_crka === 'ï') {
         return "jkeyi";
-    } else if (t_crka === 'o' || t_crka === 'ô' || t_crka === 'ó') {
+    } else if (t_crka.match(/[oôÖó]/)) {
         return "jkeyo";
     } else if (t_crka === 'ü' || t_crka === 'è' || t_crka === '[') {
         return "jkeyü";
@@ -241,12 +245,8 @@ function getKeyID(t_crka) {
     } else if (t_crka === 'ö' || t_crka === 'é') {
         return "jkeyö";
     } else if (t_crka.match(/[Äâ]/)) {
-//    } else if (t_crka.match(/^(â|Ä)$/)) {
-//alert('matched regular a');
         return "jkeya";
     } else if (t_crka.match(/[äà{]/)) {
-//    } else if (t_crka.match(/^(ä|à|{)$/)) {
-//alert('matched gerä');
         return "jkeyumlauta";
     } else if ( t_crka === '$' || t_crka === '£' || t_crka === '}') {
         return "jkeydollar";

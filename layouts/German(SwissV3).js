@@ -21,7 +21,7 @@ function keyboardElement(ltr) {
         }
     }
     // @codingStandardsIgnoreLine
-    if (ltr.match(/[âêîôû]/i)) {
+    if (ltr.match(/[âêîôû]/)) {
         this.pow = true;
     }
 
@@ -59,7 +59,7 @@ function keyboardElement(ltr) {
 //alert('in the turnoff function');
         if (isLetter(this.chr)) {
         // @codingStandardsIgnoreLine
-            if (this.chr.match(/[aâsdfjklö]/i)) {
+            if (this.chr.match(/[asdfjklö]/i)) {
                 document.getElementById(getKeyID(this.chr)).className = "finger" + thenFinger(this.chr.toLowerCase());
             } else {
                 document.getElementById(getKeyID(this.chr)).className = "normal";
@@ -77,6 +77,9 @@ function keyboardElement(ltr) {
         if (this.alt) {
             document.getElementById('jkeyaltgr').className = "normal";
         }
+        if (this.pow) {
+            document.getElementById('jkeypow').className = "normal";
+        }
         if (this.accent) {
             document.getElementById('jkeyrighttick').className = "normal";
         }
@@ -91,7 +94,7 @@ function keyboardElement(ltr) {
 
 function isCombined(chr) {
     return (chr === 'â' || chr === 'î' || chr === 'ô' || chr === 'ê' || chr === 'Ü' || chr === 'Ä' || chr === 'Ö' || chr === 'Ë' || chr === 'Û' || chr === 'Â' || chr === 'Ô' || chr === 'Ê');
-return false;
+//   return false;
 }
 
 function keyupCombined(e) {
@@ -180,7 +183,7 @@ function thenFinger(t_crka) {
     } else if (t_crka.match(/[2"@wsx9)ol.:]/i)) {
         return 3; // Highlight the correct key above in green.
     // @codingStandardsIgnoreLine
-    } else if (t_crka.match(/[3*#e€dc8(¢iîk,;]/i)) {
+    } else if (t_crka.match(/[3*#eê€dc8(¢iîk,;]/i)) {
         return 2; // Highlight the correct key above in yellow.
     // @codingStandardsIgnoreLine
     } else if (t_crka.match(/[4çrfv5%tgb6&¬zhn7//|ujm]/i)) {
