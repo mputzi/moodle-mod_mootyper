@@ -182,7 +182,7 @@ function dobiFinger(t_crka) {
     } else if (t_crka.match(/["3#eéë€êdc!8iíïk;.]/i)) {
         return 2; // Highlight the correct key above in yellow.
 		// @codingStandardsIgnoreLine
-    } else if (t_crka.match(/[\'4rf(5tgbv§6yhnñ7uúüj,?]/i)) {
+    } else if (t_crka.match(/[\'4rf(5tgbv§6yhnñè7uúüj,?]/i)) {
         return 1; // Highlight the correct key above in blue.
     } else {
         return 6;
