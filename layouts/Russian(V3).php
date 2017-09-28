@@ -76,7 +76,7 @@ echo (isset($displaynone) && ($displaynone == true)) ? 'display:none;' : '';
 </div>
 <span id="jkeyenter" class="normal" style="width: 50px; border-right-style: solid; float: right; height: 105px;">Enter</span>
 <br style="clear:both;" /><br />
-<span id="jkeyshiftl" class="normal" style="width: 75px;">Shift</span>
+<span id="jkeyshiftl" class="normal" style="width: 45px;">Shift</span>
 <span id="jkeyslash" class="normal"><span class="textup">|</span><span class="textdown"> \</span></span>
 <span id="jkeyя" class="normal">Я</span>
 <span id="jkeyч" class="normal">Ч</span>
@@ -88,7 +88,7 @@ echo (isset($displaynone) && ($displaynone == true)) ? 'display:none;' : '';
 <span id="jkeyб" class="normal">Б</span>
 <span id="jkeyю" class="normal">Ю</span>
 <span id="jkeyperiod" class="normal"><span class="textup">, </span><span class="textdown"> .</span></span>
-<span id="jkeyshiftd" class="normal" style="width: 75px; border-right-style: solid;">Shift</span>
+<span id="jkeyshiftd" class="normal" style="width: 105px; border-right-style: solid;">Shift</span>
 <br>
 <span id="jkeyctrll" class="normal" style="width: 45px;">Ctrl</span>
 <span id="jempty" class="normal" style="width: 40px;">Meta</span>
