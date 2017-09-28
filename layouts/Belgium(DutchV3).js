@@ -173,16 +173,16 @@ function dobiFinger(t_crka) {
     if (t_crka === ' ') {
         return 5; // Highlight the spacebar.
 		// @codingStandardsIgnoreLine
-    } else if (t_crka.match(/[²³&1|aáq<>\\à0}pm:/)°^¨\[ù%´=+~\-_$*\]µ£`]/i)) {
+    } else if (t_crka.match(/[²³&1|aáqw<>\\à0}pm)°^¨\[ù%´=+~\-_$*\]µ£`]/i)) {
         return 4; // Highlight the correct key above in red.
 		// @codingStandardsIgnoreLine
-    } else if (t_crka.match(/[é2@zswç9{oóöl;.]/i)) {
+    } else if (t_crka.match(/[é2@zsxç9{oóöl:/]/i)) {
         return 3; // Highlight the correct key above in green.
 		// @codingStandardsIgnoreLine
-    } else if (t_crka.match(/["3#eéë€êdx!8iíïk,?]/i)) {
+    } else if (t_crka.match(/["3#eéë€êdc!8iíïk;.]/i)) {
         return 2; // Highlight the correct key above in yellow.
 		// @codingStandardsIgnoreLine
-    } else if (t_crka.match(/[\'4rfc(5tgv§6yhbè7uúüjnñ]/i)) {
+    } else if (t_crka.match(/[\'4rf(5tgbv§6yhnñ7uúüj,?]/i)) {
         return 1; // Highlight the correct key above in blue.
     } else {
         return 6;
