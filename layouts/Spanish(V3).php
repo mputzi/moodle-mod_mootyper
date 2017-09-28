@@ -50,7 +50,7 @@ echo (isset($displaynone) && ($displaynone == true)) ? 'display:none;' : '';
 <span id="jkey0" class="normal"><span class="textup">=</span><span class="textdown">0</span></span>
 <span id="jkeyapostrophe" class="normal"><span class="textup">? </span><span class="textdown"> '</span></span>
 <span id="jkey¡" class="normal"><span class="textup">¿ </span>¡</span>
-<span id="jkeybackspace" class="normal" style="border-right-style: solid;">Retroceso</span>
+<span id="jkeybackspace" class="normal" style="width: 70px; font-size: 12px !important;"">Retroceso</span>
 <br>
 <div style="float: left;">
 <span id="jkeytab" class="normal" style="width: 50px;">Tab</span>
@@ -87,7 +87,7 @@ echo (isset($displaynone) && ($displaynone == true)) ? 'display:none;' : '';
 <span id="jkeyenter" class="normal" style="width: 50px; border-right-style: solid; float: right; height: 105px;">Enter</span>
 <br style="clear:both;" /><br />
 
-<span id="jkeyshiftl" class="normal" style="width: 75px;">Mayús</span>
+<span id="jkeyshiftl" class="normal" style="width: 45px; font-size: 12px !important;">Mayús</span>
 <span id="jkeyckck" class="normal"><span class="textup">&lt;</span><span class="textdown"> &gt;</span></span>
 <span id="jkeyz" class="normal">Z</span>
 <span id="jkeyx" class="normal">X</span>
@@ -99,7 +99,7 @@ echo (isset($displaynone) && ($displaynone == true)) ? 'display:none;' : '';
 <span id="jkeycomma" class="normal"><span class="textup">;</span><span class="textdown">,</span></span>
 <span id="jkeyperiod" class="normal"><span class="textup">:</span><span class="textdown">.</span></span>
 <span id="jkeyminus" class="normal"><span class="textup">_</span><span class="textdown"> -</span></span>
-<span id="jkeyshiftd" class="normal" style="width: 75px; border-right-style: solid;">Mayús</span>
+<span id="jkeyshiftd" class="normal" style="width: 105px; font-size: 12px !important;">Mayús</span>
 <br>
 <span id="jkeyctrll" class="normal" style="width: 40px;">Ctrl</span>
 <span id="jkeyfn" class="normal" style="width: 50px;">Fn</span>
