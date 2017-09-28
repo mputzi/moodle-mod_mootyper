@@ -18,20 +18,16 @@ function keyboardElement(ltr) {
     if (isLetter(ltr)) {
         this.shift = ltr.toUpperCase() === ltr;
     } else {
-        // @codingStandardsIgnoreLine
+    // @codingStandardsIgnoreLine
         if (ltr.match(/["!@#$%¨&*()_+`{^}|<>:?]/i)) {
-//        if (ltr === '"' || ltr === '!' || ltr === '@' || ltr === '#' || ltr === '$' || ltr === '%' || ltr === '¨' ||
-//            ltr === '&' || ltr === '*' || ltr === '(' || ltr === ')' || ltr === '_' || ltr === '+' ||
-//            ltr === '`' || ltr === '{' || ltr === '^' || ltr === '}' ||
-//            ltr === '|' || ltr === '<' || ltr === '>' || ltr === ':' || ltr === '?') {
             this.shift = true;
         } else {
             this.shift = false;
         }
     }
-    if (ltr.match(/[¹²³£¢¬§//°ªº₢]/i)) {
-//    if (ltr === '¹' || ltr === '²' || ltr === '³' || ltr === '£' || ltr === '¢' || ltr === '¬' || ltr === '§' ||
-//        ltr === '/' || ltr === '°' || ltr === 'ª' || ltr === 'º') {
+    // @codingStandardsIgnoreLine
+    if (ltr.match(/[¹²³£¢¬§//°ªº₢]/i))
+    {
         this.shift = false;
         this.alt = true;
     }
@@ -56,9 +52,8 @@ function keyboardElement(ltr) {
     };
     this.turnOff = function () {
         if (isLetter(this.chr)) {
+            // @codingStandardsIgnoreLine
             if (this.chr.match(/[asdfjklç]/i)) {
-//            if (this.chr === 'a' || this.chr === 's' || this.chr === 'd' || this.chr === 'f' ||
-//                this.chr === 'j' || this.chr === 'k' || this.chr === 'l' || this.chr === 'ç') {
                 document.getElementById(getKeyID(this.chr)).className = "finger" + thenFinger(this.chr.toLowerCase());
             } else {
                 document.getElementById(getKeyID(this.chr)).className = "normal";
@@ -76,33 +71,23 @@ function keyboardElement(ltr) {
         if (this.alt) {
             document.getElementById('jkeyaltgr').className = "normal";
         }
-    };
+    }
 }
 
 function thenFinger(t_crka) {
     if (t_crka === ' ') {
         return 5; // Highlight the spacebar.
     // @codingStandardsIgnoreLine
-    } else if (t_crka.match(/['"1!¹q/a\\|z0)pç;:\-_´`~^/?=+§\[ª\]}º]/i)) {
-//    } else if (t_crka === 'z' || t_crka === 'a' || t_crka === 'q' || t_crka === '1' || t_crka === '!' || t_crka === '¹' || t_crka === '\\' || t_crka === '~' ||
-//               t_crka === '/' || t_crka === '?' || t_crka === ';' || t_crka === ':' || t_crka === 'ç' || t_crka === 'p' || t_crka === '0' ||
-//               t_crka === ')' || t_crka === '\'' || t_crka === '"' || t_crka === '[' || t_crka === '{' || t_crka === 'ª' || t_crka === '-' || t_crka === '_' ||
-//               t_crka === ']' || t_crka === '}' || t_crka === 'º' || t_crka === '=' || t_crka === '+' || t_crka === '§' || t_crka === '\\' || t_crka === '|' || t_crka === '´' ||
-//               t_crka === '`') {
+    } else if (t_crka.match(/['"1!¹q/a\\|z0)pç;:\-_´`~^/=+§\[{ª\]}º]/i)) {
         return 4; // Highlight the correct key above in red.
+    // @codingStandardsIgnoreLine
     } else if (t_crka.match(/[2@²w?sx9(ol.>]/i)) {
-//    } else if (t_crka === 'x' || t_crka === 's' || t_crka === 'w' || t_crka === '2' || t_crka === '@' || t_crka === '²' ||
-//               t_crka === '.' || t_crka === '>' || t_crka === 'l' || t_crka === 'o' || t_crka === '9' || t_crka === '(') {
         return 3; // Highlight the correct key above in green.
+    // @codingStandardsIgnoreLine
     } else if (t_crka.match(/[3#³e°dc₢8*ik,<]/i)) {
-//    } else if (t_crka === 'c' ||t_crka === '₢' || t_crka === 'd' || t_crka === 'e' || t_crka === '°' || t_crka === '3' || t_crka === '#' || t_crka === '³' ||
-//               t_crka === ',' || t_crka === '<' || t_crka === 'k' || t_crka === 'i' || t_crka === '8' || t_crka === '*') {
         return 2; // Highlight the correct key above in yellow.
+    // @codingStandardsIgnoreLine
     } else if (t_crka.match(/[4$£rfv5%¢tgb6¨¬yhn7&ujm]/i)) {
-//    } else if (t_crka === 'v' || t_crka === 'f' || t_crka === 'r' || t_crka === '4' || t_crka === '$' || t_crka === '£' ||
-//               t_crka === 'b' || t_crka === 'g' || t_crka === 't' || t_crka === '5' || t_crka === '%' || t_crka === '¢' ||
-//               t_crka === 'm' || t_crka === 'j' || t_crka === 'u' || t_crka === '7' || t_crka === '&' ||
-//               t_crka === 'n' || t_crka === 'h' || t_crka === 'y' || t_crka === '6' || t_crka === '¨' || t_crka === '¬') {
         return 1; // Highlight the correct key above in blue.
     } else {
         return 6; // Do not change any highlight.
@@ -160,6 +145,8 @@ function getKeyID(t_crka) {
         return "jkeycomma";
     } else if (t_crka === '.' || t_crka === '>') {
         return "jkeyperiod";
+    } else if (t_crka === 'w' || t_crka === '?') {
+        return "jkeyw";
     } else if (t_crka === '?' || t_crka === '/') {
         return "jkeyslash";
     } else if (t_crka === '₢') {

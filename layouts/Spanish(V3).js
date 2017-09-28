@@ -13,7 +13,6 @@ function keyupCombined(e) {
     }
     var keychar = getPressedChar(e);
     if (keychar === '[not_yet_defined]') {
-//    if (keychar === 'á') {
         combinedChar = true;
         return true;
     }

@@ -31,7 +31,6 @@ function keyboardElement(ltr) {
         this.alt = false;
     }
     this.turnOn = function () {  // Highlight keytop of current letter to type.
-//alert('in turnon function');
         if (this.uppercase_umlaut) {
             var ukey = convertFromUpperUmlaut(this.chr.toUpperCase());
             document.getElementById('jkeyumlaut').className = 'next4';
@@ -56,7 +55,6 @@ function keyboardElement(ltr) {
         }
     };
     this.turnOff = function () {  // Return last key to it's normal keytop color.
-//alert('in the turnoff function');
         if (isLetter(this.chr)) {
         // @codingStandardsIgnoreLine
             if (this.chr.match(/[asdfjklö]/i)) {
@@ -251,7 +249,6 @@ function getKeyID(t_crka) {
     } else if (t_crka === '=' || t_crka === '+' || t_crka === '~') {
         return "jkeyequal";
     } else if (t_crka.match(/[Äâ]/)) {
-//alert('got key code for a');
         return "jkeya";
     } else if (t_crka === '<' || t_crka === '>') {
         return "jkeyckck";

@@ -1,5 +1,5 @@
 function isCombined(chr) {
-//    return (chr === 'â' || chr === 'î' || chr === 'ô' || chr === 'ê' || chr === 'Ü' || chr === 'Ä' || chr === 'Ö' || chr === 'Ë' || chr === 'Û' || chr === 'Â' || chr === 'Ô' || chr === 'Ê');
+    // return (chr === 'â' || chr === 'î' || chr === 'ô' || chr === 'ê' || chr === 'Ü' || chr === 'Ä' || chr === 'Ö' || chr === 'Ë' || chr === 'Û' || chr === 'Â' || chr === 'Ô' || chr === 'Ê');
     return false;
 }
 
@@ -64,7 +64,6 @@ function keyupFirst(event) {
 }
 
 function keyboardElement(ltr) {
-//    if (ltr === 'Ä' || ltr === 'Ö' || ltr === 'Ü') {
     if (ltr.match(/[ÄÖÜ]/)) {
         this.chr = ltr.toUpperCase();
     } else {
