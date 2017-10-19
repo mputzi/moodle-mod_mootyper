@@ -72,7 +72,7 @@ if (!has_capability('mod/mootyper:viewgrades', context_module::instance($cm->id)
     $htmlout = '';
     $htmlout .= '<div id="mainDiv">';
 
-    if ($mootyper->isexam) {
+    if ($mootyper->isexam) {  // If this is an exam, process the info for the current exercise.
 
         if ($des == -1) {
             $des = 0;
@@ -133,6 +133,7 @@ if (!has_capability('mod/mootyper:viewgrades', context_module::instance($cm->id)
                              <td>'.format_float($gr->precisionfield).'%</td>
                              <td>'.date(get_config('mod_mootyper', 'dateformat'), $gr->timetaken).'</td>
                              <td>'.$gr->wpm.'</td><td>'.$removelnk.'</td></tr>';
+                // Get the information to draw the chart for this exam.
                 $labels[] = $gr->firstname.' '.$gr->lastname.' Ex-'.$gr->exercisename;  // This gets the exercise number.
                 $serieshitsperminute[] = format_float($gr->hitsperminute); // Get the hits per minute value.
                 $seriesprecision[] = format_float($gr->precisionfield);  // Get the precision percentage value.
@@ -147,7 +148,7 @@ if (!has_capability('mod/mootyper:viewgrades', context_module::instance($cm->id)
         } else {
             echo get_string('nogrades', 'mootyper');
         }
-    } else {
+    } else {   // Was not an exam so process exercises for the current lesson.
         $htmlout .= '<form method="post">';
         $htmlout .= '<table><tr><td>'.get_string('gviewmode', 'mootyper').'</td><td>';
         $htmlout .= '<select onchange="this.form.submit()" name="jmode"><option value="0">'
@@ -260,6 +261,7 @@ if (!has_capability('mod/mootyper:viewgrades', context_module::instance($cm->id)
                              <td>'.date(get_config('mod_mootyper', 'dateformat'), $gr->timetaken).'</td>
                              <td>'.$gr->wpm.'</td>
                              <td>'.$removelnk.'</td></tr>';
+                // Get information to draw the chart for all exercises in this lesson.
                 $labels[] = $gr->firstname.' '.$gr->lastname.' Ex-'.$gr->exercisename;  // This gets the exercise number.
                 $serieshitsperminute[] = format_float($gr->hitsperminute); // Get the hits per minute value.
                 $seriesprecision[] = format_float($gr->precisionfield);  // Get the precision percentage value.

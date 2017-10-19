@@ -16,6 +16,10 @@ var startTime,
     keyupCombined,
     keyupFirst;
 
+/**
+ * If not the end of fullText, move cursor to next character.
+ *
+ */
 function moveCursor(nextPos) {
     if (nextPos > 0 && nextPos <= fullText.length) {
         $('#crka' + (nextPos - 1)).addClass('txtGreen');
@@ -27,7 +31,11 @@ function moveCursor(nextPos) {
     }
 }
 
-// End of typing.
+
+/**
+ * End of typing.
+ *
+ */
 function doTheEnd() {
     $('#crka' + (fullText.length - 1)).addClass('txtGreen');
     $('#crka' + (fullText.length - 1)).removeClass('txtBlue');
@@ -55,15 +63,22 @@ function doTheEnd() {
     $.get(juri, function(data) { });
 }
 
+/**
+ * Get the character for the pressed key depending on current keyboard driver.
+ *
+ */
 function getPressedChar(e) {
     var keynum;
     var keychar;
     var numcheck;
-    if (window.event) {
+    if (window.event) {  // IE
         keynum = e.keyCode;
-    } else if (e.which) {
+    } else if (e.which) {  // Netscape/Firefox/Opera
         keynum = e.which;
     }
+//    if (window.event) {
+//        keynum = e.which || e.keycode; // Use either which or keyCode, depending on browser support;    
+//     }
     if (keynum === 13) {
         keychar = '\n';
         // This hack is needed for Spanish keyboard, which uses 161 for some character.
@@ -75,6 +90,10 @@ function getPressedChar(e) {
     return keychar;
 }
 
+/**
+ * Set the focus.
+ *
+ */
 function focusSet(e) {
     if(!started) {
         $('#tb1').val('');
@@ -90,6 +109,10 @@ function focusSet(e) {
     }
 }
 
+/**
+ * Do checks.
+ *
+ */
 function doCheck() {
     var rpMootyperId = $('input[name="rpSityperId"]').val();
     var rpUser = $('input[name="rpUser"]').val();
@@ -98,6 +121,10 @@ function doCheck() {
     $.get(juri, function( data ) { });
 }
 
+/**
+ * Start exercise and reset data variables.
+ *
+ */
 function doStart() {
     startTime = new Date();
     mistakes = 0;
@@ -114,6 +141,10 @@ function doStart() {
     interval2ID = setInterval('doCheck()', 4000);
 }
 
+/**
+ * Process current key press and proceed based on typing mode.
+ *
+ */
 function keyPressed(e) {
     if (ended) {
         return false;
@@ -121,6 +152,7 @@ function keyPressed(e) {
     if (!started) {
         doStart();
     }
+//alert('I am in the keyPressed function and going to call getPressedChar');
     var keychar = getPressedChar(e);
     if (keychar === currentChar || ((currentChar === '\n' || currentChar === '\r\n' || currentChar === '\n\r' || currentChar === '\r') && (keychar === ' '))) {
         if(currentPos === fullText.length - 1) {  // END.
@@ -180,7 +212,10 @@ function keyPressed(e) {
     }
 }
 
-// Calculate time to seconds.
+/**
+ * Calculate time to seconds.
+ *
+ */
 function dobiSekunde(hrs, mins, seccs) {
     if (hrs > 0) {
         mins = (hrs * 60) + mins;
@@ -192,7 +227,10 @@ function dobiSekunde(hrs, mins, seccs) {
     }
 }
 
-// Date difference.
+/**
+ * Calculate date difference.
+ *
+ */
 function timeDifference(t1, t2) {
     var yrs = t1.getFullYear();
     var mnth = t1.getMonth();
@@ -209,6 +247,10 @@ function timeDifference(t1, t2) {
     return new Date(yrs, mnth, dys, ure, minute, secunde, 0);
 }
 
+/**
+ * Initialize text to enter.
+ *
+ */
 function inittexttoenter(ttext, tinprogress, tmistakes, thits, tstarttime, tattemptid, turl, tshowkeyboard, tcontinuoustype, tcountmistypedspaces) {
     $("#form1").on("keypress", "#tb1", keyPressed);
     showKeyboard = tshowkeyboard;
@@ -269,19 +311,29 @@ function inittexttoenter(ttext, tinprogress, tmistakes, thits, tstarttime, tatte
     }
     $('#texttoenter').html(tempStr);
 }
+/** This function does not appear to be used.
+ * Verified English and Spanish so far. 10/3/17.
+ * function isDigit(aChar) {
+ *     myCharCode = aChar.charCodeAt(0);
+ *     if ((myCharCode > 47) && (myCharCode < 58)) {
+ *         return true;
+ *     }
+ *     return false;
+ * }
+ */
 
-function isDigit(aChar) {
-    myCharCode = aChar.charCodeAt(0);
-    if ((myCharCode > 47) && (myCharCode < 58)) {
-        return true;
-    }
-    return false;
-}
-
+/**
+ * Calculate speed.
+ *
+ */
 function izracunajHitrost(sc) {
     return (((currentPos + mistakes) * 60) / sc);
 }
 
+/**
+ * Calculate accuracy.
+ *
+ */
 function izracunajTocnost() {
     if (currentPos + mistakes === 0) {
         return 0;
@@ -289,6 +341,10 @@ function izracunajTocnost() {
     return ((currentPos * 100) / (currentPos + mistakes));
 }
 
+/**
+ * Update current time, progress, mistakes presicsion, hits per minute, and words per minute.
+ *
+ */
 function updTimeSpeed() {
     newCas = new Date();
     tDifference = timeDifference(startTime, newCas);
