@@ -88,6 +88,7 @@ $string['fsettings'] = 'Settings';
 $string['fsetup'] = 'Setup';
 $string['fullhits'] = 'All hits';
 $string['gradesfilename'] = 'grades.csv';
+$string['grade_removed'] = 'Removed a grade';
 $string['gviewmode'] = 'View';
 $string['hitsperminute'] = 'Hits/minute';
 $string['invalidaccess'] = 'You do not have permission to view this page.';
