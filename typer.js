@@ -59,8 +59,13 @@ function doTheEnd() {
     $('#btnContinue').css('visibility', 'visible');
     var wpm = (speed / 5) - mistakes;
     $('#jsWpm').html(wpm.toFixed(2));
+
+    var rpAttId = document.form1.rpAttId.value;
+
     var juri = appUrl + "/mod/mootyper/atchk.php?status=3&attemptid=" + $('input[name="rpAttId"]').val();
     $.get(juri, function(data) { });
+console.log('In doTheEnd function rpAttId is = ' + rpAttId);
+console.log('In doTheEnd function juri is = ' + juri);
 }
 
 /**
@@ -119,6 +124,10 @@ function doCheck() {
     var rpAttId = $('input[name="rpAttId"]').val();
     var juri = appUrl + "/mod/mootyper/atchk.php?status=2&attemptid=" + rpAttId + "&mistakes=" + mistakes + "&hits=" + (currentPos + mistakes);
     $.get(juri, function( data ) { });
+console.log('rpMootyperId is = ' + rpMootyperId);
+console.log('rpUser is = ' + rpUser);
+console.log('rpAttId is = ' + rpAttId);
+console.log('juri is = ' + juri);
 }
 
 /**
@@ -152,10 +161,9 @@ function keyPressed(e) {
     if (!started) {
         doStart();
     }
-//alert('I am in the keyPressed function and going to call getPressedChar');
     var keychar = getPressedChar(e);
     if (keychar === currentChar || ((currentChar === '\n' || currentChar === '\r\n' || currentChar === '\n\r' || currentChar === '\r') && (keychar === ' '))) {
-        if(currentPos === fullText.length - 1) {  // END.
+        if(currentPos === fullText.length - 1) {  // Student is at the end of the exercise.
             $('#tb1').val($('#tb1').val() + currentChar);
             var elemOff = new keyboardElement(currentChar);
             elemOff.turnOff();
@@ -163,7 +171,7 @@ function keyPressed(e) {
             return true;
         }
 
-        if (currentPos < fullText.length - 1) {
+        if (currentPos < fullText.length - 1) {  // Student still has more to type.
             var nextChar = fullText[currentPos + 1];
             if (showKeyboard) {
                 var thisE = new keyboardElement(currentChar);
