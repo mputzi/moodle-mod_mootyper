@@ -47,7 +47,7 @@ if (isset($_POST['button'])) {
     $param1 = $_POST['button'];
 }
 if (isset($param1) && get_string('fconfirm', 'mootyper') == $param1 ) {
-    $newtext = $_POST['texttotype'];
+    $newtext = optional_param('texttotype', '', PARAM_CLEANHTML);
     $rcrd = $DB->get_record('mootyper_exercises', array('id' => $exerciseid), '*', MUST_EXIST);
     $updr = new stdClass();
     $updr->id = $rcrd->id;
