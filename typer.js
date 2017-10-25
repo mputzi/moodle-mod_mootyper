@@ -64,8 +64,6 @@ function doTheEnd() {
 
     var juri = appUrl + "/mod/mootyper/atchk.php?status=3&attemptid=" + $('input[name="rpAttId"]').val();
     $.get(juri, function(data) { });
-console.log('In doTheEnd function rpAttId is = ' + rpAttId);
-console.log('In doTheEnd function juri is = ' + juri);
 }
 
 /**
@@ -124,10 +122,6 @@ function doCheck() {
     var rpAttId = $('input[name="rpAttId"]').val();
     var juri = appUrl + "/mod/mootyper/atchk.php?status=2&attemptid=" + rpAttId + "&mistakes=" + mistakes + "&hits=" + (currentPos + mistakes);
     $.get(juri, function( data ) { });
-console.log('rpMootyperId is = ' + rpMootyperId);
-console.log('rpUser is = ' + rpUser);
-console.log('rpAttId is = ' + rpAttId);
-console.log('juri is = ' + juri);
 }
 
 /**
