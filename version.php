@@ -26,9 +26,9 @@
 
 defined('MOODLE_INTERNAL') || die();
 
-$plugin->version   = 2017101300.1;     // The current module version (Date: YYYYMMDDXX).
+$plugin->version   = 2017102500;     // The current module version (Date: YYYYMMDDXX).
 $plugin->requires  = 2016120500;     // Requires Moodle 3.2.
 $plugin->cron      = 60;             // Period for cron to check this module (secs).
 $plugin->component = 'mod_mootyper';
 $plugin->maturity  = MATURITY_STABLE;
-$plugin->release   = '3.3.1 (Build: 2017101300.1)';
+$plugin->release   = '3.3.1 (Build: 2017102500)';
