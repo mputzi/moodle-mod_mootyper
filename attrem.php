@@ -30,14 +30,16 @@ require_once(dirname(dirname(dirname(__FILE__))).'/config.php');
 require_login($course, true, $cm);
 global $DB;
 
+$mid = optional_param('m_id', 0, PARAM_INT);  // MooTyper id (mdl_mootyper).
+$cid = optional_param('c_id', 0, PARAM_INT);  // Course module id (mdl_course_modules).
+
 if (isset($_GET['g'])) {
-    $gradeid = $_GET['g'];
+    $gradeid = optional_param('g', 0, PARAM_INT);
     $dbgrade = $DB->get_record('mootyper_grades', array('id' => $gradeid));
     $DB->delete_records('mootyper_attempts', array('id' => $dbgrade->attempt_id));
     $DB->delete_records('mootyper_grades', array('id' => $dbgrade->id));
 }
-$mid = $_GET['m_id'];
-$cid = $_GET['c_id'];
+
+// Return to the View all grades page.
 $webdir = $CFG->wwwroot . '/mod/mootyper/gview.php?id='.$cid.'&n='.$mid;
 header('Location: '.$webdir);
-

@@ -72,7 +72,7 @@ if (!has_capability('mod/mootyper:viewgrades', context_module::instance($cm->id)
     $htmlout = '';
     $htmlout .= '<div id="mainDiv">';
 
-    if ($mootyper->isexam) {
+    if ($mootyper->isexam) {  // If this is an exam, process the info for the current exercise.
 
         if ($des == -1) {
             $des = 0;
@@ -120,8 +120,9 @@ if (!has_capability('mod/mootyper:viewgrades', context_module::instance($cm->id)
                     $klicaj = '';
                 }
 
-                $removelnk = '<a href="'.$CFG->wwwroot . '/mod/mootyper/attrem.php?c_id='
-                             .$_GET['id'].'&m_id='.$_GET['n'].'&g='.$gr->id.'">'.get_string('eremove', 'mootyper').'</a>';
+                $removelnk = '<a href="'.$CFG->wwwroot . '/mod/mootyper/attrem.php?c_id='.optional_param('id', 0, PARAM_INT)
+                             .'&m_id='.optional_param('n', 0, PARAM_INT).'&g='.$gr->id.'">'
+                             .get_string('eremove', 'mootyper').'</a>';
                 $namelnk = '<a href="'.$CFG->wwwroot.'/user/view.php?id='.$gr->u_id.'&amp;course='
                            .$course->id.'">'.$gr->firstname.' '.$gr->lastname.'</a>';
                 $htmlout .= '<tr style="border-top-style: solid;">
@@ -133,6 +134,7 @@ if (!has_capability('mod/mootyper:viewgrades', context_module::instance($cm->id)
                              <td>'.format_float($gr->precisionfield).'%</td>
                              <td>'.date(get_config('mod_mootyper', 'dateformat'), $gr->timetaken).'</td>
                              <td>'.$gr->wpm.'</td><td>'.$removelnk.'</td></tr>';
+                // Get the information to draw the chart for this exam.
                 $labels[] = $gr->firstname.' '.$gr->lastname.' Ex-'.$gr->exercisename;  // This gets the exercise number.
                 $serieshitsperminute[] = format_float($gr->hitsperminute); // Get the hits per minute value.
                 $seriesprecision[] = format_float($gr->precisionfield);  // Get the precision percentage value.
@@ -147,7 +149,7 @@ if (!has_capability('mod/mootyper:viewgrades', context_module::instance($cm->id)
         } else {
             echo get_string('nogrades', 'mootyper');
         }
-    } else {
+    } else {   // Was not an exam so process exercises for the current lesson.
         $htmlout .= '<form method="post">';
         $htmlout .= '<table><tr><td>'.get_string('gviewmode', 'mootyper').'</td><td>';
         $htmlout .= '<select onchange="this.form.submit()" name="jmode"><option value="0">'
@@ -245,8 +247,9 @@ if (!has_capability('mod/mootyper:viewgrades', context_module::instance($cm->id)
                 } else {
                     $stil = 'background-color: '.(get_config('mod_mootyper', 'failbgc')).';';
                 }
-                $removelnk = '<a href="'.$CFG->wwwroot . '/mod/mootyper/attrem.php?c_id='.$_GET['id']
-                             .'&m_id='.$_GET['n'].'&g='.$gr->id.'">'.get_string('eremove', 'mootyper').'</a>';
+                $removelnk = '<a href="'.$CFG->wwwroot . '/mod/mootyper/attrem.php?c_id='.optional_param('id', 0, PARAM_INT)
+                             .'&m_id='.optional_param('n', 0, PARAM_INT).'&g='.$gr->id.'">'
+                             .get_string('eremove', 'mootyper').'</a>';
                 $namelnk = '<a href="'.$CFG->wwwroot.'/user/view.php?id='.$gr->u_id.'&amp;course='.$course->id
                            .'">'.$gr->firstname.' '.$gr->lastname.'</a>';
                 $htmlout .= '<tr style="border-top-style: solid;'.$stil.'">
@@ -260,6 +263,7 @@ if (!has_capability('mod/mootyper:viewgrades', context_module::instance($cm->id)
                              <td>'.date(get_config('mod_mootyper', 'dateformat'), $gr->timetaken).'</td>
                              <td>'.$gr->wpm.'</td>
                              <td>'.$removelnk.'</td></tr>';
+                // Get information to draw the chart for all exercises in this lesson.
                 $labels[] = $gr->firstname.' '.$gr->lastname.' Ex-'.$gr->exercisename;  // This gets the exercise number.
                 $serieshitsperminute[] = format_float($gr->hitsperminute); // Get the hits per minute value.
                 $seriesprecision[] = format_float($gr->precisionfield);  // Get the precision percentage value.

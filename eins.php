@@ -50,14 +50,14 @@ $context = context_course::instance($id);
 // DB insert.
 if (isset($param1) && get_string('fconfirm', 'mootyper') == $param1 ) {
 
-    $texttotypeepo = $_POST['texttotype'];
+    $texttotypeepo = optional_param('texttotype', '', PARAM_CLEANHTML);
 
     if ($lessonpo == -1) {
-        $lsnnamepo = $_POST['lessonname'];
+        $lsnnamepo = optional_param('lessonname', '', PARAM_TEXT);
         $lsnrecord = new stdClass();
         $lsnrecord->lessonname = $lsnnamepo;
-        $lsnrecord->visible = $_POST['visible'];
-        $lsnrecord->editable = $_POST['editable'];
+        $lsnrecord->visible = optional_param('visible', '', PARAM_TEXT);
+        $lsnrecord->editable = optional_param('editable', '', PARAM_TEXT);
         $lsnrecord->authorid = $USER->id;
         $lsnrecord->courseid = $course->id;
         $lessonid = $DB->insert_record('mootyper_lessons', $lsnrecord, true);

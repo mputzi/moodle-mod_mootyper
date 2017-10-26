@@ -76,11 +76,11 @@ if (!has_capability('mod/mootyper:viewmygrades', context_module::instance($cm->i
 
     // Update the library.
     if ($des == -1 || $des == 0) {
-        $grds = get_typergradesuser($_GET['n'], $USER->id, $orderby, 0);
+        $grds = get_typergradesuser(optional_param('n', 0, PARAM_INT), $USER->id, $orderby, 0);
     } else if ($des == 1) {
-        $grds = get_typergradesuser($_GET['n'], $USER->id, $orderby, 1);
+        $grds = get_typergradesuser(optional_param('n', 0, PARAM_INT), $USER->id, $orderby, 1);
     } else {
-        $grds = get_typergradesuser($_GET['n'], $USER->id, $orderby, $des);
+        $grds = get_typergradesuser(optional_param('n', 0, PARAM_INT), $USER->id, $orderby, $des);
     }
     if ($des == -1 || $des == 1) {
         $lnkadd = "&desc=0";
