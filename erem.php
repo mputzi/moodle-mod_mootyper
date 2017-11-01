@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * This file is used to remove all exercises from a category/lesson.
+ * This file is used to remove exercises and lessons.
  *
  * @package    mod_mootyper
  * @copyright  2011 Jaka Luthar (jaka.luthar@gmail.com)
@@ -35,11 +35,12 @@ if ($id) {
 }
 $context = context_course::instance($id);
 
-if (isset($_GET['r'])) {
-    $exerciseid = $_GET['r'];
+$exerciseid = optional_param('r', 0, PARAM_INT);
+
+if (isset($exerciseid)) {
     $DB->delete_records('mootyper_exercises', array('id' => $exerciseid));
 } else {
-    $lessonid = $_GET['l'];
+    $lessonid = optional_param('l', 0, PARAM_INT);
     $DB->delete_records('mootyper_exercises', array('lesson' => $lessonid));
     $DB->delete_records('mootyper_lessons', array('id' => $lessonid));
 }
@@ -51,7 +52,6 @@ $event = \mod_mootyper\event\exercise_removed::create(array(
 ));
 $event->trigger();
 
-$cid = $_GET['id'];
+$cid = optional_param('id', 0, PARAM_INT);
 $webdir = $CFG->wwwroot . '/mod/mootyper/exercises.php?id='.$cid;
 header('Location: '.$webdir);
-

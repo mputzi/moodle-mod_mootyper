@@ -120,8 +120,9 @@ if (!has_capability('mod/mootyper:viewgrades', context_module::instance($cm->id)
                     $klicaj = '';
                 }
 
-                $removelnk = '<a href="'.$CFG->wwwroot . '/mod/mootyper/attrem.php?c_id='
-                             .$_GET['id'].'&m_id='.$_GET['n'].'&g='.$gr->id.'">'.get_string('eremove', 'mootyper').'</a>';
+                $removelnk = '<a href="'.$CFG->wwwroot . '/mod/mootyper/attrem.php?c_id='.optional_param('id', 0, PARAM_INT)
+                             .'&m_id='.optional_param('n', 0, PARAM_INT).'&g='.$gr->id.'">'
+                             .get_string('eremove', 'mootyper').'</a>';
                 $namelnk = '<a href="'.$CFG->wwwroot.'/user/view.php?id='.$gr->u_id.'&amp;course='
                            .$course->id.'">'.$gr->firstname.' '.$gr->lastname.'</a>';
                 $htmlout .= '<tr style="border-top-style: solid;">
@@ -241,8 +242,9 @@ if (!has_capability('mod/mootyper:viewgrades', context_module::instance($cm->id)
                 } else {
                     $stil = 'background-color: '.(get_config('mod_mootyper', 'failbgc')).';';
                 }
-                $removelnk = '<a href="'.$CFG->wwwroot . '/mod/mootyper/attrem.php?c_id='.$_GET['id']
-                             .'&m_id='.$_GET['n'].'&g='.$gr->id.'">'.get_string('eremove', 'mootyper').'</a>';
+                $removelnk = '<a href="'.$CFG->wwwroot . '/mod/mootyper/attrem.php?c_id='.optional_param('id', 0, PARAM_INT)
+                             .'&m_id='.optional_param('n', 0, PARAM_INT).'&g='.$gr->id.'">'
+                             .get_string('eremove', 'mootyper').'</a>';
                 $namelnk = '<a href="'.$CFG->wwwroot.'/user/view.php?id='.$gr->u_id.'&amp;course='.$course->id
                            .'">'.$gr->firstname.' '.$gr->lastname.'</a>';
                 $htmlout .= '<tr style="border-top-style: solid;'.$stil.'">
