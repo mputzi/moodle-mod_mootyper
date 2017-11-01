@@ -93,7 +93,7 @@
     vertical-align: middle;
     font-size: 1em;
     padding: 2px 2px;
-    background-color: #dddddd;
+    background-color: [[setting:keyboardbgc]];
     color: #000;
     -webkit-border-radius: 4px;
     -moz-border-radius: 4px;
@@ -121,7 +121,7 @@
     vertical-align: middle;
     font-size: 1rem;
     padding: 2px 2px;
-    background: #cccccc;
+    background: [[setting:normalkeytops]];
     color: #000;
     -webkit-border-radius: 4px;
     -moz-border-radius: 4px;

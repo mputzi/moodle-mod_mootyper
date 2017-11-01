@@ -144,16 +144,4 @@ if ($ADMIN->fulltree) {
     $setting = new admin_setting_configcolourpicker($name, $title, $description, $default);
     $setting->set_updatedcallback('theme_reset_all_caches');
     $settings->add($setting);
-
-    // Load css template, change settings, save as styles.css to implement color changes.
-    // Css template is needed to guarantee correct settings are easily found and changed.
-    $old1 = '[[setting:normalkeytops]]';
-    $new1 = get_config('mod_mootyper', 'normalkeytops');
-    $old2 = '[[setting:keyboardbgc]]';
-    $new2 = get_config('mod_mootyper', 'keyboardbgc');
-    $data = file_get_contents($CFG->dirroot.'/mod/mootyper/template.css');
-    $data = str_replace($old1, $new1, $data);
-    $data = str_replace($old2, $new2, $data);
-    file_put_contents($CFG->dirroot.'/mod/mootyper/styles.css', $data);
-
 }
