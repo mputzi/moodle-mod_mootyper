@@ -33,8 +33,8 @@ global $DB;
 $mid = optional_param('m_id', 0, PARAM_INT);  // MooTyper id (mdl_mootyper).
 $cid = optional_param('c_id', 0, PARAM_INT);  // Course module id (mdl_course_modules).
 
-if (isset($_GET['g'])) {
     $gradeid = optional_param('g', 0, PARAM_INT);
+if (isset($gradeid)) {
     $dbgrade = $DB->get_record('mootyper_grades', array('id' => $gradeid));
     $DB->delete_records('mootyper_attempts', array('id' => $dbgrade->attempt_id));
     $DB->delete_records('mootyper_grades', array('id' => $dbgrade->id));

@@ -68,6 +68,7 @@ $lessons = get_mootyperlessons($USER->id, $id);
 if ($lessonpo == 0 && count($lessons) > 0) {
     $lessonpo = $lessons[0]['id'];
 }
+
 echo '<form method="post">';
 echo get_string('excategory', 'mootyper').': <select onchange="this.form.submit()" name="lesson">';
 $selectedlessonindex = 0;

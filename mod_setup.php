@@ -80,9 +80,9 @@ $goalpo = optional_param('requiredgoal', $dfgoal, PARAM_INT);
 require_login($course, true, $cm);
 $context = context_module::instance($cm->id);
 
-if (isset($_POST['button'])) {
-    $param1 = $_POST['button'];
-}
+// Check to see if Confirm button is clicked and returning 'Confirm' to trigger insert record.
+$param1 = optional_param('button', '', PARAM_TEXT);
+
 if (isset($param1) && get_string('fconfirm', 'mootyper') == $param1) {
     $modepo = optional_param('mode', null, PARAM_INT);
     $lessonpo = optional_param('lesson', null, PARAM_INT);

@@ -64,10 +64,9 @@ $mootyperoutput = $PAGE->get_renderer('mod_mootyper');
 // Output starts here.
 echo $mootyperoutput->header($mootyper, $cm);
 echo '<script src="//code.jquery.com/jquery-1.11.0.min.js"></script>';
+
 $new1 = get_config('mod_mootyper', 'normalkeytops');
-
 $new2 = get_config('mod_mootyper', 'keyboardbgc');
-
 echo '<style>
       .keyboardback {
        background-color: '.$new2.'
@@ -76,6 +75,8 @@ echo '<style>
        background: '.$new1.'
        }
        </style>';
+
+
 if ($mootyper->intro) {
     echo $OUTPUT->box(format_module_intro('mootyper', $mootyper, $cm->id) , 'generalbox mod_introbox', 'mootyperintro');
 }

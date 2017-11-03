@@ -59,7 +59,7 @@ class grade_removed extends \core\event\base {
      */
     public function get_description() {
         return "The user with id '$this->userid' removed a mootyper exercise grade while in the course with id
-            '$this->contextinstanceid'";
+            '$this->contextinstanceid'.";
     }
 
     /**

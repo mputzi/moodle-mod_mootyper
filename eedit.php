@@ -43,9 +43,9 @@ if ($exerciseid == 0) {
 $context = context_course::instance($id);
 
 require_login($course, true);
-if (isset($_POST['button'])) {
-    $param1 = $_POST['button'];
-}
+// Check to see if Confirm button is clicked and returning 'Confirm' to trigger update record.
+$param1 = optional_param('button', '', PARAM_TEXT);
+
 if (isset($param1) && get_string('fconfirm', 'mootyper') == $param1 ) {
     $newtext = optional_param('texttotype', '', PARAM_CLEANHTML);
     $rcrd = $DB->get_record('mootyper_exercises', array('id' => $exerciseid), '*', MUST_EXIST);
@@ -126,7 +126,8 @@ function clClick()
         return true;
 }
 </script>
-<?php echo '<form method="POST">';
+<?php
+echo '<form method="POST">';
 echo '<span id="text_holder_span" class=""></span><br>'.get_string('fexercise', 'mootyper').':<br>'.
      '<textarea name="texttotype" id="texttotype" rows="3" cols="60">'.str_replace('\n', "&#10;", $exercisetoedit->texttotype).
      '</textarea><br>'.'<br><input name="button" onClick="return clClick()" type="submit" value="'.

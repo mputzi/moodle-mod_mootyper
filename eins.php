@@ -41,11 +41,11 @@ if ($id) {
 }
 require_login($course, true);
 $lessonpo = optional_param('lesson', -1, PARAM_INT);
-if (isset($_POST['button'])) {
-    $param1 = $_POST['button'];
-}
+
 $context = context_course::instance($id);
 
+// Check to see if Confirm button is clicked and returning 'Confirm' to trigger insert record.
+$param1 = optional_param('button', '', PARAM_TEXT);
 
 // DB insert.
 if (isset($param1) && get_string('fconfirm', 'mootyper') == $param1 ) {

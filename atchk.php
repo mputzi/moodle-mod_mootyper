@@ -80,6 +80,3 @@ if ($st == 1) {
     // Exercise completed so remove all the checks for this attempt.
     $DB->delete_records('mootyper_checks', array('attemptid' => $attid));
 }
-function console($data) {
-    echo("<script>console.log('PHP: ".$data."');</script>");
-}

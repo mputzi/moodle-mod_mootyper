@@ -303,7 +303,7 @@ if ($grds != false) {  // If there are NOT any grades, DON'T draw the chart.
     $chart->add_series($serie2);  // Pass the precision data to the api.
     $chart->add_series($serie3);  // Pass the words per minute data to the api.
     $chart->set_labels($labels);  // Pass the exercise number data to the api.
-    $chart->get_xaxis(0, true)->set_label("Range");  // Pass a label to add to the x-axis.
+    $chart->get_xaxis(0, true)->set_label(get_string('xaxislabel', 'mootyper'));  // Pass a label to add to the x-axis.
     $chart->get_yaxis(0, true)->set_label(get_string('fexercise', 'mootyper')); // Pass the label to add to the y-axis.
     echo $OUTPUT->render($chart); // Draw the chart on the output page.
 }

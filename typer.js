@@ -74,14 +74,12 @@ function getPressedChar(e) {
     var keynum;
     var keychar;
     var numcheck;
-    if (window.event) {  // IE
+
+    if (window.event) {  // IE.
         keynum = e.keyCode;
-    } else if (e.which) {  // Netscape/Firefox/Opera
+    } else if (e.which) {  // Netscape/Firefox/Opera.
         keynum = e.which;
     }
-//    if (window.event) {
-//        keynum = e.which || e.keycode; // Use either which or keyCode, depending on browser support;    
-//     }
     if (keynum === 13) {
         keychar = '\n';
         // This hack is needed for Spanish keyboard, which uses 161 for some character.
@@ -155,6 +153,7 @@ function keyPressed(e) {
     if (!started) {
         doStart();
     }
+
     var keychar = getPressedChar(e);
     if (keychar === currentChar || ((currentChar === '\n' || currentChar === '\r\n' || currentChar === '\n\r' || currentChar === '\r') && (keychar === ' '))) {
         if(currentPos === fullText.length - 1) {  // Student is at the end of the exercise.
