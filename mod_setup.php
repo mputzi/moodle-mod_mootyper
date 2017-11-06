@@ -47,27 +47,52 @@ if ($id) {
 } else {
     error('You must specify a course_module ID or an instance ID');
 }
+require_login($course, true, $cm);
+$context = context_module::instance($cm->id);
 
+// Get the default config for MooTyper.
 $moocfg = get_config('mod_mootyper');
-$epo                  = optional_param('e', 0, PARAM_INT);
-$modepo               = optional_param('mode', $mootyper->isexam, PARAM_INT);
-$exercisepo           = optional_param('exercise', $mootyper->exercise, PARAM_INT);
-$lessonpo             = optional_param('lesson', $mootyper->lesson, PARAM_INT);
-$showkeyboardpo       = optional_param('showkeyboard', "off", PARAM_CLEAN);
-$continuoustypepo     = optional_param('continuoustype', "off", PARAM_CLEAN);
+$epo = optional_param('e', 0, PARAM_INT);
+$modepo = optional_param('mode', $mootyper->isexam, PARAM_INT);
+$exercisepo = optional_param('exercise', $mootyper->exercise, PARAM_INT);
+$lessonpo = optional_param('lesson', $mootyper->lesson, PARAM_INT);
+$showkeyboardpo = optional_param('showkeyboard', "off", PARAM_CLEAN);
+$continuoustypepo = optional_param('continuoustype', "off", PARAM_CLEAN);
 $countmistypedspacespo = optional_param('countmistypedspaces', "off", PARAM_CLEAN);
 
-print_object('mootyper Config for showkeyboard '.$mootyper->showkeyboard);
-print_object('Checking showkeyboardpo '.$showkeyboardpo);
-if (empty($_POST)) {
-    $showkeyboardpo = $mootyper->showkeyboard == 1 ? "on" : "off";
-//}
-//if (empty($_POST)) {
-    $continuoustypepo = $mootyper->continuoustype == 1 ? "on" : "off";
-//}
-//if (empty($_POST)) {
-    $countmistypedspacespo = $mootyper->countmistypedspaces == 1 ? "on" : "off";
+// Check to see if current MooTyper showkeyboard is empty.
+if ($mootyper->showkeyboard == null || is_null($mootyper->showkeyboard)) {
+    $dfkb = "off";
+} else if ($mootyper->showkeyboard) {
+    // Otherwise use current MooTyper showkeyboard.
+    $dfkb = "on";
+} else {
+    $dfkb = "off";
 }
+$showkeyboardpo = optional_param('showkeyboard', $dfkb, PARAM_CLEAN);
+
+// Check to see if current MooTyper continuoustype is empty.
+if ($mootyper->continuoustype == null || is_null($mootyper->continuoustype)) {
+    $dfct = "off";
+} else if ($mootyper->continuoustype) {
+    // Otherwise use current MooTyper continuoustype.
+    $dfct = "on";
+} else {
+    $dfct = "off";
+}
+$continuoustypepo = optional_param('continuoustype', $dfct, PARAM_CLEAN); // Display with default or current setting.
+
+
+if ($mootyper->countmistypedspaces == null || is_null($mootyper->countmistypedspaces)) {
+    // Current MooTyper continuoustype is empty so set it to the site default.
+    $dfms = "off";
+} else if ($mootyper->countmistypedspaces) {
+    // Otherwise use current MooTyper countmistypedspaces.
+    $dfms = "on";
+} else {
+    $dfms = "off";
+}
+$countmistypedspacespo = optional_param('countmistypedspaces', $dfms, PARAM_CLEAN); // Display with default or current setting.
 
 // Check to see current MooTyper layout is empty.
 if ($mootyper->layout == null || is_null($mootyper->layout)) {
@@ -77,19 +102,17 @@ if ($mootyper->layout == null || is_null($mootyper->layout)) {
     // Otherwise use current MooTyper layout.
     $dfly = $mootyper->layout;
 }
-$layoutpo = optional_param('layout', $dfly, PARAM_INT);
+$layoutpo = optional_param('layout', $dfly, PARAM_INT); // Display with default or current setting.
 
-
+// Check to see current MooTyper precision goal is empty.
 if ($mootyper->requiredgoal == null || is_null($mootyper->requiredgoal)) {
+    // Current MooTyper precision goal is empty so set it to the site default.
     $dfgoal = $moocfg->defaultprecision;
 } else {
+    // Otherwise use current MooTyper precision goal.
     $dfgoal = $mootyper->requiredgoal;
 }
-$goalpo = optional_param('requiredgoal', $dfgoal, PARAM_INT);
-
-
-require_login($course, true, $cm);
-$context = context_module::instance($cm->id);
+$goalpo = optional_param('requiredgoal', $dfgoal, PARAM_INT); // Display with default or current setting.
 
 // Check to see if Confirm button is clicked and returning 'Confirm' to trigger insert record.
 $param1 = optional_param('button', '', PARAM_TEXT);
@@ -150,8 +173,9 @@ $htmlout .= '<table><tr><td>'.get_string('fmode', 'mootyper').'</td>
 if (has_capability('mod/mootyper:aftersetup', context_module::instance($cm->id))) {
     $lessons = get_mootyperlessons($USER->id, $course->id);
 }
+
 // Start building htmlout for this page based on exam or lesson exercise.
-if ($modepo == 0 || is_null($modepo)) { // Is this an exam?
+if ($modepo == 0 || is_null($modepo)) { // Since mode is 0, this is a lesson?
     $htmlout .= '<option selected="true" value="0">'.
             get_string('sflesson', 'mootyper').'</option><option value="1">'.
             get_string('isexamtext', 'mootyper').'</option>';
@@ -166,8 +190,8 @@ if ($modepo == 0 || is_null($modepo)) { // Is this an exam?
         }
     }
     $htmlout .= '</select></td></tr><tr><td>'.get_string('requiredgoal', 'mootyper').'</td>
-                 <td><input value="'.$goalpo.'" style="width: 25px;" type="text" name="requiredgoal"> % </td></tr>';
-} else if ($modepo == 1) { // Or is this a lesson exercise?
+                 <td><input value="'.$goalpo.'" style="width: 35px;" type="text" name="requiredgoal"> % </td></tr>';
+} else if ($modepo == 1) { // Or, since mode is 1, this is an exam?
     $htmlout .= '<option value="0">'.
             get_string('sflesson', 'mootyper').'</option><option value="1" selected="true">'.
             get_string('isexamtext', 'mootyper').'</option>';
@@ -193,22 +217,24 @@ if ($modepo == 0 || is_null($modepo)) { // Is this an exam?
     }
     $htmlout .= '</select></td></tr>';
 }
+
 // Add the check box for show keyboard.
 $htmlout .= '<tr><td>'.get_string('showkeyboard', 'mootyper').'</td><td>';
 $showkeyboardchecked = $showkeyboardpo == 'on' ? ' checked="checked"' : '';
-$htmlout .= '<input type="checkbox"'.$showkeyboardchecked.' onchange="this.form.submit()" name="showkeyboard">';
+$htmlout .= '<input type="checkbox"'.$showkeyboardchecked.' " name="showkeyboard">';
 
 // Need to keep the next line as it is helping get rid of _POST in line 245.
 $tempchkkb = optional_param('showkeyboard', 0, PARAM_BOOL);
+
 // Add the check box to enable continuous typing.
 $htmlout .= '<tr><td>'.get_string('continuoustype', 'mootyper').'</td><td>';
 $continuoustypechecked = $continuoustypepo == 'on' ? ' checked="checked"' : '';
-$htmlout .= '<input type="checkbox"'.$continuoustypechecked.' onchange="this.form.submit()" name="continuoustype">';
+$htmlout .= '<input type="checkbox"'.$continuoustypechecked.' " name="continuoustype">';
 
 // Add the check box to enable counting mistyped spaces.
 $htmlout .= '<tr><td>'.get_string('countmistypedspaces', 'mootyper').'</td><td>';
 $countmistypedspaceschecked = $countmistypedspacespo == 'on' ? ' checked="checked"' : '';
-$htmlout .= '<input type="checkbox"'.$countmistypedspaceschecked.' onchange="this.form.submit()" name="countmistypedspaces">';
+$htmlout .= '<input type="checkbox"'.$countmistypedspaceschecked.' " name="countmistypedspaces">';
 
 // Add the dropdown slector for keyboard layouts.
 $layouts = get_keyboard_layouts_db();
@@ -216,20 +242,18 @@ $deflayout = $moocfg->defaultlayout;
 $htmlout .= '<tr><td>'.get_string('layout', 'mootyper').'</td><td><select name="layout">';
 // Get the ID and name of each keyboard layout in the DB.
 foreach ($layouts as $lkey => $lval) {
-// The first if is executed ONLY when Showkeyboard is 
-// clicked to turn it on or off. It seems to have the
-// the job of selecting our default layout when turned ON.
-
-//    if ((count($_POST) > 1) && ($lkey == $deflayout)) {
+    // The first if is executed ONLY when Showkeyboard is
+    // clicked to turn it on or off. It seems to have the
+    // the job of selecting our default layout when turned ON.
     if (($tempchkkb) && ($lkey == $deflayout)) {
         $htmlout .= '<option value="'.$lkey.'" selected="true">'.$lval.'</option>';
     } else if ($lkey == $layoutpo) {
-// This part of the if is reached when going to setup with a 
-// keyboard layout already slected and it is the one already in use.
+        // This part of the if is reached when going to setup with a
+        // keyboard layout already slected and it is the one already in use.
         $htmlout .= '<option value="'.$lkey.'" selected="true">'.$lval.'</option>';
     } else {
-// This part of the if is reached the most and its when a keyboard layout
-// is already selected but it is not this one being checked.
+        // This part of the if is reached the most and its when a keyboard layout
+        // is already selected but it is not the one being checked.
         $htmlout .= '<option value="'.$lkey.'">'.$lval.'</option>';
     }
 }
@@ -238,7 +262,7 @@ foreach ($layouts as $lkey => $lval) {
 $htmlout .= '</select>';
 $htmlout .= '</td></tr>';
 $htmlout .= '</table>';
-$htmlout .= '<br><input name="button" value="'.get_string('fconfirm', 'mootyper').'" type="submit">';
+$htmlout .= '<br><input name="button" onclick="this.form.submit();" value="'.get_string('fconfirm', 'mootyper').'" type="submit">';
 $htmlout .= '</form>';
 
 // Finally show the complete page.
