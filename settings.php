@@ -68,6 +68,15 @@ if ($ADMIN->fulltree) {
         get_string('countmistypedspaces', 'mootyper'), get_string('countmistypedspaces_help', 'mootyper'),
         array('value' => 0, 'adv' => false)));
 
+    // Default keyboard layout.
+    $layouts = get_keyboard_layouts_db();
+    $settings->add(new admin_setting_configselect(
+    'mod_mootyper/defaultlayout',
+        get_string('defaultlayout', 'mootyper'),
+        '', 3, $layouts)
+    );
+
+
     // Lesson export settings.
     $settings->add(new admin_setting_heading('mod_mootyper/lesson_export', get_string('lesson_export', 'mootyper'), ''));
 
@@ -81,14 +90,6 @@ if ($ADMIN->fulltree) {
 
     // Appearance settings.
     $settings->add(new admin_setting_heading('mod_mootyper/appearance', get_string('appearance'), ''));
-
-    // Default keyboard layout.
-    $layouts = get_keyboard_layouts_db();
-    $settings->add(new admin_setting_configselect(
-    'mod_mootyper/defaultlayout',
-        get_string('defaultlayout', 'mootyper'),
-        '', 3, $layouts)
-    );
 
 
 
