@@ -81,7 +81,7 @@ class mod_mootyper_mod_form extends moodleform_mod {
         $mform->addHelpButton('name', 'mootypername', 'mootyper');
         $this->standard_intro_elements();
 
-        // Availability.
+        // MooTyper activity setup, Availability settings.
         $mform->addElement('header', 'availabilityhdr', get_string('availability'));
 
         $mform->addElement('date_time_selector', 'timeopen',
@@ -103,22 +103,31 @@ class mod_mootyper_mod_form extends moodleform_mod {
         $mform->disabledIf('password', 'usepassword', 'eq', 0);
         $mform->disabledIf('passwordunmask', 'usepassword', 'eq', 0);
 
-        // Options.
+        // MooTyper activity setup, Options settings.
         $mform->addElement('header', 'optionhdr', get_string('options', 'mootyper'));
+
+        // Show keyboard setup.
+        $mform->addElement('selectyesno', 'showkeyboard', get_string('showkeyboard', 'mootyper'));
+        $mform->addHelpButton('showkeyboard', 'showkeyboard', 'mootyper');
+
+        // Continuous typing setup.
         $mform->addElement('selectyesno', 'continuoustype', get_string('continuoustype', 'mootyper'));
         $mform->addHelpButton('continuoustype', 'continuoustype', 'mootyper');
         $mform->setDefault('continuoustype', $mootyperconfig->continuoustype);
         $mform->setAdvanced('continuoustype', $mootyperconfig->continuoustype_adv);
 
+        // Count mistyped spaces setup.
         $mform->addElement('selectyesno', 'countmistypedspaces', get_string('countmistypedspaces', 'mootyper'));
         $mform->addHelpButton('countmistypedspaces', 'countmistypedspaces', 'mootyper');
         $mform->setDefault('countmistypedspaces', $mootyperconfig->countmistypedspaces);
         $mform->setAdvanced('countmistypedspaces', $mootyperconfig->countmistypedspaces_adv);
 
-        // Link to exercises for this MooTyper activity.
+        // MooTyper activity, link to Lesson/Categories and exercises.
         $mform->addElement('header', 'mootyperz', get_string('pluginadministration', 'mootyper'));
         $jlnk3 = $CFG->wwwroot . '/mod/mootyper/exercises.php?id='.$COURSE->id;
         $mform->addElement('html', '<a id="jlnk3" href="'.$jlnk3.'">'.get_string('emanage', 'mootyper').'</a>');
+
+        // The rest of the common activity settings.
         $this->standard_coursemodule_elements();
         $this->apply_admin_defaults();
         $this->add_action_buttons();
