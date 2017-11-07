@@ -149,7 +149,7 @@ if (!has_capability('mod/mootyper:viewmygrades', context_module::instance($cm->i
     $htmlout .= '</div>';
 }
 echo $htmlout;
-if ($grds != false) {  // If there are NOT any grades, DON'T draw the chart.
+if (($grds != false) && ($CFG->branch > 31)) {  // If there are NOT any grades, DON'T draw the chart.
     // Create the info the api needs passed to it for each series I want to chart.
     $serie1 = new core\chart_series(get_string('hitsperminute', 'mootyper'), $serieshitsperminute);
     $serie2 = new core\chart_series(get_string('precision', 'mootyper'), $seriesprecision);
