@@ -48,6 +48,75 @@
 #jsSpeed {
     padding: 5px;
 }
+div#wrapStats {
+ position:relative;
+  padding:0px 0px 0px 0px;
+  margin-top:0px;
+  margin:auto;
+  margin-bottom:2px;
+  width:730px;
+  color:#1d4851;
+  *color:#66CCFF;
+  font-family:Times New Roman, Times, serif;
+  font-size:14px;
+  font-weight:bold;
+
+}
+div#timerDiv {
+    background:#bbff99;
+    -moz-border-radius-topleft: 7px 21px;
+     border-top-left-radius: 10px ;
+    -moz-border-radius-bottomleft: 7px 21px;
+     border-bottom-left-radius: 10px ;
+   box-shadow:  
+        0 1px 0 #aaa,
+        0 4px 0 #bbb,
+        0 5px 0px #ddd;
+}
+div#progressDiv {
+    *background:#fdff99;
+    background: #bbff99;
+   box-shadow:  
+        0 1px 0 #aaa,
+        0 4px 0 #bbb,
+        0 5px 0px #ddd;
+}
+div#mistakesDiv {
+    *background:#fdff99;
+    background: #bbff99;
+   box-shadow:  
+        0 1px 0 #aaa,
+        0 4px 0 #bbb,
+        0 5px 0px #ddd;
+}
+div#precisionDiv {
+    *background:#fdff99;
+    background: #bbff99;
+   box-shadow:  
+        0 1px 0 #aaa,
+        0 4px 0 #bbb,
+        0 5px 0px #ddd;
+}
+div#speedDiv {
+    *background:#fdff99;
+    background: #bbff99;
+   box-shadow:  
+        0 1px 0 #aaa,
+        0 4px 0 #bbb,
+        0 5px 0px #ddd;
+}
+div#wpmDiv {
+    *background:#fdff99;
+    background: #bbff99;
+    -moz-border-radius-topright: 7px 21px;
+     border-top-right-radius: 10px ;
+    -moz-border-radius-bottomright: 7px 21px;
+     border-bottom-right-radius: 10px ;
+   box-shadow:  
+        0 1px 0 #aaa,
+        0 4px 0 #bbb,
+        0 5px 0px #ddd;
+}
 .tb1 {
     width: 620px;
     height: 100px;
