@@ -18,8 +18,8 @@ var THE_LAYOUT,
 
 /**
  * Check for combined character.
- * @param char chr.
- * @returns char.
+ * @param {char} chr.
+ * @returns {char}.
  */
 function isCombined(chr) {
     return false;
@@ -27,8 +27,8 @@ function isCombined(chr) {
 
 /**
  * Process keyup for combined character.
- * @param char e.
- * @returns bolean.
+ * @param {char} e.
+ * @returns {bolean}.
  */
 function keyupCombined(e) {
     return false;
@@ -36,8 +36,8 @@ function keyupCombined(e) {
 
 /**
  * Process keyupFirst.
- * @param char event.
- * @returns bolean.
+ * @param {char} event.
+ * @returns {bolean}.
  */
 function keyupFirst(event) {
     return false;
@@ -47,7 +47,7 @@ THE_LAYOUT = 'Dvorak(V3)';
 
 /**
  * Check for character typed so flags can be set.
- * @param char ltr.
+ * @param {char} ltr.
  */
 function keyboardElement(ltr) {
     this.chr = ltr.toLowerCase();
@@ -131,8 +131,8 @@ function thenFinger(tCrka) {
 
 /**
  * Get ID of key to highlight based on current character.
- * @param char tCrka.
- * @returns varchar.
+ * @param {char} tCrka.
+ * @returns {varchar}.
  */
 function getKeyID(tCrka) {
     if (tCrka === ' ') {
@@ -196,8 +196,8 @@ function getKeyID(tCrka) {
 
 /**
  * Is the typed letter part of the current alphabet.
- * @param int str.
- * @returns int && bolean.
+ * @param {char} str.
+ * @returns {(int|Array)}.
  */
 function isLetter(str) {
     return str.length === 1 && str.match(/[a-z]/i);

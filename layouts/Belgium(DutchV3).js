@@ -18,8 +18,8 @@ var THE_LAYOUT,
 
 /**
  * Check for combined character.
- * @param char chr.
- * @returns char.
+ * @param {char} chr.
+ * @returns {char}.
  */
 function isCombined(chr) {
     return (chr === '´' || chr === '`' || chr === '~');
@@ -29,8 +29,8 @@ THE_LAYOUT = 'Belgium(DutchV3)';
 
 /**
  * Process keyup for combined character.
- * @param char e.
- * @returns bolean.
+ * @param {char} e.
+ * @returns {bolean}.
  */
 function keyupCombined(e) {
     if (ended) {
@@ -86,8 +86,8 @@ function keyupCombined(e) {
 
 /**
  * Process keyupFirst.
- * @param char event.
- * @returns bolean.
+ * @param {char} event.
+ * @returns {bolean}.
  */
 function keyupFirst(event) {
     $("#form1").off("keyup", "#tb1", keyupFirst);
@@ -97,7 +97,7 @@ function keyupFirst(event) {
 
 /**
  * Check for character typed so flags can be set.
- * @param char ltr.
+ * @param {char} ltr.
  */
 function keyboardElement(ltr) {
     this.chr = ltr.toLowerCase();
@@ -208,8 +208,8 @@ function keyboardElement(ltr) {
 
 /**
  * Set color flag based on current character.
- * @param char tCrka.
- * @returns int.
+ * @param {char} tCrka.
+ * @returns {int}.
  */
 function thenFinger(tCrka) {
     if (tCrka === ' ') {
@@ -233,8 +233,8 @@ function thenFinger(tCrka) {
 
 /**
  * Get ID of key to highlight based on current character.
- * @param char tCrka.
- * @returns varchar.
+ * @param {char} tCrka.
+ * @returns {varchar}.
  */
 function getKeyID(tCrka) {
     if (tCrka === ' ') {
@@ -306,8 +306,8 @@ function getKeyID(tCrka) {
 
 /**
  * Is the typed letter part of the current alphabet.
- * @param int str.
- * @returns int && bolean.
+ * @param {char} str.
+ * @returns {(int|Array)}.
  */
 function isLetter(str) {
     return str.length === 1 && str.match(/[0-9a-z¡ñçáéíóúüùµ]/i);
