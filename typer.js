@@ -19,6 +19,7 @@ var startTime,
 /**
  * If not the end of fullText, move cursor to next character.
  *
+ * @param {number} nextPos.
  */
 function moveCursor(nextPos) {
     if (nextPos > 0 && nextPos <= fullText.length) {
@@ -31,6 +32,8 @@ function moveCursor(nextPos) {
     }
 }
 
+// See about adding a scrollit function here.
+// Like the text works in Roshine.
 
 /**
  * End of typing.
@@ -48,12 +51,12 @@ function doTheEnd() {
     var hours = differenceT.getHours();
     var mins = differenceT.getMinutes();
     var secs = differenceT.getSeconds();
-    var samoSekunde = dobiSekunde(hours, mins, secs);
+    var samoSekunde = converToSeconds(hours, mins, secs);
     $('input[name="rpFullHits"]').val((fullText.length + mistakes));
     $('input[name="rpTimeInput"]').val(samoSekunde);
     $('input[name="rpMistakesInput"]').val(mistakes);
-    var speed = izracunajHitrost(samoSekunde);
-    $('input[name="rpAccInput"]').val(izracunajTocnost(fullText, mistakes).toFixed(2));
+    var speed = calculateSpeed(samoSekunde);
+    $('input[name="rpAccInput"]').val(calculateSpeed(fullText, mistakes).toFixed(2));
     $('input[name="rpSpeedInput"]').val(speed);
     $('#tb1').attr('disabled', 'disabled');
     $('#btnContinue').css('visibility', 'visible');
@@ -69,6 +72,8 @@ function doTheEnd() {
 /**
  * Get the character for the pressed key depending on current keyboard driver.
  *
+ * @param {char} e.
+ * @returns {keychar}.
  */
 function getPressedChar(e) {
     var keynum;
@@ -94,6 +99,8 @@ function getPressedChar(e) {
 /**
  * Set the focus.
  *
+ * @param {char} e.
+ * @returns {bolean}.
  */
 function focusSet(e) {
     if(!started) {
@@ -145,6 +152,8 @@ function doStart() {
 /**
  * Process current key press and proceed based on typing mode.
  *
+ * @param {char} e.
+ * @returns {bolean}.
  */
 function keyPressed(e) {
     if (ended) {
@@ -216,8 +225,12 @@ function keyPressed(e) {
 /**
  * Calculate time to seconds.
  *
+ * @param {number} hrs.
+ * @param {number} mins.
+ * @param {number} seccs.
+ * @returns {seconds}.
  */
-function dobiSekunde(hrs, mins, seccs) {
+function converToSeconds(hrs, mins, seccs) {
     if (hrs > 0) {
         mins = (hrs * 60) + mins;
     }
@@ -231,6 +244,9 @@ function dobiSekunde(hrs, mins, seccs) {
 /**
  * Calculate date difference.
  *
+ * @param {number} t1.
+ * @param {number} t2.
+ * @returns {date}.
  */
 function timeDifference(t1, t2) {
     var yrs = t1.getFullYear();
@@ -249,8 +265,18 @@ function timeDifference(t1, t2) {
 }
 
 /**
- * Initialize text to enter.
+ * Initialize variables and text to enter.
  *
+ * @param {varchar} ttext.
+ * @param {number} tinprogress.
+ * @param {number} tmistakes.
+ * @param {number} thits.
+ * @param {number} tstarttime.
+ * @param {number} tattemptid.
+ * @param {varchar} turl.
+ * @param {boolean} tshowkeyboard.
+ * @param {boolean} tcontinuoustype.
+ * @param {boolean} tcountmistypedspaces.
  */
 function inittexttoenter(ttext, tinprogress, tmistakes, thits, tstarttime, tattemptid, turl, tshowkeyboard, tcontinuoustype, tcountmistypedspaces) {
     $("#form1").on("keypress", "#tb1", keyPressed);
@@ -260,7 +286,7 @@ function inittexttoenter(ttext, tinprogress, tmistakes, thits, tstarttime, tatte
     fullText = ttext;
     appUrl = turl;
     var tempStr = "";
-    if(tinprogress) {
+    if (tinprogress) {
         $('input[name="rpAttId"]').val(tattemptid);
         startTime = new Date(tstarttime * 1000);
         mistakes = tmistakes;
@@ -303,7 +329,7 @@ function inittexttoenter(ttext, tinprogress, tmistakes, thits, tstarttime, tatte
                     $("#form1").off("keypress", "#tb1", keyPressed);
                     $("#form1").on("keyup", "#tb1", keyupCombined);
                 }
-            } else if(tChar === '\n') {
+            } else if (tChar === '\n') {
                 tempStr += "<span id='crka" + i + "' class='txtRed'>&darr;</span><br>";
             } else {
                 tempStr += "<span id='crka" + i + "' class='txtRed'>" + tChar + "</span>";
@@ -326,16 +352,21 @@ function inittexttoenter(ttext, tinprogress, tmistakes, thits, tstarttime, tatte
 /**
  * Calculate speed.
  *
+ * @param {number} sc.
+ * @returns {number}.
  */
-function izracunajHitrost(sc) {
+function calculateSpeed(sc) {
     return (((currentPos + mistakes) * 60) / sc);
 }
 
 /**
  * Calculate accuracy.
  *
+ * @param {number} currentPos.
+ * @param {number} mistakes.
+ * @returns {number}.
  */
-function izracunajTocnost() {
+function calculateSpeed() {
     if (currentPos + mistakes === 0) {
         return 0;
     }
@@ -345,15 +376,23 @@ function izracunajTocnost() {
 /**
  * Update current time, progress, mistakes presicsion, hits per minute, and words per minute.
  *
+ * @param {number} startTime.
+ * @param {number} newCas.
+ * @param {number} secs.
+ * @param {number} tDifference.
+ * @param {number} mistakes.
+ * @param {number} currentPos.
+ * @param {number} fullText.
+ * @param {number} currentPos.
  */
 function updTimeSpeed() {
     newCas = new Date();
     tDifference = timeDifference(startTime, newCas);
-    var secs = dobiSekunde(tDifference.getHours(), tDifference.getMinutes(), tDifference.getSeconds());
+    var secs = converToSeconds(tDifference.getHours(), tDifference.getMinutes(), tDifference.getSeconds());
     $('#jsTime').html(secs);
 
     $('#jsMistakes').html(mistakes);
     $('#jsProgress').html(currentPos + "/" + fullText.length);
-    $('#jsSpeed').html(izracunajHitrost(secs).toFixed(2));
-    $('#jsAcc').html(izracunajTocnost(fullText, mistakes).toFixed(2));
+    $('#jsSpeed').html(calculateSpeed(secs).toFixed(2));
+    $('#jsAcc').html(calculateSpeed(fullText, mistakes).toFixed(2));
 }
