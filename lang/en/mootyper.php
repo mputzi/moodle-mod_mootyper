@@ -166,6 +166,10 @@ $string['showkeyboard'] = 'Show keyboard';
 $string['showkeyboard_help'] = 'If enabled, a visual representation of the currently selected keyboard layout will be shown while a user is typing an exercise.';
 $string['showrecentactivity'] = 'Show recent activity';
 $string['showrecentactivityconfig'] = 'Everyone can see notifications in recent activity reports.';
+
+$string['statscolor_title'] = 'Statistics bar color';
+$string['statscolor_descr'] = 'This sets the color of the statistics bar.';
+$string['statscolor_colour'] = '#CCCCCC';
 $string['student'] = 'Student';
 $string['suspicion_title'] = 'Suspicious grade warning color';
 $string['suspicion_descr'] = 'This sets the marker color for a grade with suspicious results.';
