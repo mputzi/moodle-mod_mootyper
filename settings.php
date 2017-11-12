@@ -128,6 +128,15 @@ if ($ADMIN->fulltree) {
         null)
     );
 
+    // Statistics bar colour setting.
+    $name = 'mod_mootyper/statscolor';
+    $title = get_string('statscolor_title', 'mootyper');
+    $description = get_string('statscolor_descr', 'mootyper');
+    $default = get_string('statscolor_colour', 'mootyper');
+    $setting = new admin_setting_configcolourpicker($name, $title, $description, $default);
+    $setting->set_updatedcallback('theme_reset_all_caches');
+    $settings->add($setting);
+
     // Key top colour setting.
     $name = 'mod_mootyper/normalkeytops';
     $title = get_string('normalkeytops_title', 'mootyper');
