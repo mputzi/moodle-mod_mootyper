@@ -54,7 +54,7 @@ div#wrapStats {
   margin-top:0px;
   margin:auto;
   margin-bottom:2px;
-  width:730px;
+  width:620px;
   color:#1d4851;
   *color:#66CCFF;
   font-family:Times New Roman, Times, serif;
@@ -62,8 +62,8 @@ div#wrapStats {
   font-weight:bold;
 
 }
-div#timerDiv {
-    background:#bbff99;
+div#statsLDiv {
+    background:[[setting:statscolor]];
     -moz-border-radius-topleft: 7px 21px;
      border-top-left-radius: 10px ;
     -moz-border-radius-bottomleft: 7px 21px;
@@ -73,41 +73,17 @@ div#timerDiv {
         0 4px 0 #bbb,
         0 5px 0px #ddd;
 }
-div#progressDiv {
+div#statsMDiv {
     *background:#fdff99;
-    background: #bbff99;
+    background: [[setting:statscolor]];
    box-shadow:  
         0 1px 0 #aaa,
         0 4px 0 #bbb,
         0 5px 0px #ddd;
 }
-div#mistakesDiv {
+div#statsRDiv {
     *background:#fdff99;
-    background: #bbff99;
-   box-shadow:  
-        0 1px 0 #aaa,
-        0 4px 0 #bbb,
-        0 5px 0px #ddd;
-}
-div#precisionDiv {
-    *background:#fdff99;
-    background: #bbff99;
-   box-shadow:  
-        0 1px 0 #aaa,
-        0 4px 0 #bbb,
-        0 5px 0px #ddd;
-}
-div#speedDiv {
-    *background:#fdff99;
-    background: #bbff99;
-   box-shadow:  
-        0 1px 0 #aaa,
-        0 4px 0 #bbb,
-        0 5px 0px #ddd;
-}
-div#wpmDiv {
-    *background:#fdff99;
-    background: #bbff99;
+    background: [[setting:statscolor]];
     -moz-border-radius-topright: 7px 21px;
      border-top-right-radius: 10px ;
     -moz-border-radius-bottomright: 7px 21px;
