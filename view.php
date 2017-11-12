@@ -65,14 +65,25 @@ $mootyperoutput = $PAGE->get_renderer('mod_mootyper');
 echo $mootyperoutput->header($mootyper, $cm);
 echo '<script src="//code.jquery.com/jquery-1.11.0.min.js"></script>';
 
-$new1 = get_config('mod_mootyper', 'normalkeytops');
-$new2 = get_config('mod_mootyper', 'keyboardbgc');
+// Get the color configuration settings and use them in the MooTyper activity.
+$color1 = get_config('mod_mootyper', 'statscolor');
+$color2 = get_config('mod_mootyper', 'normalkeytops');
+$color3 = get_config('mod_mootyper', 'keyboardbgc');
 echo '<style>
       .keyboardback {
-       background-color: '.$new2.'
+       background-color: '.$color3.'
        }
        .normal {
-       background: '.$new1.'
+       background: '.$color2.'
+       }
+       div#statsLDiv {
+       background: '.$color1.'
+       }
+       div#statsMDiv {
+       background: '.$color1.'
+       }
+       div#statsRDiv {
+       background: '.$color1.'
        }
        </style>';
 
@@ -176,32 +187,32 @@ if ($mootyper->lesson != null) {
 </h4>
 <br>
     <div id='wrapStats'>
-                    <div id='timerDiv' style='float: left; margin-left:100px;'>   
+                    <div id='statsLDiv' style='float: left; margin-left:75px;'>   
                         <div id="timerText" class="statsText">&nbsp;&nbsp;<?php echo get_string('rtime', 'mootyper'); ?>&nbsp;</div>
                         <div id='timer'><span id="jsTime2">00:00</span><span> s</span></div>
                     </div>
 
-                    <div id='progressDiv' style='float: left;'> 
+                    <div id='statsMDiv' style='float: left;'> 
                         <div id='progressText' class="statsText">&nbsp;|&nbsp;<?php echo get_string('rprogress', 'mootyper'); ?>&nbsp;&nbsp;</div>
                         <div id='progressValue'><span id="jsProgress2">0/0</span></div>
                     </div>
 
-                    <div id='mistakesDiv' style='float: left;'>                
+                    <div id='statsMDiv' style='float: left;'>                
                         <div id='mistakesText' class="statsText">&nbsp;|&nbsp;<?php echo get_string('rmistakes', 'mootyper'); ?>&nbsp;</div>
                         <div id='mistakesValue'><span id="jsMistakes2">0</span></div>
                     </div>
 
-                    <div id='precisionDiv' style='float: left;'>                
+                    <div id='statsMDiv' style='float: left;'>                
                         <div id='precisionText' class="statsText">&nbsp;|&nbsp;<?php echo get_string('rprecision', 'mootyper'); ?>&nbsp;</div>
                         <div id='precisionValue'><span id="jsAcc2">0</span><span> %</span></div>
                     </div>
 
-                    <div id='speedDiv' style='float: left;'> 
+                    <div id='statsMDiv' style='float: left;'> 
                         <div id='speedText' class="statsText">&nbsp;|&nbsp;<?php echo get_string('rhitspermin', 'mootyper'); ?>&nbsp;&nbsp;</div>
                         <div id='speedValue'><span id="jsSpeed2">0</span></div>
                     </div>
 
-                    <div id='wpmDiv' style='float: left;'>                
+                    <div id='statsRDiv' style='float: left;'>                
                         <div id='wpmText' class="statsText">&nbsp;|&nbsp;<?php echo get_string('wpm', 'mootyper'); ?>&nbsp;</div>
                         <div id='wpmValue'><span id="jsWpm2">0</span></div>
                     </div>
