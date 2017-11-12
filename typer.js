@@ -56,12 +56,13 @@ function doTheEnd() {
     $('input[name="rpTimeInput"]').val(samoSekunde);
     $('input[name="rpMistakesInput"]').val(mistakes);
     var speed = calculateSpeed(samoSekunde);
-    $('input[name="rpAccInput"]').val(calculateSpeed(fullText, mistakes).toFixed(2));
+    $('input[name="rpAccInput"]').val(calculateAccuracy(fullText, mistakes).toFixed(2));
     $('input[name="rpSpeedInput"]').val(speed);
     $('#tb1').attr('disabled', 'disabled');
     $('#btnContinue').css('visibility', 'visible');
     var wpm = (speed / 5) - mistakes;
     $('#jsWpm').html(wpm.toFixed(2));
+    $('#jsWpm2').html(wpm.toFixed(2));
 
     var rpAttId = document.form1.rpAttId.value;
 
@@ -366,7 +367,7 @@ function calculateSpeed(sc) {
  * @param {number} mistakes.
  * @returns {number}.
  */
-function calculateSpeed() {
+function calculateAccuracy() {
     if (currentPos + mistakes === 0) {
         return 0;
     }
@@ -390,9 +391,20 @@ function updTimeSpeed() {
     tDifference = timeDifference(startTime, newCas);
     var secs = converToSeconds(tDifference.getHours(), tDifference.getMinutes(), tDifference.getSeconds());
     $('#jsTime').html(secs);
+// Temp comment out time in seconds to use min and sec.
+//    $('#jsTime2').html(secs);
+// Need to see about adding leading 0 for <10 min and sec.
+    $('#jsTime2').html(tDifference.getMinutes()+':'+tDifference.getSeconds());
+
+    $('#jsProgress').html(currentPos + "/" + fullText.length);
+    $('#jsProgress2').html(currentPos + "/" + fullText.length);
 
     $('#jsMistakes').html(mistakes);
-    $('#jsProgress').html(currentPos + "/" + fullText.length);
+    $('#jsMistakes2').html(mistakes);
+
     $('#jsSpeed').html(calculateSpeed(secs).toFixed(2));
-    $('#jsAcc').html(calculateSpeed(fullText, mistakes).toFixed(2));
+    $('#jsSpeed2').html(calculateSpeed(secs).toFixed(2));
+
+    $('#jsAcc').html(calculateAccuracy(fullText, mistakes).toFixed(2));
+    $('#jsAcc2').html(calculateAccuracy(fullText, mistakes).toFixed(2));
 }
