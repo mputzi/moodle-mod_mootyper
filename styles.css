@@ -49,7 +49,7 @@
     padding: 5px;
 }
 div#wrapStats {
- position:relative;
+ position:center;
   padding:0px 0px 0px 0px;
   margin-top:0px;
   margin:auto;
@@ -130,19 +130,23 @@ div#statsRDiv {
     top: 0.5em;
     font-size: 0.9em;
 }
+.row {
+    height:40px;
+    margin-bottom:5px
+}
 .keyboardback {
     display: table-cell;
-    width: 610px;
-    height: 320px;
+    width: 630px;
+    height: 250px;
     text-align: center;
     vertical-align: middle;
     font-size: 1em;
     padding: 2px 2px;
     background-color: [[setting:keyboardbgc]];
     color: #000;
-    -webkit-border-radius: 4px;
-    -moz-border-radius: 4px;
-    border-radius: 4px;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    border-radius: 10px;
     border: 1px solid #666;
     box-sizing: border-box;
     font-weight: bold;
@@ -159,12 +163,12 @@ div#statsRDiv {
 }
 .normal {
     display: table-cell;
-    width: 41px;
-    height: 41px;
+    width: 40px;
+    height: 40px;
 
     text-align: center;
     vertical-align: middle;
-    font-size: 1rem;
+
     padding: 2px 2px;
     background: [[setting:normalkeytops]];
     color: #000;
@@ -187,8 +191,8 @@ div#statsRDiv {
 }
 .finger4 {
     display: table-cell;
-    width: 41px;
-    height: 41px;
+    width: 40px;
+    height: 40px;
     text-align: center;
     vertical-align: middle;
     padding: 2px 2px;
@@ -213,8 +217,8 @@ div#statsRDiv {
 }
 .finger3 {
     display: table-cell;
-    width: 41px;
-    height: 41px;
+    width: 40px;
+    height: 40px;
     text-align: center;
     vertical-align: middle;
     padding: 2px 2px;
@@ -239,8 +243,8 @@ div#statsRDiv {
 }
 .finger2 {
     display: table-cell;
-    width: 41px;
-    height: 41px;
+    width: 40px;
+    height: 40px;
     text-align: center;
     vertical-align: middle;
     padding: 2px 2px;
@@ -265,8 +269,8 @@ div#statsRDiv {
 }
 .finger1 {
     display: table-cell;
-    width: 41px;
-    height: 41px;
+    width: 40px;
+    height: 40px;
     text-align: center;
     vertical-align: middle;
     padding: 2px 2px;
@@ -291,8 +295,8 @@ div#statsRDiv {
 }
 .fingerSpace {
     display: table-cell;
-    width: 41px;
-    height: 41px;
+    width: 40px;
+    height: 40px;
     text-align: center;
     vertical-align: middle;
     padding: 2px 2px;
@@ -317,8 +321,8 @@ div#statsRDiv {
 }
 .next1 {
     display: table-cell;
-    width: 41px;
-    height: 41px;
+    width: 40px;
+    height: 40px;
     text-align: center;
     vertical-align: middle;
     padding: 2px 2px;
@@ -343,8 +347,8 @@ div#statsRDiv {
 }
 .next2 {
     display: table-cell;
-    width: 41px;
-    height: 41px;
+    width: 40px;
+    height: 40px;
     text-align: center;
     vertical-align: middle;
     padding: 2px 2px;
@@ -369,8 +373,8 @@ div#statsRDiv {
 }
 .next3 {
     display: table-cell;
-    width: 41px;
-    height: 41px;
+    width: 40px;
+    height: 40px;
     text-align: center;
     vertical-align: middle;
     padding: 2px 2px;
@@ -395,8 +399,8 @@ div#statsRDiv {
 }
 .next4 {
     display: table-cell;
-    width: 41px;
-    height: 41px;
+    width: 40px;
+    height: 40px;
     text-align: center;
     vertical-align: middle;
     padding: 2px 2px;
@@ -421,8 +425,8 @@ div#statsRDiv {
 }
 .nextSpace {
     display: table-cell;
-    width: 41px;
-    height: 41px;
+    width: 40px;
+    height: 40px;
     text-align: center;
     vertical-align: middle;
     padding: 2px 2px;
