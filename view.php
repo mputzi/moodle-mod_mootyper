@@ -69,6 +69,7 @@ echo '<script src="//code.jquery.com/jquery-1.11.0.min.js"></script>';
 $color1 = get_config('mod_mootyper', 'statscolor');
 $color2 = get_config('mod_mootyper', 'normalkeytops');
 $color3 = get_config('mod_mootyper', 'keyboardbgc');
+// Apply colors to current MooTyper.
 echo '<style>
       .keyboardback {
        background-color: '.$color3.'
@@ -185,7 +186,48 @@ if ($mootyper->lesson != null) {
         }
         ?>
 </h4>
-<br>
+
+<div id="reportDiv">
+<input name='rpCourseId' type='hidden' value='<?php
+        echo $course->id; ?>'>
+<input name='rpSityperId' type='hidden' value='<?php
+        echo $mootyper->id; ?>'>
+<input name='rpUser' type='hidden' value='<?php
+        echo $USER->id; ?>'>
+<input name='rpExercise' type='hidden' value='<?php
+        echo $exerciseid; ?>'>
+<input name='rpAttId' type='hidden' value=''>
+<input name='rpFullHits' type='hidden' value=''>
+<input name='rpGoal' type='hidden' value='
+        <?php
+        if (isset($reqiredgoal)) {
+            echo $reqiredgoal;
+        }
+        ?>
+'>
+    <input name='rpTimeInput' type='hidden'>
+    <input name='rpMistakesInput' type='hidden'>
+    <input name='rpAccInput' type='hidden'>
+    <input name='rpSpeedInput' type='hidden'>
+
+        <?php
+        if (has_capability('mod/mootyper:viewgrades', context_module::instance($cm->id))) {
+            $jlnk4 = $CFG->wwwroot . '/mod/mootyper/gview.php?id=' . $id . '&n=' . $mootyper->id;;
+            echo '<a href="' . $jlnk4 . '">' . get_string('viewgrades', 'mootyper') . '</a>&nbsp;&nbsp;|&nbsp;&nbsp;';
+        }
+        if (has_capability('mod/mootyper:aftersetup', context_module::instance($cm->id))) {
+            $jlnk6 = $CFG->wwwroot . "/mod/mootyper/mod_setup.php?n=" . $mootyper->id . "&e=1";
+            echo '<a href="' . $jlnk6 . '">' . get_string('fsettings', 'mootyper') . '</a>&nbsp;&nbsp;|&nbsp;&nbsp;';
+        }
+        if (has_capability('mod/mootyper:viewmygrades', context_module::instance($cm->id))) {
+            $jlnk7 = $CFG->wwwroot . "/mod/mootyper/owngrades.php?id=" . $id . "&n=" . $mootyper->id;
+            echo '<a href="' . $jlnk7 . '">' . get_string('viewmygrades', 'mootyper') . '</a>';
+        }
+        ?>
+
+<input style="visibility: hidden;" id="btnContinue" name='btnContinue' type="submit" value=<?php
+        echo "'" . get_string('fcontinue', 'mootyper') . "'"; ?>> 
+
     <div id='wrapStats'>
                     <div id='statsLDiv' style='float: left; margin-left:75px;'>   
                         <div id="timerText" class="statsText">&nbsp;&nbsp;<?php echo get_string('rtime', 'mootyper'); ?>&nbsp;</div>
@@ -217,11 +259,11 @@ if ($mootyper->lesson != null) {
                         <div id='wpmValue'><span id="jsWpm2">0</span></div>
                     </div>
     </div>
-    <br>
+</div>
+<br>
 <br />
 <div style="float: left; padding-bottom: 10px;" id="texttoenter"></div><br />
         <?php
-
         if ($mootyper->showkeyboard) {
             $displaynone = false;
         } else {
@@ -239,66 +281,7 @@ if ($mootyper->lesson != null) {
             echo get_string('chere', 'mootyper') . '...';
             ?>
     </textarea>
-                         
 </div>
-<div id="reportDiv" style="float: right; /*position: relative; right: 90px; top: 35px;*/">
-        <?php
-        if (has_capability('mod/mootyper:viewgrades', context_module::instance($cm->id))) {
-            $jlnk4 = $CFG->wwwroot . '/mod/mootyper/gview.php?id=' . $id . '&n=' . $mootyper->id;;
-            echo '<a href="' . $jlnk4 . '">' . get_string('viewgrades', 'mootyper') . '</a><br /><br />';
-        }
-
-        if (has_capability('mod/mootyper:aftersetup', context_module::instance($cm->id))) {
-            $jlnk6 = $CFG->wwwroot . "/mod/mootyper/mod_setup.php?n=" . $mootyper->id . "&e=1";
-            echo '<a href="' . $jlnk6 . '">' . get_string('fsettings', 'mootyper') . '</a><br /><br />';
-        }
-
-        if (has_capability('mod/mootyper:viewmygrades', context_module::instance($cm->id))) {
-            $jlnk7 = $CFG->wwwroot . "/mod/mootyper/owngrades.php?id=" . $id . "&n=" . $mootyper->id;
-            echo '<a href="' . $jlnk7 . '">' . get_string('viewmygrades', 'mootyper') . '</a><br /><br />';
-        }
-
-        ?>
-<input name='rpCourseId' type='hidden' value='<?php
-        echo $course->id; ?>'>
-<input name='rpSityperId' type='hidden' value='<?php
-        echo $mootyper->id; ?>'>
-<input name='rpUser' type='hidden' value='<?php
-        echo $USER->id; ?>'>
-<input name='rpExercise' type='hidden' value='<?php
-        echo $exerciseid; ?>'>
-<input name='rpAttId' type='hidden' value=''>
-<input name='rpFullHits' type='hidden' value=''>
-<input name='rpGoal' type='hidden' value='
-        <?php
-        if (isset($reqiredgoal)) {
-            echo $reqiredgoal;
-        }
-        ?>
-'>
-    <input name='rpTimeInput' type='hidden'>
-    <input name='rpMistakesInput' type='hidden'>
-    <input name='rpAccInput' type='hidden'>
-    <input name='rpSpeedInput' type='hidden'>
-<div id="rdDiv2">
-<strong><?php
-        echo get_string('rtime', 'mootyper'); ?></strong> <span id="jsTime">0</span> s<br />
-<strong><?php
-        echo get_string('rprogress', 'mootyper'); ?></strong> <span id="jsProgress"> 0</span><br />
-<strong><?php
-        echo get_string('rmistakes', 'mootyper'); ?></strong> <span id="jsMistakes">0</span><br />
-<strong><?php
-        echo get_string('rprecision', 'mootyper'); ?></strong> <span id="jsAcc"> 0</span>%<br />
-<strong><?php
-        echo get_string('rhitspermin', 'mootyper'); ?></strong> <span id="jsSpeed">0</span><br />
-<strong><?php
-        echo get_string('wpm', 'mootyper'); ?></strong>: <span id="jsWpm">0</span>
-<br />
-</div>
-<br /><input style="visibility: hidden;" id="btnContinue" name='btnContinue' type="submit" value=<?php
-        echo "'" . get_string('fcontinue', 'mootyper') . "'"; ?>> 
-</div>
-
 </form>
 </div>
         <?php
