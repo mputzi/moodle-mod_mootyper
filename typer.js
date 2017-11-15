@@ -32,9 +32,6 @@ function moveCursor(nextPos) {
     }
 }
 
-// See about adding a scrollit function here.
-// Like the text works in Roshine.
-
 /**
  * End of typing.
  *
