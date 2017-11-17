@@ -50,10 +50,10 @@ echo (isset($displaynone) && ($displaynone == true)) ? 'display:none;' : '';
 <span id="jkey0" class="normal"><span class="textup">=</span><span class="textdown">0</span></span>
 <span id="jkeyapostrophe" class="normal"><span class="textup">? </span><span class="textdown"> '</span></span>
 <span id="jkey¡" class="normal"><span class="textup">¿ </span>¡</span>
-<span id="jkeybackspace" class="normal" style="width: 70px; font-size: 12px !important;"">Retroceso</span>
+<span id="jkeybackspace" class="normal" style="width: 105px; font-size: 12px !important;"">Retroceso</span>
 <br>
 <div style="float: left;">
-<span id="jkeytab" class="normal" style="width: 50px;">Tab</span>
+<span id="jkeytab" class="normal" style="width: 60px;">Tab</span>
 <span id="jkeyq" class="normal">Q</span>
 <span id="jkeyw" class="normal">W</span>
 <span id="jkeye" class="normal">E<span class="textdown" style="color:blue"> €</span></span></span>
@@ -69,7 +69,7 @@ echo (isset($displaynone) && ($displaynone == true)) ? 'display:none;' : '';
 <span id="jkeyplus" class="normal"><span class="textup">* </span><span class="textdown">+</span>
     <span class="textdown" style="color:blue"> ]</span></span>
 <br>
-<span id="jkeycaps" class="normal" style="width: 60px; font-size: 12px !important;">Bloq. mayús</span>
+<span id="jkeycaps" class="normal" style="width: 80px; font-size: 12px !important;">Bloq. mayús</span>
 <span id="jkeya" class="finger4">A</span>
 <span id="jkeys" class="finger3">S</span>
 <span id="jkeyd" class="finger2">D</span>
@@ -84,10 +84,10 @@ echo (isset($displaynone) && ($displaynone == true)) ? 'display:none;' : '';
     <span style="color:red" class="textdown">´</span><span class="textdown" style="color:blue"> {</span></span>
 <span id="jkeyç" class="normal">Ç<span class="textdown" style="color:blue"> }</span></span>
 </div>
-<span id="jkeyenter" class="normal" style="width: 50px; border-right-style: solid; float: right; height: 105px;">Enter</span>
+<span id="jkeyenter" class="normal" style="width: 60px; border-right-style: solid; float: right; height: 105px;">Enter</span>
 <br style="clear:both;" /><br />
 
-<span id="jkeyshiftl" class="normal" style="width: 45px; font-size: 12px !important;">Mayús</span>
+<span id="jkeyshiftl" class="normal" style="width: 95px; font-size: 12px !important;">Mayús</span>
 <span id="jkeyckck" class="normal"><span class="textup">&lt;</span><span class="textdown"> &gt;</span></span>
 <span id="jkeyz" class="normal">Z</span>
 <span id="jkeyx" class="normal">X</span>
@@ -99,15 +99,15 @@ echo (isset($displaynone) && ($displaynone == true)) ? 'display:none;' : '';
 <span id="jkeycomma" class="normal"><span class="textup">;</span><span class="textdown">,</span></span>
 <span id="jkeyperiod" class="normal"><span class="textup">:</span><span class="textdown">.</span></span>
 <span id="jkeyminus" class="normal"><span class="textup">_</span><span class="textdown"> -</span></span>
-<span id="jkeyshiftd" class="normal" style="width: 105px; font-size: 12px !important;">Mayús</span>
+<span id="jkeyshiftd" class="normal" style="width: 95px; font-size: 12px !important;">Mayús</span>
 <br>
-<span id="jkeyctrll" class="normal" style="width: 40px;">Ctrl</span>
+<span id="jkeyctrll" class="normal" style="width: 50px;">Ctrl</span>
 <span id="jkeyfn" class="normal" style="width: 50px;">Fn</span>
-<span id="jkeyalt" class="normal" style="width: 40px;">Alt</span>
-<span id="jkeyspace" class="normal" style="width: 285px;">Espacio</span>
+<span id="jkeyalt" class="normal" style="width: 50px;">Alt</span>
+<span id="jkeyspace" class="normal" style="width: 270px;">Espacio</span>
 <span id="jkeyaltgr" class="normal" style=" font-size: 12px !important; color:blue; width: 50px;">Alt gr</span>
 <span id="jkeyfn" class="normal" style="width: 50px;">Fn</span>
-<span id="jempty" class="normal" style="width: 30px;">Menu</span>
-<span id="jkeyctrlr" class="normal" style="width: 60px;">Ctrl</span><br>
+<span id="jempty" class="normal" style="width: 50px;">Menu</span>
+<span id="jkeyctrlr" class="normal" style="width: 50px;">Ctrl</span><br>
 </span>
 </div>

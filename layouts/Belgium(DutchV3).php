@@ -49,10 +49,10 @@ echo (isset($displaynone) && ($displaynone == true)) ? 'display:none;' : '';
     <span class="textdown" style="color:blue"> }</span></span>
 <span id="jkeyparenr" class="normal"><span class="textup">° </span><span class="textdown"> )</span></span>
 <span id="jkeyminus" class="normal"><span class="textup">_ </span><span class="textdown"> -</span></span>
-<span id="jkeybackspace" class="normal" style="border-right-style: solid;">Backspace</span>
+<span id="jkeybackspace" class="normal"  style="width: 100px;">Backspace</span>
 <br>
 <div style="float: left;">
-<span id="jkeytab" class="normal" style="width: 50px;">Tab</span>
+<span id="jkeytab" class="normal" style="width: 60px;">Tab</span>
 <span id="jkeya" class="normal">A</span>
 <span id="jkeyz" class="normal">Z</span>
 <span id="jkeye" class="normal">E<span style="color:blue" class="textdown"> €</span></span>
@@ -68,7 +68,7 @@ echo (isset($displaynone) && ($displaynone == true)) ? 'display:none;' : '';
 <span id="jkeydollar" class="normal"><span class="textup">* </span><span class="textdown">$</span>
     <span class="textdown" style="color:blue"> ]</span></span>
 <br>
-<span id="jkeycaps" class="normal" style="width: 60px; font-size: 12px !important;">Caps Lock</span>
+<span id="jkeycaps" class="normal" style="width: 80px; font-size: 12px !important;">Caps Lock</span>
 <span id="jkeyq" class="finger4">Q</span>
 <span id="jkeys" class="finger3">S</span>
 <span id="jkeyd" class="finger2">D</span>
@@ -79,15 +79,15 @@ echo (isset($displaynone) && ($displaynone == true)) ? 'display:none;' : '';
 <span id="jkeyk" class="finger2">K</span>
 <span id="jkeyl" class="finger3">L</span>
 <span id="jkeym" class="finger4">M</span>
-<span id="jkeyù" class="normal"><span class="textup">% </span><span class="textdown">ù</span>
+<span id="jkeyù" class="normal" style='font-size: 12px !important; line-height: 15px'><span class="textup">% </span><span class="textdown">ù</span>
     <span class="textdown" style="color:red"> ´</span></span>
-<span id="jkeyµ" class="normal"><span class="textup">£ </span><span class="textdown">µ</span>
+<span id="jkeyµ" class="normal" style='font-size: 12px !important; line-height: 15px'><span class="textup">£ </span><span class="textdown">µ</span>
     <span class="textdown" style="color:red"> `</span></span>
 </div>
-<span id="jkeyenter" class="normal" style="width: 50px; border-right-style: solid; float: right; height: 105px;">Enter</span>
+<span id="jkeyenter" class="normal" style="width: 60px; border-right-style: solid; float: right; height: 105px;">Enter</span>
 <br style="clear:both;" /><br />
 
-<span id="jkeyshiftl" class="normal" style="width: 45px;">Shift</span>
+<span id="jkeyshiftl" class="normal" style="width: 75px;">Shift</span>
 <span id="jkeyckck" class="normal"><span class="textup">&lt;</span><span class="textdown"> &gt;</span>
     <span class="textdown" style="color:blue"> \</span></span>
 <span id="jkeyw" class="normal">W</span>
@@ -103,13 +103,13 @@ echo (isset($displaynone) && ($displaynone == true)) ? 'display:none;' : '';
     <span class="textdown" style="color:red"> ~</span></span>
 <span id="jkeyshiftd" class="normal" style="width: 105px; border-right-style: solid;">Shift</span>
 <br>
-<span id="jkeyctrll" class="normal" style="width: 40px;">Ctrl</span>
+<span id="jkeyctrll" class="normal" style="width: 50px;">Ctrl</span>
 <span id="jkeyfn" class="normal" style="width: 50px;">Win</span>
-<span id="jkeyalt" class="normal" style="width: 40px;">Alt</span>
-<span id="jkeyspace" class="normal" style="width: 285px;">Space</span>
+<span id="jkeyalt" class="normal" style="width: 50px;">Alt</span>
+<span id="jkeyspace" class="normal" style="width: 275px;">Space</span>
 <span id="jkeyaltgr" class="normal" style=" font-size: 12px !important; color:blue; width: 50px;">Alt gr</span>
 <span id="jkeyfn" class="normal" style="width: 50px;">Win</span>
-<span id="jempty" class="normal" style="width: 30px;">Menu</span>
-<span id="jkeyctrlr" class="normal" style="width: 60px;">Ctrl</span><br>
+<span id="jempty" class="normal" style="width: 50px;">Menu</span>
+<span id="jkeyctrlr" class="normal" style="width: 50px;">Ctrl</span><br>
 </span>
 </div>

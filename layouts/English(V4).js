@@ -107,7 +107,8 @@ function keyboardElement(ltr) {
 
 /**
  * Set color flag based on current character.
- *
+ * @param {char} tCrka.
+ * @returns {number}.
  */
 function thenFinger(tCrka) {
     if (tCrka === ' ') {
@@ -132,7 +133,7 @@ function thenFinger(tCrka) {
 /**
  * Get ID of key to highlight based on current character.
  * @param {char} tCrka.
- * @returns {varchar}.
+ * @returns {char}.
  */
 function getKeyID(tCrka) {
     if (tCrka === ' ') {
