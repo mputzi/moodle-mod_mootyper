@@ -737,7 +737,7 @@ function mootyper_scale_used_anywhere($scaleid) {
 }
 
 /**
- * Creates or updates grade item for the give mootyper instance
+ * Creates or updates grade item for the given mootyper instance.
  *
  * Needed by grade_update_mod_grades() in lib/gradelib.php
  *
@@ -754,7 +754,7 @@ function mootyper_grade_item_update(stdClass $mootyper) {
     $item['grademax']  = $mootyper->grade;
     $item['grademin']  = 0;
 
-    grade_update('mod/mootyper', $mootyper->course, 'mod', 'mootyper', $mootyper->id, 0, null, $item);
+    //grade_update('mod/mootyper', $mootyper->course, 'mod', 'mootyper', $mootyper->id, 0, null, $item);
 }
 
 /**
