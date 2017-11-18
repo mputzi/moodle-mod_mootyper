@@ -60,8 +60,8 @@ echo (isset($displaynone) && ($displaynone == true)) ? 'display:none;' : '';
                 <div id="jkeyi" class="normal">I</div>
                 <div id="jkeyo" class="normal">O</div>
                 <div id="jkeyp" class="normal">P</div>
-                <div id="jkeycaret" class="normal" style="text-align:left; font-size: 12px !important;"><span style="color:red">¨<br>^<span style="color:blue">&nbsp; &nbsp; &nbsp;[</span></div>
-                <div id="jkeydollar" class="normal" style="text-align:left;font-size: 12px !important;">*<br>$<span style="color:blue">&nbsp; &nbsp; &nbsp;]</div>
+                <div id="jkeycaret" class="normal" style="text-align:left; font-size: 12px !important; line-height: 15px"><span style="color:red">¨<br>^<span style="color:blue">&nbsp; &nbsp; &nbsp;[</span></div>
+                <div id="jkeydollar" class="normal" style="text-align:left;font-size: 12px !important; line-height: 15px">*<br>$<span style="color:blue">&nbsp; &nbsp; &nbsp;]</div>
             </div>
             <span id="jkeyenter" class="normal" style="width: 50px; margin-right:5px; float: right; height: 85px;">Enter</span>
             <div class="row" style='float: left; margin-left:5px;'>

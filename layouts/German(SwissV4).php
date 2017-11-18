@@ -60,8 +60,8 @@ echo (isset($displaynone) && ($displaynone == true)) ? 'display:none;' : '';
             <div id="jkeyi" class="normal">I</div>
             <div id="jkeyo" class="normal">O</div>
             <div id="jkeyp" class="normal">P</div>
-            <div id="jkeyü" class="normal" style='text-align:left; font-size: 12px !important;'>è<br>ü<span style="color:blue">&nbsp; &nbsp; &nbsp;[</span></div>
-            <div id="jkeyumlaut" class="normal" style='text-align:left; font-size: 12px !important;'>!<br>¨<span style="color:blue">&nbsp; &nbsp; &nbsp;]</span></div>
+            <div id="jkeyü" class="normal" style='text-align:left; font-size: 12px !important; line-height: 15px'>è<br>ü<span style="color:blue">&nbsp; &nbsp; &nbsp;[</span></div>
+            <div id="jkeyumlaut" class="normal" style='text-align:left; font-size: 12px !important; line-height: 15px'>!<br>¨<span style="color:blue">&nbsp; &nbsp; &nbsp;]</span></div>
 
         </div>
             <span id="jkeyenter" class="normal" style="width: 55px; border-right-style: solid; float: right; height: 85px;">Enter</span>
@@ -76,14 +76,14 @@ echo (isset($displaynone) && ($displaynone == true)) ? 'display:none;' : '';
             <div id="jkeyj" class="finger1">J</div>
             <div id="jkeyk" class="finger2">K</div>
             <div id="jkeyl" class="finger3">L</div>
-            <div id="jkeyö" class="finger4" style='text-align:left; font-size: 12px !important;'>é<br>ö</div>
-            <div id="jkeyumlauta" class="normal" style='text-align:left; font-size: 12px !important;'>à<br>ä<span style="color:blue">&nbsp; &nbsp; &nbsp;{</span></div>
-            <div id="jkeydollar" class="normal" style='text-align:left; font-size: 12px !important;'>£<br>$<span style="color:blue">&nbsp; &nbsp; &nbsp;}</span></div>
+            <div id="jkeyö" class="finger4" style='text-align:left; font-size: 12px !important; line-height: 15px'>é<br>ö</div>
+            <div id="jkeyumlauta" class="normal" style='text-align:left; font-size: 12px !important; line-height: 15px'>à<br>ä<span style="color:blue">&nbsp; &nbsp; &nbsp;{</span></div>
+            <div id="jkeydollar" class="normal" style='text-align:left; font-size: 12px !important; line-height: 15px'>£<br>$<span style="color:blue">&nbsp; &nbsp; &nbsp;}</span></div>
         </div>
     </div>
         <div class="row" style='float: left; margin-left:5px;'>
             <div id="jkeyshiftl" class="normal" style="width: 70px;">Shift</div>
-            <div id="jkeyckck" class="normal" style='text-align:left; font-size: 12px !important;'>&lt;<br>&gt;<span style="color:blue">&nbsp; &nbsp; &nbsp\</span></div>
+            <div id="jkeyckck" class="normal" style='text-align:left; font-size: 12px !important; line-height: 15px'>&lt;<br>&gt;<span style="color:blue">&nbsp; &nbsp; &nbsp\</span></div>
             <div id="jkeyy" class="normal">Y</div>
             <div id="jkeyx" class="normal">X</div>
             <div id="jkeyc" class="normal">C</div>
@@ -91,9 +91,9 @@ echo (isset($displaynone) && ($displaynone == true)) ? 'display:none;' : '';
             <div id="jkeyb" class="normal">B</div>
             <div id="jkeyn" class="normal">N</div>
             <div id="jkeym" class="normal">M</div>
-            <div id="jkeycomma" class="normal" style='font-size: 12px !important;'>;<br>,</div>
-            <div id="jkeyperiod" class="normal" style='font-size: 12px !important;'>:<br>.</div>
-            <div id="jkeyminus" class="normal" style='font-size: 12px !important;'>_<br>-</div>
+            <div id="jkeycomma" class="normal" style='font-size: 12px !important; line-height: 15px'>;<br>,</div>
+            <div id="jkeyperiod" class="normal" style='font-size: 12px !important; line-height: 15px'>:<br>.</div>
+            <div id="jkeyminus" class="normal" style='font-size: 12px !important; line-height: 15px'>_<br>-</div>
             <div id="jkeyshiftd" class="normal" style="width: 105px; border-right-style: solid;">Shift</div>
         </div>
         <div class="row" style='float: left; margin-left:5px;'>
