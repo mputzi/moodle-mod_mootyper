@@ -67,7 +67,7 @@ echo (isset($displaynone) && ($displaynone == true)) ? 'display:none;' : '';
         </div>
 
         <div class="row" style='float: left; margin-left:5px;'>
-            <div id"jkeycaps" class="normal" style="width: 80px;">C.lock</div>
+            <div id"jkeycaps" class="normal" style="width: 80px;  font-size: 12px !important;">Caps Lock</div>
             <div id"jkeya" class="finger4">A</div>
             <div id"jkeys" class="finger3">S</div>
             <div id"jkeyd" class="finger2">D</div>
