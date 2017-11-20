@@ -15,10 +15,9 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * This file defines the English(V4)keyboard layout.
+ * This file defines the Japanese(V4)keyboard layout.
  *
  * @package    mod_mootyper
- * @copyright  2012 Jaka Luthar (jaka.luthar@gmail.com)
  * @copyright  2016 onwards AL Rachels (drachels@drachels.com)
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
@@ -29,25 +28,27 @@
 <?php
 echo (isset($displaynone) && ($displaynone == true)) ? 'display:none;' : '';
 ?>
-">
-<div id="keyboard" class="keyboardback">English(V4) Keyboard Layout<br>
+"><br>
+<div id="keyboard" class="keyboardback">Japanese(V4) Keyboard Layout<br>
     <section>
         <div class="row" style='float: left; margin-left:5px; font-size: 12px !important; line-height: 15px'>
-            <div id="jkeybackquote" class="normal"><b>~<br>`</b></div>
-            <div id="jkey1" class="normal"><b>!<br>1</b></div>
-            <div id="jkey2" class="normal"><b>@<br>2</b></div>
-            <div id="jkey3" class="normal"><b>#<br>3</b></div>
-            <div id="jkey4" class="normal"><b>$<br>4</b></div>
-            <div id="jkey5" class="normal"><b>%<br>5</b></div>
-            <div id="jkey6" class="normal"><b>^<br>6</b></div>
-            <div id="jkey7" class="normal"><b>&<br>7</b></div>
-            <div id="jkey8" class="normal"><b>*<br>8</b></div>
-            <div id="jkey9" class="normal"><b>(<br>9</b></div>
-            <div id="jkey0" class="normal"><b>)<br>0</b></div>
-            <div id="jkeyminus" class="normal"><b>_<br>-</b></div>
-            <div id="jkeyequals" class="normal"><b>+<br>=</b></div>
-            <div id="jkeybackspace" class="normal" style="width: 95px;">Backspace</div>
+            <div id="jkeykanji" class="normal">~<br>`</div>
+            <div id="jkey1" class="normal">!<br>1</div>
+            <div id="jkey2" class="normal">"<br>2</div>
+            <div id="jkey3" class="normal">#<br>3</div>
+            <div id="jkey4" class="normal">$<br>4</div>
+            <div id="jkey5" class="normal">%<br>5</div>
+            <div id="jkey6" class="normal">&<br>6</div>
+            <div id="jkey7" class="normal">'<br>7</div>
+            <div id="jkey8" class="normal">(<br>8</div>
+            <div id="jkey9" class="normal">)<br>9</div>
+            <div id="jkey0" class="normal"><br>0</div>
+            <div id="jkeyminus" class="normal">=<br>-</div>
+            <div id="jkeycaret" class="normal">^<br>^</div>
+            <div id="jkeyyen" class="normal">|<br>&yen;</div>
+            <div id="jkeybackspace" class="normal" style="width: 55px; font-size: 12px !important;">Back-<br />space</div>
         </div>
+    <div style="float: left;">
         <div class="row" style='float: left; margin-left:5px;'>
             <div id="jkeytab" class="normal" style="width: 60px;">Tab</div>
             <div id="jkeyq" class="normal">Q</div>
@@ -60,12 +61,12 @@ echo (isset($displaynone) && ($displaynone == true)) ? 'display:none;' : '';
             <div id="jkeyi" class="normal">I</div>
             <div id="jkeyo" class="normal">O</div>
             <div id="jkeyp" class="normal">P</div>
-            <div id="jkeybracketl" class="normal" style='font-size: 12px !important; line-height: 15px'><b>{<br>[</b></div>
-            <div id="jkeybracketr" class="normal" style='font-size: 12px !important; line-height: 15px'><b>}<br>]</b></div>
-            <div id="jkeybackslash" class="normal" style='width: 75px;font-size: 12px !important; line-height: 15px'><b>|<br>\</b></div>
+            <div id="jkeyat" class="normal">@</div>
+            <div id="jkeybracketopen" class="normal">[</div>
         </div>
+    <span id="jkeyenter" class="normal" style="width: 50px; margin-right:5px; float: right; height: 85px;">Enter</span>
         <div class="row" style='float: left; margin-left:5px;'>
-            <div id="jkeycaps" class="normal" style="width: 80px;  font-size: 12px !important;">Caps Lock</div>
+            <div id="jkeycaps" class="normal" style="width: 80px; font-size: 12px !important;">Caps Lock</div>
             <div id="jkeya" class="finger4">A</div>
             <div id="jkeys" class="finger3">S</div>
             <div id="jkeyd" class="finger2">D</div>
@@ -75,10 +76,11 @@ echo (isset($displaynone) && ($displaynone == true)) ? 'display:none;' : '';
             <div id="jkeyj" class="finger1">J</div>
             <div id="jkeyk" class="finger2">K</div>
             <div id="jkeyl" class="finger3">L</div>
-            <div id="jkeysemicolon" class="finger4" style='font-size: 12px !important; line-height: 15px'><b>:<br>;</b></div>
-            <div id="jkeycrtica" class="normal" style='font-size: 12px !important; line-height: 15px'><b>"<br>'</b></div>
-            <div id="jkeyenter" class="normal" style="width: 95px;">Enter</div>
+            <div id="jkeysemicolon" class="finger4">;</div>
+            <div id="jkeycolon" class="normal">:</div>
+            <div id="jkeybracketclose" class="normal">]</div>
         </div>
+    </div>
         <div class="row" style='float: left; margin-left:5px;'>
             <div id="jkeyshiftl" class="normal" style="width: 100px;">Shift</div>
             <div id="jkeyz" class="normal">Z</div>
@@ -88,20 +90,25 @@ echo (isset($displaynone) && ($displaynone == true)) ? 'display:none;' : '';
             <div id="jkeyb" class="normal">B</div>
             <div id="jkeyn" class="normal">N</div>
             <div id="jkeym" class="normal">M</div>
-            <div id="jkeycomma" class="normal" style='font-size: 12px !important; line-height: 15px'><b>&lt;<br>,</b></div>
-            <div id="jkeyperiod" class="normal" style='font-size: 12px !important; line-height: 15px'><b>&gt;<br>.</b></div>
-            <div id="jkeyslash" class="normal" style='font-size: 12px !important; line-height: 15px'><b>?<br>/</b></div>
-            <div id="jkeyshiftd" class="normal" style="width: 115px;">Shift</div>
+            <div id="jkeycomma" class="normal">,</div>
+            <div id="jkeyperiod" class="normal">.</div>
+            <div id="jkeyslash" class="normal">/</div>
+            <div id="jkeybackslash" class="normal">\</div>
+            <div id="jkeyshiftr" class="normal" style="width: 75px;">Shift</div>
         </div>
         <div class="row" style='float: left; margin-left:5px;'>
-            <div id="jkeyctrll" class="normal" style="width: 60px;">Ctrl</div>
-            <div id="jkeyfn" class="normal" style="width: 50px;">Fn</div>
-            <div id="jkeyalt" class="normal" style="width: 50px;">Alt</div>
-            <div id="jkeyspace" class="normal" style="width: 295px;">Space</div>
-            <div id="jkeyaltgr" class="normal" style="width: 50px;">Alt</div>
-            <div id="jkeyfn" class="normal" style="width: 50px;">Fn</div>
-            <div id="jkeyctrlr" class="normal" style="width: 60px;">Ctrl</div>
+            <div id="jkeyctrll" class="normal" style="width: 40px;">Ctrl</div>
+            <div id="jkeywinl" class="normal" style="width: 40px;">Win</div>
+            <div id="jkeyalt" class="normal" style="width: 40px;">Alt</div>
+            <div id="jkeynotrans" class="normal" style="width: 40px; font-size: 12px; !important;">無変換</div>
+            <div id="jkeyspace" class="normal" style="width: 215px;">Space</div>
+            <div id="jkeytrans" class="normal" style="width: 40px;">変換</div>
+            <div id="jkeyalt" class="normal" style="width: 40px;">かな</div>
+            <div id="jkeyaltr" class="normal" style="width: 40px;">Alt</div>
+            <div id="jkeywinr" class="normal" style="width: 40px;">Win</div>
+            <div id="jkeyapp" class="normal" style="width: 40px;">App</div>
+            <div id="jkeyctrlr" class="normal" style="width: 40px;">Ctrl</div>
         </div>
-</section>
+    </section>
 </div>
 </div>

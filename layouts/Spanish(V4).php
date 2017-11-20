@@ -52,7 +52,7 @@ echo (isset($displaynone) && ($displaynone == true)) ? 'display:none;' : '';
             <div id="jkeytab" class="normal" style="width: 60px;">Tab</div>
             <div id="jkeyq" class="normal">Q</div>
             <div id="jkeyw" class="normal">W</div>
-            <div id="jkeye" class="normal">E<span class="textdown" style="color:blue"> €</span></div>
+            <div id="jkeye" class="normal">E<sub style="color:blue">&nbsp; €</sub></div>
             <div id="jkeyr" class="normal">R</div>
             <div id="jkeyt" class="normal">T</div>
             <div id="jkeyy" class="normal">Y</div>
@@ -63,7 +63,7 @@ echo (isset($displaynone) && ($displaynone == true)) ? 'display:none;' : '';
             <div id="jkeylefttick" class="normal" style='color:red; text-align:left; font-size: 12px !important; line-height: 15px'>^<br>`<span style="color:blue;">&nbsp; &nbsp;&nbsp;[</span></div>
             <div id="jkeyplus" class="normal" style='text-align:left; font-size: 12px !important; line-height: 15px'>*<br>+<span style="color:blue;">&nbsp; &nbsp;&nbsp;]</span></div>
         </div>
-    <span id="jkeyenter" class="normal" style="width: 50px; margin-right:5px; float: right; height: 85px;">Enter</span>
+        <span id="jkeyenter" class="normal" style="width: 50px; margin-right:5px; float: right; height: 85px;">Enter</span>
         <div class="row" style='float: left; margin-left:5px;'>
             <div id="jkeycaps" class="normal" style="width: 80px; font-size: 12px !important;">Bloq. mayús</div>
             <div id="jkeya" class="finger4">A</div>
@@ -99,10 +99,10 @@ echo (isset($displaynone) && ($displaynone == true)) ? 'display:none;' : '';
             <div id="jkeyctrll" class="normal" style="width: 60px;">Ctrl</div>
             <div id="jkeyfn" class="normal" style="width: 50px;">Fn</div>
             <div id="jkeyalt" class="normal" style="width: 50px;">Alt</div>
-            <div id="jkeyspace" class="normal" style="width: 250px;">Espacio</div>
+            <div id="jkeyspace" class="normal" style="width: 245px;">Espacio</div>
             <div id="jkeyaltgr" class="normal" style=" font-size: 12px !important; color:blue; width: 50px;">Alt gr</div>
             <div id="jkeyfn" class="normal" style="width: 50px;">Fn</div>
-            <div id="jempty" class="normal" style="width: 40px;">Menu</div>
+            <div id="jempty" class="normal" style="width: 50px;">Menu</div>
             <div id="jkeyctrlr" class="normal" style="width: 60px;">Ctrl</div>
         </div>
     </section>
