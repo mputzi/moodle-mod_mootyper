@@ -85,7 +85,7 @@ echo (isset($displaynone) && ($displaynone == true)) ? 'display:none;' : '';
 <span id="jkeybracketr" class="normal"><span class="textup">}</span><span class="textdown"> ] </span>
     <span class="textdown" style="color:blue"> º</span></span>
 </div>
-<span id="jkeyenter" class="normal" style="width: 60px; float: right; height: 105px;">Enter</span>
+<span id="jkeyenter" class="normal" style="width: 60px; float: right; height: 100px;">Enter</span>
 <br style="clear:both;" /><br />
 
 <span id="jkeyshiftl" class="normal" style="width: 95px;">Shift</span>
