@@ -90,7 +90,7 @@ class mod_mootyper_mod_form extends moodleform_mod {
         $mform->addElement('date_time_selector', 'timeclose',
                            get_string('mootyperclosetime', 'mootyper'),
                            array('optional' => true, 'step' => 1));
-
+        // MooTyper activity password setup.
         $mform->addElement('selectyesno', 'usepassword', get_string('usepassword', 'mootyper'));
         $mform->addHelpButton('usepassword', 'usepassword', 'mootyper');
         $mform->setDefault('usepassword', $mootyperconfig->password);
@@ -106,9 +106,12 @@ class mod_mootyper_mod_form extends moodleform_mod {
         // MooTyper activity setup, Options settings.
         $mform->addElement('header', 'optionhdr', get_string('options', 'mootyper'));
 
-        // Show keyboard setup.
-        $mform->addElement('selectyesno', 'showkeyboard', get_string('showkeyboard', 'mootyper'));
-        $mform->addHelpButton('showkeyboard', 'showkeyboard', 'mootyper');
+//        // Add a dropdown slector for Required precision. 11/22/17.
+//        $goal = get_keyboard_layouts_db();
+//        $dfgoal = $mootyperconfig->defaultprecision;
+//        $mform->addElement('select', 'layout', get_string('layout', 'mootyper'), $goal);
+
+//xxxxx
 
         // Continuous typing setup.
         $mform->addElement('selectyesno', 'continuoustype', get_string('continuoustype', 'mootyper'));
@@ -121,6 +124,18 @@ class mod_mootyper_mod_form extends moodleform_mod {
         $mform->addHelpButton('countmistypedspaces', 'countmistypedspaces', 'mootyper');
         $mform->setDefault('countmistypedspaces', $mootyperconfig->countmistypedspaces);
         $mform->setAdvanced('countmistypedspaces', $mootyperconfig->countmistypedspaces_adv);
+
+        // Show keyboard setup.
+        $mform->addElement('selectyesno', 'showkeyboard', get_string('showkeyboard', 'mootyper'));
+        $mform->addHelpButton('showkeyboard', 'showkeyboard', 'mootyper');
+
+        // Add a dropdown slector for keyboard layouts. 11/22/17.
+        $layouts = get_keyboard_layouts_db();
+//        $deflayout = $mootyperconfig->defaultlayout;
+        $mform->addElement('select', 'layout', get_string('layout', 'mootyper'), $layouts);
+        $mform->addHelpButton('layout', 'layout', 'mootyper');
+        $mform->setDefault('layout', $mootyperconfig->defaultlayout);
+
 
         // MooTyper activity, link to Lesson/Categories and exercises.
         $mform->addElement('header', 'mootyperz', get_string('pluginadministration', 'mootyper'));
