@@ -387,11 +387,16 @@ function updTimeSpeed() {
     newCas = new Date();
     tDifference = timeDifference(startTime, newCas);
     var secs = converToSeconds(tDifference.getHours(), tDifference.getMinutes(), tDifference.getSeconds());
+
     $('#jsTime').html(secs);
-// Temp comment out time in seconds to use min and sec.
-//    $('#jsTime2').html(secs);
-// Need to see about adding leading 0 for <10 min and sec.
-    $('#jsTime2').html(tDifference.getMinutes()+':'+tDifference.getSeconds());
+
+    // Each minute when seconds display is less than 10 seconds, add leading 0:0.
+    if (tDifference.getSeconds() < 10) {
+        $('#jsTime2').html(tDifference.getMinutes()+':0' + tDifference.getSeconds());
+    // Each time the display is greater than 9 seconds drop the leading zero.
+    } else {
+        $('#jsTime2').html(tDifference.getMinutes()+':' + tDifference.getSeconds());
+    }
 
     $('#jsProgress').html(currentPos + "/" + fullText.length);
     $('#jsProgress2').html(currentPos + "/" + fullText.length);

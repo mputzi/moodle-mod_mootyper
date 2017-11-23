@@ -231,7 +231,7 @@ if ($mootyper->lesson != null) {
     <div id='wrapStats'>
                     <div id='statsLDiv' style='float: left; margin-left:75px;'>   
                         <div id="timerText" class="statsText">&nbsp;&nbsp;<?php echo get_string('rtime', 'mootyper'); ?>&nbsp;</div>
-                        <div id='timer'><span id="jsTime2">00:00</span><span> s</span></div>
+                        <div id='timer'><span id="jsTime2">00:00</span></div>
                     </div>
 
                     <div id='statsMDiv' style='float: left;'> 
