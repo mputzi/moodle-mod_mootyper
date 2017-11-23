@@ -67,7 +67,7 @@ if (!has_capability('mod/mootyper:viewgrades', context_module::instance($cm->id)
     $PAGE->set_context($context);
     $PAGE->set_cacheable(false);
     echo $OUTPUT->header();
-    echo '<link rel="stylesheet" type="text/css" href="style.css">';
+    echo '<link rel="stylesheet" type="text/css" href="styles.css">';
     echo $OUTPUT->heading($mootyper->name);
     $htmlout = '';
     $htmlout .= '<div id="mainDiv">';
