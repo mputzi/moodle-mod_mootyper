@@ -218,10 +218,7 @@ if ($modepo == 0 || is_null($modepo)) { // Since mode is 0, this is a lesson?
     $htmlout .= '</select></td></tr>';
 }
 
-// Add the check box for show keyboard.
-$htmlout .= '<tr><td>'.get_string('showkeyboard', 'mootyper').'</td><td>';
-$showkeyboardchecked = $showkeyboardpo == 'on' ? ' checked="checked"' : '';
-$htmlout .= '<input type="checkbox"'.$showkeyboardchecked.' " name="showkeyboard">';
+//xxxxxx
 
 // Need to keep the next line as it is helping get rid of _POST in line 245.
 $tempchkkb = optional_param('showkeyboard', 0, PARAM_BOOL);
@@ -235,6 +232,11 @@ $htmlout .= '<input type="checkbox"'.$continuoustypechecked.' " name="continuous
 $htmlout .= '<tr><td>'.get_string('countmistypedspaces', 'mootyper').'</td><td>';
 $countmistypedspaceschecked = $countmistypedspacespo == 'on' ? ' checked="checked"' : '';
 $htmlout .= '<input type="checkbox"'.$countmistypedspaceschecked.' " name="countmistypedspaces">';
+
+// Add the check box for show keyboard.
+$htmlout .= '<tr><td>'.get_string('showkeyboard', 'mootyper').'</td><td>';
+$showkeyboardchecked = $showkeyboardpo == 'on' ? ' checked="checked"' : '';
+$htmlout .= '<input type="checkbox"'.$showkeyboardchecked.' " name="showkeyboard">';
 
 // Add the dropdown slector for keyboard layouts.
 $layouts = get_keyboard_layouts_db();
