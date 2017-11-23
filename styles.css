@@ -449,7 +449,7 @@ div#statsRDiv {
     -moz-user-select: none;
     -ms-user-select: none;
 }
-
+/* Sort direction indcators. */
 .arrow-n,
 .arrow-e,
 .arrow-s,
@@ -471,13 +471,13 @@ div#statsRDiv {
 .arrow-n {
     border-bottom-width: 0.7em;
     border-bottom-style: solid;
-    border-bottom-color: #666;
+    border-bottom-color: #000;
     bottom: 0.25em;
 }
 
 .arrow-s {
     border-top-width: 0.7em;
     border-top-style: solid;
-    border-top-color: #666;
+    border-top-color: #000;
     top: 0.25em;
 }
