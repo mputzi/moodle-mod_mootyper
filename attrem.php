@@ -39,6 +39,7 @@ if (isset($gradeid)) {
     $DB->delete_records('mootyper_attempts', array('id' => $dbgrade->attempt_id));
     $DB->delete_records('mootyper_grades', array('id' => $dbgrade->id));
 }
+// Need to add grade removed event here.
 
 // Return to the View all grades page.
 $webdir = $CFG->wwwroot . '/mod/mootyper/gview.php?id='.$cid.'&n='.$mid;
