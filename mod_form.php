@@ -106,12 +106,14 @@ class mod_mootyper_mod_form extends moodleform_mod {
         // MooTyper activity setup, Options settings.
         $mform->addElement('header', 'optionhdr', get_string('options', 'mootyper'));
 
-//        // Add a dropdown slector for Required precision. 11/22/17.
-//        $goal = get_keyboard_layouts_db();
-//        $dfgoal = $mootyperconfig->defaultprecision;
-//        $mform->addElement('select', 'layout', get_string('layout', 'mootyper'), $goal);
-
-//xxxxx
+        // Add a dropdown slector for Required precision. 11/25/17.
+        $precs = array();
+        for ($i = 0; $i <= 100; $i++) {
+            $precs[] = $i;
+        }
+        $mform->addElement('select', 'requiredgoal', get_string('requiredgoal', 'mootyper'), $precs);
+        $mform->addHelpButton('requiredgoal', 'requiredgoal', 'mootyper');
+        $mform->setDefault('requiredgoal', $mootyperconfig->defaultprecision);
 
         // Continuous typing setup.
         $mform->addElement('selectyesno', 'continuoustype', get_string('continuoustype', 'mootyper'));
