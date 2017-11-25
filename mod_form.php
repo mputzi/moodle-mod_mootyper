@@ -132,8 +132,8 @@ class mod_mootyper_mod_form extends moodleform_mod {
         $mform->addHelpButton('showkeyboard', 'showkeyboard', 'mootyper');
 
         // Add a dropdown slector for keyboard layouts. 11/22/17.
+        // Use function in localib.php to get layouts.
         $layouts = get_keyboard_layouts_db();
-//        $deflayout = $mootyperconfig->defaultlayout;
         $mform->addElement('select', 'layout', get_string('layout', 'mootyper'), $layouts);
         $mform->addHelpButton('layout', 'layout', 'mootyper');
         $mform->setDefault('layout', $mootyperconfig->defaultlayout);
