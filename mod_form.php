@@ -138,7 +138,6 @@ class mod_mootyper_mod_form extends moodleform_mod {
         $mform->addHelpButton('layout', 'layout', 'mootyper');
         $mform->setDefault('layout', $mootyperconfig->defaultlayout);
 
-
         // MooTyper activity, link to Lesson/Categories and exercises.
         $mform->addElement('header', 'mootyperz', get_string('pluginadministration', 'mootyper'));
         $jlnk3 = $CFG->wwwroot . '/mod/mootyper/exercises.php?id='.$COURSE->id;
