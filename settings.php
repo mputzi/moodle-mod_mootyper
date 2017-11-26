@@ -31,7 +31,7 @@ if ($ADMIN->fulltree) {
     require_once($CFG->dirroot.'/mod/mootyper/locallib.php');
 
     // Availability settings.
-    $settings->add(new admin_setting_heading('mod_lesson/availibility', get_string('availability'), ''));
+    $settings->add(new admin_setting_heading('mod_mootyper/availibility', get_string('availability'), ''));
 
     // Recent activity setting.
     $name = new lang_string('showrecentactivity', 'mootyper');
