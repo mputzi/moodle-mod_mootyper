@@ -130,6 +130,8 @@ class mod_mootyper_mod_form extends moodleform_mod {
         // Show keyboard setup.
         $mform->addElement('selectyesno', 'showkeyboard', get_string('showkeyboard', 'mootyper'));
         $mform->addHelpButton('showkeyboard', 'showkeyboard', 'mootyper');
+        $mform->setDefault('showkeyboard', $mootyperconfig->showkeyboard);
+        $mform->setAdvanced('showkeyboard', $mootyperconfig->showkeyboard_adv);
 
         // Add a dropdown slector for keyboard layouts. 11/22/17.
         // Use function in localib.php to get layouts.
@@ -137,6 +139,25 @@ class mod_mootyper_mod_form extends moodleform_mod {
         $mform->addElement('select', 'layout', get_string('layout', 'mootyper'), $layouts);
         $mform->addHelpButton('layout', 'layout', 'mootyper');
         $mform->setDefault('layout', $mootyperconfig->defaultlayout);
+
+        // Add setting for statistics bar background color.
+        $attributes = 'size = "20"';
+        $mform->setType('statsbgc', PARAM_NOTAGS);
+        $mform->addElement('text', 'statsbgc', get_string('statsbgc', 'mootyper'), $attributes);
+        $mform->addHelpButton('statsbgc', 'statsbgc', 'mootyper');
+        $mform->setDefault('statsbgc', $mootyperconfig->statscolor);
+
+        // Add setting for keytop background color.
+        $mform->setType('keytopbgc', PARAM_NOTAGS);
+        $mform->addElement('text', 'keytopbgc', get_string('keytopbgc', 'mootyper'), $attributes);
+        $mform->addHelpButton('keytopbgc', 'keytopbgc', 'mootyper');
+        $mform->setDefault('keytopbgc', $mootyperconfig->normalkeytops);
+
+        // Add setting for keyboard background color.
+        $mform->setType('keybdbgc', PARAM_NOTAGS);
+        $mform->addElement('text', 'keybdbgc', get_string('keybdbgc', 'mootyper'), $attributes);
+        $mform->addHelpButton('keybdbgc', 'keybdbgc', 'mootyper');
+        $mform->setDefault('keybdbgc', $mootyperconfig->keyboardbgc);
 
         // MooTyper activity, link to Lesson/Categories and exercises.
         $mform->addElement('header', 'mootyperz', get_string('pluginadministration', 'mootyper'));
