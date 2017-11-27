@@ -68,7 +68,7 @@ div#statsLDiv {
      border-top-left-radius: 10px ;
     -moz-border-radius-bottomleft: 7px 21px;
      border-bottom-left-radius: 10px ;
-   box-shadow:  
+   box-shadow:
         0 1px 0 #aaa,
         0 4px 0 #bbb,
         0 5px 0px #ddd;
@@ -76,7 +76,7 @@ div#statsLDiv {
 div#statsMDiv {
     *background:#fdff99;
     background: [[setting:statscolor]];
-   box-shadow:  
+   box-shadow:
         0 1px 0 #aaa,
         0 4px 0 #bbb,
         0 5px 0px #ddd;
@@ -88,7 +88,7 @@ div#statsRDiv {
      border-top-right-radius: 10px ;
     -moz-border-radius-bottomright: 7px 21px;
      border-bottom-right-radius: 10px ;
-   box-shadow:  
+   box-shadow:
         0 1px 0 #aaa,
         0 4px 0 #bbb,
         0 5px 0px #ddd;

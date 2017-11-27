@@ -392,10 +392,9 @@ function updTimeSpeed() {
 
     // Each minute when seconds display is less than 10 seconds, add leading 0:0.
     if (tDifference.getSeconds() < 10) {
-        $('#jsTime2').html(tDifference.getMinutes()+':0' + tDifference.getSeconds());
-    // Each time the display is greater than 9 seconds drop the leading zero.
-    } else {
-        $('#jsTime2').html(tDifference.getMinutes()+':' + tDifference.getSeconds());
+        $('#jsTime2').html(tDifference.getMinutes() + ':0' + tDifference.getSeconds());
+    } else {    // Each time the display is greater than 9 seconds drop the leading zero.
+        $('#jsTime2').html(tDifference.getMinutes() + ':' + tDifference.getSeconds());
     }
 
     $('#jsProgress').html(currentPos + "/" + fullText.length);
