@@ -218,8 +218,6 @@ if ($modepo == 0 || is_null($modepo)) { // Since mode is 0, this is a lesson?
     $htmlout .= '</select></td></tr>';
 }
 
-//xxxxxx
-
 // Need to keep the next line as it is helping get rid of _POST in line 245.
 $tempchkkb = optional_param('showkeyboard', 0, PARAM_BOOL);
 
