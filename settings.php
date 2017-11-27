@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Administration settings definitions for the mootyper module.
+ * Administration settings definitions for the quiz module.
  *
  * @package    mod_mootyper
  * @copyright  2012 Jaka Luthar (jaka.luthar@gmail.com)
@@ -54,9 +54,7 @@ if ($ADMIN->fulltree) {
         $precs[] = $i;
     }
     $settings->add(new admin_setting_configselect('mod_mootyper/defaultprecision',
-        get_string('defaultprecision', 'mootyper'),
-        '', 97, $precs)
-    );
+        get_string('defaultprecision', 'mootyper'), '', 97, $precs));
 
     // Default continuous typing setting.
     $settings->add(new admin_setting_configcheckbox_with_advanced('mod_mootyper/continuoustype',
@@ -68,13 +66,15 @@ if ($ADMIN->fulltree) {
         get_string('countmistypedspaces', 'mootyper'), get_string('countmistypedspaces_help', 'mootyper'),
         array('value' => 0, 'adv' => false)));
 
+    // Default show keyboard setting.
+    $settings->add(new admin_setting_configcheckbox_with_advanced('mod_mootyper/showkeyboard',
+        get_string('showkeyboard', 'mootyper'), get_string('showkeyboard_help', 'mootyper'),
+        array('value' => 1, 'adv' => false)));
+
     // Default keyboard layout.
     $layouts = get_keyboard_layouts_db();
-    $settings->add(new admin_setting_configselect(
-    'mod_mootyper/defaultlayout',
-        get_string('defaultlayout', 'mootyper'),
-        '', 3, $layouts)
-    );
+    $settings->add(new admin_setting_configselect('mod_mootyper/defaultlayout',
+        get_string('defaultlayout', 'mootyper'), '', 3, $layouts));
 
 
     // Lesson export settings.
