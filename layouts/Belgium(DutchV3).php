@@ -79,9 +79,11 @@ echo (isset($displaynone) && ($displaynone == true)) ? 'display:none;' : '';
 <span id="jkeyk" class="finger2">K</span>
 <span id="jkeyl" class="finger3">L</span>
 <span id="jkeym" class="finger4">M</span>
-<span id="jkeyù" class="normal" style='font-size: 12px !important; line-height: 15px'><span class="textup">% </span><span class="textdown">ù</span>
+<span id="jkeyù" class="normal" style='font-size: 12px !important; line-height: 15px'>
+    <span class="textup">% </span><span class="textdown">ù</span>
     <span class="textdown" style="color:red"> ´</span></span>
-<span id="jkeyµ" class="normal" style='font-size: 12px !important; line-height: 15px'><span class="textup">£ </span><span class="textdown">µ</span>
+<span id="jkeyµ" class="normal" style='font-size: 12px !important; line-height: 15px'>
+    <span class="textup">£ </span><span class="textdown">µ</span>
     <span class="textdown" style="color:red"> `</span></span>
 </div>
 <span id="jkeyenter" class="normal" style="width: 60px; border-right-style: solid; float: right; height: 105px;">Enter</span>

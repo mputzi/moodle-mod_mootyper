@@ -33,18 +33,25 @@ echo (isset($displaynone) && ($displaynone == true)) ? 'display:none;' : '';
     <section>
         <div class="row" style='float: left; margin-left:5px; font-size: 12px !important; line-height: 15px'>
             <div id="jkeycrtica" class="normal">"<br> '</span></div>
-            <div id="jkey1" class="normal" style='text-align:left;'>!<br>1<span style="color:blue">&nbsp; &nbsp; &nbsp;¹</span></div>
-            <div id="jkey2" class="normal" style='text-align:left;'>@<br>2<span tyle="color:blue">&nbsp; &nbsp; &nbsp;²</span></div>
-            <div id="jkey3" class="normal" style='text-align:left;'>#<br>3<span tyle="color:blue">&nbsp; &nbsp; &nbsp;³</span></div>
-            <div id="jkey4" class="normal" style='text-align:left;'>$<br>4<span style="color:blue">&nbsp; &nbsp; &nbsp;£</span></div>
-            <div id="jkey5" class="normal" style='text-align:left;'>%<br>5<span style="color:blue">&nbsp; &nbsp; &nbsp;¢</span></div>
-            <div id="jkey6" class="normal" style='text-align:left;'><span style="color:red">¨</span><br>6 <span style="color:blue">&nbsp; &nbsp; &nbsp;¬</span></div>
+            <div id="jkey1" class="normal" style='text-align:left;'>!<br>1
+                <span style="color:blue">&nbsp; &nbsp; &nbsp;¹</span></div>
+            <div id="jkey2" class="normal" style='text-align:left;'>@<br>2
+                <span tyle="color:blue">&nbsp; &nbsp; &nbsp;²</span></div>
+            <div id="jkey3" class="normal" style='text-align:left;'>#<br>3
+                <span tyle="color:blue">&nbsp; &nbsp; &nbsp;³</span></div>
+            <div id="jkey4" class="normal" style='text-align:left;'>$<br>4
+                <span style="color:blue">&nbsp; &nbsp; &nbsp;£</span></div>
+            <div id="jkey5" class="normal" style='text-align:left;'>%<br>5
+                <span style="color:blue">&nbsp; &nbsp; &nbsp;¢</span></div>
+            <div id="jkey6" class="normal" style='text-align:left;'><span style="color:red">¨
+                </span><br>6 <span style="color:blue">&nbsp; &nbsp; &nbsp;¬</span></div>
             <div id="jkey7" class="normal">&<br>7</span></div>
             <div id="jkey8" class="normal">*<br>8</span></div>
             <div id="jkey9" class="normal">(<br>9</span></div>
             <div id="jkey0" class="normal">)<br>0</span></div>
             <div id="jkeyminus" class="normal">_<br>-</span></div>
-            <div id="jkeyequals" class="normal" style='text-align:left;'>+<br>=<span style="color:blue">&nbsp; &nbsp; &nbsp;§</span></div>
+            <div id="jkeyequals" class="normal" style='text-align:left;'>+<br>=
+                <span style="color:blue">&nbsp; &nbsp; &nbsp;§</span></div>
             <div id="jkeybackspace" class="normal" style="width: 95px;">Backspace</div>
     </div>
     <div style="float: left;">
@@ -60,8 +67,10 @@ echo (isset($displaynone) && ($displaynone == true)) ? 'display:none;' : '';
             <div id="jkeyi" class="normal">I</div>
             <div id="jkeyo" class="normal">O</div>
             <div id="jkeyp" class="normal">P</div>
-            <div id="jkeyacuteaccent" class="normal" style='font-size: 12px !important; line-height: 15px'><span style="color:red">`<br><span style="color:red">´</span></div>
-            <div id="jkeybracketl" class="normal" style='text-align:left; font-size: 12px !important; line-height: 15px'>{<br>[<span style="color:blue">&nbsp; &nbsp; &nbsp;ª</span></div>
+            <div id="jkeyacuteaccent" class="normal" style='font-size: 12px !important; line-height: 15px'>
+                <span style="color:red">`<br><span style="color:red">´</span></div>
+            <div id="jkeybracketl" class="normal" style='text-align:left; font-size: 12px !important; line-height: 15px'>{<br>[
+                <span style="color:blue">&nbsp; &nbsp; &nbsp;ª</span></div>
         </div>
         <span id="jkeyenter" class="normal" style="width: 50px; margin-right:5px; float: right; height: 85px;">Enter</span>
         <div class="row" style='float: left; margin-left:5px;'>
@@ -76,8 +85,10 @@ echo (isset($displaynone) && ($displaynone == true)) ? 'display:none;' : '';
             <div id="jkeyk" class="finger2">K</div>
             <div id="jkeyl" class="finger3">L</div>
             <div id="jkeyç" class="finger4">ç</div>
-            <div id="jkeytilde" class="normal" style='font-size: 12px !important; line-height: 15px'><span style="color:red">^<br><span style="color:red"> ~</span></div>
-            <div id="jkeybracketr" class="normal" style='text-align:left; font-size: 12px !important; line-height: 15px'>}<br>]<span style="color:blue">&nbsp; &nbsp; &nbsp;º</span></div>
+            <div id="jkeytilde" class="normal" style='font-size: 12px !important; line-height: 15px'><span style="color:red">^<br>
+                <span style="color:red"> ~</span></div>
+            <div id="jkeybracketr" class="normal" style='text-align:left; font-size: 12px !important; line-height: 15px'>}<br>]
+                <span style="color:blue">&nbsp; &nbsp; &nbsp;º</span></div>
         </div>
     </div>
 

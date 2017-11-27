@@ -32,13 +32,20 @@ echo (isset($displaynone) && ($displaynone == true)) ? 'display:none;' : '';
 <div id="keyboard" class="keyboardback">Spanish(V4) Keyboard Layout<br>
     <section>
         <div class="row" style='float: left; margin-left:5px; font-size: 12px !important; line-height: 15px'>
-            <div id="jkeytilde" class="normal" style='text-align:left;'>ª<br>º<span style="color:blue;">&nbsp; &nbsp; &nbsp;\</span></div>
-            <div id="jkey1" class="normal" style='text-align:left;'>!<br>1<span style="color:blue;">&nbsp; &nbsp; &nbsp;|</span></div>
-            <div id="jkey2" class="normal" style='text-align:left;'>"<br>2<span style="color:blue;">&nbsp; &nbsp;&nbsp;@</span></div>
-            <div id="jkey3" class="normal" style='text-align:left;'>·<br>3<span style="color:blue;">&nbsp; &nbsp; &nbsp;#</span></div>
-            <div id="jkey4" class="normal" style='text-align:left;'>$<br>4<span style="color:red;">&nbsp; &nbsp; &nbsp;~</span></div>
-            <div id="jkey5" class="normal" style='text-align:left;'>%<br>5<span style="color:blue;">&nbsp; &nbsp; &nbsp;€</span></div>
-            <div id="jkey6" class="normal" style='text-align:left;'>&<br>6<span style="color:blue;">&nbsp; &nbsp; &nbsp;¬</span></div>
+            <div id="jkeytilde" class="normal" style='text-align:left;'>ª<br>º
+                <span style="color:blue;">&nbsp; &nbsp; &nbsp;\</span></div>
+            <div id="jkey1" class="normal" style='text-align:left;'>!<br>1
+                <span style="color:blue;">&nbsp; &nbsp; &nbsp;|</span></div>
+            <div id="jkey2" class="normal" style='text-align:left;'>"<br>2
+                <span style="color:blue;">&nbsp;&nbsp;&nbsp;@</span></div>
+            <div id="jkey3" class="normal" style='text-align:left;'>·<br>3
+                <span style="color:blue;">&nbsp; &nbsp; &nbsp;#</span></div>
+            <div id="jkey4" class="normal" style='text-align:left;'>$<br>4
+                <span style="color:red;">&nbsp; &nbsp; &nbsp;~</span></div>
+            <div id="jkey5" class="normal" style='text-align:left;'>%<br>5
+                <span style="color:blue;">&nbsp; &nbsp; &nbsp;€</span></div>
+            <div id="jkey6" class="normal" style='text-align:left;'>&<br>6
+                <span style="color:blue;">&nbsp; &nbsp; &nbsp;¬</span></div>
             <div id="jkey7" class="normal">/<br>7</div>
             <div id="jkey8" class="normal">(<br>8</div>
             <div id="jkey9" class="normal">)<br>9</div>
@@ -60,8 +67,10 @@ echo (isset($displaynone) && ($displaynone == true)) ? 'display:none;' : '';
             <div id="jkeyi" class="normal">I</div>
             <div id="jkeyo" class="normal">O</div>
             <div id="jkeyp" class="normal">P</div>
-            <div id="jkeylefttick" class="normal" style='color:red; text-align:left; font-size: 12px !important; line-height: 15px'>^<br>`<span style="color:blue;">&nbsp; &nbsp;&nbsp;[</span></div>
-            <div id="jkeyplus" class="normal" style='text-align:left; font-size: 12px !important; line-height: 15px'>*<br>+<span style="color:blue;">&nbsp; &nbsp;&nbsp;]</span></div>
+            <div id="jkeylefttick" class="normal" style='color:red; text-align:left; font-size: 12px !important; 
+                line-height: 15px'>^<br>`<span style="color:blue;">&nbsp; &nbsp;&nbsp;[</span></div>
+            <div id="jkeyplus" class="normal" style='text-align:left; font-size: 12px !important; line-height: 15px'>*
+                <br>+<span style="color:blue;">&nbsp; &nbsp;&nbsp;]</span></div>
         </div>
         <span id="jkeyenter" class="normal" style="width: 50px; margin-right:5px; float: right; height: 85px;">Enter</span>
         <div class="row" style='float: left; margin-left:5px;'>
@@ -76,7 +85,8 @@ echo (isset($displaynone) && ($displaynone == true)) ? 'display:none;' : '';
             <div id="jkeyk" class="finger2">K</div>
             <div id="jkeyl" class="finger3">L</div>
             <div id="jkeyñ" class="finger4">Ñ</div>
-            <div id="jkeyrighttick" class="normal" style='color:red; text-align:left; font-size: 12px !important; line-height: 15px'>¨<br>´<span style="color:blue;">&nbsp; &nbsp; &nbsp;{</span></div>
+            <div id="jkeyrighttick" class="normal" style='color:red; text-align:left; font-size: 12px !important; 
+                line-height: 15px'>¨<br>´<span style="color:blue;">&nbsp; &nbsp; &nbsp;{</span></div>
             <div id="jkeyç" class="normal">Ç<span style="color:blue">&nbsp; &nbsp;&nbsp;}</span></div>
         </div>
     </div>

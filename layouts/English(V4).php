@@ -62,7 +62,8 @@ echo (isset($displaynone) && ($displaynone == true)) ? 'display:none;' : '';
             <div id="jkeyp" class="normal">P</div>
             <div id="jkeybracketl" class="normal" style='font-size: 12px !important; line-height: 15px'><b>{<br>[</b></div>
             <div id="jkeybracketr" class="normal" style='font-size: 12px !important; line-height: 15px'><b>}<br>]</b></div>
-            <div id="jkeybackslash" class="normal" style='width: 75px;font-size: 12px !important; line-height: 15px'><b>|<br>\</b></div>
+            <div id="jkeybackslash" class="normal" style='width: 75px;font-size: 12px !important; line-height: 15px'>
+                <b>|<br>\</b></div>
         </div>
         <div class="row" style='float: left; margin-left:5px;'>
             <div id="jkeycaps" class="normal" style="width: 80px;  font-size: 12px !important;">Caps Lock</div>

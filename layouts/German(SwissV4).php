@@ -33,18 +33,26 @@ echo (isset($displaynone) && ($displaynone == true)) ? 'display:none;' : '';
     <section>
         <div class="row" style='float: left; margin-left:5px; font-size: 12px !important; line-height: 15px'>
             <div id="jkeysection" class="normal">°<br>§</div>
-            <div id="jkey1" class="normal" style='text-align:left;'>+<br>1<span style="color:blue">&nbsp; &nbsp; &nbsp;¦</span></div>
-            <div id="jkey2" class="normal" style='text-align:left;'>"<br>2<span style="color:blue">&nbsp; &nbsp; &nbsp;@</span></div>
-            <div id="jkey3" class="normal" style='text-align:left;'>*<br>3<span style="color:blue">&nbsp; &nbsp; &nbsp;#</span></div>
+            <div id="jkey1" class="normal" style='text-align:left;'>+<br>1
+                <span style="color:blue">&nbsp; &nbsp; &nbsp;¦</span></div>
+            <div id="jkey2" class="normal" style='text-align:left;'>"<br>2
+                <span style="color:blue">&nbsp;&nbsp;&nbsp;@</span></div>
+            <div id="jkey3" class="normal" style='text-align:left;'>*<br>3
+                <span style="color:blue">&nbsp; &nbsp; &nbsp;#</span></div>
             <div id="jkey4" class="normal">ç<br>4</div>
             <div id="jkey5" class="normal">%<br>5</div>
-            <div id="jkey6" class="normal" style='text-align:left;'>&<br>6<span style="color:blue">&nbsp; &nbsp; &nbsp;¬</span></div>
-            <div id="jkey7" class="normal" style='text-align:left;'>/<br>7<span style="color:blue">&nbsp; &nbsp; &nbsp;|</span></div>
-            <div id="jkey8" class="normal" style='text-align:left;'>(<br>8<span style="color:blue">&nbsp; &nbsp; &nbsp;¢</span></div>
+            <div id="jkey6" class="normal" style='text-align:left;'>&<br>6
+                <span style="color:blue">&nbsp; &nbsp; &nbsp;¬</span></div>
+            <div id="jkey7" class="normal" style='text-align:left;'>/<br>7
+                <span style="color:blue">&nbsp; &nbsp; &nbsp;|</span></div>
+            <div id="jkey8" class="normal" style='text-align:left;'>(<br>8
+                <span style="color:blue">&nbsp; &nbsp; &nbsp;¢</span></div>
             <div id="jkey9" class="normal">)<br>9</div>
             <div id="jkey0" class="normal">=<br>0</div>
-            <div id="jkeyapostrophe" class="normal" style='text-align:left;'>?<br>'<span style="color:red">&nbsp; &nbsp; &nbsp;´</span></div>
-            <div id="jkeypow" class="normal" style='text-align:left;'>`<br><span style="color:red">^&nbsp; &nbsp; &nbsp;~</span></div>
+            <div id="jkeyapostrophe" class="normal" style='text-align:left;'>?<br>'
+                <span style="color:red">&nbsp; &nbsp; &nbsp;´</span></div>
+            <div id="jkeypow" class="normal" style='text-align:left;'>`<br>
+                <span style="color:red">^&nbsp; &nbsp; &nbsp;~</span></div>
             <div id="jkeybackspace" class="normal" style="width: 95px;">Backspace</div>
         </div>
     <div style="float: left;">
@@ -60,8 +68,10 @@ echo (isset($displaynone) && ($displaynone == true)) ? 'display:none;' : '';
             <div id="jkeyi" class="normal">I</div>
             <div id="jkeyo" class="normal">O</div>
             <div id="jkeyp" class="normal">P</div>
-            <div id="jkeyü" class="normal" style='text-align:left; font-size: 12px !important; line-height: 15px'>è<br>ü<span style="color:blue">&nbsp; &nbsp; &nbsp;[</span></div>
-            <div id="jkeyumlaut" class="normal" style='text-align:left; font-size: 12px !important; line-height: 15px'>!<br>¨<span style="color:blue">&nbsp; &nbsp; &nbsp;]</span></div>
+            <div id="jkeyü" class="normal" style='text-align:left; font-size: 12px !important; line-height: 15px'>è<br>ü
+                <span style="color:blue">&nbsp; &nbsp; &nbsp;[</span></div>
+            <div id="jkeyumlaut" class="normal" style='text-align:left; font-size: 12px !important; line-height: 15px'>!<br>¨
+                <span style="color:blue">&nbsp; &nbsp; &nbsp;]</span></div>
 
         </div>
         <span id="jkeyenter" class="normal" style="width: 50px; margin-right:5px; float: right; height: 85px;">Enter</span>
@@ -77,13 +87,16 @@ echo (isset($displaynone) && ($displaynone == true)) ? 'display:none;' : '';
             <div id="jkeyk" class="finger2">K</div>
             <div id="jkeyl" class="finger3">L</div>
             <div id="jkeyö" class="finger4" style='text-align:left; font-size: 12px !important; line-height: 15px'>é<br>ö</div>
-            <div id="jkeyumlauta" class="normal" style='text-align:left; font-size: 12px !important; line-height: 15px'>à<br>ä<span style="color:blue">&nbsp; &nbsp; &nbsp;{</span></div>
-            <div id="jkeydollar" class="normal" style='text-align:left; font-size: 12px !important; line-height: 15px'>£<br>$<span style="color:blue">&nbsp; &nbsp; &nbsp;}</span></div>
+            <div id="jkeyumlauta" class="normal" style='text-align:left; font-size: 12px !important; line-height: 15px'>à<br>ä
+                <span style="color:blue">&nbsp; &nbsp; &nbsp;{</span></div>
+            <div id="jkeydollar" class="normal" style='text-align:left; font-size: 12px !important; line-height: 15px'>£<br>$
+                <span style="color:blue">&nbsp; &nbsp; &nbsp;}</span></div>
         </div>
     </div>
         <div class="row" style='float: left; margin-left:5px;'>
             <div id="jkeyshiftl" class="normal" style="width: 70px;">Shift</div>
-            <div id="jkeyckck" class="normal" style='text-align:left; font-size: 12px !important; line-height: 15px'>&lt;<br>&gt;<span style="color:blue">&nbsp; &nbsp; &nbsp\</span></div>
+            <div id="jkeyckck" class="normal" style='text-align:left; font-size: 12px !important; line-height: 15px'>&lt;<br>&gt;
+                <span style="color:blue">&nbsp; &nbsp; &nbsp\</span></div>
             <div id="jkeyy" class="normal">Y</div>
             <div id="jkeyx" class="normal">X</div>
             <div id="jkeyc" class="normal">C</div>
