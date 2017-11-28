@@ -79,11 +79,7 @@ class mod_mootyper_mod_form extends moodleform_mod {
         $mform->addRule('name', null, 'required', null, 'client');
         $mform->addRule('name', get_string('maximumchars', '', 255), 'maxlength', 255, 'client');
         $mform->addHelpButton('name', 'mootypername', 'mootyper');
-        if ($CFG->branch > 28) {
-            $this->standard_intro_elements();
-        } else {
-            $this->add_intro_editor();
-        }
+        $this->standard_intro_elements();
 
         // MooTyper activity setup, Availability settings.
         $mform->addElement('header', 'availabilityhdr', get_string('availability'));
