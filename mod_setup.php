@@ -130,8 +130,8 @@ $statscolorpo = optional_param('statsbgc', $dfstatscolor, PARAM_CLEAN); // Displ
 
 // Check to see if current MooTyper keytopbgc is empty.
 if ($mootyper->keytopbgc == null || is_null($mootyper->keytopbgc)) {
-    // Current MooTyper keytopbgc is empty so set it to the sites statscolor default.
-    $dfkeytopcolor = $moocfg->statscolor;
+    // Current MooTyper keytopbgc is empty so set it to the sites normalkeytops default.
+    $dfkeytopcolor = $moocfg->normalkeytops;
 } else {
     $dfkeytopcolor = $mootyper->keytopbgc;
 }
@@ -139,10 +139,10 @@ $keytopcolorpo = optional_param('keytopbgc', $dfkeytopcolor, PARAM_CLEAN); // Di
 
 // Check to see if current MooTyper keytopbgc is empty.
 if ($mootyper->keytopbgc == null || is_null($mootyper->keytopbgc)) {
-    // Current MooTyper keytopbgc is empty so set it to the sites statscolor default.
-    $dfbackgroundcolor = $moocfg->statscolor;
+    // Current MooTyper keybdbgc is empty so set it to the sites keyboardbgc default.
+    $dfbackgroundcolor = $moocfg->keyboardbgc;
 } else {
-    $dfbackgroundcolor = $mootyper->keytopbgc;
+    $dfbackgroundcolor = $mootyper->keybdbgc;
 }
 $backgroundcolorpo = optional_param('keytopbgc', $dfbackgroundcolor, PARAM_CLEAN); // Display with default or current setting.
 
