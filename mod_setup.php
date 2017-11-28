@@ -52,24 +52,28 @@ $context = context_module::instance($cm->id);
 
 // Get the default config for MooTyper.
 $moocfg = get_config('mod_mootyper');
+// Enable-disable flag.
 $epo = optional_param('e', 0, PARAM_INT);
+// Get settings for current mootyper activity.
 $modepo = optional_param('mode', $mootyper->isexam, PARAM_INT);
 $exercisepo = optional_param('exercise', $mootyper->exercise, PARAM_INT);
 $lessonpo = optional_param('lesson', $mootyper->lesson, PARAM_INT);
 $showkeyboardpo = optional_param('showkeyboard', "off", PARAM_CLEAN);
 $continuoustypepo = optional_param('continuoustype', "off", PARAM_CLEAN);
 $countmistypedspacespo = optional_param('countmistypedspaces', "off", PARAM_CLEAN);
+$statscolor = optional_param('statscolor', $mootyper->statsbgc, PARAM_CLEAN);
+$keytopcolor = optional_param('keytopcolor', $mootyper->keytopbgc, PARAM_CLEAN);
+$backgroundcolor = optional_param('backgroundcolor', $mootyper->keybdbgc, PARAM_CLEAN);
 
-// Check to see if current MooTyper showkeyboard is empty.
-if ($mootyper->showkeyboard == null || is_null($mootyper->showkeyboard)) {
-    $dfkb = "off";
-} else if ($mootyper->showkeyboard) {
-    // Otherwise use current MooTyper showkeyboard.
-    $dfkb = "on";
+// Check to see current MooTyper precision goal is empty.
+if ($mootyper->requiredgoal == null || is_null($mootyper->requiredgoal)) {
+    // Current MooTyper precision goal is empty so set it to the site default.
+    $dfgoal = $moocfg->defaultprecision;
 } else {
-    $dfkb = "off";
+    // Otherwise use current MooTyper precision goal.
+    $dfgoal = $mootyper->requiredgoal;
 }
-$showkeyboardpo = optional_param('showkeyboard', $dfkb, PARAM_CLEAN);
+$goalpo = optional_param('requiredgoal', $dfgoal, PARAM_INT); // Display with default or current setting.
 
 // Check to see if current MooTyper continuoustype is empty.
 if ($mootyper->continuoustype == null || is_null($mootyper->continuoustype)) {
@@ -82,7 +86,7 @@ if ($mootyper->continuoustype == null || is_null($mootyper->continuoustype)) {
 }
 $continuoustypepo = optional_param('continuoustype', $dfct, PARAM_CLEAN); // Display with default or current setting.
 
-
+// Check to see if the current MooTyper countmistypedspaces is empty.
 if ($mootyper->countmistypedspaces == null || is_null($mootyper->countmistypedspaces)) {
     // Current MooTyper continuoustype is empty so set it to the site default.
     $dfms = "off";
@@ -94,6 +98,17 @@ if ($mootyper->countmistypedspaces == null || is_null($mootyper->countmistypedsp
 }
 $countmistypedspacespo = optional_param('countmistypedspaces', $dfms, PARAM_CLEAN); // Display with default or current setting.
 
+// Check to see if current MooTyper showkeyboard is empty.
+if ($mootyper->showkeyboard == null || is_null($mootyper->showkeyboard)) {
+    $dfkb = "off";
+} else if ($mootyper->showkeyboard) {
+    // Otherwise use current MooTyper showkeyboard.
+    $dfkb = "on";
+} else {
+    $dfkb = "off";
+}
+$showkeyboardpo = optional_param('showkeyboard', $dfkb, PARAM_CLEAN);
+
 // Check to see current MooTyper layout is empty.
 if ($mootyper->layout == null || is_null($mootyper->layout)) {
     // Current MooTyper layout is empty so set it to the site default.
@@ -104,44 +119,66 @@ if ($mootyper->layout == null || is_null($mootyper->layout)) {
 }
 $layoutpo = optional_param('layout', $dfly, PARAM_INT); // Display with default or current setting.
 
-// Check to see current MooTyper precision goal is empty.
-if ($mootyper->requiredgoal == null || is_null($mootyper->requiredgoal)) {
-    // Current MooTyper precision goal is empty so set it to the site default.
-    $dfgoal = $moocfg->defaultprecision;
+// Check to see if current MooTyper statsbgc is empty.
+if ($mootyper->statsbgc == null || is_null($mootyper->statsbgc)) {
+    // Current MooTyper statsbgc is empty so set it to the sites statscolor default.
+    $dfstatscolor = $moocfg->statscolor;
 } else {
-    // Otherwise use current MooTyper precision goal.
-    $dfgoal = $mootyper->requiredgoal;
+    $dfstatscolor = $mootyper->statsbgc;
 }
-$goalpo = optional_param('requiredgoal', $dfgoal, PARAM_INT); // Display with default or current setting.
+$statscolorpo = optional_param('statsbgc', $dfstatscolor, PARAM_CLEAN); // Display with default or current setting.
+
+// Check to see if current MooTyper keytopbgc is empty.
+if ($mootyper->keytopbgc == null || is_null($mootyper->keytopbgc)) {
+    // Current MooTyper keytopbgc is empty so set it to the sites statscolor default.
+    $dfkeytopcolor = $moocfg->statscolor;
+} else {
+    $dfkeytopcolor = $mootyper->keytopbgc;
+}
+$keytopcolorpo = optional_param('keytopbgc', $dfkeytopcolor, PARAM_CLEAN); // Display with default or current setting.
+
+// Check to see if current MooTyper keytopbgc is empty.
+if ($mootyper->keytopbgc == null || is_null($mootyper->keytopbgc)) {
+    // Current MooTyper keytopbgc is empty so set it to the sites statscolor default.
+    $dfbackgroundcolor = $moocfg->statscolor;
+} else {
+    $dfbackgroundcolor = $mootyper->keytopbgc;
+}
+$backgroundcolorpo = optional_param('keytopbgc', $dfbackgroundcolor, PARAM_CLEAN); // Display with default or current setting.
 
 // Check to see if Confirm button is clicked and returning 'Confirm' to trigger insert record.
 $param1 = optional_param('button', '', PARAM_TEXT);
 if (isset($param1) && get_string('fconfirm', 'mootyper') == $param1) {
     $modepo = optional_param('mode', null, PARAM_INT);
     $lessonpo = optional_param('lesson', null, PARAM_INT);
-
     $goalpo = optional_param('requiredgoal', $moocfg->defaultprecision, PARAM_INT);
     if ($goalpo == 0) {
         $goalpo = $moocfg->defaultprecision;
     }
-    $layoutpo = optional_param('layout', 0, PARAM_INT);
-
-    $showkeyboardpo = optional_param('showkeyboard', null, PARAM_CLEAN);
     $continuoustypepo = optional_param('continuoustype', null, PARAM_CLEAN);
     $countmistypedspacespo = optional_param('countmistypedspaces', null, PARAM_CLEAN);
+    $showkeyboardpo = optional_param('showkeyboard', null, PARAM_CLEAN);
+    $layoutpo = optional_param('layout', 0, PARAM_INT);
+    $statscolorpo = optional_param('statsbgc', $dfstatscolor, PARAM_CLEAN);
+    $keytopcolorpo = optional_param('keytopbgc', $dfkeytopcolor, PARAM_CLEAN);
+    $backgroundcolorpo = optional_param('keybdbgc', $dfbackgroundcolor, PARAM_CLEAN);
+
     global $DB, $CFG;
     $mootyper  = $DB->get_record('mootyper', array('id' => $n), '*', MUST_EXIST);
     $mootyper->lesson = $lessonpo;
-    $mootyper->showkeyboard = $showkeyboardpo == 'on';
-    $mootyper->continuoustype = $continuoustypepo == 'on';
-    $mootyper->countmistypedspaces = $countmistypedspacespo == 'on';
-    $mootyper->layout = $layoutpo;
     $mootyper->isexam = $modepo;
-    $mootyper->requiredgoal = $goalpo;
     if ($modepo == 1) {
         $exercisepo = optional_param('exercise', null, PARAM_INT);
         $mootyper->exercise = $exercisepo;
     }
+    $mootyper->requiredgoal = $goalpo;
+    $mootyper->continuoustype = $continuoustypepo == 'on';
+    $mootyper->countmistypedspaces = $countmistypedspacespo == 'on';
+    $mootyper->showkeyboard = $showkeyboardpo == 'on';
+    $mootyper->layout = $layoutpo;
+    $mootyper->statsbgc = $statscolorpo;
+    $mootyper->keytopbgc = $keytopcolorpo;
+    $mootyper->keybdbgc = $backgroundcolorpo;
     $DB->update_record('mootyper', $mootyper);
     header('Location: '.$CFG->wwwroot.'/mod/mootyper/view.php?n='.$n);
 }
@@ -218,7 +255,7 @@ if ($modepo == 0 || is_null($modepo)) { // Since mode is 0, this is a lesson?
     $htmlout .= '</select></td></tr>';
 }
 
-// Need to keep the next line as it is helping get rid of _POST in line 245.
+// Need to keep the next line as it is helping get rid of _POST in line 267.
 $tempchkkb = optional_param('showkeyboard', 0, PARAM_BOOL);
 
 // Add the check box to enable continuous typing.
@@ -257,6 +294,18 @@ foreach ($layouts as $lkey => $lval) {
         $htmlout .= '<option value="'.$lkey.'">'.$lval.'</option>';
     }
 }
+
+// Add input box for statistics background color.
+$htmlout .= '</td></tr><tr><td>'.get_string('statsbgc', 'mootyper').'</td><td>';
+$htmlout .= '<input value="'.$statscolorpo.'" style="width: 135px;" type="text" name="statsbgc"></td></tr>';
+
+// Add input box for normal keytop color.
+$htmlout .= '</td></tr><tr><td>'.get_string('keytopbgc', 'mootyper').'</td><td>';
+$htmlout .= '<input value="'.$keytopcolorpo.'" style="width: 135px;" type="text" name="keytopbgc"></td></tr>';
+
+// Add input box for keyboard background color.
+$htmlout .= '</td></tr><tr><td>'.get_string('keybdbgc', 'mootyper').'</td><td>';
+$htmlout .= '<input value="'.$backgroundcolorpo.'" style="width: 135px;" type="text" name="keybdbgc"></td></tr>';
 
 // Finish adding html to our page.
 $htmlout .= '</select>';
