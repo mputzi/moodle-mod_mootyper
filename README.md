@@ -44,7 +44,7 @@ that to just "mootyper". So for example, the path should be like this:
 Than go to Site Administration -> Notifications and click on the button to start
 the install.
 
-Right after an install or upgrade of the new MooTyper 3.1.1, you will then see
+Right after an install or upgrade of the new MooTyper 3.4.1, you will then see
 the settings page. You can now set the date display format for the grade views.
 You can also set colors for grade views, the background of the new keyboard 
 layouts, and the color for keytops that are not home row keys. This allows you
@@ -62,8 +62,9 @@ http://www.youtube.com/watch?v=Twl-7CGrS0g
 
 4. ADDITIONAL KEYBOARD LAYOUTS
 
-This MooTyper currently includes support for new versions (V21) of English, Japanese,
-Russian Slovenian, Spanish and Swiss keyboard layouts, that are compatible with both
+This MooTyper currently includes support for new versions (V4) of Belgium(Dutch),
+Dvorak, English, Japanese, German(Swiss), Japanese, Portuguese, Russian,
+Slovenian, and Spanish keyboard layouts, that are compatible with both
 the new Boost theme as well as Clean.
 
 To implement any other layout you have to:
@@ -89,7 +90,7 @@ via links in the Administration block, which overcomes these limitations.
 6. NEW IN THIS RELEASE
 
 There are now three typing modes. 
-  1.The original mode -This mode requires you to type the correct letter before
+  1.The original mode - This mode requires you to type the correct letter before
   you can move to the next letter. Extra spaces are ignored. Mistyped letters
   are counted as mistakes.
   2. Count mistyped spaces - Same as the original mode, but counts mistyped spaces
