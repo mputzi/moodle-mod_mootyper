@@ -137,14 +137,14 @@ if ($mootyper->keytopbgc == null || is_null($mootyper->keytopbgc)) {
 }
 $keytopcolorpo = optional_param('keytopbgc', $dfkeytopcolor, PARAM_CLEAN); // Display with default or current setting.
 
-// Check to see if current MooTyper keytopbgc is empty.
-if ($mootyper->keytopbgc == null || is_null($mootyper->keytopbgc)) {
+// Check to see if current MooTyper keybdbgc is empty.
+if ($mootyper->keybdbgc == null || is_null($mootyper->keybdbgc)) {
     // Current MooTyper keybdbgc is empty so set it to the sites keyboardbgc default.
     $dfbackgroundcolor = $moocfg->keyboardbgc;
 } else {
     $dfbackgroundcolor = $mootyper->keybdbgc;
 }
-$backgroundcolorpo = optional_param('keytopbgc', $dfbackgroundcolor, PARAM_CLEAN); // Display with default or current setting.
+$backgroundcolorpo = optional_param('keybdbgc', $dfbackgroundcolor, PARAM_CLEAN); // Display with default or current setting.
 
 // Check to see if Confirm button is clicked and returning 'Confirm' to trigger insert record.
 $param1 = optional_param('button', '', PARAM_TEXT);
