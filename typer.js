@@ -293,7 +293,7 @@ function inittexttoenter(ttext, tinprogress, tmistakes, thits, tstarttime, tatte
         if(showKeyboard) {
             var nextE = new keyboardElement(currentChar);
             nextE.turnOn();
-            if(isCombined(currentChar)) {
+            if (isCombined(currentChar)) {
                 $("#form1").off("keypress", "#tb1", keyPressed);
                 $("#form1").on("keyup", "#tb1", keyupCombined);
             }
@@ -393,7 +393,8 @@ function updTimeSpeed() {
     // Each minute when seconds display is less than 10 seconds, add leading 0:0.
     if (tDifference.getSeconds() < 10) {
         $('#jsTime2').html(tDifference.getMinutes() + ':0' + tDifference.getSeconds());
-    } else {    // Each time the display is greater than 9 seconds drop the leading zero.
+    } else {
+        // Each time the display is greater than 9 seconds drop the leading zero.
         $('#jsTime2').html(tDifference.getMinutes() + ':' + tDifference.getSeconds());
     }
 

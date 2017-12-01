@@ -63,7 +63,7 @@ div#wrapStats {
 
 }
 div#statsLDiv {
-    background:[[setting:statscolor]];
+    background: [[setting:statscolor]];
     -moz-border-radius-topleft: 7px 21px;
      border-top-left-radius: 10px ;
     -moz-border-radius-bottomleft: 7px 21px;
