@@ -177,7 +177,7 @@ function xmldb_mootyper_upgrade($oldversion) {
         upgrade_mod_savepoint(true, 2017090200, 'mootyper');
     }
     // Three new fields added after countmistypedspaces for version 3.4.1.
-    if ($oldversion < 2017112600) {
+    if ($oldversion < 2017120100) {
 
         // Define field statsbgc to be added to mootyper.
         $table = new xmldb_table('mootyper');
@@ -204,7 +204,7 @@ function xmldb_mootyper_upgrade($oldversion) {
             $dbman->add_field($table, $field);
         }
         // Mootyper savepoint reached.
-        upgrade_mod_savepoint(true, 2017112600, 'mootyper');
+        upgrade_mod_savepoint(true, 2017120100, 'mootyper');
     }
     return true;
 }
