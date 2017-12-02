@@ -43,7 +43,7 @@ function keyupFirst(event) {
     return false;
 }
 
-THE_LAYOUT = 'Portuguese(V4)(Brazil)';
+THE_LAYOUT = 'Portuguese(PortugalV4)';
 
 /**
  * Check for character typed so flags can be set.
@@ -56,14 +56,14 @@ function keyboardElement(ltr) {
         this.shift = ltr.toUpperCase() === ltr;
     } else {
     // @codingStandardsIgnoreLine
-        if (ltr.match(/["!@#$%¨&*()_+`{^}|<>:?]/i)) {
+        if (ltr.match(/[|!"#$%&/()=?»*`ª^<;:_]/i)) {
             this.shift = true;
         } else {
             this.shift = false;
         }
     }
     // @codingStandardsIgnoreLine
-    if (ltr.match(/[¹²³£¢¬§//°ªº₢]/i))
+    if (ltr.match(/[@£§{\[\]}]/i))
     {
         this.shift = false;
         this.alt = true;
@@ -119,16 +119,16 @@ function thenFinger(tCrka) {
     if (tCrka === ' ') {
         return 5; // Highlight the spacebar.
     // @codingStandardsIgnoreLine
-    } else if (tCrka.match(/['"1!¹q/a\\|z0)pç;:\-_´`~^/=+§\[{ª\]}º]/i)) {
+    } else if (tCrka.match(/[\\|1!qaz0=}pç\-_'?+*¨ºª«»´`~^]/i)) {
         return 4; // Highlight the correct key above in red.
     // @codingStandardsIgnoreLine
-    } else if (tCrka.match(/[2@²w?sx9(ol.>]/i)) {
+    } else if (tCrka.match(/[2"@wsx9)\]ol.:]/i)) {
         return 3; // Highlight the correct key above in green.
     // @codingStandardsIgnoreLine
-    } else if (tCrka.match(/[3#³e°dc₢8*ik,<]/i)) {
+    } else if (tCrka.match(/[3#£e€dc8(\[ik,;]/i)) {
         return 2; // Highlight the correct key above in yellow.
     // @codingStandardsIgnoreLine
-    } else if (tCrka.match(/[4$£rfv5%¢tgb6¨¬yhn7&ujm]/i)) {
+    } else if (tCrka.match(/[4$§rfv5%tgb6&yhn7/{ujm]/i)) {
         return 1; // Highlight the correct key above in blue.
     } else {
         return 6; // Do not change any highlight.
@@ -145,58 +145,50 @@ function getKeyID(tCrka) {
         return "jkeyspace";
     } else if (tCrka === '\n') {
         return "jkeyenter";
-    } else if (tCrka === "\'" || tCrka === '"') {
-        return "jkeycrtica";
-    } else if (tCrka === '!' || tCrka === '¹') {
-        return "jkey1";
-    } else if (tCrka === '@' || tCrka === '²') {
-        return "jkey2";
-    } else if (tCrka === '#' || tCrka === '³') {
-        return "jkey3";
-    } else if (tCrka === '$' || tCrka === '£') {
-        return "jkey4";
-    } else if (tCrka === '%' || tCrka === '¢') {
-        return "jkey5";
-    } else if (tCrka === '¨' || tCrka === '¬') {
-        return "jkey6";
-    } else if (tCrka === '&') {
-        return "jkey7";
-    } else if (tCrka === '*') {
-        return "jkey8";
-    } else if (tCrka === '(') {
-        return "jkey9";
-    } else if (tCrka === ')') {
-        return "jkey0";
-    } else if (tCrka === '-' || tCrka === '_') {
-        return "jkeyminus";
-    } else if (tCrka === '=' || tCrka === '+' || tCrka === '§') {
-        return "jkeyequals";
-    } else if (tCrka === '/') {
-        return "jkeyq";
-    } else if (tCrka === '°') {
-        return "jkeye";
-    } else if (tCrka === '´' || tCrka === '`') {
-        return "jkeyacuteaccent";
-    } else if (tCrka === '[' || tCrka === '{' || tCrka === 'ª') {
-        return "jkeybracketl";
-    } else if (tCrka === '~' || tCrka === '^') {
-        return "jkeytilde";
-    } else if (tCrka === ']' || tCrka === '}' || tCrka === 'º') {
-        return "jkeybracketr";
-    } else if (tCrka === ';' || tCrka === ':') {
-        return "jkeysemicolon";
     } else if (tCrka === "\\" || tCrka === '|') {
         return "jkeybackslash";
-    } else if (tCrka === ',' || tCrka === '<') {
+    } else if (tCrka === '!') {
+        return "jkey1";
+    } else if (tCrka === '"' || tCrka === '@') {
+        return "jkey2";
+    } else if (tCrka === '#' || tCrka === '£') {
+        return "jkey3";
+    } else if (tCrka === '$' || tCrka === '§') {
+        return "jkey4";
+    } else if (tCrka === '%') {
+        return "jkey5";
+    } else if (tCrka === '&') {
+        return "jkey6";
+    } else if (tCrka === '/' || tCrka === '{') {
+        return "jkey7";
+    } else if (tCrka === '(' || tCrka === '[') {
+        return "jkey8";
+    } else if (tCrka === ')' || tCrka === ']') {
+        return "jkey9";
+    } else if (tCrka === '=' || tCrka === '}') {
+        return "jkey0";
+    } else if (tCrka === '\'' || tCrka === '?') {
+        return "jkeyapostrophe";
+    } else if (tCrka === '«' || tCrka === '»') {
+        return "jkeyquote";
+    } else if (tCrka === '€') {
+        return "jkeye";
+    } else if (tCrka === '+' || tCrka === '*'|| tCrka === '¨') {
+        return "jkeyplus";
+    } else if (tCrka === '´' || tCrka === '`') {
+        return "jkeyacuteaccent";
+    } else if (tCrka === 'ª') {
+        return "jkeyº";
+    } else if (tCrka === '~' || tCrka === '^') {
+        return "jkeytilde";
+    } else if (tCrka === '<' || tCrka === '>'|| tCrka === '\\') {
+        return "jkeylessthan";
+    } else if (tCrka === ',' || tCrka === ';') {
         return "jkeycomma";
-    } else if (tCrka === '.' || tCrka === '>') {
+    } else if (tCrka === '.' || tCrka === ':') {
         return "jkeyperiod";
-    } else if (tCrka === 'w' || tCrka === '?') {
-        return "jkeyw";
-    } else if (tCrka === '?' || tCrka === '/') {
-        return "jkeyslash";
-    } else if (tCrka === '₢') {
-        return "jkeyc";
+    } else if (tCrka === '-' || tCrka === '_') {
+        return "jkeyminus";
     } else {
         return "jkey" + tCrka;
     }
@@ -208,5 +200,5 @@ function getKeyID(tCrka) {
  * @returns {(int|Array)}.
  */
 function isLetter(str) {
-    return str.length === 1 && str.match(/[�a-zç]/i);
+    return str.length === 1 && str.match(/[a-zç]/i);
 }
