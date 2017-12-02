@@ -56,7 +56,7 @@ function keyboardElement(ltr) {
         this.shift = ltr.toUpperCase() === ltr;
     } else {
     // @codingStandardsIgnoreLine
-        if (ltr.match(/[|!"#$%&/()=?»*`ª^<;:_]/i)) {
+        if (ltr.match(/[|!"#$%&/()=?»*`ª^>;:_]/i)) {
             this.shift = true;
         } else {
             this.shift = false;
