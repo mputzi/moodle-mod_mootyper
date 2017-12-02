@@ -173,15 +173,15 @@ function getKeyID(tCrka) {
         return "jkeyquote";
     } else if (tCrka === '€') {
         return "jkeye";
-    } else if (tCrka === '+' || tCrka === '*'|| tCrka === '¨') {
+    } else if (tCrka === '+' || tCrka === '*' || tCrka === '¨') {
         return "jkeyplus";
-    } else if (tCrka === '´' || tCrka === '`') {
+    } else if (tCrka === '´' || tCrka === '`' || tCrka === ']') {
         return "jkeyacuteaccent";
     } else if (tCrka === 'ª') {
         return "jkeyº";
     } else if (tCrka === '~' || tCrka === '^') {
         return "jkeytilde";
-    } else if (tCrka === '<' || tCrka === '>'|| tCrka === '\\') {
+    } else if (tCrka === '<' || tCrka === '>') {
         return "jkeylessthan";
     } else if (tCrka === ',' || tCrka === ';') {
         return "jkeycomma";
