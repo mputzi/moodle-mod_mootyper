@@ -63,7 +63,7 @@ function keyboardElement(ltr) {
         }
     }
     // @codingStandardsIgnoreLine
-    if (ltr.match(/[@£§€{\[\]}]/i))
+    if (ltr.match(/[@£§{\[\]}]/i))
     {
         this.shift = false;
         this.alt = true;
@@ -155,7 +155,7 @@ function getKeyID(tCrka) {
         return "jkey3";
     } else if (tCrka === '$' || tCrka === '§') {
         return "jkey4";
-    } else if (tCrka === '%' || tCrka === '€') {
+    } else if (tCrka === '%') {
         return "jkey5";
     } else if (tCrka === '&') {
         return "jkey6";
