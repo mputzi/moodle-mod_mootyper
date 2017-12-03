@@ -84,16 +84,25 @@ function keyboardElement(ltr) {
         this.alt = false;
         this.accent = true;
     }
-    if (ltr === 'ã') {
+    // @codingStandardsIgnoreLine
+    if (ltr.match(/[ãõ]/)) {
         this.shift = false;
         this.alt = false;
         this.tilde = true;
     }
-    if (ltr === 'Ã') {
+    // @codingStandardsIgnoreLine
+    if (ltr.match(/[ÃÕ]/)) {
         this.shift = true;
         this.alt = false;
         this.tilde = true;
     }
+    // @codingStandardsIgnoreLine
+    if (ltr.match(/[âêô]/i)) {
+        this.shift = true;
+        this.alt = false;
+        this.tilde = true;
+    }
+
     // @codingStandardsIgnoreLine
     if (ltr.match(/[@£§¨{\[\]}]/i)) {
         this.shift = false;
@@ -162,13 +171,13 @@ function thenFinger(tCrka) {
     if (tCrka === ' ') {
         return 5; // Highlight the spacebar.
     // @codingStandardsIgnoreLine
-    } else if (tCrka.match(/[\\|1!qaãáàz<>0=}pç\-_'?+*¨ºª«»´`~^]/i)) {
+    } else if (tCrka.match(/[\\|1!qaãáàâz<>0=}pç\-_'?+*¨ºª«»´`~^]/i)) {
         return 4; // Highlight the correct key above in red.
     // @codingStandardsIgnoreLine
-    } else if (tCrka.match(/[2"@wsx9)\]oól.:]/i)) {
+    } else if (tCrka.match(/[2"@wsx9)\]oóôõl.:]/i)) {
         return 3; // Highlight the correct key above in green.
     // @codingStandardsIgnoreLine
-    } else if (tCrka.match(/[3#£e€édc8(\[iík,;]/i)) {
+    } else if (tCrka.match(/[3#£e€éêdc8(\[iík,;]/i)) {
         return 2; // Highlight the correct key above in yellow.
     // @codingStandardsIgnoreLine
     } else if (tCrka.match(/[4$§rfv5%tgb6&yhn7/{uújm]/i)) {
@@ -230,13 +239,13 @@ function getKeyID(tCrka) {
         return "jkeyperiod";
     } else if (tCrka === '-' || tCrka === '_') {
         return "jkeyminus";
-    } else if (tCrka === 'ã' || tCrka === 'á' || tCrka === 'à') {
+    } else if (tCrka === 'ã' || tCrka === 'á' || tCrka === 'à' || tCrka === 'â') {
         return "jkeya";
-    } else if (tCrka === 'e' || tCrka === 'é' || tCrka === '€') {
+    } else if (tCrka === 'é' || tCrka === 'ê' || tCrka === '€') {
         return "jkeye";
     } else if (tCrka === 'i' || tCrka === 'í') {
         return "jkeyi";
-    } else if (tCrka === 'o' || tCrka === 'ó') {
+    } else if (tCrka === 'õ' || tCrka === 'ó' || tCrka === 'ô') {
         return "jkeyo";
     } else if (tCrka === 'u' || tCrka === 'ú') {
         return "jkeyu";
