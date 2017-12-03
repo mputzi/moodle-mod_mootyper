@@ -63,8 +63,39 @@ function keyboardElement(ltr) {
         }
     }
     // @codingStandardsIgnoreLine
-    if (ltr.match(/[@£§{\[\]}]/i))
-    {
+    if (ltr.match(/[áéíóú]/)) {
+        this.shift = false;
+        this.alt = false;
+        this.accent = true;
+    }
+    // @codingStandardsIgnoreLine
+    if (ltr.match(/[ÁÉÍÓÚ]/)) {
+        this.shift = true;
+        this.alt = false;
+        this.accent = true;
+    }
+    if (ltr === 'à') {
+        this.shift = true;
+        this.alt = false;
+        this.accent = true;
+    }
+    if (ltr === 'À') {
+        this.shift = true;
+        this.alt = false;
+        this.accent = true;
+    }
+    if (ltr === 'ã') {
+        this.shift = false;
+        this.alt = false;
+        this.tilde = true;
+    }
+    if (ltr === 'Ã') {
+        this.shift = true;
+        this.alt = false;
+        this.tilde = true;
+    }
+    // @codingStandardsIgnoreLine
+    if (ltr.match(/[@£§¨{\[\]}]/i)) {
         this.shift = false;
         this.alt = true;
     }
@@ -85,6 +116,12 @@ function keyboardElement(ltr) {
         }
         if (this.alt) {
             document.getElementById('jkeyaltgr').className = "nextSpace";
+        }
+        if (this.accent) {
+            document.getElementById('jkeyacuteaccent').className = "next4";
+        }
+        if (this.tilde) {
+            document.getElementById('jkeytilde').className = "next4";
         }
     };
     this.turnOff = function() {
@@ -108,6 +145,12 @@ function keyboardElement(ltr) {
         if (this.alt) {
             document.getElementById('jkeyaltgr').className = "normal";
         }
+        if (this.accent) {
+            document.getElementById('jkeyacuteaccent').className = "normal";
+        }
+        if (this.tilde) {
+            document.getElementById('jkeytilde').className = "normal";
+        }
     }
 }
 
@@ -119,16 +162,16 @@ function thenFinger(tCrka) {
     if (tCrka === ' ') {
         return 5; // Highlight the spacebar.
     // @codingStandardsIgnoreLine
-    } else if (tCrka.match(/[\\|1!qaz0=}pç\-_'?+*¨ºª«»´`~^]/i)) {
+    } else if (tCrka.match(/[\\|1!qaãáàz<>0=}pç\-_'?+*¨ºª«»´`~^]/i)) {
         return 4; // Highlight the correct key above in red.
     // @codingStandardsIgnoreLine
-    } else if (tCrka.match(/[2"@wsx9)\]ol.:]/i)) {
+    } else if (tCrka.match(/[2"@wsx9)\]oól.:]/i)) {
         return 3; // Highlight the correct key above in green.
     // @codingStandardsIgnoreLine
-    } else if (tCrka.match(/[3#£e€dc8(\[ik,;]/i)) {
+    } else if (tCrka.match(/[3#£e€édc8(\[iík,;]/i)) {
         return 2; // Highlight the correct key above in yellow.
     // @codingStandardsIgnoreLine
-    } else if (tCrka.match(/[4$§rfv5%tgb6&yhn7/{ujm]/i)) {
+    } else if (tCrka.match(/[4$§rfv5%tgb6&yhn7/{uújm]/i)) {
         return 1; // Highlight the correct key above in blue.
     } else {
         return 6; // Do not change any highlight.
@@ -171,8 +214,6 @@ function getKeyID(tCrka) {
         return "jkeyapostrophe";
     } else if (tCrka === '«' || tCrka === '»') {
         return "jkeyquote";
-    } else if (tCrka === '€') {
-        return "jkeye";
     } else if (tCrka === '+' || tCrka === '*' || tCrka === '¨') {
         return "jkeyplus";
     } else if (tCrka === '´' || tCrka === '`' || tCrka === ']') {
@@ -189,6 +230,16 @@ function getKeyID(tCrka) {
         return "jkeyperiod";
     } else if (tCrka === '-' || tCrka === '_') {
         return "jkeyminus";
+    } else if (tCrka === 'ã' || tCrka === 'á' || tCrka === 'à') {
+        return "jkeya";
+    } else if (tCrka === 'e' || tCrka === 'é' || tCrka === '€') {
+        return "jkeye";
+    } else if (tCrka === 'i' || tCrka === 'í') {
+        return "jkeyi";
+    } else if (tCrka === 'o' || tCrka === 'ó') {
+        return "jkeyo";
+    } else if (tCrka === 'u' || tCrka === 'ú') {
+        return "jkeyu";
     } else {
         return "jkey" + tCrka;
     }
