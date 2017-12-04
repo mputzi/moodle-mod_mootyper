@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * This file defines the Portuguese(V4)keyboard layout.
+ * This file defines the Portuguese(BrazilV4)keyboard layout.
  *
  * @package    mod_mootyper
  * @copyright  2016 onwards AL Rachels (drachels@drachels.com)
@@ -29,33 +29,33 @@
 echo (isset($displaynone) && ($displaynone == true)) ? 'display:none;' : '';
 ?>
 ">
-<div id="keyboard" class="keyboardback">Portuguese(V4)(Brazil) Keyboard Layout<br>
+<div id="keyboard" class="keyboardback">Portuguese(BrazilV4) Keyboard Layout<br>
     <section>
-        <div class="row" style='float: left; margin-left:5px; font-size: 12px !important; line-height: 15px'>
-            <div id="jkeycrtica" class="normal">"<br> '</span></div>
+        <div class="row" style='float: left; margin-left:5px; font-size: 15px !important; line-height: 15px'>
+            <div id="jkeycrtica" class="normal">"<br> '</div>
             <div id="jkey1" class="normal" style='text-align:left;'>!<br>1
-                <span style="color:blue">&nbsp; &nbsp; &nbsp;¹</span></div>
+                <span style="color:blue">&nbsp;&nbsp;&nbsp;¹</span></div>
             <div id="jkey2" class="normal" style='text-align:left;'>@<br>2
-                <span tyle="color:blue">&nbsp; &nbsp; &nbsp;²</span></div>
+                <span tyle="color:blue">&nbsp;&nbsp;&nbsp;²</span></div>
             <div id="jkey3" class="normal" style='text-align:left;'>#<br>3
-                <span tyle="color:blue">&nbsp; &nbsp; &nbsp;³</span></div>
+                <span tyle="color:blue">&nbsp;&nbsp;&nbsp;³</span></div>
             <div id="jkey4" class="normal" style='text-align:left;'>$<br>4
-                <span style="color:blue">&nbsp; &nbsp; &nbsp;£</span></div>
+                <span style="color:blue">&nbsp;&nbsp;&nbsp;£</span></div>
             <div id="jkey5" class="normal" style='text-align:left;'>%<br>5
-                <span style="color:blue">&nbsp; &nbsp; &nbsp;¢</span></div>
+                <span style="color:blue">&nbsp;&nbsp;&nbsp;¢</span></div>
             <div id="jkey6" class="normal" style='text-align:left;'><span style="color:red">¨
-                </span><br>6 <span style="color:blue">&nbsp; &nbsp; &nbsp;¬</span></div>
-            <div id="jkey7" class="normal">&<br>7</span></div>
-            <div id="jkey8" class="normal">*<br>8</span></div>
-            <div id="jkey9" class="normal">(<br>9</span></div>
-            <div id="jkey0" class="normal">)<br>0</span></div>
-            <div id="jkeyminus" class="normal">_<br>-</span></div>
+                </span><br>6 <span style="color:blue">&nbsp;&nbsp;&nbsp;¬</span></div>
+            <div id="jkey7" class="normal">&<br>7</div>
+            <div id="jkey8" class="normal">*<br>8</div>
+            <div id="jkey9" class="normal">(<br>9</div>
+            <div id="jkey0" class="normal">)<br>0</div>
+            <div id="jkeyminus" class="normal">_<br>-</div>
             <div id="jkeyequals" class="normal" style='text-align:left;'>+<br>=
-                <span style="color:blue">&nbsp; &nbsp; &nbsp;§</span></div>
+                <span style="color:blue">&nbsp;&nbsp;&nbsp;§</span></div>
             <div id="jkeybackspace" class="normal" style="width: 95px;">Backspace</div>
     </div>
     <div style="float: left;">
-        <div class="row" style='float: left; margin-left:5px;'>
+        <div class="row" style='float: left; margin-left:5px; font-size: 15px !important; line-height: 15px'>
             <div id="jkeytab" class="normal" style="width: 60px;">Tab</div>
             <div id="jkeyq" class="normal">Q <sub style="color:blue">/</sub></div>
             <div id="jkeyw" class="normal">W <sub style="color:blue">?</sub></div>
@@ -73,7 +73,7 @@ echo (isset($displaynone) && ($displaynone == true)) ? 'display:none;' : '';
                 <span style="color:blue">&nbsp; &nbsp; &nbsp;ª</span></div>
         </div>
         <span id="jkeyenter" class="normal" style="width: 50px; margin-right:5px; float: right; height: 85px;">Enter</span>
-        <div class="row" style='float: left; margin-left:5px;'>
+        <div class="row" style='float: left; margin-left:5px; font-size: 15px !important; line-height: 15px'>
             <div id="jkeycaps" class="normal" style="width: 80px; font-size: 12px !important;">Caps Lock</div>
             <div id="jkeya" class="finger4">A</div>
             <div id="jkeys" class="finger3">S</div>
@@ -84,7 +84,7 @@ echo (isset($displaynone) && ($displaynone == true)) ? 'display:none;' : '';
             <div id="jkeyj" class="finger1">J</div>
             <div id="jkeyk" class="finger2">K</div>
             <div id="jkeyl" class="finger3">L</div>
-            <div id="jkeyç" class="finger4">ç</div>
+            <div id="jkeyç" class="finger4">Ç</div>
             <div id="jkeytilde" class="normal" style='font-size: 12px !important; line-height: 15px'><span style="color:red">^<br>
                 <span style="color:red"> ~</span></div>
             <div id="jkeybracketr" class="normal" style='text-align:left; font-size: 12px !important; line-height: 15px'>}<br>]
@@ -92,8 +92,7 @@ echo (isset($displaynone) && ($displaynone == true)) ? 'display:none;' : '';
         </div>
     </div>
 
-        <div class="row" style='float: left; margin-left:5px;'>
-
+        <div class="row" style='float: left; margin-left:5px; font-size: 15px !important; line-height: 15px'>
             <div id="jkeyshiftl" class="normal" style="width: 70px;">Shift</div>
             <div id="jkeybackslash" class="normal" style='font-size: 12px !important; line-height: 15px'>|<br>\</div>
             <div id="jkeyz" class="normal">Z</div>
