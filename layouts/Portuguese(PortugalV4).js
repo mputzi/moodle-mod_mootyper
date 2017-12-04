@@ -102,7 +102,6 @@ function keyboardElement(ltr) {
         this.alt = false;
         this.tilde = true;
     }
-
     // @codingStandardsIgnoreLine
     if (ltr.match(/[@£§¨{\[\]}]/i)) {
         this.shift = false;
