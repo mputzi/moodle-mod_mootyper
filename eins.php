@@ -50,7 +50,7 @@ $param1 = optional_param('button', '', PARAM_TEXT);
 // DB insert.
 if (isset($param1) && get_string('fconfirm', 'mootyper') == $param1 ) {
 
-    $texttotypeepo = optional_param('texttotype', '', PARAM_CLEANHTML);
+    $texttotypeepo = optional_param('texttotype', '', PARAM_RAW);
 
     if ($lessonpo == -1) {
         $lsnnamepo = optional_param('lessonname', '', PARAM_TEXT);
@@ -178,7 +178,7 @@ function clClick()
 
 <?php
 echo '<br><span id="text_holder_span" class=""></span><br>'.get_string('fexercise', 'mootyper').':<br>'.
-     '<textarea rows="4" cols="40" name="texttotype" id="texttotype"></textarea><br>'.
+     '<textarea rows="4" cols="60" name="texttotype" id="texttotype"></textarea><br>'.
      '<br><input name="button" onClick="return clClick()" type="submit" value="'.get_string('fconfirm', 'mootyper').'">'.
      '</form>';
 

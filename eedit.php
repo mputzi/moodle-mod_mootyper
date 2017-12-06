@@ -47,7 +47,7 @@ require_login($course, true);
 $param1 = optional_param('button', '', PARAM_TEXT);
 
 if (isset($param1) && get_string('fconfirm', 'mootyper') == $param1 ) {
-    $newtext = optional_param('texttotype', '', PARAM_CLEANHTML);
+    $newtext = optional_param('texttotype', '', PARAM_RAW);
     $rcrd = $DB->get_record('mootyper_exercises', array('id' => $exerciseid), '*', MUST_EXIST);
     $updr = new stdClass();
     $updr->id = $rcrd->id;
