@@ -45,7 +45,7 @@ echo (isset($displaynone) && ($displaynone == true)) ? 'display:none;' : '';
             <div id="jkey0" class="normal" style='text-align:left;'>0<br>à<span style="color:blue">&nbsp;&nbsp;&nbsp;@</span></div>
             <div id="jkeyparenr" class="normal" style='text-align:left;'>°<br>)<span style="color:blue">&nbsp;&nbsp;&nbsp;]</span></div>
             <div id="jkeyequal" class="normal" style='text-align:left;'>+<br>=<span style="color:blue">&nbsp;&nbsp;&nbsp;}</span></div>
-            <div id="jkeybackspace" class="normal" style="width: 95px;">Suppr arrére</div>
+            <div id="jkeybackspace" class="normal" style="width: 95px;">Suppr arrière</div>
         </div>
         <div style="float: left;">
             <div class="row" style='float: left; margin-left:5px; font-size: 15px !important; line-height: 15px'>
@@ -82,7 +82,7 @@ echo (isset($displaynone) && ($displaynone == true)) ? 'display:none;' : '';
         </div>
         <div class="row" style='float: left; margin-left:5px; font-size: 15px !important; line-height: 15px'>
             <div id="jkeyshiftl" class="normal" style="width: 60px;">Maj</div>
-            <div id="jkeyckck" class="normal" style='text-align:left;'>&lt;<br>&gt;</div>
+            <div id="jkeyckck" class="normal" style='text-align:left;'>&gt;<br>&lt;</div>
             <div id="jkeyw" class="normal">W</div>
             <div id="jkeyx" class="normal">X</div>
             <div id="jkeyc" class="normal">C</div>
@@ -100,7 +100,7 @@ echo (isset($displaynone) && ($displaynone == true)) ? 'display:none;' : '';
             <div id="jkeyfn" class="normal" style="width: 50px;">Win</div>
             <div id="jkeyalt" class="normal" style="width: 50px;">Alt</div>
             <div id="jkeyspace" class="normal" style="width: 255px;">Espace</div>
-            <div id="jkeyaltgr" class="normal" style=" font-size: 15px !important; color:blue; width: 50px;">Alt gr</div>
+            <div id="jkeyaltgr" class="normal" style=" font-size: 15px !important; color:blue; width: 50px;">Alt Gr</div>
             <div id="jkeyfn" class="normal" style="width: 50px;">Win</div>
             <div id="jempty" class="normal" style="width: 50px;">Menu</div>
             <div id="jkeyctrlr" class="normal" style="width: 50px;">Ctrl</div>

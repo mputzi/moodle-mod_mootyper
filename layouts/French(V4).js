@@ -107,7 +107,7 @@ function keyboardElement(ltr) {
         this.shift = ltr.toUpperCase() === ltr;
     } else {
         // @codingStandardsIgnoreLine
-        if (ltr.match(/[1234567890°+¨£%µ<?./§]/i)) {
+        if (ltr.match(/[1234567890°+¨£%µ>?./§]/i)) {
             this.shift = true;
         } else {
             this.shift = false;
@@ -253,7 +253,7 @@ function getKeyID(tCrka) {
         return "jkey7";
     } else if (tCrka === '_' || tCrka === '\\') {
         return "jkey8";
-    } else if (tCrka === 'ç' || tCrka === '^') {
+    } else if (tCrka === 'ç') {
         return "jkey9";
     } else if (tCrka === 'à' || tCrka === '@') {
         return "jkey0";
