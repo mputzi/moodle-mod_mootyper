@@ -107,7 +107,7 @@ function keyboardElement(ltr) {
         this.shift = ltr.toUpperCase() === ltr;
     } else {
         // @codingStandardsIgnoreLine
-        if (ltr.match(/[³1234567890°_¨*%£<?./+]/i)) {
+        if (ltr.match(/[³1234567890°_¨*%£>?./+]/i)) {
             this.shift = true;
         } else {
             this.shift = false;
