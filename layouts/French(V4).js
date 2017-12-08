@@ -106,6 +106,7 @@ function keyboardElement(ltr) {
     if (isLetter(ltr)) {
         this.shift = ltr.toUpperCase() === ltr;
     } else {
+        // Set flags for characters needing shift keys.
         // @codingStandardsIgnoreLine
         if (ltr.match(/[1234567890°+¨£%µ>?./§]/i)) {
             this.shift = true;
@@ -113,12 +114,14 @@ function keyboardElement(ltr) {
             this.shift = false;
         }
     }
+    // Set flags for characters needing Alt Gr key.
     // @codingStandardsIgnoreLine
     if (ltr.match(/[~#{\[|`\\^@\]}¤€]/i)) {
         this.shift = false;
         this.alt = true;
         this.accent = false;
     }
+    // Set flags for characters needing shift and ¨ keys.
     // @codingStandardsIgnoreLine
     if (ltr.match(/[ëïöü]/i)) {
         this.shift = true;
@@ -126,6 +129,7 @@ function keyboardElement(ltr) {
         this.accent = false;
         this.caret = true;
     }
+    // Set flags for characters needing ^ key.
     if (ltr === 'ê') {
         this.shift = false;
         this.alt = false;
@@ -218,7 +222,7 @@ function thenFinger(tCrka) {
     } else if (tCrka.match(/["3#eéë€êdc_8\\iíïk;.]/i)) {
         return 2; // Highlight the correct key above in yellow.
         // @codingStandardsIgnoreLine
-    } else if (tCrka.match(/[\'4{rfv(5\[tgbv\-6yhnñè7uúüj,?]/i)) {
+    } else if (tCrka.match(/[\'4{rfv(5\[tgbv\-6|yhnñè7`uúüj,?]/i)) {
         return 1; // Highlight the correct key above in blue.
     } else {
         return 6;
