@@ -103,43 +103,61 @@ function keyboardElement(ltr) {
     this.chr = ltr.toLowerCase();
     this.alt = false;
     this.accent = false;
+    this.caret = false;
+    this.shift = false;
     if (isLetter(ltr)) {
         this.shift = ltr.toUpperCase() === ltr;
     } else {
         // Set flags for characters needing shift keys.
         // @codingStandardsIgnoreLine
         if (ltr.match(/[1234567890°+¨£%µ>?./§]/i)) {
+            this.alt = false;
+            this.accent = false;
+            this.caret = false;
             this.shift = true;
         } else {
+            this.alt = false;
+            this.accent = false;
+            this.caret = false;
             this.shift = false;
         }
     }
     // Set flags for characters needing Alt Gr key.
     // @codingStandardsIgnoreLine
-    if (ltr.match(/[~#{\[|`\\^@\]}¤€]/i)) {
+    if (ltr.match(/[~#{\[|`\\@\]}¤€]/i)) {
         this.shift = false;
         this.alt = true;
         this.accent = false;
     }
     // Set flags for characters needing shift and ¨ keys.
+    // Ignore case as flags are same lower or upper case.
     // @codingStandardsIgnoreLine
-    if (ltr.match(/[ëïöü]/i)) {
+    if (ltr.match(/[äëïöü]/i)) {
         this.shift = true;
         this.alt = false;
         this.accent = false;
         this.caret = true;
     }
-    // Set flags for characters needing ^ key.
-    if (ltr === 'ê') {
+    // Set flags for lower case characters needing ^ key.
+    // @codingStandardsIgnoreLine
+    if (ltr.match(/[âêîôû]/)) {
         this.shift = false;
         this.alt = false;
         this.accent = false;
         this.caret = true;
+    // Set flags for upper characters needing ^ key.
+    // @codingStandardsIgnoreLine
+    } else if (ltr.match(/[ÂÊÎÔÛ]/)) {
+        this.shift = true;
+        this.alt = false;
+        this.accent = false;
+        this.caret = true;
     }
-    if (ltr === 'ó' || ltr === 'á') {
+    if (ltr === 'ñ') {
         this.shift = false;
         this.alt = true;
-        this.accent = true;
+        this.accent = false;
+        this.tilde = true;
     }
     this.turnOn = function() {
         if (isLetter(this.chr)) {
@@ -167,7 +185,7 @@ function keyboardElement(ltr) {
             document.getElementById('jkeycaret').className = "next4";
         }
         if (this.tilde) {
-            document.getElementById('jkeyequal').className = "next4";
+            document.getElementById('jkey2').className = "next4";
         }
     };
     this.turnOff = function() {
@@ -213,7 +231,7 @@ function thenFinger(tCrka) {
     if (tCrka === ' ') {
         return 5; // Highlight the spacebar.
         // @codingStandardsIgnoreLine
-    } else if (tCrka.match(/[²&1aáqw<>à0@pm§!)°\]^¨ù%=+}$£¤*µ]/i)) {
+    } else if (tCrka.match(/[²&1aáqw<>àâä0@pm§!)°\]^¨ù%=+}$£¤*µ]/i)) {
         return 4; // Highlight the correct key above in red.
         // @codingStandardsIgnoreLine
     } else if (tCrka.match(/[é2~zsxç9^oóöl:/]/i)) {
@@ -272,7 +290,7 @@ function getKeyID(tCrka) {
     } else if (tCrka === '%' || tCrka === '´') {
         return "jkeyù";
     } else if (tCrka === 'µ' || tCrka === '*') {
-        return "jkeyµ";
+        return "jkey*";
     } else if (tCrka === '<' || tCrka === '>') {
         return "jkeyckck";
     } else if (tCrka === ',' || tCrka === '?') {
@@ -283,7 +301,7 @@ function getKeyID(tCrka) {
         return "jkeycolon";
     } else if (tCrka === '=' || tCrka === '!' || tCrka === '§') {
         return "jkeyexclam";
-    } else if (tCrka === 'a' || tCrka === 'á') {
+    } else if (tCrka === 'a' || tCrka === 'á' || tCrka === 'â' || tCrka === 'ä') {
         return "jkeya";
     } else if (tCrka === '¨' || tCrka === '^') {
         return "jkeycaret";
@@ -308,5 +326,5 @@ function getKeyID(tCrka) {
  * @returns {(int|Array)}.
  */
 function isLetter(str) {
-    return str.length === 1 && str.match(/[a-zçáéíóúüùµ]/i);
+    return str.length === 1 && str.match(/[a-zç]/i);
 }

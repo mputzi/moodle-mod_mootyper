@@ -77,7 +77,7 @@ echo (isset($displaynone) && ($displaynone == true)) ? 'display:none;' : '';
                 <div id="jkeyl" class="finger3">L</div>
                 <div id="jkeym" class="finger4">M</div>
                 <div id="jkeyù" class="normal" style='text-align:left;'>%<br>ù</div>
-                <div id="jkeyµ" class="normal" style='text-align:left;'>µ<br>*</div>
+                <div id="jkey*" class="normal" style='text-align:left;'>µ<br>*</div>
             </div>
         </div>
         <div class="row" style='float: left; margin-left:5px; font-size: 15px !important; line-height: 15px'>
