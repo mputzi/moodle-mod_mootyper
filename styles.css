@@ -64,6 +64,8 @@ div#wrapStats {
 
 }
 div#statsLDiv {
+    border: 1px solid #666;
+    box-sizing: border-box;
     background: [[setting:statscolor]];
     -moz-border-radius-topleft: 7px 21px;
      border-top-left-radius: 10px ;
@@ -75,6 +77,8 @@ div#statsLDiv {
         0 5px 0px #ddd;
 }
 div#statsMDiv {
+    border: 1px solid #666;
+    box-sizing: border-box;
     *background:#fdff99;
     background: [[setting:statscolor]];
    box-shadow:
@@ -83,6 +87,8 @@ div#statsMDiv {
         0 5px 0px #ddd;
 }
 div#statsRDiv {
+    border: 1px solid #666;
+    box-sizing: border-box;
     *background:#fdff99;
     background: [[setting:statscolor]];
     -moz-border-radius-topright: 7px 21px;

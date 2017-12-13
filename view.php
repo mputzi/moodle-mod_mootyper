@@ -232,39 +232,39 @@ if ($mootyper->lesson != null) {
         echo "'" . get_string('fcontinue', 'mootyper') . "'"; ?>> 
 
     <div id='wrapStats'>
-                    <div id='statsLDiv' style='float: left; margin-left:75px;'>   
-                        <div id="timerText" class="statsText">&nbsp;&nbsp;
-                            <?php echo get_string('rtime', 'mootyper'); ?>&nbsp;</div>
+                    <div id='statsLDiv' style='text-align: center; float: left; width:100px;'>
+                        <div id="timerText" class="statsText">
+                            <?php echo get_string('rtime', 'mootyper'); ?></div>
                         <div id='timer'><span id="jsTime2">00:00</span></div>
                     </div>
 
-                    <div id='statsMDiv' style='float: left;'> 
-                        <div id='progressText' class="statsText">&nbsp;|&nbsp;
-                            <?php echo get_string('rprogress', 'mootyper'); ?>&nbsp;&nbsp;</div>
+                    <div id='statsMDiv' style='text-align: center; float: left; width:100px;'>
+                        <div id='progressText' class="statsText">
+                            <?php echo get_string('rprogress', 'mootyper'); ?></div>
                         <div id='progressValue'><span id="jsProgress2">0/0</span></div>
                     </div>
 
-                    <div id='statsMDiv' style='float: left;'>                
-                        <div id='mistakesText' class="statsText">&nbsp;|&nbsp;
-                            <?php echo get_string('rmistakes', 'mootyper'); ?>&nbsp;</div>
+                    <div id='statsMDiv' style='text-align: center; float: left; width:100px;'>
+                        <div id='mistakesText' class="statsText">
+                            <?php echo get_string('rmistakes', 'mootyper'); ?></div>
                         <div id='mistakesValue'><span id="jsMistakes2">0</span></div>
                     </div>
 
-                    <div id='statsMDiv' style='float: left;'>                
-                        <div id='precisionText' class="statsText">&nbsp;|&nbsp;
-                            <?php echo get_string('rprecision', 'mootyper'); ?>&nbsp;</div>
+                    <div id='statsMDiv' style='text-align: center; float: left; width:100px;'>
+                        <div id='precisionText' class="statsText">
+                            <?php echo get_string('rprecision', 'mootyper'); ?></div>
                         <div id='precisionValue'><span id="jsAcc2">0</span><span> %</span></div>
                     </div>
 
-                    <div id='statsMDiv' style='float: left;'> 
-                        <div id='speedText' class="statsText">&nbsp;|&nbsp;
-                            <?php echo get_string('rhitspermin', 'mootyper'); ?>&nbsp;&nbsp;</div>
+                    <div id='statsMDiv' style='text-align: center; float: left; width:120px;'>
+                        <div id='speedText' class="statsText">
+                            <?php echo get_string('rhitspermin', 'mootyper'); ?></div>
                         <div id='speedValue'><span id="jsSpeed2">0</span></div>
                     </div>
 
-                    <div id='statsRDiv' style='float: left;'>                
-                        <div id='wpmText' class="statsText">&nbsp;|&nbsp;
-                            <?php echo get_string('wpm', 'mootyper'); ?>&nbsp;</div>
+                    <div id='statsRDiv' style='text-align: center; float: left; width:100px;'>
+                        <div id='wpmText' class="statsText">
+                            <?php echo get_string('wpm', 'mootyper'); ?></div>
                         <div id='wpmValue'><span id="jsWpm2">0</span></div>
                     </div>
     </div>
