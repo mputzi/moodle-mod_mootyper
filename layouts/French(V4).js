@@ -22,7 +22,8 @@ var THE_LAYOUT,
  * @returns {char}.
  */
 function isCombined(chr) {
-    return (chr === '´' || chr === '`' || chr === '~');
+//    return (chr === '´' || chr === '`' || chr === '~');
+    return false;
 }
 
 THE_LAYOUT = 'French(V4)';
