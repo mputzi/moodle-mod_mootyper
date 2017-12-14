@@ -31,7 +31,7 @@ echo (isset($displaynone) && ($displaynone == true)) ? 'display:none;' : '';
 "><br>
 <div id="keyboard" class="keyboardback">Dvorak(V4) Keyboard Layout<br>
     <section>
-        <div class="row" style='float: left; margin-left:5px; font-size: 12px !important; line-height: 15px'>
+        <div class="mtrow" style='float: left; margin-left:5px; font-size: 12px !important; line-height: 15px'>
             <div id="jkeybackquote" class="normal"><b>~<br>`</b></div>
             <div id="jkey1" class="normal"><b>!<br>1</b></div>
             <div id="jkey2" class="normal"><b>@<br>2</b></div>
@@ -48,7 +48,7 @@ echo (isset($displaynone) && ($displaynone == true)) ? 'display:none;' : '';
             <div id="jkeybackspace" class="normal" style="width: 95px;">Backspace</div>
         </div>
 
-        <div class="row" style='float: left; margin-left:5px;'>
+        <div class="mtrow" style='float: left; margin-left:5px;'>
             <div id="jkeytab" class="normal" style="width: 60px;">Tab</div>
             <div id="jkeycrtica" class="normal"style='font-size: 12px !important; line-height: 15px'>"<br>'</span></div>
             <div id="jkeycomma" class="normal"style='font-size: 12px !important; line-height: 15px'>&lt;<br>,</div>
@@ -65,7 +65,7 @@ echo (isset($displaynone) && ($displaynone == true)) ? 'display:none;' : '';
             <div id="jkeybackslash" class="normal" style='width: 75px; font-size: 12px !important; line-height: 15px'>|<br>\</div>
         </div>
 
-        <div class="row" style='float: left; margin-left:5px;'>
+        <div class="mtrow" style='float: left; margin-left:5px;'>
             <div id="jkeycaps" class="normal" style="width: 80px; font-size: 12px !important;">Caps Lock</div>
             <div id="jkeya" class="finger4">A</div>
             <div id="jkeyo" class="finger3">O</div>
@@ -81,7 +81,7 @@ echo (isset($displaynone) && ($displaynone == true)) ? 'display:none;' : '';
             <div id="jkeyenter" class="normal" style="width: 95px;">Enter</div>
         </div>
 
-        <div class="row" style='float: left; margin-left:5px;'>
+        <div class="mtrow" style='float: left; margin-left:5px;'>
             <div id="jkeyshiftl" class="normal" style="width: 100px;">Shift</div>
             <div id="jkeysemicolon" class="normal" style='font-size: 12px !important; line-height: 15px'>:<br>;</div>
             <div id="jkeyq" class="normal">Q</div>
@@ -96,7 +96,7 @@ echo (isset($displaynone) && ($displaynone == true)) ? 'display:none;' : '';
             <div id="jkeyshiftd" class="normal" style="width: 115px;">Shift</div>
         </div>
 
-        <div class="row" style='float: left; margin-left:5px;'>
+        <div class="mtrow" style='float: left; margin-left:5px;'>
             <div id="jkeyctrll" class="normal" style="width: 70px;">Ctrl</div>
             <div id="jkeyfn" class="normal" style="width: 50px;">Win</div>
             <div id="jkeyalt" class="normal" style="width: 50px;">Alt</div>
