@@ -161,6 +161,7 @@ $string['reqfield'] = 'Required field';
 $string['requiredgoal'] = 'Required precision';
 $string['requiredgoal_help'] = 'Enter precision required for successful completion of an exercise.';
 $string['requirepassword'] = 'Require password';
+$string['resetmootyperall'] = 'Reset all MooTyper attempts and grades.';
 $string['returnto'] = 'Return to {$a}';
 $string['rhitspermin'] = 'Hits per minute: ';
 $string['rmistakes'] = 'Mistakes: ';
