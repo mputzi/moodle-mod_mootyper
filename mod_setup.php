@@ -64,8 +64,11 @@ $countmistypedspacespo = optional_param('countmistypedspaces', "off", PARAM_CLEA
 $statscolor = optional_param('statscolor', $mootyper->statsbgc, PARAM_CLEAN);
 $keytopcolor = optional_param('keytopcolor', $mootyper->keytopbgc, PARAM_CLEAN);
 $backgroundcolor = optional_param('backgroundcolor', $mootyper->keybdbgc, PARAM_CLEAN);
+$textalign = optional_param('textalign', $mootyper->textalign, PARAM_CLEAN);
 
-// Check to see current MooTyper precision goal is empty.
+//print_object($textalign);
+
+// Check to see if current MooTyper precision goal is empty.
 if ($mootyper->requiredgoal == null || is_null($mootyper->requiredgoal)) {
     // Current MooTyper precision goal is empty so set it to the site default.
     $dfgoal = $moocfg->defaultprecision;
@@ -74,6 +77,16 @@ if ($mootyper->requiredgoal == null || is_null($mootyper->requiredgoal)) {
     $dfgoal = $mootyper->requiredgoal;
 }
 $goalpo = optional_param('requiredgoal', $dfgoal, PARAM_INT); // Display with default or current setting.
+
+// Check to see if current MooTyper textalign is empty.
+if ($mootyper->textalign == null || is_null($mootyper->textalign)) {
+    // Current MooTyper textalign is empty so set it to the site default.
+    $dftextalign = $moocfg->defaulttextalign;
+} else {
+    // Otherwise use current MooTyper textalign.
+    $dftextalign = $mootyper->textalign;
+}
+$textalignpo = optional_param('textalign', $dftextalign, PARAM_TEXT); // Display with default or current setting.
 
 // Check to see if current MooTyper continuoustype is empty.
 if ($mootyper->continuoustype == null || is_null($mootyper->continuoustype)) {
@@ -155,6 +168,8 @@ if (isset($param1) && get_string('fconfirm', 'mootyper') == $param1) {
     if ($goalpo == 0) {
         $goalpo = $moocfg->defaultprecision;
     }
+    $textalignpo = optional_param('textalign', $dftextalign, PARAM_TEXT); // Display with default or current setting.
+
     $continuoustypepo = optional_param('continuoustype', null, PARAM_CLEAN);
     $countmistypedspacespo = optional_param('countmistypedspaces', null, PARAM_CLEAN);
     $showkeyboardpo = optional_param('showkeyboard', null, PARAM_CLEAN);
@@ -164,6 +179,7 @@ if (isset($param1) && get_string('fconfirm', 'mootyper') == $param1) {
     $backgroundcolorpo = optional_param('keybdbgc', $dfbackgroundcolor, PARAM_CLEAN);
 
     global $DB, $CFG;
+    // Update all the settings for this MooTyper instance when Confirm is clicked.
     $mootyper  = $DB->get_record('mootyper', array('id' => $n), '*', MUST_EXIST);
     $mootyper->lesson = $lessonpo;
     $mootyper->isexam = $modepo;
@@ -172,6 +188,7 @@ if (isset($param1) && get_string('fconfirm', 'mootyper') == $param1) {
         $mootyper->exercise = $exercisepo;
     }
     $mootyper->requiredgoal = $goalpo;
+    $mootyper->textalign = $textalignpo;
     $mootyper->continuoustype = $continuoustypepo == 'on';
     $mootyper->countmistypedspaces = $countmistypedspacespo == 'on';
     $mootyper->showkeyboard = $showkeyboardpo == 'on';
@@ -254,6 +271,10 @@ if ($modepo == 0 || is_null($modepo)) { // Since mode is 0, this is a lesson?
     }
     $htmlout .= '</select></td></tr>';
 }
+
+// Add entry box for Text alignment setting.
+$htmlout .= '<tr><td>'.get_string('defaulttextalign', 'mootyper').'</td><td>';
+$htmlout .= '<input value="'.$textalignpo.'" style="width: 55px;" type="text" name="textalign"></td></tr>';
 
 // Need to keep the next line as it is helping get rid of _POST in line 267.
 $tempchkkb = optional_param('showkeyboard', 0, PARAM_BOOL);

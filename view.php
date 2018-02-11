@@ -65,14 +65,15 @@ $mootyperoutput = $PAGE->get_renderer('mod_mootyper');
 echo $mootyperoutput->header($mootyper, $cm);
 echo '<script src="//code.jquery.com/jquery-1.11.0.min.js"></script>';
 
-// Get the color configuration settings and use them in the MooTyper activity.
+// Get the color and text alignment configuration settings and use them in the MooTyper activity.
 //$color1 = get_config('mod_mootyper', 'statscolor');
 $color1 = $mootyper->statsbgc;
 //$color2 = get_config('mod_mootyper', 'normalkeytops');
 $color2 = $mootyper->keytopbgc;
 //$color3 = get_config('mod_mootyper', 'keyboardbgc');
 $color3 = $mootyper->keybdbgc;
-// Apply colors to current MooTyper.
+$textalign = $mootyper->textalign;
+// Apply colors and text alignment to current MooTyper.
 echo '<style>
       .keyboardback {
        background-color: '.$color3.'
@@ -88,6 +89,12 @@ echo '<style>
        }
        div#statsRDiv {
        background: '.$color1.'
+       }
+       #texttoenter {
+       text-align: '.$textalign.'
+       }
+       .tb1 {
+       text-align: '.$textalign.'
        }
        </style>';
 

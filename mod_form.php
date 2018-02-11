@@ -119,6 +119,13 @@ class mod_mootyper_mod_form extends moodleform_mod {
         $mform->addHelpButton('requiredgoal', 'requiredgoal', 'mootyper');
         $mform->setDefault('requiredgoal', $mootyperconfig->defaultprecision);
 
+        // Text alignment setup.
+        $attributes = 'size = "10"';
+        $mform->setType('textalign', PARAM_NOTAGS);
+        $mform->addElement('text', 'textalign', get_string('defaulttextalign', 'mootyper'), $attributes);
+        $mform->addHelpButton('textalign', 'defaulttextalign', 'mootyper');
+        $mform->setDefault('textalign', $mootyperconfig->defaulttextalign);
+
         // Continuous typing setup.
         $mform->addElement('selectyesno', 'continuoustype', get_string('continuoustype', 'mootyper'));
         $mform->addHelpButton('continuoustype', 'continuoustype', 'mootyper');

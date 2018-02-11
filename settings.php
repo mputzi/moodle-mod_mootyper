@@ -56,6 +56,31 @@ if ($ADMIN->fulltree) {
     $settings->add(new admin_setting_configselect('mod_mootyper/defaultprecision',
         get_string('defaultprecision', 'mootyper'), '', 97, $precs));
 
+    // Default text alignment.
+//    $alignment = array();
+    //for ($i = 0; $i <= 100; $i++) {
+//        $alignment[0] = get_string('defaulttextalign_left', 'mootyper');
+//        $alignment[1] = get_string('defaulttextalign_center', 'mootyper');
+//        $alignment[2] = get_string('defaulttextalign_right', 'mootyper');
+    //}
+//    $settings->add(new admin_setting_configselect('mod_mootyper/defaulttextalign',
+//        get_string('defaulttextalign', 'mootyper'), get_string('defaulttextalign_help', 'mootyper'), 'left', $alignment));
+
+//$settings->add(new admin_setting_configselect('mod_mootyper/defaulttextalign',
+//        get_string('defaulttextalign', 'mootyper'),
+//        get_string('defaulttextalign_help', 'mootyper'), 0,
+//        array(get_string('defaulttextalign_left', 'mootyper'),
+//              get_string('defaulttextalign_center', 'mootyper'),
+//              get_string('defaulttextalign_right', 'mootyper'))));
+
+
+    $settings->add(new admin_setting_configtext('mod_mootyper/defaulttextalign',
+        get_string('defaulttextalign', 'mootyper'),
+        get_string('defaulttextalign_help', 'mootyper'),
+        'left', PARAM_TEXT, 6));
+
+
+
     // Default continuous typing setting.
     $settings->add(new admin_setting_configcheckbox_with_advanced('mod_mootyper/continuoustype',
         get_string('continuoustype', 'mootyper'), get_string('continuoustype_help', 'mootyper'),
@@ -96,8 +121,8 @@ if ($ADMIN->fulltree) {
     // Date format setting.
     $settings->add(new admin_setting_configtext(
         'mod_mootyper/dateformat',
-        new lang_string('dateformat', 'mootyper'),
-        new lang_string('configdateformat', 'mootyper'),
+        get_string('dateformat', 'mootyper'),
+        get_string('configdateformat', 'mootyper'),
         'M d, Y G:i', PARAM_TEXT, 15)
     );
 

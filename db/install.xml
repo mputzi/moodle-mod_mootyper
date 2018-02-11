@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<XMLDB PATH="mod/mootyper/db" VERSION="20171127" COMMENT="XMLDB file for Moodle mod/mootyper"
+<XMLDB PATH="mod/mootyper/db" VERSION="20180211" COMMENT="XMLDB file for Moodle mod/mootyper"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:noNamespaceSchemaLocation="../../../lib/xmldb/xmldb.xsd"
 >
@@ -28,6 +28,7 @@
         <FIELD NAME="statsbgc" TYPE="char" LENGTH="20" NOTNULL="true" SEQUENCE="false" COMMENT="Statistics bar background color."/>
         <FIELD NAME="keytopbgc" TYPE="char" LENGTH="20" NOTNULL="true" SEQUENCE="false" COMMENT="Keytop color setting."/>
         <FIELD NAME="keybdbgc" TYPE="char" LENGTH="20" NOTNULL="true" SEQUENCE="false" COMMENT="Keyboard background color setting."/>
+        <FIELD NAME="textalign" TYPE="char" LENGTH="6" NOTNULL="true" DEFAULT="left" SEQUENCE="false" COMMENT="Alignment setting for text to enter and text entry box."/>
       </FIELDS>
       <KEYS>
         <KEY NAME="primary" TYPE="primary" FIELDS="id"/>

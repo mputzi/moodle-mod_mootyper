@@ -206,5 +206,19 @@ function xmldb_mootyper_upgrade($oldversion) {
         // Mootyper savepoint reached.
         upgrade_mod_savepoint(true, 2017120100, 'mootyper');
     }
+    // One new field added after keybdbgc for version 3.4.3.
+    if ($oldversion < 2018021100) {
+
+        // Define field textalign to be added to mootyper.
+        $table = new xmldb_table('mootyper');
+        $field = new xmldb_field('textalign', XMLDB_TYPE_CHAR, '6', null, XMLDB_NOTNULL, null, 'left', 'keybdbgc');
+
+        // Conditionally launch add field statsbgc.
+        if (!$dbman->field_exists($table, $field)) {
+            $dbman->add_field($table, $field);
+        }
+        // Mootyper savepoint reached.
+        upgrade_mod_savepoint(true, 2018021100, 'mootyper');
+    }
     return true;
 }

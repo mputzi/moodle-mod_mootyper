@@ -35,7 +35,7 @@
 }
 #texttoenter {
     width: 100%;
-    text-align: left;
+    text-align: [[setting:textalign]];
 }
 #jsTime {
     padding: 5px;
@@ -106,6 +106,7 @@ div#statsRDiv {
     font-size: 90%;
     font-family: Courier;
     overflow-x: scroll;
+    text-align: [[setting:textalign]];
 }
 .txtGreen {
     font-size: 16px;
