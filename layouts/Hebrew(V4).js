@@ -50,25 +50,30 @@ THE_LAYOUT = 'Hebrew(V5)';
  * @param {char} ltr.
  */
 function keyboardElement(ltr) {
-    this.chr = ltr.toLowerCase();
+    this.chr = ltr.toUpperCase();
     this.alt = false;
 //    if (isLetter(ltr)) {
 //        this.shift = ltr.toUpperCase() === ltr;
 //    } else {
+
+//alert('In the keyboardElement(ltr) function '+ltr);
+
         // @codingStandardsIgnoreLine
-        if (ltr.match(/[QWERTY~!@#$%^&*()_+{}|:"<>?]/i)) {
+        if (ltr.match(/[QWERTYUIOPASDFGHJKLZXCVBNM~!@#$%^&*()_+{}|:"<>?]/i)) {
             this.shift = true;
         } else {
             this.shift = false;
         }
+//alert('this shift is '+this.shift);
 //    }
     this.turnOn = function() {
+//alert('this chr is '+this.chr);
         if (isLetter(this.chr)) {
-            document.getElementById(getKeyID(this.chr)).className = "next" + thenFinger(this.chr.toLowerCase());
+            document.getElementById(getKeyID(this.chr)).className = "next" + thenFinger(this.chr.toUpperCase());
         } else if (this.chr === ' ') {
             document.getElementById(getKeyID(this.chr)).className = "nextSpace";
         } else {
-            document.getElementById(getKeyID(this.chr)).className = "next" + thenFinger(this.chr.toLowerCase());
+            document.getElementById(getKeyID(this.chr)).className = "next" + thenFinger(this.chr.toUpperCase());
         }
         if (this.chr === '\n' || this.chr === '\r\n' || this.chr === '\n\r' || this.chr === '\r') {
             document.getElementById('jkeyenter').className = "next4";
@@ -84,8 +89,8 @@ function keyboardElement(ltr) {
     this.turnOff = function() {
         if (isLetter(this.chr)) {
         // @codingStandardsIgnoreLine
-            if (this.chr.match(/[שדגכחלךף]/i)) {
-                document.getElementById(getKeyID(this.chr)).className = "finger" + thenFinger(this.chr.toLowerCase());
+            if (this.chr.match(/[ASDFJKLשדגכחלךף]/i)) {
+                document.getElementById(getKeyID(this.chr)).className = "finger" + thenFinger(this.chr.toUpperCase());
             } else {
                 document.getElementById(getKeyID(this.chr)).className = "normal";
             }
@@ -117,13 +122,13 @@ function thenFinger(tCrka) {
     } else if (tCrka.match(/[;~1!QAZשזz0)פp;ף:/?\-_[{"=+\]}\\|.]/i)) {
         return 4; // Highlight the correct key above in red.
     // @codingStandardsIgnoreLine
-    } else if (tCrka.match(/[ם2@'wsץס9ךxד(ol>]/i)) {
+    } else if (tCrka.match(/[םW2@'wsץס9ךxד(ol>]/i)) {
         return 3; // Highlight the correct key above in green.
     // @codingStandardsIgnoreLine
-    } else if (tCrka.match(/[ן3#קגבלתedc8*ik,<]/i)) {
+    } else if (tCrka.match(/[ן3E#קגבלתedc8*ik,<]/i)) {
         return 2; // Highlight the correct key above in yellow.
     // @codingStandardsIgnoreLine
-    } else if (tCrka.match(/[4$ראטוrfvכעיחהנ5נמצ%tgb6^yhn7&ujm]/i)) {
+    } else if (tCrka.match(/[4$ראטוrRTYfvכעיחהנ5נמצ%tgb6^yhn7&ujm]/i)) {
         return 1; // Highlight the correct key above in blue.
     } else {
         return 6; // Do not change any highlight.

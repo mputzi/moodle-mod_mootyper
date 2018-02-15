@@ -40,7 +40,7 @@ echo (isset($displaynone) && ($displaynone == true)) ? 'display:none;' : '';
             <div id="jkey4" class="normal" style="text-align:left;">&nbsp;๓<br>&nbsp; &nbsp;&nbsp;&nbsp;ภ</div>
             <div id="jkey5" class="normal" style="text-align:left;">&nbsp;๔<br>&nbsp; &nbsp;&nbsp;&nbsp;ถ</div>
             <div id="jkey6" class="normal" style="text-align:left;">&nbsp;ู<br>&nbsp; &nbsp; &nbsp;&nbsp;ุ</div>
-            <div id="jkey7" class="normal" style="text-align:left;">&nbsp;฿<br><b>&nbsp; &nbsp; &nbsp; &nbsp;ึ</b></div>
+            <div id="jkey7" class="normal" style="text-align:left;">&nbsp;฿<br><b>&nbsp;&nbsp; &nbsp; &nbsp;ึ</b></div>
             <div id="jkey8" class="normal" style="text-align:left;">&nbsp;๕<br>&nbsp; &nbsp;&nbsp;&nbsp;ค</div>
             <div id="jkey9" class="normal" style="text-align:left;">&nbsp;๖<br>&nbsp; &nbsp;&nbsp;&nbsp;ต</div>
             <div id="jkey0" class="normal" style="text-align:left;">&nbsp;๗<br>&nbsp; &nbsp;&nbsp;&nbsp;จ</div>
@@ -60,9 +60,9 @@ echo (isset($displaynone) && ($displaynone == true)) ? 'display:none;' : '';
             <div id="jkeyร" class="normal" style='text-align:left;'>&nbsp;ณ<br>&nbsp; &nbsp; &nbsp;ร</div>
             <div id="jkeyน" class="normal" style='text-align:left;'>&nbsp;ฯ<br>&nbsp; &nbsp; &nbsp;น</div>
             <div id="jkeyย" class="normal" style='text-align:left;'>&nbsp;ญ<br>&nbsp; &nbsp; &nbsp;ย</div>
-            <div id="jkeybracketl" class="normal" style='text-align:left;'><b>&nbsp;ฐ<br>&nbsp; &nbsp; &nbsp; บ</b></div>
-            <div id="jkeybracketr" class="normal" style='text-align:left;'><b>&nbsp;,<br>&nbsp; &nbsp; &nbsp;ล</b></div>
-            <div id="jkeybackslash" class="normal" style='width: 75px;text-align:left;'>&nbsp;ฅ<br>ฃ</div>
+            <div id="jkeybracketl" class="normal" style='text-align:left;'><b>&nbsp;ฐ<br>&nbsp;&nbsp;&nbsp; บ</b></div>
+            <div id="jkeybracketr" class="normal" style='text-align:left;'><b>&nbsp;,<br>&nbsp;&nbsp; &nbsp;ล</b></div>
+            <div id="jkeybackslash" class="normal" style='width: 75px;text-align:left;'>&nbsp;ฅ<br>&nbsp;&nbsp; &nbsp;ฃ</div>
         </div>
         <div class="mtrow" style='float: left; margin-left:5px; font-size: 15px !important; line-height: 15px'>
             <div id="jkeycaps" class="normal" style="width: 80px; font-size: 12px">Caps Lock</div>
