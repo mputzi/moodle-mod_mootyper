@@ -64,6 +64,13 @@ function keyboardElement(ltr) {
         } else {
             this.shift = false;
         }
+    // Set flags for characters needing Alt Gr key.
+    // @codingStandardsIgnoreLine
+    if (ltr.match(/[€₪־װױײ]/i)) {
+        this.shift = false;
+        this.alt = true;
+        this.accent = false;
+    }
 //alert('this shift is '+this.shift);
 //    }
     this.turnOn = function() {
@@ -119,16 +126,16 @@ function thenFinger(tCrka) {
     if (tCrka === ' ') {
         return 5; // Highlight the spacebar.
     // @codingStandardsIgnoreLine
-    } else if (tCrka.match(/[;~1!QAZשזz0)פp;ף:/?\-_[{"=+\]}\\|.]/i)) {
+    } else if (tCrka.match(/[;~1!QAZשזz0)פp;ף:/?\-_־[{"=+\]}\\|.]/i)) {
         return 4; // Highlight the correct key above in red.
     // @codingStandardsIgnoreLine
     } else if (tCrka.match(/[םW2@'wsץס9ךxד(ol>]/i)) {
         return 3; // Highlight the correct key above in green.
     // @codingStandardsIgnoreLine
-    } else if (tCrka.match(/[ן3E#קגבלתedc8*ik,<]/i)) {
+    } else if (tCrka.match(/[ן€3E#קגבלתedc8*ik,<]/i)) {
         return 2; // Highlight the correct key above in yellow.
     // @codingStandardsIgnoreLine
-    } else if (tCrka.match(/[4$ראטוrRTYfvכעיחהנ5נמצ%tgb6^yhn7&ujm]/i)) {
+    } else if (tCrka.match(/[4$ראט₪וrRTYfvכעיחהנ5נמצ%tgb6^yhn7&ujmװױײ]/i)) {
         return 1; // Highlight the correct key above in blue.
     } else {
         return 6; // Do not change any highlight.
@@ -155,9 +162,9 @@ function getKeyID(tCrka) {
         return "jkey1";
     } else if (tCrka === '@') {
         return "jkey2";
-    } else if (tCrka === '#') {
+    } else if (tCrka === '#' || tCrka === '€') {
         return "jkey3";
-    } else if (tCrka === '$') {
+    } else if (tCrka === '$' || tCrka === '₪') {
         return "jkey4";
     } else if (tCrka === '%') {
         return "jkey5";
@@ -171,7 +178,7 @@ function getKeyID(tCrka) {
         return "jkey9";
     } else if (tCrka === '(') {
         return "jkey0";
-    } else if (tCrka === '-' || tCrka === '_') {
+    } else if (tCrka === '-' || tCrka === '_' || tCrka === '־') {
         return "jkeyminus";
     } else if (tCrka === '=' || tCrka === '+') {
         return "jkeyequals";
@@ -187,7 +194,7 @@ function getKeyID(tCrka) {
         return "jkeyR";
     } else if (tCrka === 'א' || tCrka === 'T') {
         return "jkeyT";
-    } else if (tCrka === 'ט' || tCrka === 'Y') {
+    } else if (tCrka === 'ט' || tCrka === 'Y' || tCrka === 'װ') {
         return "jkeyY";
     } else if (tCrka === 'ו' || tCrka === 'U') {
         return "jkeyU";
@@ -209,9 +216,9 @@ function getKeyID(tCrka) {
         return "jkeyD";
     } else if (tCrka === 'כ' || tCrka === 'F') {
         return "jkeyF";
-    } else if (tCrka === 'ע' || tCrka === 'G') {
+    } else if (tCrka === 'ע' || tCrka === 'G' || tCrka === 'ױ') {
         return "jkeyG";
-    } else if (tCrka === 'י' || tCrka === 'H') {
+    } else if (tCrka === 'י' || tCrka === 'H' || tCrka === 'ײ') {
         return "jkeyH";
     } else if (tCrka === 'ח' || tCrka === 'J') {
         return "jkeyJ";
@@ -241,7 +248,7 @@ function getKeyID(tCrka) {
         return "jkeyץ";
     } else if (tCrka === '.' || tCrka === '?') {
         return "jkeyperiod";
-    } else if (tCrka === ',' || tCrka === '<') {
+    } else if (tCrka === ',' || tCrka === '"') {
         return "jkeycomma";
     } else if (tCrka === '.' || tCrka === '>') {
         return "jkeyperiod";

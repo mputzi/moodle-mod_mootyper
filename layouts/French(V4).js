@@ -22,7 +22,6 @@ var THE_LAYOUT,
  * @returns {char}.
  */
 function isCombined(chr) {
-//    return (chr === '´' || chr === '`' || chr === '~');
     return false;
 }
 
@@ -148,8 +147,8 @@ function keyboardElement(ltr) {
         this.alt = false;
         this.accent = false;
         this.caret = true;
-    // Set flags for upper characters needing ^ key.
-    // @codingStandardsIgnoreLine
+        // Set flags for upper characters needing ^ key.
+        // @codingStandardsIgnoreLine
     } else if (ltr.match(/[ÂÊÎÔÛ]/)) {
         this.shift = true;
         this.alt = false;
@@ -163,8 +162,8 @@ function keyboardElement(ltr) {
         this.alt = true;
         this.accent = false;
         this.tilde = true;
-    // Set flags for upper characters needing ~ key.
-    // @codingStandardsIgnoreLine
+        // Set flags for upper characters needing ~ key.
+        // @codingStandardsIgnoreLine
     } else if (ltr.match(/[ÃÑÕ]/)) {
         this.shift = true;
         this.alt = true;
