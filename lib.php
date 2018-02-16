@@ -754,7 +754,7 @@ function mootyper_grade_item_update(stdClass $mootyper) {
     $item['grademax']  = $mootyper->grade;
     $item['grademin']  = 0;
 
-    //grade_update('mod/mootyper', $mootyper->course, 'mod', 'mootyper', $mootyper->id, 0, null, $item);
+    // grade_update('mod/mootyper', $mootyper->course, 'mod', 'mootyper', $mootyper->id, 0, null, $item);
 }
 
 /**

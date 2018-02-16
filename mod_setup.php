@@ -66,8 +66,6 @@ $keytopcolor = optional_param('keytopcolor', $mootyper->keytopbgc, PARAM_CLEAN);
 $backgroundcolor = optional_param('backgroundcolor', $mootyper->keybdbgc, PARAM_CLEAN);
 $textalign = optional_param('textalign', $mootyper->textalign, PARAM_CLEAN);
 
-//print_object($textalign);
-
 // Check to see if current MooTyper precision goal is empty.
 if ($mootyper->requiredgoal == null || is_null($mootyper->requiredgoal)) {
     // Current MooTyper precision goal is empty so set it to the site default.

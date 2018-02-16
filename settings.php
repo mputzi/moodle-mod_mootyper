@@ -57,23 +57,6 @@ if ($ADMIN->fulltree) {
         get_string('defaultprecision', 'mootyper'), '', 97, $precs));
 
     // Default text alignment.
-//    $alignment = array();
-    //for ($i = 0; $i <= 100; $i++) {
-//        $alignment[0] = get_string('defaulttextalign_left', 'mootyper');
-//        $alignment[1] = get_string('defaulttextalign_center', 'mootyper');
-//        $alignment[2] = get_string('defaulttextalign_right', 'mootyper');
-    //}
-//    $settings->add(new admin_setting_configselect('mod_mootyper/defaulttextalign',
-//        get_string('defaulttextalign', 'mootyper'), get_string('defaulttextalign_help', 'mootyper'), 'left', $alignment));
-
-//$settings->add(new admin_setting_configselect('mod_mootyper/defaulttextalign',
-//        get_string('defaulttextalign', 'mootyper'),
-//        get_string('defaulttextalign_help', 'mootyper'), 0,
-//        array(get_string('defaulttextalign_left', 'mootyper'),
-//              get_string('defaulttextalign_center', 'mootyper'),
-//              get_string('defaulttextalign_right', 'mootyper'))));
-
-
     $settings->add(new admin_setting_configtext('mod_mootyper/defaulttextalign',
         get_string('defaulttextalign', 'mootyper'),
         get_string('defaulttextalign_help', 'mootyper'),

@@ -66,11 +66,8 @@ echo $mootyperoutput->header($mootyper, $cm);
 echo '<script src="//code.jquery.com/jquery-1.11.0.min.js"></script>';
 
 // Get the color and text alignment configuration settings and use them in the MooTyper activity.
-//$color1 = get_config('mod_mootyper', 'statscolor');
 $color1 = $mootyper->statsbgc;
-//$color2 = get_config('mod_mootyper', 'normalkeytops');
 $color2 = $mootyper->keytopbgc;
-//$color3 = get_config('mod_mootyper', 'keyboardbgc');
 $color3 = $mootyper->keybdbgc;
 $textalign = $mootyper->textalign;
 // Apply colors and text alignment to current MooTyper.
