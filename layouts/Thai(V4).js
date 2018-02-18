@@ -55,14 +55,21 @@ function keyboardElement(ltr) {
     if (isLetter(ltr)) {
         this.shift = ltr.toUpperCase() === ltr;
     } else {
+
+//alert('In the keyboardElement(ltr) function '+ltr);
+
         // @codingStandardsIgnoreLine
-        if (ltr.match(/[%()+๐"ฎฑธํ๊ณฯญฐ,ฅ]/i)) {
+        if (ltr.match(/[ุึํ๊็ฺ๋์ิ%+๑๒๓๔๕๖๗๘๙๐"ฎฑธณฯญฐ,ฅฤฆฏโฌษศซ.()ฉฮ?ฒฬฦ]/)) {
             this.shift = true;
         } else {
             this.shift = false;
         }
+
+//alert('this shift is '+this.shift);
+
     }
     this.turnOn = function() {
+//alert('this chr is '+this.chr);
         if (isLetter(this.chr)) {
             document.getElementById(getKeyID(this.chr)).className = "next" + thenFinger(this.chr.toLowerCase());
         } else if (this.chr === ' ') {
@@ -85,7 +92,7 @@ function keyboardElement(ltr) {
         if (isLetter(this.chr)) {
         // @codingStandardsIgnoreLine
 //            if (this.chr.match(/[asdfjkl;]/i)) {
-            if (this.chr.match(/[ฟหกด่าสว]/i)) {
+            if (this.chr.match(/[่้็๋ฟหกดเาสวฤฆฏโฌษศซ]/i)) {
                 document.getElementById(getKeyID(this.chr)).className = "finger" + thenFinger(this.chr.toLowerCase());
             } else {
                 document.getElementById(getKeyID(this.chr)).className = "normal";
@@ -97,7 +104,7 @@ function keyboardElement(ltr) {
             document.getElementById('jkeyenter').classname = "normal";
         }
         if (this.shift) {
-            document.getElementById('ุ').className = "normal";
+            document.getElementById('jkeyshiftd').className = "normal";
             document.getElementById('jkeyshiftl').className = "normal";
         }
         if (this.alt) {
@@ -128,7 +135,7 @@ function thenFinger(tCrka) {
         return 2; // Highlight the correct key above in yellow.
     // @codingStandardsIgnoreLine
 //    } else if (tCrka.match(/[4$rfv5%tgb6^yhn7&ujm]/i)) {
-    } else if (tCrka.match(/[ภ๓พฑดโอฮถ๔ะธเฌิฺุูัํ้็ื์ึ฿ี๊่๋ท?]/i)) {
+    } else if (tCrka.match(/[ุึัี้่ิืุูํ้็ื์ิ฿ึี๊่๋ท?ภ๓พฑดโอฮถ๔ะธเฌ]/i)) {
         return 1; // Highlight the correct key above in blue.
     } else {
         return 6; // Do not change any highlight.
@@ -171,16 +178,71 @@ function getKeyID(tCrka) {
         return "jkeyminus";
     } else if (tCrka === 'ช' || tCrka === '๙') {
         return "jkeyequals";
+
+    } else if (tCrka === 'ๆ' || tCrka === '๐') {
+        return "jkeyq";
+    } else if (tCrka === 'ไ' || tCrka === '"') {
+        return "jkeyw";
+    } else if (tCrka === 'ำ' || tCrka === 'ฎ') {
+        return "jkeye";
+    } else if (tCrka === 'พ' || tCrka === 'ฑ') {
+        return "jkeyr";
+    } else if (tCrka === 'ะ' || tCrka === 'ธ') {
+        return "jkeyt";
+    } else if (tCrka === 'ั' || tCrka === 'ํ') {
+        return "jkeyy";
+    } else if (tCrka === 'ี' || tCrka === '๊') {
+        return "jkeyu";
+    } else if (tCrka === 'ร' || tCrka === 'ณ') {
+        return "jkeyi";
+    } else if (tCrka === 'น' || tCrka === 'ฯ') {
+        return "jkeyo";
+    } else if (tCrka === 'ย' || tCrka === 'ญ') {
+        return "jkeyp";
     } else if (tCrka === 'บ' || tCrka === 'ฐ') {
         return "jkeybracketl";
     } else if (tCrka === 'ล' || tCrka === ',') {
         return "jkeybracketr";
-    } else if (tCrka === "ฃ" || tCrka === 'ฅ') {
+    } else if (tCrka === 'ฃ' || tCrka === 'ฅ') {
         return "jkeybackslash";
+
+    } else if (tCrka === 'ฟ' || tCrka === 'ฤ') {
+        return "jkeya";
+    } else if (tCrka === 'ห' || tCrka === 'ฆ') {
+        return "jkeys";
+    } else if (tCrka === 'ก' || tCrka === 'ฏ') {
+        return "jkeyd";
+    } else if (tCrka === 'ด' || tCrka === 'โ') {
+        return "jkeyf";
+    } else if (tCrka === 'เ' || tCrka === 'ฌ') {
+        return "jkeyg";
+    } else if (tCrka === '้' || tCrka === '็') {
+        return "jkeyh";
+    } else if (tCrka === '่' || tCrka === '๋') {
+        return "jkeyj";
+    } else if (tCrka === 'า' || tCrka === 'ษ') {
+        return "jkeyk";
+    } else if (tCrka === 'ส' || tCrka === 'ศ') {
+        return "jkeyl";
     } else if (tCrka === 'ว' || tCrka === 'ซ') {
         return "jkeysemicolon";
-    } else if (tCrka === "ง" || tCrka === '.') {
-        return "jkeycrtica";
+    } else if (tCrka === 'ง' || tCrka === '.') {
+        return "jkeyapostrophe";
+
+    } else if (tCrka === 'ผ' || tCrka === '(') {
+        return "jkeyz";
+    } else if (tCrka === 'ป' || tCrka === ')') {
+        return "jkeyx";
+    } else if (tCrka === 'แ' || tCrka === 'ฉ') {
+        return "jkeyc";
+    } else if (tCrka === 'อ' || tCrka === 'ฮ') {
+        return "jkeyv";
+    } else if (tCrka === 'ิ' || tCrka === 'ฺ') {
+        return "jkeyb";
+    } else if (tCrka === 'ื' || tCrka === '์') {
+        return "jkeyn";
+    } else if (tCrka === 'ท' || tCrka === '?') {
+        return "jkeym";
     } else if (tCrka === 'ม' || tCrka === 'ฒ') {
         return "jkeycomma";
     } else if (tCrka === 'ใ' || tCrka === 'ฬ') {
@@ -198,5 +260,6 @@ function getKeyID(tCrka) {
  * @returns {(int|Array)}.
  */
 function isLetter(str) {
+//    return str.length === 1 && str.match(/[๐-๙,ก-ฮ]/i);
     return str.length === 1 && str.match(/[ก-ฮ]/i);
 }
