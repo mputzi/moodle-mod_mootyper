@@ -43,7 +43,7 @@ function keyupFirst(event) {
     return false;
 }
 
-THE_LAYOUT = 'Hebrew(V5)';
+THE_LAYOUT = 'Hebrew(V4)';
 
 /**
  * Check for character typed so flags can be set.
@@ -152,12 +152,8 @@ function getKeyID(tCrka) {
         return "jkeyspace";
     } else if (tCrka === ';' || tCrka === '~') {
         return "jkeysemicolon";
-    } else if (tCrka === ',') {
-        return "jkeycomma";
     } else if (tCrka === '\n') {
         return "jkeyenter";
-    } else if (tCrka === '.') {
-        return "jkeyperiod";
     } else if (tCrka === '!') {
         return "jkey1";
     } else if (tCrka === '@') {
@@ -250,8 +246,6 @@ function getKeyID(tCrka) {
         return "jkeyperiod";
     } else if (tCrka === ',' || tCrka === '"') {
         return "jkeycomma";
-    } else if (tCrka === '.' || tCrka === '>') {
-        return "jkeyperiod";
     } else if (tCrka === '~' || tCrka === '`') {
         return "jkeybackquote";
     } else {
