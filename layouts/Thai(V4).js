@@ -52,14 +52,14 @@ THE_LAYOUT = 'Thai(V4)';
 function keyboardElement(ltr) {
     this.chr = ltr.toLowerCase();
     this.alt = false;
-    if (isLetter(ltr)) {
-        this.shift = ltr.toUpperCase() === ltr;
-    } else {
+//    if (isLetter(ltr)) {
+//        this.shift = ltr.toUpperCase() === ltr;
+//    } else {
 
 //alert('In the keyboardElement(ltr) function '+ltr);
 
         // @codingStandardsIgnoreLine
-        if (ltr.match(/[ุึํ๊็ฺ๋์ิ%+๑๒๓๔๕๖๗๘๙๐"ฎฑธณฯญฐ,ฅฤฆฏโฌษศซ.()ฉฮ?ฒฬฦ]/)) {
+        if (ltr.match(/[ู฿ํ๊็ฺ๋์%+๑๒๓๔๕๖๗๘๙๐"ฎฑธณฯญฐ,ฅฤฆฏโฌษศซ.()ฉฮ?ฒฬฦ]/)) {
             this.shift = true;
         } else {
             this.shift = false;
@@ -67,7 +67,7 @@ function keyboardElement(ltr) {
 
 //alert('this shift is '+this.shift);
 
-    }
+//    }
     this.turnOn = function() {
 //alert('this chr is '+this.chr);
         if (isLetter(this.chr)) {
@@ -135,7 +135,7 @@ function thenFinger(tCrka) {
         return 2; // Highlight the correct key above in yellow.
     // @codingStandardsIgnoreLine
 //    } else if (tCrka.match(/[4$rfv5%tgb6^yhn7&ujm]/i)) {
-    } else if (tCrka.match(/[ุึัี้่ิืุูํ้็ื์ิ฿ึี๊่๋ท?ภ๓พฑดโอฮถ๔ะธเฌ]/i)) {
+    } else if (tCrka.match(/[ฺุึัี้่ิืูํ้็ื์฿ี๊่๋ท?ภ๓พฑดโอฮถ๔ะธเฌ]/i)) {
         return 1; // Highlight the correct key above in blue.
     } else {
         return 6; // Do not change any highlight.
