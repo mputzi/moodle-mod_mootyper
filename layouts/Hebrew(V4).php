@@ -33,63 +33,63 @@ echo (isset($displaynone) && ($displaynone == true)) ? 'display:none;' : '';
 <div id="keyboard" class="keyboardback">עברית (V4) פריסת מקלדת<br>
     <section>
         <div class="mtrow" style='float: left; margin-left:5px; font-size: 15px !important; line-height: 15px'>
-            <div id="jkeysemicolon" class="normal" style='text-align:left;'>~<br>;</div>
+            <div id="jkeysemicolon" class="normal" style='text-align:left;'>~<br>`&nbsp;&nbsp;&nbsp;;</div>
             <div id="jkey1" class="normal" style='text-align:left;'>!<br>1</div>
             <div id="jkey2" class="normal" style='text-align:left;'>@<br>2</div>
-            <div id="jkey3" class="normal" style='text-align:left;'>#<br>3<span style="color:blue">&nbsp;&nbsp;&nbsp;€</span></div>
-            <div id="jkey4" class="normal" style='text-align:left;'>$<br>4<span style="color:blue">&nbsp;&nbsp;&nbsp;₪</span></div>
+            <div id="jkey3" class="normal" style='text-align:left;'>#<br>3</div>
+            <div id="jkey4" class="normal" style='text-align:left;'>$<br>4</div>
             <div id="jkey5" class="normal" style='text-align:left;'>%<br>5</div>
             <div id="jkey6" class="normal" style='text-align:left;'>^<br>6</div>
             <div id="jkey7" class="normal" style='text-align:left;'>&<br>7</div>
             <div id="jkey8" class="normal" style='text-align:left;'>*<br>8</div>
             <div id="jkey9" class="normal" style='text-align:left;'>)<br>9</div>
             <div id="jkey0" class="normal" style='text-align:left;'>(<br>0</div>
-            <div id="jkeyminus" class="normal" style='text-align:left;'>_<br>-<span style="color:blue">&nbsp;&nbsp;&nbsp;־</span></div>
+            <div id="jkeyminus" class="normal" style='text-align:left;'>_<br>-</div>
             <div id="jkeyequals" class="normal" style='text-align:left;'>+<br>=</div>
-            <div id="jkeybackslash" class="normal" style='text-align:left;'>|<br>\</div>
-            <div id="jkeybackspace" class="normal" style="width: 54px;">←</div>
+            <div id="jkeybackspace" class="normal" style="width: 95px;">Backspace</div>
         </div>
         <div class="mtrow" style='float: left; margin-left:5px; font-size: 15px !important; line-height: 15px'>
             <div id="jkeytab" class="normal" style="width: 60px;">Tab</div>
-            <div id="jkeyQ" class="normal" style='text-align:left;'>Q<br>/</div>
-            <div id="jkeyW" class="normal" style='text-align:left;'>W<br>'</div>
-            <div id="jkeyE" class="normal" style='text-align:left;'>E<br>ק</div>
-            <div id="jkeyR" class="normal" style='text-align:left;'>R<br>ר</div>
-            <div id="jkeyT" class="normal" style='text-align:left;'>T<br>א</div>
-            <div id="jkeyY" class="normal" style='text-align:left;'>Y<br><span style="color:blue">װ</span>&nbsp;&nbsp;&nbsp;ט</div>
-            <div id="jkeyU" class="normal" style='text-align:left;'>U<br>ו</div>
-            <div id="jkeyI" class="normal" style='text-align:left;'>I<br>ן</div>
-            <div id="jkeyO" class="normal" style='text-align:left;'>O<br>ם</div>
-            <div id="jkeyP" class="normal" style='text-align:left;'>P<br>פ</div>
-            <div id="jkeybracketr" class="normal" style='text-align:left;' style='font-size: 15px !important; line-height: 15px'>}<br>]</div>
+            <div id="jkeyQ" class="normal" style='text-align:left;'>Q<br>&nbsp; &nbsp; &nbsp;/</div>
+            <div id="jkeyW" class="normal" style='text-align:left;'>W<br>&nbsp; &nbsp; &nbsp;'</div>
+            <div id="jkeyE" class="normal" style='text-align:left;'>E<br>&nbsp; &nbsp; &nbsp;ק</div>
+            <div id="jkeyR" class="normal" style='text-align:left;'>R<br>&nbsp; &nbsp; &nbsp;ר</div>
+            <div id="jkeyT" class="normal" style='text-align:left;'>T<br>&nbsp; &nbsp; &nbsp;א</div>
+            <div id="jkeyY" class="normal" style='text-align:left;'>Y<br>&nbsp; &nbsp; &nbsp;ט</div>
+            <div id="jkeyU" class="normal" style='text-align:left;'>U<br>&nbsp; &nbsp; &nbsp;ו</div>
+            <div id="jkeyI" class="normal" style='text-align:left;'>I<br>&nbsp; &nbsp; &nbsp;ן</div>
+            <div id="jkeyO" class="normal" style='text-align:left;'>O<br>&nbsp; &nbsp; &nbsp;ם</div>
+            <div id="jkeyP" class="normal" style='text-align:left;'>P<br>&nbsp; &nbsp; &nbsp;פ</div>
             <div id="jkeybracketl" class="normal" style='text-align:left;' style='font-size: 15px !important; line-height: 15px'>{<br>[</div>
+            <div id="jkeybracketr" class="normal" style='text-align:left;' style='font-size: 15px !important; line-height: 15px'>}<br>]</div>
+            <div id="jkeybackslash" class="normal" style='width: 75px; text-align:left;'>|<br>\</div>
         </div>
         <div class="mtrow" style='float: left; margin-left:5px; font-size: 15px !important; line-height: 15px'>
             <div id="jkeycaps" class="normal" style="width: 80px;  font-size: 12px !important;">Caps Lock</div>
-            <div id="jkeyA" class="finger4" style='text-align:left;'>A<br>ש</div>
-            <div id="jkeyS" class="finger3" style='text-align:left;'>S<br>ד</div>
-            <div id="jkeyD" class="finger2" style='text-align:left;'>D<br>ג</div>
-            <div id="jkeyF" class="finger1" style='text-align:left;'>F<br>כ</div>
-            <div id="jkeyG" class="normal" style='text-align:left;'>G<br><span style="color:blue">ױ</span>&nbsp;&nbsp;&nbsp;ע</div>
-            <div id="jkeyH" class="normal" style='text-align:left;'>H<br><span style="color:blue">ײ</span>&nbsp;&nbsp;&nbsp;י</div>
-            <div id="jkeyJ" class="finger1" style='text-align:left;'>J<br>ח</div>
-            <div id="jkeyK" class="finger2" style='text-align:left;'>K<br>ל</div>
-            <div id="jkeyL" class="finger3" style='text-align:left;'>L<br>ך</div>
-            <div id="jkeycolon" class="finger4" style='text-align:left;'>:<br>ף</div>
+            <div id="jkeyA" class="finger4" style='text-align:left;'>A<br>&nbsp; &nbsp; &nbsp;ש</div>
+            <div id="jkeyS" class="finger3" style='text-align:left;'>S<br>&nbsp; &nbsp; &nbsp;ד</div>
+            <div id="jkeyD" class="finger2" style='text-align:left;'>D<br>&nbsp; &nbsp; &nbsp;ג</div>
+            <div id="jkeyF" class="finger1" style='text-align:left;'>F<br>&nbsp; &nbsp; &nbsp;כ</div>
+            <div id="jkeyG" class="normal" style='text-align:left;'>G<br>&nbsp; &nbsp; &nbsp;ע</div>
+            <div id="jkeyH" class="normal" style='text-align:left;'>H<br>&nbsp; &nbsp; &nbsp;י</div>
+            <div id="jkeyJ" class="finger1" style='text-align:left;'>J<br>&nbsp; &nbsp; &nbsp;ח</div>
+            <div id="jkeyK" class="finger2" style='text-align:left;'>K<br>&nbsp; &nbsp; &nbsp;ל</div>
+            <div id="jkeyL" class="finger3" style='text-align:left;'>L<br>&nbsp; &nbsp; &nbsp;ך</div>
+            <div id="jkeycolon" class="finger4" style='text-align:left;'>:<br>&nbsp; &nbsp; &nbsp;ף</div>
             <div id="jkeycomma" class="normal" style='text-align:left;'>"<br>,</div>
             <div id="jkeyenter" class="normal" style="width: 95px;">Enter</div>
         </div>
         <div class="mtrow" style='float: left; margin-left:5px; font-size: 15px !important; line-height: 15px'>
             <div id="jkeyshiftl" class="normal" style="width: 100px;">Shift</div>
-            <div id="jkeyZ" class="normal" style='text-align:left;'>Z<br>ז</div>
-            <div id="jkeyX" class="normal" style='text-align:left;'>X<br>ס</div>
-            <div id="jkeyC" class="normal" style='text-align:left;'>C<br>ב</div>
-            <div id="jkeyV" class="normal" style='text-align:left;'>V<br>ה</div>
-            <div id="jkeyB" class="normal" style='text-align:left;'>B<br>נ</div>
-            <div id="jkeyN" class="normal" style='text-align:left;'>N<br>מ</div>
-            <div id="jkeyM" class="normal" style='text-align:left;'>M<br>צ</div>
-            <div id="jkeyת" class="normal" style='text-align:left;'><b>&gt;<br>ת</b></div>
-            <div id="jkeyץ" class="normal" style='text-align:left;'><b>&lt;<br>ץ</b></div>
+            <div id="jkeyZ" class="normal" style='text-align:left;'>Z<br>&nbsp; &nbsp; &nbsp;ז</div>
+            <div id="jkeyX" class="normal" style='text-align:left;'>X<br>&nbsp; &nbsp; &nbsp;ס</div>
+            <div id="jkeyC" class="normal" style='text-align:left;'>C<br>&nbsp; &nbsp; &nbsp;ב</div>
+            <div id="jkeyV" class="normal" style='text-align:left;'>V<br>&nbsp; &nbsp; &nbsp;ה</div>
+            <div id="jkeyB" class="normal" style='text-align:left;'>B<br>&nbsp; &nbsp; &nbsp;נ</div>
+            <div id="jkeyN" class="normal" style='text-align:left;'>N<br>&nbsp; &nbsp; &nbsp;מ</div>
+            <div id="jkeyM" class="normal" style='text-align:left;'>M<br>&nbsp; &nbsp; &nbsp;צ</div>
+            <div id="jkeyת" class="normal" style='text-align:left;'><b>&lt;<br>&nbsp; &nbsp;&nbsp;ת</b></div>
+            <div id="jkeyץ" class="normal" style='text-align:left;'><b>&gt;<br>&nbsp; &nbsp;&nbsp;ץ</b></div>
             <div id="jkeyperiod" class="normal" style='text-align:left;'>?<br>.</div>
             <div id="jkeyshiftd" class="normal" style="width: 115px;">Shift</div>
         </div>
