@@ -57,12 +57,21 @@ if ($ADMIN->fulltree) {
         get_string('defaultprecision', 'mootyper'), '', 97, $precs));
 
     // Default text alignment.
-    $settings->add(new admin_setting_configtext('mod_mootyper/defaulttextalign',
-        get_string('defaulttextalign', 'mootyper'),
-        get_string('defaulttextalign_help', 'mootyper'),
-        'left', PARAM_TEXT, 6));
+//    $settings->add(new admin_setting_configtext('mod_mootyper/defaulttextalign',
+//        get_string('defaulttextalign', 'mootyper'),
+//        get_string('defaulttextalign_help', 'mootyper'),
+//        'left', PARAM_TEXT, 6));
 
+    $settings->add(new admin_setting_configselect('mod_mootyper/defaulttextalign',
+        new lang_string('defaulttextalign', 'mod_mootyper'),
+        new lang_string('defaulttextalign_help', 'mod_mootyper'), 0,
+//        array(new lang_string('defaulttextalign_left', 'mod_mootyper'),
+//              new lang_string('defaulttextalign_center', 'mod_mootyper'),
+//              new lang_string('defaulttextalign_right', 'mod_mootyper'))));
 
+        array(get_string('defaulttextalign_left', 'mod_mootyper'),
+              get_string('defaulttextalign_center', 'mod_mootyper'),
+              get_string('defaulttextalign_right', 'mod_mootyper'))));
 
     // Default continuous typing setting.
     $settings->add(new admin_setting_configcheckbox_with_advanced('mod_mootyper/continuoustype',

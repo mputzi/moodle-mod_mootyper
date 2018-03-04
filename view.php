@@ -69,7 +69,18 @@ echo '<script src="//code.jquery.com/jquery-1.11.0.min.js"></script>';
 $color1 = $mootyper->statsbgc;
 $color2 = $mootyper->keytopbgc;
 $color3 = $mootyper->keybdbgc;
-$textalign = $mootyper->textalign;
+$gettextalign = $mootyper->textalign;
+$aligns = array(get_string('defaulttextalign_left', 'mod_mootyper'),
+              get_string('defaulttextalign_center', 'mod_mootyper'),
+              get_string('defaulttextalign_right', 'mod_mootyper'));
+foreach ($aligns as $akey => $aval) {
+    if ($akey == $gettextalign) {
+//print_object('akey =' . $akey . ' and aval = ' . $aval);
+        $textalign = $aval;
+    }
+}
+//print_object($textalign);
+//print_object($aligns);
 // Apply colors and text alignment to current MooTyper.
 echo '<style>
       .keyboardback {

@@ -119,12 +119,25 @@ class mod_mootyper_mod_form extends moodleform_mod {
         $mform->addHelpButton('requiredgoal', 'requiredgoal', 'mootyper');
         $mform->setDefault('requiredgoal', $mootyperconfig->defaultprecision);
 
+
+
+
         // Text alignment setup.
-        $attributes = 'size = "10"';
-        $mform->setType('textalign', PARAM_NOTAGS);
-        $mform->addElement('text', 'textalign', get_string('defaulttextalign', 'mootyper'), $attributes);
+        //$attributes = 'size = "10"';
+        //$mform->setType('textalign', PARAM_NOTAGS);
+        //$mform->addElement('text', 'textalign', get_string('defaulttextalign', 'mootyper'), $attributes);
+        //$mform->addHelpButton('textalign', 'defaulttextalign', 'mootyper');
+        //$mform->setDefault('textalign', $mootyperconfig->defaulttextalign);
+
+        // Add a dropdown slector for text alignment.
+        $aligns = array(get_string('defaulttextalign_left', 'mod_mootyper'),
+                      get_string('defaulttextalign_center', 'mod_mootyper'),
+                      get_string('defaulttextalign_right', 'mod_mootyper'));
+        $mform->addElement('select', 'textalign', get_string('defaulttextalign', 'mootyper'), $aligns);
         $mform->addHelpButton('textalign', 'defaulttextalign', 'mootyper');
         $mform->setDefault('textalign', $mootyperconfig->defaulttextalign);
+
+
 
         // Continuous typing setup.
         $mform->addElement('selectyesno', 'continuoustype', get_string('continuoustype', 'mootyper'));
