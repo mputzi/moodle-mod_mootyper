@@ -85,9 +85,9 @@ echo (isset($displaynone) && ($displaynone == true)) ? 'display:none;' : '';
                 <div id="jkeyl" class="finger3">L</div>
                 <div id="jkeym" class="finger4">M</div>
                 <div id="jkeyù" class="normal" style='text-align:left;'>%<br>ù
-                    <span style="color:red">&nbsp;&nbsp;&nbsp;´</span></div>
+                    <span style="color:red">&nbsp;&nbsp;´</span></div>
                 <div id="jkeyµ" class="normal" style='text-align:left;'>£<br>µ
-                    <span style="color:red">&nbsp;&nbsp;&nbsp;`</span></div>
+                    <span style="color:red">&nbsp;&nbsp;`</span></div>
             </div>
         </div>
         <div class="mtrow" style='float: left; margin-left:5px; font-size: 15px !important; line-height: 15px'>
