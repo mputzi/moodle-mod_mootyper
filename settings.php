@@ -56,19 +56,18 @@ if ($ADMIN->fulltree) {
     $settings->add(new admin_setting_configselect('mod_mootyper/defaultprecision',
         get_string('defaultprecision', 'mootyper'), '', 97, $precs));
 
-    // Default text alignment.
-//    $settings->add(new admin_setting_configtext('mod_mootyper/defaulttextalign',
-//        get_string('defaulttextalign', 'mootyper'),
-//        get_string('defaulttextalign_help', 'mootyper'),
-//        'left', PARAM_TEXT, 6));
-
+    // Default text alignment while typing an exercise.
     $settings->add(new admin_setting_configselect('mod_mootyper/defaulttextalign',
-        new lang_string('defaulttextalign', 'mod_mootyper'),
-        new lang_string('defaulttextalign_help', 'mod_mootyper'), 0,
-//        array(new lang_string('defaulttextalign_left', 'mod_mootyper'),
-//              new lang_string('defaulttextalign_center', 'mod_mootyper'),
-//              new lang_string('defaulttextalign_right', 'mod_mootyper'))));
+        get_string('defaulttextalign', 'mod_mootyper'),
+        get_string('defaulttextalign_help', 'mod_mootyper'), 0,
+        array(get_string('defaulttextalign_left', 'mod_mootyper'),
+              get_string('defaulttextalign_center', 'mod_mootyper'),
+              get_string('defaulttextalign_right', 'mod_mootyper'))));
 
+    // Default text alignment while editing or creating an exercise.
+    $settings->add(new admin_setting_configselect('mod_mootyper/defaulteditalign',
+        get_string('defaulteditalign', 'mod_mootyper'),
+        get_string('defaulteditalign_help', 'mod_mootyper'), 0,
         array(get_string('defaulttextalign_left', 'mod_mootyper'),
               get_string('defaulttextalign_center', 'mod_mootyper'),
               get_string('defaulttextalign_right', 'mod_mootyper'))));

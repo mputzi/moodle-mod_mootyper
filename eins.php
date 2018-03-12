@@ -81,7 +81,19 @@ if (isset($param1) && get_string('fconfirm', 'mootyper') == $param1 ) {
     ));
     $event->trigger();
 }
+// Get all the default configuration settings for MooTyper.
+$moocfg = get_config('mod_mootyper');
 
+// Check to see if configuration for MooTyper defaulteditalign is set.
+if (isset($moocfg->defaulteditalign)) {
+    // Current MooTyper edittalign is set so use it.
+    $editalign = optional_param('editalign', $moocfg->defaulteditalign, PARAM_INT);
+    $align = $editalign;
+} else {
+    // Current MooTyper edittalign is NOT set so set it to left.
+    $editalign = optional_param('editalign', 0, PARAM_INT);
+    $align = $editalign;
+}
 // Print the page header.
 
 $PAGE->set_url('/mod/mootyper/eins.php', array('id' => $course->id));
@@ -177,8 +189,30 @@ function clClick()
 </script>
 
 <?php
+// Get our alignment strings and add a selector for text alignment.
+$aligns = array(get_string('defaulttextalign_left', 'mod_mootyper'),
+              get_string('defaulttextalign_center', 'mod_mootyper'),
+              get_string('defaulttextalign_right', 'mod_mootyper'));
+echo '<br><br><span id="editalign" class="">'.get_string('defaulttextalign', 'mootyper').': ';
+echo '<select onchange="this.form.submit()" name="editalign">';
+// This will loop through ALL three alignments and show current alignment setting.
+foreach ($aligns as $akey => $aval) {
+    // The first if is executed ONLY when, when defaulttextalign matches one of the alignments
+    // and it will then show that alignment in the selector.
+    if ($akey == $editalign) {
+        echo '<option value="'.$akey.'" selected="true">'.$aval.'</option>';
+        $align = $aval;
+    } else {
+        // This part of the if is reached the most and its when an alignment
+        // is is not the one selected.
+        echo '<option value="'.$akey.'">'.$aval.'</option>';
+    }
+}
+
+echo '</select></span>'.get_string('defaulttextalign_warning', 'mootyper');
+
 echo '<br><span id="text_holder_span" class=""></span><br>'.get_string('fexercise', 'mootyper').':<br>'.
-     '<textarea rows="4" cols="60" name="texttotype" id="texttotype"></textarea><br>'.
+     '<textarea rows="4" cols="60" name="texttotype" id="texttotype"style="text-align:'.$align.'"></textarea><br>'.
      '<br><input name="button" onClick="return clClick()" type="submit" value="'.get_string('fconfirm', 'mootyper').'">'.
      '</form>';
 

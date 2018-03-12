@@ -64,7 +64,6 @@ $countmistypedspacespo = optional_param('countmistypedspaces', "off", PARAM_CLEA
 $statscolor = optional_param('statscolor', $mootyper->statsbgc, PARAM_CLEAN);
 $keytopcolor = optional_param('keytopcolor', $mootyper->keytopbgc, PARAM_CLEAN);
 $backgroundcolor = optional_param('backgroundcolor', $mootyper->keybdbgc, PARAM_CLEAN);
-//$textalign = optional_param('textalign', $mootyper->textalign, PARAM_CLEAN);
 $textalign = optional_param('textalign', $mootyper->textalign, PARAM_INT);
 
 // Check to see if current MooTyper precision goal is empty.
@@ -77,7 +76,7 @@ if ($mootyper->requiredgoal == null || is_null($mootyper->requiredgoal)) {
 }
 $goalpo = optional_param('requiredgoal', $dfgoal, PARAM_INT); // Display with default or current setting.
 
-// Check to see if current MooTyper textalign is empty.
+// Check to see if current MooTyper activity textalign is empty.
 if ($mootyper->textalign == null || is_null($mootyper->textalign)) {
     // Current MooTyper textalign is empty so set it to the site default.
     $dftextalign = $moocfg->defaulttextalign;
@@ -85,7 +84,6 @@ if ($mootyper->textalign == null || is_null($mootyper->textalign)) {
     // Otherwise use current MooTyper textalign.
     $dftextalign = $mootyper->textalign;
 }
-//$textalignpo = optional_param('textalign', $dftextalign, PARAM_TEXT); // Display with default or current setting.
 $textalignpo = optional_param('textalign', $dftextalign, PARAM_INT); // Display with default or current setting.
 
 // Check to see if current MooTyper continuoustype is empty.
@@ -168,7 +166,6 @@ if (isset($param1) && get_string('fconfirm', 'mootyper') == $param1) {
     if ($goalpo == 0) {
         $goalpo = $moocfg->defaultprecision;
     }
-//    $textalignpo = optional_param('textalign', $dftextalign, PARAM_TEXT); // Display with default or current setting.
     $textalignpo = optional_param('textalign', $dftextalign, PARAM_INT); // Display with default or current setting.
 
     $continuoustypepo = optional_param('continuoustype', null, PARAM_CLEAN);
@@ -273,47 +270,30 @@ if ($modepo == 0 || is_null($modepo)) { // Since mode is 0, this is a lesson?
     $htmlout .= '</select></td></tr>';
 }
 
-
-
-// Add entry box for Text alignment setting.
-//$htmlout .= '<tr><td>'.get_string('defaulttextalign', 'mootyper').'</td><td>';
-//$htmlout .= '<input value="'.$textalignpo.'" style="width: 55px;" type="text" name="textalign"></td></tr>';
-
-
-
 // Add a selector for text alignment.
 $aligns = array(get_string('defaulttextalign_left', 'mod_mootyper'),
               get_string('defaulttextalign_center', 'mod_mootyper'),
               get_string('defaulttextalign_right', 'mod_mootyper'));
 $defaulttextalign = $moocfg->defaulttextalign;
 
-//print_object($moocfg->defaulttextalign);
-
-
 $htmlout .= '<tr><td>'.get_string('defaulttextalign', 'mootyper').'</td><td><select name="textalign">';
 // Get the ID and name of each alignment in the DB.
 foreach ($aligns as $akey => $aval) {
     // The first if is executed ONLY when, Text alignment, is
-    // clicked to change alignment. 
+    // clicked to change alignment.
     if ($akey == $defaulttextalign) {
-//print_object('in main if ' . $defaulttextalign . ' akey = '. $akey . ' aval = ' . $aval);
         $htmlout .= '<option value="'.$akey.'" selected="true">'.$aval.'</option>';
     } else if ($akey == $textalignpo) {
-//print_object('in first else ' . $defaulttextalign . ' akey = '. $akey . ' aval = ' . $aval);
         // This part of the if is reached when going to setup with an
         // alignment already selected and it is the one already in use.
         $htmlout .= '<option value="'.$akey.'" selected="true">'.$aval.'</option>';
     } else {
-//print_object('in second else ' . $defaulttextalign . ' akey = '. $akey . ' aval = ' . $aval);
         // This part of the if is reached the most and its when an alignment
-        // is already selected but it is not the one being checked.
+        // is already selected but it is not the one being selected.
         $htmlout .= '<option value="'.$akey.'">'.$aval.'</option>';
     }
 }
-
-
-
-
+$htmlout .= '</select>';
 
 // Need to keep the next line as it is helping get rid of _POST in line 267.
 $tempchkkb = optional_param('showkeyboard', 0, PARAM_BOOL);
