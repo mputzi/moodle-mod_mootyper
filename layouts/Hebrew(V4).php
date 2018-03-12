@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * This file defines the English(USV4)keyboard layout.
+ * This file defines the Hebrew(V4)keyboard layout.
  *
  * @package    mod_mootyper
  * @copyright  2012 Jaka Luthar (jaka.luthar@gmail.com)
@@ -60,8 +60,8 @@ echo (isset($displaynone) && ($displaynone == true)) ? 'display:none;' : '';
             <div id="jkeyI" class="normal" style='text-align:left;'>I<br>&nbsp; &nbsp; &nbsp;ן</div>
             <div id="jkeyO" class="normal" style='text-align:left;'>O<br>&nbsp; &nbsp; &nbsp;ם</div>
             <div id="jkeyP" class="normal" style='text-align:left;'>P<br>&nbsp; &nbsp; &nbsp;פ</div>
-            <div id="jkeybracketl" class="normal" style='text-align:left;' style='font-size: 15px !important; line-height: 15px'>{<br>[</div>
-            <div id="jkeybracketr" class="normal" style='text-align:left;' style='font-size: 15px !important; line-height: 15px'>}<br>]</div>
+            <div id="jkeybracketl" class="normal" style='text-align:left;'>{<br>[</div>
+            <div id="jkeybracketr" class="normal" style='text-align:left;'>}<br>]</div>
             <div id="jkeybackslash" class="normal" style='width: 75px; text-align:left;'>|<br>\</div>
         </div>
         <div class="mtrow" style='float: left; margin-left:5px; font-size: 15px !important; line-height: 15px'>

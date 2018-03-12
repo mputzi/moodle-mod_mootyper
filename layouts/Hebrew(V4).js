@@ -52,18 +52,13 @@ THE_LAYOUT = 'Hebrew(V4)';
 function keyboardElement(ltr) {
     this.chr = ltr.toUpperCase();
     this.alt = false;
-//    if (isLetter(ltr)) {
-//        this.shift = ltr.toUpperCase() === ltr;
-//    } else {
 
-//alert('In the keyboardElement(ltr) function '+ltr);
-
-        // @codingStandardsIgnoreLine
-        if (ltr.match(/[QWERTYUIOPASDFGHJKLZXCVBNM~!@#$%^&*()_+{}|:"<>?]/i)) {
-            this.shift = true;
-        } else {
-            this.shift = false;
-        }
+    // @codingStandardsIgnoreLine
+    if (ltr.match(/[QWERTYUIOPASDFGHJKLZXCVBNM~!@#$%^&*()_+{}|:"<>?]/i)) {
+        this.shift = true;
+    } else {
+        this.shift = false;
+    }
     // Set flags for characters needing Alt Gr key.
     // @codingStandardsIgnoreLine
     if (ltr.match(/[€₪־װױײ]/i)) {
@@ -71,10 +66,8 @@ function keyboardElement(ltr) {
         this.alt = true;
         this.accent = false;
     }
-//alert('this shift is '+this.shift);
-//    }
+
     this.turnOn = function() {
-//alert('this chr is '+this.chr);
         if (isLetter(this.chr)) {
             document.getElementById(getKeyID(this.chr)).className = "next" + thenFinger(this.chr.toUpperCase());
         } else if (this.chr === ' ') {
