@@ -57,9 +57,14 @@ function doTheEnd() {
     $('input[name="rpSpeedInput"]').val(speed);
     $('#tb1').attr('disabled', 'disabled');
     $('#btnContinue').css('visibility', 'visible');
+    // Calculate and add Words per minute to status bar.
     var wpm = (speed / 5) - mistakes;
     $('#jsWpm').html(wpm.toFixed(2));
     $('#jsWpm2').html(wpm.toFixed(2));
+    // Update status bar with final progess display.
+    $('#jsProgress2').html(currentPos + "/" + fullText.length);
+    // Update status bar with final mistake count
+    $('#jsMistakes2').html(mistakes);
 
     var rpAttId = document.form1.rpAttId.value;
 
@@ -163,10 +168,12 @@ function keyPressed(e) {
 
     var keychar = getPressedChar(e);
     if (keychar === currentChar || ((currentChar === '\n' || currentChar === '\r\n' || currentChar === '\n\r' || currentChar === '\r') && (keychar === ' '))) {
-        if(currentPos === fullText.length - 1) {  // Student is at the end of the exercise.
+        if (currentPos === fullText.length - 1) {  // Student is at the end of the exercise.
             $('#tb1').val($('#tb1').val() + currentChar);
             var elemOff = new keyboardElement(currentChar);
             elemOff.turnOff();
+            currentChar = fullText[currentPos + 1];
+            currentPos++;
             doTheEnd();
             return true;
         }
@@ -214,6 +221,15 @@ function keyPressed(e) {
             }
         }
         moveCursor(currentPos + 1);
+		if (currentPos === fullText.length - 1) {  // Student is at the end of the exercise.
+			$('#tb1').val($('#tb1').val() + currentChar);
+			var elemOff = new keyboardElement(currentChar);
+			elemOff.turnOff();
+            currentChar = fullText[currentPos + 1];
+            currentPos++;
+			doTheEnd();
+			return true;
+		}
         currentChar = fullText[currentPos + 1];
         currentPos++;
         return true;
