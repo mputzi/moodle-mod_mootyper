@@ -64,7 +64,11 @@ class backup_mootyper_activity_structure_step extends backup_activity_structure_
                                               'statsbgc',
                                               'keytopbgc',
                                               'keybdbgc',
-                                              'textalign'));
+                                              'textalign',
+                                              'coursorcolor',
+                                              'textbgc',
+                                              'texterrorcolor'.
+                                              'countmistakes'));
 
         $attempts = new backup_nested_element('attempts');
 
