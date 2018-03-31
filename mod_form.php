@@ -139,6 +139,12 @@ class mod_mootyper_mod_form extends moodleform_mod {
         $mform->setDefault('countmistypedspaces', $mootyperconfig->countmistypedspaces);
         $mform->setAdvanced('countmistypedspaces', $mootyperconfig->countmistypedspaces_adv);
 
+        // Count mistakes setup.
+        $mform->addElement('selectyesno', 'countmistakes', get_string('countmistakes', 'mootyper'));
+        $mform->addHelpButton('countmistakes', 'countmistakes', 'mootyper');
+        $mform->setDefault('countmistakes', $mootyperconfig->countmistakes);
+        $mform->setAdvanced('countmistakes', $mootyperconfig->countmistakes_adv);
+
         // Show keyboard setup.
         $mform->addElement('selectyesno', 'showkeyboard', get_string('showkeyboard', 'mootyper'));
         $mform->addHelpButton('showkeyboard', 'showkeyboard', 'mootyper');
@@ -170,6 +176,24 @@ class mod_mootyper_mod_form extends moodleform_mod {
         $mform->addElement('text', 'keybdbgc', get_string('keybdbgc', 'mootyper'), $attributes);
         $mform->addHelpButton('keybdbgc', 'keybdbgc', 'mootyper');
         $mform->setDefault('keybdbgc', $mootyperconfig->keyboardbgc);
+
+        // Add setting for cursor color.
+        $mform->setType('cursorcolor', PARAM_NOTAGS);
+        $mform->addElement('text', 'cursorcolor', get_string('cursorcolor', 'mootyper'), $attributes);
+        $mform->addHelpButton('cursorcolor', 'cursorcolor', 'mootyper');
+        $mform->setDefault('cursorcolor', $mootyperconfig->cursorcolor);
+
+        // Add setting for texttotype background color.
+        $mform->setType('textbgc', PARAM_NOTAGS);
+        $mform->addElement('text', 'textbgc', get_string('textbgc', 'mootyper'), $attributes);
+        $mform->addHelpButton('textbgc', 'textbgc', 'mootyper');
+        $mform->setDefault('textbgc', $mootyperconfig->textbgc);
+
+        // Add setting for mistyped text background color.
+        $mform->setType('texterrorcolor', PARAM_NOTAGS);
+        $mform->addElement('text', 'texterrorcolor', get_string('texterrorcolor', 'mootyper'), $attributes);
+        $mform->addHelpButton('texterrorcolor', 'texterrorcolor', 'mootyper');
+        $mform->setDefault('texterrorcolor', $mootyperconfig->texterrorcolor);
 
         // MooTyper activity, link to Lesson/Categories and exercises.
         $mform->addElement('header', 'mootyperz', get_string('pluginadministration', 'mootyper'));

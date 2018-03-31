@@ -82,6 +82,11 @@ if ($ADMIN->fulltree) {
         get_string('countmistypedspaces', 'mootyper'), get_string('countmistypedspaces_help', 'mootyper'),
         array('value' => 0, 'adv' => false)));
 
+    // Default count each wrong keystroke as a mistake setting.
+    $settings->add(new admin_setting_configcheckbox_with_advanced('mod_mootyper/countmistakes',
+        get_string('countmistakes', 'mootyper'), get_string('countmistakes_help', 'mootyper'),
+        array('value' => 0, 'adv' => false)));
+
     // Default show keyboard setting.
     $settings->add(new admin_setting_configcheckbox_with_advanced('mod_mootyper/showkeyboard',
         get_string('showkeyboard', 'mootyper'), get_string('showkeyboard_help', 'mootyper'),
@@ -167,6 +172,33 @@ if ($ADMIN->fulltree) {
     $title = get_string('keyboardbgc_title', 'mootyper');
     $description = get_string('keyboardbgc_descr', 'mootyper');
     $default = get_string('keyboardbgc_colour', 'mootyper');
+    $setting = new admin_setting_configcolourpicker($name, $title, $description, $default);
+    $setting->set_updatedcallback('theme_reset_all_caches');
+    $settings->add($setting);
+
+    // Cursor colour setting.
+    $name = 'mod_mootyper/cursorcolor';
+    $title = get_string('cursorcolor_title', 'mootyper');
+    $description = get_string('cursorcolor_descr', 'mootyper');
+    $default = get_string('cursorcolor_colour', 'mootyper');
+    $setting = new admin_setting_configcolourpicker($name, $title, $description, $default);
+    $setting->set_updatedcallback('theme_reset_all_caches');
+    $settings->add($setting);
+
+    // Text background colour setting.
+    $name = 'mod_mootyper/textbgc';
+    $title = get_string('textbgc_title', 'mootyper');
+    $description = get_string('textbgc_descr', 'mootyper');
+    $default = get_string('textbgc_colour', 'mootyper');
+    $setting = new admin_setting_configcolourpicker($name, $title, $description, $default);
+    $setting->set_updatedcallback('theme_reset_all_caches');
+    $settings->add($setting);
+
+    // Text error background colour setting.
+    $name = 'mod_mootyper/texterrorcolor';
+    $title = get_string('texterrorcolor_title', 'mootyper');
+    $description = get_string('texterrorcolor_descr', 'mootyper');
+    $default = get_string('texterrorcolor_colour', 'mootyper');
     $setting = new admin_setting_configcolourpicker($name, $title, $description, $default);
     $setting->set_updatedcallback('theme_reset_all_caches');
     $settings->add($setting);

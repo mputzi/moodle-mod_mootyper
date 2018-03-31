@@ -2,6 +2,7 @@ var startTime,
     endTime,
     mistakes,
     currentPos,
+	keyResult,
     started = false,
     ended = false,
     currentChar,
@@ -13,37 +14,100 @@ var startTime,
     THE_LAYOUT,
     continuousType,
     countMistypedSpaces,
+    countMistakes,
     keyupCombined,
     keyupFirst;
 
 /**
  * If not the end of fullText, move cursor to next character.
+ * Color the previous character according to result.
  *
  * @param {number} nextPos.
  */
 function moveCursor(nextPos) {
     if (nextPos > 0 && nextPos <= fullText.length) {
-        $('#crka' + (nextPos - 1)).addClass('txtGreen');
-        $('#crka' + (nextPos - 1)).removeClass('txtBlue');
-        $('#crka' + (nextPos - 1)).removeClass('txtRed');
+		$('#crka' + (nextPos - 1)).removeClass('txtBlue');
+		if(keyResult) {
+			$('#crka' + (nextPos - 1))
+			.removeClass('txtBlack')
+			.removeClass('txtRed')
+			.addClass('txtGreen');
+        }
+		else {
+            if (!(countMistakes)) {
+                // Even with multiple keystrokes on the wrong key, only one mistake is counted.
+                mistakes++; 
+//console.log("In the NOT countMistakes "+ countMistakes + " and mistake count is "+mistakes);
+            }
+			$('#crka' + (nextPos - 1))
+			.removeClass('txtBlack')
+			.removeClass('txtGreen')
+			.addClass('txtRed');
+		}
+	
     }
     if (nextPos < fullText.length) {
         $('#crka' + nextPos).addClass('txtBlue');
     }
+	keyResult = true;
+	scroll_to_next_line($('#crka' + nextPos));
 }
+
+/**
+* Scroll to object.
+*
+* @param {DOM object} obj
+*/
+function scroll_to_next_line(obj) {
+    var scrollBox = $('#texttoenter');
+    if($(obj).length > 0) {
+        scrollBox.animate({
+            scrollTop: $(obj).offset().top - scrollBox.offset().top + scrollBox.scrollTop()
+        },10);
+    }
+}
+/**
+* Init scrolling text when document ready
+*/
+$(document).ready(function() {
+	
+//	$('#texttoenter span').css({
+//		"font-size":"20px"
+//	});
+//	$('#texttoenter').css({
+//		"overflow-y":"scroll",
+//		"max-height":"150px"
+//	});
+	
+	$('#keyboard textarea:last').css({
+		"height": "16px",
+		"font-size": "10pt",
+		"opacity": "0.0"
+	});
+	
+	$("html, body").keyup(function(e) {
+		scroll_to_next_line($('#crka' + currentPos));
+	})
+	.mouseup(function(e) {
+		$('#keyboard textarea:last').focus();
+	});
+	
+	$('#keyboard textarea:last').focus();
+	
+	scroll_to_next_line($("#keyboard"));
+});
 
 /**
  * End of typing.
  *
  */
 function doTheEnd() {
-    $('#crka' + (fullText.length - 1)).addClass('txtGreen');
-    $('#crka' + (fullText.length - 1)).removeClass('txtBlue');
-    $('#crka' + (fullText.length - 1)).removeClass('txtRed');
     ended = true;
     clearInterval(intervalID);
     clearInterval(interval2ID);
     endTime = new Date();
+    // Update status bar with final data.
+    var updateAll = updTimeSpeed();
     differenceT = timeDifference(startTime, endTime);
     var hours = differenceT.getHours();
     var mins = differenceT.getMinutes();
@@ -57,19 +121,14 @@ function doTheEnd() {
     $('input[name="rpSpeedInput"]').val(speed);
     $('#tb1').attr('disabled', 'disabled');
     $('#btnContinue').css('visibility', 'visible');
-    // Calculate and add Words per minute to status bar.
     var wpm = (speed / 5) - mistakes;
-    $('#jsWpm').html(wpm.toFixed(2));
     $('#jsWpm2').html(wpm.toFixed(2));
-    // Update status bar with final progess display.
-    $('#jsProgress2').html(currentPos + "/" + fullText.length);
-    // Update status bar with final mistake count
-    $('#jsMistakes2').html(mistakes);
-
     var rpAttId = document.form1.rpAttId.value;
-
     var juri = appUrl + "/mod/mootyper/atchk.php?status=3&attemptid=" + $('input[name="rpAttId"]').val();
     $.get(juri, function(data) { });
+    // At the end, add a scroll bar so student can see all the text and their mistakes.
+    $('#texttoenter').css({"overflow-y":"scroll"});
+    scroll_to_next_line($("#reportDiv input:last").focus());
 }
 
 /**
@@ -141,6 +200,7 @@ function doStart() {
     mistakes = 0;
     currentPos = 0;
     started = true;
+	keyResult = true;
     currentChar = fullText[currentPos];
     intervalID = setInterval('updTimeSpeed()', 1000);
     var rpMootyperId = $('input[name="rpSityperId"]').val();
@@ -168,7 +228,8 @@ function keyPressed(e) {
 
     var keychar = getPressedChar(e);
     if (keychar === currentChar || ((currentChar === '\n' || currentChar === '\r\n' || currentChar === '\n\r' || currentChar === '\r') && (keychar === ' '))) {
-        if (currentPos === fullText.length - 1) {  // Student is at the end of the exercise.
+        moveCursor(currentPos + 1);
+        if(currentPos === fullText.length - 1) {  // Student is at the end of the exercise.
             $('#tb1').val($('#tb1').val() + currentChar);
             var elemOff = new keyboardElement(currentChar);
             elemOff.turnOff();
@@ -194,14 +255,19 @@ function keyPressed(e) {
                 $("#form1").on("keyup", "#tb1", keyupFirst);
             }
         }
-        moveCursor(currentPos + 1);
+ //       moveCursor(currentPos + 1);
         currentChar = fullText[currentPos + 1];
         currentPos++;
         return true;
     } else if (keychar === ' ' && !countMistypedSpaces) { // Ignore mistyped extra spaces unless set to count them.
         return false;
     } else {
-        mistakes++; // Typed the wrong letter so increment mistake count.
+        if (countMistakes) {
+            // With multiple keystrokes on the wrong key, each wrong keystroke is counted.
+            mistakes++; // Typed the wrong letter so increment mistake count.
+//console.log("In the DO countMistakes "+ countMistakes + " and mistake count is "+mistakes);
+        }
+		keyResult = false; // Mistake count increased after correct key is typed if above disabled and line 37 enabled.
         if ((!continuousType && !countMistypedSpaces) || (!continuousType && countMistypedSpaces)) { // If not set for continuous typing, wait for correct letter.
             return false;
         } else if (currentPos < fullText.length - 1) { // If continuous typing, show wrong letter and move on.
@@ -220,16 +286,16 @@ function keyPressed(e) {
                 $("#form1").on("keyup", "#tb1", keyupFirst);
             }
         }
-        moveCursor(currentPos + 1);
-		if (currentPos === fullText.length - 1) {  // Student is at the end of the exercise.
-			$('#tb1').val($('#tb1').val() + currentChar);
-			var elemOff = new keyboardElement(currentChar);
-			elemOff.turnOff();
+       moveCursor(currentPos + 1);
+        if (currentPos === fullText.length - 1) {  // Student is at the end of the exercise.
+            $('#tb1').val($('#tb1').val() + currentChar);
+            var elemOff = new keyboardElement(currentChar);
+            elemOff.turnOff();
             currentChar = fullText[currentPos + 1];
             currentPos++;
-			doTheEnd();
-			return true;
-		}
+            doTheEnd();
+            return true;
+        }
         currentChar = fullText[currentPos + 1];
         currentPos++;
         return true;
@@ -292,11 +358,12 @@ function timeDifference(t1, t2) {
  * @param {boolean} tcontinuoustype.
  * @param {boolean} tcountmistypedspaces.
  */
-function inittexttoenter(ttext, tinprogress, tmistakes, thits, tstarttime, tattemptid, turl, tshowkeyboard, tcontinuoustype, tcountmistypedspaces) {
+function inittexttoenter(ttext, tinprogress, tmistakes, thits, tstarttime, tattemptid, turl, tshowkeyboard, tcontinuoustype, tcountmistypedspaces, tcountmistakes) {
     $("#form1").on("keypress", "#tb1", keyPressed);
     showKeyboard = tshowkeyboard;
     continuousType = tcontinuoustype;
     countMistypedSpaces = tcountmistypedspaces;
+    countMistakes = tcountmistakes;
     fullText = ttext;
     appUrl = turl;
     var tempStr = "";
@@ -329,9 +396,9 @@ function inittexttoenter(ttext, tinprogress, tmistakes, thits, tstarttime, tatte
         for (var j = currentPos + 1; j < ttext.length; j++) {
             var tChar = ttext[j];
             if (tChar === '\n') {
-                tempStr += "<span id='crka" + j + "' class='txtRed'>&darr;</span><br>";
+                tempStr += "<span id='crka" + j + "' class='txtBlack'>&darr;</span><br>";
             } else {
-                tempStr += "<span id='crka" + j + "' class='txtRed'>" + tChar + "</span>";
+                tempStr += "<span id='crka" + j + "' class='txtBlack'>" + tChar + "</span>";
             }
         }
     } else {
@@ -344,9 +411,9 @@ function inittexttoenter(ttext, tinprogress, tmistakes, thits, tstarttime, tatte
                     $("#form1").on("keyup", "#tb1", keyupCombined);
                 }
             } else if (tChar === '\n') {
-                tempStr += "<span id='crka" + i + "' class='txtRed'>&darr;</span><br>";
+                tempStr += "<span id='crka" + i + "' class='txtBlack'>&darr;</span><br>";
             } else {
-                tempStr += "<span id='crka" + i + "' class='txtRed'>" + tChar + "</span>";
+                tempStr += "<span id='crka" + i + "' class='txtBlack'>" + tChar + "</span>";
             }
         }
     }
@@ -370,7 +437,12 @@ function inittexttoenter(ttext, tinprogress, tmistakes, thits, tstarttime, tatte
  * @returns {number}.
  */
 function calculateSpeed(sc) {
-    return (((currentPos + mistakes) * 60) / sc);
+    if ((!continuousType && !countMistypedSpaces) || (!continuousType && countMistypedSpaces)) {
+        return (((currentPos + mistakes) * 60) / sc); // Normally use this.
+    } else {
+        // return (((currentPos - mistakes) * 60) / sc); //  only correctly typed count
+        return ((currentPos * 60) / sc); // Use this when set to continuous type.
+    }
 }
 
 /**
@@ -384,7 +456,8 @@ function calculateAccuracy() {
     if (currentPos + mistakes === 0) {
         return 0;
     }
-    return ((currentPos * 100) / (currentPos + mistakes));
+    // return ((currentPos * 100) / (currentPos + mistakes));
+    return (((currentPos - mistakes) * 100) / currentPos); //  only correctly typed count
 }
 
 /**
@@ -404,8 +477,6 @@ function updTimeSpeed() {
     tDifference = timeDifference(startTime, newCas);
     var secs = converToSeconds(tDifference.getHours(), tDifference.getMinutes(), tDifference.getSeconds());
 
-    $('#jsTime').html(secs);
-
     // Each minute when seconds display is less than 10 seconds, add leading 0:0.
     if (tDifference.getSeconds() < 10) {
         $('#jsTime2').html(tDifference.getMinutes() + ':0' + tDifference.getSeconds());
@@ -414,15 +485,14 @@ function updTimeSpeed() {
         $('#jsTime2').html(tDifference.getMinutes() + ':' + tDifference.getSeconds());
     }
 
-    $('#jsProgress').html(currentPos + "/" + fullText.length);
     $('#jsProgress2').html(currentPos + "/" + fullText.length);
 
-    $('#jsMistakes').html(mistakes);
     $('#jsMistakes2').html(mistakes);
 
-    $('#jsSpeed').html(calculateSpeed(secs).toFixed(2));
     $('#jsSpeed2').html(calculateSpeed(secs).toFixed(2));
 
-    $('#jsAcc').html(calculateAccuracy(fullText, mistakes).toFixed(2));
     $('#jsAcc2').html(calculateAccuracy(fullText, mistakes).toFixed(2));
+
+    var wpm = (calculateSpeed(secs) / 5) - mistakes;
+    $('#jsWpm2').html(wpm.toFixed(2));
 }

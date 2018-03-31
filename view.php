@@ -69,6 +69,11 @@ echo '<script src="//code.jquery.com/jquery-1.11.0.min.js"></script>';
 $color1 = $mootyper->statsbgc;
 $color2 = $mootyper->keytopbgc;
 $color3 = $mootyper->keybdbgc;
+$color4 = $mootyper->cursorcolor;
+$color5 = $mootyper->textbgc;
+$color6 = $mootyper->texterrorcolor;
+$mistakessetting = $mootyper->countmistakes;
+
 $gettextalign = $mootyper->textalign;
 $aligns = array(get_string('defaulttextalign_left', 'mod_mootyper'),
               get_string('defaulttextalign_center', 'mod_mootyper'),
@@ -80,28 +85,48 @@ foreach ($aligns as $akey => $aval) {
 }
 // Apply colors and text alignment to current MooTyper.
 echo '<style>
-      .keyboardback {
-       background-color: '.$color3.'
-       }
-       .normal {
-       background: '.$color2.'
-       }
-       div#statsLDiv {
-       background: '.$color1.'
-       }
-       div#statsMDiv {
-       background: '.$color1.'
-       }
-       div#statsRDiv {
-       background: '.$color1.'
-       }
-       #texttoenter {
-       text-align: '.$textalign.'
-       }
-       .tb1 {
-       text-align: '.$textalign.'
-       }
-       </style>';
+    .keyboardback {
+        background-color: '.$color3.';
+        box-shadow:
+            0 1px 0 #aaa,
+            0 4px 0 #bbb,
+            0 5px 0px #ddd;
+    }
+    .normal {
+        background: '.$color2.'
+    }
+    div#statsLDiv {
+        background: '.$color1.'
+    }
+    div#statsMDiv {
+        background: '.$color1.'
+    }
+    div#statsRDiv {
+        background: '.$color1.'
+    }
+    #texttoenter {
+        text-align: '.$textalign.';
+        line-height: 1.2;
+        background-color: '.$color5.';
+        padding:0px 10px 0px 10px;
+        border: 1px solid black;
+        box-shadow:
+            0 1px 0 #aaa,
+            0 4px 0 #bbb,
+            0 5px 0px #ddd;
+        border-top-left-radius: 10px ;
+        border-bottom-left-radius: 10px ;
+    }
+    .tb1 {
+        text-align: '.$textalign.'
+    }
+    .txtBlue {
+        background-color: '.$color4.'
+    }
+    .txtRed {
+        background-color: '.$color6.'
+    }
+    </style>';
 
 
 if ($mootyper->intro) {
@@ -282,7 +307,14 @@ if ($mootyper->lesson != null) {
     </div>
 </div>
 <br>
-<br />
+<textarea name="tb1" wrap="off" id="tb1" class="tb1" onfocus="return focusSet(event)"  
+		onpaste="return false" onselectstart="return false"
+		onCopy="return false" onCut="return false" 
+		onDrag="return false" onDrop="return false" autocomplete="off">
+		<?php
+		echo get_string('chere', 'mootyper') . '...';
+		?>
+</textarea>
 <div style="float: left; padding-bottom: 10px;" id="texttoenter"></div><br />
         <?php
         if ($mootyper->showkeyboard) {
@@ -293,15 +325,6 @@ if ($mootyper->lesson != null) {
         $keyboard = get_instance_layout_file($mootyper->layout);
         include($keyboard);
         ?>
-<br />
-    <textarea name="tb1" wrap="off" id="tb1" class="tb1" onfocus="return focusSet(event)"  
-            onpaste="return false" onselectstart="return false"
-            onCopy="return false" onCut="return false" 
-            onDrag="return false" onDrop="return false" autocomplete="off">
-            <?php
-            echo get_string('chere', 'mootyper') . '...';
-            ?>
-    </textarea>
 </div>
 </form>
 </div>
@@ -323,11 +346,11 @@ if ($mootyper->lesson != null) {
         if (is_null($record)) {
             echo '<script type="text/javascript">inittexttoenter("' . $texttoinit . '", 0, 0, 0, 0, 0, "' .
                 $CFG->wwwroot . '", ' . $mootyper->showkeyboard . ', ' . $mootyper->continuoustype .
-                ', '. $mootyper->countmistypedspaces . ');</script>';
+                ', '. $mootyper->countmistypedspaces . ', '. $mootyper->countmistakes . ');</script>';
         } else {
             echo '<script type="text/javascript">inittexttoenter("' . $texttoinit . '", 1, ' . $record->mistakes . ', ' .
                 $record->hits . ', ' . $record->timetaken . ', ' . $record->attemptid . ', "' . $CFG->wwwroot . '", ' .
-                $mootyper->showkeyboard . ', ' . $mootyper->continuoustype .', '. $mootyper->countmistypedspaces . ');</script>';
+                $mootyper->showkeyboard . ', ' . $mootyper->continuoustype .', '. $mootyper->countmistypedspaces . ', '. $mootyper->countmistakes . ');</script>';
         }
     } else {
         echo get_string('endlesson', 'mootyper');
