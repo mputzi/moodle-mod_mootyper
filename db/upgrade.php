@@ -213,12 +213,54 @@ function xmldb_mootyper_upgrade($oldversion) {
         $table = new xmldb_table('mootyper');
         $field = new xmldb_field('textalign', XMLDB_TYPE_INTEGER, '1', null, XMLDB_NOTNULL, null, '0', 'keybdbgc');
 
-        // Conditionally launch add field statsbgc.
+        // Conditionally launch add field textalign.
         if (!$dbman->field_exists($table, $field)) {
             $dbman->add_field($table, $field);
         }
         // Mootyper savepoint reached.
         upgrade_mod_savepoint(true, 2018021100.5, 'mootyper');
     }
+    // Four new fields added after textalign for version 3.5.0.
+    if ($oldversion < 2018033000) {
+
+        // Define field cursorcolor to be added to mootyper.
+        $table = new xmldb_table('mootyper');
+        $field = new xmldb_field('cursorcolor', XMLDB_TYPE_CHAR, '20', null, XMLDB_NOTNULL, null, null, 'textalign');
+
+        // Conditionally launch add field cursorcolor.
+        if (!$dbman->field_exists($table, $field)) {
+            $dbman->add_field($table, $field);
+        }
+
+        // Define field textbgc to be added to mootyper.
+        $table = new xmldb_table('mootyper');
+        $field = new xmldb_field('textbgc', XMLDB_TYPE_CHAR, '20', null, XMLDB_NOTNULL, null, null, 'cursorcolor');
+
+        // Conditionally launch add field textbgc.
+        if (!$dbman->field_exists($table, $field)) {
+            $dbman->add_field($table, $field);
+        }
+
+        // Define field texterrorcolor to be added to mootyper.
+        $table = new xmldb_table('mootyper');
+        $field = new xmldb_field('texterrorcolor', XMLDB_TYPE_CHAR, '20', null, XMLDB_NOTNULL, null, null, 'textbgc');
+
+        // Conditionally launch add field texterrorcolor.
+        if (!$dbman->field_exists($table, $field)) {
+            $dbman->add_field($table, $field);
+        }
+
+        // Mootyper savepoint reached.
+        upgrade_mod_savepoint(true, 2018033000, 'mootyper');
+    }
+
+        // Define field countmistakes to be added to mootyper.
+        $table = new xmldb_table('mootyper');
+        $field = new xmldb_field('countmistakes', XMLDB_TYPE_INTEGER, '1', null, XMLDB_NOTNULL, null, '0', 'texterrorcolor');
+
+        // Conditionally launch add field countmistakes.
+        if (!$dbman->field_exists($table, $field)) {
+            $dbman->add_field($table, $field);
+        }
     return true;
 }
