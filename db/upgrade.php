@@ -252,7 +252,6 @@ function xmldb_mootyper_upgrade($oldversion) {
 
         // Mootyper savepoint reached.
         upgrade_mod_savepoint(true, 2018033000, 'mootyper');
-    }
 
         // Define field countmistakes to be added to mootyper.
         $table = new xmldb_table('mootyper');
@@ -262,5 +261,6 @@ function xmldb_mootyper_upgrade($oldversion) {
         if (!$dbman->field_exists($table, $field)) {
             $dbman->add_field($table, $field);
         }
+    }
     return true;
 }
