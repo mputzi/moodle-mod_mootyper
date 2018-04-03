@@ -14,6 +14,7 @@ var THE_LAYOUT,
     moveCursor,
     napake,
     keyupFirst,
+    keyPressed,
     event;
 
 /**
