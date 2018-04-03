@@ -2,7 +2,7 @@ var startTime,
     endTime,
     mistakes,
     currentPos,
-	keyResult,
+    keyResult,
     started = false,
     ended = false,
     currentChar,
@@ -26,38 +26,35 @@ var startTime,
  */
 function moveCursor(nextPos) {
     if (nextPos > 0 && nextPos <= fullText.length) {
-		$('#crka' + (nextPos - 1)).removeClass('txtBlue');
-		if(keyResult) {
-			$('#crka' + (nextPos - 1))
-			.removeClass('txtBlack')
-			.removeClass('txtRed')
-			.addClass('txtGreen');
-        }
-		else {
+        $('#crka' + (nextPos - 1)).removeClass('txtBlue');
+        if (keyResult) {
+            $('#crka' + (nextPos - 1))
+            .removeClass('txtBlack')
+            .removeClass('txtRed')
+            .addClass('txtGreen');
+        } else {
             if (!(countMistakes)) {
                 // Even with multiple keystrokes on the wrong key, only one mistake is counted.
-                mistakes++; 
-//console.log("In the NOT countMistakes "+ countMistakes + " and mistake count is "+mistakes);
+                mistakes++;
             }
-			$('#crka' + (nextPos - 1))
-			.removeClass('txtBlack')
-			.removeClass('txtGreen')
-			.addClass('txtRed');
-		}
-	
+            $('#crka' + (nextPos - 1))
+            .removeClass('txtBlack')
+            .removeClass('txtGreen')
+            .addClass('txtRed');
+        }
     }
     if (nextPos < fullText.length) {
         $('#crka' + nextPos).addClass('txtBlue');
     }
-	keyResult = true;
-	scroll_to_next_line($('#crka' + nextPos));
+    keyResult = true;
+    scroll_to_next_line($('#crka' + nextPos));
 }
 
 /**
-* Scroll to object.
-*
-* @param {DOM object} obj
-*/
+ * Scroll to object.
+ *
+ * @param {DOM object} obj
+ */
 function scroll_to_next_line(obj) {
     var scrollBox = $('#texttoenter');
     if($(obj).length > 0) {
@@ -66,35 +63,22 @@ function scroll_to_next_line(obj) {
         },10);
     }
 }
-/**
-* Init scrolling text when document ready
-*/
+
+// Initialize scrolling text when document is ready.
 $(document).ready(function() {
-	
-//	$('#texttoenter span').css({
-//		"font-size":"20px"
-//	});
-//	$('#texttoenter').css({
-//		"overflow-y":"scroll",
-//		"max-height":"150px"
-//	});
-	
-	$('#keyboard textarea:last').css({
-		"height": "16px",
-		"font-size": "10pt",
-		"opacity": "0.0"
-	});
-	
-	$("html, body").keyup(function(e) {
-		scroll_to_next_line($('#crka' + currentPos));
-	})
-	.mouseup(function(e) {
-		$('#keyboard textarea:last').focus();
-	});
-	
-	$('#keyboard textarea:last').focus();
-	
-	scroll_to_next_line($("#keyboard"));
+    $('#keyboard textarea:last').css({
+        "height": "16px",
+        "font-size": "10pt",
+        "opacity": "0.0"
+    });
+    $("html, body").keyup(function(e) {
+        scroll_to_next_line($('#crka' + currentPos));
+    })
+    .mouseup(function(e) {
+        $('#keyboard textarea:last').focus();
+    });
+    $('#keyboard textarea:last').focus();
+    scroll_to_next_line($("#keyboard"));
 });
 
 /**
@@ -200,7 +184,7 @@ function doStart() {
     mistakes = 0;
     currentPos = 0;
     started = true;
-	keyResult = true;
+    keyResult = true;
     currentChar = fullText[currentPos];
     intervalID = setInterval('updTimeSpeed()', 1000);
     var rpMootyperId = $('input[name="rpSityperId"]').val();
@@ -255,7 +239,6 @@ function keyPressed(e) {
                 $("#form1").on("keyup", "#tb1", keyupFirst);
             }
         }
- //       moveCursor(currentPos + 1);
         currentChar = fullText[currentPos + 1];
         currentPos++;
         return true;
@@ -265,9 +248,8 @@ function keyPressed(e) {
         if (countMistakes) {
             // With multiple keystrokes on the wrong key, each wrong keystroke is counted.
             mistakes++; // Typed the wrong letter so increment mistake count.
-//console.log("In the DO countMistakes "+ countMistakes + " and mistake count is "+mistakes);
         }
-		keyResult = false; // Mistake count increased after correct key is typed if above disabled and line 37 enabled.
+        keyResult = false; // Mistake count increased after correct key is typed if above disabled and line 37 enabled.
         if ((!continuousType && !countMistypedSpaces) || (!continuousType && countMistypedSpaces)) { // If not set for continuous typing, wait for correct letter.
             return false;
         } else if (currentPos < fullText.length - 1) { // If continuous typing, show wrong letter and move on.
@@ -286,7 +268,7 @@ function keyPressed(e) {
                 $("#form1").on("keyup", "#tb1", keyupFirst);
             }
         }
-       moveCursor(currentPos + 1);
+        moveCursor(currentPos + 1);
         if (currentPos === fullText.length - 1) {  // Student is at the end of the exercise.
             $('#tb1').val($('#tb1').val() + currentChar);
             var elemOff = new keyboardElement(currentChar);
@@ -457,7 +439,7 @@ function calculateAccuracy() {
         return 0;
     }
     // return ((currentPos * 100) / (currentPos + mistakes));
-    return (((currentPos - mistakes) * 100) / currentPos); //  only correctly typed count
+    return (((currentPos - mistakes) * 100) / currentPos); // Only correctly typed count.
 }
 
 /**
