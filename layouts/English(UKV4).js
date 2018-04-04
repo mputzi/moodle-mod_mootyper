@@ -67,7 +67,7 @@ function keyboardElement(ltr) {
     if (ltr.match(/[¦€áéúíó]/)) {
         this.shift = false;
         this.alt = true;
-     } else if (ltr.match(/[ÉÚÍÓÁ]/)) {
+    } else if (ltr.match(/[ÉÚÍÓÁ]/)) {
         this.shift = true;
         this.alt = true;
     }
