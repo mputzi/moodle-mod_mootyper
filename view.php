@@ -34,7 +34,7 @@ global $USER, $CFG, $THEME;
 
 $id = optional_param('id', 0, PARAM_INT); // Course_module ID, or
 $n = optional_param('n', 0, PARAM_INT); // Mootyper instance ID - it should be named as the first character of the module.
-// Get the "thisdirection" string from the langconfig.php file, so that
+// Get the current "thisdirection" string from the langconfig.php file, so that
 // the status bar and any dual keyboard layouts render correctly.
 $directionality = get_string('thisdirection', 'langconfig');
 $userpassword = optional_param('userpassword', '', PARAM_RAW);
@@ -256,7 +256,7 @@ if ($mootyper->lesson != null) {
         <?php
 
         // Set the status bar CSS based on direction of language currently in use.
-        if ($directionality == 'rtl') {
+        if ($directionality == 'rtl' && ($CFG->branch > 31)) {
             $stats1 = "'statsRDiv'";
             $stats2 = "'statsLDiv'";
         } else {
