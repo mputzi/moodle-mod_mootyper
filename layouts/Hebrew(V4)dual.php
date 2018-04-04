@@ -31,7 +31,7 @@ echo (isset($displaynone) && ($displaynone == true)) ? 'display:none;' : '';
 if ($directionality === 'rtl') {
 ?>
 ">
-<div id="keyboard" class="keyboardback">עברית (V4) פריסת מקלדת (In 1=Hebrew)<br>
+<div id="keyboard" class="keyboardback">עברית (V4) פריסת מקלדת<br>
     <section>
         <div class="mtrow" style='float: left; margin-left:5px; font-size: 15px !important; line-height: 15px'>
             <div id="jkeybackspace" class="normal" style="width: 95px;">Backspace</div>
@@ -110,7 +110,7 @@ if ($directionality === 'rtl') {
 } else {
 ?>
 ">
-<div id="keyboard" class="keyboardback">עברית (V4) פריסת מקלדת (In 2 non Hebrew)<br>
+<div id="keyboard" class="keyboardback">עברית (V4) פריסת מקלדת<br>
     <section>
         <div class="mtrow" style='float: left; margin-left:5px; font-size: 15px !important; line-height: 15px'>
             <div id="jkeysemicolon" class="normal" style='text-align:left;'>~<br>`&nbsp;&nbsp;&nbsp;;</div>
