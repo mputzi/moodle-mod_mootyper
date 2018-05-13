@@ -126,7 +126,7 @@ if (!has_capability('mod/mootyper:viewmygrades', context_module::instance($cm->i
         foreach ($grds as $gr) {
             if (!($mtmode == 1) && $gr->pass) {
                 $stil = 'background-color: '.(get_config('mod_mootyper', 'passbgc')).';';
-            } else if (!($mtmode) && !$gr->pass) {
+            } else if (!($mtmode == 1) && !$gr->pass) {
                 $stil = 'background-color: '.(get_config('mod_mootyper', 'failbgc')).';';
             } else {
                 $stil = '';
