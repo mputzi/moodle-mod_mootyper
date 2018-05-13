@@ -169,7 +169,15 @@ $string['password'] = 'Password';
 $string['passwordprotectedlesson'] = '{$a} is a password protected MooTyper activity.';
 $string['pluginadministration'] = 'MooTyper Administration';
 $string['pluginname'] = 'MooTyper';
+$string['practice'] = 'Practice';
 $string['precision'] = 'Precision';
+
+$string['privacy:metadata:mootyper_attempts'] = 'Information about the attempts to individual MooTyper exercises. ';
+$string['privacy:metadata:mootyper_attempts:userid'] = 'The ID of the user that made this attempt.';
+$string['privacy:metadata:mootyper_attempts:mootyperid'] = 'The ID of the MooTyper activity in which the exercise attempt was made.';
+$string['privacy:metadata:mootyper_attempts:timetaken'] = 'The amount of time spent on this attempt.';
+$string['privacy:metadata:mootyper_attempts:suspicion'] = 'Was this attempt suspicious due to too much time or too many mistakes.';
+
 $string['removeall'] = 'Remove all from ';
 $string['removekb'] = 'Remove keyboard layouts';
 $string['removelsnconfirm'] = 'Confirm you are about to completly remove ';
