@@ -49,8 +49,7 @@ $record->timetaken = time();
 $record->exercise = optional_param('rpExercise', '', PARAM_INT);
 $record->pass = $passfield;
 $record->attemptid = optional_param('rpAttId', '', PARAM_INT);
-// Modification needed to prevent negative WPM entries for exercises.
-$record->wpm = (max(0, (($record->hitsperminute / 5) - $record->mistakes)));
+$record->wpm = optional_param('rpWpmInput', '', PARAM_FLOAT);
 
 $DB->insert_record('mootyper_grades', $record, false);
 
