@@ -42,6 +42,7 @@ function array_to_csv_download($array, $filename = "export.csv", $delimiter=";")
     header("Expires: 0");
     $f = fopen('php://output', 'w');
     $headings = array(get_string('student', 'mootyper'),
+                      get_string('fexercise', 'mootyper'),
                       get_string('vmistakes', 'mootyper'),
                       get_string('timeinseconds', 'mootyper'),
                       get_string('hitsperminute', 'mootyper'),
@@ -52,7 +53,9 @@ function array_to_csv_download($array, $filename = "export.csv", $delimiter=";")
     fputcsv($f, $headings, $delimiter);
     foreach ($array as $gr) {
         $fields = array($gr->firstname.' '.$gr->lastname,
-                        $gr->mistakes, format_time($gr->timeinseconds),
+                        $gr->exercisename,
+                        $gr->mistakes,
+                        format_time($gr->timeinseconds),
                         format_float($gr->hitsperminute),
                         $gr->fullhits,
                         format_float($gr->precisionfield).'%',
