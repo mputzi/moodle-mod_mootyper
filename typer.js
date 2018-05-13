@@ -103,10 +103,12 @@ function doTheEnd() {
     var speed = calculateSpeed(samoSekunde);
     $('input[name="rpAccInput"]').val(calculateAccuracy(fullText, mistakes).toFixed(2));
     $('input[name="rpSpeedInput"]').val(speed);
+    var gwpm = (((fullText.length + mistakes) / 5) / (samoSekunde / 60));
+    var wpm = ((((fullText.length + mistakes) / 5) - mistakes) / (samoSekunde / 60));
+    $('#jsWpm2').html((gwpm.toFixed(1)) + " | " + (wpm.toFixed(1)));
+    $('input[name="rpWpmInput"]').val(wpm);
     $('#tb1').attr('disabled', 'disabled');
     $('#btnContinue').css('visibility', 'visible');
-    var wpm = (speed / 5) - mistakes;
-    $('#jsWpm2').html(wpm.toFixed(2));
     var rpAttId = document.form1.rpAttId.value;
     var juri = appUrl + "/mod/mootyper/atchk.php?status=3&attemptid=" + $('input[name="rpAttId"]').val();
     $.get(juri, function(data) { });
@@ -422,7 +424,6 @@ function calculateSpeed(sc) {
     if ((!continuousType && !countMistypedSpaces) || (!continuousType && countMistypedSpaces)) {
         return (((currentPos + mistakes) * 60) / sc); // Normally use this.
     } else {
-        // return (((currentPos - mistakes) * 60) / sc); //  only correctly typed count
         return ((currentPos * 60) / sc); // Use this when set to continuous type.
     }
 }
@@ -438,7 +439,6 @@ function calculateAccuracy() {
     if (currentPos + mistakes === 0) {
         return 0;
     }
-    // return ((currentPos * 100) / (currentPos + mistakes));
     return (((currentPos - mistakes) * 100) / currentPos); // Only correctly typed count.
 }
 
@@ -475,6 +475,7 @@ function updTimeSpeed() {
 
     $('#jsAcc2').html(calculateAccuracy(fullText, mistakes).toFixed(2));
 
-    var wpm = (calculateSpeed(secs) / 5) - mistakes;
-    $('#jsWpm2').html(wpm.toFixed(2));
+    var gwpm = ((currentPos / 5) / (secs / 60));
+    var nwpm = (((currentPos / 5) - mistakes) / (secs / 60));
+    $('#jsWpm2').html((gwpm.toFixed(1)) + " | " + (nwpm.toFixed(1)));
 }
