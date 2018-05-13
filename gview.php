@@ -39,7 +39,7 @@ $orderby = optional_param('orderby', -1, PARAM_INT);
 $des = optional_param('desc', -1, PARAM_INT);
 if ($md == 1) {
     $us = 0;
-} else if ($md == 0) {
+} else if ($md == 0 || $md == 2) {
     $se = 0;
 }
 if ($id) {
@@ -53,6 +53,7 @@ if ($id) {
 } else {
     error('You must specify a course_module ID or an instance ID');
 }
+$mtmode = $mootyper->isexam;
 require_login($course, true, $cm);
 $context = context_module::instance($cm->id);
 
@@ -72,7 +73,7 @@ if (!has_capability('mod/mootyper:viewgrades', context_module::instance($cm->id)
     $htmlout = '';
     $htmlout .= '<div id="mainDiv">';
 
-    if ($mootyper->isexam) {  // If this is an exam, process the info for the current exercise.
+    if ($mtmode == 1) {  // If this is an exam, process the info for the current exercise.
 
         if ($des == -1) {
             $des = 0;
@@ -161,7 +162,7 @@ if (!has_capability('mod/mootyper:viewgrades', context_module::instance($cm->id)
         }
         $htmlout .= '</select></td></tr>';
 
-        if ($md == 0) {
+        if ($md == 0 || $md == 2) {
             $usrs = get_users_of_one_instance($mootyper->id);
             $htmlout .= '<tr><td>'.get_string('student', 'mootyper').'</td><td>';
             $htmlout .= '<select name="juser" onchange="this.form.submit()">';

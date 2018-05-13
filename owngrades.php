@@ -30,6 +30,7 @@ require_once(dirname(dirname(dirname(__FILE__))).'/config.php');
 require_once(dirname(__FILE__).'/lib.php');
 require_once(dirname(__FILE__).'/locallib.php');
 
+
 global $USER;
 
 $id = optional_param('id', 0, PARAM_INT); // Course_module ID, or
@@ -39,6 +40,8 @@ $md = optional_param('jmode', 0, PARAM_INT);
 $us = optional_param('juser', 0, PARAM_INT);
 $orderby = optional_param('orderby', -1, PARAM_INT);
 $des = optional_param('desc', -1, PARAM_INT);
+$mtmode = optional_param('mtmode', 0, PARAM_INT);  // Is this Mootyper a lesson or practice activity?
+
 if ($md == 1) {
     $us = 0;
 } else if ($md == 0) {
@@ -55,6 +58,8 @@ if ($id) {
 } else {
     error('You must specify a course_module ID or an instance ID');
 }
+
+$mtmode = $mootyper->isexam;
 require_login($course, true, $cm);
 $context = context_module::instance($cm->id);
 
@@ -73,6 +78,9 @@ if (!has_capability('mod/mootyper:viewmygrades', context_module::instance($cm->i
     echo $OUTPUT->heading($mootyper->name);
     $htmlout = '';
     $htmlout .= '<div id="mainDiv">';
+    if ($mtmode == 2) {
+        echo get_string('practice', 'mootyper');
+    }
 
     // Update the library.
     if ($des == -1 || $des == 0) {
@@ -116,26 +124,41 @@ if (!has_capability('mod/mootyper:viewmygrades', context_module::instance($cm->i
                    .'</td><td><a href="?id='.$id.'&n='.$n.'&orderby=12'.$lnkadd.'">'.
         get_string('wpm', 'mootyper').'</a>'.$arrtextadds[12].'</td></tr>';
         foreach ($grds as $gr) {
-            if (!$mootyper->isexam && $gr->pass) {
+            if (!($mtmode == 1) && $gr->pass) {
                 $stil = 'background-color: '.(get_config('mod_mootyper', 'passbgc')).';';
-            } else if (!$mootyper->isexam && !$gr->pass) {
+            } else if (!($mtmode) && !$gr->pass) {
                 $stil = 'background-color: '.(get_config('mod_mootyper', 'failbgc')).';';
             } else {
                 $stil = '';
             }
-            $fcol = $mootyper->isexam ? '---' : $gr->exercisename;
+
+            if ($mtmode == 2) {
+                $removelnk = '<a href="'.$CFG->wwwroot . '/mod/mootyper/attrem.php?c_id='.optional_param('id', 0, PARAM_INT)
+                             .'&m_id='.optional_param('n', 0, PARAM_INT)
+                             .'&mtmode='.$mtmode
+                             .'&g='.$gr->id.'">'
+                             .get_string('eremove', 'mootyper').'</a>';
+            } else {
+                $removelnk = '<a href="'.$CFG->wwwroot . '/mod/mootyper/attrem.php?c_id='.optional_param('id', 0, PARAM_INT)
+                             .'&m_id='.optional_param('n', 0, PARAM_INT)
+                             .'&g='.$gr->id.'">'
+                             .'</a>';
+            }
+
+            $fcol = ($mtmode == 1) ? '---' : $gr->exercisename;
             $htmlout .= '<tr style="border-top-style: solid;'.$stil.'"><td>'.$fcol.'</td><td>'
-                        .$gr->mistakes.'</td><td>'.format_time($gr->timeinseconds).
-                        '</td><td>'.format_float($gr->hitsperminute).'</td><td>'.$gr->fullhits
+                        .$gr->mistakes.'</td><td>'.format_time($gr->timeinseconds)
+                        .'</td><td>'.format_float($gr->hitsperminute).'</td><td>'.$gr->fullhits
                         .'</td><td>'.format_float($gr->precisionfield).'%</td><td>'
-                        .date(get_config('mod_mootyper', 'dateformat'), $gr->timetaken).'</td><td>'.$gr->wpm.'</td></tr>';
+                        .date(get_config('mod_mootyper', 'dateformat'), $gr->timetaken)
+                        .'</td><td>'.$gr->wpm.'</td><td>'.$removelnk.'</td></tr>';
             $labels[] = 'Ex-'.$fcol;  // This gets the exercise number.
             $serieshitsperminute[] = format_float($gr->hitsperminute); // Get the hits per minute value.
             $seriesprecision[] = format_float($gr->precisionfield);  // Get the precision percentage value.
             $serieswpm[] = $gr->wpm; // Get the corrected words per minute rate.
         }
         $avg = get_grades_avg($grds);
-        if (!$mootyper->isexam) {
+        if (!($mtmode == 1)) {
             $htmlout .= '<tr style="border-top-style: solid;"><td><strong>'.get_string('average', 'mootyper')
                         .': </strong></td><td>'.$avg['mistakes'].'</td><td>'.format_time($avg['timeinseconds'])
                         .'</td><td>'.format_float($avg['hitsperminute']).'</td><td>'.$avg['fullhits'].'</td><td>'

@@ -52,6 +52,8 @@ if ($id) {
     error('You must specify a course_module ID or an instance ID');
 }
 
+$mtmode = $mootyper->isexam;
+
 require_login($course, true, $cm);
 
 if ($backtocourse) {
@@ -172,7 +174,8 @@ if ($mootyper->lesson != null) {
         }
     }
 
-    if ($mootyper->isexam) {
+    if ($mtmode === '1') {
+
         $exerciseid = $mootyper->exercise;
         $exercise = get_exercise_record($exerciseid);
         $texttoenter = $exercise->texttotype;
@@ -189,7 +192,8 @@ if ($mootyper->lesson != null) {
         }
     }
 
-    if (exam_already_done($mootyper, $USER->id) && $mootyper->isexam) {
+    if (exam_already_done($mootyper, $USER->id) && $mtmode === '1') {
+
         echo get_string('examdone', 'mootyper');
         echo "<br>";
         if (has_capability('mod/mootyper:viewgrades', context_module::instance($cm->id))) {
@@ -216,7 +220,8 @@ if ($mootyper->lesson != null) {
 <div id="keyboard" style="float: left; text-align:center; margin-left: auto; margin-right: auto;">
 <h4>
         <?php
-        if (!$mootyper->isexam) {
+
+        if (!($mtmode === '1')) {
             // Need to get count of exercises in the current lesson.
             $sqlc = "SELECT COUNT(mte.texttotype)
                     FROM {mootyper_lessons} mtl
@@ -225,7 +230,12 @@ if ($mootyper->lesson != null) {
                     WHERE mtl.id = $mootyper->lesson";
 
             $count = $DB->count_records_sql($sqlc, $params = null);
-            echo get_string('exercise', 'mootyper', $exercise->exercisename).$count;
+
+            if ($mtmode === '2') {
+                echo get_string('practice', 'mootyper').' '.get_string('exercise', 'mootyper', $exercise->exercisename).$count;
+            } else {
+                echo get_string('exercise', 'mootyper', $exercise->exercisename).$count;
+            }
         }
         ?>
 </h4>
@@ -252,6 +262,7 @@ if ($mootyper->lesson != null) {
     <input name='rpMistakesInput' type='hidden'>
     <input name='rpAccInput' type='hidden'>
     <input name='rpSpeedInput' type='hidden'>
+    <input name='rpWpmInput' type='hidden'>
 
         <?php
 
@@ -314,7 +325,7 @@ if ($mootyper->lesson != null) {
                     <div id=<?php echo $stats2; ?> style='text-align: center; float: left; width:100px;'>
                         <div id='wpmText' class="statsText">
                             <?php echo get_string('wpm', 'mootyper'); ?></div>
-                        <div id='wpmValue'><span id="jsWpm2">0</span></div>
+                        <div id='wpmValue'><span id="jsWpm2">0 | 0</span></div>
                     </div>
     </div>
 </div>

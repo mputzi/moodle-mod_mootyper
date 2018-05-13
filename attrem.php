@@ -32,8 +32,9 @@ global $DB;
 
 $mid = optional_param('m_id', 0, PARAM_INT);  // MooTyper id (mdl_mootyper).
 $cid = optional_param('c_id', 0, PARAM_INT);  // Course module id (mdl_course_modules).
-
 $gradeid = optional_param('g', 0, PARAM_INT);
+$mtmode = optional_param('mtmode', 0, PARAM_INT);
+
 if (isset($gradeid)) {
     $dbgrade = $DB->get_record('mootyper_grades', array('id' => $gradeid));
     $DB->delete_records('mootyper_attempts', array('id' => $dbgrade->attempt_id));
@@ -41,6 +42,10 @@ if (isset($gradeid)) {
 }
 // Need to add grade removed event here.
 
-// Return to the View all grades page.
-$webdir = $CFG->wwwroot . '/mod/mootyper/gview.php?id='.$cid.'&n='.$mid;
+// Return to the View my grades or View all grades page.
+if ($mtmode == 2) {
+    $webdir = $CFG->wwwroot . '/mod/mootyper/owngrades.php?id='.$cid.'&n='.$mid;
+} else {
+    $webdir = $CFG->wwwroot . '/mod/mootyper/gview.php?id='.$cid.'&n='.$mid;
+}
 header('Location: '.$webdir);

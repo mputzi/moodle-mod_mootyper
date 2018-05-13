@@ -282,10 +282,10 @@ if (has_capability('mod/mootyper:aftersetup', context_module::instance($cm->id))
 }
 
 // Start building htmlout for this page based on exam or lesson exercise.
-if ($modepo == 0 || is_null($modepo)) { // Since mode is 0, this is a lesson?
-    $htmlout .= '<option selected="true" value="0">'.
-            get_string('sflesson', 'mootyper').'</option><option value="1">'.
-            get_string('isexamtext', 'mootyper').'</option>';
+if ($modepo == 0 || is_null($modepo)) { // If mode is 0, this is a lesson?
+    $htmlout .= '<option selected="true" value="0">'.get_string('sflesson', 'mootyper').'</option>
+                 <option value="1">'.get_string('isexamtext', 'mootyper').'</option>
+                 <option value="2">'.get_string('practice', 'mootyper').'</option>';
     $htmlout .= '</select></td></tr><tr><td>';
     $htmlout .= get_string('excategory', 'mootyper').'</td>
                 <td><select'.$disselect.' onchange="this.form.submit()" id="lesson" name="lesson">';
@@ -298,10 +298,10 @@ if ($modepo == 0 || is_null($modepo)) { // Since mode is 0, this is a lesson?
     }
     $htmlout .= '</select></td></tr><tr><td>'.get_string('requiredgoal', 'mootyper').'</td>
                  <td><input value="'.$goalpo.'" style="width: 35px;" type="text" name="requiredgoal"> % </td></tr>';
-} else if ($modepo == 1) { // Or, since mode is 1, this is an exam?
-    $htmlout .= '<option value="0">'.
-            get_string('sflesson', 'mootyper').'</option><option value="1" selected="true">'.
-            get_string('isexamtext', 'mootyper').'</option>';
+} else if ($modepo == 1) { // Or, if mode is 1, this is an exam?
+    $htmlout .= '<option value="0">'.get_string('sflesson', 'mootyper').'</option>
+                 <option value="1" selected="true">'.get_string('isexamtext', 'mootyper').'</option>
+                 <option value="2">'.get_string('practice', 'mootyper').'</option>';
     $htmlout .= '</select></td></tr><tr><td>';
     $htmlout .= get_string('flesson', 'mootyper').'</td>
                 <td><select'.$disselect.' onchange="this.form.submit()" id="lesson" name="lesson">';
@@ -323,6 +323,22 @@ if ($modepo == 0 || is_null($modepo)) { // Since mode is 0, this is a lesson?
         }
     }
     $htmlout .= '</select></td></tr>';
+} else if ($modepo == 2) { // If mode is 2, this is a practice lesson?
+    $htmlout .= '<option selected="true" value="0">'.get_string('sflesson', 'mootyper').'</option>
+                 <option value="1">'.get_string('isexamtext', 'mootyper').'</option>
+                 <option value="2" selected="true">'.get_string('practice', 'mootyper').'</option>';
+    $htmlout .= '</select></td></tr><tr><td>';
+    $htmlout .= get_string('excategory', 'mootyper').'</td>
+                <td><select'.$disselect.' onchange="this.form.submit()" id="lesson" name="lesson">';
+    for ($ij = 0; $ij < count($lessons); $ij++) {
+        if ($lessons[$ij]['id'] == $lessonpo) {
+            $htmlout .= '<option selected="true" value="'.$lessons[$ij]['id'].'">'.$lessons[$ij]['lessonname'].'</option>';
+        } else {
+            $htmlout .= '<option value="'.$lessons[$ij]['id'].'">'.$lessons[$ij]['lessonname'].'</option>';
+        }
+    }
+    $htmlout .= '</select></td></tr><tr><td>'.get_string('requiredgoal', 'mootyper').'</td>
+                 <td><input value="'.$goalpo.'" style="width: 35px;" type="text" name="requiredgoal"> % </td></tr>';
 }
 
 // Add a selector for text alignment.
