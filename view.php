@@ -193,7 +193,6 @@ if ($mootyper->lesson != null) {
     }
 
     if (exam_already_done($mootyper, $USER->id) && $mtmode === '1') {
-
         echo get_string('examdone', 'mootyper');
         echo "<br>";
         if (has_capability('mod/mootyper:viewgrades', context_module::instance($cm->id))) {
@@ -231,6 +230,7 @@ if ($mootyper->lesson != null) {
 
             $count = $DB->count_records_sql($sqlc, $params = null);
 
+            // If this MooTyper is set to practice, add, Practice to the exercise name above the status bar.
             if ($mtmode === '2') {
                 echo get_string('practice', 'mootyper').' '.get_string('exercise', 'mootyper', $exercise->exercisename).$count;
             } else {
