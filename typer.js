@@ -103,8 +103,8 @@ function doTheEnd() {
     var speed = calculateSpeed(samoSekunde);
     $('input[name="rpAccInput"]').val(calculateAccuracy(fullText, mistakes).toFixed(2));
     $('input[name="rpSpeedInput"]').val(speed);
-    var gwpm = (((fullText.length + mistakes) / 5) / (samoSekunde / 60));
-    var wpm = ((((fullText.length + mistakes) / 5) - mistakes) / (samoSekunde / 60));
+    var gwpm = (speed / 5);
+    var wpm = (speed / 5) - (mistakes / (samoSekunde / 60));
     $('#jsWpm2').html((gwpm.toFixed(1)) + " | " + (wpm.toFixed(1)));
     $('input[name="rpWpmInput"]').val(wpm);
     $('#tb1').attr('disabled', 'disabled');
@@ -475,7 +475,7 @@ function updTimeSpeed() {
 
     $('#jsAcc2').html(calculateAccuracy(fullText, mistakes).toFixed(2));
 
-    var gwpm = ((currentPos / 5) / (secs / 60));
-    var nwpm = (((currentPos / 5) - mistakes) / (secs / 60));
+    var gwpm = (calculateSpeed(secs)/ 5);
+    var nwpm = ((calculateSpeed(secs)/ 5) - (mistakes / (secs / 60)));
     $('#jsWpm2').html((gwpm.toFixed(1)) + " | " + (nwpm.toFixed(1)));
 }
