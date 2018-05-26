@@ -171,6 +171,42 @@ $string['pluginadministration'] = 'MooTyper Administration';
 $string['pluginname'] = 'MooTyper';
 $string['practice'] = 'Practice';
 $string['precision'] = 'Precision';
+
+$string['privacy:metadata:mootyper_attempts'] = 'Stores data regarding the status of an attempt.';
+$string['privacy:metadata:mootyper_attempts:mootyperid'] = 'ID of the MooTyper activity for this attempt.';
+$string['privacy:metadata:mootyper_attempts:userid'] = 'Userid of person making this attempt.';
+$string['privacy:metadata:mootyper_attempts:timetaken'] = 'When the attempt was started.';
+$string['privacy:metadata:mootyper_attempts:inprogress'] = 'Status: completed = 0 or still in progress = 1. ';
+$string['privacy:metadata:mootyper_attempts:suspicion'] = 'Flag if too much time or too many mistakes.';
+
+$string['privacy:metadata:mootyper_grades'] = 'Stores results of a completed exercise attempt.';
+$string['privacy:metadata:mootyper_grades:mootyper'] = 'ID of the MooTyper activity for this attempt.';
+$string['privacy:metadata:mootyper_grades:userid'] = 'Userid of person making this attempt.';
+$string['privacy:metadata:mootyper_grades:grade'] = 'Grade for this attempt.';
+$string['privacy:metadata:mootyper_grades:mistakes'] = 'Number of mistakes counted for this attempt.';
+$string['privacy:metadata:mootyper_grades:timeinseconds'] = 'Total elapsed time in seconds for this attempt.';
+$string['privacy:metadata:mootyper_grades:hitsperminute'] = 'Keystroke rate per minute.';
+$string['privacy:metadata:mootyper_grades:fullhits'] = 'Number of keystrokes for this attempt.';
+$string['privacy:metadata:mootyper_grades:precisionfield'] = 'Typing accuracy.';
+$string['privacy:metadata:mootyper_grades:timetaken'] = 'When this attempt was completed?';
+$string['privacy:metadata:mootyper_grades:exercise'] = 'The exercise used for this attempt';
+$string['privacy:metadata:mootyper_grades:pass'] = 'Was this attempt a pass or fail?';
+$string['privacy:metadata:mootyper_grades:attemptid'] = 'ID number of this attempt';
+$string['privacy:metadata:mootyper_grades:wpm'] = 'Rate in Words Per Minute for this attempt.';
+
+$string['privacy:metadata:mootyper_lessons'] = 'Stores lessons for MooTyper.';
+$string['privacy:metadata:mootyper_lessons:lessonname'] = 'The name of the lesson or category.';
+$string['privacy:metadata:mootyper_lessons:authorid'] = 'The userid who added the lesson.';
+$string['privacy:metadata:mootyper_lessons:visible'] = 'Visibilty: only me, teacher inside this course, or all teachers.';
+$string['privacy:metadata:mootyper_lessons:editable'] = ' Editable by: only me, teacher inside this course, or any teachers.';
+$string['privacy:metadata:mootyper_lessons:courseid'] = 'Courseid where the lesson was created.';
+
+$string['privacy:metadata:mootyper_exercises'] = 'Stores exercises for each lesson.'; 
+$string['privacy:metadata:mootyper_exercises:texttotype'] = 'The text of the exercise.';
+$string['privacy:metadata:mootyper_exercises:exercisename'] = 'The exercise name.';
+$string['privacy:metadata:mootyper_exercises:lesson'] = 'The lesson this exercise is in.';
+$string['privacy:metadata:mootyper_exercises:snumber'] = 'The sequence number in the lesson.';
+
 $string['removeall'] = 'Remove all from ';
 $string['removekb'] = 'Remove keyboard layouts';
 $string['removelsnconfirm'] = 'Confirm you are about to completly remove ';
