@@ -211,7 +211,7 @@ class provider implements
             $mootyperdata['mootyper'][] = [
                 'mootyper' => $record->mootyper,
                 'userid' => $record->userid,
-//                'grade' => $record->grade,
+                // 'grade' => $record->grade,
                 'mistakes' => $record->mistakes,
                 'timeinseconds' => format_time($record->timeinseconds),
                 'hitsperminute' => $record->hitsperminute,
