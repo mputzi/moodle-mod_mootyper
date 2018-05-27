@@ -183,10 +183,11 @@ class provider implements
 
         $params = ['userid' => $user->id] + $contextparams;
         $mootypercontents = $DB->get_recordset_sql($sql, $params);
-        
-        // Reference to the mootyper activity seen in the last iteration of the loop. By comparing this with the current record, and
-        // because we know the results are ordered, we know when we've moved to the contents for a new mootyper activity and therefore
-        // when we can export the complete data for the last activity.
+
+        // Reference to the mootyper activity seen in the last iteration of the loop.
+        // By comparing this with the current record, and because we know the results
+        // are ordered, we know when we've moved to the contents for a new mootyper
+        // activity and therefore when we can export the complete data for the last activity.
         $lastcmid = null;
 
         $mootyperdata = [];
