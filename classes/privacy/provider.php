@@ -122,17 +122,19 @@ class provider implements
                   JOIN {mootyper} mt ON mt.id = cm.instance
                   JOIN {mootyper_grades} mtg ON mtg.mootyper = mt.id
              LEFT JOIN {mootyper_attempts} mta ON mta.mootyperid = mt.id
-                 WHERE (mta.userid = :userid1 AND mtg.userid = :userid2)";
+             LEFT JOIN {mootyper_lessons} mtl ON mtl.courseid = mt.course
+                 WHERE (mta.userid = :userid1 AND mtg.userid = :userid2 OR mtl.authorid = :userid3)";
 
         $params = [
             'modname' => 'mootyper',
             'contextlevel' => CONTEXT_MODULE,
             'userid1' => $userid,
             'userid2' => $userid,
+            'userid3' => $userid,
         ];
 
         $contextlist->add_from_sql($sql, $params);
-
+        
         return $contextlist;
     }
 
@@ -144,28 +146,45 @@ class provider implements
     public static function export_user_data(approved_contextlist $contextlist) {
         global $DB;
 
-        if (empty($contextlist->count())) {
+        $user = $contextlist->get_user();
+        $userid = $user->id;
+        $cmids = array_reduce($contextlist->get_contexts(), function($carry, $context) {
+            if ($context->contextlevel == CONTEXT_MODULE) {
+                $carry[] = $context->instanceid;
+            }
+            return $carry;
+        }, []);
+        if (empty($cmids)) {
             return;
         }
 
-        $user = $contextlist->get_user();
+        // If the context export was requested, then let's at least describe the MooTyper.
+        foreach ($cmids as $cmid) {
+            $context = context_module::instance($cmid);
+            $contextdata = helper::get_context_data($context, $user);
+            helper::export_context_files($context, $user);
+            writer::with_context($context)->export_data([], $contextdata);
+        }
+        // Find the MooTyper IDs.
+        $mootyperidstocmids = static::get_mootyper_ids_to_cmids_from_cmids($cmids);
 
         list($contextsql, $contextparams) = $DB->get_in_or_equal($contextlist->get_contextids(), SQL_PARAMS_NAMED);
 
+        // Export the grades.
         $sql = "SELECT cm.id AS cmid,
-                       mg.mootyper as mootyper,
-                       mg.userid as userid,
-                       mg.grade as grade,
-                       mg.mistakes as mistakes,
-                       mg.timeinseconds as timeinseconds,
-                       mg.hitsperminute as hitsperminute,
-                       mg.fullhits as fullhits,
-                       mg.precisionfield as precisionfield,
-                       mg.timetaken as mgtimetaken,
-                       mg.exercise as exercise,
-                       mg.pass as pass,
-                       mg.attemptid as attemptid,
-                       mg.wpm as wpm,
+                       mg.mootyper AS mootyper,
+                       mg.userid AS userid,
+                       mg.grade AS grade,
+                       mg.mistakes AS mistakes,
+                       mg.timeinseconds AS timeinseconds,
+                       mg.hitsperminute AS hitsperminute,
+                       mg.fullhits AS fullhits,
+                       mg.precisionfield AS precisionfield,
+                       mg.timetaken AS timetaken,
+                       mg.exercise AS exercise,
+                       mg.pass AS pass,
+                       mg.attemptid AS attemptid,
+                       mg.wpm AS wpm,
                        ma.id as maid,
                        ma.mootyperid as mamootyperid,
                        ma.userid as mauserid,
@@ -177,38 +196,16 @@ class provider implements
             INNER JOIN {mootyper} mt ON mt.id = cm.instance
              LEFT JOIN {mootyper_grades} mg ON mg.mootyper = cm.instance
              LEFT JOIN {mootyper_attempts} ma ON ma.mootyperid = mt.id AND mg.attemptid = ma.id
-                 WHERE c.id {$contextsql}
-                       AND mg.userid = :userid
+                 WHERE (c.id {$contextsql} AND ma.userid = :userid AND ma.mootyperid = mt.id)
               ORDER BY cm.id ASC, mg.timetaken ASC";
 
-        $params = ['userid' => $user->id] + $contextparams;
-        $mootypercontents = $DB->get_recordset_sql($sql, $params);
+        $params = [
+            'userid' => $user->id,
+        ] + $contextparams;
+        $recordset = $DB->get_recordset_sql($sql, $params);
 
-        // Reference to the mootyper activity seen in the last iteration of the loop.
-        // By comparing this with the current record, and because we know the results
-        // are ordered, we know when we've moved to the contents for a new mootyper
-        // activity and therefore when we can export the complete data for the last activity.
-        $lastcmid = null;
-
-        $mootyperdata = [];
-
-        foreach ($mootypercontents as $record) {
-            $mootypergrades = format_string($record->mootyper);
-            $path = array_merge([get_string('modulename', 'mod_mootyper'), $mootypergrades . " ({$record->mootyper})"]);
-            // If we've moved to a new mootyper, then write the last mootyper data and reinit the mootyper data array.
-            if (!is_null($lastcmid)) {
-                if ($lastcmid != $record->cmid) {
-                    if (!empty($mootyperdata)) {
-                        $context = \context_module::instance($lastcmid);
-                        self::export_mootyper_data_for_user($mootyperdata, $context, [], $user);
-                        $mootyperdata = [];
-                    }
-                }
-            }
-            $lastcmid = $record->cmid;
-            $context = \context_module::instance($lastcmid);
-
-            $mootyperdata['mootyper'][] = [
+        static::recordset_loop_and_export($recordset, 'mootyper', [], function($carry, $record) {
+            $carry[] = (object) [
                 'mootyper' => $record->mootyper,
                 'userid' => $record->userid,
                 // 'grade' => $record->grade,
@@ -216,28 +213,102 @@ class provider implements
                 'timeinseconds' => format_time($record->timeinseconds),
                 'hitsperminute' => $record->hitsperminute,
                 'fullhits' => $record->fullhits,
-                'precision' => $record->precisionfield .' %',
-                'mgtimetaken' => transform::datetime($record->mgtimetaken),
+                'precisionfield' => $record->precisionfield .' %',
+                'timetaken' => transform::datetime($record->timetaken),
                 'exercise' => $record->exercise,
                 'pass' => transform::yesno($record->pass),
                 'attemptid' => $record->attemptid,
                 'wpm' => $record->wpm,
-                'attempt id' => $record->maid,
-                'mootyper id' => $record->mamootyperid,
-                'mauserid' => $record->mauserid,
-                'matimetaken' => transform::datetime($record->matimetaken),
-                'inprogress' => transform::yesno($record->mainprogress),
-                'suspicion' => transform::yesno($record->masuspicion)
             ];
-        }
+            return $carry;
+        }, function($mootyperid, $data) use ($mootyperidstocmids) {
+            $context = context_module::instance($mootyperidstocmids[$mootyperid]);
+            writer::with_context($context)->export_related_data([], 'grades', (object) ['grades' => $data]);
+        });
 
-        $mootypercontents->close();
+        // Export the attempts.
+        $sql = "SELECT cm.id AS cmid,
+                       mg.mootyper AS mootyper,
+                       mg.userid AS userid,
+                       ma.id as maid,
+                       ma.mootyperid as mamootyperid,
+                       ma.userid as mauserid,
+                       ma.timetaken as matimetaken,
+                       ma.inprogress as mainprogress,
+                       ma.suspicion as masuspicion
+                  FROM {context} c
+            INNER JOIN {course_modules} cm ON cm.id = c.instanceid
+            INNER JOIN {mootyper} mt ON mt.id = cm.instance
+             LEFT JOIN {mootyper_grades} mg ON mg.mootyper = cm.instance
+             LEFT JOIN {mootyper_attempts} ma ON ma.mootyperid = mt.id AND mg.attemptid = ma.id
+                 WHERE (c.id {$contextsql} AND ma.userid = :userid AND ma.mootyperid = mt.id)
+              ORDER BY cm.id ASC, mg.timetaken ASC";
 
-        // The data for the last activity won't have been written yet, so make sure to write it now!
-        if (!empty($mootyperdata)) {
-            $context = \context_module::instance($lastcmid);
-            self::export_mootyper_data_for_user($mootyperdata, $context, [], $user);
-        }
+        $params = [
+            'userid' => $user->id,
+        ] + $contextparams;
+        $recordset = $DB->get_recordset_sql($sql, $params);
+
+        static::recordset_loop_and_export($recordset, 'mootyper', [], function($carry, $record) {
+            $carry[] = (object) [
+                'mootyperid' => $record->mamootyperid,
+                'userid' => $record->mauserid,
+                'timetaken' => transform::datetime($record->matimetaken),
+                'inprogress' => transform::yesno($record->mainprogress),
+                'suspicion' => transform::yesno($record->masuspicion),
+            ];
+            return $carry;
+        }, function($mootyperid, $data) use ($mootyperidstocmids) {
+            $context = context_module::instance($mootyperidstocmids[$mootyperid]);
+            writer::with_context($context)->export_related_data([], 'attempts', (object) ['attempts' => $data]);
+        });
+
+        // Export the lessons.
+        $sql = "SELECT DISTINCT cm.id AS cmid,
+                       mg.mootyper AS mootyper,
+                       ml.lessonname AS lessonname,
+                       ml.authorid AS authorid,
+                       ml.visible AS visible,
+                       ml.editable AS editable,
+                       ml.courseid AS courseid,
+                       me.texttotype AS texttotype,
+                       me.exercisename AS exercisename,
+                       me.lesson AS lesson,
+                       me.snumber AS snumber
+                  FROM {context} c
+            INNER JOIN {course_modules} cm ON cm.id = c.instanceid
+            INNER JOIN {mootyper} mt ON mt.id = cm.instance
+             LEFT JOIN {mootyper_grades} mg ON mg.mootyper = cm.instance
+             LEFT JOIN {mootyper_attempts} ma ON ma.mootyperid = mt.id AND mg.attemptid = ma.id
+             LEFT JOIN {mootyper_lessons} ml ON ml.courseid = mt.course
+             LEFT JOIN {mootyper_exercises} me ON me.lesson = ml.id
+                 WHERE (ml.courseid IS NOT NULL AND ml.authorid = :userid1) AND (c.id {$contextsql} AND ml.authorid = :userid2 AND ml.courseid = mt.course)
+              ORDER BY cm.id ASC, ml.lessonname ASC";
+
+        $params = [
+            'userid1' => $user->id,
+            'userid2' => $user->id,
+        ] + $contextparams;
+        $recordset = $DB->get_recordset_sql($sql, $params);
+
+        static::recordset_loop_and_export($recordset, 'mootyper', [], function($carry, $record) {
+            $carry[] = (object) [
+                'lessonname' => $record->lessonname,
+                'authorid' => $record->authorid,
+                'visible' => transform::yesno($record->visible),
+                'editable' => $record->editable,
+                'courseid' => $record->courseid,
+                'texttotype' => $record->texttotype,
+                'exercisename' => $record->exercisename,
+                'lesson' => $record->lesson,
+                'snumber' => $record->snumber,
+
+            ];
+            return $carry;
+        }, function($mootyperid, $data) use ($mootyperidstocmids) {
+            $context = context_module::instance($mootyperidstocmids[$mootyperid]);
+            writer::with_context($context)->export_related_data([], 'lessons', (object) ['lessons' => $data]);
+        });
     }
 
     /**
@@ -294,6 +365,59 @@ class provider implements
             $instanceid = $DB->get_field('course_modules', 'instance', ['id' => $context->instanceid], MUST_EXIST);
             $DB->delete_records('mootyper_grades', ['mootyper' => $instanceid, 'userid' => $userid]);
             $DB->delete_records('mootyper_attempts', ['mootyperid' => $instanceid, 'userid' => $userid]);
+        }
+    }
+
+    /**
+     * Return a dict of mootyper IDs mapped to their course module ID.
+     *
+     * @param array $cmids The course module IDs.
+     * @return array In the form of [$hotquestionid => $cmid].
+     */
+    protected static function get_mootyper_ids_to_cmids_from_cmids(array $cmids) {
+        global $DB;
+        list($insql, $inparams) = $DB->get_in_or_equal($cmids, SQL_PARAMS_NAMED);
+        $sql = "
+            SELECT h.id, cm.id AS cmid
+              FROM {mootyper} h
+              JOIN {modules} m
+                ON m.name = :mootyper
+              JOIN {course_modules} cm
+                ON cm.instance = h.id
+               AND cm.module = m.id
+             WHERE cm.id $insql";
+        $params = array_merge($inparams, ['mootyper' => 'mootyper']);
+        return $DB->get_records_sql_menu($sql, $params);
+    }
+
+    /**
+     * Loop and export from a recordset.
+     *
+     * @param moodle_recordset $recordset The recordset.
+     * @param string $splitkey The record key to determine when to export.
+     * @param mixed $initial The initial data to reduce from.
+     * @param callable $reducer The function to return the dataset, receives current dataset, and the current record.
+     * @param callable $export The function to export the dataset, receives the last value from $splitkey and the dataset.
+     * @return void
+     */
+    protected static function recordset_loop_and_export(\moodle_recordset $recordset, $splitkey, $initial,
+            callable $reducer, callable $export) {
+
+        $data = $initial;
+        $lastid = null;
+
+        foreach ($recordset as $record) {
+            if ($lastid && $record->{$splitkey} != $lastid) {
+                $export($lastid, $data);
+                $data = $initial;
+            }
+            $data = $reducer($data, $record);
+            $lastid = $record->{$splitkey};
+        }
+        $recordset->close();
+
+        if (!empty($lastid)) {
+            $export($lastid, $data);
         }
     }
 }
