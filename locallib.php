@@ -116,8 +116,9 @@ function suspicion($checks, $starttime) {
     return false;
 }
 
-/** 3/22/16 Changed call from mod_setup so this is no longer used.
- * Keeping it here until I'm sure of the change.
+/** 3/22/16 Changed call from mod_setup so this is no longer used by exercises.php.
+ * Currently this is only used by eins.php which does not need the extra parameters
+ * brought in like exercise.php does.
  *
  * Get the current lesson.
  *
@@ -129,7 +130,7 @@ function get_typerlessons() {
     $lstoreturn = array();
     $sql = "SELECT id, lessonname
               FROM ".$CFG->prefix."mootyper_lessons
-              ORDER BY id";
+              ORDER BY lessonname";
     if ($lessons = $DB->get_records_sql($sql, $params)) {
         foreach ($lessons as $ex) {
             $lss = array();
@@ -159,7 +160,7 @@ function get_mootyperlessons($u, $c) {
                     (visible = 1 AND editable <= 2 AND courseid = ".$c.") OR
                     (visible = 0) OR
                     (".can_view_edit_all($u, $c)."))
-              ORDER BY id";
+              ORDER BY lessonname";
     /*
     /// This was taken out, because we have some context_module::instance confusion
       OR
