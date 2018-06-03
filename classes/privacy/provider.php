@@ -16,12 +16,6 @@
 
 /**
  * Privacy Subsystem implementation for mod_mootyper.
- * 5/18/18 this is giving context for everything.
- * Now giving an output if I have something in attempts, grades, lessons, and exercises.
- * Now have nicely formatted separate output for each grade with it's attempt info.
- * Using strings. May need some new ones.
- * This is closest yet.1955 hours, May19. Problem with duplicate timetaken
- * in attempts and grades.
  *
  * @package    mod_mootyper
  * @copyright  2016 AL Rachels drachels@drachels.com
@@ -87,21 +81,6 @@ class provider implements
             'wpm' => 'privacy:metadata:mootyper_grades:wpm',
         ], 'privacy:metadata:mootyper_grades');
 
-        $collection->add_database_table('mootyper_lessons', [
-            'lessonname' => 'privacy:metadata:mootyper_lessons:lessonname',
-            'authorid' => 'privacy:metadata:mootyper_lessons:authorid',
-            'visible' => 'privacy:metadata:mootyper_lessons:visible',
-            'editable' => 'privacy:metadata:mootyper_lessons:editable',
-            'courseid' => 'privacy:metadata:mootyper_lessons:courseid',
-        ], 'privacy:metadata:mootyper_lessons');
-
-        $collection->add_database_table('mootyper_exercises', [
-                'texttotype' => 'privacy:metadata:mootyper_exercises:texttotype',
-                'exercisename' => 'privacy:metadata:mootyper_exercises:exercisename',
-                'lesson' => 'privacy:metadata:mootyper_exercises:lesson',
-                'snumber' => 'privacy:metadata:mootyper_exercises:snumber',
-             ], 'privacy:metadata:mootyper_exercises');
-
         return $collection;
     }
 
@@ -122,19 +101,17 @@ class provider implements
                   JOIN {mootyper} mt ON mt.id = cm.instance
                   JOIN {mootyper_grades} mtg ON mtg.mootyper = mt.id
              LEFT JOIN {mootyper_attempts} mta ON mta.mootyperid = mt.id
-             LEFT JOIN {mootyper_lessons} mtl ON mtl.courseid = mt.course
-                 WHERE (mta.userid = :userid1 AND mtg.userid = :userid2 OR mtl.authorid = :userid3)";
+                 WHERE (mta.userid = :userid1 AND mtg.userid = :userid2)";
 
         $params = [
             'modname' => 'mootyper',
             'contextlevel' => CONTEXT_MODULE,
             'userid1' => $userid,
             'userid2' => $userid,
-            'userid3' => $userid,
         ];
 
         $contextlist->add_from_sql($sql, $params);
-        
+
         return $contextlist;
     }
 
@@ -208,7 +185,6 @@ class provider implements
             $carry[] = (object) [
                 'mootyper' => $record->mootyper,
                 'userid' => $record->userid,
-                // 'grade' => $record->grade,
                 'mistakes' => $record->mistakes,
                 'timeinseconds' => format_time($record->timeinseconds),
                 'hitsperminute' => $record->hitsperminute,
@@ -262,53 +238,6 @@ class provider implements
             $context = context_module::instance($mootyperidstocmids[$mootyperid]);
             writer::with_context($context)->export_related_data([], 'attempts', (object) ['attempts' => $data]);
         });
-
-        // Export the lessons.
-        $sql = "SELECT DISTINCT cm.id AS cmid,
-                       mg.mootyper AS mootyper,
-                       ml.lessonname AS lessonname,
-                       ml.authorid AS authorid,
-                       ml.visible AS visible,
-                       ml.editable AS editable,
-                       ml.courseid AS courseid,
-                       me.texttotype AS texttotype,
-                       me.exercisename AS exercisename,
-                       me.lesson AS lesson,
-                       me.snumber AS snumber
-                  FROM {context} c
-            INNER JOIN {course_modules} cm ON cm.id = c.instanceid
-            INNER JOIN {mootyper} mt ON mt.id = cm.instance
-             LEFT JOIN {mootyper_grades} mg ON mg.mootyper = cm.instance
-             LEFT JOIN {mootyper_attempts} ma ON ma.mootyperid = mt.id AND mg.attemptid = ma.id
-             LEFT JOIN {mootyper_lessons} ml ON ml.courseid = mt.course
-             LEFT JOIN {mootyper_exercises} me ON me.lesson = ml.id
-                 WHERE (ml.courseid IS NOT NULL AND ml.authorid = :userid1) AND (c.id {$contextsql} AND ml.authorid = :userid2 AND ml.courseid = mt.course)
-              ORDER BY cm.id ASC, ml.lessonname ASC";
-
-        $params = [
-            'userid1' => $user->id,
-            'userid2' => $user->id,
-        ] + $contextparams;
-        $recordset = $DB->get_recordset_sql($sql, $params);
-
-        static::recordset_loop_and_export($recordset, 'mootyper', [], function($carry, $record) {
-            $carry[] = (object) [
-                'lessonname' => $record->lessonname,
-                'authorid' => $record->authorid,
-                'visible' => transform::yesno($record->visible),
-                'editable' => $record->editable,
-                'courseid' => $record->courseid,
-                'texttotype' => $record->texttotype,
-                'exercisename' => $record->exercisename,
-                'lesson' => $record->lesson,
-                'snumber' => $record->snumber,
-
-            ];
-            return $carry;
-        }, function($mootyperid, $data) use ($mootyperidstocmids) {
-            $context = context_module::instance($mootyperidstocmids[$mootyperid]);
-            writer::with_context($context)->export_related_data([], 'lessons', (object) ['lessons' => $data]);
-        });
     }
 
     /**
@@ -361,6 +290,7 @@ class provider implements
         }
 
         $userid = $contextlist->get_user()->id;
+
         foreach ($contextlist->get_contexts() as $context) {
             $instanceid = $DB->get_field('course_modules', 'instance', ['id' => $context->instanceid], MUST_EXIST);
             $DB->delete_records('mootyper_grades', ['mootyper' => $instanceid, 'userid' => $userid]);
