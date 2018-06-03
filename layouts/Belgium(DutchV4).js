@@ -1,5 +1,10 @@
-var THE_LAYOUT,
-    ended = false,
+/**
+ * @fileOverview Belgium(DutchV4) keyboard driver.
+ * @author <a href="mailto:drachels@drachels.com">AL Rachels</a>
+ * @version 4.0
+ * @since 09/15/2017
+ */
+var ended = false,
     started = false,
     doStart,
     getPressedChar,
@@ -7,30 +12,27 @@ var THE_LAYOUT,
     combinedCharWait,
     $,
     currentChar,
-    show_keyboard,
+    showKeyboard,
     currentPos,
     fullText,
     doKonec,
     moveCursor,
     napake,
-    keyupFirst,
     keyPressed,
     event;
 
 /**
  * Check for combined character.
- * @param {char} chr.
- * @returns {char}.
+ * @param {string} chr.
+ * @returns {string}.
  */
 function isCombined(chr) {
     return (chr === '´' || chr === '`' || chr === '~');
 }
 
-THE_LAYOUT = 'Belgium(DutchV4)';
-
 /**
  * Process keyup for combined character.
- * @param {char} e.
+ * @param {string} e.
  * @returns {bolean}.
  */
 function keyupCombined(e) {
@@ -52,21 +54,21 @@ function keyupCombined(e) {
     var currentText = $('#tb1').val();
     var lastChar = currentText.substring(currentText.length - 1);
     if (combinedChar && lastChar === currentChar) {
-        if (show_keyboard) {
+        if (showKeyboard) {
             var thisE = new keyboardElement(currentChar);
             thisE.turnOff();
         }
-        if (currentPos === fullText.length - 1) {   // END.
+        if (currentPos === fullText.length - 1) { // END.
             doKonec();
             return true;
         }
         if (currentPos < fullText.length - 1) {
             var nextChar = fullText[currentPos + 1];
-            if (show_keyboard){
+            if (showKeyboard){
                 var nextE = new keyboardElement(nextChar);
                 nextE.turnOn();
             }
-            if (!isCombined(nextChar)) {            // If next char is not combined char.
+            if (!isCombined(nextChar)) { // If next char is not combined char.
                 $("#form1").off("keyup", "#tb1");
                 $("#form1").on("keypress", "#tb1", keyPressed);
             }
@@ -87,7 +89,7 @@ function keyupCombined(e) {
 
 /**
  * Process keyupFirst.
- * @param {char} event.
+ * @param {string} event.
  * @returns {bolean}.
  */
 function keyupFirst(event) {
@@ -98,7 +100,7 @@ function keyupFirst(event) {
 
 /**
  * Check for character typed so flags can be set.
- * @param {char} ltr.
+ * @param {string} ltr.
  */
 function keyboardElement(ltr) {
     this.chr = ltr.toLowerCase();
@@ -209,7 +211,7 @@ function keyboardElement(ltr) {
 
 /**
  * Set color flag based on current character.
- * @param {char} tCrka.
+ * @param {string} tCrka.
  * @returns {int}.
  */
 function thenFinger(tCrka) {
@@ -234,7 +236,7 @@ function thenFinger(tCrka) {
 
 /**
  * Get ID of key to highlight based on current character.
- * @param {char} tCrka.
+ * @param {string} tCrka.
  * @returns {varchar}.
  */
 function getKeyID(tCrka) {
@@ -307,7 +309,7 @@ function getKeyID(tCrka) {
 
 /**
  * Is the typed letter part of the current alphabet.
- * @param {char} str.
+ * @param {string} str.
  * @returns {(int|Array)}.
  */
 function isLetter(str) {

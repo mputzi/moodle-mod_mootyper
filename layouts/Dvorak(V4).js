@@ -1,5 +1,10 @@
-var THE_LAYOUT,
-    ended = false,
+/**
+ * @fileOverview Dvorak(V4) keyboard driver.
+ * @author <a href="mailto:drachels@drachels.com">AL Rachels</a>
+ * @version 4.0
+ * @since 09/20/2017
+ */
+var ended = false,
     started = false,
     doStart,
     getPressedChar,
@@ -7,7 +12,6 @@ var THE_LAYOUT,
     combinedCharWait,
     $,
     currentChar,
-    show_keyboard,
     currentPos,
     fullText,
     doKonec,
@@ -18,8 +22,8 @@ var THE_LAYOUT,
 
 /**
  * Check for combined character.
- * @param {char} chr.
- * @returns {char}.
+ * @param {string} chr.
+ * @returns {string}.
  */
 function isCombined(chr) {
     return false;
@@ -27,7 +31,7 @@ function isCombined(chr) {
 
 /**
  * Process keyup for combined character.
- * @param {char} e.
+ * @param {string} e.
  * @returns {bolean}.
  */
 function keyupCombined(e) {
@@ -36,18 +40,16 @@ function keyupCombined(e) {
 
 /**
  * Process keyupFirst.
- * @param {char} event.
+ * @param {string} event.
  * @returns {bolean}.
  */
 function keyupFirst(event) {
     return false;
 }
 
-THE_LAYOUT = 'Dvorak(V4)';
-
 /**
  * Check for character typed so flags can be set.
- * @param {char} ltr.
+ * @param {string} ltr.
  */
 function keyboardElement(ltr) {
     this.chr = ltr.toLowerCase();
@@ -57,9 +59,9 @@ function keyboardElement(ltr) {
     } else {
         // @codingStandardsIgnoreLine
         if (ltr.match(/[~!@#$%^&*(){}"<>?+|_:]/i)) { // See if our current key is uppercase.
-            this.shift = true;                       // Set shift flag to On.
+            this.shift = true; // Set shift flag to On.
         } else {
-            this.shift = false;                      // If not uppercase, set shift flag Off.
+            this.shift = false; // If not uppercase, set shift flag Off.
         }
     }
     this.turnOn = function() {
@@ -107,7 +109,7 @@ function keyboardElement(ltr) {
 
 /**
  * Set color flag based on current character.
- * @param {char} tCrka.
+ * @param {string} tCrka.
  * @returns {number}.
  */
 function thenFinger(tCrka) {
@@ -132,7 +134,7 @@ function thenFinger(tCrka) {
 
 /**
  * Get ID of key to highlight based on current character.
- * @param {char} tCrka.
+ * @param {string} tCrka.
  * @returns {varchar}.
  */
 function getKeyID(tCrka) {
@@ -197,7 +199,7 @@ function getKeyID(tCrka) {
 
 /**
  * Is the typed letter part of the current alphabet.
- * @param {char} str.
+ * @param {string} str.
  * @returns {(int|Array)}.
  */
 function isLetter(str) {
