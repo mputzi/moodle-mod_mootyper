@@ -122,7 +122,7 @@ if (!has_capability('mod/mootyper:viewmygrades', context_module::instance($cm->i
                    .'</td><td><a href="?id='.$id.'&n='.$n.'&orderby=9'.$lnkadd.'">'.
         get_string('timetaken', 'mootyper').'</a>'.$arrtextadds[9]
                    .'</td><td><a href="?id='.$id.'&n='.$n.'&orderby=12'.$lnkadd.'">'.
-        get_string('wpm', 'mootyper').'</a>'.$arrtextadds[12].'</td></tr>';
+        get_string('wpm', 'mootyper').'</a>'.$arrtextadds[12].'</td><td></td></tr>';
         foreach ($grds as $gr) {
             if (!($mtmode == 1) && $gr->pass) {
                 $stil = 'background-color: '.(get_config('mod_mootyper', 'passbgc')).';';
@@ -162,7 +162,7 @@ if (!has_capability('mod/mootyper:viewmygrades', context_module::instance($cm->i
             $htmlout .= '<tr style="border-top-style: solid;"><td><strong>'.get_string('average', 'mootyper')
                         .': </strong></td><td>'.$avg['mistakes'].'</td><td>'.format_time($avg['timeinseconds'])
                         .'</td><td>'.format_float($avg['hitsperminute']).'</td><td>'.$avg['fullhits'].'</td><td>'
-                        .format_float($avg['precisionfield']).'%</td><td></td><td></td></tr>';
+                        .format_float($avg['precisionfield']).'%</td><td></td><td></td><td></td></tr>';
         }
         $htmlout .= '</table>';
 
