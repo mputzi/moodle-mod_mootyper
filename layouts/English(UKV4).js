@@ -1,25 +1,14 @@
-var THE_LAYOUT,
-    ended = false,
-    started = false,
-    doStart,
-    getPressedChar,
-    combinedChar,
-    combinedCharWait,
-    $,
-    currentChar,
-    show_keyboard,
-    currentPos,
-    fullText,
-    doKonec,
-    moveCursor,
-    napake,
-    keyupFirst,
-    event;
+/**
+ * @fileOverview English(UKV4) keyboard driver.
+ * @author <a href="mailto:drachels@drachels.com">AL Rachels</a>
+ * @version 4.0
+ * @since 04/04/2018
+ */
 
 /**
  * Check for combined character.
- * @param {char} chr.
- * @returns {char}.
+ * @param {string} chr The combined character.
+ * @returns {string} The character.
  */
 function isCombined(chr) {
     return false;
@@ -27,8 +16,8 @@ function isCombined(chr) {
 
 /**
  * Process keyup for combined character.
- * @param {char} e.
- * @returns {bolean}.
+ * @param {string} e The combined character.
+ * @returns {bolean} The result.
  */
 function keyupCombined(e) {
     return false;
@@ -36,18 +25,16 @@ function keyupCombined(e) {
 
 /**
  * Process keyupFirst.
- * @param {char} event.
- * @returns {bolean}.
+ * @param {string} event Type of event.
+ * @returns {bolean} The event.
  */
 function keyupFirst(event) {
     return false;
 }
 
-THE_LAYOUT = 'English(UKV4)';
-
 /**
  * Check for character typed so flags can be set.
- * @param {char} ltr.
+ * @param {string} ltr The current letter.
  */
 function keyboardElement(ltr) {
     this.chr = ltr.toLowerCase();
@@ -117,7 +104,7 @@ function keyboardElement(ltr) {
 
 /**
  * Set color flag based on current character.
- * @param {char} tCrka.
+ * @param {string} tCrka The current character.
  * @returns {number}.
  */
 function thenFinger(tCrka) {
@@ -142,8 +129,8 @@ function thenFinger(tCrka) {
 
 /**
  * Get ID of key to highlight based on current character.
- * @param {char} tCrka.
- * @returns {char}.
+ * @param {string} tCrka The current character.
+ * @returns {string}.
  */
 function getKeyID(tCrka) {
     if (tCrka === ' ') {
@@ -217,8 +204,8 @@ function getKeyID(tCrka) {
 
 /**
  * Is the typed letter part of the current alphabet.
- * @param {char} str.
- * @returns {(int|Array)}.
+ * @param {string} str The current letter.
+ * @returns {(number|Array)}.
  */
 function isLetter(str) {
     return str.length === 1 && str.match(/[a-z]/i);

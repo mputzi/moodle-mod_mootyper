@@ -35,7 +35,7 @@ echo (isset($displaynone) && ($displaynone == true)) ? 'display:none;' : '';
             <div id="jkey²" class="normal" style='text-align:left;'>&nbsp;<br>²</div>
             <div id="jkey1" class="normal" style='text-align:left;'>1<br>& </div>
             <div id="jkey2" class="normal" style='text-align:left;'>2<br>é
-                <span style="color:red">&nbsp;&nbsp;&nbsp;~</span></div>
+                <span style="color:red">&nbsp;~</span></div>
             <div id="jkey3" class="normal" style='text-align:left;'>3<br>"
                 <span style="color:blue">&nbsp;&nbsp;&nbsp;#</span></div>
             <div id="jkey4" class="normal" style='text-align:left;'>4<br>'
@@ -49,7 +49,7 @@ echo (isset($displaynone) && ($displaynone == true)) ? 'display:none;' : '';
             <div id="jkey8" class="normal" style='text-align:left;'>8<br>_
                 <span style="color:blue">&nbsp;&nbsp;&nbsp;\</span></div>
             <div id="jkey9" class="normal" style='text-align:left;'>9<br>ç
-                <span style="color:blue">&nbsp;&nbsp;&nbsp;^</span></div>
+                <span style="color:blue">&nbsp;&nbsp;^</span></div>
             <div id="jkey0" class="normal" style='text-align:left;'>0<br>à
                 <span style="color:blue">&nbsp;@</span></div>
             <div id="jkeyparenr" class="normal" style='text-align:left;'>°<br>)

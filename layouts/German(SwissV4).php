@@ -42,7 +42,7 @@ echo (isset($displaynone) && ($displaynone == true)) ? 'display:none;' : '';
             <div id="jkey4" class="normal">ç<br>4</div>
             <div id="jkey5" class="normal">%<br>5</div>
             <div id="jkey6" class="normal" style='text-align:left;'>&<br>6
-                <span style="color:blue">&nbsp; &nbsp; &nbsp;¬</span></div>
+                <span style="color:blue">&nbsp;&nbsp;&nbsp;¬</span></div>
             <div id="jkey7" class="normal" style='text-align:left;'>/<br>7
                 <span style="color:blue">&nbsp; &nbsp; &nbsp;|</span></div>
             <div id="jkey8" class="normal" style='text-align:left;'>(<br>8

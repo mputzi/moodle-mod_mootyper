@@ -44,14 +44,14 @@ echo (isset($displaynone) && ($displaynone == true)) ? 'display:none;' : '';
             <div id="jkey5" class="normal" style='text-align:left;'>%<br>5
                 <span style="color:blue">&nbsp;&nbsp;&nbsp;¢</span></div>
             <div id="jkey6" class="normal" style='text-align:left;'><span style="color:red">¨
-                </span><br>6 <span style="color:blue">&nbsp;&nbsp;&nbsp;¬</span></div>
+                </span><br>6 <span style="color:blue">&nbsp;&nbsp;¬</span></div>
             <div id="jkey7" class="normal">&<br>7</div>
             <div id="jkey8" class="normal">*<br>8</div>
             <div id="jkey9" class="normal">(<br>9</div>
             <div id="jkey0" class="normal">)<br>0</div>
             <div id="jkeyminus" class="normal">_<br>-</div>
             <div id="jkeyequals" class="normal" style='text-align:left;'>+<br>=
-                <span style="color:blue">&nbsp;&nbsp;&nbsp;§</span></div>
+                <span style="color:blue">&nbsp;&nbsp;§</span></div>
             <div id="jkeybackspace" class="normal" style="width: 95px;">Backspace</div>
     </div>
     <div style="float: left;">

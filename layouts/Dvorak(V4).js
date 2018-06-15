@@ -4,26 +4,11 @@
  * @version 4.0
  * @since 09/20/2017
  */
-var ended = false,
-    started = false,
-    doStart,
-    getPressedChar,
-    combinedChar,
-    combinedCharWait,
-    $,
-    currentChar,
-    currentPos,
-    fullText,
-    doKonec,
-    moveCursor,
-    napake,
-    keyupFirst,
-    event;
 
 /**
  * Check for combined character.
- * @param {string} chr.
- * @returns {string}.
+ * @param {string} chr The combined character.
+ * @returns {string} The character.
  */
 function isCombined(chr) {
     return false;
@@ -31,8 +16,8 @@ function isCombined(chr) {
 
 /**
  * Process keyup for combined character.
- * @param {string} e.
- * @returns {bolean}.
+ * @param {string} e The combined character.
+ * @returns {bolean} The result.
  */
 function keyupCombined(e) {
     return false;
@@ -40,8 +25,8 @@ function keyupCombined(e) {
 
 /**
  * Process keyupFirst.
- * @param {string} event.
- * @returns {bolean}.
+ * @param {string} event Type of event.
+ * @returns {bolean} The event.
  */
 function keyupFirst(event) {
     return false;
@@ -49,7 +34,7 @@ function keyupFirst(event) {
 
 /**
  * Check for character typed so flags can be set.
- * @param {string} ltr.
+ * @param {string} ltr The current letter.
  */
 function keyboardElement(ltr) {
     this.chr = ltr.toLowerCase();
@@ -109,7 +94,7 @@ function keyboardElement(ltr) {
 
 /**
  * Set color flag based on current character.
- * @param {string} tCrka.
+ * @param {string} tCrka The current character.
  * @returns {number}.
  */
 function thenFinger(tCrka) {
@@ -134,8 +119,8 @@ function thenFinger(tCrka) {
 
 /**
  * Get ID of key to highlight based on current character.
- * @param {string} tCrka.
- * @returns {varchar}.
+ * @param {string} tCrka The current character.
+ * @returns {string}.
  */
 function getKeyID(tCrka) {
     if (tCrka === ' ') {
@@ -199,8 +184,8 @@ function getKeyID(tCrka) {
 
 /**
  * Is the typed letter part of the current alphabet.
- * @param {string} str.
- * @returns {(int|Array)}.
+ * @param {string} str The current letter.
+ * @returns {(number|Array)}.
  */
 function isLetter(str) {
     return str.length === 1 && str.match(/[a-z]/i);

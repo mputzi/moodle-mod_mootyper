@@ -34,11 +34,11 @@ echo (isset($displaynone) && ($displaynone == true)) ? 'display:none;' : '';
         <div class="mtrow" style='float: left; margin-left:5px; font-size: 12px !important; line-height: 15px'>
             <div id="jkeytildo" class="normal">¨<br>¸</div>
             <div id="jkey1" class="normal" style='text-align:left;'>!<br>1
-                <span style="color:red">&nbsp; &nbsp; &nbsp;~</span></div>
+                <span style="color:red">&nbsp;&nbsp;&nbsp;~</span></div>
             <div id="jkey2" class="normal" style='text-align:left;'>"<br>2
                 <span style="color:red">&nbsp; &nbsp; &nbsp;ˇ</span></div>
             <div id="jkey3" class="normal" style='text-align:left;'>#<br>3
-                <span style="color:red">&nbsp; &nbsp; &nbsp;^</span></div>
+                <span style="color:red">&nbsp;&nbsp;&nbsp;^</span></div>
             <div id="jkey4" class="normal" style='text-align:left;'>$<br>4
                 <span style="color:red">&nbsp; &nbsp; &nbsp;˘</span></div>
             <div id="jkey5" class="normal" style='text-align:left;'>%<br>5

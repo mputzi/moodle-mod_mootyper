@@ -41,11 +41,11 @@ echo (isset($displaynone) && ($displaynone == true)) ? 'display:none;' : '';
             <div id="jkey3" class="normal" style='text-align:left;'>·<br>3
                 <span style="color:blue;">&nbsp; &nbsp; &nbsp;#</span></div>
             <div id="jkey4" class="normal" style='text-align:left;'>$<br>4
-                <span style="color:red;">&nbsp; &nbsp; &nbsp;~</span></div>
+                <span style="color:red;">&nbsp;&nbsp;&nbsp;~</span></div>
             <div id="jkey5" class="normal" style='text-align:left;'>%<br>5
                 <span style="color:blue;">&nbsp; &nbsp; &nbsp;€</span></div>
             <div id="jkey6" class="normal" style='text-align:left;'>&<br>6
-                <span style="color:blue;">&nbsp; &nbsp; &nbsp;¬</span></div>
+                <span style="color:blue;">&nbsp;&nbsp;&nbsp;¬</span></div>
             <div id="jkey7" class="normal">/<br>7</div>
             <div id="jkey8" class="normal">(<br>8</div>
             <div id="jkey9" class="normal">)<br>9</div>

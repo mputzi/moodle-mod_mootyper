@@ -1,30 +1,14 @@
 /**
- * @fileOverview Belgium(DutchV4) keyboard driver.
+ * @fileOverview Belgium(DutchV4.1) keyboard driver.
  * @author <a href="mailto:drachels@drachels.com">AL Rachels</a>
  * @version 4.0
  * @since 09/15/2017
  */
-var ended = false,
-    started = false,
-    doStart,
-    getPressedChar,
-    combinedChar,
-    combinedCharWait,
-    $,
-    currentChar,
-    showKeyboard,
-    currentPos,
-    fullText,
-    doKonec,
-    moveCursor,
-    napake,
-    keyPressed,
-    event;
 
 /**
  * Check for combined character.
- * @param {string} chr.
- * @returns {string}.
+ * @param {string} chr The combined character.
+ * @returns {string} The character.
  */
 function isCombined(chr) {
     return (chr === '´' || chr === '`' || chr === '~');
@@ -32,75 +16,26 @@ function isCombined(chr) {
 
 /**
  * Process keyup for combined character.
- * @param {string} e.
- * @returns {bolean}.
+ * @param {string} e The combined character.
+ * @returns {bolean} The result.
  */
 function keyupCombined(e) {
-    if (ended) {
-        return false;
-    }
-    if (!started) {
-        doStart();
-    }
-    var keychar = getPressedChar(e);
-    if (keychar === '[not_yet_defined]') {
-        combinedChar = true;
-        return true;
-    }
-    if (combinedCharWait) {
-        combinedCharWait = false;
-        return true;
-    }
-    var currentText = $('#tb1').val();
-    var lastChar = currentText.substring(currentText.length - 1);
-    if (combinedChar && lastChar === currentChar) {
-        if (showKeyboard) {
-            var thisE = new keyboardElement(currentChar);
-            thisE.turnOff();
-        }
-        if (currentPos === fullText.length - 1) { // END.
-            doKonec();
-            return true;
-        }
-        if (currentPos < fullText.length - 1) {
-            var nextChar = fullText[currentPos + 1];
-            if (showKeyboard){
-                var nextE = new keyboardElement(nextChar);
-                nextE.turnOn();
-            }
-            if (!isCombined(nextChar)) { // If next char is not combined char.
-                $("#form1").off("keyup", "#tb1");
-                $("#form1").on("keypress", "#tb1", keyPressed);
-            }
-        }
-        combinedChar = false;
-        moveCursor(currentPos + 1);
-        currentChar = fullText[currentPos + 1];
-        currentPos++;
-        return true;
-    } else {
-        combinedChar = false;
-        napake++;
-        var tbval = $('#tb1').val();
-        $('#tb1').val(tbval.substring(0, currentPos));
-        return false;
-    }
+    return false;
+ 
 }
 
 /**
  * Process keyupFirst.
- * @param {string} event.
- * @returns {bolean}.
+ * @param {string} event Type of event.
+ * @returns {bolean} The event.
  */
 function keyupFirst(event) {
-    $("#form1").off("keyup", "#tb1", keyupFirst);
-    $("#form1").on("keyup", "#tb1", keyupCombined);
     return false;
 }
 
 /**
  * Check for character typed so flags can be set.
- * @param {string} ltr.
+ * @param {string} ltr The current letter.
  */
 function keyboardElement(ltr) {
     this.chr = ltr.toLowerCase();
@@ -117,7 +52,7 @@ function keyboardElement(ltr) {
         }
     }
     // @codingStandardsIgnoreLine
-    if (ltr.match(/[\\|@#€{}\[\]~´`ñ]/i)) {
+    if (ltr.match(/[\\|@#€{}[\]~´`ñ]/i)) {
         this.shift = false;
         this.alt = true;
         this.accent = false;
@@ -211,14 +146,14 @@ function keyboardElement(ltr) {
 
 /**
  * Set color flag based on current character.
- * @param {string} tCrka.
- * @returns {int}.
+ * @param {string} tCrka The current character.
+ * @returns {number}.
  */
 function thenFinger(tCrka) {
     if (tCrka === ' ') {
         return 5; // Highlight the spacebar.
         // @codingStandardsIgnoreLine
-    } else if (tCrka.match(/[²³&1|aáqw<>\\à0}pm)°^¨\[ù%´=+~\-_$*\]µ£`]/i)) {
+    } else if (tCrka.match(/[²³&1|aáqw<>\\à0}pm)°^¨[ù%´=+~\-_$*\]µ£`]/i)) {
         return 4; // Highlight the correct key above in red.
         // @codingStandardsIgnoreLine
     } else if (tCrka.match(/[é2@zsxç9{oóöl:/]/i)) {
@@ -236,8 +171,8 @@ function thenFinger(tCrka) {
 
 /**
  * Get ID of key to highlight based on current character.
- * @param {string} tCrka.
- * @returns {varchar}.
+ * @param {string} tCrka The current character.
+ * @returns {string}.
  */
 function getKeyID(tCrka) {
     if (tCrka === ' ') {
@@ -309,8 +244,8 @@ function getKeyID(tCrka) {
 
 /**
  * Is the typed letter part of the current alphabet.
- * @param {string} str.
- * @returns {(int|Array)}.
+ * @param {string} str The current letter.
+ * @returns {(number|Array)}.
  */
 function isLetter(str) {
     return str.length === 1 && str.match(/[0-9a-z¡ñçáéíóúüùµ]/i);

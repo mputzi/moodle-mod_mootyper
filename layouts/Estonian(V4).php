@@ -91,7 +91,7 @@ echo (isset($displaynone) && ($displaynone == true)) ? 'display:none;' : '';
             <div id="jkeyä" class="normal" style='text-align:left;'>Ä<br>
                 <span style="color:blue">&nbsp; &nbsp; &nbsp;^</span></div>
             <div id="jkeyapostrophe" class="normal" style='text-align:left;'>*<br>'
-                <span style="color:blue">&nbsp;&nbsp;&nbsp;½</span></div>
+                <span style="color:blue">&nbsp;&nbsp;½</span></div>
         </div>
     </div>
 
@@ -100,7 +100,7 @@ echo (isset($displaynone) && ($displaynone == true)) ? 'display:none;' : '';
             <div id="jkeyckck" class="normal"  style='text-align:left;'>&gt;<br>&lt;
                 <span style="color:blue">&nbsp;&nbsp;&nbsp;|</span></div>
             <div id="jkeyz" class="normal" style='text-align:left;'>Z<br>
-                <span style="color:blue">&nbsp;&nbsp;&nbsp;ž</span></div>
+                <span style="color:blue">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ž</span></div>
             <div id="jkeyx" class="normal" style='text-align:left;'>X<br>&nbsp; &nbsp; &nbsp;</div>
             <div id="jkeyc" class="normal" style='text-align:left;'>C<br>&nbsp; &nbsp; &nbsp;</div>
             <div id="jkeyv" class="normal" style='text-align:left;'>V<br>&nbsp; &nbsp; &nbsp;</div>
