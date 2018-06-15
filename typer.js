@@ -22,7 +22,7 @@ var startTime,
  * If not the end of fullText, move cursor to next character.
  * Color the previous character according to result.
  *
- * @param {number} nextPos.
+ * @param {number} nextPos Next cursor position.
  */
 function moveCursor(nextPos) {
     if (nextPos > 0 && nextPos <= fullText.length) {
