@@ -90,8 +90,7 @@ function keyboardElement(ltr) {
         this.tilde = true;
     }
     // @codingStandardsIgnoreLine
-    if (ltr.match(/[¹²³£¢¬§//°ªº₢]/i))
-    {
+    if (ltr.match(/[¹²³£¢¬§//°ªº₢]/i)) {
         this.shift = false;
         this.alt = true;
     }
