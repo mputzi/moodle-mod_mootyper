@@ -124,14 +124,14 @@ foreach ($exercises as $ex) {
     if (strlen($strtocut) > 65) {
         $strtocut = substr($strtocut, 0, 65).'...';
     }
-    // If user can edit, create an edit link to the current exerise.
+    // If user can edit, create a remove link to the current exerise.
     $jlink1 = '<a onclick="return confirm(\''.get_string('removeexconfirm', 'mootyper')
               .$lessons[$selectedlessonindex]['lessonname']
               .'\')" href="erem.php?id='.$course->id.'&r='
               .$ex['id'].'"><img src="pix/delete.png" alt="'
               .get_string('eremove', 'mootyper').'"></a>';
 
-    // If user can edit, create a remove link to the current exerise.
+    // If user can edit, create an edit link to the current exerise.
     $jlink2 = '<a href="eedit.php?id='.$course->id.'&ex='.$ex['id']
               .'"><img src="pix/edit.png" alt='
               .get_string('eeditlabel', 'mootyper').'></a>';
