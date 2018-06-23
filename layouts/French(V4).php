@@ -29,7 +29,7 @@
 echo (isset($displaynone) && ($displaynone == true)) ? 'display:none;' : '';
 ?>
 "><br>
-<div id="keyboard" class="keyboardback"> Français(V4) Keyboard Layout<br>
+<div id="keyboard" class="keyboardback">French(V4) Keyboard Layout<br>
     <section>
         <div class="mtrow" style='float: left; margin-left:5px; font-size: 15px !important; line-height: 15px'>
             <div id="jkey²" class="normal" style='text-align:left;'>&nbsp;<br>²</div>
