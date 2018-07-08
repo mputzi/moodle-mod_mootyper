@@ -37,14 +37,16 @@ echo (isset($displaynone) && ($displaynone == true)) ? 'display:none;' : '';
             <div id="jkey2" class="normal" style='text-align:left;'>"<br>2<span style="color:blue">&nbsp;&nbsp;@</span></div>
             <div id="jkey3" class="normal" style='text-align:left;'>#<br>3<span style="color:blue">&nbsp;&nbsp;&nbsp;£</span></div>
             <div id="jkey4" class="normal" style='text-align:left;'>¤<br>4<span style="color:blue">&nbsp;&nbsp;&nbsp;$</span></div>
-            <div id="jkey5" class="normal" style='text-align:left;'>%<br>5<span style="color:blue">&nbsp;&nbsp;&nbsp;€</span></div>
+            <div id="jkey5" class="normal" style='text-align:left;'>%<br>5
+                <span style="color:blue">&nbsp;&nbsp;&nbsp;€</span></div>
             <div id="jkey6" class="normal" style='text-align:left;'>& <br>6</div>
             <div id="jkey7" class="normal" style='text-align:left;'>/<br>7<span style="color:blue">&nbsp;&nbsp;&nbsp;{</span></div>
             <div id="jkey8" class="normal" style='text-align:left;'>(<br>8<span style="color:blue">&nbsp;&nbsp;&nbsp;[</span></div>
             <div id="jkey9" class="normal" style='text-align:left;'>)<br>9<span style="color:blue">&nbsp;&nbsp;&nbsp;]</span></div>
             <div id="jkey0" class="normal" style='text-align:left;'>=<br>0<span style="color:blue">&nbsp;&nbsp;&nbsp;}</span></div>
             <div id="jkeyplus" class="normal" style='text-align:left;'>?<br>+</div>
-            <div id="jkeycrtica" class="normal" style='text-align:left;'>`<br>´<span style="color:blue">&nbsp;&nbsp;&nbsp;|</span></div>
+            <div id="jkeycrtica" class="normal" style='text-align:left;'>`<br>´
+                <span style="color:blue">&nbsp;&nbsp;&nbsp;|</span></div>
             <div id="jkeybackspace" class="normal" style="width: 95px; text-align:left;">Backspace</div>
         </div>
         <div style="float: left;">
