@@ -113,7 +113,7 @@ echo (isset($displaynone) && ($displaynone == true)) ? 'display:none;' : '';
             <div id="jkeyfn" class="normal" style="width: 50px;">Win</div>
             <div id="jkeyalt" class="normal" style="width: 50px;">Alt</div>
             <div id="jkeyspace" class="normal" style="width: 245px;">Space</div>
-            <div id="jkeyaltgr" class="normal" style="color:blue; width: 50px;">Alt gr</div>
+            <div id="jkeyaltgr" class="normal" style="color:blue; width: 50px;">Alt Gr</div>
             <div id="jkeyfn" class="normal" style="width: 50px;">Win</div>
             <div id="jempty" class="normal" style="width: 50px;">Menu</div>
             <div id="jkeyctrlr" class="normal" style="width: 60px; border-right-style: solid;">Ctrl</div><br>
