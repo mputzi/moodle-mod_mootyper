@@ -106,6 +106,7 @@ function thenFinger(tCrka) {
         return 4; // Highlight the correct key above in red.
     } else if (tCrka.match(/[2?уУяЯйЙ9–дДвВлЛ]/i)) {
         return 3; // Highlight the correct key above in green.
+        // @codingStandardsIgnoreLine
     } else if (tCrka.match(/[3+еЕаАъЪ8/сСнНрР]/i)) {
         return 2; // Highlight the correct key above in yellow.
     } else if (tCrka.match(/[4"иИоОэЭ5%шШжЖфФ6=щЩгГхХ7:кКтТпП]/i)) {
