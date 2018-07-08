@@ -63,7 +63,7 @@ echo (isset($displaynone) && ($displaynone == true)) ? 'display:none;' : '';
                 <div id="jkeyå" class="normal" style='text-align:left;'>Å</div>
                 <div id="jkey¨" class="normal" style='text-align:left; color:red'>^<br>¨&nbsp;&nbsp;&nbsp;~</span></div>
             </div>
-                <span id="jkeyenter" class="normal" style="width: 50px; margin-right:5px; float: right; height: 85px;">Entrée</span>
+                <span id="jkeyenter" class="normal" style="width: 50px; margin-right:5px; float: right; height: 85px;">Enter</span>
                 <div class="mtrow" style='float: left; margin-left:5px; font-size: 15px !important; line-height: 15px'> 
                 <div id="jkeycaps" class="normal" style="width: 80px; text-align:left; font-size: 12px !important;">Caps Lock</div>
                 <div id="jkeya" class="finger4" style='text-align:left;'>A</div>
