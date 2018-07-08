@@ -4,7 +4,7 @@
  * @version 4.0
  * @since 09/24/2017
  */
-  
+
 /**
  * Check for combined character.
  * @param {string} chr The combined character.
