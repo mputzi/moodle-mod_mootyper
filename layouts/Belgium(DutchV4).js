@@ -21,7 +21,6 @@ function isCombined(chr) {
  */
 function keyupCombined(e) {
     return false;
- 
 }
 
 /**
