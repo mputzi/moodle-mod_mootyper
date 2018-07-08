@@ -43,8 +43,6 @@ function keyboardElement(ltr) {
         this.chr = ltr.toUpperCase();
     }
 
-   // this.chr = ltr.toLowerCase();
-
     // @codingStandardsIgnoreLine
     if (ltr.match(/[°1234567890%ˇ/('"!?:_]/i)) {
         this.shift = true;
@@ -62,8 +60,6 @@ function keyboardElement(ltr) {
     } else {
         this.shift = false;
     }
-
-
 
     this.turnOn = function() {
         if (this.chr === ' ') {
@@ -195,17 +191,12 @@ function getKeyID(tCrka) {
         return "jkeyb";
     } else if (tCrka === '}') {
         return "jkeyn";
-
-
     } else if (tCrka === ',' || tCrka === '?' || tCrka === '<') {
         return "jkeycomma";
     } else if (tCrka === '.' || tCrka === ':' || tCrka === '>') {
         return "jkeyperiod";
     } else if (tCrka === '-' || tCrka === '_' || tCrka === '*') {
         return "jkeyminus";
-
-
-
     } else {
         return "jkey" + tCrka;
     }
