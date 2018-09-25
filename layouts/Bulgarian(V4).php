@@ -32,67 +32,67 @@ echo (isset($displaynone) && ($displaynone == true)) ? 'display:none;' : '';
 <div id="keyboard" class="keyboardback">Bulgarian(V4) Keyboard Layout<br>
     <section>
         <div class="mtrow" style='float: left; margin-left:5px; font-size: 15px !important; line-height: 15px'>
-            <div id="jkey(" class="normal">)<br>(</div>
-            <div id="jkey1" class="normal">!<br>1</div>
-            <div id="jkey2" class="normal">?<br>2</div>
-            <div id="jkey3" class="normal">+<br>3</div>
-            <div id="jkey4" class="normal">"<br>4</div>
-            <div id="jkey5" class="normal">%<br>5</div>
-            <div id="jkey6" class="normal">=<br>6</div>
-            <div id="jkey7" class="normal">:<br>7</div>
-            <div id="jkey8" class="normal">/<br>8</div>
-            <div id="jkey9" class="normal">–<br>9</div>
-            <div id="jkey0" class="normal">№<br>0</div>
-            <div id="jkeyminus" class="normal">$<br>-</div>
-            <div id="jkeyperiod" class="normal">€<br>.</div>
+            <div id="jkey(" class="normal" style='text-align:left;'>)<br>(</div>
+            <div id="jkey1" class="normal" style='text-align:left;'>!<br>1</div>
+            <div id="jkey2" class="normal" style='text-align:left;'>?<br>2</div>
+            <div id="jkey3" class="normal" style='text-align:left;'>+<br>3</div>
+            <div id="jkey4" class="normal" style='text-align:left;'>"<br>4</div>
+            <div id="jkey5" class="normal" style='text-align:left;'>%<br>5</div>
+            <div id="jkey6" class="normal" style='text-align:left;'>=<br>6</div>
+            <div id="jkey7" class="normal" style='text-align:left;'>:<br>7</div>
+            <div id="jkey8" class="normal" style='text-align:left;'>/<br>8</div>
+            <div id="jkey9" class="normal" style='text-align:left;'>–<br>9</div>
+            <div id="jkey0" class="normal" style='text-align:left;'>№<br>0</div>
+            <div id="jkeyminus" class="normal" style='text-align:left;'>$<br>-</div>
+            <div id="jkeyperiod" class="normal" style='text-align:left;'>€<br>.</div>
             <div id="jkeybackspace" class="normal" style="width: 95px;">Backspace</div>
         </div>
 
     <div style="float: left;">
         <div class="mtrow" style='float: left; margin-left:5px; font-size: 15px !important; line-height: 15px'>
             <div id="jkeytab" class="normal" style="width: 60px;">Tab</div>
-            <div id="jkeycomma" class="normal">ы<br>,</div>
-            <div id="jkeyу" class="normal">У</div>
-            <div id="jkeyе" class="normal">Е</div>
-            <div id="jkeyи" class="normal">И</div>
-            <div id="jkeyш" class="normal">Ш</div>
-            <div id="jkeyщ" class="normal">Щ</div>
-            <div id="jkeyк" class="normal">К</div>
-            <div id="jkeyс" class="normal">С</div>
-            <div id="jkeyд" class="normal">Д</div>
-            <div id="jkeyз" class="normal">З</div>
-            <div id="jkeyц" class="normal">Ц</div>
-            <div id="jkey;" class="normal">§<br>;</div>
-            <div id="jkey„" class="normal" style="width: 75px;">“<br>„</div>
+            <div id="jkeycomma" class="normal" style='text-align:left;'>ы<br>,</div>
+            <div id="jkeyу" class="normal" style='text-align:left;'>У<br>&nbsp;</div>
+            <div id="jkeyе" class="normal" style='text-align:left;'>Е<br>&nbsp;</div>
+            <div id="jkeyи" class="normal" style='text-align:left;'>И<br>&nbsp;</div>
+            <div id="jkeyш" class="normal" style='text-align:left;'>Ш<br>&nbsp;</div>
+            <div id="jkeyщ" class="normal" style='text-align:left;'>Щ<br>&nbsp;</div>
+            <div id="jkeyк" class="normal" style='text-align:left;'>К<br>&nbsp;</div>
+            <div id="jkeyс" class="normal" style='text-align:left;'>С<br>&nbsp;</div>
+            <div id="jkeyд" class="normal" style='text-align:left;'>Д<br>&nbsp;</div>
+            <div id="jkeyз" class="normal" style='text-align:left;'>З<br>&nbsp;</div>
+            <div id="jkeyц" class="normal" style='text-align:left;'>Ц<br>&nbsp;</div>
+            <div id="jkey;" class="normal" style='text-align:left;'>§<br>;</div>
+            <div id="jkey„" class="normal" style="width: 75px;" style='text-align:left;'>“<br>„</div>
         </div>
 
         <div class="mtrow" style='float: left; margin-left:5px; font-size: 15px !important; line-height: 15px'>
             <div id="jkeycaps" class="normal" style="width: 80px;">C.Lock</div>
-            <div id="jkeyь" class="finger4">ѝ<br>ь</div>
-            <div id="jkeyя" class="finger3">Я</div>
-            <div id="jkeyа" class="finger2">А</div>
-            <div id="jkeyо" class="finger1">О</div>
-            <div id="jkeyж" class="normal">Ж</div>
-            <div id="jkeyг" class="normal">Г</div>
-            <div id="jkeyт" class="finger1">Т</div>
-            <div id="jkeyн" class="finger2">Н</div>
-            <div id="jkeyв" class="finger3">В</div>
-            <div id="jkeyм" class="finger4">М</div>
-            <div id="jkeyч" class="normal">Ч</div>
+            <div id="jkeyь" class="finger4" style='text-align:left;'>ѝ<br>ь</div>
+            <div id="jkeyя" class="finger3" style='text-align:left;'>Я<br>&nbsp;</div>
+            <div id="jkeyа" class="finger2" style='text-align:left;'>А<br>&nbsp;</div>
+            <div id="jkeyо" class="finger1" style='text-align:left;'>О<br>&nbsp;</div>
+            <div id="jkeyж" class="normal" style='text-align:left;'>Ж<br>&nbsp;</div>
+            <div id="jkeyг" class="normal" style='text-align:left;'>Г<br>&nbsp;</div>
+            <div id="jkeyт" class="finger1" style='text-align:left;'>Т<br>&nbsp;</div>
+            <div id="jkeyн" class="finger2" style='text-align:left;'>Н<br>&nbsp;</div>
+            <div id="jkeyв" class="finger3" style='text-align:left;'>В<br>&nbsp;</div>
+            <div id="jkeyм" class="finger4" style='text-align:left;'>М<br>&nbsp;</div>
+            <div id="jkeyч" class="normal" style='text-align:left;'>Ч<br>&nbsp;</div>
         <div id="jkeyenter" class="normal" style="width: 95px;">Enter</div>
     </div>
         <div class="mtrow" style='float: left; margin-left:5px; font-size: 15px !important; line-height: 15px'>
             <div id="jkeyshiftl" class="normal" style="width: 100px;">Shift</div>
-            <div id="jkeyю" class="normal">Ю</div>
-            <div id="jkeyй" class="normal">Й</div>
-            <div id="jkeyъ" class="normal">Ъ</div>
-            <div id="jkeyэ" class="normal">Э</div>
-            <div id="jkeyф" class="normal">Ф</div>
-            <div id="jkeyх" class="normal">Х</div>
-            <div id="jkeyп" class="normal">П</div>
-            <div id="jkeyр" class="normal">Р</div>
-            <div id="jkeyл" class="normal">Л</div>
-            <div id="jkeyб" class="normal">Б</div>
+            <div id="jkeyю" class="normal" style='text-align:left;'>Ю<br>&nbsp;</div>
+            <div id="jkeyй" class="normal" style='text-align:left;'>Й<br>&nbsp;</div>
+            <div id="jkeyъ" class="normal" style='text-align:left;'>Ъ<br>&nbsp;</div>
+            <div id="jkeyэ" class="normal" style='text-align:left;'>Э<br>&nbsp;</div>
+            <div id="jkeyф" class="normal" style='text-align:left;'>Ф<br>&nbsp;</div>
+            <div id="jkeyх" class="normal" style='text-align:left;'>Х<br>&nbsp;</div>
+            <div id="jkeyп" class="normal" style='text-align:left;'>П<br>&nbsp;</div>
+            <div id="jkeyр" class="normal" style='text-align:left;'>Р<br>&nbsp;</div>
+            <div id="jkeyл" class="normal" style='text-align:left;'>Л<br>&nbsp;</div>
+            <div id="jkeyб" class="normal" style='text-align:left;'>Б<br>&nbsp;</div>
             <div id="jkeyshiftd" class="normal" style="width: 115px;">Shift</div>
         </div>
         <div class="mtrow" style='float: left; margin-left:5px;'>

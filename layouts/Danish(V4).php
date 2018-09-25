@@ -52,53 +52,51 @@ echo (isset($displaynone) && ($displaynone == true)) ? 'display:none;' : '';
         <div style="float: left;">
             <div class="mtrow" style='float: left; margin-left:5px; font-size: 15px !important; line-height: 15px'>
                 <div id="jkeytab" class="normal" style="width: 60px; text-align:left;">Tab</div>
-                <div id="jkeyq" class="normal" style='text-align:left;'>Q</div>
-                <div id="jkeyw" class="normal" style='text-align:left;'>W</div>
-                <div id="jkeye" class="normal" style='text-align:left;'>E&nbsp;&nbsp;&nbsp;<sub>€</sub></div>
-                <div id="jkeyr" class="normal" style='text-align:left;'>R</div>
-                <div id="jkeyt" class="normal" style='text-align:left;'>T</div>
-                <div id="jkeyy" class="normal" style='text-align:left;'>Y</div>
-                <div id="jkeyu" class="normal" style='text-align:left;'>U</div>
-                <div id="jkeyi" class="normal" style='text-align:left;'>I</div>
-                <div id="jkeyo" class="normal" style='text-align:left;'>O</div>
-                <div id="jkeyp" class="normal" style='text-align:left;'>P</div>
-                <div id="jkeyå" class="normal" style='text-align:left;'>Å</div>
+                <div id="jkeyq" class="normal" style='text-align:left;'>Q<br>&nbsp;</div>
+                <div id="jkeyw" class="normal" style='text-align:left;'>W<br>&nbsp;</div>
+                <div id="jkeye" class="normal" style='text-align:left;'>E<br><span style="color:blue">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;€</span></div>
+                <div id="jkeyr" class="normal" style='text-align:left;'>R<br>&nbsp;</div>
+                <div id="jkeyt" class="normal" style='text-align:left;'>T<br>&nbsp;</div>
+                <div id="jkeyy" class="normal" style='text-align:left;'>Y<br>&nbsp;</div>
+                <div id="jkeyu" class="normal" style='text-align:left;'>U<br>&nbsp;</div>
+                <div id="jkeyi" class="normal" style='text-align:left;'>I<br>&nbsp;</div>
+                <div id="jkeyo" class="normal" style='text-align:left;'>O<br>&nbsp;</div>
+                <div id="jkeyp" class="normal" style='text-align:left;'>P<br>&nbsp;</div>
+                <div id="jkeyå" class="normal" style='text-align:left;'>Å<br>&nbsp;</div>
                 <div id="jkey¨" class="normal" style='text-align:left; color:red'>^<br>¨&nbsp;&nbsp;&nbsp;~</span></div>
             </div>
                 <span id="jkeyenter" class="normal" style="width: 50px; margin-right:5px; float: right; height: 85px;">Enter</span>
                 <div class="mtrow" style='float: left; margin-left:5px; font-size: 15px !important; line-height: 15px'> 
                 <div id="jkeycaps" class="normal" style="width: 80px; text-align:left; font-size: 12px !important;">Caps Lock</div>
-                <div id="jkeya" class="finger4" style='text-align:left;'>A</div>
-                <div id="jkeys" class="finger3" style='text-align:left;'>S</div>
-                <div id="jkeyd" class="finger2" style='text-align:left;'>D</div>
-                <div id="jkeyf" class="finger1" style='text-align:left;'>F</div>
-                <div id="jkeyg" class="normal" style='text-align:left;'>G</div>
-                <div id="jkeyh" class="normal" style='text-align:left;'>H</div>
-                <div id="jkeyj" class="finger1" style='text-align:left;'>J</div>
-                <div id="jkeyk" class="finger2" style='text-align:left;'>K</div>
-                <div id="jkeyl" class="finger3" style='text-align:left;'>L</div>
-                <div id="jkeyæ" class="finger4" style='text-align:left;'>Æ</div>
-                <div id="jkeyø" class="normal" style='text-align:left;'>Ø</div>
+                <div id="jkeya" class="finger4" style='text-align:left;'>A<br>&nbsp;</div>
+                <div id="jkeys" class="finger3" style='text-align:left;'>S<br>&nbsp;</div>
+                <div id="jkeyd" class="finger2" style='text-align:left;'>D<br>&nbsp;</div>
+                <div id="jkeyf" class="finger1" style='text-align:left;'>F<br>&nbsp;</div>
+                <div id="jkeyg" class="normal" style='text-align:left;'>G<br>&nbsp;</div>
+                <div id="jkeyh" class="normal" style='text-align:left;'>H<br>&nbsp;</div>
+                <div id="jkeyj" class="finger1" style='text-align:left;'>J<br>&nbsp;</div>
+                <div id="jkeyk" class="finger2" style='text-align:left;'>K<br>&nbsp;</div>
+                <div id="jkeyl" class="finger3" style='text-align:left;'>L<br>&nbsp;</div>
+                <div id="jkeyæ" class="finger4" style='text-align:left;'>Æ<br>&nbsp;</div>
+                <div id="jkeyø" class="normal" style='text-align:left;'>Ø<br>&nbsp;</div>
                 <div id="jkey'" class="normal" style='text-align:left;'>*<br>'</div>
             </div>
         </div>
-
         <div class="mtrow" style='float: left; margin-left:5px; font-size: 15px !important; line-height: 15px'>
             <div id="jkeyshiftl" class="normal" style="width: 60px; text-align:left;">Shift</div>
             <div id="jkeyckck" class="normal" style='text-align:left;'>&gt;<br>&lt;&nbsp;&nbsp;&nbsp;\</div>
-            <div id="jkeyz" class="normal">Z</div>
-            <div id="jkeyx" class="normal">X</div>
-            <div id="jkeyc" class="normal">C</div>
-            <div id="jkeyv" class="normal">V</div>
-            <div id="jkeyb" class="normal">B</div>
-            <div id="jkeyn" class="normal">N</div>
-            <div id="jkeym" class="normal">M&nbsp;&nbsp;&nbsp;<sub>µ</sub></div>
-            <div id="jkeycomma" class="normal">;<br>,</div>
-            <div id="jkeyperiod" class="normal">:<br>.</div>
-            <div id="jkeyminus" class="normal">_<br>-</div>
+            <div id="jkeyz" class="normal" style='text-align:left;'>Z<br>&nbsp;</div>
+            <div id="jkeyx" class="normal" style='text-align:left;'>X<br>&nbsp;</div>
+            <div id="jkeyc" class="normal" style='text-align:left;'>C<br>&nbsp;</div>
+            <div id="jkeyv" class="normal" style='text-align:left;'>V<br>&nbsp;</div>
+            <div id="jkeyb" class="normal" style='text-align:left;'>B<br>&nbsp;</div>
+            <div id="jkeyn" class="normal" style='text-align:left;'>N<br>&nbsp;</div>
+            <div id="jkeym" class="normal" style='text-align:left;'>M<br><span style="color:blue">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;µ</span></div>
+            <div id="jkeycomma" class="normal" style='text-align:left;'>;<br>,</div>
+            <div id="jkeyperiod" class="normal" style='text-align:left;'>:<br>.</div>
+            <div id="jkeyminus" class="normal" style='text-align:left;'>_<br>-</div>
             <div id="jkeyshiftd" class="normal" style="width: 115px; text-align:left;">Shift</div>
         </div>
-
         <div class="mtrow" style='float: left; margin-left:5px;'>
             <div id="jkeyctrll" class="normal" style="width: 70px; text-align:left;">Ctrl</div>
             <div id="jkeyfn" class="normal" style="width: 50px; text-align:left;">Win</div>
