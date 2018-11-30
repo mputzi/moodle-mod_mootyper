@@ -60,7 +60,7 @@ if ($backtocourse) {
     redirect(new moodle_url('/course/view.php', array('id' => $course->id)));
 }
 
-// Following two lines are for View, Automatic Completion marking.
+// Following two lines are for View, Automatic Completion marking. 20180630.
 $completion = new completion_info($course);
 $completion->set_module_viewed($cm);
 
