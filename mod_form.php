@@ -201,6 +201,7 @@ class mod_mootyper_mod_form extends moodleform_mod {
         $mform->addElement('html', '<a id="jlnk3" href="'.$jlnk3.'">'.get_string('emanage', 'mootyper').'</a>');
 
         // The rest of the common activity settings.
+        $this->standard_grading_coursemodule_elements();
         $this->standard_coursemodule_elements();
         $this->apply_admin_defaults();
         $this->add_action_buttons();
