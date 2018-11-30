@@ -57,7 +57,7 @@ function mootyper_supports($feature) {
         case FEATURE_COMPLETION_HAS_RULES:
             return false;
         case FEATURE_GRADE_HAS_GRADE:
-            return true;
+            return false;
         case FEATURE_GRADE_OUTCOMES:
             return false;
         case FEATURE_BACKUP_MOODLE2:
@@ -756,23 +756,23 @@ function mootyper_grade_item_update(stdClass $mootyper) {
     $params['grademax']  = $mootyper->grade;
     $params['grademin']  = 0;
 
-/**
- *    if (!$mootyper->assessed or $mootyper->scale == 0) {
- *        $params['gradetype'] = GRADE_TYPE_NONE;
- *    } else if ($mootyper->scale > 0) {
- *        $params['gradetype'] = GRADE_TYPE_VALUE;
- *        $params['grademax']  = $mootyper->scale;
- *        $params['grademin']  = 0;
- *    } else if ($mootyper->scale < 0) {
- *        $params['gradetype'] = GRADE_TYPE_SCALE;
- *        $params['scaleid']   = -$mootyper->scale;
- *    }
- *
- *    if ($grades  === 'reset') {
- *        $params['reset'] = true;
- *        $grades = NULL;
- *    }
- */
+
+    if (!$mootyper->assessed or $mootyper->scale == 0) {
+        $params['gradetype'] = GRADE_TYPE_NONE;
+    } else if ($mootyper->scale > 0) {
+        $params['gradetype'] = GRADE_TYPE_VALUE;
+        $params['grademax']  = $mootyper->scale;
+        $params['grademin']  = 0;
+    } else if ($mootyper->scale < 0) {
+        $params['gradetype'] = GRADE_TYPE_SCALE;
+        $params['scaleid']   = -$mootyper->scale;
+    }
+
+    if ($grades  === 'reset') {
+        $params['reset'] = true;
+        $grades = NULL;
+    }
+
 
     // return grade_update('mod/mootyper', $mootyper->course, 'mod', 'mootyper', $mootyper->id, 0, null, $params);
     return grade_update('mod/mootyper', $mootyper->course, 'mod', 'mootyper', $mootyper->id, 0, $grades, $params);
@@ -787,37 +787,38 @@ function mootyper_grade_item_update(stdClass $mootyper) {
  * @param int $userid update grade of specific user only, 0 means all participants.
  * @return void
  */
- function mootyper_update_grades(stdClass $mootyper, $userid = 0) {
-    global $CFG, $DB;
-    require_once($CFG->libdir.'/gradelib.php');
-
-    $grades = array(); // Populate array of grade objects indexed by userid.
-
-    grade_update('mod/mootyper', $mootyper->course, 'mod', 'mootyper', $mootyper->id, 0, $grades);
-}
-
-// New version to replace the above.
-/**function mootyper_update_grades($mootyper, $userid=0, $nullifnone=true) {
+/** function mootyper_update_grades(stdClass $mootyper, $userid = 0) {
  *    global $CFG, $DB;
  *    require_once($CFG->libdir.'/gradelib.php');
  *
- *    if (!$mootyper->assessed) {
- *        mootyper_grade_item_update($mootyper);
+ *    $grades = array(); // Populate array of grade objects indexed by userid.
  *
- *    } else if ($grades = forum_get_user_grades($mootyper, $userid)) {
- *        mootyper_grade_item_update($mootyper, $grades);
- *
- *    } else if ($userid and $nullifnone) {
- *        $grade = new stdClass();
- *        $grade->userid   = $userid;
- *        $grade->rawgrade = NULL;
- *        mootyper_grade_item_update($mootyper, $grade);
- *
- *    } else {
- *        mootyper_grade_item_update($mootyper);
- *    }
+ *    grade_update('mod/mootyper', $mootyper->course, 'mod', 'mootyper', $mootyper->id, 0, $grades);
  *}
  */
+
+// New version to replace the above.
+function mootyper_update_grades($mootyper, $userid=0, $nullifnone=true) {
+    global $CFG, $DB;
+    require_once($CFG->libdir.'/gradelib.php');
+
+    if (!$mootyper->assessed) {
+        mootyper_grade_item_update($mootyper);
+
+    } else if ($grades = mootyper_get_user_grades($mootyper, $userid)) {
+        mootyper_grade_item_update($mootyper, $grades);
+
+    } else if ($userid and $nullifnone) {
+        $grade = new stdClass();
+        $grade->userid   = $userid;
+        $grade->rawgrade = NULL;
+        mootyper_grade_item_update($mootyper, $grade);
+
+    } else {
+        mootyper_grade_item_update($mootyper);
+    }
+}
+
 
 /**
  * Called by course/reset.php
