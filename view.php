@@ -59,6 +59,11 @@ require_login($course, true, $cm);
 if ($backtocourse) {
     redirect(new moodle_url('/course/view.php', array('id' => $course->id)));
 }
+
+// Following two lines are for View, Automatic Completion marking.
+$completion = new completion_info($course);
+$completion->set_module_viewed($cm);
+
 // I have moved set_title and set_heading to renederer.php.
 $PAGE->set_url('/mod/mootyper/view.php', array('id' => $cm->id));
 
