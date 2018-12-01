@@ -89,6 +89,12 @@ via links in the Administration block, which overcomes these limitations.
 
 6. NEW IN THIS RELEASE
 
+Implemented, Activity Completion for View and it is now
+working in this version of MooTyper.
+Added a few more keyboard layouts.
+
+7. OTHER RECENT NEW CAPABILITIES
+
 There are now four settings that affect the typing modes. 
   1.The original mode - This mode requires you to type the correct letter before
   you can move to the next letter. Extra spaces are ignored. Mistyped letters
