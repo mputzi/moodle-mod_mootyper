@@ -1,8 +1,8 @@
 /**
  * @fileOverview German(V4) keyboard driver.
  * @author <a href="mailto:drachels@drachels.com">AL Rachels</a>
- * @version 4.0
- * @since 07/09/2018
+ * @version 4.1
+ * @since 01/26/2019
  */
 
 /**
@@ -162,10 +162,10 @@ function thenFinger(tCrka) {
     if (tCrka === ' ') {
         return 5; // Highlight the spacebar.
     // @codingStandardsIgnoreLine
-    } else if (tCrka.match(/[\n^°<>|1!q@ay0=}pö\-_ß?\\üä´`+*~#']/i)) {
+    } else if (tCrka.match(/[\n^°<>|1!q@ay0=}pö\-_ß?\\üäâ´`+*~#']/i)) {
         return 4; // Highlight the correct key above in red.
     // @codingStandardsIgnoreLine
-    } else if (tCrka.match(/[2"²wsx9)\]ol.:]/i)) {
+    } else if (tCrka.match(/[2"²wsx9)\]oôl.:]/i)) {
         return 3; // Highlight the correct key above in green.
     // @codingStandardsIgnoreLine
     } else if (tCrka.match(/[3§³e€dc8(\[ik,;eëê€iïî]/i)) {
