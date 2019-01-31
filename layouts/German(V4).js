@@ -65,9 +65,8 @@ function keyboardElement(ltr) {
     if (ltr.match(/[ëï]/)) {
         this.umlaut = true;
     }
-    if (ltr.match(/[ÄËÏÖ]/)) {
+    if (ltr.match(/[ÄÖÜ]/)) {
         this.shift = true;
-        //this.umlaut = true;
     }
     if (ltr.match(/[âêîôû]/)) {
         this.pow = true;
@@ -168,10 +167,10 @@ function thenFinger(tCrka) {
     } else if (tCrka.match(/[2"²wsx9)\]oôl.:]/i)) {
         return 3; // Highlight the correct key above in green.
     // @codingStandardsIgnoreLine
-    } else if (tCrka.match(/[3§³e€dc8(\[ik,;eëê€iïî]/i)) {
+    } else if (tCrka.match(/[3§³e€dc8(\[ik,;eê€iïî]/i)) {
         return 2; // Highlight the correct key above in yellow.
     // @codingStandardsIgnoreLine
-    } else if (tCrka.match(/[4$rfv5%tgb6&zhn7/{ujmµû]/i)) {
+    } else if (tCrka.match(/[4$rfv5%tgb6&zhn7{ujmµû/]/i)) {
         return 1; // Highlight the correct key above in blue.
     } else {
         return 6; // Do not change any highlight.
@@ -216,7 +215,7 @@ function getKeyID(tCrka) {
         return "jkeyaccent";
     } else if (tCrka === '@') {
         return "jkeyq";
-    } else if (tCrka.match(/[€ëËê]/)) {
+    } else if (tCrka.match(/[€ê]/)) {
         return "jkeye";
     } else if (tCrka.match(/[uû]/)) {
         return "jkeyu";

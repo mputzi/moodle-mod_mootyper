@@ -90,8 +90,10 @@ echo (isset($displaynone) && ($displaynone == true)) ? 'display:none;' : '';
             <div id="jkeyб" class="normal" style='text-align:left;'>Б<br>&nbsp;</div>
             <div id="jkeyн" class="normal" style='text-align:left;'>Н<br>&nbsp;</div>
             <div id="jkeyм" class="normal" style='text-align:left;'>М<br>&nbsp;</div>
-            <div id="jkeycomma" class="normal" style='text-align:left;'>;<br>,<span style="color:blue">&nbsp;&nbsp;&nbsp;&nbsp;&lt;</span></div>
-            <div id="jkeyperiod" class="normal" style='text-align:left;'>:<br>.<span style="color:blue">&nbsp;&nbsp;&nbsp;&nbsp;&gt;</span></div>
+            <div id="jkeycomma" class="normal" style='text-align:left;'>;<br>,
+                <span style="color:blue">&nbsp;&nbsp;&nbsp;&nbsp;&lt;</span></div>
+            <div id="jkeyperiod" class="normal" style='text-align:left;'>:<br>.
+                <span style="color:blue">&nbsp;&nbsp;&nbsp;&nbsp;&gt;</span></div>
             <div id="jkeyminus" class="normal" style='text-align:left;'>_<br>-</div>
             <div id="jkeyshiftd" class="normal" style="width: 115px;">Shift</div>
         </div>

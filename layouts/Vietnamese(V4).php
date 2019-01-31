@@ -33,18 +33,29 @@ echo (isset($displaynone) && ($displaynone == true)) ? 'display:none;' : '';
     <section>
         <div class="mtrow" style='float: left; margin-left:5px; font-size: 15px !important; line-height: 15px'>
             <div id="jkeybackquote" class="normal" style='text-align:left;'><b>~<br>`</b></div>
-            <div id="jkey1" class="normal" style='text-align:right;'>Ă<span style="color:blue">&nbsp;&nbsp;&nbsp;!<br>1</span></div>
-            <div id="jkey2" class="normal" style='text-align:right;'>Â<span style="color:blue">&nbsp;&nbsp;@<br>2</span></div>
-            <div id="jkey3" class="normal" style='text-align:right;'>Ê<span style="color:blue">&nbsp;&nbsp;&nbsp;#<br>3</span></div>
-            <div id="jkey4" class="normal" style='text-align:right;'>Ô<span style="color:blue">&nbsp;&nbsp;&nbsp;$<br>4</span></div>
-            <div id="jkey5" class="normal" style='text-align:right;'>̀ <span style="color:blue">&nbsp;&nbsp;&nbsp;%<br>5</span></div>
-            <div id="jkey6" class="normal" style='text-align:right;'>̉ <span style="color:blue">&nbsp;&nbsp;&nbsp;^<br>6</span></div>
-            <div id="jkey7" class="normal" style='text-align:right;'>̃ <span style="color:blue">&nbsp;&nbsp;&nbsp;&<br>7</span></div>
-            <div id="jkey8" class="normal" style='text-align:right;'>́ <span style="color:blue">&nbsp;&nbsp;&nbsp;*<br>8</span></div>
-            <div id="jkey9" class="normal" style='text-align:right;'>̣ <span style="color:blue">&nbsp;&nbsp;&nbsp;(<br>9</span></div>
-            <div id="jkey0" class="normal" style='text-align:right;'>Đ<span style="color:blue">&nbsp;&nbsp;&nbsp;)<br>0</span></div>
+            <div id="jkey1" class="normal" style='text-align:right;'>Ă
+                <span style="color:blue">&nbsp;&nbsp;&nbsp;!<br>1</span></div>
+            <div id="jkey2" class="normal" style='text-align:right;'>Â
+                <span style="color:blue">&nbsp;&nbsp;@<br>2</span></div>
+            <div id="jkey3" class="normal" style='text-align:right;'>Ê
+                <span style="color:blue">&nbsp;&nbsp;&nbsp;#<br>3</span></div>
+            <div id="jkey4" class="normal" style='text-align:right;'>Ô
+                <span style="color:blue">&nbsp;&nbsp;&nbsp;$<br>4</span></div>
+            <div id="jkey5" class="normal" style='text-align:right;'>̀ 
+                <span style="color:blue">&nbsp;&nbsp;&nbsp;%<br>5</span></div>
+            <div id="jkey6" class="normal" style='text-align:right;'>̉ 
+                <span style="color:blue">&nbsp;&nbsp;&nbsp;^<br>6</span></div>
+            <div id="jkey7" class="normal" style='text-align:right;'>̃ 
+                <span style="color:blue">&nbsp;&nbsp;&nbsp;&<br>7</span></div>
+            <div id="jkey8" class="normal" style='text-align:right;'>́ 
+                <span style="color:blue">&nbsp;&nbsp;&nbsp;*<br>8</span></div>
+            <div id="jkey9" class="normal" style='text-align:right;'>̣ 
+                <span style="color:blue">&nbsp;&nbsp;&nbsp;(<br>9</span></div>
+            <div id="jkey0" class="normal" style='text-align:right;'>Đ
+                <span style="color:blue">&nbsp;&nbsp;&nbsp;)<br>0</span></div>
             <div id="jkeyminus" class="normal" style='text-align:left;'>_<br>-</div>
-            <div id="jkeyequals" class="normal" style='text-align:left;'>+<br>₫<span style="color:blue">&nbsp;&nbsp;&nbsp;=</span></div>
+            <div id="jkeyequals" class="normal" style='text-align:left;'>+<br>₫
+                <span style="color:blue">&nbsp;&nbsp;&nbsp;=</span></div>
             <div id="jkeybackspace" class="normal" style="width: 95px; text-align:left;">Backspace</div>
         </div>
 
@@ -60,8 +71,10 @@ echo (isset($displaynone) && ($displaynone == true)) ? 'display:none;' : '';
             <div id="jkeyi" class="normal" style='text-align:left;'>I</div>
             <div id="jkeyo" class="normal" style='text-align:left;'>O</div>
             <div id="jkeyp" class="normal" style='text-align:left;'>P</div>
-            <div id="jkeybracketl" class="normal" style='text-align:right;'>Ư<span style="color:blue">&nbsp;&nbsp;&nbsp;{<br>[</span></div>
-            <div id="jkeybracketr" class="normal" style='text-align:right;'>Ơ<span style="color:blue">&nbsp;&nbsp;&nbsp;}<br>]</span></div>
+            <div id="jkeybracketl" class="normal" style='text-align:right;'>Ư
+                <span style="color:blue">&nbsp;&nbsp;&nbsp;{<br>[</span></div>
+            <div id="jkeybracketr" class="normal" style='text-align:right;'>Ơ
+                <span style="color:blue">&nbsp;&nbsp;&nbsp;}<br>]</span></div>
             <div id="jkeybackslash" class="normal" style="width: 70px; text-align:left;"> |<br> \</div>
         </div>
 

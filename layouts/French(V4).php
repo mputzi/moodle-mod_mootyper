@@ -76,7 +76,8 @@ echo (isset($displaynone) && ($displaynone == true)) ? 'display:none;' : '';
                 <div id="jkeydollar" class="normal" style="text-align:left;">£<br>$
                     <span style="color:blue">&nbsp;&nbsp;&nbsp;¤</div>
             </div>
-            <span id="jkeyenter" class="normal" style="width: 50px; font-size: 12px !important; margin-right:5px; float: right; height: 85px;">Entrée</span>
+            <span id="jkeyenter" class="normal" style="width: 50px; font-size: 12px !important; margin-right:5px;
+                float: right; height: 85px;">Entrée</span>
             <div class="mtrow" style='float: left; margin-left:5px; font-size: 15px !important; line-height: 15px'> 
                 <div id="jkeycaps" class="normal" style="width: 80px;">Verr Maj</div>
                 <div id="jkeyq" class="finger4" style='text-align:left;'>Q<br>&nbsp;</div>

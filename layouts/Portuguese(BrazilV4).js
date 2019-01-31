@@ -42,20 +42,17 @@ function keyboardElement(ltr) {
     if (isLetter(ltr)) {
         this.shift = ltr.toUpperCase() === ltr;
     } else {
-    // @codingStandardsIgnoreLine
         if (ltr.match(/["!@#$%¨&*()_+`{^}|<>:?]/i)) {
             this.shift = true;
         } else {
             this.shift = false;
         }
     }
-    // @codingStandardsIgnoreLine
     if (ltr.match(/[áéíóú]/)) {
         this.shift = false;
         this.alt = false;
         this.accent = true;
     }
-    // @codingStandardsIgnoreLine
     if (ltr.match(/[ÁÉÍÓÚ]/)) {
         this.shift = true;
         this.alt = false;
@@ -71,26 +68,23 @@ function keyboardElement(ltr) {
         this.alt = false;
         this.accent = true;
     }
-    // @codingStandardsIgnoreLine
     if (ltr.match(/[ãõ]/)) {
         this.shift = false;
         this.alt = false;
         this.tilde = true;
     }
-    // @codingStandardsIgnoreLine
     if (ltr.match(/[ÃÕ]/)) {
         this.shift = true;
         this.alt = false;
         this.tilde = true;
     }
-    // @codingStandardsIgnoreLine
     if (ltr.match(/[âêô]/i)) {
         this.shift = true;
         this.alt = false;
         this.tilde = true;
     }
     // @codingStandardsIgnoreLine
-    if (ltr.match(/[¹²³£¢¬§//°ªº₢]/i)) {
+    if (ltr.match(/[¹²³£¢¬§°ªº₢/]/i)) {
         this.shift = false;
         this.alt = true;
     }

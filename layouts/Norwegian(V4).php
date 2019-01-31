@@ -34,17 +34,26 @@ echo (isset($displaynone) && ($displaynone == true)) ? 'display:none;' : '';
         <div class="mtrow" style='float: left; margin-left:5px; font-size: 15px !important; line-height: 15px'>
             <div id="jkey§" class="normal" style='text-align:left;'><b>§<br>|</b></div>
             <div id="jkey1" class="normal" style='text-align:left;'>!<br>1</div>
-            <div id="jkey2" class="normal" style='text-align:left;'>"<br>2<span style="color:blue">&nbsp;&nbsp;@</span></div>
-            <div id="jkey3" class="normal" style='text-align:left;'>#<br>3<span style="color:blue">&nbsp;&nbsp;&nbsp;£</span></div>
-            <div id="jkey4" class="normal" style='text-align:left;'>¤<br>4<span style="color:blue">&nbsp;&nbsp;&nbsp;$</span></div>
-            <div id="jkey5" class="normal" style='text-align:left;'>%<br>5<span style="color:blue">&nbsp;&nbsp;&nbsp;€</span></div>
+            <div id="jkey2" class="normal" style='text-align:left;'>"<br>2
+                <span style="color:blue">&nbsp;&nbsp;@</span></div>
+            <div id="jkey3" class="normal" style='text-align:left;'>#<br>3
+                <span style="color:blue">&nbsp;&nbsp;&nbsp;£</span></div>
+            <div id="jkey4" class="normal" style='text-align:left;'>¤<br>4
+                <span style="color:blue">&nbsp;&nbsp;&nbsp;$</span></div>
+            <div id="jkey5" class="normal" style='text-align:left;'>%<br>5
+                <span style="color:blue">&nbsp;&nbsp;&nbsp;€</span></div>
             <div id="jkey6" class="normal" style='text-align:left;'>& <br>6</div>
-            <div id="jkey7" class="normal" style='text-align:left;'>/<br>7<span style="color:blue">&nbsp;&nbsp;&nbsp;{</span></div>
-            <div id="jkey8" class="normal" style='text-align:left;'>(<br>8<span style="color:blue">&nbsp;&nbsp;&nbsp;[</span></div>
-            <div id="jkey9" class="normal" style='text-align:left;'>)<br>9<span style="color:blue">&nbsp;&nbsp;&nbsp;]</span></div>
-            <div id="jkey0" class="normal" style='text-align:left;'>=<br>0<span style="color:blue">&nbsp;&nbsp;&nbsp;}</span></div>
+            <div id="jkey7" class="normal" style='text-align:left;'>/<br>7
+                <span style="color:blue">&nbsp;&nbsp;&nbsp;{</span></div>
+            <div id="jkey8" class="normal" style='text-align:left;'>(<br>8
+                <span style="color:blue">&nbsp;&nbsp;&nbsp;[</span></div>
+            <div id="jkey9" class="normal" style='text-align:left;'>)<br>9
+                <span style="color:blue">&nbsp;&nbsp;&nbsp;]</span></div>
+            <div id="jkey0" class="normal" style='text-align:left;'>=<br>0
+                <span style="color:blue">&nbsp;&nbsp;&nbsp;}</span></div>
             <div id="jkeyplus" class="normal" style='text-align:left;'>?<br>+</div>
-            <div id="jkeycrtica" class="normal" style='text-align:left;'>`<br>\<span style="color:blue">&nbsp;&nbsp;&nbsp;´</span></div>
+            <div id="jkeycrtica" class="normal" style='text-align:left;'>`<br>\
+                <span style="color:blue">&nbsp;&nbsp;&nbsp;´</span></div>
             <div id="jkeybackspace" class="normal" style="width: 95px; text-align:left;">Backspace</div>
         </div>
         <div style="float: left;">
@@ -62,7 +71,8 @@ echo (isset($displaynone) && ($displaynone == true)) ? 'display:none;' : '';
                 <div id="jkeyo" class="normal" style='text-align:left;'>O<br>&nbsp;</div>
                 <div id="jkeyp" class="normal" style='text-align:left;'>P<br>&nbsp;</div>
                 <div id="jkeyå" class="normal" style='text-align:left;'>Å<br>&nbsp;</div>
-                <div id="jkey¨" class="normal" style='text-align:left;'><span style='color:red'>^<br>¨&nbsp;&nbsp;&nbsp;~</span></div>
+                <div id="jkey¨" class="normal" style='text-align:left;'>
+                    <span style='color:red'>^<br>¨&nbsp;&nbsp;&nbsp;~</span></div>
             </div>
                 <span id="jkeyenter" class="normal" style="width: 50px; margin-right:5px; float: right; height: 85px;">Enter</span>
                 <div class="mtrow" style='float: left; margin-left:5px; font-size: 15px !important; line-height: 15px'> 

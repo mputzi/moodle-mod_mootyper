@@ -110,7 +110,7 @@ function thenFinger(tCrka) {
     } else if (tCrka.match(/[3^#e€dc8(\[ıIikö]/)) {
         return 2; // Highlight the correct key above in yellow.
     // @codingStandardsIgnoreLine
-    } else if (tCrka.match(/[4+$rfv5%½tgb6&yhn7/{ujm]/i)) {
+    } else if (tCrka.match(/[4+$rfv5%½tgb6&yhn7{ujm/]/i)) {
         return 1; // Highlight the correct key above in blue.
     } else {
         return 6; // Do not change any highlight.

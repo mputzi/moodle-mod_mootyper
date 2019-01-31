@@ -72,7 +72,8 @@ echo (isset($displaynone) && ($displaynone == true)) ? 'display:none;' : '';
             <div id="jkeyp" class="normal" style='text-align:left;'>P<br>&nbsp;</div>
             <div id="jkeyacuteaccent" class="normal" style='text-align:left;'>
                 <span style="color:red">`<br><span style="color:red">´</span></div>
-            <div id="jkeybracketl" class="normal" style='text-align:left; font-size: 15px !important; line-height: 15px'>{<br>[<span style="color:blue">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ª</span></div>
+            <div id="jkeybracketl" class="normal" style='text-align:left; font-size: 15px !important; line-height: 15px'>{
+                <br>[<span style="color:blue">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ª</span></div>
         </div>
         <span id="jkeyenter" class="normal" style="width: 50px; margin-right:5px; float: right; height: 85px;">Enter</span>
         <div class="mtrow" style='float: left; margin-left:5px; font-size: 15px !important; line-height: 15px'>
@@ -99,7 +100,8 @@ echo (isset($displaynone) && ($displaynone == true)) ? 'display:none;' : '';
             <div id="jkeybackslash" class="normal" style='text-align:left;'>|<br>\</div>
             <div id="jkeyz" class="normal" style='text-align:left;'>Z<br>&nbsp;</div>
             <div id="jkeyx" class="normal" style='text-align:left;'>X<br>&nbsp;</div>
-            <div id="jkeyc" class="normal" style='text-align:left;'>C<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:blue">₢</span></div>
+            <div id="jkeyc" class="normal" style='text-align:left;'>C<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <span style="color:blue">₢</span></div>
             <div id="jkeyv" class="normal" style='text-align:left;'>V<br>&nbsp;</div>
             <div id="jkeyb" class="normal" style='text-align:left;'>B<br>&nbsp;</div>
             <div id="jkeyn" class="normal" style='text-align:left;'>N<br>&nbsp;</div>

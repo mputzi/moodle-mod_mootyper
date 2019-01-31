@@ -54,7 +54,8 @@ echo (isset($displaynone) && ($displaynone == true)) ? 'display:none;' : '';
                 <div id="jkeytab" class="normal" style="width: 60px; text-align:left;">Tab</div>
                 <div id="jkeyq" class="normal" style='text-align:left;'>Q<br>&nbsp;</div>
                 <div id="jkeyw" class="normal" style='text-align:left;'>W<br>&nbsp;</div>
-                <div id="jkeye" class="normal" style='text-align:left;'>E<br><span style="color:blue">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;€</span></div>
+                <div id="jkeye" class="normal" style='text-align:left;'>E<br>
+                    <span style="color:blue">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;€</span></div>
                 <div id="jkeyr" class="normal" style='text-align:left;'>R<br>&nbsp;</div>
                 <div id="jkeyt" class="normal" style='text-align:left;'>T<br>&nbsp;</div>
                 <div id="jkeyy" class="normal" style='text-align:left;'>Y<br>&nbsp;</div>
@@ -91,7 +92,8 @@ echo (isset($displaynone) && ($displaynone == true)) ? 'display:none;' : '';
             <div id="jkeyv" class="normal" style='text-align:left;'>V<br>&nbsp;</div>
             <div id="jkeyb" class="normal" style='text-align:left;'>B<br>&nbsp;</div>
             <div id="jkeyn" class="normal" style='text-align:left;'>N<br>&nbsp;</div>
-            <div id="jkeym" class="normal" style='text-align:left;'>M<br><span style="color:blue">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;µ</span></div>
+            <div id="jkeym" class="normal" style='text-align:left;'>M<br>
+                <span style="color:blue">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;µ</span></div>
             <div id="jkeycomma" class="normal" style='text-align:left;'>;<br>,</div>
             <div id="jkeyperiod" class="normal" style='text-align:left;'>:<br>.</div>
             <div id="jkeyminus" class="normal" style='text-align:left;'>_<br>-</div>

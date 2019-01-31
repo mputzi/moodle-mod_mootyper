@@ -34,16 +34,25 @@ echo (isset($displaynone) && ($displaynone == true)) ? 'display:none;' : '';
         <div class="mtrow" style='float: left; margin-left:5px; font-size: 15px !important; line-height: 15px'>
             <div id="jkey§" class="normal" style='text-align:left;'><b>½<br>§</b></div>
             <div id="jkey1" class="normal" style='text-align:left;'>!<br>1</div>
-            <div id="jkey2" class="normal" style='text-align:left;'>"<br>2<span style="color:blue">&nbsp;&nbsp;@</span></div>
-            <div id="jkey3" class="normal" style='text-align:left;'>#<br>3<span style="color:blue">&nbsp;&nbsp;&nbsp;£</span></div>
-            <div id="jkey4" class="normal" style='text-align:left;'>¤<br>4<span style="color:blue">&nbsp;&nbsp;&nbsp;$</span></div>
-            <div id="jkey5" class="normal" style='text-align:left;'>%<br>5<span style="color:blue">&nbsp;&nbsp;&nbsp;€</span></div>
+            <div id="jkey2" class="normal" style='text-align:left;'>"<br>2
+                <span style="color:blue">&nbsp;&nbsp;@</span></div>
+            <div id="jkey3" class="normal" style='text-align:left;'>#<br>3
+                <span style="color:blue">&nbsp;&nbsp;&nbsp;£</span></div>
+            <div id="jkey4" class="normal" style='text-align:left;'>¤<br>4
+                <span style="color:blue">&nbsp;&nbsp;&nbsp;$</span></div>
+            <div id="jkey5" class="normal" style='text-align:left;'>%<br>5
+                <span style="color:blue">&nbsp;&nbsp;&nbsp;€</span></div>
             <div id="jkey6" class="normal" style='text-align:left;'>& <br>6</div>
-            <div id="jkey7" class="normal" style='text-align:left;'>/<br>7<span style="color:blue">&nbsp;&nbsp;&nbsp;{</span></div>
-            <div id="jkey8" class="normal" style='text-align:left;'>(<br>8<span style="color:blue">&nbsp;&nbsp;&nbsp;[</span></div>
-            <div id="jkey9" class="normal" style='text-align:left;'>)<br>9<span style="color:blue">&nbsp;&nbsp;&nbsp;]</span></div>
-            <div id="jkey0" class="normal" style='text-align:left;'>=<br>0<span style="color:blue">&nbsp;&nbsp;&nbsp;}</span></div>
-            <div id="jkeyplus" class="normal" style='text-align:left;'>?<br>+<span style="color:blue">&nbsp;&nbsp;&nbsp;\</span></div>
+            <div id="jkey7" class="normal" style='text-align:left;'>/<br>7
+                <span style="color:blue">&nbsp;&nbsp;&nbsp;{</span></div>
+            <div id="jkey8" class="normal" style='text-align:left;'>(<br>8
+                <span style="color:blue">&nbsp;&nbsp;&nbsp;[</span></div>
+            <div id="jkey9" class="normal" style='text-align:left;'>)<br>9
+                <span style="color:blue">&nbsp;&nbsp;&nbsp;]</span></div>
+            <div id="jkey0" class="normal" style='text-align:left;'>=<br>0
+                <span style="color:blue">&nbsp;&nbsp;&nbsp;}</span></div>
+            <div id="jkeyplus" class="normal" style='text-align:left;'>?<br>+
+                <span style="color:blue">&nbsp;&nbsp;&nbsp;\</span></div>
             <div id="jkeycrtica" class="normal" style='text-align:left;'>`<br>´</div>
             <div id="jkeybackspace" class="normal" style="width: 95px; text-align:left;">Backspace</div>
         </div>
@@ -52,7 +61,8 @@ echo (isset($displaynone) && ($displaynone == true)) ? 'display:none;' : '';
                 <div id="jkeytab" class="normal" style="width: 60px; text-align:left;">Tab</div>
                 <div id="jkeyq" class="normal" style='text-align:left;'>Q<br>&nbsp;</div>
                 <div id="jkeyw" class="normal" style='text-align:left;'>W<br>&nbsp;</div>
-                <div id="jkeye" class="normal" style='text-align:left;'>E<br><span style="color:blue">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;€</span></div>
+                <div id="jkeye" class="normal" style='text-align:left;'>E<br>
+                    <span style="color:blue">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;€</span></div>
                 <div id="jkeyr" class="normal" style='text-align:left;'>R<br>&nbsp;</div>
                 <div id="jkeyt" class="normal" style='text-align:left;'>T<br>&nbsp;</div>
                 <div id="jkeyy" class="normal" style='text-align:left;'>Y<br>&nbsp;</div>
@@ -89,7 +99,8 @@ echo (isset($displaynone) && ($displaynone == true)) ? 'display:none;' : '';
             <div id="jkeyv" class="normal" style='text-align:left;'>V<br>&nbsp;</div>
             <div id="jkeyb" class="normal" style='text-align:left;'>B<br>&nbsp;</div>
             <div id="jkeyn" class="normal" style='text-align:left;'>N<br>&nbsp;</div>
-            <div id="jkeym" class="normal" style='text-align:left;'>M<br><span style="color:blue">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;µ</span></div>
+            <div id="jkeym" class="normal" style='text-align:left;'>M<br>
+                <span style="color:blue">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;µ</span></div>
             <div id="jkeycomma" class="normal" style='text-align:left;'>;<br>,</div>
             <div id="jkeyperiod" class="normal" style='text-align:left;'>:<br>.</div>
             <div id="jkeyminus" class="normal" style='text-align:left;'>_<br>-</div>

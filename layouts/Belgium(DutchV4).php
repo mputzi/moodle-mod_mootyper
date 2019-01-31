@@ -58,7 +58,8 @@ echo (isset($displaynone) && ($displaynone == true)) ? 'display:none;' : '';
                 <div id="jkeytab" class="normal" style="width: 60px;">Tab</div>
                 <div id="jkeya" class="normal" style='text-align:left;'>A<br>&nbsp;</div>
                 <div id="jkeyz" class="normal" style='text-align:left;'>Z<br>&nbsp;</div>
-                <div id="jkeye" class="normal" style='text-align:left;'>E<br><span style="color:blue">&nbsp;&nbsp;&nbsp;&nbsp;€</span></div>
+                <div id="jkeye" class="normal" style='text-align:left;'>E<br><span style="color:blue">&nbsp;&nbsp;&nbsp;&nbsp;€
+                    </span></div>
                 <div id="jkeyr" class="normal" style='text-align:left;'>R<br>&nbsp;</div>
                 <div id="jkeyt" class="normal" style='text-align:left;'>T<br>&nbsp;</div>
                 <div id="jkeyy" class="normal" style='text-align:left;'>Y<br>&nbsp;</div>

@@ -113,7 +113,8 @@ function thenFinger(tCrka) {
         // @codingStandardsIgnoreLine
     } else if (tCrka.match(/[3#е€љдц8(ик,;<]/i)) {
         return 2; // Highlight the correct key above in yellow.
-    } else if (tCrka.match(/[4$рфв5%тгб6&зхн7//ујм]/i)) {
+    // @codingStandardsIgnoreLine
+    } else if (tCrka.match(/[4$рфв5%тгб6&зхн7ујм/]/i)) {
         return 1; // Highlight the correct key above in blue.
     } else {
         return 6; // Do not change any highlight.

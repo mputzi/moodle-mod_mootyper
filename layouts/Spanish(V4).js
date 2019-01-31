@@ -228,9 +228,7 @@ function getKeyID(tCrka) {
  */
 function isLetter(str) {
     return str.length === 1 && str.match(/[a-z`¡ñçáéíóúü]/i);
-    // When I try to use the next line, at least four lower case
+    // When I try to use str.match(/[!-ﻼ]/i);, at least four lower case
     // keys start highlighting the Shift key, too. But they all
     // work fine using the old version.
-    // return str.length === 1 && str.match(/[!-ﻼ]/i);
-
 }

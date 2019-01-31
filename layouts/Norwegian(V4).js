@@ -116,7 +116,7 @@ function thenFinger(tCrka) {
     } else if (tCrka.match(/[3#£edc8([ik,;]/i)) {
         return 2; // Highlight the correct key above in yellow.
     // @codingStandardsIgnoreLine
-    } else if (tCrka.match(/[4$vrjnuk¤5%€y6^fb7/{&tghmµ]/i)) {
+    } else if (tCrka.match(/[4$vrjnuk¤5%€y6^fb7{&tghmµ/]/i)) {
         return 1; // Highlight the correct key above in blue.
     } else {
         return 6; // Do not change any highlight.
@@ -192,7 +192,6 @@ function getKeyID(tCrka) {
  * @returns {(number|Array)}.
  */
 function isLetter(str) {
-    //return str.length === 1 && str.match(/[a-z]/i);
     return str.length === 1 && str.match(/[!-ﻼ]/i);
 
 }

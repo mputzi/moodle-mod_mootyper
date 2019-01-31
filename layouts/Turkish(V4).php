@@ -33,11 +33,13 @@ echo (isset($displaynone) && ($displaynone == true)) ? 'display:none;' : '';
     <section>
         <div class="mtrow" style='float: left; margin-left:5px; font-size: 15px !important; line-height: 15px'>
             <div id="jkeyquote" class="normal" style='text-align:left;'>é<br>"
-                <span style="color:blue">&nbsp;&nbsp;&lt;</span></div>            <div id="jkey1" class="normal" style='text-align:left;'>!<br>1
+                <span style="color:blue">&nbsp;&nbsp;&lt;</span></div>
+            <div id="jkey1" class="normal" style='text-align:left;'>!<br>1
                 <span style="color:blue">&nbsp;&nbsp;&gt;</span></div>
             <div id="jkey2" class="normal" style='text-align:left;'>'<br>2
                 <span style="color:blue">&nbsp;&nbsp;£</span></div>
-            <div id="jkey3" class="normal" style='text-align:left; color:red;'>^<br><span style="color:black">3<span style="color:blue">&nbsp;&nbsp;&nbsp;#</span></div>
+            <div id="jkey3" class="normal" style='text-align:left; color:red;'>^<br>
+                <span style="color:black">3<span style="color:blue">&nbsp;&nbsp;&nbsp;#</span></div>
             <div id="jkey4" class="normal" style='text-align:left;'>+<br>4
                 <span style="color:blue">&nbsp;&nbsp;$</span></div>
             <div id="jkey5" class="normal" style='text-align:left;'>%<br>5
@@ -69,12 +71,16 @@ echo (isset($displaynone) && ($displaynone == true)) ? 'display:none;' : '';
             <div id="jkeyt" class="normal" style='text-align:left;'>T<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
             <div id="jkeyy" class="normal" style='text-align:left;'>Y<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
             <div id="jkeyu" class="normal" style='text-align:left;'>U<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
-            <div id="jkeyı" class="normal" style='text-align:left;'>I<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:blue">i</span></div>
+            <div id="jkeyı" class="normal" style='text-align:left;'>I<br>
+                <span style="color:blue">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;i</span></div>
             <div id="jkeyo" class="normal" style='text-align:left;'>O<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
             <div id="jkeyp" class="normal" style='text-align:left;'>P<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
-            <div id="jkeyğ" class="normal" style='text-align:left;'>Ğ<br> <span style="color:red">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;¨</span></div>
-            <div id="jkeyü" class="normal" style='text-align:left;'>Ü<br> <span style="color:red">&nbsp;&nbsp;~</span></div>
-            <div id="jkeycomma" class="normal" style='text-align:left; width: 75px;'>;<br>,<span style="color:red">&nbsp;&nbsp;`</span></div>
+            <div id="jkeyğ" class="normal" style='text-align:left;'>Ğ<br>
+                <span style="color:red">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;¨</span></div>
+            <div id="jkeyü" class="normal" style='text-align:left;'>Ü<br>
+                <span style="color:red">&nbsp;&nbsp;&nbsp;&nbsp;~</span></div>
+            <div id="jkeycomma" class="normal" style='text-align:left; width: 75px;'>;<br>,
+                <span style="color:red">&nbsp;&nbsp;`</span></div>
         </div>
         <div class="mtrow" style='float: left; margin-left:5px; font-size: 15px !important; line-height: 15px'>
             <div id="jkeycaps" class="normal" style="width: 80px;">C.lock</div>

@@ -168,15 +168,15 @@ function getKeyID(tCrka) {
         return "jkeyε";
     } else if (tCrka === 'ύ') {
         return "jkeyυ";
-   } else if (tCrka === 'ό') {
+    } else if (tCrka === 'ό') {
         return "jkeyο";
-   } else if (tCrka === 'ί') {
+    } else if (tCrka === 'ί') {
         return "jkeyι";
-   } else if (tCrka === 'ά') {
+    } else if (tCrka === 'ά') {
         return "jkeyα";
-   } else if (tCrka === 'ή') {
+    } else if (tCrka === 'ή') {
         return "jkeyη";
-   } else if (tCrka === 'ώ') {
+    } else if (tCrka === 'ώ') {
         return "jkeyω";
     } else if (tCrka === ';' || tCrka === ':') {
         return "jkey;";
