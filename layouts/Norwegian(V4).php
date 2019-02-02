@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * This file defines the Norwegian(V4)keyboard layout.
+ * This file defines the Norwegian(V4.1)keyboard layout.
  *
  * @package    mod_mootyper
  * @copyright  2016 onwards AL Rachels (drachels@drachels.com)
@@ -35,7 +35,7 @@ echo (isset($displaynone) && ($displaynone == true)) ? 'display:none;' : '';
             <div id="jkey§" class="normal" style='text-align:left;'><b>§<br>|</b></div>
             <div id="jkey1" class="normal" style='text-align:left;'>!<br>1</div>
             <div id="jkey2" class="normal" style='text-align:left;'>"<br>2
-                <span style="color:blue">&nbsp;&nbsp;@</span></div>
+                <span style="color:blue">&nbsp;@</span></div>
             <div id="jkey3" class="normal" style='text-align:left;'>#<br>3
                 <span style="color:blue">&nbsp;&nbsp;&nbsp;£</span></div>
             <div id="jkey4" class="normal" style='text-align:left;'>¤<br>4

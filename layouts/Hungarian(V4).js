@@ -1,5 +1,5 @@
 /**
- * @fileOverview Hungarian(V4) keyboard driver.
+ * @fileOverview Hungarian(V4.1) keyboard driver.
  * @author <a href="mailto:drachels@drachels.com">AL Rachels</a>
  * @version 4.0
  * @since 07/07/2017

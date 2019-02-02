@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * This file defines the Serbian(V4) keyboard layout.
+ * This file defines the Serbian(V4.1) keyboard layout.
  *
  * @package    mod_mootyper
  * @copyright  2016 onwards AL Rachels (drachels@drachels.com)
@@ -91,9 +91,9 @@ echo (isset($displaynone) && ($displaynone == true)) ? 'display:none;' : '';
             <div id="jkeyн" class="normal" style='text-align:left;'>Н<br>&nbsp;</div>
             <div id="jkeyм" class="normal" style='text-align:left;'>М<br>&nbsp;</div>
             <div id="jkeycomma" class="normal" style='text-align:left;'>;<br>,
-                <span style="color:blue">&nbsp;&nbsp;&nbsp;&nbsp;&lt;</span></div>
+                <span style="color:blue">&nbsp;&nbsp;&nbsp;&lt;</span></div>
             <div id="jkeyperiod" class="normal" style='text-align:left;'>:<br>.
-                <span style="color:blue">&nbsp;&nbsp;&nbsp;&nbsp;&gt;</span></div>
+                <span style="color:blue">&nbsp;&nbsp;&nbsp;&gt;</span></div>
             <div id="jkeyminus" class="normal" style='text-align:left;'>_<br>-</div>
             <div id="jkeyshiftd" class="normal" style="width: 115px;">Shift</div>
         </div>

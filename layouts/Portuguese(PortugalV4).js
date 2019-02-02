@@ -1,5 +1,5 @@
 /**
- * @fileOverview Portuguese(PortugalV4) keyboard driver.
+ * @fileOverview Portuguese(PortugalV4.1) keyboard driver.
  * @author <a href="mailto:drachels@drachels.com">AL Rachels</a>
  * @version 4.0
  * @since 12/02/2017

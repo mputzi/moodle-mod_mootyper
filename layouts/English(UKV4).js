@@ -1,5 +1,5 @@
 /**
- * @fileOverview English(UKV4) keyboard driver.
+ * @fileOverview English(UKV4.1) keyboard driver.
  * @author <a href="mailto:drachels@drachels.com">AL Rachels</a>
  * @version 4.0
  * @since 04/04/2018

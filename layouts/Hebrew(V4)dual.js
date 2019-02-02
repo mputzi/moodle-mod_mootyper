@@ -1,5 +1,5 @@
 /**
- * @fileOverview Hebrew(V4)dual keyboard driver.
+ * @fileOverview Hebrew(V4.1)dual keyboard driver.
  * @author <a href="mailto:drachels@drachels.com">AL Rachels</a>
  * @version 4.0
  * @since 04/03/2018

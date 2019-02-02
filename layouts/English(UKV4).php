@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * This file defines the English(UKV4)keyboard layout.
+ * This file defines the English(UKV4.1)keyboard layout.
  *
  * @package    mod_mootyper
  * @copyright  2012 Jaka Luthar (jaka.luthar@gmail.com)
@@ -38,8 +38,8 @@ echo (isset($displaynone) && ($displaynone == true)) ? 'display:none;' : '';
             <div id="jkey1" class="normal" style='text-align:left;'><b>!<br>1</b></div>
             <div id="jkey2" class="normal" style='text-align:left;'><b>"<br>2</b></div>
             <div id="jkey3" class="normal" style='text-align:left;'><b>£<br>3</b></div>
-            <div id="jkey4" class="normal" style='text-align:left;'><b>$<br>4<span style="color:blue">
-                &nbsp;&nbsp;€</b></span></div>
+            <div id="jkey4" class="normal" style='text-align:left;'><b>$<br>4<span style="color:blue">&nbsp;&nbsp;€
+                </b></span></div>
             <div id="jkey5" class="normal" style='text-align:left;'><b>%<br>5</b></div>
             <div id="jkey6" class="normal" style='text-align:left;'><b>^<br>6</b></div>
             <div id="jkey7" class="normal" style='text-align:left;'><b>&<br>7</b></div>
@@ -55,17 +55,17 @@ echo (isset($displaynone) && ($displaynone == true)) ? 'display:none;' : '';
                 <div id="jkeytab" class="normal" style="width: 60px;">Tab</div>
                 <div id="jkeyq" class="normal" style='text-align:left;'>Q<br>&nbsp;</div>
                 <div id="jkeyw" class="normal" style='text-align:left;'>W<br>&nbsp;</div>
-                <div id="jkeye" class="normal" style='text-align:left;'>E
-                    <span style="color:blue">&nbsp;&nbsp;&nbsp;É</span><br>&nbsp;</div>
+                <div id="jkeye" class="normal" style='text-align:left;'>E<span style="color:blue">&nbsp;&nbsp;&nbsp;É</span>
+                    <br>&nbsp;</div>
                 <div id="jkeyr" class="normal" style='text-align:left;'>R<br>&nbsp;</div>
                 <div id="jkeyt" class="normal" style='text-align:left;'>T<br>&nbsp;</div>
                 <div id="jkeyy" class="normal" style='text-align:left;'>Y<br>&nbsp;</div>
-                <div id="jkeyu" class="normal" style='text-align:left;'>U
-                    <span style="color:blue">&nbsp;Ú</span><br>&nbsp;</div>
-                <div id="jkeyi" class="normal" style='text-align:left;'>I
-                    <span style="color:blue">&nbsp;&nbsp;&nbsp;&nbsp;Í</span><br>&nbsp;</div>
-                <div id="jkeyo" class="normal" style='text-align:left;'>O
-                    <span style="color:blue">&nbsp;&nbsp;Ó</span><br>&nbsp;</div>
+                <div id="jkeyu" class="normal" style='text-align:left;'>U<span style="color:blue">&nbsp;Ú</span>
+                    <br>&nbsp;</div>
+                <div id="jkeyi" class="normal" style='text-align:left;'>I<span style="color:blue">&nbsp;&nbsp;&nbsp;&nbsp;Í</span>
+                    <br>&nbsp;</div>
+                <div id="jkeyo" class="normal" style='text-align:left;'>O<span style="color:blue">&nbsp;&nbsp;Ó</span>
+                    <br>&nbsp;</div>
                 <div id="jkeyp" class="normal" style='text-align:left;'>P<br>&nbsp;</div>
                 <div id="jkeybracketl" class="normal" style='text-align:left;'>{<br>[</div>
                 <div id="jkeybracketr" class="normal" style='text-align:left;'>}<br>]</div>
