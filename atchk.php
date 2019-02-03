@@ -28,13 +28,15 @@
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-global $DB;
-
 require_once(dirname(dirname(dirname(__FILE__))).'/config.php');
 require_once(dirname(__FILE__).'/locallib.php');
 
-$record = new stdClass();
+global $DB;
 
+// Added the following 02/02/19 and things seem to be working correctly.
+require_login();
+
+$record = new stdClass();
 
 // Status 1 indicates called from doStart in typer.js.
 // Status 2 indicates called from doCheck in typer.js.
