@@ -94,8 +94,6 @@ if (is_editable_by_me($USER->id, $lessonpo)) {
     echo ' <a onclick="return confirm(\''.get_string('exportconfirm', 'mootyper').$lessons[$selectedlessonindex]['lessonname'].
     '\')" href="lsnexport.php?id='.$course->id.'&lsn='.$lessons[$selectedlessonindex]['id'].'">'.
     get_string('export', 'mootyper').'\''.$lessons[$selectedlessonindex]['lessonname'].'\'</a>';
-
-
 }
 echo '</form><br>';
 
