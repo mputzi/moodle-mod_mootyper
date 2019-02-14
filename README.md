@@ -62,10 +62,12 @@ http://www.youtube.com/watch?v=Twl-7CGrS0g
 
 4. ADDITIONAL KEYBOARD LAYOUTS
 
-This MooTyper currently includes support for new versions (V4) of Belgium(Dutch),
-Dvorak, English, Estonian, French, German(Swiss), Hebrew, Japanese, Portuguese(Brazil),
-Portugues(Portugal), Russian, Slovenian, Spanish, and Thai keyboard layouts, that
-are compatible with both the new Boost theme as well as Clean.
+This MooTyper currently includes support for Belgium(Dutch), Czech, Danish,
+Dvorak, English(UK), English(US), Estonian, French, German(Swiss), German,
+Hebrew, Italian, Norwegian, Japanese, Portuguese(Brazil), Portugues(Portugal),
+Russian, Serbian, Slovenian, Spanish, Swediah, Thai, Turkish, Ukrainian,
+and Vietnamese keyboard layouts, that are compatible with both the new Boost
+theme, as well as, Clean.
 
 To implement any other layout you have to:
 Create a php file with keyboard layout defined with HTML. Create a javascript
