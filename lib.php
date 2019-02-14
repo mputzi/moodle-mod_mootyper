@@ -50,6 +50,8 @@ function mootyper_supports($feature) {
             return false;
         case FEATURE_GROUPINGS:
             return false;
+        case FEATURE_GROUPMEMBERSONLY:
+            return false;
         case FEATURE_MOD_INTRO:
             return true;
         case FEATURE_COMPLETION_TRACKS_VIEWS:
@@ -63,6 +65,8 @@ function mootyper_supports($feature) {
         case FEATURE_BACKUP_MOODLE2:
             return true;
         case FEATURE_SHOW_DESCRIPTION:
+            return true;
+        case FEATURE_BACKUP_MOODLE2:
             return true;
 
         default:
@@ -349,8 +353,17 @@ function get_typergradesuser($sid, $uid, $orderby=-1, $desc=false) {
  * @return int The id of the newly inserted mootyper record.
  */
 function mootyper_add_instance(stdClass $mootyper, mod_mootyper_mod_form $mform = null) {
-    global $DB;
+    global $CFG, $DB;
+
+    require_once($CFG->dirroot.'/mod/mootyper/locallib.php');
     $mootyper->timecreated = time();
+
+    // You may have to add extra stuff in here.
+    // Added next line for behat test 2/11/19.
+    $cmid = $mootyper->coursemodule;
+
+    mootyper_update_calendar($mootyper, $cmid);
+
     return $DB->insert_record('mootyper', $mootyper);
 }
 
@@ -433,9 +446,30 @@ function jget_mootyper_record($sid) {
  * @return boolean Success/Fail
  */
 function mootyper_update_instance(stdClass $mootyper, mod_mootyper_mod_form $mform = null) {
-    global $DB;
-    $mootyper->timemodified = time();
+    global $CFG, $DB;
+
+    require_once($CFG->dirroot.'/mod/mootyper/locallib.php');
+
+    if (empty($mootyper->timeopen)) {
+        $mootyper->timeopen = 0;
+    }
+    if (empty($mootyper->timeclose)) {
+        $mootyper->timeclose = 0;
+    }
+
+    $cmid       = $mootyper->coursemodule;
+    $cmidnumber = $mootyper->cmidnumber;
+    $courseid   = $mootyper->course;
+
     $mootyper->id = $mootyper->instance;
+
+    $context = context_module::instance($cmid);
+    $mootyper->timemodified = time();
+
+    $mootyper->id = $mootyper->instance;
+
+    // You may have to add extra stuff in here.
+    mootyper_update_calendar($mootyper, $cmid);
     return $DB->update_record('mootyper', $mootyper);
 }
 
@@ -767,12 +801,11 @@ function mootyper_grade_item_update(stdClass $mootyper) {
         $params['scaleid']   = -$mootyper->scale;
     }
 
-    if ($grades  === 'reset') {
+    if ($grades === 'reset') {
         $params['reset'] = true;
         $grades = null;
     }
 
-    // return grade_update('mod/mootyper', $mootyper->course, 'mod', 'mootyper', $mootyper->id, 0, null, $params);
     return grade_update('mod/mootyper', $mootyper->course, 'mod', 'mootyper', $mootyper->id, 0, $grades, $params);
 }
 
