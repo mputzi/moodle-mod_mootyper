@@ -62,7 +62,7 @@ echo (isset($displaynone) && ($displaynone == true)) ? 'display:none;' : '';
     <div style="float: left;">
         <div class="mtrow" style='float: left; margin-left:5px; font-size: 15px !important; line-height: 15px'>
             <div id="jkeytab" class="normal" style="width: 60px;">Tab</div>
-            <div id="jkeyq" class="normal" style='text-align:left;'>Q<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <div id="jkeyq" class="normal" style='text-align:left;'>Q<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 <span style="color:blue">\</span></div>
             <div id="jkeyw" class="normal" style='text-align:left;'>W<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 <span style="color:blue">|</span></div>
@@ -75,9 +75,9 @@ echo (isset($displaynone) && ($displaynone == true)) ? 'display:none;' : '';
             <div id="jkeyi" class="normal" style='text-align:left;'>I<br>&nbsp;</div>
             <div id="jkeyo" class="normal" style='text-align:left;'>O<br>&nbsp;</div>
             <div id="jkeyp" class="normal" style='text-align:left;'>P<br>&nbsp;</div>
-            <div id="jkeyš" class="normal" style='text-align:left;'>Š<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <div id="jkeyš" class="normal" style='text-align:left;'>Š<br>&nbsp;&nbsp;&nbsp;&nbsp;
                 <span style="color:blue">÷</span></div>
-            <div id="jkeyđ" class="normal" style='text-align:left;'>Đ<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <div id="jkeyđ" class="normal" style='text-align:left;'>Đ<br>&nbsp;&nbsp;&nbsp;&nbsp;
                 <span style="color:blue">×</span></div>
         </div>
         <div id="jkeyenter" class="normal" style="width: 50px; margin-right:5px; float: right; height: 85px;">Enter</div>
