@@ -357,6 +357,8 @@ function mootyper_add_instance(stdClass $mootyper, mod_mootyper_mod_form $mform 
 
     require_once($CFG->dirroot.'/mod/mootyper/locallib.php');
     $mootyper->timecreated = time();
+    // Changed to add instance now instead of in the return, 02/15/19.
+    $mootyper->id = $DB->insert_record("mootyper", $mootyper);
 
     // You may have to add extra stuff in here.
     // Added next line for behat test 2/11/19.
@@ -364,7 +366,7 @@ function mootyper_add_instance(stdClass $mootyper, mod_mootyper_mod_form $mform 
 
     mootyper_update_calendar($mootyper, $cmid);
 
-    return $DB->insert_record('mootyper', $mootyper);
+    return $mootyper->id;
 }
 
 /**
