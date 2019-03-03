@@ -87,6 +87,7 @@ $string['examdone'] = 'Exam already taken.';
 $string['excategory'] = 'Exercises category';
 $string['excategory_help'] = 'Pick a Lesson name to use for this MooTyper.';
 $string['exercise'] = 'Exercise {$a} of ';
+$string['exercise_abreviation'] = 'Ex';
 $string['exercise_added'] = 'Added exercise/category';
 $string['exercise_edited'] = 'Edited exercise';
 $string['exercise_removed'] = 'Removed an exercise';
