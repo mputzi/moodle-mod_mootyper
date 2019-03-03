@@ -26,10 +26,10 @@
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-require_once(dirname(dirname(dirname(__FILE__))).'/config.php');
-require_once(dirname(__FILE__).'/lib.php');
-require_once(dirname(__FILE__).'/locallib.php');
-
+// Changed to this newer format 03/01/2019.
+require(__DIR__ . '/../../config.php');
+require_once(__DIR__ . '/lib.php');
+require_once(__DIR__ . '/locallib.php');
 
 global $USER;
 
@@ -50,7 +50,7 @@ if ($md == 1) {
 if ($id) {
     $cm         = get_coursemodule_from_id('mootyper', $id, 0, false, MUST_EXIST);
     $course     = $DB->get_record('course', array('id' => $cm->course), '*', MUST_EXIST);
-    $mootyper  = $DB->get_record('mootyper', array('id' => $cm->instance), '*', MUST_EXIST);
+    $mootyper   = $DB->get_record('mootyper', array('id' => $cm->instance), '*', MUST_EXIST);
 } else if ($n) {
     $mootyper  = $DB->get_record('mootyper', array('id' => $n), '*', MUST_EXIST);
     $course     = $DB->get_record('course', array('id' => $mootyper->course), '*', MUST_EXIST);
@@ -59,6 +59,7 @@ if ($id) {
     error('You must specify a course_module ID or an instance ID');
 }
 
+$lsnname    = $DB->get_record('mootyper_lessons', array('id' => $mootyper->lesson), '*', MUST_EXIST);
 $mtmode = $mootyper->isexam;
 require_login($course, true, $cm);
 $context = context_module::instance($cm->id);
@@ -67,6 +68,8 @@ $context = context_module::instance($cm->id);
 if (!has_capability('mod/mootyper:viewmygrades', context_module::instance($cm->id))) {
     redirect('view.php?id='.$id, get_string('invalidaccess', 'mootyper'));
 } else {
+    // The following retrieves keybdbgc for setting this background.
+    $color3 = $mootyper->keybdbgc;
 
     $PAGE->set_url('/mod/mootyper/owngrades.php', array('id' => $cm->id));
     $PAGE->set_title(format_string($mootyper->name));
@@ -74,13 +77,32 @@ if (!has_capability('mod/mootyper:viewmygrades', context_module::instance($cm->i
     $PAGE->set_context($context);
     $PAGE->set_cacheable(false);
     echo $OUTPUT->header();
-    echo '<link rel="stylesheet" type="text/css" href="styles.css">';
+    // echo '<link rel="stylesheet" type="text/css" href="styles.css">';
     echo $OUTPUT->heading($mootyper->name);
     $htmlout = '';
-    $htmlout .= '<div id="mainDiv">';
-    if ($mtmode == 2) {
-        echo get_string('practice', 'mootyper');
-    }
+    $htmlout .= '<div align="center" style="font-size:1.2em;
+                font-weight:bold;background: '.$color3.';
+                border:2px solid black;
+                -webkit-border-radius:16px;
+                -moz-border-radius:16px;
+                border-radius:16px;">';
+//    $htmlout .= '<div id="mainDiv">';
+
+// Set a heading for the grades table, based on the mode and the lesson/category name.
+switch ($mtmode) {
+    case 0:
+        $htmlout .=  get_string('fmode', 'mootyper')." = ".get_string('flesson', 'mootyper');
+        break;
+    case 1:
+        $htmlout .=  get_string('fmode', 'mootyper')." = ".get_string('isexamtext', 'mootyper');
+        break;
+    case 2:
+        $htmlout .=  get_string('fmode', 'mootyper')." = ".get_string('practice', 'mootyper');
+        break;
+    default:
+        $htmlout .=  'error';
+}
+    $htmlout .=  '&nbsp;&nbsp;&nbsp;&nbsp;'.get_string('flesson', 'mootyper').'/'.get_string('lsnname', 'mootyper')." = ".$lsnname->lessonname;
 
     // Update the library.
     if ($des == -1 || $des == 0) {
@@ -107,22 +129,23 @@ if (!has_capability('mod/mootyper:viewmygrades', context_module::instance($cm->i
     $arrtextadds[$orderby] = $des == -1 || $des == 1 ? '<span class="arrow-s" style="font-size:1em;">
         </span>' : '<span class="arrow-n" style="font-size:1em;"></span>';
     if ($grds != false) {
-        $htmlout .= '<table style="border-style: solid;"><tr><td>'.
-        get_string('fexercise', 'mootyper').'</td><td><a href="?id='
-                   .$id.'&n='.$n.'&orderby=4'.$lnkadd.'">'.
-        get_string('vmistakes', 'mootyper').'</a>'.$arrtextadds[4]
-                   .'</td><td><a href="?id='.$id.'&n='.$n.'&orderby=5'.$lnkadd.'">'.
-        get_string('timeinseconds', 'mootyper').'</a>'.$arrtextadds[5]
-                   .'</td><td><a href="?id='.$id.'&n='.$n.'&orderby=6'.$lnkadd.'">'.
-        get_string('hitsperminute', 'mootyper').'</a>'.$arrtextadds[6]
-                   .'</td><td><a href="?id='.$id.'&n='.$n.'&orderby=7'.$lnkadd.'">'.
-        get_string('fullhits', 'mootyper').'</a>'.$arrtextadds[7]
-                   .'</td><td><a href="?id='.$id.'&n='.$n.'&orderby=8'.$lnkadd.'">'.
-        get_string('precision', 'mootyper').'</a>'.$arrtextadds[8]
-                   .'</td><td><a href="?id='.$id.'&n='.$n.'&orderby=9'.$lnkadd.'">'.
-        get_string('timetaken', 'mootyper').'</a>'.$arrtextadds[9]
-                   .'</td><td><a href="?id='.$id.'&n='.$n.'&orderby=12'.$lnkadd.'">'.
-        get_string('wpm', 'mootyper').'</a>'.$arrtextadds[12].'</td><td></td></tr>';
+        $htmlout .= '<table style="border-style: solid;"><tr>
+                    <td>'.get_string('fexercise', 'mootyper').'</td>
+                    <td><a href="?id='.$id.'&n='.$n.'&orderby=4'.$lnkadd.'">'
+                        .get_string('vmistakes', 'mootyper').'</a>'.$arrtextadds[4].'</td>
+                    <td><a href="?id='.$id.'&n='.$n.'&orderby=5'.$lnkadd.'">'
+                        .get_string('timeinseconds', 'mootyper').'</a>'.$arrtextadds[5].'</td>
+                    <td><a href="?id='.$id.'&n='.$n.'&orderby=6'.$lnkadd.'">'
+                        .get_string('hitsperminute', 'mootyper').'</a>'.$arrtextadds[6].'</td>
+                    <td><a href="?id='.$id.'&n='.$n.'&orderby=7'.$lnkadd.'">'
+                        .get_string('fullhits', 'mootyper').'</a>'.$arrtextadds[7].'</td>
+                    <td><a href="?id='.$id.'&n='.$n.'&orderby=8'.$lnkadd.'">'
+                        .get_string('precision', 'mootyper').'</a>'.$arrtextadds[8].'</td>
+                    <td><a href="?id='.$id.'&n='.$n.'&orderby=9'.$lnkadd.'">'
+                        .get_string('timetaken', 'mootyper').'</a>'.$arrtextadds[9].'</td>
+                    <td><a href="?id='.$id.'&n='.$n.'&orderby=12'.$lnkadd.'">'
+                        .get_string('wpm', 'mootyper').'</a>'.$arrtextadds[12].'</td>
+                    <td></td></tr>';
         foreach ($grds as $gr) {
             if (!($mtmode == 1) && $gr->pass) {
                 $stil = 'background-color: '.(get_config('mod_mootyper', 'passbgc')).';';
@@ -145,26 +168,42 @@ if (!has_capability('mod/mootyper:viewmygrades', context_module::instance($cm->i
                              .'</a>';
             }
 
-            $fcol = ($mtmode == 1) ? '---' : $gr->exercisename;
-            $htmlout .= '<tr style="border-top-style: solid;'.$stil.'"><td>'.$fcol.'</td><td>'
-                        .$gr->mistakes.'</td><td>'.format_time($gr->timeinseconds)
-                        .'</td><td>'.format_float($gr->hitsperminute).'</td><td>'.$gr->fullhits
-                        .'</td><td>'.format_float($gr->precisionfield).'%</td><td>'
-                        .date(get_config('mod_mootyper', 'dateformat'), $gr->timetaken)
-                        .'</td><td>'.format_float($gr->wpm).'</td><td>'.$removelnk.'</td></tr>';
-            $labels[] = 'Ex-'.$fcol;  // This gets the exercise number.
+            // $fcol = ($mtmode == 1) ? '---' : $gr->exercisename;
+            $fcol = $gr->exercisename;
+            $fcol = get_string('exercise_abreviation', 'mootyper').'-'.$fcol;  // This gets the exercise number.
+
+            $htmlout .= '<tr align="center" style="border-top-style: solid;'.$stil.'">
+                        <td>'.$fcol.'</td>
+                        <td>'.$gr->mistakes.'</td>
+                        <td>'.format_time($gr->timeinseconds).'</td>
+                        <td>'.format_float($gr->hitsperminute).'</td>
+                        <td>'.$gr->fullhits.'</td>
+                        <td>'.format_float($gr->precisionfield).'%</td>
+                        <td>'.date(get_config('mod_mootyper', 'dateformat'), $gr->timetaken).'</td>
+                        <td>'.format_float($gr->wpm).'</td>
+                        <td>'.$removelnk.'</td>
+                        <td>'.' '.'</td>
+                        </tr>';
+            $labels[] = $fcol;  // This gets the exercise number to use in the chart.
             $serieshitsperminute[] = $gr->hitsperminute; // Get the hits per minute value.
             $seriesprecision[] = $gr->precisionfield;  // Get the precision percentage value.
             $serieswpm[] = $gr->wpm; // Get the corrected words per minute rate.
         }
         $avg = get_grades_avg($grds);
         if (!($mtmode == 1)) {
-            $htmlout .= '<tr style="border-top-style: solid;"><td><strong>'.get_string('average', 'mootyper')
-                        .': </strong></td><td>'.$avg['mistakes'].'</td><td>'.format_time($avg['timeinseconds'])
-                        .'</td><td>'.format_float($avg['hitsperminute']).'</td><td>'.$avg['fullhits'].'</td><td>'
-                        .format_float($avg['precisionfield']).'%</td><td></td><td></td><td></td></tr>';
+            $htmlout .= '<tr align="center" style="border-top-style: solid;">
+                        <td><strong>'.get_string('average', 'mootyper').': </strong></td>
+                        <td>'.$avg['mistakes'].'</td>
+                        <td>'.format_time($avg['timeinseconds']).'</td>
+                        <td>'.format_float($avg['hitsperminute']).'</td>
+                        <td>'.$avg['fullhits'].'</td>
+                        <td>'.format_float($avg['precisionfield']).'%</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        </tr>';
         }
-        $htmlout .= '</table>';
+        $htmlout .= '</table><br>';
 
     } else {
         echo get_string('nogrades', 'mootyper');
