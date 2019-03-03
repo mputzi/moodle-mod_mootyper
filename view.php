@@ -26,9 +26,10 @@
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later.
  */
 
-require_once(dirname(dirname(dirname(__FILE__))) . '/config.php');
-require_once(dirname(__FILE__) . '/lib.php');
-require_once(dirname(__FILE__) . '/locallib.php');
+// Changed to this newer format 03/01/2019.
+require(__DIR__ . '/../../config.php');
+require_once(__DIR__ . '/lib.php');
+require_once(__DIR__ . '/locallib.php');
 
 global $USER, $CFG, $THEME;
 
@@ -180,6 +181,7 @@ if ($mootyper->lesson != null) {
     }
 
     if ($mtmode === '1') {
+        $reqiredgoal = $mootyper->requiredgoal;
 
         $exerciseid = $mootyper->exercise;
         $exercise = get_exercise_record($exerciseid);
