@@ -57,7 +57,7 @@ function mootyper_supports($feature) {
         case FEATURE_COMPLETION_TRACKS_VIEWS:
             return true;
         case FEATURE_COMPLETION_HAS_RULES:
-            return false;
+            return true;
         case FEATURE_GRADE_HAS_GRADE:
             return false;
         case FEATURE_GRADE_OUTCOMES:
@@ -86,10 +86,12 @@ function get_users_of_one_instance($mootyperid) {
     $toreturn = array();
     $gradestblname = $CFG->prefix."mootyper_grades";
     $userstblname = $CFG->prefix."user";
-    $sql = "SELECT DISTINCT ".$userstblname.".firstname, ".$userstblname.".lastname, ".$userstblname.".id".
-    " FROM ".$gradestblname.
-    " LEFT JOIN ".$userstblname." ON ".$gradestblname.".userid = ".$userstblname.".id".
-    " WHERE (mootyper=".$mootyperid.")";
+    $sql = "SELECT DISTINCT ".$userstblname.".firstname, "
+                             .$userstblname.".lastname, "
+                             .$userstblname.".id".
+                     " FROM ".$gradestblname.
+                " LEFT JOIN ".$userstblname." ON ".$gradestblname.".userid = ".$userstblname.".id".
+          " WHERE (mootyper=".$mootyperid.")";
     if ($grades = $DB->get_records_sql($sql, $params)) {
         return $grades;
     }
@@ -195,77 +197,6 @@ function get_grades_average($grads) {
         $povprecje['timeinseconds'] = $povprecje['timeinseconds'] / $cnt;
     }
     return $povprecje;
-}
-
-/**
- * Get grades for all users.
- *
- * @param int $sid
- * @param int $orderby
- * @param int $desc
- * @return array, false if null.
- */
-function get_typergradesfull($sid, $orderby=-1, $desc=false) {
-    global $DB, $CFG;
-    $params = array();
-    $toreturn = array();
-    $gradestblname = $CFG->prefix."mootyper_grades";
-    $userstblname = $CFG->prefix."user";
-    $exertblname = $CFG->prefix."mootyper_exercises";
-    $atttblname = $CFG->prefix."mootyper_attempts";
-    $sql = "SELECT ".$gradestblname.".id, "
-                    .$userstblname.".firstname, "
-                    .$userstblname.".lastname, "
-                    .$userstblname.".id as u_id, "
-                    .$atttblname.".suspicion, "
-                    .$gradestblname.".mistakes, "
-                    .$gradestblname.".timeinseconds, "
-                    .$gradestblname.".hitsperminute, "
-                    .$gradestblname.".fullhits, "
-                    .$gradestblname.".precisionfield, "
-                    .$gradestblname.".timetaken, "
-                    .$exertblname.".exercisename, "
-                    .$gradestblname.".wpm".
-    " FROM ".$gradestblname.
-    " LEFT JOIN ".$userstblname." ON ".$gradestblname.".userid = ".$userstblname.".id".
-    " LEFT JOIN ".$exertblname." ON ".$gradestblname.".exercise = ".$exertblname.".id".
-    " LEFT JOIN ".$atttblname." ON ".$atttblname.".id = ".$gradestblname.".attemptid".
-    " WHERE mootyper=".$sid;
-    if ($orderby == 0 || $orderby == -1) {
-        $oby = " ORDER BY ".$gradestblname.".id";
-    } else if ($orderby == 1) {
-        $oby = " ORDER BY ".$userstblname.".firstname";
-    } else if ($orderby == 2) {
-        $oby = " ORDER BY ".$userstblname.".lastname";
-    } else if ($orderby == 3) {
-        $oby = " ORDER BY ".$atttblname.".suspicion";
-    } else if ($orderby == 4) {
-        $oby = " ORDER BY ".$gradestblname.".mistakes";
-    } else if ($orderby == 5) {
-        $oby = " ORDER BY ".$gradestblname.".timeinseconds";
-    } else if ($orderby == 6) {
-        $oby = " ORDER BY ".$gradestblname.".hitsperminute";
-    } else if ($orderby == 7) {
-        $oby = " ORDER BY ".$gradestblname.".fullhits";
-    } else if ($orderby == 8) {
-        $oby = " ORDER BY ".$gradestblname.".precisionfield";
-    } else if ($orderby == 9) {
-        $oby = " ORDER BY ".$gradestblname.".timetaken";
-    } else if ($orderby == 10) {
-        $oby = " ORDER BY ".$exertblname.".exercisename";
-    } else if ($orderby == 12) {
-        $oby = " ORDER BY ".$gradestblname.".wpm";
-    } else {
-        $oby = "";
-    }
-    $sql .= $oby;
-    if ($desc) {
-        $sql .= " DESC";
-    }
-    if ($grades = $DB->get_records_sql($sql, $params)) {
-        return $grades;
-    }
-    return false;
 }
 
 /**
@@ -777,27 +708,36 @@ function mootyper_scale_used_anywhere($scaleid) {
  *
  * Needed by grade_update_mod_grades() in lib/gradelib.php
  *
+ * @category grade
+ * @uses GRADE_TYPE_NONE
+ * @uses GRADE_TYPE_VALUE
+ * @uses GRADE_TYPE_SCALE
  * @param stdClass $mootyper instance object with extra cmidnumber and modname property
- * @return void
+ * @param mixed $grades Optional array/object of grade(s); 'reset' means reset grades in gradebook
+ * @return int 0 if ok
  */
-function mootyper_grade_item_update(stdClass $mootyper) {
+function mootyper_grade_item_update($mootyper, $grades=NULL) {
     global $CFG;
     if (!function_exists('grade_update')) { // Workaround for buggy PHP versions.
         require_once($CFG->libdir.'/gradelib.php');
     }
 
-    $params = array();
-    $params['itemname'] = clean_param($mootyper->name, PARAM_NOTAGS);
-    $params['gradetype'] = GRADE_TYPE_VALUE;
-    $params['grademax']  = $mootyper->grade;
-    $params['grademin']  = 0;
+    $params = array('itemname'=>$mootyper->name, 'idnumber'=>$mootyper->cmidnumber);
+
+    // $params = array();
+    // $params['itemname'] = clean_param($mootyper->name, PARAM_NOTAGS);
+    // $params['gradetype'] = GRADE_TYPE_VALUE;
+    // $params['grademax']  = $mootyper->grade;
+    // $params['grademin']  = 0;
 
     if (!$mootyper->assessed or $mootyper->scale == 0) {
         $params['gradetype'] = GRADE_TYPE_NONE;
+
     } else if ($mootyper->scale > 0) {
         $params['gradetype'] = GRADE_TYPE_VALUE;
         $params['grademax']  = $mootyper->scale;
         $params['grademin']  = 0;
+
     } else if ($mootyper->scale < 0) {
         $params['gradetype'] = GRADE_TYPE_SCALE;
         $params['scaleid']   = -$mootyper->scale;
