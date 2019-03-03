@@ -41,7 +41,7 @@ function xmldb_mootyper_install() {
     $res = scandir($pth);
     for ($i = 0; $i < count($res); $i++) {
         if (is_file($pth."/".$res[$i])) {
-            $fl = $res[$i]; // Argument list daFile, authorid_arg, visible_arg, editable_arg, course_arg.
+            $fl = $res[$i]; // Argument list dafile, authorid_arg, visible_arg, editable_arg, course_arg.
             read_lessons_file($fl, $USER->id, 0, 2);
         }
     }
@@ -89,7 +89,7 @@ function read_lessons_file($dafile, $authoridarg, $visiblearg, $editablearg, $co
     $record = new stdClass();
     $periodpos = strrpos($dafile, '.');
     $lessonname = substr($dafile, 0, $periodpos);
-    // Echo lessonname.
+    // Echo the lessonname.
     $record->lessonname = $lessonname;
     $record->authorid = $authoridarg;
     $record->visible = $visiblearg;

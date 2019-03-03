@@ -24,8 +24,10 @@
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later.
  */
 
-require_once(dirname(dirname(dirname(__FILE__))).'/config.php');
-require_once(dirname(__FILE__).'/lib.php');
+// Changed to this newer format 03/01/2019.
+require(__DIR__ . '/../../config.php');
+require_once(__DIR__ . '/lib.php');
+require_once(__DIR__ . '/locallib.php');
 
 global $USER;
 
@@ -57,9 +59,18 @@ $PAGE->set_cacheable(false);
 
 // Output starts here.
 echo $OUTPUT->header();
-require_once(dirname(__FILE__).'/locallib.php');
 
 $lessonpo = optional_param('lesson', 0, PARAM_INT);
+
+// The following needs to retrieve leybdbgc for setting this background.
+$color3 = 'lightgreen';
+
+echo '<div align="center" style="font-size:20px;
+     font-weight:bold;background: '.$color3.';
+     border:2px solid #8eb6d8;-webkit-border-radius:16px;
+     -moz-border-radius:16px;border-radius:16px;">';
+
+// Create link to add new exercise or category.
 $jlnk2 = $CFG->wwwroot . '/mod/mootyper/eins.php?id='.$id;
 echo '<a href="'.$jlnk2.'">'.get_string('eaddnew', 'mootyper').'</a><br><br>';
 
@@ -71,7 +82,9 @@ if ($lessonpo == 0 && count($lessons) > 0) {
 
 echo '<form method="post">';
 echo get_string('excategory', 'mootyper').': <select onchange="this.form.submit()" name="lesson">';
+
 $selectedlessonindex = 0;
+
 for ($ij = 0; $ij < count($lessons); $ij++) {
     if ($lessons[$ij]['id'] == $lessonpo) {
         echo '<option selected="true" value="'.$lessons[$ij]['id'].'">'.$lessons[$ij]['lessonname'].'</option>';
@@ -80,6 +93,7 @@ for ($ij = 0; $ij < count($lessons); $ij++) {
         echo '<option value="'.$lessons[$ij]['id'].'">'.$lessons[$ij]['lessonname'].'</option>';
     }
 }
+
 echo '</select>';
 // Preload not editable by me message for current user.
 $jlink = get_string('noteditablebyme', 'mootyper');
@@ -143,5 +157,5 @@ foreach ($exercises as $ex) {
     echo '</tr>';
 }
 echo '</table>';
-
+echo '</div>';
 echo $OUTPUT->footer();

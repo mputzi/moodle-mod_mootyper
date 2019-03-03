@@ -25,9 +25,10 @@
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later.
  **/
 
-require_once(dirname(dirname(dirname(__FILE__))).'/config.php');
-require_once(dirname(__FILE__).'/lib.php');
-require_once(dirname(__FILE__).'/locallib.php');
+// Changed to this newer format 03/01/2019.
+require(__DIR__ . '/../../config.php');
+require_once(__DIR__ . '/lib.php');
+require_once(__DIR__ . '/locallib.php');
 
 global $USER, $DB;
 
@@ -157,8 +158,7 @@ function isNumber(n) {
 
 var ok = true;
 
-function clClick()
-{
+function clClick() {
     var exercise_text = document.getElementById("texttotype").value;
     var allowed_chars = ['\\', '~', '!', '@', '#', '$', '%', '^', '&', '(', ')',
                          '*', '_', '+', ':', ';', '"', '{', '}', '>', '<', '?', '\'',

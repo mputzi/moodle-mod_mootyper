@@ -26,7 +26,10 @@
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later.
  */
 
-require_once(dirname(dirname(dirname(__FILE__))).'/config.php');
+// Changed to this newer format 03/01/2019.
+require(__DIR__ . '/../../config.php');
+
+require_login($course, true, $cm);
 
 global $DB;
 
@@ -37,7 +40,6 @@ if ($id) {
     error('You must specify a course_module ID or an instance ID');
 }
 $context = context_course::instance($id);
-require_login($course, true, $cm);
 
 // If r is set we remove an exercise.
 // if l is set we remove a lesson and all its exercises.
