@@ -118,6 +118,14 @@ if (has_capability('mod/mootyper:editall', context_course::instance($course->id)
         }
     }
 }
+
+$color3 = $moocfg->keyboardbgc;
+echo '<div align="center" style="font-size:1em;
+     font-weight:bold;background: '.$color3.';
+     border:2px solid black;
+     -webkit-border-radius:16px;
+     -moz-border-radius:16px;border-radius:16px;">'.'<br>';
+
 echo '<form method="POST">';
 echo get_string('fnewexercise', 'mootyper').'&nbsp;';
 echo '<select onchange="this.form.submit()" name="lesson">';
@@ -217,5 +225,6 @@ echo '<br><span id="text_holder_span" class=""></span><br>'.get_string('fexercis
      '<textarea rows="4" cols="60" name="texttotype" id="texttotype"style="text-align:'.$align.'"></textarea><br>'.
      '<br><input name="button" onClick="return clClick()" type="submit" value="'.get_string('fconfirm', 'mootyper').'">'.
      '</form>';
+echo '<br></div>';
 
 echo $OUTPUT->footer();

@@ -62,12 +62,19 @@ echo $OUTPUT->header();
 
 $lessonpo = optional_param('lesson', 0, PARAM_INT);
 
-// The following needs to retrieve leybdbgc for setting this background.
-$color3 = 'lightgreen';
+/**
+ * Since editing an exercise is a course activity, the keyboard 
+ * background color info for the MooTyper this was called from,
+ * is not available. So, need to get the default keyboard background
+ * color from from the MooTyper configuration setting.
+ */ 
+$moocfg = get_config('mod_mootyper');
+$color3 = $moocfg->keyboardbgc;
 
-echo '<div align="center" style="font-size:20px;
+echo '<div align="center" style="font-size:1em;
      font-weight:bold;background: '.$color3.';
-     border:2px solid #8eb6d8;-webkit-border-radius:16px;
+     border:2px solid black;
+     -webkit-border-radius:16px;
      -moz-border-radius:16px;border-radius:16px;">';
 
 // Create link to add new exercise or category.
@@ -156,6 +163,6 @@ foreach ($exercises as $ex) {
     }
     echo '</tr>';
 }
-echo '</table>';
+echo '</table><br>';
 echo '</div>';
 echo $OUTPUT->footer();

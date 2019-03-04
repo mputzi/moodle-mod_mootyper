@@ -77,7 +77,7 @@ if (!has_capability('mod/mootyper:viewgrades', context_module::instance($cm->id)
     echo '<link rel="stylesheet" type="text/css" href="styles.css">';
     echo $OUTPUT->heading($mootyper->name);
     $htmlout = '';
-    $htmlout .= '<div align="center" style="font-size:20px;
+    $htmlout .= '<div align="center" style="font-size:1em;
                 font-weight:bold;background: '.$color3.';
                 border:2px solid black;
                 -webkit-border-radius:16px;
@@ -100,6 +100,7 @@ switch ($mtmode) {
         $htmlout .=  'error';
 }
     $htmlout .=  '&nbsp;&nbsp;&nbsp;&nbsp;'.get_string('flesson', 'mootyper').'/'.get_string('lsnname', 'mootyper')." = ".$lsnname->lessonname;
+    $htmlout .=  '&nbsp;&nbsp;&nbsp;&nbsp;'.get_string('requiredgoal', 'mootyper').' = '.$mootyper->requiredgoal.'%';
 
    // if ($md == 3) {  // If this is an exam, process the info for the current exercise.
 

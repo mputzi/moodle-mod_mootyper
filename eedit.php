@@ -41,9 +41,14 @@ if ($id) {
 if ($exerciseid == 0) {
     error('No exercise to edit!');
 }
-$context = context_course::instance($id);
 
+// Get the id of the lesson/category and then use it to get the lesson/category name.
+$rcrd = $DB->get_record('mootyper_exercises', array('id' => $exerciseid), 'lesson', MUST_EXIST);
+$lsncat = $DB->get_record('mootyper_lessons', array('id' => $rcrd->lesson), 'lessonname', MUST_EXIST);
+
+$context = context_course::instance($id);
 require_login($course, true);
+
 // Check to see if Confirm button is clicked and returning 'Confirm' to trigger update record.
 $param1 = optional_param('button', '', PARAM_TEXT);
 
@@ -144,6 +149,13 @@ function clClick() {
 
 </script>
 <?php
+$color3 = $moocfg->keyboardbgc;
+echo '<div align="center" style="font-size:1em;
+     font-weight:bold;background: '.$color3.';
+     border:2px solid black;
+     -webkit-border-radius:16px;
+     -moz-border-radius:16px;border-radius:16px;">';
+echo get_string('flesson', 'mod_mootyper').'/'.get_string('lsnname', 'mod_mootyper').' = '.$lsncat->lessonname.'<br>';
 
 echo '<form method="POST">';
 
@@ -174,4 +186,5 @@ echo '<span id="text_holder_span" class=""></span><br>'.get_string('fexercise', 
          str_replace('\n', "&#10;", $exercisetoedit->texttotype).
      '</textarea><br>'.'<br><input name="button" onClick="return clClick()" type="submit" value="'.
      get_string('fconfirm', 'mootyper').'">'.'</form>';
+echo '<br></div>';
 echo $OUTPUT->footer();
