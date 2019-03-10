@@ -179,15 +179,17 @@ if ($mootyper->lesson != null) {
             exit();
         }
     }
-
-    if ($mtmode === '1') {
-        $reqiredgoal = $mootyper->requiredgoal;
-
-        $exerciseid = $mootyper->exercise;
-        $exercise = get_exercise_record($exerciseid);
-        $texttoenter = $exercise->texttotype;
-        $insertdir = $CFG->wwwroot . '/mod/mootyper/gadd.php?words=' . str_word_count($texttoenter);
-    } else {
+// Need to eliminate the first part of this if. Mode used to check for 1 to
+// see if it was an exam. Not needed now that I have combined things.
+// This also means I can probably eliminate the gadd.php file.
+//    if ($mtmode === '3') {
+//        $reqiredgoal = $mootyper->requiredgoal;
+//
+//        $exerciseid = $mootyper->exercise;
+//        $exercise = get_exercise_record($exerciseid);
+//        $texttoenter = $exercise->texttotype;
+//        $insertdir = $CFG->wwwroot . '/mod/mootyper/gadd.php?words=' . str_word_count($texttoenter);
+//    } else {
         $reqiredgoal = $mootyper->requiredgoal;
         $exercise = get_exercise_from_mootyper($mootyper->id, $mootyper->lesson, $USER->id);
         if ($exercise != false) {
@@ -197,7 +199,7 @@ if ($mootyper->lesson != null) {
         if (isset($texttoenter)) {
             $insertdir = $CFG->wwwroot . '/mod/mootyper/gcnext.php?words=' . str_word_count($texttoenter);
         }
-    }
+//    }
 
     if (exam_already_done($mootyper, $USER->id) && $mtmode === '1') {
         echo get_string('examdone', 'mootyper');
@@ -227,22 +229,24 @@ if ($mootyper->lesson != null) {
 <h4>
         <?php
 
-        if (!($mtmode === '1')) {
-            // Need to get count of exercises in the current lesson.
-            $sqlc = "SELECT COUNT(mte.texttotype)
-                    FROM {mootyper_lessons} mtl
-                    LEFT JOIN {mootyper_exercises} mte
-                    ON mte.lesson =  mtl.id
-                    WHERE mtl.id = $mootyper->lesson";
+        // Need to get count of exercises in the current lesson.
+        $sqlc = "SELECT COUNT(mte.texttotype)
+                FROM {mootyper_lessons} mtl
+                LEFT JOIN {mootyper_exercises} mte
+                ON mte.lesson =  mtl.id
+                WHERE mtl.id = $mootyper->lesson";
 
-            $count = $DB->count_records_sql($sqlc, $params = null);
+        $count = $DB->count_records_sql($sqlc, $params = null);
 
-            // If this MooTyper is set to practice, add, Practice to the exercise name above the status bar.
-            if ($mtmode === '2') {
-                echo get_string('practice', 'mootyper').' '.get_string('exercise', 'mootyper', $exercise->exercisename).$count;
-            } else {
-                echo get_string('exercise', 'mootyper', $exercise->exercisename).$count;
-            }
+        // If this MooTyper is set to practice, add, Practice to the exercise name above the status bar.
+        if ($mtmode === '0') {
+            echo get_string('fmode', 'mootyper').' = '.get_string('flesson', 'mootyper').'&nbsp;&nbsp; '.get_string('exercise', 'mootyper', $exercise->exercisename).$count;
+        } else if ($mtmode === '1') {
+            echo get_string('fmode', 'mootyper').' = '.get_string('isexamtext', 'mootyper').'&nbsp;&nbsp; '.get_string('exercise', 'mootyper', $exercise->exercisename).$count;
+        } else if ($mtmode === '2') {
+            echo get_string('fmode', 'mootyper').' = '.get_string('practice', 'mootyper').'&nbsp;&nbsp; '.get_string('exercise', 'mootyper', $exercise->exercisename).$count;
+        } else {
+            echo get_string('exercise', 'mootyper', $exercise->exercisename).$count;
         }
         ?>
 </h4>
