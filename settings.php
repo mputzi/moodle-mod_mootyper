@@ -27,8 +27,9 @@
 defined('MOODLE_INTERNAL') || die;
 
 if ($ADMIN->fulltree) {
-    require_once($CFG->dirroot.'/mod/mootyper/lib.php');
-    require_once($CFG->dirroot.'/mod/mootyper/locallib.php');
+    // Changed to this newer format 03/10/2019.
+    require_once(__DIR__ . '/lib.php');
+    require_once(__DIR__ . '/locallib.php');
 
     // Availability settings.
     $settings->add(new admin_setting_heading('mod_mootyper/availibility', get_string('availability'), ''));
