@@ -25,6 +25,7 @@ var startTime,
  * @param {number} nextPos Next cursor position.
  */
 function moveCursor(nextPos) {
+console.log('TYPER6.0=========In the moveCursor(nextPos) function of typer.js. move cursor move cursor move cursor move cursor');
     if (nextPos > 0 && nextPos <= fullText.length) {
         $('#crka' + (nextPos - 1)).removeClass('txtBlue');
         if (keyResult) {
@@ -56,8 +57,10 @@ function moveCursor(nextPos) {
  * @param {DOM object} obj
  */
 function scroll_to_next_line(obj) {
+console.log('TYPER3.0========In the scroll_to_next_line(obj) function of typer.js.xxxxxxxxxxxxxxxxxxx scroll to next line(obj) xxxxxxxxxxxxxxxxxxxxxxxxxxx');
     var scrollBox = $('#texttoenter');
     if($(obj).length > 0) {
+console.log('TYPER3.1========In the scroll_to_next_line(obj) function of typer.js AND THE LENGTH IS '+$(obj).length+' xxxxxxxxxxxxxxxxxxx scroll to next line(obj) xxxxxxxxxxxxxxxxxxxxxxxxxxx');
         scrollBox.animate({
             scrollTop: $(obj).offset().top - scrollBox.offset().top + scrollBox.scrollTop()
         },10);
@@ -66,18 +69,24 @@ function scroll_to_next_line(obj) {
 
 // Initialize scrolling text when document is ready.
 $(document).ready(function() {
+console.log('TYPER1.1==In the (document).ready(function) part 1 of typer.js. 11111111111111111111111111111111111111');
+
     $('#keyboard textarea:last').css({
         "height": "16px",
         "font-size": "10pt",
         "opacity": "0.0"
     });
     $("html, body").keyup(function(e) {
+console.log('TYPER1.2====In the (document).ready(function) part 2 scroll_to_next_line(...) of typer.js. 222222222222222222222222222222');
+console.log(' ========================================================================================================================= ');
         scroll_to_next_line($('#crka' + currentPos));
     })
     .mouseup(function(e) {
         $('#keyboard textarea:last').focus();
     });
     $('#keyboard textarea:last').focus();
+console.log('TYPER1.3====In the (document).ready(function) part 3 scroll_to_next_line(...) of typer.js.33333333333333333333333333333333333');
+console.log('------------------------------------------------------------------------------------------------------------------------ ');
     scroll_to_next_line($("#keyboard"));
 });
 
@@ -86,6 +95,8 @@ $(document).ready(function() {
  *
  */
 function doTheEnd() {
+console.log('TYPER7.0============In the doTheEnd() function of typer.js.');
+
     ended = true;
     clearInterval(intervalID);
     clearInterval(interval2ID);
@@ -124,23 +135,33 @@ function doTheEnd() {
  * @returns {keychar}.
  */
 function getPressedChar(e) {
+console.log('TYPER5.0========In the getPressedChar(e) function of typer.js. e is '+e+'  gpc gpc gpc gpc getPressedChar(e) gpc gpc gpc gpc ');
     var keynum;
     var keychar;
     var numcheck;
 
     if (window.event) {  // IE.
         keynum = e.keyCode;
+// My code in next line.
+        //numcheck = e.keyup;
+console.log('TYPER5.1========keynum is '+keynum+' and keycode is '+keycode);
     } else if (e.which) {  // Netscape/Firefox/Opera.
         keynum = e.which;
+console.log('TYPER5.2======== keynum is '+keynum+' and numcheck is '+numcheck);
+
     }
     if (keynum === 13) {
+console.log('TYPER5.3======== keynum is '+keynum+' and keycode is '+numcheck);
         keychar = '\n';
         // This hack is needed for Spanish keyboard, which uses 161 for some character.
     } else if ((!keynum || keynum === 160 || keynum === 161) && (keynum !== 161 && THE_LAYOUT !== 'Spanish')) {
+console.log('TYPER5.4======== keynum is '+keynum+' and keycode is '+keycode);
         keychar = '[not_yet_defined]';
     } else {
+console.log('TYPER5.5======== keynum is '+keynum+' and numcheck is '+numcheck);
         keychar = String.fromCharCode(keynum);
     }
+//console.log('TYPER5.6=+=+=+=+=+=+=+= return keychar and it is '+keychar+' keycode is '+keycode+' and numcheck is '+numcheck);
     return keychar;
 }
 
@@ -151,6 +172,7 @@ function getPressedChar(e) {
  * @returns {bolean}.
  */
 function focusSet(e) {
+console.log('TYPER2======In the focusSet(e) function of typer.js. e is '+e+' fs fs fs fs fs focusSet(e) fs fs fs fs ');
     if(!started) {
         $('#tb1').val('');
         if (showKeyboard){
@@ -170,6 +192,7 @@ function focusSet(e) {
  *
  */
 function doCheck() {
+//console.log('In the doCheck() function of typer.js.');
     var rpMootyperId = $('input[name="rpSityperId"]').val();
     var rpUser = $('input[name="rpUser"]').val();
     var rpAttId = $('input[name="rpAttId"]').val();
@@ -182,6 +205,7 @@ function doCheck() {
  *
  */
 function doStart() {
+console.log('TYPER0.0==In the doStart() function of typer.js.');
     startTime = new Date();
     mistakes = 0;
     currentPos = 0;
@@ -205,6 +229,7 @@ function doStart() {
  * @returns {bolean}.
  */
 function keyPressed(e) {
+console.log('TYPER4.0========In the keyPressed(e) function of typer.js. e is '+e);
     if (ended) {
         return false;
     }
@@ -295,6 +320,8 @@ function keyPressed(e) {
  * @returns {seconds}.
  */
 function converToSeconds(hrs, mins, seccs) {
+//console.log('In the converToSeconds(hrs, mins, seccs) function of typer.js. hrs, mins, seccs is '+' hrs '+hrs+' mins '+ mins+' seccs '+seccs);
+
     if (hrs > 0) {
         mins = (hrs * 60) + mins;
     }
@@ -313,6 +340,7 @@ function converToSeconds(hrs, mins, seccs) {
  * @returns {date}.
  */
 function timeDifference(t1, t2) {
+//console.log('In the timeDifference(t1, t2) function of typer.js. t1, t2 is '+' t1 '+t1+' t2 '+ t2);
     var yrs = t1.getFullYear();
     var mnth = t1.getMonth();
     var dys = t1.getDate();
@@ -421,6 +449,7 @@ function inittexttoenter(ttext, tinprogress, tmistakes, thits, tstarttime, tatte
  * @returns {number}.
  */
 function calculateSpeed(sc) {
+//console.log('In the calculateSpeed(sc) function of typer.js.');
     if ((!continuousType && !countMistypedSpaces) || (!continuousType && countMistypedSpaces)) {
         return (((currentPos + mistakes) * 60) / sc); // Normally use this.
     } else {
@@ -436,6 +465,7 @@ function calculateSpeed(sc) {
  * @returns {number}.
  */
 function calculateAccuracy() {
+//console.log('In the calculateAccuracy() function of typer.js.');
     if (currentPos + mistakes === 0) {
         return 0;
     }
@@ -455,6 +485,7 @@ function calculateAccuracy() {
  * @param {number} currentPos.
  */
 function updTimeSpeed() {
+//console.log('In the updTimeSpeed() function of typer.js.');
     newCas = new Date();
     tDifference = timeDifference(startTime, newCas);
     var secs = converToSeconds(tDifference.getHours(), tDifference.getMinutes(), tDifference.getSeconds());
