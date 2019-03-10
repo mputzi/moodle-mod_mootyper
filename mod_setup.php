@@ -27,9 +27,10 @@
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later.
  */
 
-require_once(dirname(dirname(dirname(__FILE__))).'/config.php');
-require_once(dirname(__FILE__).'/lib.php');
-require_once(dirname(__FILE__).'/locallib.php');
+// Changed to this newer format 03/01/2019.
+require(__DIR__ . '/../../config.php');
+require_once(__DIR__ . '/lib.php');
+require_once(__DIR__ . '/locallib.php');
 
 global $USER;
 
@@ -263,7 +264,13 @@ $PAGE->set_cacheable(false);
 echo $OUTPUT->header();
 echo $OUTPUT->heading($mootyper->name);
 $htmlout = '';
-$htmlout .= '<script type="text/javascript">
+$htmlout .= '<div align="center" style="font-size:1em;
+            font-weight:bold;background: '.$backgroundcolorpo.';
+            border:2px solid black;
+            -webkit-border-radius:16px;
+            -moz-border-radius:16px;
+            border-radius:16px;">';
+$htmlout .= '<br><script type="text/javascript">
 function removeAtts()
 {
     document.getElementById("lesson").disabled = false;
@@ -444,6 +451,7 @@ $htmlout .= '</td></tr>';
 $htmlout .= '</table>';
 $htmlout .= '<br><input name="button" onclick="this.form.submit();" value="'.get_string('fconfirm', 'mootyper').'" type="submit">';
 $htmlout .= '</form>';
+$htmlout .= '<br>';
 
 // Finally show the complete page.
 echo $htmlout;

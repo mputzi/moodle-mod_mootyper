@@ -80,7 +80,7 @@ if (!has_capability('mod/mootyper:viewmygrades', context_module::instance($cm->i
     // echo '<link rel="stylesheet" type="text/css" href="styles.css">';
     echo $OUTPUT->heading($mootyper->name);
     $htmlout = '';
-    $htmlout .= '<div align="center" style="font-size:1.2em;
+    $htmlout .= '<div align="center" style="font-size:1em;
                 font-weight:bold;background: '.$color3.';
                 border:2px solid black;
                 -webkit-border-radius:16px;
@@ -103,6 +103,7 @@ switch ($mtmode) {
         $htmlout .=  'error';
 }
     $htmlout .=  '&nbsp;&nbsp;&nbsp;&nbsp;'.get_string('flesson', 'mootyper').'/'.get_string('lsnname', 'mootyper')." = ".$lsnname->lessonname;
+    $htmlout .=  '&nbsp;&nbsp;&nbsp;&nbsp;'.get_string('requiredgoal', 'mootyper').' = '.$mootyper->requiredgoal.'%';
 
     // Update the library.
     if ($des == -1 || $des == 0) {
@@ -147,14 +148,18 @@ switch ($mtmode) {
                         .get_string('wpm', 'mootyper').'</a>'.$arrtextadds[12].'</td>
                     <td></td></tr>';
         foreach ($grds as $gr) {
-            if (!($mtmode == 1) && $gr->pass) {
-                $stil = 'background-color: '.(get_config('mod_mootyper', 'passbgc')).';';
-            } else if (!($mtmode == 1) && !$gr->pass) {
-                $stil = 'background-color: '.(get_config('mod_mootyper', 'failbgc')).';';
-            } else {
-                $stil = '';
-            }
-
+//            if (!($mtmode == 1) && $gr->pass) {
+//                $stil = 'background-color: '.(get_config('mod_mootyper', 'passbgc')).';';
+//            } else if (!($mtmode == 1) && !$gr->pass) {
+//                $stil = 'background-color: '.(get_config('mod_mootyper', 'failbgc')).';';
+//            } else {
+//                $stil = '';
+//            }
+                if ($gr->pass) {
+                    $stil = 'background-color: '.(get_config('mod_mootyper', 'passbgc')).';';
+                } else {
+                    $stil = 'background-color: '.(get_config('mod_mootyper', 'failbgc')).';';
+                }
             if ($mtmode == 2) {
                 $removelnk = '<a href="'.$CFG->wwwroot . '/mod/mootyper/attrem.php?c_id='.optional_param('id', 0, PARAM_INT)
                              .'&m_id='.optional_param('n', 0, PARAM_INT)
