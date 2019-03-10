@@ -62,12 +62,11 @@ echo $OUTPUT->header();
 
 $lessonpo = optional_param('lesson', 0, PARAM_INT);
 
-/**
- * Since editing an exercise is a course activity, the keyboard 
- * background color info for the MooTyper this was called from,
- * is not available. So, need to get the default keyboard background
- * color from from the MooTyper configuration setting.
- */ 
+
+// Since editing an exercise is a course activity, the keyboard
+// background color info for the MooTyper this was called from,
+// is not available. So, need to get the default keyboard background
+// color from from the MooTyper configuration setting.
 $moocfg = get_config('mod_mootyper');
 $color3 = $moocfg->keyboardbgc;
 
