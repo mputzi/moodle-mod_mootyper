@@ -32,7 +32,6 @@ global $DB, $USER;
 
 $id = optional_param('id', 0, PARAM_INT); // Course_module ID.
 $exerciseid = optional_param('ex', 0, PARAM_INT);
-
 if ($id) {
     $course     = $DB->get_record('course', array('id' => $id), '*', MUST_EXIST);
 } else {
@@ -70,7 +69,7 @@ if (isset($param1) && get_string('fconfirm', 'mootyper') == $param1 ) {
     ));
     $event->trigger();
 
-    $webdir = $CFG->wwwroot . '/mod/mootyper/exercises.php?id='.$id;
+    $webdir = $CFG->wwwroot . '/mod/mootyper/exercises.php?id='.$id.'&lesson='.$rcrd->lesson;
     echo '<script type="text/javascript">window.location="'.$webdir.'";</script>';
 
 }
