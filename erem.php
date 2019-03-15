@@ -46,9 +46,10 @@ $context = context_course::instance($id);
 $exerciseid = optional_param('r', '', PARAM_TEXT);
 $lessonid = optional_param('l', '', PARAM_TEXT);
 if ($exerciseid) {
+    $lessonpo = optional_param('lesson', '', PARAM_INT);
     $DB->delete_records('mootyper_exercises', array('id' => $exerciseid));
-    // Trigger module exercise_removed event.
-    $event = \mod_mootyper\event\exercise_removed::create(array(
+    // Trigger module exercise_deleted event.
+    $event = \mod_mootyper\event\exercise_deleted::create(array(
         'objectid' => $course->id,
         'context' => $context
     ));
@@ -56,8 +57,10 @@ if ($exerciseid) {
 } else if ($lessonid) {
     $DB->delete_records('mootyper_exercises', array('lesson' => $lessonid));
     $DB->delete_records('mootyper_lessons', array('id' => $lessonid));
-    // Trigger module lesson_removed event.
-    $event = \mod_mootyper\event\lesson_removed::create(array(
+    $lessonpo = 0;
+
+    // Trigger module lesson_deleted event.
+    $event = \mod_mootyper\event\lesson_deleted::create(array(
         'objectid' => $course->id,
         'context' => $context
     ));
@@ -65,5 +68,5 @@ if ($exerciseid) {
 }
 
 $cid = optional_param('id', 0, PARAM_INT);
-$webdir = $CFG->wwwroot . '/mod/mootyper/exercises.php?id='.$cid;
+$webdir = $CFG->wwwroot . '/mod/mootyper/exercises.php?id='.$cid.'&lesson='.$lessonpo;
 header('Location: '.$webdir);
