@@ -17,7 +17,8 @@
 /**
  * This file is used to remove the results of a student attempt.
  *
- * This sub-module is called from gview.php (View All Grades).
+ * This sub-module is called from gview.php, (View All Grades),
+ * or from owngrades.php, (View my grades).
  * Currently it does NOT include an Are you sure check before it removes.
  *
  * @package    mod_mootyper
@@ -34,8 +35,17 @@ global $DB;
 
 $mid = optional_param('m_id', 0, PARAM_INT);  // MooTyper id (mdl_mootyper).
 $cid = optional_param('c_id', 0, PARAM_INT);  // Course module id (mdl_course_modules).
+// $n = optional_param('n', 0, PARAM_INT);  // MooTyper id (mdl_mootyper).
+$context = optional_param('context', 0, PARAM_INT);  // MooTyper id (mdl_mootyper).
+
 $gradeid = optional_param('g', 0, PARAM_INT);
 $mtmode = optional_param('mtmode', 0, PARAM_INT);
+
+$mootyper  = $DB->get_record('mootyper', array('id' => $mid), '*', MUST_EXIST);
+$course     = $mootyper->course;
+$cm         = get_coursemodule_from_instance('mootyper', $mootyper->id, $course->id, false, MUST_EXIST);
+
+$context = context_module::instance($cm->id);
 
 if (isset($gradeid)) {
     $dbgrade = $DB->get_record('mootyper_grades', array('id' => $gradeid));
@@ -43,12 +53,29 @@ if (isset($gradeid)) {
     $DB->delete_records('mootyper_attempts', array('id' => $dbgrade->attemptid));
     $DB->delete_records('mootyper_grades', array('id' => $dbgrade->id));
 }
-// Need to add grade removed event here.
+
 
 // Return to the View my grades or View all grades page.
 if ($mtmode == 2) {
+    // Put new owngrades_deleted event here.
+    // Trigger grade deleted event for mode 2.
+    $event = \mod_mootyper\event\owngrades_deleted::create(array(
+       'objectid' => $mootyper->id,
+       'context' => $context,
+       'mode' => $mootyper->isexam
+    ));
+    $event->trigger();
+
     $webdir = $CFG->wwwroot . '/mod/mootyper/owngrades.php?id='.$cid.'&n='.$mid;
 } else {
+    // Trigger grade deleted event for mode 0 or 1.
+    $event = \mod_mootyper\event\grade_deleted::create(array(
+       'objectid' => $mootyper->id,
+       'context' => $context,
+       'mode' => $mootyper->isexam
+    ));
+    $event->trigger();
+
     $webdir = $CFG->wwwroot . '/mod/mootyper/gview.php?id='.$cid.'&n='.$mid;
 }
 header('Location: '.$webdir);
