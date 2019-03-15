@@ -204,7 +204,8 @@ if (!has_capability('mod/mootyper:viewgrades', context_module::instance($cm->id)
             }
             $removelnk = '<a href="'.$CFG->wwwroot . '/mod/mootyper/attrem.php?c_id='
                          .optional_param('id', 0, PARAM_INT).'&m_id='
-                         .optional_param('n', 0, PARAM_INT).'&g='.$gr->id.'">'
+                         .optional_param('n', 0, PARAM_INT)
+                         .'&g='.$gr->id.'">'
                          .get_string('eremove', 'mootyper').'</a>';
             $namelnk = '<a href="'.$CFG->wwwroot.'/user/view.php?id='.$gr->u_id
                        .'&amp;course='.$course->id
@@ -254,6 +255,7 @@ if (!has_capability('mod/mootyper:viewgrades', context_module::instance($cm->id)
                 .get_string('csvexport', 'mootyper').'</a></p>';
 }
 echo $htmlout;
+
 if (($grds != false) && ($CFG->branch > 31)) {  // If there are NOT any grades, DON'T draw the chart.
     // Create the info the api needs passed to it for each series I want to chart.
     $serie1 = new core\chart_series(get_string('hitsperminute', 'mootyper'), $serieshitsperminute);
