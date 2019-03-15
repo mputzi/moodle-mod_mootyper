@@ -21,7 +21,7 @@
  * @copyright  2019 AL Rachels (drachels@drachels.com)
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-// require_once(dirname(dirname(dirname(dirname(__FILE__)))).'/config.php');
+ require_once(dirname(dirname(dirname(dirname(__FILE__)))).'/config.php');
  require_login($course, true, $cm);
 ?>
 <div id="innerKeyboard" style="margin: 0px auto;display: inline-block;
