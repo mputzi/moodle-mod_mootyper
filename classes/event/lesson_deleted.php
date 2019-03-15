@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * The mod_mootyper lesson and its exercises removed event.
+ * The mod_mootyper lesson and its exercise_deleted event.
  *
  * @package     mod_mootyper
  * @copyright   2016 AL Rachels (drachels@drachels.com)
@@ -26,13 +26,13 @@ namespace mod_mootyper\event;
 defined('MOODLE_INTERNAL') || die();
 
 /**
- * The mod_mootyper lesson removed event class.
+ * The mod_mootyper lesson deleted event class.
  *
  * @package    mod_mootyper
  * @copyright  2016 AL Rachels drachels@drachels.com
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-class lesson_removed extends \core\event\base {
+class lesson_deleted extends \core\event\base {
 
     /**
      * Init method.
@@ -49,7 +49,7 @@ class lesson_removed extends \core\event\base {
      * @return string
      */
     public static function get_name() {
-        return get_string('lesson_removed', 'mod_mootyper');
+        return get_string('lesson_deleted', 'mod_mootyper');
     }
 
     /**
@@ -58,7 +58,7 @@ class lesson_removed extends \core\event\base {
      * @return string
      */
     public function get_description() {
-        return "The user with id '$this->userid' removed a mootyper lesson and all its exercises while in the course with id
+        return "The user with id '$this->userid' deleted a mootyper lesson and all its exercises while in the course with id
             '$this->contextinstanceid'.";
     }
 

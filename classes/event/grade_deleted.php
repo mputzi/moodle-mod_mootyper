@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * The mod_mootyper exercise removed event.
+ * The mod_mootyper grade removed event.
  *
  * @package     mod_mootyper
  * @copyright   2016 AL Rachels (drachels@drachels.com)
@@ -26,13 +26,13 @@ namespace mod_mootyper\event;
 defined('MOODLE_INTERNAL') || die();
 
 /**
- * The mod_mootyper exercise removed event class.
+ * The mod_mootyper grade removed event class.
  *
  * @package    mod_mootyper
  * @copyright  2016 AL Rachels drachels@drachels.com
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-class exercise_removed extends \core\event\base {
+class grade_deleted extends \core\event\base {
 
     /**
      * Init method.
@@ -49,7 +49,7 @@ class exercise_removed extends \core\event\base {
      * @return string
      */
     public static function get_name() {
-        return get_string('exercise_removed', 'mod_mootyper');
+        return get_string('grade_deleted', 'mod_mootyper');
     }
 
     /**
@@ -58,7 +58,7 @@ class exercise_removed extends \core\event\base {
      * @return string
      */
     public function get_description() {
-        return "The user with id '$this->userid' removed a mootyper exercise/category while in the course with id
+        return "The user with id '$this->userid' removed a mootyper exercise grade while in the course with id
             '$this->contextinstanceid'.";
     }
 
@@ -67,7 +67,7 @@ class exercise_removed extends \core\event\base {
      * @return \moodle_url
      */
     public function get_url() {
-        return new \moodle_url('/mod/mootyper/exercises.php', array('id' => $this->contextinstanceid));
+        return new \moodle_url('/mod/mootyper/gview.php', array('id' => $this->contextinstanceid));
     }
 
     /**
@@ -76,7 +76,7 @@ class exercise_removed extends \core\event\base {
      * @return array of parameters to be passed to legacy add_to_log() function.
      */
     protected function get_legacy_logdata() {
-        $url = new \moodle_url('exercises.php', array('id' => $this->contextinstanceid));
-        return array($this->courseid, 'mootyper', 'exercises', $url->out(), $this->objectid, $this->contextinstanceid);
+        $url = new \moodle_url('gview.php', array('id' => $this->contextinstanceid));
+        return array($this->courseid, 'mootyper', 'gview', $url->out(), $this->objectid, $this->contextinstanceid);
     }
 }
