@@ -29,6 +29,7 @@ require(__DIR__ . '/../../config.php');
 require_once(__DIR__ . '/lib.php');
 require_once(__DIR__ . '/locallib.php');
 
+
 global $USER;
 
 $id = optional_param('id', 0, PARAM_INT); // Course_module ID.
@@ -146,7 +147,7 @@ foreach ($exercises as $ex) {
     $jlink1 = '<a onclick="return confirm(\''.get_string('removeexconfirm', 'mootyper')
               .$lessons[$selectedlessonindex]['lessonname']
               .'\')" href="erem.php?id='.$course->id.'&r='
-              .$ex['id'].'"><img src="pix/delete.png" alt="'
+              .$ex['id'].'&lesson='.$lessonpo.'"><img src="pix/delete.png" alt="'
               .get_string('eremove', 'mootyper').'"></a>';
 
     // If user can edit, create an edit link to the current exerise.
