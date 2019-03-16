@@ -57,7 +57,6 @@ if (isset($gradeid)) {
 
 // Return to the View my grades or View all grades page.
 if ($mtmode == 2) {
-    // Put new owngrades_deleted event here.
     // Trigger grade deleted event for mode 2.
     $event = \mod_mootyper\event\owngrades_deleted::create(array(
        'objectid' => $mootyper->id,
