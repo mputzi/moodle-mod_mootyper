@@ -107,9 +107,9 @@ $jlink = get_string('noteditablebyme', 'mootyper');
 if (is_editable_by_me($USER->id, $lessonpo)) {
     // Add a remove all from lesson link.
     echo '<br>';
-    echo ' <a onclick="return confirm(\''.get_string('removelsnconfirm', 'mootyper').$lessons[$selectedlessonindex]['lessonname'].
+    echo ' <a onclick="return confirm(\''.get_string('deletelsnconfirm', 'mootyper').$lessons[$selectedlessonindex]['lessonname'].
     '\')" href="erem.php?id='.$course->id.'&l='.$lessons[$selectedlessonindex]['id'].'">'.
-    get_string('removeall', 'mootyper').'\''.$lessons[$selectedlessonindex]['lessonname'].'\'</a>';
+    get_string('deleteall', 'mootyper').'\''.$lessons[$selectedlessonindex]['lessonname'].'\'</a>';
     echo '<br>';
     // Add a export lesson link next to the remove all link.
     echo ' <a onclick="return confirm(\''.get_string('exportconfirm', 'mootyper').$lessons[$selectedlessonindex]['lessonname'].
@@ -144,7 +144,7 @@ foreach ($exercises as $ex) {
         $strtocut = substr($strtocut, 0, 65).'...';
     }
     // If user can edit, create a remove link to the current exerise.
-    $jlink1 = '<a onclick="return confirm(\''.get_string('removeexconfirm', 'mootyper')
+    $jlink1 = '<a onclick="return confirm(\''.get_string('deleteexconfirm', 'mootyper')
               .$lessons[$selectedlessonindex]['lessonname']
               .'\')" href="erem.php?id='.$course->id.'&r='
               .$ex['id'].'&lesson='.$lessonpo.'"><img src="pix/delete.png" alt="'
