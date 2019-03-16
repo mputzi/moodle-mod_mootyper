@@ -37,7 +37,7 @@ $lsn = optional_param('lsn', 0, PARAM_INT); // Lesson ID to download.
 if ($id) {
     $course = $DB->get_record('course', array('id' => $id), '*', MUST_EXIST);
 } else {
-    error('You must specify a course_module ID or an instance ID');
+    print_error(get_string('mootypererror', 'mootyper'));
 }
 require_login($course, true);
 $context = context_course::instance($id);

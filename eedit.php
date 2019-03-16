@@ -35,10 +35,10 @@ $exerciseid = optional_param('ex', 0, PARAM_INT);
 if ($id) {
     $course     = $DB->get_record('course', array('id' => $id), '*', MUST_EXIST);
 } else {
-    error('You must specify a course_module ID or an instance ID');
+    print_error(get_string('mootypererror', 'mootyper'));
 }
 if ($exerciseid == 0) {
-    error('No exercise to edit!');
+    print_error('No exercise to edit!');
 }
 
 // Get the id of the lesson/category and then use it to get the lesson/category name.

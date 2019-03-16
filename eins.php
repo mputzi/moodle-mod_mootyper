@@ -38,7 +38,7 @@ $id = optional_param('id', 0, PARAM_INT); // Course_module ID, or
 if ($id) {
     $course = $DB->get_record('course', array('id' => $id), '*', MUST_EXIST);
 } else {
-    error('You must specify a course_module ID or an instance ID');
+    print_error(get_string('mootypererror', 'mootyper'));
 }
 require_login($course, true);
 $lessonpo = optional_param('lesson', -1, PARAM_INT);

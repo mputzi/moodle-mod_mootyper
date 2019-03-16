@@ -56,7 +56,7 @@ if ($id) {
     $course     = $DB->get_record('course', array('id' => $mootyper->course), '*', MUST_EXIST);
     $cm         = get_coursemodule_from_instance('mootyper', $mootyper->id, $course->id, false, MUST_EXIST);
 } else {
-    error('You must specify a course_module ID or an instance ID');
+    print_error(get_string('mootypererror', 'mootyper'));
 }
 
 $lsnname    = $DB->get_record('mootyper_lessons', array('id' => $mootyper->lesson), '*', MUST_EXIST);
@@ -88,23 +88,27 @@ if (!has_capability('mod/mootyper:viewmygrades', context_module::instance($cm->i
                 border-radius:16px;">';
 //    $htmlout .= '<div id="mainDiv">';
 
-// Set a heading for the grades table, based on the mode and the lesson/category name.
-switch ($mtmode) {
-    case 0:
-        $htmlout .=  get_string('fmode', 'mootyper')." = ".get_string('flesson', 'mootyper');
-        break;
-    case 1:
-        $htmlout .=  get_string('fmode', 'mootyper')." = ".get_string('isexamtext', 'mootyper');
-        break;
-    case 2:
-        $htmlout .=  get_string('fmode', 'mootyper')." = ".get_string('practice', 'mootyper');
-        break;
-    default:
-        $htmlout .=  'error';
-}
-    $htmlout .=  '&nbsp;&nbsp;&nbsp;&nbsp;'.get_string('flesson', 'mootyper').'/'.get_string('lsnname', 'mootyper')." = ".$lsnname->lessonname;
-    $htmlout .=  '&nbsp;&nbsp;&nbsp;&nbsp;'.get_string('requiredgoal', 'mootyper').' = '.$mootyper->requiredgoal.'%';
-
+    // Set a heading for the grades table, based on the mode and the lesson/category name.
+    switch ($mtmode) {
+        case 0:
+            $htmlout .= get_string('fmode', 'mootyper')." = ".get_string('flesson', 'mootyper');
+            break;
+        case 1:
+            $htmlout .= get_string('fmode', 'mootyper')." = ".get_string('isexamtext', 'mootyper');
+            break;
+        case 2:
+            $htmlout .= get_string('fmode', 'mootyper')." = ".get_string('practice', 'mootyper');
+            break;
+        default:
+            $htmlout .= 'error';
+    }
+    $htmlout .= '&nbsp;&nbsp;&nbsp;&nbsp;'
+                .get_string('flesson', 'mootyper')
+                .'/'.get_string('lsnname', 'mootyper')
+                ." = ".$lsnname->lessonname;
+    $htmlout .= '&nbsp;&nbsp;&nbsp;&nbsp;'
+                .get_string('requiredgoal', 'mootyper')
+                .' = '.$mootyper->requiredgoal.'%';
     // Update the library.
     if ($des == -1 || $des == 0) {
         $grds = get_typergradesuser(optional_param('n', 0, PARAM_INT), $USER->id, $orderby, 0);
@@ -148,11 +152,11 @@ switch ($mtmode) {
                         .get_string('wpm', 'mootyper').'</a>'.$arrtextadds[12].'</td>
                     <td></td></tr>';
         foreach ($grds as $gr) {
-                if ($gr->pass) {
-                    $stil = 'background-color: '.(get_config('mod_mootyper', 'passbgc')).';';
-                } else {
-                    $stil = 'background-color: '.(get_config('mod_mootyper', 'failbgc')).';';
-                }
+            if ($gr->pass) {
+                $stil = 'background-color: '.(get_config('mod_mootyper', 'passbgc')).';';
+            } else {
+                $stil = 'background-color: '.(get_config('mod_mootyper', 'failbgc')).';';
+            }
             if ($mtmode == 2) {
                 $removelnk = '<a onclick="return confirm(\''.get_string('deletegradeconfirm', 'mootyper')
                              .$gr->firstname.' '
@@ -176,7 +180,6 @@ switch ($mtmode) {
                              .'</a>';
             }
 
-            // $fcol = ($mtmode == 1) ? '---' : $gr->exercisename;
             $fcol = $gr->exercisename;
             $fcol = get_string('exercise_abreviation', 'mootyper').'-'.$fcol;  // This gets the exercise number.
 

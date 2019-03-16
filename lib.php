@@ -716,13 +716,13 @@ function mootyper_scale_used_anywhere($scaleid) {
  * @param mixed $grades Optional array/object of grade(s); 'reset' means reset grades in gradebook
  * @return int 0 if ok
  */
-function mootyper_grade_item_update($mootyper, $grades=NULL) {
+function mootyper_grade_item_update($mootyper, $grades=null) {
     global $CFG;
     if (!function_exists('grade_update')) { // Workaround for buggy PHP versions.
         require_once($CFG->libdir.'/gradelib.php');
     }
 
-    $params = array('itemname'=>$mootyper->name, 'idnumber'=>$mootyper->cmidnumber);
+    $params = array('itemname' => $mootyper->name, 'idnumber' => $mootyper->cmidnumber);
 
     // $params = array();
     // $params['itemname'] = clean_param($mootyper->name, PARAM_NOTAGS);

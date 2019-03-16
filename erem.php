@@ -37,7 +37,7 @@ $id = optional_param('id', 0, PARAM_INT); // Course_module ID.
 if ($id) {
     $course     = $DB->get_record('course', array('id' => $id), '*', MUST_EXIST);
 } else {
-    error('You must specify a course_module ID or an instance ID');
+    print_error(get_string('mootypererror', 'mootyper'));
 }
 $context = context_course::instance($id);
 
