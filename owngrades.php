@@ -148,26 +148,29 @@ switch ($mtmode) {
                         .get_string('wpm', 'mootyper').'</a>'.$arrtextadds[12].'</td>
                     <td></td></tr>';
         foreach ($grds as $gr) {
-//            if (!($mtmode == 1) && $gr->pass) {
-//                $stil = 'background-color: '.(get_config('mod_mootyper', 'passbgc')).';';
-//            } else if (!($mtmode == 1) && !$gr->pass) {
-//                $stil = 'background-color: '.(get_config('mod_mootyper', 'failbgc')).';';
-//            } else {
-//                $stil = '';
-//            }
                 if ($gr->pass) {
                     $stil = 'background-color: '.(get_config('mod_mootyper', 'passbgc')).';';
                 } else {
                     $stil = 'background-color: '.(get_config('mod_mootyper', 'failbgc')).';';
                 }
             if ($mtmode == 2) {
-                $removelnk = '<a href="'.$CFG->wwwroot . '/mod/mootyper/attrem.php?c_id='.optional_param('id', 0, PARAM_INT)
+                $removelnk = '<a onclick="return confirm(\''.get_string('deletegradeconfirm', 'mootyper')
+                             .$gr->firstname.' '
+                             .$gr->lastname.' '
+                             .$gr->exercisename.'.'
+                             .'\')" href="'.$CFG->wwwroot
+                             .'/mod/mootyper/attrem.php?c_id='
+                             .optional_param('id', 0, PARAM_INT)
                              .'&m_id='.optional_param('n', 0, PARAM_INT)
                              .'&mtmode='.$mtmode
                              .'&g='.$gr->id.'">'
                              .get_string('eremove', 'mootyper').'</a>';
             } else {
-                $removelnk = '<a href="'.$CFG->wwwroot . '/mod/mootyper/attrem.php?c_id='.optional_param('id', 0, PARAM_INT)
+                $removelnk = '<a  onclick="return confirm(\''.get_string('deletegradeconfirm', 'mootyper')
+                             .$gr->firstname.' '
+                             .$gr->lastname.' '
+                             .$gr->exercisename.'.'
+                             .'\')" href="'.$CFG->wwwroot . '/mod/mootyper/attrem.php?c_id='.optional_param('id', 0, PARAM_INT)
                              .'&m_id='.optional_param('n', 0, PARAM_INT)
                              .'&g='.$gr->id.'">'
                              .'</a>';

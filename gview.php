@@ -202,7 +202,13 @@ if (!has_capability('mod/mootyper:viewgrades', context_module::instance($cm->id)
             } else {
                 $stil = 'background-color: '.(get_config('mod_mootyper', 'failbgc')).';';
             }
-            $removelnk = '<a href="'.$CFG->wwwroot . '/mod/mootyper/attrem.php?c_id='
+            $fcol = $gr->exercisename;
+            $fcol = get_string('exercise_abreviation', 'mootyper').'-'.$fcol;  // This gets the exercise number.
+            $removelnk = '<a onclick="return confirm(\''.get_string('deletegradeconfirm', 'mootyper')
+                         .$gr->firstname.' '
+                         .$gr->lastname.' '
+                         .$fcol.'.'
+                         .'\')" href="'.$CFG->wwwroot . '/mod/mootyper/attrem.php?c_id='
                          .optional_param('id', 0, PARAM_INT).'&m_id='
                          .optional_param('n', 0, PARAM_INT)
                          .'&g='.$gr->id.'">'
@@ -213,7 +219,7 @@ if (!has_capability('mod/mootyper:viewgrades', context_module::instance($cm->id)
                        .$gr->lastname.'</a>';
             $htmlout .= '<tr align="center" style="border-top-style: solid;'.$stil.'">
                          <td>'.$exclamation.' '.$namelnk.'</td>
-                         <td>'.$gr->exercisename.'</td>
+                         <td>'.$fcol.'</td>
                          <td>'.$gr->mistakes.'</td>
                          <td>'.format_time($gr->timeinseconds).'</td>
                          <td>'.format_float($gr->hitsperminute).'</td>
@@ -223,7 +229,7 @@ if (!has_capability('mod/mootyper:viewgrades', context_module::instance($cm->id)
                          <td>'.format_float($gr->wpm).'</td>
                          <td>'.$removelnk.'</td></tr>';
             // Get information to draw the chart for all exercises in this lesson.
-            $labels[] = $gr->firstname.' '.$gr->lastname.' Ex-'.$gr->exercisename;  // This gets the exercise number.
+            $labels[] = $gr->firstname.' '.$gr->lastname.$fcol;  // This gets the exercise number.
             $serieshitsperminute[] = $gr->hitsperminute; // Get the hits per minute value.
             $seriesprecision[] = $gr->precisionfield;  // Get the precision percentage value.
             $serieswpm[] = $gr->wpm; // Get the corrected words per minute rate.
