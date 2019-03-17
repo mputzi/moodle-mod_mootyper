@@ -30,10 +30,12 @@ use context_helper;
 use context_module;
 use core_privacy\local\metadata\collection;
 use core_privacy\local\request\approved_contextlist;
+use core_privacy\local\request\approved_userlist;
 use core_privacy\local\request\contextlist;
 use core_privacy\local\request\deletion_criteria;
 use core_privacy\local\request\helper;
 use core_privacy\local\request\transform;
+use core_privacy\local\request\userlist;
 use core_privacy\local\request\writer;
 
 require_once($CFG->dirroot . '/mod/mootyper/lib.php');
@@ -48,7 +50,8 @@ require_once($CFG->dirroot . '/mod/mootyper/lib.php');
  */
 class provider implements
     \core_privacy\local\metadata\provider,
-    \core_privacy\local\request\plugin\provider {
+    \core_privacy\local\request\plugin\provider,
+    \core_privacy\local\request\core_userlist_provider {
 
     // This trait must be included.
     use \core_privacy\local\legacy_polyfill;
@@ -88,6 +91,21 @@ class provider implements
     }
 
     /**
+     * Get an id list of HotQuestions activities.
+     *
+     * @param in $modid the module id.
+     * @return modid the module id list.
+     */
+    private static $modid;
+    private static function get_modid() {
+        global $DB;
+        if (self::$modid === null) {
+            self::$modid = $DB->get_field('modules', 'id', ['name' => 'mootyper']);
+        }
+        return self::$modid;
+    }
+
+    /**
      * Get the list of contexts that contain user information for the specified user.
      *
      * @param int $userid The user to search for.
@@ -95,7 +113,10 @@ class provider implements
      */
     public static function _get_contexts_for_userid(int $userid) {
         $contextlist = new contextlist();
-
+        $modid = self::get_modid();
+        if (!$modid) {
+            return $contextlist; // MooTyper module not installed.
+        }
         // Fetch all mootyper content.
         $sql = "SELECT c.id
                   FROM {context} c
@@ -118,6 +139,36 @@ class provider implements
         return $contextlist;
     }
 
+    /**
+     * Get the list of users who have data within a context.
+     *
+     * @param   userlist    $userlist   The userlist containing the list of users who have data in this context/plugin combination.
+     */
+    public static function get_users_in_context(userlist $userlist) {
+        $context = $userlist->get_context();
+        if (!is_a($context, \context_module::class)) {
+            return;
+        }
+        $modid = self::get_modid();
+        if (!$modid) {
+            return; // Checklist module not installed.
+        }
+        $params = [
+            'modid' => $modid,
+            'contextlevel' => CONTEXT_MODULE,
+            'contextid'    => $context->id,
+        ];
+    // Fetch all mootyper user grades.
+        $sql = "
+            SELECT mtg.userid
+              FROM {mootyper_grades} mtg
+              JOIN {mootyper} mt ON mt.id = mtg.mootyper
+              JOIN {course_modules} cm ON cm.instance = mt.id AND cm.module = :modid
+              JOIN {context} ctx ON ctx.instanceid = cm.id AND ctx.contextlevel = :contextlevel
+             WHERE ctx.id = :contextid
+        ";
+        $userlist->add_from_sql('userid', $sql, $params);
+    }
     /**
      * Export personal data for the given approved_contextlist. User and context information is contained within the contextlist.
      *
@@ -301,6 +352,33 @@ class provider implements
         }
     }
 
+    /**
+     * Delete multiple users within a single context.
+     *
+     * @param   approved_userlist       $userlist The approved context and user information to delete information for.
+     */
+    public static function delete_data_for_users(approved_userlist $userlist) {
+        global $DB;
+        $context = $userlist->get_context();
+        if (!is_a($context, \context_module::class)) {
+            return;
+        }
+        $modid = self::get_modid();
+        if (!$modid) {
+            return; // MooTyper module not installed.
+        }
+
+        // Prepare SQL to gather all completed IDs.
+        $userids = $userlist->get_userids();
+        list($insql, $inparams) = $DB->get_in_or_equal($userids, SQL_PARAMS_NAMED);
+
+        // Delete user-created personal mootypers.
+        $DB->delete_records_select(
+            'mootyper_grades',
+            "userid $insql",
+            $inparams
+        );
+    }
     /**
      * Return a dict of mootyper IDs mapped to their course module ID.
      *
