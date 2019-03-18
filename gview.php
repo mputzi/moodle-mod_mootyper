@@ -189,7 +189,7 @@ if (!has_capability('mod/mootyper:viewgrades', context_module::instance($cm->id)
                         .get_string('timetaken', 'mootyper').'</a>'.$arrtextadds[9].'</td>
                     <td><a href="?id='.$id.'&n='.$n.'&orderby=12'.$lnkadd.'">'
                         .get_string('wpm', 'mootyper').'</a>'.$arrtextadds[12].'</td>
-                    <td>'.get_string('eremove', 'mootyper').'</td></tr>';
+                    <td>'.get_string('delete', 'mootyper').'</td></tr>';
 
         foreach ($grds as $gr) {
             if ($gr->suspicion) {
@@ -212,7 +212,7 @@ if (!has_capability('mod/mootyper:viewgrades', context_module::instance($cm->id)
                          .optional_param('id', 0, PARAM_INT).'&m_id='
                          .optional_param('n', 0, PARAM_INT)
                          .'&g='.$gr->id.'">'
-                         .get_string('eremove', 'mootyper').'</a>';
+                         .get_string('delete', 'mootyper').'</a>';
             $namelnk = '<a href="'.$CFG->wwwroot.'/user/view.php?id='.$gr->u_id
                        .'&amp;course='.$course->id
                        .'">'.$gr->firstname.' '

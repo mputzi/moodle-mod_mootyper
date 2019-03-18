@@ -148,7 +148,7 @@ foreach ($exercises as $ex) {
               .$lessons[$selectedlessonindex]['lessonname']
               .'\')" href="erem.php?id='.$course->id.'&r='
               .$ex['id'].'&lesson='.$lessonpo.'"><img src="pix/delete.png" alt="'
-              .get_string('eremove', 'mootyper').'"></a>';
+              .get_string('delete', 'mootyper').'"></a>';
 
     // If user can edit, create an edit link to the current exerise.
     $jlink2 = '<a href="eedit.php?id='.$course->id.'&ex='.$ex['id']
