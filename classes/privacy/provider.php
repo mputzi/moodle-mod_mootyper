@@ -158,7 +158,7 @@ class provider implements
             'contextlevel' => CONTEXT_MODULE,
             'contextid'    => $context->id,
         ];
-    // Fetch all mootyper user grades.
+        // Fetch all mootyper user grades.
         $sql = "
             SELECT mtg.userid
               FROM {mootyper_grades} mtg
