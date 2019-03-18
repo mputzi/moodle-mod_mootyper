@@ -77,7 +77,6 @@ if (!has_capability('mod/mootyper:viewmygrades', context_module::instance($cm->i
     $PAGE->set_context($context);
     $PAGE->set_cacheable(false);
     echo $OUTPUT->header();
-    // echo '<link rel="stylesheet" type="text/css" href="styles.css">';
     echo $OUTPUT->heading($mootyper->name);
     $htmlout = '';
     $htmlout .= '<div align="center" style="font-size:1em;
@@ -86,7 +85,6 @@ if (!has_capability('mod/mootyper:viewmygrades', context_module::instance($cm->i
                 -webkit-border-radius:16px;
                 -moz-border-radius:16px;
                 border-radius:16px;">';
-//    $htmlout .= '<div id="mainDiv">';
 
     // Set a heading for the grades table, based on the mode and the lesson/category name.
     switch ($mtmode) {
@@ -150,7 +148,7 @@ if (!has_capability('mod/mootyper:viewmygrades', context_module::instance($cm->i
                         .get_string('timetaken', 'mootyper').'</a>'.$arrtextadds[9].'</td>
                     <td><a href="?id='.$id.'&n='.$n.'&orderby=12'.$lnkadd.'">'
                         .get_string('wpm', 'mootyper').'</a>'.$arrtextadds[12].'</td>
-                    <td></td></tr>';
+                    <td>'.get_string('delete', 'mootyper').'</td></tr>';
         foreach ($grds as $gr) {
             if ($gr->pass) {
                 $stil = 'background-color: '.(get_config('mod_mootyper', 'passbgc')).';';
@@ -168,7 +166,7 @@ if (!has_capability('mod/mootyper:viewmygrades', context_module::instance($cm->i
                              .'&m_id='.optional_param('n', 0, PARAM_INT)
                              .'&mtmode='.$mtmode
                              .'&g='.$gr->id.'">'
-                             .get_string('eremove', 'mootyper').'</a>';
+                             .get_string('delete', 'mootyper').'</a>';
             } else {
                 $removelnk = '<a  onclick="return confirm(\''.get_string('deletegradeconfirm', 'mootyper')
                              .$gr->firstname.' '
