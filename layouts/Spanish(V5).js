@@ -66,31 +66,21 @@ function keyboardElement(ltr) {
     }
     // @codingStandardsIgnoreLine
     if (ltr.match(/[áéíóú]/)) {
-        this.shift = false;
-        this.alt = false;
         this.accent = true;
     }
     // @codingStandardsIgnoreLine
     if (ltr.match(/[ÁÉÍÓÚ]/)) {
-        this.shift = true;
-        this.alt = false;
         this.accent = true;
     }
     if (ltr === 'ü') {
-        this.shift = true;
-        this.alt = false;
         this.accent = true;
     }
     if (ltr === 'Ü') {
-        this.shift = true;
-        this.alt = false;
         this.accent = true;
     }
     // @codingStandardsIgnoreLine
     if (ltr.match(/[\\|@#~€¬\[\]{}]/i)) {
-        this.shift = false;
         this.alt = true;
-        this.accent = false;
     }
     this.turnOn = function() {
         if (isLetter(this.chr)) {

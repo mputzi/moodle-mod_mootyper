@@ -94,7 +94,7 @@ echo (isset($displaynone) && ($displaynone == true)) ? 'display:none;' : '';
     </div>
         <div class="mtrow" style='float: left; margin-left:5px; font-size: 15px !important; line-height: 15px'>
             <div id="jkeyshiftl" class="normal" style="width: 70px; font-size: 12px !important;">Mayús</div>
-            <div id="jkeyckck" class="normal" style='text-align:left;'>&lt;<br>&gt;</div>
+            <div id="jkeyckck" class="normal" style='text-align:left;'>&gt;<br>&lt;</div>
             <div id="jkeyz" class="normal" style='text-align:left;'>Z<br>&nbsp;</div>
             <div id="jkeyx" class="normal" style='text-align:left;'>X<br>&nbsp;</div>
             <div id="jkeyc" class="normal" style='text-align:left;'>C<br>&nbsp;</div>
