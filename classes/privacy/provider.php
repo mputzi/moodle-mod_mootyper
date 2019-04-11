@@ -91,7 +91,7 @@ class provider implements
     }
 
     /**
-     * Get an id list of HotQuestions activities.
+     * Get an id list of MooTyper activities.
      *
      * @param in $modid the module id.
      * @return modid the module id list.
@@ -383,7 +383,7 @@ class provider implements
      * Return a dict of mootyper IDs mapped to their course module ID.
      *
      * @param array $cmids The course module IDs.
-     * @return array In the form of [$hotquestionid => $cmid].
+     * @return array In the form of [$mootyper => $cmid].
      */
     protected static function _get_mootyper_ids_to_cmids_from_cmids(array $cmids) {
         global $DB;
