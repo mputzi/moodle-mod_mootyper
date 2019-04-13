@@ -130,6 +130,9 @@ $jlink = '<a onclick="return confirm(\''.get_string('exportconfirm', 'mootyper')
          .get_string('export', 'mootyper').'> '
          .$lessons[$selectedlessonindex]['lessonname'].'';
 
+$jlnk3 = $CFG->wwwroot . '/mod/mootyper/eins.php?id='.$id.'&lesson='.$lessonpo;
+echo '<a href="'.$jlnk3.'">'.get_string('eaddnewex', 'mootyper').'</a><br>';
+
 // Print header row for Lesson table currently being viewed.
 echo '<table><tr><td '.$style1.'>'.get_string('ename', 'mootyper').'</td>
                  <td '.$style1.'>'.$lessons[$selectedlessonindex]['lessonname'].'</td>
