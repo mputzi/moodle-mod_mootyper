@@ -35,16 +35,16 @@ echo (isset($displaynone) && ($displaynone == true)) ? 'display:none;' : '';
             <div id="jkey*" class="normal" style='text-align:left;'>*<br>&nbsp;</div>
             <div id="jkey-" class="normal" style='text-align:left;'>-<br>&nbsp;</div>
         </div>
-        <div id="jkey+" class="normal" style="width: 41px; margin-right:5px; float: right; height: 85px;">+</div>
+        <div id="jkey+" class="finger4" style="width: 41px; margin-right:5px; float: right; height: 85px;">+</div>
         <div class="mtrow" style='float: left; margin-left:5px; font-size: 15px !important; line-height: 15px'>
             <div id="jkey7" class="normal" style='text-align:left;'>7<br>&nbsp;</div>
             <div id="jkey8" class="normal" style='text-align:left;'>8<br>&nbsp;</div>
             <div id="jkey9" class="normal" style='text-align:left;'>9<br>&nbsp;</div>
         </div>
         <div class="mtrow" style='float: left; margin-left:5px; font-size: 15px !important; line-height: 15px'>
-            <div id="jkey4" class="normal" style='text-align:left;'>4<br>&nbsp;</div>
-            <div id="jkey5" class="normal" style='text-align:left;'>5<br>&nbsp;</div>
-            <div id="jkey6" class="normal" style='text-align:left;'>6<br>&nbsp;</div>
+            <div id="jkey4" class="finger1" style='text-align:left;'>4<br>&nbsp;</div>
+            <div id="jkey5" class="finger2" style='text-align:left;'>5<br>&nbsp;</div>
+            <div id="jkey6" class="finger3" style='text-align:left;'>6<br>&nbsp;</div>
         </div>
         <div id="jkeyenter" class="normal" style="margin-top:5px; width: 41px; margin-right:5px; float: right; height: 85px;">Enter</div>
         <div class="mtrow" style='float: left; margin-left:5px; font-size: 15px !important; line-height: 15px'>

@@ -76,7 +76,7 @@ function keyboardElement(ltr) {
     this.turnOff = function() {
         if (isLetter(this.chr)) {
         // @codingStandardsIgnoreLine
-            if (this.chr.match(/[asdfjkl;]/i)) {
+            if (this.chr.match(/[456+]/i)) {
                 document.getElementById(getKeyID(this.chr)).className = "finger" + thenFinger(this.chr.toLowerCase());
             } else {
                 document.getElementById(getKeyID(this.chr)).className = "normal";
@@ -108,16 +108,16 @@ function thenFinger(tCrka) {
     if (tCrka === ' ') {
         return 5; // Highlight the spacebar.
     // @codingStandardsIgnoreLine
-    } else if (tCrka.match(/[`~1!qaz0)p;:/?\-_[{'"=+\]}\\|]/i)) {
+    } else if (tCrka.match(/[-+]/i)) {
         return 4; // Highlight the correct key above in red.
     // @codingStandardsIgnoreLine
-    } else if (tCrka.match(/[2@wsx9(ol.>]/i)) {
+    } else if (tCrka.match(/[*963.]/i)) {
         return 3; // Highlight the correct key above in green.
     // @codingStandardsIgnoreLine
-    } else if (tCrka.match(/[3#edc8*ik,<]/i)) {
+    } else if (tCrka.match(/[/852]/i)) {
         return 2; // Highlight the correct key above in yellow.
     // @codingStandardsIgnoreLine
-    } else if (tCrka.match(/[4$rfv5%tgb6^yhn7&ujm]/i)) {
+    } else if (tCrka.match(/[7410]/i)) {
         return 1; // Highlight the correct key above in blue.
     } else {
         return 6; // Do not change any highlight.
@@ -132,58 +132,18 @@ function thenFinger(tCrka) {
 function getKeyID(tCrka) {
     if (tCrka === ' ') {
         return "jkeyspace";
-    } else if (tCrka === ',') {
-        return "jkeycomma";
     } else if (tCrka === '\n') {
         return "jkeyenter";
     } else if (tCrka === '.') {
-        return "jkeyperiod";
-    } else if (tCrka === '-' || tCrka === '_') {
-        return "jkeyminus";
-    } else if (tCrka === '`') {
-        return "jkeybackquote";
-    } else if (tCrka === '!') {
-        return "jkey1";
-    } else if (tCrka === '@') {
-        return "jkey2";
-    } else if (tCrka === '#') {
-        return "jkey3";
-    } else if (tCrka === '$') {
-        return "jkey4";
-    } else if (tCrka === '%') {
-        return "jkey5";
-    } else if (tCrka === '^') {
-        return "jkey6";
-    } else if (tCrka === '&') {
-        return "jkey7";
+        return "jkey.";
+    } else if (tCrka === '/') {
+        return "jkey/";
     } else if (tCrka === '*') {
-        return "jkey8";
-    } else if (tCrka === '(') {
-        return "jkey9";
-    } else if (tCrka === ')') {
-        return "jkey0";
-    } else if (tCrka === '-' || tCrka === '_') {
-        return "jkeyminus";
-    } else if (tCrka === '[' || tCrka === '{') {
-        return "jkeybracketl";
-    } else if (tCrka === ']' || tCrka === '}') {
-        return "jkeybracketr";
-    } else if (tCrka === ';' || tCrka === ':') {
-        return "jkeysemicolon";
-    } else if (tCrka === "'" || tCrka === '"') {
-        return "jkeycrtica";
-    } else if (tCrka === "\\" || tCrka === '|') {
-        return "jkeybackslash";
-    } else if (tCrka === ',' || tCrka === '<') {
-        return "jkeycomma";
-    } else if (tCrka === '.' || tCrka === '>') {
-        return "jkeyperiod";
-    } else if (tCrka === '=' || tCrka === '+') {
-        return "jkeyequals";
-    } else if (tCrka === '?' || tCrka === '/') {
-        return "jkeyslash";
-    } else if (tCrka === '~' || tCrka === '`') {
-        return "jkeybackquote";
+        return "jkey*";
+    } else if (tCrka === '-') {
+        return "jkey-";
+    } else if (tCrka === '+') {
+        return "jkey+";
     } else {
         return "jkey" + tCrka;
     }
