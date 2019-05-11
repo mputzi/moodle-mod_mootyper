@@ -103,6 +103,20 @@ echo '<style>
             0 4px 0 #bbb,
             0 5px 0px #ddd;
     }
+    .keyboardpadback {
+        background-color: '.$color3.';
+        box-shadow:
+            0 1px 0 #aaa,
+            0 4px 0 #bbb,
+            0 5px 0px #ddd;
+    }
+    .keypadback {
+        background-color: '.$color3.';
+        box-shadow:
+            0 1px 0 #aaa,
+            0 4px 0 #bbb,
+            0 5px 0px #ddd;
+    }
     .normal {
         background: '.$color2.'
     }
