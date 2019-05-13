@@ -38,20 +38,7 @@ function keyupFirst(event) {
  */
 function keyboardElement(ltr) {
     this.chr = ltr.toLowerCase();
-    this.alt = false;
-    if (isLetter(ltr)) { // Set specified shift key for right or left.
-        if (ltr.match(/[QWERTASDFGZXCVB]/)) {
-            this.shiftright = true;
-        } else if (ltr.match(/[YUIOPHJKLNM]/)) {
-            this.shiftleft = true;
-        }
-    } else {
-        if (ltr.match(/[~!@#$%]/)) {
-            this.shiftright = true;
-        } else if (ltr.match(/[\^&*()_+{}|:"<>?]/)) {
-            this.shiftleft = true;
-        }
-    }
+
     this.turnOn = function() {
         if (isLetter(this.chr)) {
             document.getElementById(getKeyID(this.chr)).className = "next" + thenFinger(this.chr.toLowerCase());
@@ -62,15 +49,6 @@ function keyboardElement(ltr) {
         }
         if (this.chr === '\n' || this.chr === '\r\n' || this.chr === '\n\r' || this.chr === '\r') {
             document.getElementById('jkeyenter').className = "next4";
-        }
-        if (this.shiftleft) {
-            document.getElementById('jkeyshiftl').className = "next4";
-        }
-        if (this.shiftright) {
-            document.getElementById('jkeyshiftr').className = "next4";
-        }
-        if (this.alt) {
-            document.getElementById('jkeyaltgr').className = "nextSpace";
         }
     };
     this.turnOff = function() {
@@ -86,15 +64,6 @@ function keyboardElement(ltr) {
         }
         if (this.chr === '\n' || this.chr === '\r\n' || this.chr === '\n\r' || this.chr === '\r') {
             document.getElementById('jkeyenter').classname = "normal";
-        }
-        if (this.shiftleft) {
-            document.getElementById('jkeyshiftl').className = "normal";
-        }
-        if (this.shiftright) {
-            document.getElementById('jkeyshiftr').className = "normal";
-        }
-        if (this.alt) {
-            document.getElementById('jkeyaltgr').className = "normal";
         }
     };
 }
