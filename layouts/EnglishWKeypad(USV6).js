@@ -101,12 +101,13 @@ function keyboardElement(ltr) {
                 }
             }
         } else {
-            // Turns off highlight for Enter keys.
+            // I think this turns off the spacebar highlight.
             document.getElementById(getKeyID(this.chr)).className = "normal";
-            document.getElementById(getKeyID(this.chr)+'p').className = "normal";
         }
+        // Turns off highlight for Enter keys.
         if (this.chr === '\n' || this.chr === '\r\n' || this.chr === '\n\r' || this.chr === '\r') {
             document.getElementById('jkeyenter').classname = "normal";
+            document.getElementById(getKeyID(this.chr)+'p').className = "normal";
         }
         if (this.shiftleft) {
             document.getElementById('jkeyshiftl').className = "normal";
