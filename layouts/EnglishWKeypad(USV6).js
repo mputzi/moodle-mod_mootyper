@@ -39,26 +39,22 @@ function keyupFirst(event) {
 function keyboardElement(ltr) {
     this.chr = ltr.toLowerCase();
     this.alt = false;
-    if (isLetter(ltr)) { // Set specified shift key for right or left.
-        if (ltr.match(/[QWERTASDFGZXCVB]/)) {
+    if (isLetter(ltr)) { 
+        // Depending on letter, set shift key for right or left.
+        if (ltr.match(/[QWERTASDFGZXCVB~!@#$%]/)) {
             this.shiftright = true;
-        } else if (ltr.match(/[YUIOPHJKLNM]/)) {
-            this.shiftleft = true;
-        }
-    } else {
-        if (ltr.match(/[~!@#$%]/)) {
-            this.shiftright = true;
-        } else if (ltr.match(/[\^&*()_+{}|:"<>?]/)) {
+        } else if (ltr.match(/[YUIOPHJKLNM\^&*()_+{}|:"<>?]/)) {
             this.shiftleft = true;
         }
     }
     this.turnOn = function() {
         if (isLetter(this.chr)) {
             document.getElementById(getKeyID(this.chr)).className = "next" + thenFinger(this.chr.toLowerCase());
-            // Need to check specifically for this.chr===* so it gets highlighted correctly in the keypad.
-            if (!(this.chr==='*')) {
+            // If this.chr is in the keypad, highlight it. Asterisk is a special case. 
+            if (this.chr.match(/[0123456789./+-]/i)) {
                 document.getElementById(getKeyID(this.chr)+'p').className = "next" + thenPadFinger(this.chr.toLowerCase());
-            } else {
+            }
+            if (this.chr === '*') {
                 document.getElementById('jkey*p').className = "next" + thenPadFinger(this.chr.toLowerCase());
             }
         } else if (this.chr === ' ') {
@@ -93,11 +89,16 @@ function keyboardElement(ltr) {
                 // This turns off 456+ highlights in the keypad home row.
                 document.getElementById(getKeyID(this.chr)+'p').className = "finger" + thenPadFinger(this.chr.toLowerCase());
             } else {
-                // Turns off highlight for all keys but home row and enter.
+                // Turns off keyboard highlight for all keys but home row and enter.
                 document.getElementById(getKeyID(this.chr)).className = "normal";
-                document.getElementById(getKeyID(this.chr)+'p').className = "normal";
+                // Turns off keypad highlights, except its homerow.
+                if (this.chr.match(/[0123789./-]/i)) {
+                    document.getElementById(getKeyID(this.chr)+'p').className = "normal";
+                }
                 // Needed to turn off keypad * highlight.
-                document.getElementById('jkey*p').className = "normal";
+                if (this.chr === '*') {
+                    document.getElementById('jkey*p').className = "normal";
+                }
             }
         } else {
             // Turns off highlight for Enter keys.
