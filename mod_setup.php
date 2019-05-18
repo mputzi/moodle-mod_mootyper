@@ -53,10 +53,12 @@ $context = context_module::instance($cm->id);
 
 // Get the default config for MooTyper.
 $moocfg = get_config('mod_mootyper');
+
 // Enable-disable flag.
 $epo = optional_param('e', 0, PARAM_INT);
 // Get settings for current mootyper activity.
 $modepo = optional_param('mode', $mootyper->isexam, PARAM_INT);
+
 $exercisepo = optional_param('exercise', $mootyper->exercise, PARAM_INT);
 $textalign = optional_param('textalign', $mootyper->textalign, PARAM_INT);
 $lessonpo = optional_param('lesson', $mootyper->lesson, PARAM_INT);
@@ -72,6 +74,17 @@ $cursorcolor = optional_param('cursorcolor', $mootyper->cursorcolor, PARAM_CLEAN
 $textbgc = optional_param('textbgc', $mootyper->textbgc, PARAM_CLEAN);
 $texterrorcolor = optional_param('texterrorcolor', $mootyper->texterrorcolor, PARAM_CLEAN);
 
+
+
+// Check to see if current MooTyper isexam (mode) is empty.
+if ($mootyper->isexam == null || is_null($mootyper->isexam)) {
+    // Current MooTyper isexam is empty so set it to the site default.
+    $dfisexam = $moocfg->isexam;
+} else {
+    // Otherwise use current MooTyper isexam.
+    $dfisexam = $mootyper->isexam;
+}
+$modepo = optional_param('isexam', $dfisexam, PARAM_INT); // Display with default or current setting.
 
 // Check to see if current MooTyper precision goal is empty.
 if ($mootyper->requiredgoal == null || is_null($mootyper->requiredgoal)) {
@@ -320,6 +333,7 @@ if ($modepo == 0 || is_null($modepo)) { // If mode is 0, this is a lesson?
         }
     }
     $htmlout .= '</select></td></tr>';
+
     $exercises = get_exercises_by_lesson($lessonpo);
     $htmlout .= '<tr><td>'.get_string('fexercise', 'mootyper').'</td><td><select'.$disselect.' name="exercise" id="exercise">';
     for ($ik = 0; $ik < count($exercises); $ik++) {
@@ -391,8 +405,6 @@ $htmlout .= '<tr><td>'.get_string('countmistakes', 'mootyper').'</td><td>';
 $countmistakeschecked = $countmistakespo == 'on' ? ' checked="checked"' : '';
 $htmlout .= '<input type="checkbox"'.$countmistakeschecked.' " name="countmistakes">';
 
-
-
 // Add the check box for show keyboard.
 $htmlout .= '<tr><td>'.get_string('showkeyboard', 'mootyper').'</td><td>';
 $showkeyboardchecked = $showkeyboardpo == 'on' ? ' checked="checked"' : '';
@@ -443,7 +455,6 @@ $htmlout .= '<input value="'.$textbgcpo.'" style="width: 135px;" type="text" nam
 // Add input box for texterrorcolor.
 $htmlout .= '</td></tr><tr><td>'.get_string('texterrorcolor', 'mootyper').'</td><td>';
 $htmlout .= '<input value="'.$texterrorcolorpo.'" style="width: 135px;" type="text" name="texterrorcolor"></td></tr>';
-
 
 // Finish adding html to our page.
 $htmlout .= '</select>';

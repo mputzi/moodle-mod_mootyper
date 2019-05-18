@@ -49,6 +49,16 @@ if ($ADMIN->fulltree) {
     // Options settings.
     $settings->add(new admin_setting_heading('mod_mootyper/options', get_string('options', 'mootyper'), ''));
 
+
+    // Default mode setting for MooTyper activities.
+    $settings->add(new admin_setting_configselect('mod_mootyper/isexam',
+        get_string('fmode', 'mod_mootyper'),
+        get_string('defaultfmode_help', 'mod_mootyper'), 0,
+        array(get_string('sflesson', 'mod_mootyper'),
+              get_string('isexamtext', 'mod_mootyper'),
+              get_string('practice', 'mod_mootyper'))));
+
+
     // Default typing precision.
     $precs = array();
     for ($i = 0; $i <= 100; $i++) {
