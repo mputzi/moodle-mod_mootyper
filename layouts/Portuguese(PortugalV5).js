@@ -42,6 +42,7 @@ function keyboardElement(ltr) {
     if (isLetter(ltr)) { // Set specified shift key for right or left.
         if (ltr.match(/[|!"#$%QWEÉRTAÁÃSDFG>ZXCVB]/)) {
             this.shiftright = true;
+        // @codingStandardsIgnoreLine
         } else if (ltr.match(/[&/()=?»YUÚIÍOÓÕP*`HJKLÇª^NM;:_]/)) {
             this.shiftleft = true;
         }
@@ -52,7 +53,6 @@ function keyboardElement(ltr) {
     }
     // @codingStandardsIgnoreLine
     if (ltr.match(/[ÁÉÍÓÚ]/)) {
-        //this.shift = true;
         this.accent = true;
     }
     if (ltr === 'à') {
@@ -69,7 +69,6 @@ function keyboardElement(ltr) {
     }
     // @codingStandardsIgnoreLine
     if (ltr.match(/[ÃÕ]/)) {
-        //this.shift = true;
         this.tilde = true;
     }
     // @codingStandardsIgnoreLine
@@ -241,6 +240,5 @@ function getKeyID(tCrka) {
  * @returns {(number|Array)}.
  */
 function isLetter(str) {
-    // return str.length === 1 && str.match(/[a-zç]/i);
     return str.length === 1 && str.match(/[!-ﻼ]/i);
 }
