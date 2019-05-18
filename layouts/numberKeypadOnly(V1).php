@@ -14,7 +14,7 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 /**
- * This file defines the numberKeypadOnly(V1) layout. 
+ * This file defines the numberKeypadOnly(V1) layout.
  *
  * @copyright  2019 AL Rachels (drachels@drachels.com)
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
@@ -29,7 +29,7 @@ echo (isset($displaynone) && ($displaynone == true)) ? 'display:none;' : '';
 ">
 <div id="keyboard" class="keypadback">NumberPad Only<br>
     <section>
-	    <div class="mtrow" style='float: left; margin-left:5px; font-size: 15px !important; line-height: 15px'>
+        <div class="mtrow" style='float: left; margin-left:5px; font-size: 15px !important; line-height: 15px'>
             <div id="jkeynumlock" class="normal" style='text-align:left;'>Lock<br>&nbsp;</div>
             <div id="jkey/" class="normal" style='text-align:left;'>/<br>&nbsp;</div>
             <div id="jkey*" class="normal" style='text-align:left;'>*<br>&nbsp;</div>
@@ -46,7 +46,8 @@ echo (isset($displaynone) && ($displaynone == true)) ? 'display:none;' : '';
             <div id="jkey5" class="finger2" style='text-align:left;'>5<br>&nbsp;</div>
             <div id="jkey6" class="finger3" style='text-align:left;'>6<br>&nbsp;</div>
         </div>
-        <div id="jkeyenter" class="normal" style="margin-top:5px; width: 41px; margin-right:5px; float: right; height: 85px;">Enter</div>
+        <div id="jkeyenter" class="normal" style="margin-top:5px; width: 41px; margin-right:5px;
+            float: right; height: 85px;">Enter</div>
         <div class="mtrow" style='float: left; margin-left:5px; font-size: 15px !important; line-height: 15px'>
             <div id="jkey1" class="normal" style='text-align:left;'>1<br>&nbsp;</div>
             <div id="jkey2" class="normal" style='text-align:left;'>2<br>&nbsp;</div>
