@@ -370,96 +370,98 @@ function get_typerexercisesfull($lsn = 0) {
 function mootyper_update_calendar(stdClass $mootyper, $cmid) {
     global $DB, $CFG;
 
-    require_once($CFG->dirroot.'/calendar/lib.php');
+    if ($CFG->branch > 30) { // If Moodle less than version 3.1 skip this.
+        require_once($CFG->dirroot.'/calendar/lib.php');
 
-    // Get CMID if not sent as part of $mootyper.
-    if (!isset($mootyper->coursemodule)) {
-        $cm = get_coursemodule_from_instance('mootyper', $mootyper->id, $mootyper->course);
-        $mootyper->coursemodule = $cm->id;
-    }
+        // Get CMID if not sent as part of $mootyper.
+        if (!isset($mootyper->coursemodule)) {
+            $cm = get_coursemodule_from_instance('mootyper', $mootyper->id, $mootyper->course);
+            $mootyper->coursemodule = $cm->id;
+        }
 
-    // Mootyper start calendar events.
-    $event = new stdClass();
-    $event->eventtype = MOOTYPER_EVENT_TYPE_OPEN;
-    // The MOOTYPER_EVENT_TYPE_OPEN event should only be an action event if no close time is specified.
-    $event->type = empty($mootyper->timeclose) ? CALENDAR_EVENT_TYPE_ACTION : CALENDAR_EVENT_TYPE_STANDARD;
-    if ($event->id = $DB->get_field('event', 'id',
-        array('modulename' => 'mootyper', 'instance' => $mootyper->id, 'eventtype' => $event->eventtype))) {
-        if ((!empty($mootyper->timeopen)) && ($mootyper->timeopen > 0)) {
-            // Calendar event exists so update it.
-            $event->name = get_string('calendarstart', 'mootyper', $mootyper->name);
-            $event->description = format_module_intro('mootyper', $mootyper, $cmid);
-            $event->timestart = $mootyper->timeopen;
-            $event->timesort = $mootyper->timeopen;
-            $event->visible = instance_is_visible('mootyper', $mootyper);
-            $event->timeduration = 0;
+        // Mootyper start calendar events.
+        $event = new stdClass();
+        $event->eventtype = MOOTYPER_EVENT_TYPE_OPEN;
+        // The MOOTYPER_EVENT_TYPE_OPEN event should only be an action event if no close time is specified.
+        $event->type = empty($mootyper->timeclose) ? CALENDAR_EVENT_TYPE_ACTION : CALENDAR_EVENT_TYPE_STANDARD;
+        if ($event->id = $DB->get_field('event', 'id',
+            array('modulename' => 'mootyper', 'instance' => $mootyper->id, 'eventtype' => $event->eventtype))) {
+            if ((!empty($mootyper->timeopen)) && ($mootyper->timeopen > 0)) {
+                // Calendar event exists so update it.
+                $event->name = get_string('calendarstart', 'mootyper', $mootyper->name);
+                $event->description = format_module_intro('mootyper', $mootyper, $cmid);
+                $event->timestart = $mootyper->timeopen;
+                $event->timesort = $mootyper->timeopen;
+                $event->visible = instance_is_visible('mootyper', $mootyper);
+                $event->timeduration = 0;
 
-            $calendarevent = calendar_event::load($event->id);
-            $calendarevent->update($event, false);
+                $calendarevent = calendar_event::load($event->id);
+                $calendarevent->update($event, false);
+            } else {
+                // Calendar event is no longer needed.
+                $calendarevent = calendar_event::load($event->id);
+                $calendarevent->delete();
+            }
         } else {
-            // Calendar event is no longer needed.
-            $calendarevent = calendar_event::load($event->id);
-            $calendarevent->delete();
+            // Event doesn't exist so create one.
+            if ((!empty($mootyper->timeopen)) && ($mootyper->timeopen > 0)) {
+                $event->name = get_string('calendarstart', 'mootyper', $mootyper->name);
+                $event->description = format_module_intro('mootyper', $mootyper, $cmid);
+                $event->courseid = $mootyper->course;
+                $event->groupid = 0;
+                $event->userid = 0;
+                $event->modulename = 'mootyper';
+                $event->instance = $mootyper->id;
+                $event->timestart = $mootyper->timeopen;
+                $event->timesort = $mootyper->timeopen;
+                $event->visible = instance_is_visible('mootyper', $mootyper);
+                $event->timeduration = 0;
+
+                calendar_event::create($event, false);
+            }
         }
-    } else {
-        // Event doesn't exist so create one.
-        if ((!empty($mootyper->timeopen)) && ($mootyper->timeopen > 0)) {
-            $event->name = get_string('calendarstart', 'mootyper', $mootyper->name);
-            $event->description = format_module_intro('mootyper', $mootyper, $cmid);
-            $event->courseid = $mootyper->course;
-            $event->groupid = 0;
-            $event->userid = 0;
-            $event->modulename = 'mootyper';
-            $event->instance = $mootyper->id;
-            $event->timestart = $mootyper->timeopen;
-            $event->timesort = $mootyper->timeopen;
-            $event->visible = instance_is_visible('mootyper', $mootyper);
-            $event->timeduration = 0;
 
-            calendar_event::create($event, false);
-        }
-    }
+        // Mootyper end calendar events.
+        $event = new stdClass();
+        $event->type = CALENDAR_EVENT_TYPE_ACTION;
+        $event->eventtype = MOOTYPER_EVENT_TYPE_CLOSE;
+        if ($event->id = $DB->get_field('event', 'id',
+            array('modulename' => 'mootyper', 'instance' => $mootyper->id, 'eventtype' => $event->eventtype))) {
+            if ((!empty($mootyper->timeclose)) && ($mootyper->timeclose > 0)) {
+                // Calendar event exists so update it.
+                $event->name = get_string('calendarend', 'mootyper', $mootyper->name);
+                $event->description = format_module_intro('mootyper', $mootyper, $cmid);
+                $event->timestart = $mootyper->timeclose;
+                $event->timesort = $mootyper->timeclose;
+                $event->visible = instance_is_visible('mootyper', $mootyper);
+                $event->timeduration = 0;
 
-    // Mootyper end calendar events.
-    $event = new stdClass();
-    $event->type = CALENDAR_EVENT_TYPE_ACTION;
-    $event->eventtype = MOOTYPER_EVENT_TYPE_CLOSE;
-    if ($event->id = $DB->get_field('event', 'id',
-        array('modulename' => 'mootyper', 'instance' => $mootyper->id, 'eventtype' => $event->eventtype))) {
-        if ((!empty($mootyper->timeclose)) && ($mootyper->timeclose > 0)) {
-            // Calendar event exists so update it.
-            $event->name = get_string('calendarend', 'mootyper', $mootyper->name);
-            $event->description = format_module_intro('mootyper', $mootyper, $cmid);
-            $event->timestart = $mootyper->timeclose;
-            $event->timesort = $mootyper->timeclose;
-            $event->visible = instance_is_visible('mootyper', $mootyper);
-            $event->timeduration = 0;
-
-            $calendarevent = calendar_event::load($event->id);
-            $calendarevent->update($event, false);
+                $calendarevent = calendar_event::load($event->id);
+                $calendarevent->update($event, false);
+            } else {
+                // Calendar event is on longer needed.
+                $calendarevent = calendar_event::load($event->id);
+                $calendarevent->delete();
+            }
         } else {
-            // Calendar event is on longer needed.
-            $calendarevent = calendar_event::load($event->id);
-            $calendarevent->delete();
-        }
-    } else {
-        // Event doesn't exist so create one.
-        if ((!empty($mootyper->timeclose)) && ($mootyper->timeclose > 0)) {
-            $event->name = get_string('calendarend', 'mootyper', $mootyper->name);
-            $event->description = format_module_intro('mootyper', $mootyper, $cmid);
-            $event->courseid = $mootyper->course;
-            $event->groupid = 0;
-            $event->userid = 0;
-            $event->modulename = 'mootyper';
-            $event->instance = $mootyper->id;
-            $event->timestart = $mootyper->timeclose;
-            $event->timesort = $mootyper->timeclose;
-            $event->visible = instance_is_visible('mootyper', $mootyper);
-            $event->timeduration = 0;
+            // Event doesn't exist so create one.
+            if ((!empty($mootyper->timeclose)) && ($mootyper->timeclose > 0)) {
+                $event->name = get_string('calendarend', 'mootyper', $mootyper->name);
+                $event->description = format_module_intro('mootyper', $mootyper, $cmid);
+                $event->courseid = $mootyper->course;
+                $event->groupid = 0;
+                $event->userid = 0;
+                $event->modulename = 'mootyper';
+                $event->instance = $mootyper->id;
+                $event->timestart = $mootyper->timeclose;
+                $event->timesort = $mootyper->timeclose;
+                $event->visible = instance_is_visible('mootyper', $mootyper);
+                $event->timeduration = 0;
 
-            calendar_event::create($event, false);
+                calendar_event::create($event, false);
+            }
         }
+
+        return true;
     }
-
-    return true;
 }
