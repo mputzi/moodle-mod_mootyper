@@ -51,8 +51,8 @@ if ($directionality === 'rtl') {
         </div>
         <div class="mtrow" style='float: left; margin-left:5px; font-size: 15px !important; line-height: 15px'>
             <div id="jkeybackslash" class="normal" style='width: 75px; text-align:left;'>|<br>\</div>
-            <div id="jkeybracketr" class="normal" style='text-align:left;'>}<br>]</div>
             <div id="jkeybracketl" class="normal" style='text-align:left;'>{<br>[</div>
+            <div id="jkeybracketr" class="normal" style='text-align:left;'>}<br>]</div>
             <div id="jkeyP" class="normal" style='text-align:left;'>P<br>&nbsp; &nbsp; &nbsp;פ</div>
             <div id="jkeyO" class="normal" style='text-align:left;'>O<br>&nbsp; &nbsp; &nbsp;ם</div>
             <div id="jkeyI" class="normal" style='text-align:left;'>I<br>&nbsp; &nbsp; &nbsp;ן</div>
