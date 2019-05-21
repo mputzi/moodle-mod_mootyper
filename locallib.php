@@ -52,6 +52,8 @@ function get_keyboard_layouts_db() {
             $lss[$ex->id] = $ex->name;
         }
     }
+    // Sort the array alphabetically by name, and keep the id associated with the name.
+    asort($lss);
     return $lss;
 }
 
