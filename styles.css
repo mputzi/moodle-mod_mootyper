@@ -69,18 +69,6 @@
         0 4px 0 #bbb,
         0 10px 30px #ddd;
 }
-// #jsTime {
-//     padding: 5px;
-// }
-// #jsProgress {
-//     padding: 5px;
-// }
-// #jsAcc {
-//     padding: 5px;
-// }
-// #jsSpeed {
-//     padding: 5px;
-// }
 div#wrapStats {
  position:center;
   padding:0px 0px 0px 0px;
@@ -166,16 +154,6 @@ div#statsRDiv {
     font-family: Courier;
     color: blue;
     background-color: [[setting:cursorcolor]];
-}
-.textup {
-    position: relative;
-    bottom: 0.6em;
-    font-size: 0.9em;
-}
-.textdown {
-    position: relative;
-    top: 0.5em;
-    font-size: 0.9em;
 }
 .mtrow {
     height:40px;
