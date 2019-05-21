@@ -196,6 +196,9 @@ if ($mootyper->lesson != null) {
 
     $reqiredgoal = $mootyper->requiredgoal;
     $exercise = get_exercise_from_mootyper($mootyper->id, $mootyper->lesson, $USER->id);
+    // 5/20/2019 Get the lesson name.
+    $lsnname = $DB->get_record('mootyper_lessons', array('id' => $mootyper->lesson), '*', MUST_EXIST);
+
     if ($exercise != false) {
         $exerciseid = $exercise->id;
         $texttoenter = $exercise->texttotype;
@@ -240,30 +243,32 @@ if ($mootyper->lesson != null) {
                 WHERE mtl.id = $mootyper->lesson";
 
         $count = $DB->count_records_sql($sqlc, $params = null);
-
-        // If this MooTyper is set to practice, add, Practice to the exercise name above the status bar.
+        // Old MooTypers without the mode set need this initialized to empty.
+        $tempstr = '';
+        // Add label containing mode, lesson name, and exercise x of x above the status bar.
         if ($mtmode === '0') {
-            echo get_string('fmode', 'mootyper').' = '
-                 .get_string('flesson', 'mootyper')
-                 .'&nbsp;&nbsp; '
-                 .get_string('exercise', 'mootyper', $exercise->exercisename)
-                 .$count;
+            $tempstr = get_string('fmode', 'mootyper')
+                       .' = '
+                       .get_string('flesson', 'mootyper');
         } else if ($mtmode === '1') {
-            echo get_string('fmode', 'mootyper')
-                 .' = '.get_string('isexamtext', 'mootyper')
-                 .'&nbsp;&nbsp; '
-                 .get_string('exercise', 'mootyper', $exercise->exercisename)
-                 .$count;
+            $tempstr = get_string('fmode', 'mootyper')
+                       .' = '
+                       .get_string('isexamtext', 'mootyper');
         } else if ($mtmode === '2') {
-            echo get_string('fmode', 'mootyper').' = '
-                 .get_string('practice', 'mootyper')
-                 .'&nbsp;&nbsp; '
-                 .get_string('exercise', 'mootyper', $exercise->exercisename)
-                 .$count;
-        } else {
-            echo get_string('exercise', 'mootyper', $exercise->exercisename)
-                 .$count;
+            $tempstr = get_string('fmode', 'mootyper')
+                       .' = '
+                       .get_string('practice', 'mootyper');
         }
+        $tempstr = $tempstr.'&nbsp;&nbsp; '
+                           .get_string('flesson', 'mootyper')
+                           .'/'
+                           .get_string('lsnname', 'mootyper')
+                           .' = '
+                           .$lsnname->lessonname
+                           .'&nbsp;&nbsp; '
+                           .get_string('exercise', 'mootyper', $exercise->exercisename)
+                           .$count;
+        echo $tempstr;
         ?>
 </h4>
 
