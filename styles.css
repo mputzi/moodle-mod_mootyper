@@ -34,35 +34,23 @@
     text-align: center;
 }
 #texttoenter {
- position:relative;
-  padding:6px 12px 30px 12px;
-  margin-top:0px;
-  margin:auto;
-  margin-bottom:20px;
-  width:100%;
-  height:160px;
-  overflow:hidden;
-  color:#1d4851;
-  font-family:Courier;
-  font-size:24px;
-  font-weight:bold;
-  line-height:30px;
-  background: [[setting:textbgc]];
-  border:0px solid #000000;
-  -webkit-border-radius:8px;
-  -moz-border-radius:8px;
-  border-radius:8px;
-  text-align: justify;
-   -webkit-box-shadow:
-        inset 0 0 8px #bbb,
-        0 1px 0 #aaa,
-        0 4px 0 #bbb,
-        0 10px 30px #ddd;
-    -moz-box-shadow:
-        inset 0 0 8px #bbb,
-        0 1px 0 #aaa,
-        0 4px 0 #bbb,
-        0 10px 30px #ddd;
+    position:relative;
+    padding:6px 12px 30px 12px;
+    margin-top:0px;
+    margin:auto;
+    margin-bottom:20px;
+    width:100%;
+    height:160px;
+    overflow:hidden;
+    color:#1d4851;
+    font-family:Courier;
+    font-size:24px;
+    font-weight:bold;
+    line-height:30px;
+    background: [[setting:textbgc]];
+    border:0px solid #000000;
+    border-radius:8px;
+    text-align: justify;
     box-shadow:
         inset 0 0 8px #bbb,
         0 1px 0 #aaa,
@@ -70,38 +58,35 @@
         0 10px 30px #ddd;
 }
 div#wrapStats {
- position:center;
-  padding:0px 0px 0px 0px;
-  margin-top:0px;
-  margin:auto;
-  margin-bottom:2px;
-  width:620px;
-  color:#1d4851;
-  *color:#66CCFF;
-  font-family:Times New Roman, Times, serif;
-  font-size:14px;
-  font-weight:bold;
-
+    position:center;
+    padding:0px 0px 0px 0px;
+    margin-top:0px;
+    margin:auto;
+    margin-bottom:2px;
+    width:100%;
+    color:#1d4851;
+    *color:#66CCFF;
+    font-family:Times New Roman, Times, serif;
+    font-size:14px;
+    font-weight:bold;
 }
 div#statsLDiv {
     border: 1px solid #666;
     box-sizing: border-box;
-    background: [[setting:statscolor]];
-    -moz-border-radius-topleft: 7px 21px;
-     border-top-left-radius: 10px ;
-    -moz-border-radius-bottomleft: 7px 21px;
-     border-bottom-left-radius: 10px ;
-   box-shadow:
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+    box-shadow:
         0 1px 0 #aaa,
         0 4px 0 #bbb,
         0 5px 0px #ddd;
+    background: [[setting:statscolor]];
 }
 div#statsMDiv {
     border: 1px solid #666;
     box-sizing: border-box;
     *background:#fdff99;
     background: [[setting:statscolor]];
-   box-shadow:
+    box-shadow:
         0 1px 0 #aaa,
         0 4px 0 #bbb,
         0 5px 0px #ddd;
@@ -111,11 +96,9 @@ div#statsRDiv {
     box-sizing: border-box;
     *background:#fdff99;
     background: [[setting:statscolor]];
-    -moz-border-radius-topright: 7px 21px;
-     border-top-right-radius: 10px ;
-    -moz-border-radius-bottomright: 7px 21px;
-     border-bottom-right-radius: 10px ;
-   box-shadow:
+    border-top-right-radius: 10px ;
+    border-bottom-right-radius: 10px ;
+    box-shadow:
         0 1px 0 #aaa,
         0 4px 0 #bbb,
         0 5px 0px #ddd;
@@ -169,22 +152,13 @@ div#statsRDiv {
     padding: 2px 2px;
     background-color: [[setting:keyboardbgc]];
     color: #000;
-    -webkit-border-radius: 6px;
-    -moz-border-radius: 6px;
     border-radius: 6px;
     border: 1px solid #666;
     box-sizing: border-box;
     font-weight: bold;
     text-shadow: 0 -1px 0 rgba(255, 255, 255, 0.4);
-    -webkit-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2);
-    -moz-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2);
     box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2);
-    -webkit-transition-duration: 0.2s;
-    -moz-transition-duration: 0.2s;
     transition-duration: 0.2s;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
 }
 .keyboardpadback {
     display: table-cell;
@@ -196,22 +170,13 @@ div#statsRDiv {
     padding: 2px 2px;
     background: [[setting:keyboardbgc]];
     color: #000;
-    -webkit-border-radius: 6px;
-    -moz-border-radius: 6px;
     border-radius: 6px;
     border: 1px solid #666;
     box-sizing: border-box;
     font-weight: bold;
     text-shadow: 0 -1px 0 rgba(255, 255, 255, 0.4);
-    -webkit-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2);
-    -moz-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2);
     box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2);
-    -webkit-transition-duration: 0.2s;
-    -moz-transition-duration: 0.2s;
     transition-duration: 0.2s;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
 }
 .keypadback {
     display: table-cell;
@@ -223,78 +188,47 @@ div#statsRDiv {
     padding: 2px 2px;
     background-color: [[setting:keyboardbgc]];
     color: #000;
-    -webkit-border-radius: 6px;
-    -moz-border-radius: 6px;
     border-radius: 6px;
     border: 1px solid #666;
     box-sizing: border-box;
     font-weight: bold;
     text-shadow: 0 -1px 0 rgba(255, 255, 255, 0.4);
-    -webkit-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2);
-    -moz-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2);
     box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2);
-    -webkit-transition-duration: 0.2s;
-    -moz-transition-duration: 0.2s;
     transition-duration: 0.2s;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
 }
 .normal {
     display: table-cell;
     width: 40px;
     height: 40px;
-
     text-align: center;
     vertical-align: middle;
-
     padding: 2px 2px;
     background: [[setting:normalkeytops]];
     color: #000;
-    -webkit-border-radius: 6px;
-    -moz-border-radius: 6px;
     border-radius: 6px;
     border: 1px solid #666;
     box-sizing: border-box;
     font-weight: bold;
     text-shadow: 0 -1px 0 rgba(255, 255, 255, 0.4);
-    -webkit-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2);
-    -moz-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2);
     box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2);
-    -webkit-transition-duration: 0.2s;
-    -moz-transition-duration: 0.2s;
     transition-duration: 0.2s;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
 }
 .normalblank {
     display: table-cell;
     width: 40px;
     height: 40px;
-
     text-align: center;
     vertical-align: middle;
-
     padding: 2px 2px;
     //background: [[setting:normalkeytops]];
     color: #000;
-    -webkit-border-radius: 6px;
-    -moz-border-radius: 6px;
     border-radius: 6px;
     //border: 1px solid #666;
     box-sizing: border-box;
     font-weight: bold;
     text-shadow: 0 -1px 0 rgba(255, 255, 255, 0.4);
-    //-webkit-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2);
-    //-moz-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2);
     //box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2);
-    -webkit-transition-duration: 0.2s;
-    -moz-transition-duration: 0.2s;
     transition-duration: 0.2s;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
 }
 .finger4 {
     display: table-cell;
@@ -305,22 +239,13 @@ div#statsRDiv {
     padding: 2px 2px;
     background: #faa;
     color: #000;
-    -webkit-border-radius: 6px;
-    -moz-border-radius: 6px;
     border-radius: 6px;
     border: 1px solid #c00;
     box-sizing: border-box;
     font-weight: bold;
     text-shadow: 0 -1px 0 rgba(255, 255, 255, 0.5);
-    -webkit-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2);
-    -moz-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2);
     box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2);
-    -webkit-transition-duration: 0.2s;
-    -moz-transition-duration: 0.2s;
     transition-duration: 0.2s;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
 }
 .finger3 {
     display: table-cell;
@@ -331,22 +256,13 @@ div#statsRDiv {
     padding: 2px 2px;
     background: #bf9;
     color: #000;
-    -webkit-border-radius: 6px;
-    -moz-border-radius: 6px;
     border-radius: 6px;
     border: 1px solid #0a0;
     box-sizing: border-box;
     font-weight: bold;
     text-shadow: 0 -1px 0 rgba(255, 255, 255, 0.8);
-    -webkit-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2);
-    -moz-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2);
     box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2);
-    -webkit-transition-duration: 0.2s;
-    -moz-transition-duration: 0.2s;
     transition-duration: 0.2s;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
 }
 .finger2 {
     display: table-cell;
@@ -357,22 +273,13 @@ div#statsRDiv {
     padding: 2px 2px;
     background: #fdff99;
     color: #000;
-    -webkit-border-radius: 6px;
-    -moz-border-radius: 6px;
     border-radius: 6px;
     border: 1px solid #e89700;
     box-sizing: border-box;
     font-weight: bold;
     text-shadow: 0 -1px 0 rgba(255, 255, 255, 0.8);
-    -webkit-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2);
-    -moz-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2);
     box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2);
-    -webkit-transition-duration: 0.2s;
-    -moz-transition-duration: 0.2s;
     transition-duration: 0.2s;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
 }
 .finger1 {
     display: table-cell;
@@ -383,22 +290,13 @@ div#statsRDiv {
     padding: 2px 2px;
     background: #9df;
     color: #000;
-    -webkit-border-radius: 6px;
-    -moz-border-radius: 6px;
     border-radius: 6px;
     border: 1px solid #08b;
     box-sizing: border-box;
     font-weight: bold;
     text-shadow: 0 -1px 0 rgba(255, 255, 255, 0.8);
-    -webkit-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2);
-    -moz-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2);
     box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2);
-    -webkit-transition-duration: 0.2s;
-    -moz-transition-duration: 0.2s;
     transition-duration: 0.2s;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
 }
 .fingerSpace {
     display: table-cell;
@@ -409,22 +307,13 @@ div#statsRDiv {
     padding: 2px 2px;
     background: #9df;
     color: #000;
-    -webkit-border-radius: 6px;
-    -moz-border-radius: 6px;
     border-radius: 6px;
     border: 1px solid #08b;
     box-sizing: border-box;
     font-weight: bold;
     text-shadow: 0 -1px 0 rgba(255, 255, 255, 0.8);
-    -webkit-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2);
-    -moz-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2);
     box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2);
-    -webkit-transition-duration: 0.2s;
-    -moz-transition-duration: 0.2s;
     transition-duration: 0.2s;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
 }
 .next1 {
     display: table-cell;
@@ -435,22 +324,13 @@ div#statsRDiv {
     padding: 2px 2px;
     background: #0070c1;
     color: #fff;
-    -webkit-border-radius: 6px;
-    -moz-border-radius: 6px;
     border-radius: 6px;
     border: 1px solid #004182;
     box-sizing: border-box;
     font-weight: bold;
     text-shadow: 0 1px 0 rgba(0, 0, 0, 0.4);
-    -webkit-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2);
-    -moz-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2);
     box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2);
-    -webkit-transition-duration: 0.2s;
-    -moz-transition-duration: 0.2s;
     transition-duration: 0.2s;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
 }
 .next2 {
     display: table-cell;
@@ -461,22 +341,13 @@ div#statsRDiv {
     padding: 2px 2px;
     background: #c17400;
     color: #fff;
-    -webkit-border-radius: 6px;
-    -moz-border-radius: 6px;
     border-radius: 6px;
     border: 1px solid #825700;
     box-sizing: border-box;
     font-weight: bold;
     text-shadow: 0 1px 0 rgba(0, 0, 0, 0.4);
-    -webkit-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2);
-    -moz-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2);
     box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2);
-    -webkit-transition-duration: 0.2s;
-    -moz-transition-duration: 0.2s;
     transition-duration: 0.2s;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
 }
 .next3 {
     display: table-cell;
@@ -487,22 +358,13 @@ div#statsRDiv {
     padding: 2px 2px;
     background: #2e8901;
     color: #fff;
-    -webkit-border-radius: 6px;
-    -moz-border-radius: 6px;
     border-radius: 6px;
     border: 1px solid #315e00;
     box-sizing: border-box;
     font-weight: bold;
     text-shadow: 0 1px 0 rgba(0, 0, 0, 0.4);
-    -webkit-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2);
-    -moz-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2);
     box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2);
-    -webkit-transition-duration: 0.2s;
-    -moz-transition-duration: 0.2s;
     transition-duration: 0.2s;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
 }
 .next4 {
     display: table-cell;
@@ -513,22 +375,13 @@ div#statsRDiv {
     padding: 2px 2px;
     background: #d90000;
     color: #fff;
-    -webkit-border-radius: 6px;
-    -moz-border-radius: 6px;
     border-radius: 6px;
     border: 1px solid #c00;
     box-sizing: border-box;
     font-weight: bold;
     text-shadow: 0 1px 0 rgba(0, 0, 0, 0.4);
-    -webkit-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2);
-    -moz-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2);
     box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2);
-    -webkit-transition-duration: 0.2s;
-    -moz-transition-duration: 0.2s;
     transition-duration: 0.2s;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
 }
 .nextSpace {
     display: table-cell;
@@ -539,22 +392,13 @@ div#statsRDiv {
     padding: 2px 2px;
     background: #757500;
     color: #fff;
-    -webkit-border-radius: 6px;
-    -moz-border-radius: 6px;
     border-radius: 6px;
     border: 1px solid #353500;
     box-sizing: border-box;
     font-weight: bold;
     text-shadow: 0 1px 0 rgba(0, 0, 0, 0.4);
-    -webkit-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2);
-    -moz-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2);
     box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2);
-    -webkit-transition-duration: 0.2s;
-    -moz-transition-duration: 0.2s;
     transition-duration: 0.2s;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
 }
 /* Sort direction indcators. */
 .arrow-n,

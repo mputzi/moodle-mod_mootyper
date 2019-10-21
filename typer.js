@@ -124,9 +124,25 @@ function doTheEnd() {
  * @returns {keychar}.
  */
 function getPressedChar(e) {
-    keynum = '';
-    keychar = '';
+    var keynum;
+    var keychar;
     var numcheck;
+// addEventListener('keydown', (event) => {
+// console.log('keydown We may have typed a Korean character here '+event.keyCode);
+// console.log('keydown We need to get the data from compositionupdate '+event.compositionupdate);
+// });
+    // addEventListener('compositionupdate', (event) => {
+    if (event.data) {
+        // console.log('compositionupdate We typed a Korean character here '+event.data);
+        keychar = event.data;
+        // console.log('keychar We transferred event.data to keychar and it is '+keychar);
+
+        if (keychar) {
+            //console.log('if (keychar) was tested and it is '+keychar);
+        return keychar;
+        }
+    }
+    // });
 
     if (window.event) {  // IE.
         keynum = e.keyCode;
@@ -141,6 +157,8 @@ function getPressedChar(e) {
     } else {
         keychar = String.fromCharCode(keynum);
     }
+    // console.log('We are returning keychar and it is '+keychar);
+
     return keychar;
 }
 
@@ -170,6 +188,7 @@ function focusSet(e) {
  *
  */
 function doCheck() {
+//console.log('TYPER 6.0 In the doCheck() function of typer.js.');
     var rpMootyperId = $('input[name="rpSityperId"]').val();
     var rpUser = $('input[name="rpUser"]').val();
     var rpAttId = $('input[name="rpAttId"]').val();
@@ -216,6 +235,8 @@ function keyPressed(e) {
 
     // Something was typed so go figure out what character it was. and return for further processing.
     var keychar = getPressedChar(e);
+   // var keychar = addEventListener('keydown', getPressedChar);
+   // var keychar = addEventListener('compositionstart', getPressedChar);
 
     if (keychar === currentChar || ((currentChar === '\n' || currentChar === '\r\n' || currentChar === '\n\r' || currentChar === '\r') && (keychar === ' '))) {
         moveCursor(currentPos + 1);
@@ -347,6 +368,8 @@ function timeDifference(t1, t2) {
  * @param {boolean} tcountmistypedspaces.
  */
 function inittexttoenter(ttext, tinprogress, tmistakes, thits, tstarttime, tattemptid, turl, tshowkeyboard, tcontinuoustype, tcountmistypedspaces, tcountmistakes) {
+    // Needed for IME (input method editor) when using Korean keyboard layout.
+    addEventListener('compositionupdate', keyPressed);
     $("#form1").on("keypress", "#tb1", keyPressed);
     showKeyboard = tshowkeyboard;
     continuousType = tcontinuoustype;

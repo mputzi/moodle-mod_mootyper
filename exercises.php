@@ -130,6 +130,7 @@ $jlink = '<a onclick="return confirm(\''.get_string('exportconfirm', 'mootyper')
          .get_string('export', 'mootyper').'> '
          .$lessons[$selectedlessonindex]['lessonname'].'';
 
+// Add a link to let me add a new exercise to the Lesson currently being viewed.
 $jlnk3 = $CFG->wwwroot . '/mod/mootyper/eins.php?id='.$id.'&lesson='.$lessonpo;
 echo '<a href="'.$jlnk3.'">'.get_string('eaddnewex', 'mootyper').'</a><br>';
 

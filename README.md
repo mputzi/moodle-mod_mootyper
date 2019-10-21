@@ -44,7 +44,7 @@ that to just "mootyper". So for example, the path should be like this:
 Than go to Site Administration -> Notifications and click on the button to start
 the install.
 
-Right after an install or upgrade of the new MooTyper 3.4.1, you will then see
+Right after an install or upgrade of the new MooTyper 3.6.1, you will then see
 the settings page. You can now set the date display format for the grade views.
 You can also set colors for grade views, the background of the new keyboard 
 layouts, and the color for keytops that are not home row keys. This allows you
@@ -53,21 +53,28 @@ to color coordinate MooTyper with your theme color scheme.
 3. USING MOOTYPER
 
 Using MooTyper activity module is very simple. An instance can be added as a
-new activity in a course like Lesson or Quiz. Thanks to Mary Cooch from moodle.org
-we have this video, which shows how to add exercises, create mootyper instance,
-and then view grades. It's a little outdated (one of the first versions of
-mootyper), but I guess everything still holds:
+new activity in a course like Lesson or Quiz. The simplest way to setup a
+MooTyper, is select MooTyper from the list, Add an activity or resource.
+Add the name you want to use for this activity. I recommend adding the
+lesson name as part of the activity name. Add a description if you desire.
+Then, add Availability times, if desired, then click, Save and display.
+Yes, that's right! Don't bother with any other options as they will then be
+available on the, Setup link.
+Thanks to Mary Cooch from moodle.org we have this video, which shows how
+to add exercises, create mootyper instance, and then view grades.
+It's a little outdated (one of the first versions of mootyper), but I
+guess everything still holds:
 
 http://www.youtube.com/watch?v=Twl-7CGrS0g
 
 4. ADDITIONAL KEYBOARD LAYOUTS
 
-This MooTyper currently includes support for Belgium(Dutch), Czech, Danish,
-Dvorak, English(UK), English(US), Estonian, French, German(Swiss), German,
-Hebrew, Italian, Norwegian, Japanese, Portuguese(Brazil), Portugues(Portugal),
-Russian, Serbian, Slovenian, Spanish, Swediah, Thai, Turkish, Ukrainian,
-and Vietnamese keyboard layouts, that are compatible with both the new Boost
-theme, as well as, Clean.
+This MooTyper currently includes keyboard layouts to support many languages.
+If you do not see one that need, please let the maintainer know.
+Note: There are two special layouts, English(USV6) that includes both the normal
+keys and the number keypad, and numberKeypadOnly(V1), which shows ONLY the
+number keypad.
+
 
 To implement any other layout you have to:
 Create a php file with keyboard layout defined with HTML. Create a javascript
@@ -91,9 +98,7 @@ via links in the Administration block, which overcomes these limitations.
 
 6. NEW IN THIS RELEASE
 
-Implemented, Activity Completion for View and it is now
-working in this version of MooTyper.
-Added a few more keyboard layouts.
+Implemented, a few more keyboard layouts.
 
 7. OTHER RECENT NEW CAPABILITIES
 

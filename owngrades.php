@@ -159,6 +159,7 @@ if (!has_capability('mod/mootyper:viewmygrades', context_module::instance($cm->i
                 $removelnk = '<a onclick="return confirm(\''.get_string('deletegradeconfirm', 'mootyper')
                              .$gr->firstname.' '
                              .$gr->lastname.' '
+                             .get_string('exercise_abreviation', 'mootyper').'-'
                              .$gr->exercisename.'.'
                              .'\')" href="'.$CFG->wwwroot
                              .'/mod/mootyper/attrem.php?c_id='

@@ -74,18 +74,6 @@ $cursorcolor = optional_param('cursorcolor', $mootyper->cursorcolor, PARAM_CLEAN
 $textbgc = optional_param('textbgc', $mootyper->textbgc, PARAM_CLEAN);
 $texterrorcolor = optional_param('texterrorcolor', $mootyper->texterrorcolor, PARAM_CLEAN);
 
-
-
-// Check to see if current MooTyper isexam (mode) is empty.
-if ($mootyper->isexam == null || is_null($mootyper->isexam)) {
-    // Current MooTyper isexam is empty so set it to the site default.
-    $dfisexam = $moocfg->isexam;
-} else {
-    // Otherwise use current MooTyper isexam.
-    $dfisexam = $mootyper->isexam;
-}
-$modepo = optional_param('isexam', $dfisexam, PARAM_INT); // Display with default or current setting.
-
 // Check to see if current MooTyper precision goal is empty.
 if ($mootyper->requiredgoal == null || is_null($mootyper->requiredgoal)) {
     // Current MooTyper precision goal is empty so set it to the site default.
@@ -261,8 +249,6 @@ if (isset($param1) && get_string('fconfirm', 'mootyper') == $param1) {
     $mootyper->cursorcolor = $cursorcolorpo;
     $mootyper->textbgc = $textbgcpo;
     $mootyper->texterrorcolor = $texterrorcolorpo;
-
-
     $DB->update_record('mootyper', $mootyper);
     header('Location: '.$CFG->wwwroot.'/mod/mootyper/view.php?n='.$n);
 }
