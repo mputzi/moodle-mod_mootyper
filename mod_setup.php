@@ -57,8 +57,8 @@ $moocfg = get_config('mod_mootyper');
 // Enable-disable flag.
 $epo = optional_param('e', 0, PARAM_INT);
 // Get settings for current mootyper activity.
-$modepo = optional_param('mode', $mootyper->isexam, PARAM_INT);
-
+// During setup, there is no mode set, so get the site default setting.
+$modepo = optional_param('mode', $moocfg->isexam, PARAM_INT);
 $exercisepo = optional_param('exercise', $mootyper->exercise, PARAM_INT);
 $textalign = optional_param('textalign', $mootyper->textalign, PARAM_INT);
 $lessonpo = optional_param('lesson', $mootyper->lesson, PARAM_INT);
@@ -70,7 +70,6 @@ $statscolor = optional_param('statscolor', $mootyper->statsbgc, PARAM_CLEAN);
 $keytopcolor = optional_param('keytopcolor', $mootyper->keytopbgc, PARAM_CLEAN);
 $backgroundcolor = optional_param('backgroundcolor', $mootyper->keybdbgc, PARAM_CLEAN);
 $cursorcolor = optional_param('cursorcolor', $mootyper->cursorcolor, PARAM_CLEAN);
-
 $textbgc = optional_param('textbgc', $mootyper->textbgc, PARAM_CLEAN);
 $texterrorcolor = optional_param('texterrorcolor', $mootyper->texterrorcolor, PARAM_CLEAN);
 
