@@ -1,5 +1,5 @@
 /**
- * @fileOverview German(SwissV4.1) keyboard driver.
+ * @fileOverview German(SwissV4.2) keyboard driver.
  * @author <a href="mailto:drachels@drachels.com">AL Rachels</a>
  * @version 4.0
  * @since 09/24/2017

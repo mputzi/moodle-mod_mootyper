@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * This file defines the German(SwissV4.1) keyboard layout.
+ * This file defines the German(SwissV4.2) keyboard layout.
  *
  * @package    mod_mootyper
  * @copyright  2016 onwards AL Rachels (drachels@drachels.com)
@@ -113,8 +113,8 @@ echo (isset($displaynone) && ($displaynone == true)) ? 'display:none;' : '';
             <div id="jkeyctrll" class="normal" style="width: 60px;">Ctrl</div>
             <div id="jkeyfn" class="normal" style="width: 50px;">Fn</div>
             <div id="jkeyalt" class="normal" style="width: 50px;">Alt</div>
-            <div id="jkeyspace" class="normal" style="width: 245px;">Space</div>
-            <div id="jkeyaltgr" class="normal" style="color:blue; width: 50px;">Alt Gr</div>
+            <div id="jkeyspace" class="normal" style="width: 240px;">Space</div>
+            <div id="jkeyaltgr" class="normal" style="color:blue; width: 55px;">Alt Gr</div>
             <div id="jkeyfn" class="normal" style="width: 50px;">Fn</div>
             <div id="jempty" class="normal" style="width: 50px;">&nbsp;</div>
             <div id="jkeyctrlr" class="normal" style="width: 60px;">Ctrl</div>
