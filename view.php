@@ -26,6 +26,8 @@
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later.
  */
 
+use \mod_mootyper\event\course_module_viewed;
+
 // Changed to this newer format 03/01/2019.
 require(__DIR__ . '/../../config.php');
 require_once(__DIR__ . '/lib.php');
@@ -431,11 +433,8 @@ if ($mootyper->lesson != null) {
 }
 
 // Trigger module viewed event.
-$event = \mod_mootyper\event\course_module_viewed::create(array(
-   'objectid' => $mootyper->id,
-   'context' => $context
-));
-$event->add_record_snapshot('course_modules', $cm);
+$params = array('objectid' => $mootyper->id, 'context' => $context);
+$event = course_module_viewed::create($params);
 $event->add_record_snapshot('course', $course);
 $event->add_record_snapshot('mootyper', $mootyper);
 $event->trigger();
