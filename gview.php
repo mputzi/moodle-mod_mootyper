@@ -25,6 +25,8 @@
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
+use \mod_mootyper\event\viewed_all_grades;
+
 // Changed to this newer format 03/01/2019.
 require(__DIR__ . '/../../config.php');
 require_once(__DIR__ . '/lib.php');
@@ -60,11 +62,16 @@ $mtmode = $mootyper->isexam;
 require_login($course, true, $cm);
 $context = context_module::instance($cm->id);
 
+// Trigger view all grades event.
+$params = array('objectid' => $mootyper->id, 'context' => $context);
+$event = viewed_all_grades::create($params);
+$event->trigger();
+
 // Prevent students from typing in address to view all grades.
 if (!has_capability('mod/mootyper:viewgrades', context_module::instance($cm->id))) {
     redirect('view.php?id='.$id, get_string('invalidaccess', 'mootyper'));
 } else {
-    // The following needs to retrieve leybdbgc for setting this background.
+    // The following needs to retrieve keybdbgc for setting this background.
     $color3 = $mootyper->keybdbgc;
 
     $PAGE->set_url('/mod/mootyper/gview.php', array('id' => $cm->id));
