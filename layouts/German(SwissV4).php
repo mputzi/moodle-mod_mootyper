@@ -28,7 +28,7 @@
 <?php
 echo (isset($displaynone) && ($displaynone == true)) ? 'display:none;' : '';
 ?>
-"><br>
+">
 <div id="keyboard" class="keyboardback">German(SwissV4) Keyboard Layout<br>
     <section>
         <div class="mtrow" style='float: left; margin-left:5px; font-size: 15px !important; line-height: 15px'>

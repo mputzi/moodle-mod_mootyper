@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * This file defines the Bulgarian(V5.0) keyboard layout.
+ * This file defines the Bulgarian(V5.1) keyboard layout.
  *
  * @package    mod_mootyper
  * @copyright  2016 onwards AL Rachels (drachels@drachels.com)
@@ -99,8 +99,8 @@ echo (isset($displaynone) && ($displaynone == true)) ? 'display:none;' : '';
             <div id="jkeyctrll" class="normal" style="width: 50px;">Ctrl</div>
             <div id="jempty" class="normal" style="width: 50px;">Win</div>
             <div id="jkeyalt" class="normal" style="width: 50px;">Alt</div>
-            <div id="jkeyspace" class="normal" style="width: 265px;">Space</div>
-            <div id="jkeyaltgr" class="normal" style="width: 50px;">Alt Gr</div>
+            <div id="jkeyspace" class="normal" style="width: 260px;">Space</div>
+            <div id="jkeyaltgr" class="normal" style="width: 555px;">Alt Gr</div>
             <div id="jempty" class="normal" style="width: 50px;">Win</div>
             <div id="jempty" class="normal" style="width: 50px;">Menu</div>
             <div id="jkeyctrlr" class="normal" style="width: 50px; border-right-style: solid;">Ctrl</div>

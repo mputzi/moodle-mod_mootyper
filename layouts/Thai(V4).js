@@ -98,7 +98,7 @@ function thenFinger(tCrka) {
     if (tCrka === ' ') {
         return 5; // Highlight the spacebar.
     // @codingStandardsIgnoreLine
-    } else if (tCrka.match(/[_%ๅ+ๆ๐ฟฤผ(จ๗ยญวซฝฦข๘บฐง.ช๙ล,ฃฅ]/i)) {
+    } else if (tCrka.match(/[_%ๅ+ๅ๐ๆฟฤผ(จ๗ยญวซฝฦข๘บฐง.ช๙ล,ฃฅ]/i)) {
         return 4; // Highlight the correct key above in red.
     // @codingStandardsIgnoreLine
     } else if (tCrka.match(/[/๑ไ"หฆป)ต๖นฯสศใฬ]/i)) {

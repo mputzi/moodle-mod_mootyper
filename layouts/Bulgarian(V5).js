@@ -1,7 +1,7 @@
 /**
- * @fileOverview Bulgarian(V5.0) keyboard driver.
+ * @fileOverview Bulgarian(V5.1) keyboard driver.
  * @author <a href="mailto:drachels@drachels.com">AL Rachels</a>
- * @version 5.0
+ * @version 5.1
  * @since 6/20/2018
  */
 

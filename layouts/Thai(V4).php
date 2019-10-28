@@ -65,7 +65,7 @@ echo (isset($displaynone) && ($displaynone == true)) ? 'display:none;' : '';
             <div id="jkeybackslash" class="normal" style='width: 75px;text-align:left;'>&nbsp;ฅ<br>&nbsp;&nbsp; &nbsp;ฃ</div>
         </div>
         <div class="mtrow" style='float: left; margin-left:5px; font-size: 15px !important; line-height: 15px'>
-            <div id="jkeycaps" class="normal" style="width: 80px; font-size: 12px">Caps Lock</div>
+            <div id="jkeycaps" class="normal" style="width: 80px">Caps Lock</div>
             <div id="jkeya" class="finger4" style='text-align:left;'>&nbsp;ฤ<br>&nbsp; &nbsp; &nbsp;ฟ</div>
             <div id="jkeys" class="finger3" style='text-align:left;'>&nbsp;ฆ<br>&nbsp; &nbsp; &nbsp;ห</div>
             <div id="jkeyd" class="finger2" style='text-align:left;'>&nbsp;ฏ<br>&nbsp; &nbsp; &nbsp;ก</div>
@@ -77,7 +77,7 @@ echo (isset($displaynone) && ($displaynone == true)) ? 'display:none;' : '';
             <div id="jkeyl" class="finger3" style='text-align:left;'>&nbsp;ศ<br>&nbsp; &nbsp; &nbsp;ส</div>
             <div id="jkeysemicolon" class="finger4" style='text-align:left;'>&nbsp;ซ<br>&nbsp; &nbsp; &nbsp;ว</div>
             <div id="jkeyapostrophe" class="normal" style='text-align:left;'>&nbsp;.<br>&nbsp; &nbsp; &nbsp;ง</div>
-            <div id="jkeyenter" class="normal" style="width: 95px;">Enter</div>
+            <div id="jkeyenter" class="normal" style="width: 85px;">Enter</div>
         </div>
         <div class="mtrow" style='float: left; margin-left:5px; font-size: 15px !important; line-height: 15px'>
             <div id="jkeyshiftl" class="normal" style="width: 100px;">Shift</div>

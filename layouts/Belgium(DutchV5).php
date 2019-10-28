@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * This file defines the Belgium(DutchV5.0) keyboard layout.
+ * This file defines the Belgium(DutchV5.1) keyboard layout.
  *
  * @package    mod_mootyper
  * @copyright  2016 onwards AL Rachels (drachels@drachels.com)
@@ -28,7 +28,7 @@
 <?php
 echo (isset($displaynone) && ($displaynone == true)) ? 'display:none;' : '';
 ?>
-"><br>
+">
 <div id="keyboard" class="keyboardback">Belgian(DutchV5) Keyboard Layout<br>
     <section>
         <div class="mtrow" style='float: left; margin-left:5px; font-size: 15px !important; line-height: 15px'>

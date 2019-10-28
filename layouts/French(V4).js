@@ -1,7 +1,7 @@
 /**
  * @fileOverview French(V4.1) keyboard driver.
  * @author <a href="mailto:drachels@drachels.com">AL Rachels</a>
- * @version 4.0
+ * @version 4.1
  * @since 12/06/2017
  */
 

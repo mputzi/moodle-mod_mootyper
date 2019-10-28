@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * This file defines the Portuguese(BrazilV5)keyboard layout.
+ * This file defines the Portuguese(BrazilV5.1)keyboard layout.
  *
  * @package    mod_mootyper
  * @copyright  2016 onwards AL Rachels (drachels@drachels.com)
@@ -116,8 +116,8 @@ echo (isset($displaynone) && ($displaynone == true)) ? 'display:none;' : '';
             <div id="jkeyctrll" class="normal" style="width: 60px;">Ctrl</div>
             <div id="jkeywin" class="normal" style="width: 50px;">Win</div>
             <div id="jkeyalt" class="normal" style="width: 50px;">Alt</div>
-            <div id="jkeyspace" class="normal" style="width: 245px;">Space</div>
-            <div id="jkeyaltgr" class="normal" style="width: 50px;"><span style="color:blue">Alt Gr</span></div>
+            <div id="jkeyspace" class="normal" style="width: 240px;">Space</div>
+            <div id="jkeyaltgr" class="normal" style="width: 55px;"><span style="color:blue">Alt Gr</span></div>
             <div id="jkeywin" class="normal" style="width: 50px;">Win</div>
             <div id="jkeyfn" class="normal" style="width: 50px;">Menu</div>
             <div id="jkeyctrlr" class="normal" style="width: 60px;">Ctrl</div>

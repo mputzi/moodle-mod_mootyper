@@ -28,7 +28,7 @@
 <?php
 echo (isset($displaynone) && ($displaynone == true)) ? 'display:none;' : '';
 ?>
-"><br>
+">
 <div id="keyboard" class="keyboardback">French(V4) Keyboard Layout<br>
     <section>
         <div class="mtrow" style='float: left; margin-left:5px; font-size: 15px !important; line-height: 15px'>
@@ -113,8 +113,8 @@ echo (isset($displaynone) && ($displaynone == true)) ? 'display:none;' : '';
             <div id="jkeyctrll" class="normal" style="width: 60px;">Ctrl</div>
             <div id="jkeyfn" class="normal" style="width: 50px;">Win</div>
             <div id="jkeyalt" class="normal" style="width: 50px;">Alt</div>
-            <div id="jkeyspace" class="normal" style="width: 255px;">Espace</div>
-            <div id="jkeyaltgr" class="normal" style=" font-size: 15px !important; color:blue; width: 50px;">Alt Gr</div>
+            <div id="jkeyspace" class="normal" style="width: 250px;">Espace</div>
+            <div id="jkeyaltgr" class="normal" style=" font-size: 15px !important; color:blue; width: 55px;">Alt Gr</div>
             <div id="jkeyfn" class="normal" style="width: 50px;">Win</div>
             <div id="jempty" class="normal" style="width: 50px;">Menu</div>
             <div id="jkeyctrlr" class="normal" style="width: 50px;">Ctrl</div>

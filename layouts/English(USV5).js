@@ -1,7 +1,7 @@
 /**
- * @fileOverview English(USV5) keyboard driver.
+ * @fileOverview English(USV5.1) keyboard driver.
  * @author <a href="mailto:drachels@drachels.com">AL Rachels</a>
- * @version 5.0
+ * @version 5.1
  * @since 03/05/2019
  */
 
@@ -132,15 +132,9 @@ function thenFinger(tCrka) {
 function getKeyID(tCrka) {
     if (tCrka === ' ') {
         return "jkeyspace";
-    } else if (tCrka === ',') {
-        return "jkeycomma";
     } else if (tCrka === '\n') {
         return "jkeyenter";
-    } else if (tCrka === '.') {
-        return "jkeyperiod";
-    } else if (tCrka === '-' || tCrka === '_') {
-        return "jkeyminus";
-    } else if (tCrka === '`') {
+    } else if (tCrka === '~' || tCrka === '`') {
         return "jkeybackquote";
     } else if (tCrka === '!') {
         return "jkey1";
@@ -182,8 +176,6 @@ function getKeyID(tCrka) {
         return "jkeyequals";
     } else if (tCrka === '?' || tCrka === '/') {
         return "jkeyslash";
-    } else if (tCrka === '~' || tCrka === '`') {
-        return "jkeybackquote";
     } else {
         return "jkey" + tCrka;
     }

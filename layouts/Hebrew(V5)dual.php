@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * This file defines the Hebrew(V5)dual keyboard layout.
+ * This file defines the Hebrew(V5.0)dual keyboard layout.
  *
  * @package    mod_mootyper
  * @copyright  2012 Jaka Luthar (jaka.luthar@gmail.com)
