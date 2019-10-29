@@ -25,6 +25,8 @@
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later.
  **/
 
+use \mod_mootyper\event\exercise_added;
+
 // Changed to this newer format 03/01/2019.
 require(__DIR__ . '/../../config.php');
 require_once(__DIR__ . '/lib.php');
@@ -76,10 +78,8 @@ if (isset($param1) && get_string('fconfirm', 'mootyper') == $param1 ) {
 
     echo '<script type="text/javascript">window.location="'.$webdir.'";</script>';
     // Trigger module exercise_added event.
-    $event = \mod_mootyper\event\exercise_added::create(array(
-        'objectid' => $course->id,
-        'context' => $context
-    ));
+    $params = array('objectid' => $course->id, 'context' => $context);
+    $event = exercise_added::create($params);
     $event->trigger();
 }
 // Get all the default configuration settings for MooTyper.

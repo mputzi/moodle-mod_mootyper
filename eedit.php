@@ -23,6 +23,8 @@
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
+use \mod_mootyper\event\exercise_edited;
+
 // Changed to this newer format 03/01/2019.
 require(__DIR__ . '/../../config.php');
 require_once(__DIR__ . '/lib.php');
@@ -63,10 +65,8 @@ if (isset($param1) && get_string('fconfirm', 'mootyper') == $param1 ) {
     $DB->update_record('mootyper_exercises', $updr);
 
     // Trigger module exercise_edited event.
-    $event = \mod_mootyper\event\exercise_edited::create(array(
-        'objectid' => $course->id,
-        'context' => $context
-    ));
+    $params = array('objectid' => $course->id, 'context' => $context);
+    $event = exercise_edited::create($params);
     $event->trigger();
 
     $webdir = $CFG->wwwroot . '/mod/mootyper/exercises.php?id='.$id.'&lesson='.$rcrd->lesson;
