@@ -1,3 +1,30 @@
+/*
+
+// This file is part of Moodle - http://moodle.org/
+//
+// Moodle is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
+//
+// Moodle is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
+/**
+ * This is the css style sheet for MooTyper.
+ *
+ * @package    mod_mootyper
+ * @copyright  2012 Jaka Luthar (jaka.luthar@gmail.com), Luka Pralica (pehtran@gmail.com)
+ * @copyright  2016 onwards AL Rachels (drachels@drachels.com)
+ * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later.
+ */
+
 #mainDiv {
     display: inline-block;
     text-align: center;
@@ -10,22 +37,35 @@
 }
 
 #texttoenter {
-    position:relative;
-    padding:6px 12px 30px 12px;
-    margin-top:0px;
-    margin:auto;
-    margin-bottom:20px;
-    width:100%;
-    height:160px;
-    overflow:hidden;
-    color:#1d4851;
-    font-family:Courier;
-    font-size:24px;
-    font-weight:bold;
-    line-height:30px;
-    border:0px solid #000000;
-    border-radius:8px;
-    text-align: justify;
+ position:relative;
+  padding:6px 12px 30px 12px;
+  margin-top:0px;
+  margin:auto;
+  margin-bottom:20px;
+  width:100%;
+  height:160px;
+  overflow:hidden;
+  color:#1d4851;
+  font-family:Courier;
+  font-size:24px;
+  font-weight:bold;
+  line-height:30px;
+  background: [[setting:textbgc]];
+  border:0px solid #000000;
+  -webkit-border-radius:8px;
+  -moz-border-radius:8px;
+  border-radius:8px;
+  text-align: justify;
+   -webkit-box-shadow:
+        inset 0 0 8px #bbb,
+        0 1px 0 #aaa,
+        0 4px 0 #bbb,
+        0 10px 30px #ddd;
+    -moz-box-shadow:
+        inset 0 0 8px #bbb,
+        0 1px 0 #aaa,
+        0 4px 0 #bbb,
+        0 10px 30px #ddd;
     box-shadow:
         inset 0 0 8px #bbb,
         0 1px 0 #aaa,
@@ -34,23 +74,26 @@
 }
 
 div#wrapStats {
-    position:center;
-    padding:0px 0px 0px 0px;
-    margin-top:0px;
-    margin:auto;
-    margin-bottom:2px;
-    width:100%;
-    color:#1d4851;
-    font-family:Times New Roman, Times, serif;
-    font-size:14px;
-    font-weight:bold;
+ position:center;
+  padding:0px 0px 0px 0px;
+  margin-top:0px;
+  margin:auto;
+  margin-bottom:2px;
+  width:620px;
+  color:#1d4851;
+  font-family:Times New Roman, Times, serif;
+  font-size:14px;
+  font-weight:bold;
+
 }
 
 div#statsLDiv {
     border: 1px solid #666;
     box-sizing: border-box;
-    border-top-left-radius: 10px;
-    border-bottom-left-radius: 10px;
+    -moz-border-radius-topleft: 7px 21px;
+     border-top-left-radius: 10px ;
+    -moz-border-radius-bottomleft: 7px 21px;
+     border-bottom-left-radius: 10px ;
     box-shadow:
         0 1px 0 #aaa,
         0 4px 0 #bbb,
@@ -69,9 +112,10 @@ div#statsMDiv {
 div#statsRDiv {
     border: 1px solid #666;
     box-sizing: border-box;
-    *background:#fdff99;
-    border-top-right-radius: 10px ;
-    border-bottom-right-radius: 10px ;
+    -moz-border-radius-topright: 7px 21px;
+     border-top-right-radius: 10px ;
+    -moz-border-radius-bottomright: 7px 21px;
+     border-bottom-right-radius: 10px ;
     box-shadow:
         0 1px 0 #aaa,
         0 4px 0 #bbb,
@@ -114,6 +158,18 @@ div#statsRDiv {
     color: blue;
 }
 
+.textup {
+    position: relative;
+    bottom: 0.6em;
+    font-size: 0.9em;
+}
+
+.textdown {
+    position: relative;
+    top: 0.5em;
+    font-size: 0.9em;
+}
+
 .mtrow {
     height:40px;
     margin-bottom:5px;
@@ -128,13 +184,22 @@ div#statsRDiv {
     font-size: 1em;
     padding: 2px 2px;
     color: #000;
+    -webkit-border-radius: 6px;
+    -moz-border-radius: 6px;
     border-radius: 6px;
     border: 1px solid #666;
     box-sizing: border-box;
     font-weight: bold;
     text-shadow: 0 -1px 0 rgba(255, 255, 255, 0.4);
+    -webkit-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2);
+    -moz-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2);
     box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2);
+    -webkit-transition-duration: 0.2s;
+    -moz-transition-duration: 0.2s;
     transition-duration: 0.2s;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
 }
 
 .keyboardpadback {
@@ -146,13 +211,22 @@ div#statsRDiv {
     font-size: 1em;
     padding: 2px 2px;
     color: #000;
+    -webkit-border-radius: 6px;
+    -moz-border-radius: 6px;
     border-radius: 6px;
     border: 1px solid #666;
     box-sizing: border-box;
     font-weight: bold;
     text-shadow: 0 -1px 0 rgba(255, 255, 255, 0.4);
+    -webkit-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2);
+    -moz-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2);
     box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2);
+    -webkit-transition-duration: 0.2s;
+    -moz-transition-duration: 0.2s;
     transition-duration: 0.2s;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
 }
 
 .keypadback {
@@ -164,13 +238,22 @@ div#statsRDiv {
     font-size: 1em;
     padding: 2px 2px;
     color: #000;
+    -webkit-border-radius: 6px;
+    -moz-border-radius: 6px;
     border-radius: 6px;
     border: 1px solid #666;
     box-sizing: border-box;
     font-weight: bold;
     text-shadow: 0 -1px 0 rgba(255, 255, 255, 0.4);
+    -webkit-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2);
+    -moz-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2);
     box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2);
+    -webkit-transition-duration: 0.2s;
+    -moz-transition-duration: 0.2s;
     transition-duration: 0.2s;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
 }
 
 .normal {
@@ -181,13 +264,22 @@ div#statsRDiv {
     vertical-align: middle;
     padding: 2px 2px;
     color: #000;
+    -webkit-border-radius: 6px;
+    -moz-border-radius: 6px;
     border-radius: 6px;
     border: 1px solid #666;
     box-sizing: border-box;
     font-weight: bold;
     text-shadow: 0 -1px 0 rgba(255, 255, 255, 0.4);
+    -webkit-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2);
+    -moz-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2);
     box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2);
+    -webkit-transition-duration: 0.2s;
+    -moz-transition-duration: 0.2s;
     transition-duration: 0.2s;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
 }
 
 .normalblank {
@@ -198,11 +290,18 @@ div#statsRDiv {
     vertical-align: middle;
     padding: 2px 2px;
     color: #000;
+    -webkit-border-radius: 6px;
+    -moz-border-radius: 6px;
     border-radius: 6px;
     box-sizing: border-box;
     font-weight: bold;
     text-shadow: 0 -1px 0 rgba(255, 255, 255, 0.4);
+    -webkit-transition-duration: 0.2s;
+    -moz-transition-duration: 0.2s;
     transition-duration: 0.2s;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
 }
 
 .finger4 {
@@ -214,13 +313,22 @@ div#statsRDiv {
     padding: 2px 2px;
     background: #faa;
     color: #000;
+    -webkit-border-radius: 6px;
+    -moz-border-radius: 6px;
     border-radius: 6px;
     border: 1px solid #c00;
     box-sizing: border-box;
     font-weight: bold;
     text-shadow: 0 -1px 0 rgba(255, 255, 255, 0.5);
+    -webkit-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2);
+    -moz-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2);
     box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2);
+    -webkit-transition-duration: 0.2s;
+    -moz-transition-duration: 0.2s;
     transition-duration: 0.2s;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
 }
 
 .finger3 {
@@ -232,13 +340,22 @@ div#statsRDiv {
     padding: 2px 2px;
     background: #bf9;
     color: #000;
+    -webkit-border-radius: 6px;
+    -moz-border-radius: 6px;
     border-radius: 6px;
     border: 1px solid #0a0;
     box-sizing: border-box;
     font-weight: bold;
     text-shadow: 0 -1px 0 rgba(255, 255, 255, 0.8);
+    -webkit-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2);
+    -moz-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2);
     box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2);
+    -webkit-transition-duration: 0.2s;
+    -moz-transition-duration: 0.2s;
     transition-duration: 0.2s;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
 }
 
 .finger2 {
@@ -250,13 +367,22 @@ div#statsRDiv {
     padding: 2px 2px;
     background: #fdff99;
     color: #000;
+    -webkit-border-radius: 6px;
+    -moz-border-radius: 6px;
     border-radius: 6px;
     border: 1px solid #e89700;
     box-sizing: border-box;
     font-weight: bold;
     text-shadow: 0 -1px 0 rgba(255, 255, 255, 0.8);
+    -webkit-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2);
+    -moz-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2);
     box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2);
+    -webkit-transition-duration: 0.2s;
+    -moz-transition-duration: 0.2s;
     transition-duration: 0.2s;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
 }
 
 .finger1 {
@@ -268,13 +394,22 @@ div#statsRDiv {
     padding: 2px 2px;
     background: #9df;
     color: #000;
+    -webkit-border-radius: 6px;
+    -moz-border-radius: 6px;
     border-radius: 6px;
     border: 1px solid #08b;
     box-sizing: border-box;
     font-weight: bold;
     text-shadow: 0 -1px 0 rgba(255, 255, 255, 0.8);
+    -webkit-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2);
+    -moz-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2);
     box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2);
+    -webkit-transition-duration: 0.2s;
+    -moz-transition-duration: 0.2s;
     transition-duration: 0.2s;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
 }
 
 .fingerSpace {
@@ -286,13 +421,22 @@ div#statsRDiv {
     padding: 2px 2px;
     background: #9df;
     color: #000;
+    -webkit-border-radius: 6px;
+    -moz-border-radius: 6px;
     border-radius: 6px;
     border: 1px solid #08b;
     box-sizing: border-box;
     font-weight: bold;
     text-shadow: 0 -1px 0 rgba(255, 255, 255, 0.8);
+    -webkit-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2);
+    -moz-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2);
     box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2);
+    -webkit-transition-duration: 0.2s;
+    -moz-transition-duration: 0.2s;
     transition-duration: 0.2s;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
 }
 
 .next1 {
@@ -304,13 +448,22 @@ div#statsRDiv {
     padding: 2px 2px;
     background: #0070c1;
     color: #fff;
+    -webkit-border-radius: 6px;
+    -moz-border-radius: 6px;
     border-radius: 6px;
     border: 1px solid #004182;
     box-sizing: border-box;
     font-weight: bold;
     text-shadow: 0 1px 0 rgba(0, 0, 0, 0.4);
+    -webkit-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2);
+    -moz-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2);
     box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2);
+    -webkit-transition-duration: 0.2s;
+    -moz-transition-duration: 0.2s;
     transition-duration: 0.2s;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
 }
 
 .next2 {
@@ -322,13 +475,22 @@ div#statsRDiv {
     padding: 2px 2px;
     background: #c17400;
     color: #fff;
+    -webkit-border-radius: 6px;
+    -moz-border-radius: 6px;
     border-radius: 6px;
     border: 1px solid #825700;
     box-sizing: border-box;
     font-weight: bold;
     text-shadow: 0 1px 0 rgba(0, 0, 0, 0.4);
+    -webkit-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2);
+    -moz-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2);
     box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2);
+    -webkit-transition-duration: 0.2s;
+    -moz-transition-duration: 0.2s;
     transition-duration: 0.2s;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
 }
 
 .next3 {
@@ -340,13 +502,22 @@ div#statsRDiv {
     padding: 2px 2px;
     background: #2e8901;
     color: #fff;
+    -webkit-border-radius: 6px;
+    -moz-border-radius: 6px;
     border-radius: 6px;
     border: 1px solid #315e00;
     box-sizing: border-box;
     font-weight: bold;
     text-shadow: 0 1px 0 rgba(0, 0, 0, 0.4);
+    -webkit-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2);
+    -moz-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2);
     box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2);
+    -webkit-transition-duration: 0.2s;
+    -moz-transition-duration: 0.2s;
     transition-duration: 0.2s;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
 }
 
 .next4 {
@@ -358,13 +529,22 @@ div#statsRDiv {
     padding: 2px 2px;
     background: #d90000;
     color: #fff;
+    -webkit-border-radius: 6px;
+    -moz-border-radius: 6px;
     border-radius: 6px;
     border: 1px solid #c00;
     box-sizing: border-box;
     font-weight: bold;
     text-shadow: 0 1px 0 rgba(0, 0, 0, 0.4);
+    -webkit-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2);
+    -moz-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2);
     box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2);
+    -webkit-transition-duration: 0.2s;
+    -moz-transition-duration: 0.2s;
     transition-duration: 0.2s;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
 }
 
 .nextSpace {
@@ -376,13 +556,22 @@ div#statsRDiv {
     padding: 2px 2px;
     background: #757500;
     color: #fff;
+    -webkit-border-radius: 6px;
+    -moz-border-radius: 6px;
     border-radius: 6px;
     border: 1px solid #353500;
     box-sizing: border-box;
     font-weight: bold;
     text-shadow: 0 1px 0 rgba(0, 0, 0, 0.4);
+    -webkit-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2);
+    -moz-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2);
     box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2);
+    -webkit-transition-duration: 0.2s;
+    -moz-transition-duration: 0.2s;
     transition-duration: 0.2s;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
 }
 
 /* Sort direction indcators. */
