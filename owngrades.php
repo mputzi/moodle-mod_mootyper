@@ -26,6 +26,9 @@
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
+use \mod_mootyper\event\viewed_own_grades;
+
+
 // Changed to this newer format 03/01/2019.
 require(__DIR__ . '/../../config.php');
 require_once(__DIR__ . '/lib.php');
@@ -221,6 +224,12 @@ if (!has_capability('mod/mootyper:viewmygrades', context_module::instance($cm->i
     $htmlout .= '</div>';
 }
 echo $htmlout;
+
+// Trigger module viewed_own_grades event.
+$params = array('objectid' => $course->id, 'context' => $context);
+$event = viewed_own_grades::create($params);
+$event->trigger();
+
 if (($grds != false) && ($CFG->branch > 31)) {  // If there are NOT any grades, DON'T draw the chart.
     // Create the info the api needs passed to it for each series I want to chart.
     $serie1 = new core\chart_series(get_string('hitsperminute', 'mootyper'), $serieshitsperminute);
