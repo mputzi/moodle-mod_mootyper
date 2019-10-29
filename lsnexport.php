@@ -25,6 +25,8 @@
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later.
  */
 
+use \mod_mootyper\event\lesson_exported;
+
 require(__DIR__ . '/../../config.php');
 require_once(__DIR__ . '/lib.php');
 require_once(__DIR__ . '/locallib.php');
@@ -45,11 +47,10 @@ $context = context_course::instance($id);
 $data = new StdClass();
 $data->mootyper = $id;
 $context = context_course::instance($id);
+
 // Trigger lesson_export event.
-$event = \mod_mootyper\event\lesson_exported::create(array(
-    'objectid' => $data->mootyper,
-    'context' => $context
-));
+$params = array('objectid' => $data->mootyper, 'context' => $context);
+$event = lesson_exported::create($params);
 $event->trigger();
 
 $params = array();

@@ -29,6 +29,9 @@
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later.
  */
 
+use \mod_mootyper\event\lesson_imported;
+use \mod_mootyper\event\layout_imported;
+
 require(__DIR__ . '/../../config.php');
 require_once(__DIR__ . '/lib.php');
 require_once(__DIR__ . '/locallib.php');
@@ -167,10 +170,8 @@ for ($i = 0; $i < count($res); $i++) {
             $data->mootyper = $id;
             $context = context_course::instance($id);
             // Trigger lesson_import event.
-            $event = \mod_mootyper\event\lesson_imported::create(array(
-                'objectid' => $data->mootyper,
-                'context' => $context
-            ));
+            $params = array('objectid' => $data->mootyper,'context' => $context);
+            $event = \mod_mootyper\event\lesson_imported::create($params);
             $event->trigger();
         }
     }
@@ -204,10 +205,8 @@ for ($j = 0; $j < count($res2); $j++) {
             $data->mootyper = $id;
             $context = context_course::instance($id);
             // Trigger lesson_import event.
-            $event = \mod_mootyper\event\layout_imported::create(array(
-                'objectid' => $data->mootyper,
-                'context' => $context
-            ));
+            $params = array('objectid' => $data->mootyper, 'context' => $context);
+            $event = \mod_mootyper\event\layout_imported::create($params);
             $event->trigger();
         }
     }
