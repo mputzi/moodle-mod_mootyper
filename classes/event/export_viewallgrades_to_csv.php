@@ -15,34 +15,31 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * The mod_mootyper course exercises viewed event.
+ * The mod_mootyper export_viewallgrades_to_csv event.
  *
- * @package    mod_mootyper
- * @copyright  2016 AL Rachels drachels@drachels.com
- * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ * @package     mod_mootyper
+ * @copyright   2019 AL Rachels (drachels@drachels.com)
+ * @license http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
 namespace mod_mootyper\event;
-
 defined('MOODLE_INTERNAL') || die();
 
 /**
- * The mod_mootyper exercises viewed event class.
+ * The mod_mootyper export_viewallgrades_to_csv event class.
  *
  * @package    mod_mootyper
  * @copyright  2016 AL Rachels drachels@drachels.com
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-class course_exercises_viewed extends \core\event\base {
+class export_viewallgrades_to_csv extends \core\event\base {
 
     /**
      * Init method.
-     *
-     * @return void
      */
     protected function init() {
-        $this->data['crud'] = 'r';
-        $this->data['edulevel'] = self::LEVEL_PARTICIPATING;
+        $this->data['crud'] = 'd';
+        $this->data['edulevel'] = self::LEVEL_TEACHING;
         $this->data['objecttable'] = 'mootyper';
     }
 
@@ -52,7 +49,7 @@ class course_exercises_viewed extends \core\event\base {
      * @return string
      */
     public static function get_name() {
-        return get_string('course_exercises_viewed', 'mod_mootyper');
+        return get_string('gradesfilename', 'mod_mootyper');
     }
 
     /**
@@ -61,7 +58,7 @@ class course_exercises_viewed extends \core\event\base {
      * @return string
      */
     public function get_description() {
-        return "The user with id '$this->userid' viewed mootyper exercises while in the course with id
+        return "The user with id '$this->userid' exported the View all grades data to a CSV file while in the course with id
             '$this->contextinstanceid'.";
     }
 
@@ -70,16 +67,16 @@ class course_exercises_viewed extends \core\event\base {
      * @return \moodle_url
      */
     public function get_url() {
-        return new \moodle_url('/mod/mootyper/exercises.php', array('id' => $this->objectid));
+        return new \moodle_url('/mod/mootyper/gview.php', array('id' => $this->contextinstanceid));
     }
 
     /**
-     * Return the legacy event log data.
+     * replace add_to_log() statement.
      *
-     * @return array|null
+     * @return array of parameters to be passed to legacy add_to_log() function.
      */
     protected function get_legacy_logdata() {
-        return array($this->courseid, 'mootyper', 'view mootyper', 'exercises.php?id=' . $this->objectid,
-            $this->objectid, $this->contextinstanceid);
+        $url = new \moodle_url('gview.php', array('id' => $this->contextinstanceid));
+        return array($this->courseid, 'mootyper', 'gview', $url->out(), $this->objectid, $this->contextinstanceid);
     }
 }

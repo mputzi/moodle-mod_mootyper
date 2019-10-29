@@ -45,6 +45,19 @@ sending an email, leave a comment at
 
 Moodle Versions
 ===============
+=== 3.8.0 ===
+10/28/19 Corrected comment style used in styles.css file. Also deleted all of the
+[[settings]] lines of code that were preventing Moodle from applying the file.
+10/28/19 Tweaked the Alt Gr when needed in all the layouts. Also eliminated an
+extra blank line that was spacing the KB layout two lines below texttoenter
+instead of just one.
+10/29/19 Verified and tweaked as needed, all the event code in php files, that
+I could. Added new event for viewed_own_grades in owngrades.php.
+10/29/19 Fixed bug in, Viewed exercises, event, course_exercises_viewed.php. In
+the logs, the Viewed exercises link was giving an error due to passing 'f' instead
+of passing 'id' to the URL.
+10/29/19 Changed event description for View all grades and Viewed exercises.
+
 === 3.7.0 ===
 05/20/19 function get_keyboard_layouts_db() { in locallib.php so the list of keyboard
 layouts appears in alphabetical order.
@@ -57,6 +70,7 @@ do not cause an extra new line due to long label names.
 10/16/19 Fixed a bug in mod_setup.php that prevented use of setup modes other than what
 was in the default settings for mode.
 10/21/19 Ran codechecker and udated README.md
+10/23/19 Released v3.7.0.
 
 === 3.6.1 ===
 04/12/19 As of 11:30 AM, I have finally gotten my Korean(V5) keyboard to start

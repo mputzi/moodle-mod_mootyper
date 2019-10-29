@@ -24,6 +24,8 @@
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later.
  */
 
+use \mod_mootyper\event\course_exercises_viewed;
+
 // Changed to this newer format 03/01/2019.
 require(__DIR__ . '/../../config.php');
 require_once(__DIR__ . '/lib.php');
@@ -44,10 +46,8 @@ require_login($course, true);
 $context = context_course::instance($id);
 
 // Trigger module exercise_viewed event.
-$event = \mod_mootyper\event\course_exercises_viewed::create(array(
-    'objectid' => $course->id,
-    'context' => $context
-));
+$params = array('objectid' => $course->id, 'context' => $context);
+$event = \mod_mootyper\event\course_exercises_viewed::create($params);
 $event->trigger();
 
 // Print the page header.
