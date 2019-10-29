@@ -110,7 +110,7 @@ class mod_mootyper_mod_form extends moodleform_mod {
         // MooTyper activity setup, Options settings.
         $mform->addElement('header', 'optionhdr', get_string('options', 'mootyper'));
 
-        // Add a dropdown selector for isexam (the activity mode).
+        // TODO: Add a dropdown selector for isexam (the activity mode).
         //$modes = array(get_string('sflesson', 'mod_mootyper'),
         //              get_string('isexamtext', 'mod_mootyper'),
         //              get_string('practice', 'mod_mootyper'));
@@ -118,7 +118,7 @@ class mod_mootyper_mod_form extends moodleform_mod {
         //$mform->addHelpButton('isexam', 'fmode', 'mootyper');
         //$mform->setDefault('isexam', $mootyperconfig->isexam);
 
-        // Add a dropdown selector of lesson/category.
+        // TODO: Add a dropdown selector of lesson/category.
 
         // Add a dropdown slector for Required precision. 11/25/17.
         $precs = array();
