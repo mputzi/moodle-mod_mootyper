@@ -170,7 +170,7 @@ for ($i = 0; $i < count($res); $i++) {
             $data->mootyper = $id;
             $context = context_course::instance($id);
             // Trigger lesson_import event.
-            $params = array('objectid' => $data->mootyper,'context' => $context);
+            $params = array('objectid' => $data->mootyper, 'context' => $context);
             $event = \mod_mootyper\event\lesson_imported::create($params);
             $event->trigger();
         }
