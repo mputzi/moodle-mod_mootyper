@@ -26,6 +26,8 @@
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later.
  */
 
+use \mod_mootyper\event\export_viewallgrades_to_csv;
+
 // Changed to this newer format 03/10/2019.
 require(__DIR__ . '/../../config.php');
 require_once(__DIR__ . '/lib.php');
@@ -45,7 +47,7 @@ function array_to_csv_download($array, $filename = "export.csv", $delimiter=";")
     $lsnname = optional_param('lsnname', '', PARAM_RAW); // Get the lesson name for this MooTyper.
     $requiredgoal = optional_param('requiredgoal', 0, PARAM_INT); // Get the required precision goal for this MooTyper.
 
-    // Tart building a row 1 entry grades csv output, based on the mode.
+    // Start building a row 1 entry grades csv output, based on the mode.
     switch ($misexam) {
         case 0:
             $mtmode = get_string('fmode', 'mootyper')." = ".get_string('flesson', 'mootyper');
