@@ -57,6 +57,8 @@ I could. Added new event for viewed_own_grades in owngrades.php.
 the logs, the Viewed exercises link was giving an error due to passing 'f' instead
 of passing 'id' to the URL.
 10/29/19 Changed event description for View all grades and Viewed exercises.
+11/07/19 Added course name and activity name to the first row of the csv file
+output. Made changes in both gview.php and csvexport.php and pushed to github.
 
 === 3.7.0 ===
 05/20/19 function get_keyboard_layouts_db() { in locallib.php so the list of keyboard

@@ -43,11 +43,17 @@ require_login(0, true, null, false);
  * @return array, false if none.
  */
 function array_to_csv_download($array, $filename = "export.csv", $delimiter=";") {
+    $coursename = optional_param('coursename', '', PARAM_RAW); // Get the course name for this MooTyper.
+    $mtname = optional_param('mtname', '', PARAM_RAW); // Get the activity name for this MooTyper.
     $misexam = optional_param('isexam', 0, PARAM_INT); // Get the mode for this MooTyper.
     $lsnname = optional_param('lsnname', '', PARAM_RAW); // Get the lesson name for this MooTyper.
     $requiredgoal = optional_param('requiredgoal', 0, PARAM_INT); // Get the required precision goal for this MooTyper.
 
-    // Start building a row 1 entry grades csv output, based on the mode.
+    // Start building a row 1 entry of the course name, activity name, mode, lesson name, and required precision..
+    $coursename = get_string(course)." = ".$coursename;
+    $mtname = get_string(activity)." = ".$mtname;
+
+    // Continue building a row 1 entry grades csv output, based on the mode.
     switch ($misexam) {
         case 0:
             $mtmode = get_string('fmode', 'mootyper')." = ".get_string('flesson', 'mootyper');
@@ -77,9 +83,11 @@ function array_to_csv_download($array, $filename = "export.csv", $delimiter=";")
     header("Expires: 0");
     $f = fopen('php://output', 'w');
 
-    $details = array($mtmode,
-                      $lsnname,
-                      $requiredgoal);
+    $details = array($coursename,
+                     $mtname,
+                     $mtmode,
+                     $lsnname,
+                     $requiredgoal);
 
     $headings = array(get_string('student', 'mootyper'),
                       get_string('fexercise', 'mootyper'),
