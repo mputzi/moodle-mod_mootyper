@@ -59,6 +59,9 @@ of passing 'id' to the URL.
 10/29/19 Changed event description for View all grades and Viewed exercises.
 11/07/19 Added course name and activity name to the first row of the csv file
 output. Made changes in both gview.php and csvexport.php and pushed to github.
+11/10/19 Add details to the log entrries for when an exercise grade is deleted.
+This required multiple changes to three files, attrem.php, grade_deleted.php,
+and owngrades_deleted.php.
 
 === 3.7.0 ===
 05/20/19 function get_keyboard_layouts_db() { in locallib.php so the list of keyboard

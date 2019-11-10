@@ -28,7 +28,6 @@
 
 use \mod_mootyper\event\viewed_own_grades;
 
-
 // Changed to this newer format 03/01/2019.
 require(__DIR__ . '/../../config.php');
 require_once(__DIR__ . '/lib.php');

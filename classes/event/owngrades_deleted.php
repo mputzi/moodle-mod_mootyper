@@ -58,8 +58,8 @@ class owngrades_deleted extends \core\event\base {
      * @return string
      */
     public function get_description() {
-        return "The user with id '$this->userid' removed their own mootyper practice exercise grade while in the course with id
-            '$this->contextinstanceid'.";
+        return "The user with id '$this->userid' removed their own grade for exercise '$this->other' in
+            the 'mootyper' activity with course module id '$this->contextinstanceid'.";
     }
 
     /**

@@ -58,13 +58,13 @@ if (isset($gradeid)) {
 // Return to the View my grades or View all grades page.
 if ($mtmode == 2) {
     // Trigger grade deleted event for mode 2 only if on, View own grades, page.
-    $params = array('objectid' => $mootyper->id, 'context' => $context, 'mode' => $mootyper->isexam);
+    $params = array('objectid' => $mootyper->id, 'context' => $context, 'other' => $dbgrade->exercise);
     $event = owngrades_deleted::create($params);
     $event->trigger();
     $webdir = $CFG->wwwroot . '/mod/mootyper/owngrades.php?id='.$cid.'&n='.$mid;
 } else {
     // Trigger grade deleted event for mode 0, 1, or 2 if on, View all grades, page.
-    $params = array('objectid' => $mootyper->id, 'context' => $context, 'mode' => $mootyper->isexam);
+    $params = array('objectid' => $mootyper->id, 'context' => $context, 'other' => $dbgrade->exercise, 'relateduserid' => $dbgrade->userid);
     $event = grade_deleted::create($params);
     $event->trigger();
     $webdir = $CFG->wwwroot . '/mod/mootyper/gview.php?id='.$cid.'&n='.$mid;
