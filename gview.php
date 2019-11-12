@@ -57,13 +57,17 @@ if ($id) {
 } else {
     print_error(get_string('mootypererror', 'mootyper'));
 }
-$lsnname    = $DB->get_record('mootyper_lessons', array('id' => $mootyper->lesson), '*', MUST_EXIST);
+$lsnname = $DB->get_record('mootyper_lessons', array('id' => $mootyper->lesson), '*', MUST_EXIST);
 $mtmode = $mootyper->isexam;
 require_login($course, true, $cm);
 $context = context_module::instance($cm->id);
 
 // Trigger view all grades event.
-$params = array('objectid' => $mootyper->id, 'context' => $context);
+$params = array(
+        'objectid' => $mootyper->id,
+        'context' => $context,
+        'other' => $mootyper->lesson
+    );
 $event = viewed_all_grades::create($params);
 $event->trigger();
 

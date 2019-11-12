@@ -169,9 +169,13 @@ for ($i = 0; $i < count($res); $i++) {
             $data = new StdClass();
             $data->mootyper = $id;
             $context = context_course::instance($id);
-            // Trigger lesson_import event.
-            $params = array('objectid' => $data->mootyper, 'context' => $context);
-            $event = \mod_mootyper\event\lesson_imported::create($params);
+            // Trigger lesson_imported event.
+            $params = array(
+                'objectid' => $data->mootyper,
+                'context' => $context,
+                'other' => $lsn
+            );
+            $event = lesson_imported::create($params);
             $event->trigger();
         }
     }
@@ -204,8 +208,12 @@ for ($j = 0; $j < count($res2); $j++) {
             $data = new StdClass();
             $data->mootyper = $id;
             $context = context_course::instance($id);
-            // Trigger lesson_import event.
-            $params = array('objectid' => $data->mootyper, 'context' => $context);
+            // Trigger layout_imported event.
+            $params = array(
+                'objectid' => $data->mootyper,
+                'context' => $context,
+                'other' => $kbl
+            );
             $event = \mod_mootyper\event\layout_imported::create($params);
             $event->trigger();
         }

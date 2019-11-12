@@ -31,7 +31,6 @@ require(__DIR__ . '/../../config.php');
 require_once(__DIR__ . '/lib.php');
 require_once(__DIR__ . '/locallib.php');
 
-
 global $USER;
 
 $id = optional_param('id', 0, PARAM_INT); // Course_module ID.
@@ -45,9 +44,15 @@ if ($id) {
 require_login($course, true);
 $context = context_course::instance($id);
 
+$lessonpo = optional_param('lesson', 0, PARAM_INT);
+
 // Trigger module exercise_viewed event.
-$params = array('objectid' => $course->id, 'context' => $context);
-$event = \mod_mootyper\event\course_exercises_viewed::create($params);
+$params = array(
+    'objectid' => $course->id,
+    'context' => $context,
+    'other' => $lessonpo
+);
+$event = course_exercises_viewed::create($params);
 $event->trigger();
 
 // Print the page header.
@@ -61,7 +66,6 @@ $PAGE->set_cacheable(false);
 // Output starts here.
 echo $OUTPUT->header();
 
-$lessonpo = optional_param('lesson', 0, PARAM_INT);
 
 
 // Since editing an exercise is a course activity, the keyboard
@@ -141,6 +145,7 @@ echo '<table><tr><td '.$style1.'>'.get_string('ename', 'mootyper').'</td>
 
 // Print table row for each of the exercises in the lesson currently being viewed.
 $exercises = get_typerexercisesfull($lessonpo);
+
 foreach ($exercises as $ex) {
     $strtocut = $ex['texttotype'];
     $strtocut = str_replace('\n', '<br>', $strtocut);
@@ -169,4 +174,5 @@ foreach ($exercises as $ex) {
 }
 echo '</table><br>';
 echo '</div>';
+
 echo $OUTPUT->footer();

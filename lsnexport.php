@@ -48,11 +48,6 @@ $data = new StdClass();
 $data->mootyper = $id;
 $context = context_course::instance($id);
 
-// Trigger lesson_export event.
-$params = array('objectid' => $data->mootyper, 'context' => $context);
-$event = lesson_exported::create($params);
-$event->trigger();
-
 $params = array();
 // Get name of lesson to export based on incoming lesson id.
 $sql = "SELECT lessonname
@@ -60,6 +55,16 @@ $sql = "SELECT lessonname
         WHERE id = $lsn";
 $fname = $DB->get_record_sql($sql);
 $filename = $fname->lessonname;
+
+// Trigger lesson_export event.
+$params = array(
+    'objectid' => $data->mootyper,
+    'context' => $context,
+    'other' => $filename
+);
+$event = lesson_exported::create($params);
+$event->trigger();
+
 // Check to see if we need GMT added to filename based on lesson export filename setting.
 if (get_config('mod_mootyper', 'lesson_export_filename')) {
     $filename .= '_'.gmdate("Ymd_Hi").'GMT';

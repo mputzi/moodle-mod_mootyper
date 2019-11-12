@@ -65,7 +65,14 @@ if (isset($param1) && get_string('fconfirm', 'mootyper') == $param1 ) {
     $DB->update_record('mootyper_exercises', $updr);
 
     // Trigger module exercise_edited event.
-    $params = array('objectid' => $course->id, 'context' => $context);
+    $params = array(
+        'objectid' => $course->id,
+        'context' => $context,
+        'other' => array(
+            'lesson' => $updr->lesson,
+            'exercise' => $updr->exercisename
+        )
+    );
     $event = exercise_edited::create($params);
     $event->trigger();
 
