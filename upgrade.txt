@@ -70,7 +70,7 @@ more to include whose grade and for which exercise it was that was being deleted
 11/12/19 Rewrote events for exercise_deleted and lesson_deleted and pushed to github.
 11/12/19 Rewrote events for exercise_added and pushed to github. Changed one
 language string, too.
-
+11/12/19 Changed wording for viewed_all_grades event to include more information.
 
 === 3.7.0 ===
 05/20/19 function get_keyboard_layouts_db() { in locallib.php so the list of keyboard
