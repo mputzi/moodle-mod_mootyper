@@ -76,9 +76,24 @@ if (isset($param1) && get_string('fconfirm', 'mootyper') == $param1 ) {
     $DB->insert_record('mootyper_exercises', $erecord, false);
     $webdir = $CFG->wwwroot . '/mod/mootyper/exercises.php?id='.$id.'&lesson='.$lessonid;
 
+    // If adding a new lesson and first exercise, get lesson name.
+    if ($lsnnamepo) {
+        $lesson = $lsnnamepo;
+    } else {
+        // If adding an exercise to existing lesson, get the lesson id.
+        $lesson = $lessonpo;
+    }
+
     echo '<script type="text/javascript">window.location="'.$webdir.'";</script>';
     // Trigger module exercise_added event.
-    $params = array('objectid' => $course->id, 'context' => $context);
+    $params = array(
+        'objectid' => $course->id,
+        'context' => $context,
+        'other' => array(
+            'lesson' => $lesson,
+            'exercisename' => $erecord->exercisename
+        )
+    );
     $event = exercise_added::create($params);
     $event->trigger();
 }
