@@ -62,6 +62,12 @@ output. Made changes in both gview.php and csvexport.php and pushed to github.
 11/10/19 Add details to the log entrries for when an exercise grade is deleted.
 This required multiple changes to three files, attrem.php, grade_deleted.php,
 and owngrades_deleted.php.
+11/11/19 Worked on, attrem.php, grade_deleted.php, and owngrades_deleted.php some
+more to include whose grade and for which exercise it was that was being deleted.
+11/11/19 Added details to the event, exercise_edited in eedit.php and exercise_edited.php.
+11/11/19 Finalized changes to viewed_all_grades event triggered in gview.php.
+11/11/19 Rewrote events for lesson import, layout import, and lesson/category export.
+11/12/19 Rewrote events for exercise_deleted and lesson_deleted and pushed to github.
 
 === 3.7.0 ===
 05/20/19 function get_keyboard_layouts_db() { in locallib.php so the list of keyboard

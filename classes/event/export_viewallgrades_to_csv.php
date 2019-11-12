@@ -58,7 +58,7 @@ class export_viewallgrades_to_csv extends \core\event\base {
      * @return string
      */
     public function get_description() {
-        return "The user with id '$this->userid' exported the View all grades data to a CSV file while in the course with id
+        return "The user with id '$this->userid' exported the, View all grades, data to a CSV file while in the course with id
             '$this->contextinstanceid'.";
     }
 

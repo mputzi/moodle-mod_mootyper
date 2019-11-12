@@ -58,7 +58,7 @@ class grade_deleted extends \core\event\base {
      * @return string
      */
     public function get_description() {
-        return "The user with id '$this->userid' removed a MooTyper mode '{$this->other['mode']}'
+        return "The user with id '$this->userid' removed a 'mootyper' mode '{$this->other['mode']}'
              grade for exercise '{$this->other['exercise']}' for user id
             '$this->relateduserid' while in the course with id '$this->contextinstanceid'.";
     }

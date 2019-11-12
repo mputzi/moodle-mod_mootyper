@@ -26,6 +26,9 @@
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later.
  */
 
+use \mod_mootyper\event\exercise_deleted;
+use \mod_mootyper\event\lesson_deleted;
+
 // Changed to this newer format 03/01/2019.
 require(__DIR__ . '/../../config.php');
 
@@ -49,21 +52,27 @@ if ($exerciseid) {
     $lessonpo = optional_param('lesson', '', PARAM_INT);
     $DB->delete_records('mootyper_exercises', array('id' => $exerciseid));
     // Trigger module exercise_deleted event.
-    $event = \mod_mootyper\event\exercise_deleted::create(array(
+    $params = array(
         'objectid' => $course->id,
-        'context' => $context
-    ));
+        'context' => $context,
+        'other' => array(
+            'lesson' => $lessonpo,
+            'exercise' => $exerciseid
+        )
+    );
+    $event = exercise_deleted::create($params);
     $event->trigger();
 } else if ($lessonid) {
     $DB->delete_records('mootyper_exercises', array('lesson' => $lessonid));
     $DB->delete_records('mootyper_lessons', array('id' => $lessonid));
     $lessonpo = 0;
-
     // Trigger module lesson_deleted event.
-    $event = \mod_mootyper\event\lesson_deleted::create(array(
+    $params = array(
         'objectid' => $course->id,
-        'context' => $context
-    ));
+        'context' => $context,
+        'other' => $lessonid
+    );
+    $event = lesson_deleted::create($params);
     $event->trigger();
 }
 

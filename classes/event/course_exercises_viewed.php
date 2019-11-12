@@ -61,8 +61,8 @@ class course_exercises_viewed extends \core\event\base {
      * @return string
      */
     public function get_description() {
-        return "The user with id '$this->userid' viewed mootyper exercises while in the course with id
-            '$this->contextinstanceid'.";
+        return "The user with id '$this->userid' viewed 'mootyper' lesson/category '$this->other'
+        and it's exercises while in the course with id '$this->contextinstanceid'.";
     }
 
     /**
