@@ -66,7 +66,10 @@ $context = context_module::instance($cm->id);
 $params = array(
         'objectid' => $mootyper->id,
         'context' => $context,
-        'other' => $mootyper->lesson
+        'other' => array(
+            'lessonid' => $mootyper->lesson,
+            'lessonname' => $lsnname->lessonname
+        )
     );
 $event = viewed_all_grades::create($params);
 $event->trigger();

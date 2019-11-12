@@ -34,10 +34,11 @@ require_once(__DIR__ . '/lib.php');
 require_once(__DIR__ . '/locallib.php');
 
 require_login(0, true, null, false);
+
 /**
  * The function for exporting results data from this MooTyper.
  *
- * @param array $array
+ * @param array $array All the grade data for this MooTyper
  * @param string $filename
  * @param string $delimiter
  * @return array, false if none.
@@ -48,6 +49,9 @@ function array_to_csv_download($array, $filename = "export.csv", $delimiter=";")
     $misexam = optional_param('isexam', 0, PARAM_INT); // Get the mode for this MooTyper.
     $lsnname = optional_param('lsnname', '', PARAM_RAW); // Get the lesson name for this MooTyper.
     $requiredgoal = optional_param('requiredgoal', 0, PARAM_INT); // Get the required precision goal for this MooTyper.
+
+//$context = context_course::instance($id);
+print_object($array);
 
     // Start building a row 1 entry of the course name, activity name, mode, lesson name, and required precision..
     $coursename = get_string(course)." = ".$coursename;
@@ -73,6 +77,15 @@ function array_to_csv_download($array, $filename = "export.csv", $delimiter=";")
 
     // Create a spreadsheet csv filename based on the lesson name.
     $filename = $lsnname.'.csv';
+
+    // Trigger export_viewallgrades_to_csv event.
+//    $params = array(
+//        'objectid' => $course->id,
+//        'context' => $context->id,
+//        'other' => $filename
+//    );
+//    $event = export_viewallgrades_to_csv::create($params);
+//    $event->trigger();
 
     // Remove all whitespace from the filename. This will remove tabs too.
     $filename = preg_replace('/\s+/', '', $filename);

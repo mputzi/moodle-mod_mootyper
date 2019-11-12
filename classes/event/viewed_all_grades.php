@@ -58,8 +58,9 @@ class viewed_all_grades extends \core\event\base {
      * @return string
      */
     public function get_description() {
-        return "The user with id '$this->userid' viewed all grades for lesson/category '$this->other',
-            while in the 'mootyper' activity with course module id '$this->contextinstanceid'.";
+        return "The user with id '$this->userid' viewed all grades for lesson/category id
+            '{$this->other['lessonid']}', while in the 'mootyper' activity '{$this->other['lessonname']}',
+            with course module id '$this->contextinstanceid'.";
     }
 
     /**
