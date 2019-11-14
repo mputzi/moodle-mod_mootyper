@@ -11,13 +11,13 @@ kind of imposible)...or if the exercise took more than 10
 minutes to complete...so this is to warn teacher about a 
 potential cheeters..."
 
-Lessons - A small selection of example lessons, are
+Lessons - A selection of example lessons, are
 included. If you choose not to use them, you can delete
 them before triggering the installation, or you can
 delete them after the installation is completed. Lessons
 can be completed in practice mode or exam mode.
 
-Keyboard Layouts - A small selection of keyboard layouts
+Keyboard Layouts - A selection of keyboard layouts
 are included. You can create your own and have it included
 by bumping the version number, then upgrading. Keyboard
 visualization during lessons is optional.
@@ -72,6 +72,7 @@ more to include whose grade and for which exercise it was that was being deleted
 language string, too.
 11/12/19 Changed wording for viewed_all_grades event to include more information
 and added event, export_viewallgrades_to_csv.
+11/14/19 Created event, Export to .csv and pushed to github.
 
 === 3.7.0 ===
 05/20/19 function get_keyboard_layouts_db() { in locallib.php so the list of keyboard
@@ -579,6 +580,7 @@ pass/fail is implemented for exam.
 Does not affect old keyboard layout versions.
 07/08/2016 Added color picker setting for keytops of non-homerow keys for new keyboard layouts.
 Does not affect old keyboard layout versions.
+
 === 3.1.0 ===
 Working on multiple new capabilities.
 05/03/2016 Over the past few days I've added V2 versions of other keyboard layouts.
