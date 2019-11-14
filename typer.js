@@ -16,7 +16,14 @@ var startTime,
     countMistypedSpaces,
     countMistakes,
     keyupCombined,
-    keyupFirst;
+    keyupFirst,
+    $,
+    differenceT,
+    keyboardElement,
+    combinedCharWait,
+    isCombined,
+    newCas,
+    tDifference;
 
 /**
  * If not the end of fullText, move cursor to next character.
@@ -57,7 +64,7 @@ function moveCursor(nextPos) {
  */
 function scroll_to_next_line(obj) {
     var scrollBox = $('#texttoenter');
-    if($(obj).length > 0) {
+    if ($(obj).length > 0) {
         scrollBox.animate({
             scrollTop: $(obj).offset().top - scrollBox.offset().top + scrollBox.scrollTop()
         },10);
@@ -176,8 +183,7 @@ function focusSet(e) {
             thisEl.turnOn();
         }
         return true;
-    }
-    else{
+    } else {
         $('#tb1').val(fullText.substring(0, currentPos));
         return true;
     }
@@ -192,7 +198,8 @@ function doCheck() {
     var rpMootyperId = $('input[name="rpSityperId"]').val();
     var rpUser = $('input[name="rpUser"]').val();
     var rpAttId = $('input[name="rpAttId"]').val();
-    var juri = appUrl + "/mod/mootyper/atchk.php?status=2&attemptid=" + rpAttId + "&mistakes=" + mistakes + "&hits=" + (currentPos + mistakes);
+    var juri = appUrl + "/mod/mootyper/atchk.php?status=2&attemptid=" + rpAttId +
+        "&mistakes=" + mistakes + "&hits=" + (currentPos + mistakes);
     $.get(juri, function( data ) { });
 }
 
@@ -210,7 +217,8 @@ function doStart() {
     intervalID = setInterval('updTimeSpeed()', 1000);
     var rpMootyperId = $('input[name="rpSityperId"]').val();
     var rpUser = $('input[name="rpUser"]').val();
-    var juri = appUrl + "/mod/mootyper/atchk.php?status=1&mootyperid=" + rpMootyperId + "&userid=" + rpUser + "&time=" + (startTime.getTime() / 1000);
+    var juri = appUrl + "/mod/mootyper/atchk.php?status=1&mootyperid=" + rpMootyperId +
+        "&userid=" + rpUser + "&time=" + (startTime.getTime() / 1000);
     $.get(juri, function( data ) {
         $('input[name="rpAttId"]').val(data);
     });
@@ -238,7 +246,8 @@ function keyPressed(e) {
    // var keychar = addEventListener('keydown', getPressedChar);
    // var keychar = addEventListener('compositionstart', getPressedChar);
 
-    if (keychar === currentChar || ((currentChar === '\n' || currentChar === '\r\n' || currentChar === '\n\r' || currentChar === '\r') && (keychar === ' '))) {
+    if (keychar === currentChar || ((currentChar === '\n' || currentChar === '\r\n' ||
+        currentChar === '\n\r' || currentChar === '\r') && (keychar === ' '))) {
         moveCursor(currentPos + 1);
         if(currentPos === fullText.length - 1) {  // Student is at the end of the exercise.
             $('#tb1').val($('#tb1').val() + currentChar);
@@ -255,7 +264,8 @@ function keyPressed(e) {
             if (showKeyboard) {
                 var thisE = new keyboardElement(currentChar);
                 thisE.turnOff();
-                if (isCombined(nextChar) && (thisE.shift || thisE.alt || thisE.pow || thisE.uppercase_umlaut || thisE.accent)) {
+                if (isCombined(nextChar) && (thisE.shift || thisE.alt || thisE.pow ||
+                    thisE.uppercase_umlaut || thisE.accent)) {
                     combinedCharWait = true;
                 }
                 var nextE = new keyboardElement(nextChar);
@@ -367,7 +377,8 @@ function timeDifference(t1, t2) {
  * @param {boolean} tcontinuoustype.
  * @param {boolean} tcountmistypedspaces.
  */
-function inittexttoenter(ttext, tinprogress, tmistakes, thits, tstarttime, tattemptid, turl, tshowkeyboard, tcontinuoustype, tcountmistypedspaces, tcountmistakes) {
+function inittexttoenter(ttext, tinprogress, tmistakes, thits, tstarttime, tattemptid, turl,
+    tshowkeyboard, tcontinuoustype, tcountmistypedspaces, tcountmistakes) {
     // Needed for IME (input method editor) when using Korean keyboard layout.
     addEventListener('compositionupdate', keyPressed);
     $("#form1").on("keypress", "#tb1", keyPressed);
