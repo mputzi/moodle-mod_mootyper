@@ -141,8 +141,8 @@ echo '<style>
             0 1px 0 #aaa,
             0 4px 0 #bbb,
             0 5px 0px #ddd;
-        border-top-left-radius: 10px ;
-        border-bottom-left-radius: 10px ;
+        border-top-left-radius: 8px ;
+        border-bottom-left-radius: 8px ;
     }
     .tb1 {
         text-align: '.$textalign.'
@@ -401,6 +401,7 @@ if ($mootyper->lesson != null) {
 
         $record = get_last_check($mootyper->id);
         if (is_null($record)) {
+// Looks like starting or ending an exercise, might go here, or in the else block.
             echo '<script type="text/javascript">inittexttoenter("' . $texttoinit . '", 0, 0, 0, 0, 0, "' .
                 $CFG->wwwroot . '", ' . $mootyper->showkeyboard . ', ' . $mootyper->continuoustype .
                 ', '. $mootyper->countmistypedspaces . ', '. $mootyper->countmistakes . ');</script>';
@@ -411,6 +412,7 @@ if ($mootyper->lesson != null) {
                 ', '. $mootyper->countmistakes . ');</script>';
         }
     } else {
+// Looks like end of lesson event would go here.
         echo get_string('endlesson', 'mootyper');
         echo "<br />";
         if (has_capability('mod/mootyper:viewgrades', context_module::instance($cm->id))) {
