@@ -268,6 +268,7 @@ if (!has_capability('mod/mootyper:viewgrades', context_module::instance($cm->id)
     // Create link for export and pass mode, lesson name, and required goal to csvexport file.
     $htmlout .= '<p style="text-align: left;">
                  <a href="'.$CFG->wwwroot.'/mod/mootyper/csvexport.php?mootyperid='.$mootyper->id
+                .'&id='.$id
                 .'&coursename='.$course->fullname
                 .'&mtname='.$mootyper->name
                 .'&isexam='.$mootyper->isexam

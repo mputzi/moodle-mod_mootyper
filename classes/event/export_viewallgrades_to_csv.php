@@ -49,7 +49,7 @@ class export_viewallgrades_to_csv extends \core\event\base {
      * @return string
      */
     public static function get_name() {
-        return get_string('gradesfilename', 'mod_mootyper');
+        return get_string('csvexport', 'mod_mootyper');
     }
 
     /**
@@ -58,8 +58,9 @@ class export_viewallgrades_to_csv extends \core\event\base {
      * @return string
      */
     public function get_description() {
-        return "The user with id '$this->userid' exported all grades, '$this->other' data to a CSV file while in the course with id
-            '$this->contextinstanceid'.";
+        return "The user with id '$this->userid', while using course module id '$this->contextinstanceid',
+            in '{$this->other['coursename']}', in '{$this->other['mtname']}', exported all grades for
+            '{$this->other['lesson']}', as filename '{$this->other['filename']}'.";
     }
 
     /**

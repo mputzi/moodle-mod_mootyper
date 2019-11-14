@@ -44,14 +44,15 @@ require_login(0, true, null, false);
  * @return array, false if none.
  */
 function array_to_csv_download($array, $filename = "export.csv", $delimiter=";") {
+    $id = optional_param('id', 0, PARAM_INT); // Get the course module id for this MooTyper.
     $coursename = optional_param('coursename', '', PARAM_RAW); // Get the course name for this MooTyper.
     $mtname = optional_param('mtname', '', PARAM_RAW); // Get the activity name for this MooTyper.
     $misexam = optional_param('isexam', 0, PARAM_INT); // Get the mode for this MooTyper.
     $lsnname = optional_param('lsnname', '', PARAM_RAW); // Get the lesson name for this MooTyper.
     $requiredgoal = optional_param('requiredgoal', 0, PARAM_INT); // Get the required precision goal for this MooTyper.
 
-//$context = context_course::instance($id);
-print_object($array);
+    $cm = get_coursemodule_from_id('mootyper', $id, 0, false, MUST_EXIST);
+    $context = context_module::instance($cm->id);
 
     // Start building a row 1 entry of the course name, activity name, mode, lesson name, and required precision..
     $coursename = get_string(course)." = ".$coursename;
@@ -71,21 +72,27 @@ print_object($array);
         default:
             $mtmode = get_string('error', 'moodle');
     }
-    // Get the lesson name and the required precision goal for the csv spreadsheet row 1 entry.
-    $lsnname = get_string('flesson', 'mootyper').'/'.get_string('lsnname', 'mootyper')." = ".$lsnname;
-    $requiredgoal = get_string('requiredgoal', 'mootyper').' = '.$requiredgoal.'%';
 
     // Create a spreadsheet csv filename based on the lesson name.
-    $filename = $lsnname.'.csv';
+    $filename = get_string('flesson', 'mootyper')."_".$lsnname.'.csv';
+
+    // Get the lesson name and the required precision goal for the csv spreadsheet row 1 entry.
+    $lsnname = get_string('flesson', 'mootyper')." = ".$lsnname;
+    $requiredgoal = get_string('requiredgoal', 'mootyper').' = '.$requiredgoal.'%';
 
     // Trigger export_viewallgrades_to_csv event.
-//    $params = array(
-//        'objectid' => $course->id,
-//        'context' => $context->id,
-//        'other' => $filename
-//    );
-//    $event = export_viewallgrades_to_csv::create($params);
-//    $event->trigger();
+    $params = array(
+        'objectid' => $id,
+        'context' => $context,
+        'other' => array(
+            'coursename' => $coursename,
+            'mtname' => $mtname,
+            'lesson' => $lsnname,
+            'filename' =>$filename
+        )
+    );
+    $event = export_viewallgrades_to_csv::create($params);
+    $event->trigger();
 
     // Remove all whitespace from the filename. This will remove tabs too.
     $filename = preg_replace('/\s+/', '', $filename);
