@@ -73,6 +73,8 @@ language string, too.
 11/12/19 Changed wording for viewed_all_grades event to include more information
 and added event, export_viewallgrades_to_csv.
 11/14/19 Created event, Export to .csv and pushed to github.
+11/14/19 Created new .php file for layouts Danish, Dvorak, Norwegian, Swedish,
+and Vietnamese trying to get rid of Moodle reported BOM character in each file.
 
 === 3.7.0 ===
 05/20/19 function get_keyboard_layouts_db() { in locallib.php so the list of keyboard
