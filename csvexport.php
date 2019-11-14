@@ -55,8 +55,8 @@ function array_to_csv_download($array, $filename = "export.csv", $delimiter=";")
     $context = context_module::instance($cm->id);
 
     // Start building a row 1 entry of the course name, activity name, mode, lesson name, and required precision..
-    $coursename = get_string(course)." = ".$coursename;
-    $mtname = get_string(activity)." = ".$mtname;
+    $coursename = get_string('course')." = ".$coursename;
+    $mtname = get_string('activity')." = ".$mtname;
 
     // Continue building a row 1 entry grades csv output, based on the mode.
     switch ($misexam) {
