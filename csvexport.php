@@ -44,14 +44,15 @@ require_login(0, true, null, false);
  * @return array, false if none.
  */
 function array_to_csv_download($array, $filename = "export.csv", $delimiter=";") {
+    $mootyperid = optional_param('mootyperid', 0, PARAM_INT); // Get the id for this MooTyper.
     $id = optional_param('id', 0, PARAM_INT); // Get the course module id for this MooTyper.
     $coursename = optional_param('coursename', '', PARAM_RAW); // Get the course name for this MooTyper.
     $mtname = optional_param('mtname', '', PARAM_RAW); // Get the activity name for this MooTyper.
     $misexam = optional_param('isexam', 0, PARAM_INT); // Get the mode for this MooTyper.
     $lsnname = optional_param('lsnname', '', PARAM_RAW); // Get the lesson name for this MooTyper.
     $requiredgoal = optional_param('requiredgoal', 0, PARAM_INT); // Get the required precision goal for this MooTyper.
-
     $cm = get_coursemodule_from_id('mootyper', $id, 0, false, MUST_EXIST);
+
     $context = context_module::instance($cm->id);
 
     // Start building a row 1 entry of the course name, activity name, mode, lesson name, and required precision..
@@ -136,6 +137,10 @@ function array_to_csv_download($array, $filename = "export.csv", $delimiter=";")
 }
 
 $mid = optional_param('mootyperid', 0, PARAM_INT);
-$grds = get_typer_grades_adv($mid, 0, 0, 2, 0);
+// Fourth item determines sort order of the data.
+// 2 is lastname. 10 is exercise name.
+// get_typer_grades_adv needs further work on sorting.
+//$grds = get_typer_grades_adv($mid, 0, 0, 2, 0);
+$grds = get_typer_grades_adv($mid, 0, 0, 10, 0);
 
 array_to_csv_download($grds, get_string('gradesfilename', 'mootyper'));
