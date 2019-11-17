@@ -186,11 +186,15 @@ foreach ($aligns as $akey => $aval) {
 }
 
 echo '</select></span>';
+// Create a link back to where we came from in case we want to cancel.
+$url = $CFG->wwwroot . '/mod/mootyper/exercises.php?id='.$id.'&lesson='.$rcrd->lesson;
 
 echo '<span id="text_holder_span" class=""></span><br>'.get_string('fexercise', 'mootyper').':<br>'.
-     '<textarea name="texttotype" id="texttotype" rows="3" cols="60" style="text-align:'.$align.'">'.
-         str_replace('\n', "&#10;", $exercisetoedit->texttotype).
-     '</textarea><br>'.'<br><input name="button" onClick="return clClick()" type="submit" value="'.
-     get_string('fconfirm', 'mootyper').'">'.'</form>';
+    '<textarea name="texttotype" id="texttotype" rows="3" cols="60" style="text-align:'.$align.'">'.
+    str_replace('\n', "&#10;", $exercisetoedit->texttotype).
+    '</textarea><br>'.'<br><input class="btn btn-primary" name="button" onClick="return clClick()" type="submit" value="'
+    .get_string('fconfirm', 'mootyper').'"> <a href="'.$url.'" class="btn btn-secondary" role="button">'
+    .get_string('cancel', 'mootyper').'</a>'.'</form>';
 echo '<br></div>';
+
 echo $OUTPUT->footer();

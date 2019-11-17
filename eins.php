@@ -236,10 +236,19 @@ foreach ($aligns as $akey => $aval) {
 
 echo '</select></span>'.get_string('defaulttextalign_warning', 'mootyper');
 
+// Create a link back to where we came from in case we want to cancel.
+if ($lessonpo == -1) {
+    $url = $CFG->wwwroot . '/mod/mootyper/exercises.php?id='.$id;
+} else {
+    $url = $CFG->wwwroot . '/mod/mootyper/exercises.php?id='.$id.'&lesson='.$lessonpo;
+}
+
 echo '<br><span id="text_holder_span" class=""></span><br>'.get_string('fexercise', 'mootyper').':<br>'.
      '<textarea rows="4" cols="60" name="texttotype" id="texttotype"style="text-align:'.$align.'"></textarea><br>'.
-     '<br><input name="button" onClick="return clClick()" type="submit" value="'.get_string('fconfirm', 'mootyper').'">'.
-     '</form>';
+     '<br><input class="btn btn-primary" name="button" onClick="return clClick()" type="submit" value="'
+     .get_string('fconfirm', 'mootyper').'"> <a href="'.$url.'" class="btn btn-secondary" role="button">'
+     .get_string('cancel', 'mootyper').'</a>'.'</form>';
+
 echo '<br></div>';
 
 echo $OUTPUT->footer();
