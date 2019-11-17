@@ -75,6 +75,15 @@ and added event, export_viewallgrades_to_csv.
 11/14/19 Created event, Export to .csv and pushed to github.
 11/14/19 Created new .php file for layouts Danish, Dvorak, Norwegian, Swedish,
 and Vietnamese trying to get rid of Moodle reported BOM character in each file.
+11/14/19 Code cleanup in typer.js.
+11/17/19 TRK1_291 - In file eins.php, changed the Confirm button to btn-primary and added a
+Cancel button that takes you back to exercises.php, looking at the same exercise
+from which you started, or first exercise in the list of them.
+11/17/19 TRK1_290 - In file eedit.php, changed the Confirm button to btn-primary and added a
+Cancel button that takes you back to exercises.php, looking at the same exercise
+from which you started, or first exercise in the list of them.
+11/17/19 TRK1-263 I have the export event working for the text link. Still needs work
+for the new BS4 button.
 
 === 3.7.0 ===
 05/20/19 function get_keyboard_layouts_db() { in locallib.php so the list of keyboard
