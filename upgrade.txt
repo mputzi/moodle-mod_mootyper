@@ -45,6 +45,11 @@ sending an email, leave a comment at
 
 Moodle Versions
 ===============
+=== 3.8.0+ ===
+11/19/19 In file mod_setup down around line 448, I changed the Confirm button
+to use BS4 coding to make the Confirm compatible with Safari web browsers as
+well as all the others.
+
 === 3.8.0 ===
 10/28/19 Corrected comment style used in styles.css file. Also deleted all of the
 [[settings]] lines of code that were preventing Moodle from applying the file.
