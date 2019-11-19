@@ -140,7 +140,8 @@ $PAGE->set_cacheable(false);
 echo $OUTPUT->header();
 echo '<b>'.get_string('lsnimport', 'mootyper').'</b><br><br>';
 echo '<b>'.get_string('sflesson', 'mootyper').'</b><br>';
-
+echo '<table class="table table-hover" style="width:100%">';
+echo '<tbody>';
 // Set pointer to lessons folder, then get all lesson names in there.
 $pth = $CFG->dirroot."/mod/mootyper/lessons";
 $res = scandir($pth);
@@ -160,10 +161,10 @@ for ($i = 0; $i < count($res); $i++) {
 
         if ($importlesson = $DB->get_record_sql($sql)) {
             // If it's true the name is already in the database, do nothing.
-            echo "$lsn".get_string('lsnimportnotadd', 'mootyper').'<br>';
+            echo "<tr class='table-light'><td>$lsn".get_string('lsnimportnotadd', 'mootyper').'</td></tr>';
         } else {
             // If it's not found in the db, then add the new lesson to the database.
-            echo "<b>$lsn".get_string('lsnimportadd', 'mootyper').'</b><br>';
+            echo "<tr class='table-success'><td><b>$lsn".get_string('lsnimportadd', 'mootyper').'</b></td></tr>';
             read_lessons_file($fl, $USER->id, 0, 2);
             // Since we added a new lesson, make a log entry about it.
             $data = new StdClass();
@@ -180,8 +181,11 @@ for ($i = 0; $i < count($res); $i++) {
         }
     }
 }
-
+echo '</tbody>';
+echo '</table>';
 echo '<br><b>'.get_string('layout', 'mootyper').'</b><br>';
+echo '<table class="table table-hover" style="width:100%">';
+echo '<tbody>';
 // Set pointer to keyboard layouts folder, then get all names in there.
 $pth2 = $CFG->dirroot."/mod/mootyper/layouts";
 $res2 = scandir($pth2);
@@ -199,10 +203,10 @@ for ($j = 0; $j < count($res2); $j++) {
 
         if ($importkbl = $DB->get_record_sql($sql)) {
             // If it's true the name is already in the database, do nothing.
-            echo "$kbl".get_string('kblimportnotadd', 'mootyper').'<br>';
+            echo "<tr class='table-light'><td>$kbl".get_string('kblimportnotadd', 'mootyper').'</td></tr>';
         } else {
             // If it's not found in the db, then add the new layout to the database.
-            echo "<b>$kbl".get_string('kblimportadd', 'mootyper').'</b><br>';
+            echo "<tr class='table-success'><td><b>$kbl".get_string('kblimportadd', 'mootyper').'</b></td></tr>';
             add_keyboard_layout($fl2);
             // Since we added a new layout, make a log entry about it.
             $data = new StdClass();
@@ -219,8 +223,11 @@ for ($j = 0; $j < count($res2); $j++) {
         }
     }
 }
+echo '</tbody>';
+echo '</table>';
 
 $jlnk2 = $CFG->wwwroot . '/mod/mootyper/exercises.php?id='.$id;
-echo '<br><a href="'.$jlnk2.'">'.get_string('fcontinue', 'mootyper').'</a><br><br>';
+// 11/19/19 Change from a, Continue, link to a, Continue, button.
+echo '<br><a href="'.$jlnk2.'" class="btn btn-info" role="button">'.get_string('fcontinue', 'mootyper').'</a><br><br>';
 echo $OUTPUT->footer();
 return;
