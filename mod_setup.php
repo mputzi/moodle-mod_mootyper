@@ -445,7 +445,9 @@ $htmlout .= '<input value="'.$texterrorcolorpo.'" style="width: 135px;" type="te
 $htmlout .= '</select>';
 $htmlout .= '</td></tr>';
 $htmlout .= '</table>';
-$htmlout .= '<br><input name="button" onclick="this.form.submit();" value="'.get_string('fconfirm', 'mootyper').'" type="submit">';
+// Change to BS4 style button to fix issue #77 on github.
+$htmlout .= '<br><input type="submit" name="button" class="btn btn-info" value="'.get_string('fconfirm', 'mootyper').'">';
+
 $htmlout .= '</form>';
 $htmlout .= '<br>';
 
