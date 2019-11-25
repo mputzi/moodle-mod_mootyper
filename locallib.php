@@ -158,13 +158,14 @@ function get_mootyperlessons($u, $c) {
     global $CFG, $DB;
     $params = array();
     $lstoreturn = array();           // DETERMINE IF USER IS INSIDE A COURSE???
+    // 11/24/2019 Changed SQL for Postgre compatibility based on issue #34.
     $sql = "SELECT id, lessonname
-              FROM ".$CFG->prefix."mootyper_lessons
-              WHERE ((visible = 2 AND authorid = ".$u.") OR
-                    (visible = 1 AND editable <= 2 AND courseid = ".$c.") OR
-                    (visible = 0) OR
-                    (".can_view_edit_all($u, $c)."))
-              ORDER BY lessonname";
+        FROM ".$CFG->prefix."mootyper_lessons
+        WHERE ((visible = 2 AND authorid = ".$u.") OR
+            (visible = 1 AND ".is_user_enrolled($u, $c)." = 1) OR
+            (visible = 0 AND ".is_user_enrolled($u, $c)." = 1) OR
+            (".can_view_edit_all($u, $c)." = 1))
+        ORDER BY lessonname";
     /*
     /// This was taken out, because we have some context_module::instance confusion
       OR
