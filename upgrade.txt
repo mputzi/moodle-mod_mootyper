@@ -45,6 +45,14 @@ sending an email, leave a comment at
 
 Moodle Versions
 ===============
+=== 3.8.1 ===
+11/24/19 Fixed PostrgreSQL compatibility error in locallib.php function get_mootyperlessons.
+11/24/19 Fixed bug when going to eins.php. Undefined variable $lsnnamepo. When incoming
+optional parameter 'lesson' is blank due to starting a new lesson/category name,
+$lsnnamepo has to be set to -1, otherwise when starting a new exercise for the current
+lesson/category, the optional parameter 'lesson' goes to the $lessonpo. The first part
+was missing.
+
 === 3.8.0+ ===
 11/19/19 TRK1-295 In file mod_setup down around line 448, I changed the Confirm button
 to use BS4 coding to make the Confirm compatible with Safari web browsers as
