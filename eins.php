@@ -36,6 +36,7 @@ global $USER, $DB;
 
 $id = optional_param('id', 0, PARAM_INT); // Course_module ID, or
 // $n = optional_param('n', 0, PARAM_INT); // Mootyper instance ID - it should be named as the first character of the module.
+$lsnnamepo = optional_param('lesson', '', PARAM_TEXT);
 
 if ($id) {
     $course = $DB->get_record('course', array('id' => $id), '*', MUST_EXIST);
