@@ -53,6 +53,8 @@ $lsnnamepo has to be set to -1, otherwise when starting a new exercise for the c
 lesson/category, the optional parameter 'lesson' goes to the $lessonpo. The first part
 was missing.
 11/30/19 Trk1-284 Created exercise_completed event and pushed to github.
+12/01/19 Trk1-304 Created exam_completed event and modified examdone string
+then pushed to github.
 
 === 3.8.0+ ===
 11/19/19 TRK1-295 In file mod_setup down around line 448, I changed the Confirm button
@@ -489,9 +491,9 @@ added a few missing keys to the non-v2 layouts.
 6/11/17 Worked on CSS - still don't know why render size is different between Boost and Clean.
 6/22/17 Started development of Behat tests.
 6/23/17 Experimented with adding options to the MooTyper edit activity page:
-		- Mode = Lesson or Exam
-		- showkeyboard
-		- continuous type
+        - Mode = Lesson or Exam
+        - showkeyboard
+        - continuous type
 8/18/17 Current 3.2.0 STABLE released instead of 3.1.5.	
 
 === 3.1.4 STABLE === 
@@ -502,7 +504,8 @@ added a few missing keys to the non-v2 layouts.
 
 === 3.1.4 BETA ===
 10/18/16 typer.js did some more work on converting Slovenian words to English.
-10/18/16 Modified typer.js so that if you mistype a character, you don't have to enter the correct letter before proceeding, but it still gets counted as a mistake.
+10/18/16 Modified typer.js so that if you mistype a character, you don't have
+to enter the correct letter before proceeding, but it still gets counted as a mistake.
 10/24/16 Started work on adding continuous typing as a setting during setup of a MooTyper lesson or exam.
 04/05/17 Fixed multiple occurances in both css files where 5x should be 5px.
 04/05/17 Fixed one spot where radius was spelled wrong in both css files.
@@ -560,7 +563,8 @@ added a few missing keys to the non-v2 layouts.
 5/4/17 Code doc cleanup in ...mod/db/upgrade.php      *******
 5/4/17 Code doc cleanup in ...mod/classes/event/course_exercise_viewed.php
 5/4/17 Code doc cleanup in ...mod/classes/event/course_module_instance_list_viewed.php
-5/5/17 Modified $sql SELECT statement to include mte.id in lsnexport.php line so exercises CAN be duplicates without getting debug message in output file.
+5/5/17 Modified $sql SELECT statement to include mte.id in lsnexport.php line so exercises CAN be
+duplicates without getting debug message in output file.
 05/06/17 Code style cleanup .../mootyper/csvexport.php - moved require_once x3 to correct location in file.
 05/06/17 Code style cleanup .../mootyper/eedit.php - moved globals to correct location in file.
 05/06/17 Code style cleanup .../mootyper/exercises.php - moved globals to correct location in file.
@@ -583,7 +587,8 @@ added a few missing keys to the non-v2 layouts.
 10/10/16 Changed code for Exam mode to prevent negative WPM.
 10/11/16 Changed code for Lesson mode to prevent negative WPM.
 10/11/16 Changed some language strings to make the plugin more generic.
-10/11/16 Changed availability check code in view.php so that admin and teachers can always access a MooTyper activity to check grades. Only students are prevented if availability is closed.
+10/11/16 Changed availability check code in view.php so that admin and teachers can always access
+a MooTyper activity to check grades. Only students are prevented if availability is closed.
 
 === 3.1.2 ===
 07/18/2016 Implemented code to show entries in the Recent Activity Block.

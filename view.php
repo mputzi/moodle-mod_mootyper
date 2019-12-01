@@ -210,9 +210,11 @@ if ($mootyper->lesson != null) {
         $exerciseid = $exercise->id;
         $texttoenter = $exercise->texttotype;
     }
+
     if (isset($texttoenter)) {
+        // 11/30/19 Modified to pass data required by exercise_completed event.
         $insertdir = $CFG->wwwroot . '/mod/mootyper/gcnext.php?cmid='.$cm->id.
-            '&lsnname='.$lsnname->lessonname.'&exercisename='.$exercise->exercisename;
+            '&lsnname='.$lsnname->lessonname.'&exercisename='.$exercise->exercisename.'&mtmode='.$mtmode;
     }
 
     if (exam_already_done($mootyper, $USER->id) && $mtmode === '1') {

@@ -134,11 +134,13 @@ function getPressedChar(e) {
     var keynum;
     var keychar;
     var numcheck;
-// addEventListener('keydown', (event) => {
-// console.log('keydown We may have typed a Korean character here '+event.keyCode);
-// console.log('keydown We need to get the data from compositionupdate '+event.compositionupdate);
-// });
+
+    // addEventListener('keydown', (event) => {
+    // console.log('keydown We may have typed a Korean character here '+event.keyCode);
+    // console.log('keydown We need to get the data from compositionupdate '+event.compositionupdate);
+    // });
     // addEventListener('compositionupdate', (event) => {
+
     if (event.data) {
         // console.log('compositionupdate We typed a Korean character here '+event.data);
         keychar = event.data;
@@ -146,7 +148,7 @@ function getPressedChar(e) {
 
         if (keychar) {
             //console.log('if (keychar) was tested and it is '+keychar);
-        return keychar;
+            return keychar;
         }
     }
     // });

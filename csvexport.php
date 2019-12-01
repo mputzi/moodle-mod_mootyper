@@ -89,7 +89,7 @@ function array_to_csv_download($array, $filename = "export.csv", $delimiter=";")
             'coursename' => $coursename,
             'mtname' => $mtname,
             'lesson' => $lsnname,
-            'filename' =>$filename
+            'filename' => $filename
         )
     );
     $event = export_viewallgrades_to_csv::create($params);
@@ -139,8 +139,8 @@ function array_to_csv_download($array, $filename = "export.csv", $delimiter=";")
 $mid = optional_param('mootyperid', 0, PARAM_INT);
 // Fourth item determines sort order of the data.
 // 2 is lastname. 10 is exercise name.
-// get_typer_grades_adv needs further work on sorting.
-//$grds = get_typer_grades_adv($mid, 0, 0, 2, 0);
+// The function get_typer_grades_adv needs further work on sorting.
+// This original code, $grds = get_typer_grades_adv($mid, 0, 0, 2, 0); is time completed.
 $grds = get_typer_grades_adv($mid, 0, 0, 10, 0);
 
 array_to_csv_download($grds, get_string('gradesfilename', 'mootyper'));

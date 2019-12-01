@@ -278,9 +278,9 @@ if (!has_capability('mod/mootyper:viewgrades', context_module::instance($cm->id)
                 .'">'.get_string('csvexport', 'mootyper')
                 .'</a></p>';
     $htmlout .= $url1;
-/*
+    /*
     // Future development. 11/17/19 Everything here in $urlparams works and gets set
-    // like it is supposed to, but the csvexport.php is not extracting, 
+    // like it is supposed to, but the csvexport.php is not extracting,
     // Course = coursename, Activity = mtname, and Lesson = lsnname, correctly.
     // When csvexport.php adds the first line to the data file, those items are
     // left blank, but the rest of the data file is created correctly.
@@ -295,7 +295,7 @@ if (!has_capability('mod/mootyper:viewgrades', context_module::instance($cm->id)
                        );
     $url2 = new moodle_url($CFG->wwwroot.'/mod/mootyper/csvexport.php', $urlparams);
     $htmlout .= html_writer::link($url2, get_string('csvexport', 'mootyper'), ['class' => 'btn btn-primary btn-block']);
-*/
+    */
 }
 
 echo $htmlout;
