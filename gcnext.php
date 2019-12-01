@@ -24,6 +24,7 @@
  */
 
 use \mod_mootyper\event\exercise_completed;
+use \mod_mootyper\event\exam_completed;
 
 // Changed to this newer format 03/01/2019.
 require(__DIR__ . '/../../config.php');
@@ -34,6 +35,8 @@ global $CFG, $DB;
 $cmid = optional_param('cmid', 0, PARAM_INT); // Course_module ID.
 $lsnname = optional_param('lsnname', '', PARAM_RAW); // MooTyper lesson name.
 $exercisename = optional_param('exercisename', 0, PARAM_INT); // MooTyper exercise name.
+$mtmode = optional_param('mtmode', 0, PARAM_INT); // MooTyper mode.
+
 if ($cmid) {
     $cm = get_coursemodule_from_id('mootyper', $cmid, 0, false, MUST_EXIST);
     $courseid = $cm->course;
@@ -65,11 +68,9 @@ $record->pass = $passfield;
 $record->attemptid = optional_param('rpAttId', '', PARAM_INT);
 $record->wpm = (max(0, optional_param('rpWpmInput', '', PARAM_FLOAT)));
 
-print_object('Printing record.');
-print_object($record);
-
 $DB->insert_record('mootyper_grades', $record, false);
 // Trigger exercise_completed event.
+// Added 11/29/19. 12/1/19 modified to trigger exam completed.
 $params = array(
     'objectid' => $cmid,
     'context' => $context,
@@ -79,7 +80,11 @@ $params = array(
         'activity' => $cm->name
     )
 );
-$event = exercise_completed::create($params);
+if ($mtmode === 1) {
+    $event = exam_completed::create($params);
+} else {
+    $event = exercise_completed::create($params);
+}
 $event->trigger();
 
 $webdir = $CFG->wwwroot . '/mod/mootyper/view.php?n='.$record->mootyper;
