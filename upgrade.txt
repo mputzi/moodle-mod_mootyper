@@ -55,6 +55,9 @@ was missing.
 11/30/19 Trk1-284 Created exercise_completed event and pushed to github.
 12/01/19 Trk1-304 Created exam_completed event and modified examdone string
 then pushed to github.
+12/01/19 Trk1-301 The links and Continue button on view.php above the status bar,
+have been converted to small primary buttons, with the vertical bar replaced
+with just one space.
 
 === 3.8.0+ ===
 11/19/19 TRK1-295 In file mod_setup down around line 448, I changed the Confirm button

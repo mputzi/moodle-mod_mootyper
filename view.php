@@ -318,19 +318,19 @@ if ($mootyper->lesson != null) {
         }
         if (has_capability('mod/mootyper:viewgrades', context_module::instance($cm->id))) {
             $jlnk4 = $CFG->wwwroot . '/mod/mootyper/gview.php?id=' . $id . '&n=' . $mootyper->id;;
-            echo '<a href="' . $jlnk4 . '">' . get_string('viewgrades', 'mootyper') . '</a>&nbsp;&nbsp;|&nbsp;&nbsp;';
+            echo '<a href="' . $jlnk4 . '" class="btn btn-primary btn-sm">' . get_string('viewgrades', 'mootyper') . '</a>&nbsp;';
         }
         if (has_capability('mod/mootyper:aftersetup', context_module::instance($cm->id))) {
             $jlnk6 = $CFG->wwwroot . "/mod/mootyper/mod_setup.php?n=" . $mootyper->id . "&e=1";
-            echo '<a href="' . $jlnk6 . '">' . get_string('fsettings', 'mootyper') . '</a>&nbsp;&nbsp;|&nbsp;&nbsp;';
+            echo '<a href="' . $jlnk6 . '" class="btn btn-primary btn-sm">' . get_string('fsettings', 'mootyper') . '</a>&nbsp;';
         }
         if (has_capability('mod/mootyper:viewmygrades', context_module::instance($cm->id))) {
             $jlnk7 = $CFG->wwwroot . "/mod/mootyper/owngrades.php?id=" . $id . "&n=" . $mootyper->id;
-            echo '<a href="' . $jlnk7 . '">' . get_string('viewmygrades', 'mootyper') . '</a>';
+            echo '<a href="' . $jlnk7 . '" class="btn btn-primary btn-sm">' . get_string('viewmygrades', 'mootyper') . '</a>';
         }
         ?>
 
-<input class="btn btn-info" style="visibility: hidden;" id="btnContinue" name='btnContinue' type="submit" value=<?php
+<input class="btn btn-primary btn-sm" style="visibility: hidden;" id="btnContinue" name='btnContinue' type="submit" value=<?php
         echo "'" . get_string('fcontinue', 'mootyper') . "'"; ?>> 
 
     <div id='wrapStats'>
@@ -409,7 +409,6 @@ if ($mootyper->lesson != null) {
 
         $record = get_last_check($mootyper->id);
         if (is_null($record)) {
-            // NOTE: Looks like event for starting or ending an exercise, might go here, or in the else block.
             echo '<script type="text/javascript">inittexttoenter("' . $texttoinit . '", 0, 0, 0, 0, 0, "' .
                 $CFG->wwwroot . '", ' . $mootyper->showkeyboard . ', ' . $mootyper->continuoustype .
                 ', '. $mootyper->countmistypedspaces . ', '. $mootyper->countmistakes . ');</script>';
