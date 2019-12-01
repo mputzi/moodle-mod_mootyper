@@ -23,11 +23,22 @@
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later.
  */
 
+use \mod_mootyper\event\exercise_completed;
+
 // Changed to this newer format 03/01/2019.
 require(__DIR__ . '/../../config.php');
 require_once(__DIR__ . '/locallib.php');
 
-global $DB;
+global $CFG, $DB;
+
+$cmid = optional_param('cmid', 0, PARAM_INT); // Course_module ID.
+$lsnname = optional_param('lsnname', '', PARAM_RAW); // MooTyper lesson name.
+$exercisename = optional_param('exercisename', 0, PARAM_INT); // MooTyper exercise name.
+if ($cmid) {
+    $cm = get_coursemodule_from_id('mootyper', $cmid, 0, false, MUST_EXIST);
+    $courseid = $cm->course;
+    $context = context_module::instance($cm->id);
+}
 
 require_login(0, true, null, false);
 if (optional_param('rpAccInput', '', PARAM_FLOAT) >= optional_param('rpGoal', '', PARAM_FLOAT)) {
@@ -54,7 +65,22 @@ $record->pass = $passfield;
 $record->attemptid = optional_param('rpAttId', '', PARAM_INT);
 $record->wpm = (max(0, optional_param('rpWpmInput', '', PARAM_FLOAT)));
 
+print_object('Printing record.');
+print_object($record);
+
 $DB->insert_record('mootyper_grades', $record, false);
+// Trigger exercise_completed event.
+$params = array(
+    'objectid' => $cmid,
+    'context' => $context,
+    'other' => array(
+        'exercise' => $record->exercise,
+        'lessonname' => $lsnname,
+        'activity' => $cm->name
+    )
+);
+$event = exercise_completed::create($params);
+$event->trigger();
 
 $webdir = $CFG->wwwroot . '/mod/mootyper/view.php?n='.$record->mootyper;
 echo '<script type="text/javascript">window.location="'.$webdir.'";</script>';

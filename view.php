@@ -42,7 +42,12 @@ $n = optional_param('n', 0, PARAM_INT); // Mootyper instance ID - it should be n
 $directionality = get_string('thisdirection', 'langconfig');
 $userpassword = optional_param('userpassword', '', PARAM_RAW);
 $backtocourse = optional_param('backtocourse', false, PARAM_RAW);
-
+/*
+ Upon first time entry to the activity, $id is available and used while
+ $n is not available and is set to 0. When returning to the activity
+ after completing an exercise, $id is unavailable and gets set to 0,
+ and $n is available from gcnext.php and is used instead.
+*/
 if ($id) {
     $cm = get_coursemodule_from_id('mootyper', $id, 0, false, MUST_EXIST);
     $course = $DB->get_record('course', array('id' => $cm->course) , '*', MUST_EXIST);
@@ -206,7 +211,8 @@ if ($mootyper->lesson != null) {
         $texttoenter = $exercise->texttotype;
     }
     if (isset($texttoenter)) {
-        $insertdir = $CFG->wwwroot . '/mod/mootyper/gcnext.php?words=' . str_word_count($texttoenter);
+        $insertdir = $CFG->wwwroot . '/mod/mootyper/gcnext.php?cmid='.$cm->id.
+            '&lsnname='.$lsnname->lessonname.'&exercisename='.$exercise->exercisename;
     }
 
     if (exam_already_done($mootyper, $USER->id) && $mtmode === '1') {
@@ -322,7 +328,7 @@ if ($mootyper->lesson != null) {
         }
         ?>
 
-<input style="visibility: hidden;" id="btnContinue" name='btnContinue' type="submit" value=<?php
+<input class="btn btn-info" style="visibility: hidden;" id="btnContinue" name='btnContinue' type="submit" value=<?php
         echo "'" . get_string('fcontinue', 'mootyper') . "'"; ?>> 
 
     <div id='wrapStats'>
@@ -412,7 +418,7 @@ if ($mootyper->lesson != null) {
                 ', '. $mootyper->countmistakes . ');</script>';
         }
     } else {
-        // NOTE: Looks like end of lesson event would go here.
+        // NOTE: Looks like end of lesson event might go here.
         echo get_string('endlesson', 'mootyper');
         echo "<br />";
         if (has_capability('mod/mootyper:viewgrades', context_module::instance($cm->id))) {
@@ -435,7 +441,9 @@ if ($mootyper->lesson != null) {
 }
 
 // Trigger module viewed event.
-$params = array('objectid' => $mootyper->id, 'context' => $context);
+$params = array('objectid' => $mootyper->id,
+    'context' => $context
+);
 $event = course_module_viewed::create($params);
 $event->add_record_snapshot('course', $course);
 $event->add_record_snapshot('mootyper', $mootyper);
