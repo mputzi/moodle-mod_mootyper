@@ -25,6 +25,7 @@
 
 use \mod_mootyper\event\exercise_completed;
 use \mod_mootyper\event\exam_completed;
+use \mod_mootyper\event\lesson_completed;
 
 // Changed to this newer format 03/01/2019.
 require(__DIR__ . '/../../config.php');
@@ -34,8 +35,9 @@ global $CFG, $DB;
 
 $cmid = optional_param('cmid', 0, PARAM_INT); // Course_module ID.
 $lsnname = optional_param('lsnname', '', PARAM_RAW); // MooTyper lesson name.
-$exercisename = optional_param('exercisename', 0, PARAM_INT); // MooTyper exercise name.
-$mtmode = optional_param('mtmode', 0, PARAM_INT); // MooTyper mode.
+$exercisename = optional_param('exercisename', 0, PARAM_INT); // MooTyper exercise name (It is just a number.).
+$mtmode = optional_param('mtmode', 0, PARAM_INT); // MooTyper activity mode. 0 = Lesson, 1 = Exam, 2 = Practice.
+$count = optional_param('count', 0, PARAM_INT); // Number of exercises in this lesson.
 
 if ($cmid) {
     $cm = get_coursemodule_from_id('mootyper', $cmid, 0, false, MUST_EXIST);
@@ -69,8 +71,9 @@ $record->attemptid = optional_param('rpAttId', '', PARAM_INT);
 $record->wpm = (max(0, optional_param('rpWpmInput', '', PARAM_FLOAT)));
 
 $DB->insert_record('mootyper_grades', $record, false);
-// Trigger exercise_completed event.
-// Added 11/29/19. 12/1/19 modified to trigger exam completed.
+
+// Added 11/29/19. Trigger exercise_completed event.
+// Added 12/1/19 modification to also trigger exam_completed event.
 $params = array(
     'objectid' => $cmid,
     'context' => $context,
@@ -87,5 +90,19 @@ if ($mtmode === 1) {
 }
 $event->trigger();
 
+// Added 12/3/19 If all the exercises in a lesson are complete, trigger lesson_completed event, too.
+if (!($mtmode === 1) && ($exercisename === $count)) {
+    $params = array(
+        'objectid' => $cmid,
+        'context' => $context,
+        'other' => array(
+            'exercise' => $record->exercise,
+            'lessonname' => $lsnname,
+            'activity' => $cm->name
+        )
+    );
+    $event = lesson_completed::create($params);
+    $event->trigger();
+}
 $webdir = $CFG->wwwroot . '/mod/mootyper/view.php?n='.$record->mootyper;
 echo '<script type="text/javascript">window.location="'.$webdir.'";</script>';

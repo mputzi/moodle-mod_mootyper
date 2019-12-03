@@ -15,31 +15,31 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * The mod_mootyper exercise completed event.
+ * The mod_mootyper lesson completed event.
  *
  * @package     mod_mootyper
  * @copyright   2016 AL Rachels (drachels@drachels.com)
- * @license http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later.
+ * @license http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
 namespace mod_mootyper\event;
 defined('MOODLE_INTERNAL') || die();
 
 /**
- * The mod_mootyper exercises completed event class.
+ * The mod_mootyper lesson completed event class.
  *
  * @package    mod_mootyper
- * @copyright  2019 AL Rachels drachels@drachels.com
+ * @copyright  2016 AL Rachels drachels@drachels.com
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-class exercise_completed extends \core\event\base {
+class lesson_completed extends \core\event\base {
 
     /**
      * Init method.
      */
     protected function init() {
-        $this->data['crud'] = 'c';
-        $this->data['edulevel'] = self::LEVEL_PARTICIPATING;
+        $this->data['crud'] = 'd';
+        $this->data['edulevel'] = self::LEVEL_TEACHING;
         $this->data['objecttable'] = 'mootyper';
     }
 
@@ -49,7 +49,7 @@ class exercise_completed extends \core\event\base {
      * @return string
      */
     public static function get_name() {
-        return get_string('exercise_completed', 'mod_mootyper');
+        return get_string('lesson_completed', 'mod_mootyper');
     }
 
     /**
@@ -58,9 +58,9 @@ class exercise_completed extends \core\event\base {
      * @return string
      */
     public function get_description() {
-        return "The user with id '$this->userid' completed exercise id'{$this->other['exercise']}',
-            in lesson '{$this->other['lessonname']}' in MT activity '{$this->other['activity']}',
-            which uses course module id '$this->contextinstanceid'.";
+        return "The user with id '$this->userid' completed  lesson '{$this->other['lessonname']}'
+            in MT activity '{$this->other['activity']}', which uses course module id
+            '$this->contextinstanceid'.";
     }
 
     /**

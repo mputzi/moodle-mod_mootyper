@@ -211,10 +211,21 @@ if ($mootyper->lesson != null) {
         $texttoenter = $exercise->texttotype;
     }
 
+
+    // Need to get count of exercises in the current lesson.
+    $sqlc = "SELECT COUNT(mte.texttotype)
+        FROM {mootyper_lessons} mtl
+        LEFT JOIN {mootyper_exercises} mte
+        ON mte.lesson =  mtl.id
+        WHERE mtl.id = $mootyper->lesson";
+
+    $count = $DB->count_records_sql($sqlc, $params = null);
+
     if (isset($texttoenter)) {
-        // 11/30/19 Modified to pass data required by exercise_completed event.
+        // 11/30/19 Modified to pass data required by exercise_, exam_, and lesson_completed events.
         $insertdir = $CFG->wwwroot . '/mod/mootyper/gcnext.php?cmid='.$cm->id.
-            '&lsnname='.$lsnname->lessonname.'&exercisename='.$exercise->exercisename.'&mtmode='.$mtmode;
+            '&lsnname='.$lsnname->id.'&exercisename='.$exercise->exercisename.'&mtmode='.$mtmode.'&count='.$count;
+           // '&lsnname='.$lsnname->lessonname.'&exercisename='.$exercise->exercisename.'&mtmode='.$mtmode;
     }
 
     if (exam_already_done($mootyper, $USER->id) && $mtmode === '1') {
@@ -244,7 +255,7 @@ if ($mootyper->lesson != null) {
 <div id="keyboard" style="float: left; text-align:center; margin-left: auto; margin-right: auto;">
 <h4>
         <?php
-
+/*
         // Need to get count of exercises in the current lesson.
         $sqlc = "SELECT COUNT(mte.texttotype)
                 FROM {mootyper_lessons} mtl
@@ -253,6 +264,8 @@ if ($mootyper->lesson != null) {
                 WHERE mtl.id = $mootyper->lesson";
 
         $count = $DB->count_records_sql($sqlc, $params = null);
+*/
+
         // Old MooTypers without the mode set need this initialized to empty.
         $tempstr = '';
         // Add label containing mode, lesson name, and exercise x of x above the status bar.
@@ -419,7 +432,7 @@ if ($mootyper->lesson != null) {
                 ', '. $mootyper->countmistakes . ');</script>';
         }
     } else {
-        // NOTE: Looks like end of lesson event might go here.
+        // NOTE: Looks like end of lesson event might go here. NO! It cannnot! Needs to go in gcnext.php.
         echo get_string('endlesson', 'mootyper');
         echo "<br />";
         if (has_capability('mod/mootyper:viewgrades', context_module::instance($cm->id))) {
@@ -449,5 +462,5 @@ $event = course_module_viewed::create($params);
 $event->add_record_snapshot('course', $course);
 $event->add_record_snapshot('mootyper', $mootyper);
 $event->trigger();
-echo $mootyperoutput->footer();
 
+echo $mootyperoutput->footer();
