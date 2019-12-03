@@ -161,10 +161,10 @@ for ($i = 0; $i < count($res); $i++) {
 
         if ($importlesson = $DB->get_record_sql($sql)) {
             // If it's true the name is already in the database, do nothing.
-            echo "<tr class='table-light'><td>$lsn".get_string('lsnimportnotadd', 'mootyper').'</td></tr>';
+            echo "<tr class='table-light'><td>$lsn</td><td>".get_string('lsnimportnotadd', 'mootyper').'</td></tr>';
         } else {
             // If it's not found in the db, then add the new lesson to the database.
-            echo "<tr class='table-success'><td><b>$lsn".get_string('lsnimportadd', 'mootyper').'</b></td></tr>';
+            echo "<tr class='table-success'><td><b>$lsn</td><td>".get_string('lsnimportadd', 'mootyper').'</b></td></tr>';
             read_lessons_file($fl, $USER->id, 0, 2);
             // Since we added a new lesson, make a log entry about it.
             $data = new StdClass();
@@ -203,10 +203,11 @@ for ($j = 0; $j < count($res2); $j++) {
 
         if ($importkbl = $DB->get_record_sql($sql)) {
             // If it's true the name is already in the database, do nothing.
-            echo "<tr class='table-light'><td>$kbl".get_string('kblimportnotadd', 'mootyper').'</td></tr>';
+            echo "<tr class='table-light'><td>$kbl</td><td>".get_string('kblimportnotadd', 'mootyper').'</td></tr>';
         } else {
             // If it's not found in the db, then add the new layout to the database.
-            echo "<tr class='table-success'><td><b>$kbl".get_string('kblimportadd', 'mootyper').'</b></td></tr>';
+            echo "<tr class='table-success'><td><b>$kbl</td><td>".get_string('kblimportadd', 'mootyper').'</b></td></tr>';
+            // Actually go add the layout to the database.
             add_keyboard_layout($fl2);
             // Since we added a new layout, make a log entry about it.
             $data = new StdClass();
@@ -228,6 +229,6 @@ echo '</table>';
 
 $jlnk2 = $CFG->wwwroot . '/mod/mootyper/exercises.php?id='.$id;
 // 11/19/19 Change from a, Continue, link to a, Continue, button.
-echo '<br><a href="'.$jlnk2.'" class="btn btn-info" role="button">'.get_string('fcontinue', 'mootyper').'</a><br><br>';
+echo '<br><a href="'.$jlnk2.'" class="btn btn-primary" role="button">'.get_string('fcontinue', 'mootyper').'</a><br><br>';
 echo $OUTPUT->footer();
 return;
