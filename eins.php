@@ -36,6 +36,7 @@ global $USER, $DB;
 
 $id = optional_param('id', 0, PARAM_INT); // Course_module ID, or
 // $n = optional_param('n', 0, PARAM_INT); // Mootyper instance ID - it should be named as the first character of the module.
+$lsnnamepo = optional_param('lesson', '', PARAM_TEXT);
 
 if ($id) {
     $course = $DB->get_record('course', array('id' => $id), '*', MUST_EXIST);
@@ -159,11 +160,16 @@ if ($lessonpo == -1) {
     echo '<br><br>'.get_string('visibility', 'mootyper').': <select name="visible">';
     echo '<option value="2">'.get_string('vaccess2', 'mootyper').'</option>';
     echo '<option value="1">'.get_string('vaccess1', 'mootyper').'</option>';
-    echo '<option value="0">'.get_string('vaccess0', 'mootyper').'</option>';
+    if (has_capability('mod/mootyper:viewcategory', context_course::instance($course->id))) {    
+        echo '<option value="0">'.get_string('vaccess0', 'mootyper').'</option>';
+    }
     echo '</select><br><br>'.get_string('editable', 'mootyper').': <select name="editable">';
     echo '<option value="2">'.get_string('eaccess2', 'mootyper').'</option>';
     echo '<option value="1">'.get_string('eaccess1', 'mootyper').'</option>';
     echo '<option value="0">'.get_string('eaccess0', 'mootyper').'</option>';
+    if (has_capability('mod/mootyper:editcategory', context_course::instance($course->id))) {
+        echo '<option value="0">'.get_string('eaccess0', 'mootyper').'</option>';
+    }
     echo '</select>';
 
 }
