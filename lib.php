@@ -61,7 +61,7 @@ function mootyper_supports($feature) {
         case FEATURE_GRADE_HAS_GRADE:
             return true;
         case FEATURE_GRADE_OUTCOMES:
-            return false;
+            return true;
         case FEATURE_RATE:
             return true;
         case FEATURE_BACKUP_MOODLE2:
@@ -946,7 +946,7 @@ function mootyper_extend_settings_navigation(settings_navigation $settingsnav, n
         $node = $navref->add($linkname, $link, navigation_node::TYPE_SETTING, null, null, $icon);
     }
 
-    // Link to Import new exercise / category.
+    // Link to Import new exercise / category and new keyboard layouts.
     if (has_capability('mod/mootyper:aftersetup', $cm->context)) {
         $link = new moodle_url('lsnimport.php', array('id' => $course->id));
         $linkname = get_string('lsnimport', 'mootyper');
