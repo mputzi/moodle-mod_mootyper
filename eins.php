@@ -160,14 +160,16 @@ if ($lessonpo == -1) {
     echo '<br><br>'.get_string('visibility', 'mootyper').': <select name="visible">';
     echo '<option value="2">'.get_string('vaccess2', 'mootyper').'</option>';
     echo '<option value="1">'.get_string('vaccess1', 'mootyper').'</option>';
-    if (has_capability('mod/mootyper:viewcategory', context_course::instance($course->id))) {    
+    //if (has_capability('mod/mootyper:viewcategory', context_course::instance($course->id))) {
+    if (is_siteadmin()) {
         echo '<option value="0">'.get_string('vaccess0', 'mootyper').'</option>';
     }
     echo '</select><br><br>'.get_string('editable', 'mootyper').': <select name="editable">';
     echo '<option value="2">'.get_string('eaccess2', 'mootyper').'</option>';
     echo '<option value="1">'.get_string('eaccess1', 'mootyper').'</option>';
-    echo '<option value="0">'.get_string('eaccess0', 'mootyper').'</option>';
-    if (has_capability('mod/mootyper:editcategory', context_course::instance($course->id))) {
+    //echo '<option value="0">'.get_string('eaccess0', 'mootyper').'</option>';
+    //if (has_capability('mod/mootyper:editcategory', context_course::instance($course->id))) {
+    if (is_siteadmin()) {
         echo '<option value="0">'.get_string('eaccess0', 'mootyper').'</option>';
     }
     echo '</select>';
