@@ -255,16 +255,6 @@ if ($mootyper->lesson != null) {
 <div id="keyboard" style="float: left; text-align:center; margin-left: auto; margin-right: auto;">
 <h4>
         <?php
-/*
-        // Need to get count of exercises in the current lesson.
-        $sqlc = "SELECT COUNT(mte.texttotype)
-                FROM {mootyper_lessons} mtl
-                LEFT JOIN {mootyper_exercises} mte
-                ON mte.lesson =  mtl.id
-                WHERE mtl.id = $mootyper->lesson";
-
-        $count = $DB->count_records_sql($sqlc, $params = null);
-*/
 
         // Old MooTypers without the mode set need this initialized to empty.
         $tempstr = '';
@@ -384,7 +374,7 @@ if ($mootyper->lesson != null) {
                     </div>
     </div>
 </div>
-<br>
+
 <textarea name="tb1" wrap="off" id="tb1" class="tb1" onfocus="return focusSet(event)"  
     onpaste="return false" onselectstart="return false"
     onCopy="return false" onCut="return false" 
@@ -432,7 +422,6 @@ if ($mootyper->lesson != null) {
                 ', '. $mootyper->countmistakes . ');</script>';
         }
     } else {
-        // NOTE: Looks like end of lesson event might go here. NO! It cannnot! Needs to go in gcnext.php.
         echo get_string('endlesson', 'mootyper');
         echo "<br />";
         if (has_capability('mod/mootyper:viewgrades', context_module::instance($cm->id))) {

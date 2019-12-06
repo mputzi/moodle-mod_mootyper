@@ -770,7 +770,15 @@ function mootyper_grade_item_update($mootyper, $grades=null) {
  *  }
  */
 
-// New version to replace the above.
+/**
+ * Update mootyper grades in the gradebook.
+ *
+ * Needed by grade_update_mod_grades() in lib/gradelib.php.
+ * New version to replace the one above.
+ * @param stdClass $mootyper instance object with extra cmidnumber and modname property.
+ * @param int $userid update grade of specific user only, 0 means all participants.
+ * @return void
+ */
 function mootyper_update_grades($mootyper, $userid=0, $nullifnone=true) {
     global $CFG, $DB;
     require_once($CFG->libdir.'/gradelib.php');

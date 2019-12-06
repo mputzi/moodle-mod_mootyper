@@ -287,7 +287,7 @@ if (has_capability('mod/mootyper:aftersetup', context_module::instance($cm->id))
 }
 
 // Start building htmlout for this page based on exam or lesson exercise.
-if ($modepo == 0 || is_null($modepo)) { // If mode is 0, this is a lesson?
+if ($modepo == 0 || is_null($modepo)) { // If mode is 0, this is a lesson.
     $htmlout .= '<option selected="true" value="0">'.get_string('sflesson', 'mootyper').'</option>
                  <option value="1">'.get_string('isexamtext', 'mootyper').'</option>
                  <option value="2">'.get_string('practice', 'mootyper').'</option>';
@@ -303,7 +303,7 @@ if ($modepo == 0 || is_null($modepo)) { // If mode is 0, this is a lesson?
     }
     $htmlout .= '</select></td></tr><tr><td>'.get_string('requiredgoal', 'mootyper').'</td>
                  <td><input value="'.$goalpo.'" style="width: 35px;" type="text" name="requiredgoal"> % </td></tr>';
-} else if ($modepo == 1) { // Or, if mode is 1, this is an exam?
+} else if ($modepo == 1) { // Or, if mode is 1, this is an exam.
     $htmlout .= '<option value="0">'.get_string('sflesson', 'mootyper').'</option>
                  <option value="1" selected="true">'.get_string('isexamtext', 'mootyper').'</option>
                  <option value="2">'.get_string('practice', 'mootyper').'</option>';
@@ -329,7 +329,7 @@ if ($modepo == 0 || is_null($modepo)) { // If mode is 0, this is a lesson?
         }
     }
     $htmlout .= '</select></td></tr>';
-} else if ($modepo == 2) { // If mode is 2, this is a practice lesson?
+} else if ($modepo == 2) { // If mode is 2, this is a practice lesson.
     $htmlout .= '<option selected="true" value="0">'.get_string('sflesson', 'mootyper').'</option>
                  <option value="1">'.get_string('isexamtext', 'mootyper').'</option>
                  <option value="2" selected="true">'.get_string('practice', 'mootyper').'</option>';

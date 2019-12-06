@@ -34,8 +34,15 @@ defined('MOODLE_INTERNAL') || die();
  */
 class mod_mootyper_generator extends testing_module_generator {
 
+    /**
+     *
+     * @var int $mootypercount MooTypers.
+     */
     private $mootypercount = 0;
-
+    /**
+     * The function for exporting resetting data from this MooTyper.
+     *
+     */
     public function reset() {
         $this->mootypercount = 0;
         parent::reset();
