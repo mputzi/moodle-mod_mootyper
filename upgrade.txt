@@ -70,6 +70,7 @@ just checking for site admin is the best way to go.
 final checking, but I have published it to github for feedback from pmaneggia.
 12/03/19 Trk1-190 Now have lesson_completed event working.
 12/06/19 Lots of code cleanup in various files.
+12/07/19 More code cleanup and bumped version for release.
 
 === 3.8.0+ ===
 11/19/19 TRK1-295 In file mod_setup down around line 448, I changed the Confirm button
