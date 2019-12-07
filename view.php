@@ -225,7 +225,6 @@ if ($mootyper->lesson != null) {
         // 11/30/19 Modified to pass data required by exercise_, exam_, and lesson_completed events.
         $insertdir = $CFG->wwwroot . '/mod/mootyper/gcnext.php?cmid='.$cm->id.
             '&lsnname='.$lsnname->id.'&exercisename='.$exercise->exercisename.'&mtmode='.$mtmode.'&count='.$count;
-           // '&lsnname='.$lsnname->lessonname.'&exercisename='.$exercise->exercisename.'&mtmode='.$mtmode;
     }
 
     if (exam_already_done($mootyper, $USER->id) && $mtmode === '1') {

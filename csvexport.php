@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * This file is used to export exercise attempts in csv format. 
+ * This file is used to export exercise attempts in csv format.
  * Called from gview.php (View All Grades).
  * Changed the code 03/10/2019 to work with removing ...lib.php function get_typergradesfull.
  * Added the mode, lesson name, and required precision to row one of the csv output file.

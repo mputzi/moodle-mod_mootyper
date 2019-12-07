@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * This file defines the English(USV5.1)keyboard layout. 
+ * This file defines the English(USV5.1)keyboard layout.
  * Shift keys now separated and light up correctly - right shift for upper case
  * and symbols on the left side of the keyboard. Left shift lights up
  * for upper case and symbols on the right side of the keyboard.

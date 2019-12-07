@@ -168,8 +168,10 @@ function thenPadFinger(tCrka) {
     // @codingStandardsIgnoreLine
     } else if (tCrka.match(/[7410]/i)) {
         return 1; // Highlight the correct key above in blue.
+    // @codingStandardsIgnoreLine
     } else {
         return 6; // Do not change any highlight.
+    // @codingStandardsIgnoreLine
     }
 }
 

@@ -137,10 +137,10 @@ if (has_capability('mod/mootyper:editall', context_course::instance($course->id)
 
 $color3 = $moocfg->keyboardbgc;
 echo '<div align="center" style="font-size:1em;
-     font-weight:bold;background: '.$color3.';
-     border:2px solid black;
-     -webkit-border-radius:16px;
-     -moz-border-radius:16px;border-radius:16px;">'.'<br>';
+    font-weight:bold;background: '.$color3.';
+    border:2px solid black;
+    -webkit-border-radius:16px;
+    -moz-border-radius:16px;border-radius:16px;">'.'<br>';
 
 echo '<form method="POST">';
 echo get_string('fnewexercise', 'mootyper').'&nbsp;';
@@ -156,24 +156,20 @@ for ($ij = 0; $ij < count($lessons); $ij++) {
 echo '</select>';
 if ($lessonpo == -1) {
     echo '<br><br>...'.get_string('lsnname', 'mootyper').': <input type="text" name="lessonname" id="lessonname">
-          <span style="color:red;" id="namemsg"></span>';
+        <span style="color:red;" id="namemsg"></span>';
     echo '<br><br>'.get_string('visibility', 'mootyper').': <select name="visible">';
     echo '<option value="2">'.get_string('vaccess2', 'mootyper').'</option>';
     echo '<option value="1">'.get_string('vaccess1', 'mootyper').'</option>';
-    //if (has_capability('mod/mootyper:viewcategory', context_course::instance($course->id))) {
     if (is_siteadmin()) {
         echo '<option value="0">'.get_string('vaccess0', 'mootyper').'</option>';
     }
     echo '</select><br><br>'.get_string('editable', 'mootyper').': <select name="editable">';
     echo '<option value="2">'.get_string('eaccess2', 'mootyper').'</option>';
     echo '<option value="1">'.get_string('eaccess1', 'mootyper').'</option>';
-    //echo '<option value="0">'.get_string('eaccess0', 'mootyper').'</option>';
-    //if (has_capability('mod/mootyper:editcategory', context_course::instance($course->id))) {
     if (is_siteadmin()) {
         echo '<option value="0">'.get_string('eaccess0', 'mootyper').'</option>';
     }
     echo '</select>';
-
 }
 ?>
 
@@ -224,8 +220,8 @@ function clClick() {
 <?php
 // Get our alignment strings and add a selector for text alignment.
 $aligns = array(get_string('defaulttextalign_left', 'mod_mootyper'),
-              get_string('defaulttextalign_center', 'mod_mootyper'),
-              get_string('defaulttextalign_right', 'mod_mootyper'));
+            get_string('defaulttextalign_center', 'mod_mootyper'),
+            get_string('defaulttextalign_right', 'mod_mootyper'));
 echo '<br><br><span id="editalign" class="">'.get_string('defaulttextalign', 'mootyper').': ';
 echo '<select onchange="this.form.submit()" name="editalign">';
 // This will loop through ALL three alignments and show current alignment setting.
@@ -252,10 +248,10 @@ if ($lessonpo == -1) {
 }
 
 echo '<br><span id="text_holder_span" class=""></span><br>'.get_string('fexercise', 'mootyper').':<br>'.
-     '<textarea rows="4" cols="60" name="texttotype" id="texttotype"style="text-align:'.$align.'"></textarea><br>'.
-     '<br><input class="btn btn-primary" name="button" onClick="return clClick()" type="submit" value="'
-     .get_string('fconfirm', 'mootyper').'"> <a href="'.$url.'" class="btn btn-secondary" role="button">'
-     .get_string('cancel', 'mootyper').'</a>'.'</form>';
+    '<textarea rows="4" cols="60" name="texttotype" id="texttotype"style="text-align:'.$align.'"></textarea><br>'.
+    '<br><input class="btn btn-primary" name="button" onClick="return clClick()" type="submit" value="'
+    .get_string('fconfirm', 'mootyper').'"> <a href="'.$url.'" class="btn btn-secondary" role="button">'
+    .get_string('cancel', 'mootyper').'</a>'.'</form>';
 
 echo '<br></div>';
 

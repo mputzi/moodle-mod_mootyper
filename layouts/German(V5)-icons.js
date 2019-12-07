@@ -47,6 +47,7 @@ function keyboardElement(ltr) {
     if (isLetter(ltr)) { // Set specified shift key for right or left.
         if (ltr.match(/[°!"§$%QWEÊRTAÂSDFG>YXCVB]/)) {
             this.shiftright = true;
+        // @codingStandardsIgnoreLine
         } else if (ltr.match(/[&/()=?`*';:_ZUIOÔPÜ*'HJKLÖÄNM;:_]/)) {
             this.shiftleft = true;
         }
@@ -60,7 +61,6 @@ function keyboardElement(ltr) {
     }
     if (ltr.match(/[ÄËÏÖ]/)) {
         this.shift = true;
-        //this.umlaut = true;
     }
     if (ltr.match(/[âêîôû]/)) {
         this.pow = true;
@@ -170,6 +170,7 @@ function thenFinger(tCrka) {
     // @codingStandardsIgnoreLine
     } else if (tCrka.match(/[4$rfv5%tgb6&zhn7/{ujmµû]/i)) {
         return 1; // Highlight the correct key above in blue.
+    // @codingStandardsIgnoreLine
     } else {
         return 6; // Do not change any highlight.
     }
