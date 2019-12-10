@@ -81,7 +81,7 @@ echo '<div align="center" style="font-size:1em;
      -webkit-border-radius:16px;
      -moz-border-radius:16px;border-radius:16px;">';
 
-// Create link to add new exercise or category.
+// Create link to add new exercise or category at top of page.
 $jlnk2 = $CFG->wwwroot . '/mod/mootyper/eins.php?id='.$id;
 echo '<a href="'.$jlnk2.'">'.get_string('eaddnew', 'mootyper').'</a><br><br>';
 
@@ -109,35 +109,34 @@ echo '</select>';
 // Preload not editable by me message for current user.
 $jlink = get_string('noteditablebyme', 'mootyper');
 if (is_editable_by_me($USER->id, $lessonpo)) {
-    // Add a remove all from lesson link.
+    // Add a Delete all from lesson link.
     echo '<br>';
     echo ' <a onclick="return confirm(\''.get_string('deletelsnconfirm', 'mootyper').$lessons[$selectedlessonindex]['lessonname'].
     '\')" href="erem.php?id='.$course->id.'&l='.$lessons[$selectedlessonindex]['id'].'">'.
     get_string('deleteall', 'mootyper').'\''.$lessons[$selectedlessonindex]['lessonname'].'\'</a>';
     echo '<br>';
-    // Add a export lesson link next to the remove all link.
+    // Add a export lesson link next to the delete all link.
     echo ' <a onclick="return confirm(\''.get_string('exportconfirm', 'mootyper').$lessons[$selectedlessonindex]['lessonname'].
     '\')" href="lsnexport.php?id='.$course->id.'&lsn='.$lessons[$selectedlessonindex]['id'].'">'.
     get_string('export', 'mootyper').'\''.$lessons[$selectedlessonindex]['lessonname'].'\'</a>';
-}
-echo '</form><br>';
+    echo '</form><br>';
+    // Create a link with course id and lsn options to export the current Lesson.
+    $jlink = '<a onclick="return confirm(\''.get_string('exportconfirm', 'mootyper')
+        .$lessons[$selectedlessonindex]['lessonname'].'\')" href="lsnexport.php?id='
+        .$course->id.'&lsn='.$lessons[$selectedlessonindex]['id']
+        .'"><img src="pix/download_all.svg" alt='
+        .get_string('export', 'mootyper').'> '
+        .$lessons[$selectedlessonindex]['lessonname'].'';
 
+    // Add a link to let teachers add a new exercise to the Lesson currently being viewed.
+    $jlnk3 = $CFG->wwwroot . '/mod/mootyper/eins.php?id='.$id.'&lesson='.$lessonpo;
+    echo '<a href="'.$jlnk3.'">'.get_string('eaddnewex', 'mootyper').$lessonpo.'.</a><br>';
+} else {
+    echo '</form><br>';
+}
 // Create border and alignment styles for use as needed.
 $style1 = 'style="border-color: #000000; border-style: solid; border-width: 3px; text-align: center;"';
 $style2 = 'style="border-color: #000000; border-style: solid; border-width: 3px; text-align: left;"';
-
-// Create a link with course id and lsn options to export the current Lesson.
-$jlink = '<a onclick="return confirm(\''.get_string('exportconfirm', 'mootyper')
-         .$lessons[$selectedlessonindex]['lessonname'].'\')" href="lsnexport.php?id='
-         .$course->id.'&lsn='.$lessons[$selectedlessonindex]['id']
-         .'"><img src="pix/download_all.svg" alt='
-         .get_string('export', 'mootyper').'> '
-         .$lessons[$selectedlessonindex]['lessonname'].'';
-
-// Add a link to let me add a new exercise to the Lesson currently being viewed.
-$jlnk3 = $CFG->wwwroot . '/mod/mootyper/eins.php?id='.$id.'&lesson='.$lessonpo;
-echo '<a href="'.$jlnk3.'">'.get_string('eaddnewex', 'mootyper').'</a><br>';
-
 // Print header row for Lesson table currently being viewed.
 echo '<table><tr><td '.$style1.'>'.get_string('ename', 'mootyper').'</td>
                  <td '.$style1.'>'.$lessons[$selectedlessonindex]['lessonname'].'</td>
@@ -152,22 +151,24 @@ foreach ($exercises as $ex) {
     if (strlen($strtocut) > 65) {
         $strtocut = substr($strtocut, 0, 65).'...';
     }
-    // If user can edit, create a remove link to the current exerise.
+    // If user can edit, create a delete link to the current exercise.
     $jlink1 = '<a onclick="return confirm(\''.get_string('deleteexconfirm', 'mootyper')
               .$lessons[$selectedlessonindex]['lessonname']
               .'\')" href="erem.php?id='.$course->id.'&r='
               .$ex['id'].'&lesson='.$lessonpo.'"><img src="pix/delete.png" alt="'
               .get_string('delete', 'mootyper').'"></a>';
 
-    // If user can edit, create an edit link to the current exerise.
+    // If user can edit, create an edit link to the current exercise.
     $jlink2 = '<a href="eedit.php?id='.$course->id.'&ex='.$ex['id']
               .'"><img src="pix/edit.png" alt='
               .get_string('eeditlabel', 'mootyper').'></a>';
 
     echo '<tr><td '.$style1.'>'.$ex['exercisename'].'</td><td '.$style2.'>'.$strtocut.'</td>';
+    // If the user can edit or delete this lesson and its exercises, then added edit and delete tools. 
     if (is_editable_by_me($USER->id, $lessonpo)) {
         echo '<td '.$style1.'>'.$jlink2.' | '.$jlink1.'</td>';
     } else {
+        // If the user can not edit or delete, show an empty space.
         echo '<td '.$style2.'></td>';
     }
     echo '</tr>';
