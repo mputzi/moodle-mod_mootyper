@@ -200,13 +200,15 @@ function can_view_edit_all($usr, $c) {
     }
 }
 
-/**
+/** 12/11/19 Modified to add missing compare of current 
+ * course to courseid listed in the lesson. TRK1-315.
+ *
  * Check if current user can edit.
  * @param int $usr
  * @param int $lsn
  * @return boolean
  */
-function is_editable_by_me($usr, $lsn) {
+function is_editable_by_me($usr, $id, $lsn) {
     global $DB;
     $lesson = $DB->get_record('mootyper_lessons', array('id' => $lsn));
     if (is_null($lesson->courseid)) {
@@ -214,10 +216,10 @@ function is_editable_by_me($usr, $lsn) {
     } else {
         $crs = $lesson->courseid;
     }
-    if ((($lesson->editable == 0) ||
-       ($lesson->editable == 1 && is_user_enrolled($usr, $crs)) ||
-       ($lesson->editable == 2 && $lesson->authorid == $usr))
-       || can_view_edit_all($usr, $crs)) {
+    if ((($lesson->editable == 0)
+        || ($lesson->editable == 1 && (is_user_enrolled($usr, $id) && ($id == $lesson->courseid)))
+        || ($lesson->editable == 2 && $lesson->authorid == $usr))
+        || can_view_edit_all($usr, $crs)) {
         return true;
     } else {
         return false;

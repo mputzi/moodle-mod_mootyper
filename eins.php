@@ -129,7 +129,7 @@ if (has_capability('mod/mootyper:editall', context_course::instance($course->id)
 } else {
     $lessons = array();
     foreach ($lessonsg as $lsng) {
-        if (is_editable_by_me($USER->id, $lsng['id'])) {
+        if (is_editable_by_me($USER->id, $id, $lsng['id'])) {
             $lessons[] = $lsng;
         }
     }

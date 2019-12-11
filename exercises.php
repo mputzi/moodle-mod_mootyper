@@ -66,8 +66,6 @@ $PAGE->set_cacheable(false);
 // Output starts here.
 echo $OUTPUT->header();
 
-
-
 // Since editing an exercise is a course activity, the keyboard
 // background color info for the MooTyper this was called from,
 // is not available. So, need to get the default keyboard background
@@ -108,14 +106,14 @@ for ($ij = 0; $ij < count($lessons); $ij++) {
 echo '</select>';
 // Preload not editable by me message for current user.
 $jlink = get_string('noteditablebyme', 'mootyper');
-if (is_editable_by_me($USER->id, $lessonpo)) {
+if (is_editable_by_me($USER->id, $id, $lessonpo)) {
     // Add a Delete all from lesson link.
     echo '<br>';
     echo ' <a onclick="return confirm(\''.get_string('deletelsnconfirm', 'mootyper').$lessons[$selectedlessonindex]['lessonname'].
     '\')" href="erem.php?id='.$course->id.'&l='.$lessons[$selectedlessonindex]['id'].'">'.
     get_string('deleteall', 'mootyper').'\''.$lessons[$selectedlessonindex]['lessonname'].'\'</a>';
     echo '<br>';
-    // Add a export lesson link next to the delete all link.
+    // Add a export lesson link below the delete all link.
     echo ' <a onclick="return confirm(\''.get_string('exportconfirm', 'mootyper').$lessons[$selectedlessonindex]['lessonname'].
     '\')" href="lsnexport.php?id='.$course->id.'&lsn='.$lessons[$selectedlessonindex]['id'].'">'.
     get_string('export', 'mootyper').'\''.$lessons[$selectedlessonindex]['lessonname'].'\'</a>';
@@ -165,7 +163,7 @@ foreach ($exercises as $ex) {
 
     echo '<tr><td '.$style1.'>'.$ex['exercisename'].'</td><td '.$style2.'>'.$strtocut.'</td>';
     // If the user can edit or delete this lesson and its exercises, then added edit and delete tools. 
-    if (is_editable_by_me($USER->id, $lessonpo)) {
+    if (is_editable_by_me($USER->id, $id, $lessonpo)) {
         echo '<td '.$style1.'>'.$jlink2.' | '.$jlink1.'</td>';
     } else {
         // If the user can not edit or delete, show an empty space.
