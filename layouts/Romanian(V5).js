@@ -50,7 +50,7 @@ function keyboardElement(ltr) {
             this.shiftleft = true;
         }
     }
-    if (ltr.match(/[`~~ˇ€đĐ©˘°˛`·<«´łŁ>»˝§¨–\[{'"¸±\]}]/)) {
+    if (ltr.match(/[`~~ˇ€şđĐ©˘°˛`·<«´łŁ>»˝§¨–\[{¸ţ'"¸±\]}]/)) {
         this.alt = true;
     }
     this.turnOn = function() {
@@ -97,7 +97,7 @@ function thenFinger(tCrka) {
     if (tCrka === ' ') {
         return 5; // Highlight the spacebar.
     // @codingStandardsIgnoreLine
-    } else if (tCrka.match(/[\n„”`~1!~qa\\z0)˝pș/?ă\[{}\]ț=î\-_+â'"|]/i)) {
+    } else if (tCrka.match(/[\n„”`~1!~qa\\z0)˝pșş/?ă\[{}\]țţî\-_¨–=+¸±â'"|]/i)) {
         return 4; // Highlight the correct key above in red.
     // @codingStandardsIgnoreLine
     } else if (tCrka.match(/[2@ˇwsßx9(´olł>».:]/)) {
@@ -161,12 +161,14 @@ function getKeyID(tCrka) {
         return "jkeyî";
     } else if (tCrka === 'â' || tCrka === '\\' || tCrka === '|') {
         return "jkeybackslash";
-    } else if (tCrka === 'ß') {
+    } else if (tCrka === 'ß' || tCrka === 'ş') {
         return "jkeys";
     } else if (tCrka === 'đ' || tCrka === 'Đ') {
         return "jkeyd";
     } else if (tCrka === '©') {
         return "jkeyc";
+    } else if (tCrka === 'ţ') {
+        return "jkeyt";
     } else if (tCrka === 'ł' || tCrka ==='Ł') {
         return "jkeyl";
     } else if (tCrka === ',' || tCrka === ';' || tCrka === '<' || tCrka === '«') {
@@ -175,7 +177,7 @@ function getKeyID(tCrka) {
         return "jkeyperiod";
     } else if (tCrka === '§') {
         return "jkeyp";
-    } else if (tCrka === ';' || tCrka === ':') {
+    } else if (tCrka === 'ș' ||tCrka === ';' || tCrka === ':') {
         return "jkeyș";
     } else if (tCrka === '/' || tCrka === '?') {
         return "jkey/";
