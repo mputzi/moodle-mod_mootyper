@@ -54,7 +54,7 @@ fixed the download link in the table, and shows, 'Not editable by me." message.
 was set to a 1, teachers in course, current course was NOT being compared to the
 lesson->courseid, like it should.
 12/11/19 TRK1_317 Changed language strings to use Lesson/lesson instead of Exercise/exercise.
-12/11/19 TRK1_318 Romainian(V5) working. Just need to finish test red alt keys.
+12/11/19 TRK1_318 Romainian(V5) working. Able to type all in Lorem Ipsum. Ready for Beta release.
 
 === 3.8.1 ===
 11/24/19 Fixed PostrgreSQL compatibility error in locallib.php function get_mootyperlessons.
