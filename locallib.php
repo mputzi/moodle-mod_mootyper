@@ -200,7 +200,7 @@ function can_view_edit_all($usr, $c) {
     }
 }
 
-/** 12/11/19 Modified to add missing compare of current 
+/** 12/11/19 Modified to add missing compare of current
  * course to courseid listed in the lesson. TRK1-315.
  *
  * Check if current user can edit.
