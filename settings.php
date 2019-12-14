@@ -23,7 +23,6 @@
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later.
  */
 
-
 defined('MOODLE_INTERNAL') || die;
 
 if ($ADMIN->fulltree) {
@@ -67,6 +66,22 @@ if ($ADMIN->fulltree) {
     $settings->add(new admin_setting_configselect('mod_mootyper/defaultprecision',
         get_string('defaultprecision', 'mootyper'), '', 97, $precs));
 
+    // Default Words Per Minute rate.
+    $wpm = array();
+    for ($i = 0; $i <= 100; $i++) {
+        $wpm[] = $i;
+    }
+    $settings->add(new admin_setting_configselect('mod_mootyper/defaultwpm',
+        get_string('defaultwpm', 'mootyper'), '', 0, $wpm));
+
+    // Default time limit.
+    $tl = array();
+    for ($i = 0; $i <= 10; $i++) {
+        $tl[] = $i;
+    }
+    $settings->add(new admin_setting_configselect('mod_mootyper/defaulttimelimit',
+        get_string('defaulttimelimit', 'mootyper'), '', 0, $tl));
+
     // Default text alignment while typing an exercise.
     $settings->add(new admin_setting_configselect('mod_mootyper/defaulttextalign',
         get_string('defaulttextalign', 'mod_mootyper'),
@@ -108,7 +123,6 @@ if ($ADMIN->fulltree) {
     $settings->add(new admin_setting_configselect('mod_mootyper/defaultlayout',
         get_string('defaultlayout', 'mootyper'), '', 3, $layouts));
 
-
     // Lesson export settings.
     $settings->add(new admin_setting_heading('mod_mootyper/lesson_export', get_string('lesson_export', 'mootyper'), ''));
 
@@ -122,8 +136,6 @@ if ($ADMIN->fulltree) {
 
     // Appearance settings.
     $settings->add(new admin_setting_heading('mod_mootyper/appearance', get_string('appearance'), ''));
-
-
 
     // Date format setting.
     $settings->add(new admin_setting_configtext(
@@ -165,6 +177,15 @@ if ($ADMIN->fulltree) {
     $title = get_string('statscolor_title', 'mootyper');
     $description = get_string('statscolor_descr', 'mootyper');
     $default = get_string('statscolor_colour', 'mootyper');
+    $setting = new admin_setting_configcolourpicker($name, $title, $description, $default);
+    $setting->set_updatedcallback('theme_reset_all_caches');
+    $settings->add($setting);
+
+    // Key top text colour setting.
+    $name = 'mod_mootyper/normalkeytoptextc';
+    $title = get_string('normalkeytoptextc_title', 'mootyper');
+    $description = get_string('normalkeytoptextc_descr', 'mootyper');
+    $default = get_string('normalkeytoptextc_colour', 'mootyper');
     $setting = new admin_setting_configcolourpicker($name, $title, $description, $default);
     $setting->set_updatedcallback('theme_reset_all_caches');
     $settings->add($setting);

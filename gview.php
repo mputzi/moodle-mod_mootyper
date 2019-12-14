@@ -114,12 +114,14 @@ if (!has_capability('mod/mootyper:viewgrades', context_module::instance($cm->id)
     }
     $htmlout .= '&nbsp;&nbsp;&nbsp;&nbsp;'.get_string('flesson', 'mootyper').'/'
                 .get_string('lsnname', 'mootyper')." = ".$lsnname->lessonname;
-    $htmlout .= '&nbsp;&nbsp;&nbsp;&nbsp;'.get_string('requiredgoal', 'mootyper')
+    $htmlout .= '<br>'.get_string('requiredgoal', 'mootyper')
                 .' = '.$mootyper->requiredgoal.'%';
+    $htmlout .= '&nbsp;&nbsp;&nbsp;&nbsp;'.get_string('requiredwpm', 'mootyper')
+                .' = '.$mootyper->requiredwpm;
 
     // Changed the code for mode 1 to use the same code as mode 0 and mode 2 on 03/08/2019.
     $htmlout .= '<form method="post">';
-    $htmlout .= '<table><br><tr><td>'.get_string('gviewmode', 'mootyper').'</td><td>';
+    $htmlout .= '<table><tr><td>'.get_string('gviewmode', 'mootyper').'</td><td>';
     $htmlout .= '<select onchange="this.form.submit()" name="jmode">
                 <option value="0">'.get_string('byuser', 'mootyper').'</option>';
     if ($md == 1) {

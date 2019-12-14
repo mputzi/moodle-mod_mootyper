@@ -202,6 +202,7 @@ if ($mootyper->lesson != null) {
     }
 
     $reqiredgoal = $mootyper->requiredgoal;
+    $reqiredwpm = $mootyper->requiredwpm;
     $exercise = get_exercise_from_mootyper($mootyper->id, $mootyper->lesson, $USER->id);
     // 5/20/2019 Get the lesson name.
     $lsnname = $DB->get_record('mootyper_lessons', array('id' => $mootyper->lesson), '*', MUST_EXIST);
@@ -210,7 +211,6 @@ if ($mootyper->lesson != null) {
         $exerciseid = $exercise->id;
         $texttoenter = $exercise->texttotype;
     }
-
 
     // Need to get count of exercises in the current lesson.
     $sqlc = "SELECT COUNT(mte.texttotype)
@@ -299,6 +299,14 @@ if ($mootyper->lesson != null) {
         <?php
         if (isset($reqiredgoal)) {
             echo $reqiredgoal;
+        }
+        ?>
+'>
+
+<input name='rpWPM' type='hidden' value='
+        <?php
+        if (isset($reqiredwpm)) {
+            echo $reqiredwpm;
         }
         ?>
 '>

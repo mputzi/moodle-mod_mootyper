@@ -106,9 +106,12 @@ if (!has_capability('mod/mootyper:viewmygrades', context_module::instance($cm->i
                 .get_string('flesson', 'mootyper')
                 .'/'.get_string('lsnname', 'mootyper')
                 ." = ".$lsnname->lessonname;
-    $htmlout .= '&nbsp;&nbsp;&nbsp;&nbsp;'
+    $htmlout .= '<br>'
                 .get_string('requiredgoal', 'mootyper')
                 .' = '.$mootyper->requiredgoal.'%';
+    $htmlout .= '&nbsp;&nbsp;&nbsp;&nbsp;'
+                .get_string('requiredwpm', 'mootyper')
+                .' = '.$mootyper->requiredwpm;
     // Update the library.
     if ($des == -1 || $des == 0) {
         $grds = get_typergradesuser(optional_param('n', 0, PARAM_INT), $USER->id, $orderby, 0);
