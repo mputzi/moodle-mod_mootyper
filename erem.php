@@ -48,6 +48,7 @@ $context = context_course::instance($id);
 // if l is set we remove a lesson and all its exercises.
 $exerciseid = optional_param('r', '', PARAM_TEXT);
 $lessonid = optional_param('l', '', PARAM_TEXT);
+
 if ($exerciseid) {
     $lessonpo = optional_param('lesson', '', PARAM_INT);
     $DB->delete_records('mootyper_exercises', array('id' => $exerciseid));
