@@ -250,9 +250,6 @@ function xmldb_mootyper_upgrade($oldversion) {
             $dbman->add_field($table, $field);
         }
 
-        // Mootyper savepoint reached.
-        upgrade_mod_savepoint(true, 2018033000, 'mootyper');
-
         // Define field countmistakes to be added to mootyper.
         $table = new xmldb_table('mootyper');
         $field = new xmldb_field('countmistakes', XMLDB_TYPE_INTEGER, '1', null, XMLDB_NOTNULL, null, '0', 'texterrorcolor');
@@ -261,6 +258,41 @@ function xmldb_mootyper_upgrade($oldversion) {
         if (!$dbman->field_exists($table, $field)) {
             $dbman->add_field($table, $field);
         }
+        // Mootyper savepoint reached.
+        upgrade_mod_savepoint(true, 2018033000, 'mootyper');
+    }
+
+    // Three new fields added for version 3.8.2.
+    if ($oldversion < 2019121400) {
+
+        // Define field requiredwpm to be added to mootyper.
+        $table = new xmldb_table('mootyper');
+        $field = new xmldb_field('requiredwpm', XMLDB_TYPE_INTEGER, '4', null, XMLDB_NOTNULL, null, '0', 'requiredgoal');
+
+        // Conditionally launch add field requiredwpm.
+        if (!$dbman->field_exists($table, $field)) {
+            $dbman->add_field($table, $field);
+        }
+
+        // Define field timelimit to be added to mootyper.
+        $table = new xmldb_table('mootyper');
+        $field = new xmldb_field('timelimit', XMLDB_TYPE_INTEGER, '4', null, XMLDB_NOTNULL, null, '0', 'requiredwpm');
+
+        // Conditionally launch add field timelimit.
+        if (!$dbman->field_exists($table, $field)) {
+            $dbman->add_field($table, $field);
+        }
+
+        // Define field keytop text color to be added to mootyper.
+        $table = new xmldb_table('mootyper');
+        $field = new xmldb_field('keytoptextc', XMLDB_TYPE_CHAR, '20', null, XMLDB_NOTNULL, null, null, 'statsbgc');
+
+        // Conditionally launch add field keytoptextc.
+        if (!$dbman->field_exists($table, $field)) {
+            $dbman->add_field($table, $field);
+        }
+        // Mootyper savepoint reached.
+        upgrade_mod_savepoint(true, 2019121400, 'mootyper');
     }
     return true;
 }
