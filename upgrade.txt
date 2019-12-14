@@ -56,6 +56,11 @@ lesson->courseid, like it should.
 12/11/19 TRK1_317 Changed language strings to use Lesson/lesson instead of Exercise/exercise.
 12/11/19 TRK1_318 Romainian(V5) working. Able to type all in Lorem Ipsum. Ready for Beta release.
 12/13/19 Bumped version to 3.8.2 and moved a copy to m3x.drachels.com site.
+12/14/19 TRK1_168 Added requiredwpm setting and implemented the needed code and strings. Seems
+to be working fine.
+12/14/19 TRK1_181 Added settings for keytoptextc but not the code to implement it, yet.
+12/14/19 TRK1_311 Added settings for timelimit, but not the code to implement it, yet.
+
 
 === 3.8.1 ===
 11/24/19 Fixed PostrgreSQL compatibility error in locallib.php function get_mootyperlessons.
