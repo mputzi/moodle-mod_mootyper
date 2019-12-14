@@ -51,6 +51,11 @@ if (optional_param('rpAccInput', '', PARAM_FLOAT) >= optional_param('rpGoal', ''
 } else {
     $passfield = 0;
 }
+if (optional_param('rpWpmInput', '', PARAM_FLOAT) >= optional_param('rpWPM', '', PARAM_FLOAT)) {
+    $passfield = 1;
+} else {
+    $passfield = 0;
+}
 
 $record = new stdClass();
 $record->mootyper = optional_param('rpSityperId', '', PARAM_INT);
