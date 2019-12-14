@@ -79,7 +79,7 @@ echo '<div align="center" style="font-size:1em;
      -webkit-border-radius:16px;
      -moz-border-radius:16px;border-radius:16px;">';
 
-// Create link to add new exercise or category at top of page.
+// Create link to add new exercise or lesson at top of page.
 $jlnk2 = $CFG->wwwroot . '/mod/mootyper/eins.php?id='.$id;
 echo '<a href="'.$jlnk2.'">'.get_string('eaddnew', 'mootyper').'</a><br><br>';
 
@@ -132,6 +132,7 @@ if (is_editable_by_me($USER->id, $id, $lessonpo)) {
 } else {
     echo '</form><br>';
 }
+
 // Create border and alignment styles for use as needed.
 $style1 = 'style="border-color: #000000; border-style: solid; border-width: 3px; text-align: center;"';
 $style2 = 'style="border-color: #000000; border-style: solid; border-width: 3px; text-align: left;"';
@@ -162,7 +163,7 @@ foreach ($exercises as $ex) {
               .get_string('eeditlabel', 'mootyper').'></a>';
 
     echo '<tr><td '.$style1.'>'.$ex['exercisename'].'</td><td '.$style2.'>'.$strtocut.'</td>';
-    // If the user can edit or delete this lesson and its exercises, then added edit and delete tools. 
+    // If the user can edit or delete this lesson and its exercises, then added edit and delete tools.
     if (is_editable_by_me($USER->id, $id, $lessonpo)) {
         echo '<td '.$style1.'>'.$jlink2.' | '.$jlink1.'</td>';
     } else {
