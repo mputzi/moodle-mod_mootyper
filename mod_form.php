@@ -130,6 +130,15 @@ class mod_mootyper_mod_form extends moodleform_mod {
         $mform->addHelpButton('requiredgoal', 'requiredgoal', 'mootyper');
         $mform->setDefault('requiredgoal', $mootyperconfig->defaultprecision);
 
+        // Added a dropdown slector for WPM rate. 12/14/19.
+        $wpm = array();
+        for ($i = 0; $i <= 100; $i++) {
+            $wpm[] = $i;
+        }
+        $mform->addElement('select', 'requiredwpm', get_string('requiredwpm', 'mootyper'), $wpm);
+        $mform->addHelpButton('requiredwpm', 'requiredwpm', 'mootyper');
+        $mform->setDefault('requiredwpm', $mootyperconfig->defaultwpm);
+
         // Add a dropdown slector for text alignment.
         $aligns = array(get_string('defaulttextalign_left', 'mod_mootyper'),
                       get_string('defaulttextalign_center', 'mod_mootyper'),
