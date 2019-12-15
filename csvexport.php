@@ -52,11 +52,12 @@ function array_to_csv_download($array, $filename = "export.csv", $delimiter=";")
     $misexam = optional_param('isexam', 0, PARAM_INT); // Get the mode for this MooTyper.
     $lsnname = optional_param('lsnname', '', PARAM_RAW); // Get the lesson name for this MooTyper.
     $requiredgoal = optional_param('requiredgoal', 0, PARAM_INT); // Get the required precision goal for this MooTyper.
+    $requiredwpm = optional_param('requiredwpm', 0, PARAM_INT); // Get the required precision goal for this MooTyper.
     $cm = get_coursemodule_from_id('mootyper', $id, 0, false, MUST_EXIST);
 
     $context = context_module::instance($cm->id);
 
-    // Start building a row 1 entry of the course name, activity name, mode, lesson name, and required precision..
+    // Start building a row 1 entry of the course name, activity name, mode, lesson name, required precision, and required WPM.
     $coursename = get_string('course')." = ".$coursename;
     $mtname = get_string('activity')." = ".$mtname;
 
@@ -78,9 +79,10 @@ function array_to_csv_download($array, $filename = "export.csv", $delimiter=";")
     // Create a spreadsheet csv filename based on the lesson name.
     $filename = get_string('flesson', 'mootyper')."_".$lsnname.'.csv';
 
-    // Get the lesson name and the required precision goal for the csv spreadsheet row 1 entry.
+    // Get the lesson name, required precision, and required WPM for the csv spreadsheet row 1 entry.
     $lsnname = get_string('flesson', 'mootyper')." = ".$lsnname;
     $requiredgoal = get_string('requiredgoal', 'mootyper').' = '.$requiredgoal.'%';
+    $requiredwpm = get_string('requiredwpm', 'mootyper').' = '.$requiredwpm;
 
     // Trigger export_viewallgrades_to_csv event.
     $params = array(
@@ -109,7 +111,8 @@ function array_to_csv_download($array, $filename = "export.csv", $delimiter=";")
                      $mtname,
                      $mtmode,
                      $lsnname,
-                     $requiredgoal);
+                     $requiredgoal,
+                     $requiredwpm);
 
     $headings = array(get_string('student', 'mootyper'),
                       get_string('fexercise', 'mootyper'),
