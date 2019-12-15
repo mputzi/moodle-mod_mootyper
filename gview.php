@@ -270,15 +270,16 @@ if (!has_capability('mod/mootyper:viewgrades', context_module::instance($cm->id)
 
     // Create link for export and pass mode, lesson name, and required goal to csvexport file.
     $url1 = '<p style="text-align: left;">
-                 <a href="'.$CFG->wwwroot.'/mod/mootyper/csvexport.php?mootyperid='.$mootyper->id
-                .'&id='.$id
-                .'&coursename='.$course->fullname
-                .'&mtname='.$mootyper->name
-                .'&isexam='.$mootyper->isexam
-                .'&lsnname='.$lsnname->lessonname
-                .'&requiredgoal='.$mootyper->requiredgoal
-                .'">'.get_string('csvexport', 'mootyper')
-                .'</a></p>';
+        <a href="'.$CFG->wwwroot.'/mod/mootyper/csvexport.php?mootyperid='.$mootyper->id
+        .'&id='.$id
+        .'&coursename='.$course->fullname
+        .'&mtname='.$mootyper->name
+        .'&isexam='.$mootyper->isexam
+        .'&lsnname='.$lsnname->lessonname
+        .'&requiredgoal='.$mootyper->requiredgoal
+        .'&requiredwpm='.$mootyper->requiredwpm
+        .'">'.get_string('csvexport', 'mootyper')
+        .'</a></p>';
     $htmlout .= $url1;
     /*
     // Future development. 11/17/19 Everything here in $urlparams works and gets set
@@ -288,13 +289,13 @@ if (!has_capability('mod/mootyper:viewgrades', context_module::instance($cm->id)
     // left blank, but the rest of the data file is created correctly.
     // 11/15/2019 Added new link button for csvexport.
     $urlparams = array('mootyperid' => $mootyper->id,
-                       'id' => $id,
-                       'coursname' => $course->fullname,
-                       'mtname=' => $mootyper->name,
-                       'isexam=' => $mootyper->isexam,
-                       'lsnname=' => $lsnname->lessonname,
-                       'requiredgoal=' => $mootyper->requiredgoal
-                       );
+        'id' => $id,
+        'coursname' => $course->fullname,
+        'mtname=' => $mootyper->name,
+        'isexam=' => $mootyper->isexam,
+        'lsnname=' => $lsnname->lessonname,
+        .'&requiredgoal='.$mootyper->requiredgoal,
+        .'&requiredwpm='.$mootyper->requiredwpm                       );
     $url2 = new moodle_url($CFG->wwwroot.'/mod/mootyper/csvexport.php', $urlparams);
     $htmlout .= html_writer::link($url2, get_string('csvexport', 'mootyper'), ['class' => 'btn btn-primary btn-block']);
     */
