@@ -60,7 +60,7 @@ lesson->courseid, like it should.
 to be working fine.
 12/14/19 TRK1_181 Added settings for keytoptextc but not the code to implement it, yet.
 12/14/19 TRK1_311 Added settings for timelimit, but not the code to implement it, yet.
-
+12/15/19 TRK1_181 Added code for keytoptextc and it appears to be working correctly.
 
 === 3.8.1 ===
 11/24/19 Fixed PostrgreSQL compatibility error in locallib.php function get_mootyperlessons.
@@ -387,7 +387,8 @@ to type except for %.
 02/18/18 Finally got Thai shift letters to work. Turnoff function had shiftd renamed and that was
 causing it to break.
 02/25/18 Started modifications to Hebrew(V4) based on input from Eyal Laifer.
-02/26/18 Converted Text Alignment Setting from a type into entry box, into a selector using three language strings for left, center, and right.
+02/26/18 Converted Text Alignment Setting from a type into entry box, into a selector using
+three language strings for left, center, and right.
 03/11/18 Created Estonian(V4) keyboard layout at request of Virgo Pihlapuu.
 03/11/18 Got text alignment selector working in eedit.php.
 03/12/18 Got text alignment selector working in eins.php and added new language string to warn users 

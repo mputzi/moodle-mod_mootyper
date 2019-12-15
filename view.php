@@ -85,6 +85,7 @@ echo '<script src="//code.jquery.com/jquery-1.11.0.min.js"></script>';
 
 // Get the color and text alignment configuration settings and use them in the MooTyper activity.
 $color1 = $mootyper->statsbgc;
+$color7 = $mootyper->keytoptextc;
 $color2 = $mootyper->keytopbgc;
 $color3 = $mootyper->keybdbgc;
 $color4 = $mootyper->cursorcolor;
@@ -125,7 +126,8 @@ echo '<style>
             0 5px 0px #ddd;
     }
     .normal {
-        background: '.$color2.'
+        color: '.$color7.';
+        background: '.$color2.';
     }
     div#statsLDiv {
         background: '.$color1.'

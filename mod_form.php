@@ -185,6 +185,12 @@ class mod_mootyper_mod_form extends moodleform_mod {
         $mform->addHelpButton('statsbgc', 'statsbgc', 'mootyper');
         $mform->setDefault('statsbgc', $mootyperconfig->statscolor);
 
+        // Add setting for keytoptextc color setting. 12/15/19.
+        $mform->setType('keytoptextc', PARAM_NOTAGS);
+        $mform->addElement('text', 'keytoptextc', get_string('keytoptextc', 'mootyper'), $attributes);
+        $mform->addHelpButton('keytoptextc', 'keytoptextc', 'mootyper');
+        $mform->setDefault('keytoptextc', $mootyperconfig->normalkeytoptextc);
+
         // Add setting for keytop background color.
         $mform->setType('keytopbgc', PARAM_NOTAGS);
         $mform->addElement('text', 'keytopbgc', get_string('keytopbgc', 'mootyper'), $attributes);

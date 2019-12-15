@@ -68,6 +68,7 @@ $continuoustypepo = optional_param('continuoustype', "off", PARAM_CLEAN);
 $countmistypedspacespo = optional_param('countmistypedspaces', "off", PARAM_CLEAN);
 $countmistakespo = optional_param('countmistakes', "off", PARAM_CLEAN);
 $statscolor = optional_param('statscolor', $mootyper->statsbgc, PARAM_CLEAN);
+$keytoptextc = optional_param('keytoptextc', $mootyper->keytoptextc, PARAM_CLEAN);
 $keytopcolor = optional_param('keytopcolor', $mootyper->keytopbgc, PARAM_CLEAN);
 $backgroundcolor = optional_param('backgroundcolor', $mootyper->keybdbgc, PARAM_CLEAN);
 $cursorcolor = optional_param('cursorcolor', $mootyper->cursorcolor, PARAM_CLEAN);
@@ -93,9 +94,6 @@ if ($mootyper->requiredwpm == null || is_null($mootyper->requiredwpm)) {
     $dfwpm = $mootyper->requiredwpm;
 }
 $wpmpo = optional_param('requiredwpm', $dfwpm, PARAM_INT); // Display with default or current setting.
-
-
-
 
 // Check to see if current MooTyper activity textalign is empty.
 if ($mootyper->textalign == null || is_null($mootyper->textalign)) {
@@ -172,6 +170,15 @@ if ($mootyper->statsbgc == null || is_null($mootyper->statsbgc)) {
 }
 $statscolorpo = optional_param('statsbgc', $dfstatscolor, PARAM_CLEAN); // Display with default or current setting.
 
+// Check to see if current MooTyper keytoptextc is empty.
+if ($mootyper->keytoptextc == null || is_null($mootyper->keytoptextc)) {
+    // Current MooTyper keytoptextc is empty so set it to the sites normalkeytoptextc default.
+    $dfkeytoptextc = $moocfg->normalkeytoptextc;
+} else {
+    $dfkeytoptextc = $mootyper->keytoptextc;
+}
+$keytoptextcpo = optional_param('keytoptextc', $dfkeytoptextc, PARAM_CLEAN); // Display with default or current setting.
+
 // Check to see if current MooTyper keytopbgc is empty.
 if ($mootyper->keytopbgc == null || is_null($mootyper->keytopbgc)) {
     // Current MooTyper keytopbgc is empty so set it to the sites normalkeytops default.
@@ -237,6 +244,7 @@ if (isset($param1) && get_string('fconfirm', 'mootyper') == $param1) {
     $showkeyboardpo = optional_param('showkeyboard', null, PARAM_CLEAN);
     $layoutpo = optional_param('layout', 0, PARAM_INT);
     $statscolorpo = optional_param('statsbgc', $dfstatscolor, PARAM_CLEAN);
+    $keytoptextcpo = optional_param('keytoptextc', $dfkeytoptextc, PARAM_CLEAN);
     $keytopcolorpo = optional_param('keytopbgc', $dfkeytopcolor, PARAM_CLEAN);
     $backgroundcolorpo = optional_param('keybdbgc', $dfbackgroundcolor, PARAM_CLEAN);
 
@@ -262,6 +270,7 @@ if (isset($param1) && get_string('fconfirm', 'mootyper') == $param1) {
     $mootyper->showkeyboard = $showkeyboardpo == 'on';
     $mootyper->layout = $layoutpo;
     $mootyper->statsbgc = $statscolorpo;
+    $mootyper->keytoptextc = $keytoptextcpo;
     $mootyper->keytopbgc = $keytopcolorpo;
     $mootyper->keybdbgc = $backgroundcolorpo;
     $mootyper->cursorcolor = $cursorcolorpo;
@@ -443,6 +452,10 @@ foreach ($layouts as $lkey => $lval) {
 // Add input box for statistics background color.
 $htmlout .= '</td></tr><tr><td>'.get_string('statsbgc', 'mootyper').'</td><td>';
 $htmlout .= '<input value="'.$statscolorpo.'" style="width: 135px;" type="text" name="statsbgc"></td></tr>';
+
+// Add input box for normal keytoptextc color.
+$htmlout .= '</td></tr><tr><td>'.get_string('keytoptextc', 'mootyper').'</td><td>';
+$htmlout .= '<input value="'.$keytoptextcpo.'" style="width: 135px;" type="text" name="keytoptextc"></td></tr>';
 
 // Add input box for normal keytop color.
 $htmlout .= '</td></tr><tr><td>'.get_string('keytopbgc', 'mootyper').'</td><td>';
