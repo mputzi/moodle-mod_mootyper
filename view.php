@@ -205,13 +205,18 @@ if ($mootyper->lesson != null) {
 
     $reqiredgoal = $mootyper->requiredgoal;
     $reqiredwpm = $mootyper->requiredwpm;
-    $exercise = get_exercise_from_mootyper($mootyper->id, $mootyper->lesson, $USER->id);
     // 5/20/2019 Get the lesson name.
     $lsnname = $DB->get_record('mootyper_lessons', array('id' => $mootyper->lesson), '*', MUST_EXIST);
-
-    if ($exercise != false) {
-        $exerciseid = $exercise->id;
+    if ($mtmode === '1') {
+        $exerciseid = $mootyper->exercise;
+        $exercise = get_exercise_record($exerciseid);
         $texttoenter = $exercise->texttotype;
+    } else {
+        $exercise = get_exercise_from_mootyper($mootyper->id, $mootyper->lesson, $USER->id);
+        if ($exercise != false) {
+            $exerciseid = $exercise->id;
+            $texttoenter = $exercise->texttotype;
+        }
     }
 
     // Need to get count of exercises in the current lesson.
@@ -254,37 +259,34 @@ if ($mootyper->lesson != null) {
 <div id="mainDiv">
 <form name='form1' id='form1' method='post' action='<?php echo $insertdir; ?>'> 
 <div id="keyboard" style="float: left; text-align:center; margin-left: auto; margin-right: auto;">
-<h4>
+<h5>
         <?php
 
         // Old MooTypers without the mode set need this initialized to empty.
         $tempstr = '';
-        // Add label containing mode, lesson name, and exercise x of x above the status bar.
+        // Add label containing mode, lesson name, exercise x of x, required precision and WPM above the status bar.
         if ($mtmode === '0') {
-            $tempstr = get_string('fmode', 'mootyper')
-                       .' = '
-                       .get_string('flesson', 'mootyper');
+            $tempstr = get_string('fmode', 'mootyper').' = '
+                .get_string('flesson', 'mootyper');
         } else if ($mtmode === '1') {
-            $tempstr = get_string('fmode', 'mootyper')
-                       .' = '
-                       .get_string('isexamtext', 'mootyper');
+            $tempstr = get_string('fmode', 'mootyper').' = '
+                .get_string('isexamtext', 'mootyper');
         } else if ($mtmode === '2') {
-            $tempstr = get_string('fmode', 'mootyper')
-                       .' = '
-                       .get_string('practice', 'mootyper');
+            $tempstr = get_string('fmode', 'mootyper').' = '
+                .get_string('practice', 'mootyper');
         }
         $tempstr = $tempstr.'&nbsp;&nbsp; '
-                           .get_string('flesson', 'mootyper')
-                           .'/'
-                           .get_string('lsnname', 'mootyper')
-                           .' = '
-                           .$lsnname->lessonname
-                           .'&nbsp;&nbsp; '
-                           .get_string('exercise', 'mootyper', $exercise->exercisename)
-                           .$count;
+            .get_string('lsnname', 'mootyper').' = '
+            .$lsnname->lessonname;
+        $tempstr = $tempstr.'<br>'
+            .get_string('exercise', 'mootyper', $exercise->exercisename)
+            .$count.'&nbsp;&nbsp; '
+            .get_string('requiredgoal', 'mootyper').' ('.$reqiredgoal.'%)'
+            .'&nbsp;&nbsp; '
+            .get_string('requiredwpm', 'mootyper').' ('.$reqiredwpm.')';
         echo $tempstr;
         ?>
-</h4>
+</h5>
 
 <div id="reportDiv">
 <input name='rpCourseId' type='hidden' value='<?php
