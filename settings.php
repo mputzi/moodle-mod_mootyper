@@ -48,14 +48,13 @@ if ($ADMIN->fulltree) {
     // Options settings.
     $settings->add(new admin_setting_heading('mod_mootyper/options', get_string('options', 'mootyper'), ''));
 
-
     // Default mode setting for MooTyper activities.
     $settings->add(new admin_setting_configselect('mod_mootyper/isexam',
         get_string('fmode', 'mod_mootyper'),
         get_string('defaultfmode_help', 'mod_mootyper'), 0,
         array(get_string('sflesson', 'mod_mootyper'),
-              get_string('isexamtext', 'mod_mootyper'),
-              get_string('practice', 'mod_mootyper'))));
+            get_string('isexamtext', 'mod_mootyper'),
+            get_string('practice', 'mod_mootyper'))));
 
 
     // Default typing precision.
@@ -87,16 +86,16 @@ if ($ADMIN->fulltree) {
         get_string('defaulttextalign', 'mod_mootyper'),
         get_string('defaulttextalign_help', 'mod_mootyper'), 0,
         array(get_string('defaulttextalign_left', 'mod_mootyper'),
-              get_string('defaulttextalign_center', 'mod_mootyper'),
-              get_string('defaulttextalign_right', 'mod_mootyper'))));
+            get_string('defaulttextalign_center', 'mod_mootyper'),
+            get_string('defaulttextalign_right', 'mod_mootyper'))));
 
     // Default text alignment while editing or creating an exercise.
     $settings->add(new admin_setting_configselect('mod_mootyper/defaulteditalign',
         get_string('defaulteditalign', 'mod_mootyper'),
         get_string('defaulteditalign_help', 'mod_mootyper'), 0,
         array(get_string('defaulttextalign_left', 'mod_mootyper'),
-              get_string('defaulttextalign_center', 'mod_mootyper'),
-              get_string('defaulttextalign_right', 'mod_mootyper'))));
+            get_string('defaulttextalign_center', 'mod_mootyper'),
+            get_string('defaulttextalign_right', 'mod_mootyper'))));
 
     // Default continuous typing setting.
     $settings->add(new admin_setting_configcheckbox_with_advanced('mod_mootyper/continuoustype',
