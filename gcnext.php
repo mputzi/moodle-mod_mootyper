@@ -46,15 +46,21 @@ if ($cmid) {
 }
 
 require_login(0, true, null, false);
+
+// Set pass flag to control background color when viewing grades.
+// Check to see if accuracy was good enough to pass.
 if (optional_param('rpAccInput', '', PARAM_FLOAT) >= optional_param('rpGoal', '', PARAM_FLOAT)) {
     $passfield = 1;
 } else {
     $passfield = 0;
 }
-if (optional_param('rpWpmInput', '', PARAM_FLOAT) >= optional_param('rpWPM', '', PARAM_FLOAT)) {
-    $passfield = 1;
-} else {
-    $passfield = 0;
+// Check to see if wpm rate was good enough to pass, only if accuracy passed.
+if ($passfield == 1) {
+    if (optional_param('rpWpmInput', '', PARAM_FLOAT) >= optional_param('rpWPM', '', PARAM_FLOAT)) {
+        $passfield = 1;
+    } else {
+        $passfield = 0;
+    }
 }
 
 $record = new stdClass();
