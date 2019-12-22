@@ -339,9 +339,11 @@ function exam_already_done($mootyper, $userid) {
  */
 function get_exercise_from_mootyper($mootyperid, $lessonid, $userid) {
     global $DB;
+
     $table = 'mootyper_grades';
     $select = 'userid='.$userid.' AND mootyper='.$mootyperid.' AND pass=1'; // Is put into the where clause.
     $result = $DB->get_records_select($table, $select);
+
     if (!is_null($result) && count($result) > 0) {
         $max = 0;
         foreach ($result as $grd) {
