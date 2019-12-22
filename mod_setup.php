@@ -53,16 +53,14 @@ $context = context_module::instance($cm->id);
 
 // Get the default config for MooTyper.
 $moocfg = get_config('mod_mootyper');
-
 // Enable-disable flag.
 $epo = optional_param('e', 0, PARAM_INT);
 // Get settings for current mootyper activity.
-// During setup, there is no mode set, so get the site default setting.
-//$modepo = optional_param('mode', $moocfg->isexam, PARAM_INT);
+// During initial setup, there is no mode set, so get the result is null.
 $modepo = optional_param('mode', $mootyper->isexam, PARAM_INT);
+$lessonpo = optional_param('lesson', $mootyper->lesson, PARAM_INT);
 $exercisepo = optional_param('exercise', $mootyper->exercise, PARAM_INT);
 $textalign = optional_param('textalign', $mootyper->textalign, PARAM_INT);
-$lessonpo = optional_param('lesson', $mootyper->lesson, PARAM_INT);
 $showkeyboardpo = optional_param('showkeyboard', "off", PARAM_CLEAN);
 $continuoustypepo = optional_param('continuoustype', "off", PARAM_CLEAN);
 $countmistypedspacespo = optional_param('countmistypedspaces', "off", PARAM_CLEAN);
@@ -296,7 +294,7 @@ $htmlout .= '<div align="center" style="font-size:1em;
             -webkit-border-radius:16px;
             -moz-border-radius:16px;
             border-radius:16px;">';
-$htmlout .= '<br><script type="text/javascript">
+$htmlout .= '<script type="text/javascript">
 function removeAtts()
 {
     document.getElementById("lesson").disabled = false;
@@ -314,8 +312,12 @@ if (has_capability('mod/mootyper:aftersetup', context_module::instance($cm->id))
     $lessons = get_mootyperlessons($USER->id, $course->id);
 }
 
+
+///////////////////////////////////////////////////////////////////////////////
+
+
 // Start building htmlout for this page based on exam or lesson exercise.
-if ($modepo == 0 || is_null($modepo)) { // If mode is 0, this is a lesson.
+if ($modepo == 0 || is_null($modepo)) { // If mode is 0, this is a lesson?
     $htmlout .= '<option selected="true" value="0">'.get_string('sflesson', 'mootyper').'</option>
                  <option value="1">'.get_string('isexamtext', 'mootyper').'</option>
                  <option value="2">'.get_string('practice', 'mootyper').'</option>';
@@ -333,7 +335,7 @@ if ($modepo == 0 || is_null($modepo)) { // If mode is 0, this is a lesson.
                  <td><input value="'.$goalpo.'" style="width: 35px;" type="text" name="requiredgoal"> % </td></tr>';
     $htmlout .= '</select></td></tr><tr><td>'.get_string('requiredwpm', 'mootyper').'</td>
                  <td><input value="'.$wpmpo.'" style="width: 35px;" type="text" name="requiredwpm"></td></tr>';
-} else if ($modepo == 1) { // Or, if mode is 1, this is an exam.
+} else if ($modepo == 1) { // Or, if mode is 1, this is an exam?
     $htmlout .= '<option value="0">'.get_string('sflesson', 'mootyper').'</option>
                  <option value="1" selected="true">'.get_string('isexamtext', 'mootyper').'</option>
                  <option value="2">'.get_string('practice', 'mootyper').'</option>';
@@ -348,7 +350,6 @@ if ($modepo == 0 || is_null($modepo)) { // If mode is 0, this is a lesson.
         }
     }
     $htmlout .= '</select></td></tr>';
-
     $exercises = get_exercises_by_lesson($lessonpo);
     $htmlout .= '<tr><td>'.get_string('fexercise', 'mootyper').'</td><td><select'.$disselect.' name="exercise" id="exercise">';
     for ($ik = 0; $ik < count($exercises); $ik++) {
@@ -358,8 +359,11 @@ if ($modepo == 0 || is_null($modepo)) { // If mode is 0, this is a lesson.
             $htmlout .= '<option value="'.$exercises[$ik]['id'].'">'.$exercises[$ik]['exercisename'].'</option>';
         }
     }
-    $htmlout .= '</select></td></tr>';
-} else if ($modepo == 2) { // If mode is 2, this is a practice lesson.
+    $htmlout .= '</select></td></tr><tr><td>'.get_string('requiredgoal', 'mootyper').'</td>
+                 <td><input value="'.$goalpo.'" style="width: 35px;" type="text" name="requiredgoal"> % </td></tr>';
+    $htmlout .= '</select></td></tr><tr><td>'.get_string('requiredwpm', 'mootyper').'</td>
+                 <td><input value="'.$wpmpo.'" style="width: 35px;" type="text" name="requiredwpm"></td></tr>';
+} else if ($modepo == 2) { // If mode is 2, this is a practice lesson?
     $htmlout .= '<option selected="true" value="0">'.get_string('sflesson', 'mootyper').'</option>
                  <option value="1">'.get_string('isexamtext', 'mootyper').'</option>
                  <option value="2" selected="true">'.get_string('practice', 'mootyper').'</option>';
