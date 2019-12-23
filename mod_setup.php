@@ -56,8 +56,8 @@ $moocfg = get_config('mod_mootyper');
 // Enable-disable flag.
 $epo = optional_param('e', 0, PARAM_INT);
 // Get settings for current mootyper activity.
-// During initial setup, there is no mode set, so get the result is null.
-$modepo = optional_param('mode', $mootyper->isexam, PARAM_INT);
+// During initial actvity setup, there is no mode set, so get the site default.
+$modepo = optional_param('mode', $moocfg->isexam, PARAM_INT);
 $lessonpo = optional_param('lesson', $mootyper->lesson, PARAM_INT);
 $exercisepo = optional_param('exercise', $mootyper->exercise, PARAM_INT);
 $textalign = optional_param('textalign', $mootyper->textalign, PARAM_INT);
@@ -72,6 +72,12 @@ $backgroundcolor = optional_param('backgroundcolor', $mootyper->keybdbgc, PARAM_
 $cursorcolor = optional_param('cursorcolor', $mootyper->cursorcolor, PARAM_CLEAN);
 $textbgc = optional_param('textbgc', $mootyper->textbgc, PARAM_CLEAN);
 $texterrorcolor = optional_param('texterrorcolor', $mootyper->texterrorcolor, PARAM_CLEAN);
+
+// Check to see if current MooTyper mode is already set.
+if (!($mootyper->isexam == null)) {
+    // Current MooTyper mode is set, so use it.
+    $modepo = optional_param('mode', $mootyper->isexam, PARAM_INT);
+}
 
 // Check to see if current MooTyper precision goal is empty.
 if ($mootyper->requiredgoal == null || is_null($mootyper->requiredgoal)) {
