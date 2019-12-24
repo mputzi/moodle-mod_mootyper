@@ -56,6 +56,13 @@ if ($ADMIN->fulltree) {
             get_string('isexamtext', 'mod_mootyper'),
             get_string('practice', 'mod_mootyper'))));
 
+    // Default time limit.
+    $tl = array();
+    for ($i = 0; $i <= 10; $i++) {
+        $tl[] = $i;
+    }
+    $settings->add(new admin_setting_configselect('mod_mootyper/defaulttimelimit',
+        get_string('defaulttimelimit', 'mootyper'), '', 0, $tl));
 
     // Default typing precision.
     $precs = array();
@@ -72,14 +79,6 @@ if ($ADMIN->fulltree) {
     }
     $settings->add(new admin_setting_configselect('mod_mootyper/defaultwpm',
         get_string('defaultwpm', 'mootyper'), '', 0, $wpm));
-
-    // Default time limit.
-    $tl = array();
-    for ($i = 0; $i <= 10; $i++) {
-        $tl[] = $i;
-    }
-    $settings->add(new admin_setting_configselect('mod_mootyper/defaulttimelimit',
-        get_string('defaulttimelimit', 'mootyper'), '', 0, $tl));
 
     // Default text alignment while typing an exercise.
     $settings->add(new admin_setting_configselect('mod_mootyper/defaulttextalign',
