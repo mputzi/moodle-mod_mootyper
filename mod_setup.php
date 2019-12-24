@@ -79,6 +79,16 @@ if (!($mootyper->isexam == null)) {
     $modepo = optional_param('mode', $mootyper->isexam, PARAM_INT);
 }
 
+// Check to see if a timelimit is set.
+if ($mootyper->timelimit == null || is_null($mootyper->timelimit)) {
+    // Current MooTyper timelimit is empty so set it to the site default.
+    $dftlimit = $moocfg->defaulttimelimit;
+} else {
+    // Otherwise use current MooTyper timelimit.
+    $dftlimit = $mootyper->timelimit;
+}
+$timelimitpo = optional_param('timelimit', $dftlimit, PARAM_INT); // Display with default or current setting.
+
 // Check to see if current MooTyper precision goal is empty.
 if ($mootyper->requiredgoal == null || is_null($mootyper->requiredgoal)) {
     // Current MooTyper precision goal is empty so set it to the site default.
@@ -233,6 +243,14 @@ $param1 = optional_param('button', '', PARAM_TEXT);
 if (isset($param1) && get_string('fconfirm', 'mootyper') == $param1) {
     $modepo = optional_param('mode', null, PARAM_INT);
     $lessonpo = optional_param('lesson', null, PARAM_INT);
+
+    $timelimitpo = optional_param('timelimit', $moocfg->defaulttimelimit, PARAM_INT);
+    if ($timelinitpo == 0) {
+        $timelinitpo = $moocfg->defaulttimelimit;
+    }
+
+
+
     $goalpo = optional_param('requiredgoal', $moocfg->defaultprecision, PARAM_INT);
     if ($goalpo == 0) {
         $goalpo = $moocfg->defaultprecision;
@@ -265,6 +283,7 @@ if (isset($param1) && get_string('fconfirm', 'mootyper') == $param1) {
         $exercisepo = optional_param('exercise', null, PARAM_INT);
         $mootyper->exercise = $exercisepo;
     }
+    $mootyper->timelimit = $timelimitpo;
     $mootyper->requiredgoal = $goalpo;
     $mootyper->requiredwpm = $wpmpo;
     $mootyper->textalign = $textalignpo;
@@ -337,6 +356,12 @@ if ($modepo == 0 || is_null($modepo)) { // If mode is 0, this is a lesson?
             $htmlout .= '<option value="'.$lessons[$ij]['id'].'">'.$lessons[$ij]['lessonname'].'</option>';
         }
     }
+
+    $htmlout .= '</select></td></tr><tr><td>'.get_string('timelimit', 'mootyper').'</td>
+                 <td><input value="'.$timelimitpo.'" style="width: 35px;" type="text" name="timelimit"> '.get_string('minutes').' </td></tr>';
+
+
+
     $htmlout .= '</select></td></tr><tr><td>'.get_string('requiredgoal', 'mootyper').'</td>
                  <td><input value="'.$goalpo.'" style="width: 35px;" type="text" name="requiredgoal"> % </td></tr>';
     $htmlout .= '</select></td></tr><tr><td>'.get_string('requiredwpm', 'mootyper').'</td>
@@ -365,6 +390,11 @@ if ($modepo == 0 || is_null($modepo)) { // If mode is 0, this is a lesson?
             $htmlout .= '<option value="'.$exercises[$ik]['id'].'">'.$exercises[$ik]['exercisename'].'</option>';
         }
     }
+
+    $htmlout .= '</select></td></tr><tr><td>'.get_string('timelimit', 'mootyper').'</td>
+                 <td><input value="'.$timelimitpo.'" style="width: 35px;" type="text" name="timelimit"> '.get_string('minutes').' </td></tr>';
+
+
     $htmlout .= '</select></td></tr><tr><td>'.get_string('requiredgoal', 'mootyper').'</td>
                  <td><input value="'.$goalpo.'" style="width: 35px;" type="text" name="requiredgoal"> % </td></tr>';
     $htmlout .= '</select></td></tr><tr><td>'.get_string('requiredwpm', 'mootyper').'</td>
@@ -383,6 +413,12 @@ if ($modepo == 0 || is_null($modepo)) { // If mode is 0, this is a lesson?
             $htmlout .= '<option value="'.$lessons[$ij]['id'].'">'.$lessons[$ij]['lessonname'].'</option>';
         }
     }
+
+
+    $htmlout .= '</select></td></tr><tr><td>'.get_string('timelimit', 'mootyper').'</td>
+                 <td><input value="'.$timelimitpo.'" style="width: 35px;" type="text" name="timelimit"> '.get_string('minutes').' </td></tr>';
+
+
     $htmlout .= '</select></td></tr><tr><td>'.get_string('requiredgoal', 'mootyper').'</td>
                  <td><input value="'.$goalpo.'" style="width: 35px;" type="text" name="requiredgoal"> % </td></tr>';
     $htmlout .= '</select></td></tr><tr><td>'.get_string('requiredwpm', 'mootyper').'</td>
