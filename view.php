@@ -205,6 +205,7 @@ if ($mootyper->lesson != null) {
 
     $reqiredgoal = $mootyper->requiredgoal;
     $reqiredwpm = $mootyper->requiredwpm;
+    $reqiredtimelimit = $mootyper->timelimit;
     // 5/20/2019 Get the lesson name.
     $lsnname = $DB->get_record('mootyper_lessons', array('id' => $mootyper->lesson), '*', MUST_EXIST);
     if ($mtmode === '1') {
@@ -276,11 +277,12 @@ if ($mootyper->lesson != null) {
                 .get_string('practice', 'mootyper');
         }
         $tempstr = $tempstr.'&nbsp;&nbsp; '
-            .get_string('lsnname', 'mootyper').' = '
-            .$lsnname->lessonname;
+            .get_string('lsnname', 'mootyper').' = '.$lsnname->lessonname
+            .'&nbsp;&nbsp; '
+            .get_string('exercise', 'mootyper', $exercise->exercisename).$count;
         $tempstr = $tempstr.'<br>'
-            .get_string('exercise', 'mootyper', $exercise->exercisename)
-            .$count.'&nbsp;&nbsp; '
+            .get_string('timelimit', 'mootyper').' ('.$reqiredtimelimit.':00)'
+            .'&nbsp;&nbsp; '
             .get_string('requiredgoal', 'mootyper').' ('.$reqiredgoal.'%)'
             .'&nbsp;&nbsp; '
             .get_string('requiredwpm', 'mootyper').' ('.$reqiredwpm.')';
@@ -299,6 +301,14 @@ if ($mootyper->lesson != null) {
         echo $exerciseid; ?>'>
 <input name='rpAttId' type='hidden' value=''>
 <input name='rpFullHits' type='hidden' value=''>
+<input name='rpTimeLimit' type='hidden' value='
+        <?php
+        if (isset($reqiredtimelimit)) {
+            echo $reqiredtimelimit;
+        }
+        ?>
+'>
+
 <input name='rpGoal' type='hidden' value='
         <?php
         if (isset($reqiredgoal)) {
