@@ -23,7 +23,10 @@ var startTime,
     combinedCharWait,
     isCombined,
     newCas,
-    tDifference;
+    tDifference,
+    secs,
+    rpTimeLimit2,
+    rpTimeLimit3;
 
 /**
  * If not the end of fullText, move cursor to next character.
@@ -136,7 +139,7 @@ function getPressedChar(e) {
     var numcheck;
 
     // addEventListener('keydown', (event) => {
-    // console.log('keydown We may have typed a Korean character here '+event.keyCode);
+    // Th.log('keydown We may have typed a Korean character here '+event.keyCode);
     // console.log('keydown We need to get the data from compositionupdate '+event.compositionupdate);
     // });
     // addEventListener('compositionupdate', (event) => {
@@ -196,7 +199,6 @@ function focusSet(e) {
  *
  */
 function doCheck() {
-//console.log('TYPER 6.0 In the doCheck() function of typer.js.');
     var rpMootyperId = $('input[name="rpSityperId"]').val();
     var rpUser = $('input[name="rpUser"]').val();
     var rpAttId = $('input[name="rpAttId"]').val();
@@ -225,6 +227,8 @@ function doStart() {
         $('input[name="rpAttId"]').val(data);
     });
     interval2ID = setInterval('doCheck()', 4000);
+    rpTimeLimit2 = $('input[name="rpTimeLimit"]').val() * 60;
+
 }
 
 /**
@@ -251,7 +255,10 @@ function keyPressed(e) {
     if (keychar === currentChar || ((currentChar === '\n' || currentChar === '\r\n' ||
         currentChar === '\n\r' || currentChar === '\r') && (keychar === ' '))) {
         moveCursor(currentPos + 1);
-        if(currentPos === fullText.length - 1) {  // Student is at the end of the exercise.
+
+       // if ((currentPos === fullText.length - 1) || ((secs >= rpTimeLimit3) && (rpTimeLimit3 > 0))) {  // Student is at the end of the exercise.
+        if ((currentPos === fullText.length - 1) || (rpTimeLimit3 < 0)) {  // Student is at the end of the exercise or has ran out of time.
+
             $('#tb1').val($('#tb1').val() + currentChar);
             var elemOff = new keyboardElement(currentChar);
             elemOff.turnOff();
@@ -308,7 +315,9 @@ function keyPressed(e) {
             }
         }
         moveCursor(currentPos + 1);
-        if (currentPos === fullText.length - 1) {  // Student is at the end of the exercise.
+       // if ((currentPos === fullText.length - 1) || ((secs >= rpTimeLimit3) && (rpTimeLimit3 > 0))) {  // Student is at the end of the exercise.
+        if ((currentPos === fullText.length - 1) || (rpTimeLimit3 < 0)) {  // Student is at the end of the exercise or ran out of time.
+
             $('#tb1').val($('#tb1').val() + currentChar);
             var elemOff = new keyboardElement(currentChar);
             elemOff.turnOff();
@@ -487,7 +496,10 @@ function calculateAccuracy() {
 function updTimeSpeed() {
     newCas = new Date();
     tDifference = timeDifference(startTime, newCas);
-    var secs = converToSeconds(tDifference.getHours(), tDifference.getMinutes(), tDifference.getSeconds());
+    secs = converToSeconds(tDifference.getHours(), tDifference.getMinutes(), tDifference.getSeconds());
+
+    // If timelimit is set, subtract elapsed time from the timelimit and set a flag.
+    if (rpTimeLimit2 != 0) rpTimeLimit3 = rpTimeLimit2 - secs;
 
     // Each minute when seconds display is less than 10 seconds, add leading 0:0.
     if (tDifference.getSeconds() < 10) {
