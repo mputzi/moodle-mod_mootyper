@@ -67,6 +67,9 @@ fixed bug where exam mode would only show exercise 1, when others were selected.
 so that during the initial activity setup, get the site default mode. Then check to
 see if the activity has something in isexam. First time there will not be. Any time
 someone later clicks on Settings, there will be something in isexam, and use it.
+12/24/19 TRK1_311 Exercise timelimit coded and appears to be working correctly.
+12/24/19 TRK1-326 and TRK1_327 Added timelimit setting to the labels above the
+grade tables in gview.php and owngrades.php
 
 
 === 3.8.1 ===
