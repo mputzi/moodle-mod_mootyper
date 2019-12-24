@@ -121,6 +121,15 @@ class mod_mootyper_mod_form extends moodleform_mod {
 
         // TODO: Add a dropdown selector of lesson/category.
 
+        // Added a dropdown slector for timelimit. 12/23/19.
+        $tlimit = array();
+        for ($i = 0; $i <= 10; $i++) {
+            $tlimit[] = $i;
+        }
+        $mform->addElement('select', 'timelimit', get_string('timelimit', 'mootyper'), $tlimit);
+        $mform->addHelpButton('timelimit', 'timelimit', 'mootyper');
+        $mform->setDefault('timelimit', $mootyperconfig->defaulttimelimit);
+
         // Added a dropdown slector for Required precision. 11/25/17.
         $precs = array();
         for ($i = 0; $i <= 100; $i++) {
