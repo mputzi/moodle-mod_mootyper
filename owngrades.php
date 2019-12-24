@@ -106,7 +106,9 @@ if (!has_capability('mod/mootyper:viewmygrades', context_module::instance($cm->i
                 .get_string('flesson', 'mootyper')
                 .'/'.get_string('lsnname', 'mootyper')
                 ." = ".$lsnname->lessonname;
-    $htmlout .= '<br>'
+    $htmlout .= '<br>'.get_string('timelimit', 'mootyper')
+                .' = '.$mootyper->timelimit.':00 '.get_string('min');
+    $htmlout .= '&nbsp;&nbsp;&nbsp;&nbsp;'
                 .get_string('requiredgoal', 'mootyper')
                 .' = '.$mootyper->requiredgoal.'%';
     $htmlout .= '&nbsp;&nbsp;&nbsp;&nbsp;'
