@@ -229,8 +229,6 @@ function doStart() {
     interval2ID = setInterval('doCheck()', 4000);
     rpTimeLimit2 = $('input[name="rpTimeLimit"]').val() * 60;
 
-//console.log('In doStart functiion printing rpTimeLimit2 and it is: '+rpTimeLimit2);
-
 }
 
 /**
@@ -258,7 +256,9 @@ function keyPressed(e) {
         currentChar === '\n\r' || currentChar === '\r') && (keychar === ' '))) {
         moveCursor(currentPos + 1);
 
-        if (currentPos === fullText.length - 1) {  // Student is at the end of the exercise.
+       // if ((currentPos === fullText.length - 1) || ((secs >= rpTimeLimit3) && (rpTimeLimit3 > 0))) {  // Student is at the end of the exercise.
+        if ((currentPos === fullText.length - 1) || (rpTimeLimit3 < 0)) {  // Student is at the end of the exercise or has ran out of time.
+
             $('#tb1').val($('#tb1').val() + currentChar);
             var elemOff = new keyboardElement(currentChar);
             elemOff.turnOff();
@@ -315,7 +315,9 @@ function keyPressed(e) {
             }
         }
         moveCursor(currentPos + 1);
-        if (currentPos === fullText.length - 1) {  // Student is at the end of the exercise.
+       // if ((currentPos === fullText.length - 1) || ((secs >= rpTimeLimit3) && (rpTimeLimit3 > 0))) {  // Student is at the end of the exercise.
+        if ((currentPos === fullText.length - 1) || (rpTimeLimit3 < 0)) {  // Student is at the end of the exercise or ran out of time.
+
             $('#tb1').val($('#tb1').val() + currentChar);
             var elemOff = new keyboardElement(currentChar);
             elemOff.turnOff();
@@ -498,16 +500,6 @@ function updTimeSpeed() {
 
     // If timelimit is set, subtract elapsed time from the timelimit and set a flag.
     if (rpTimeLimit2 != 0) rpTimeLimit3 = rpTimeLimit2 - secs;
-    // If timelimit is reached, halt the exercise.
-    if (rpTimeLimit3 <= 0) {
-        $('#tb1').val($('#tb1').val() + currentChar);
-        var elemOff = new keyboardElement(currentChar);
-        elemOff.turnOff();
-        currentChar = fullText[currentPos + 1];
-        currentPos++;
-        doTheEnd();
-        return true;
-    }
 
     // Each minute when seconds display is less than 10 seconds, add leading 0:0.
     if (tDifference.getSeconds() < 10) {
