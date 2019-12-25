@@ -98,9 +98,20 @@ via links in the Administration block, which overcomes these limitations.
 
 6. NEW IN THIS RELEASE
 
+There is now a new key top text color setting. This will allow you to now
+have a layout with dark colored keys, with white text, or some other light
+colored text.
+
+There is now a new time limit setting that can be used for any Mode.
+
+There is now a new required WPM rate setting that can be used for any Mode.
+
+Information labels on the pages for view.php, gview.php, and owngrades.php
+now include the new time limit, Required precision, and the new Required WPM.
+
 You can now set a typing time limit from 0:00 (not used) to 10:00 minutes.
-However, you will need to make sure each exercise is long enough so that your
-fastest typer will NOT run out of something to type.
+However, you will need to make sure each exercise is long enough, character
+count wise, so that your fastest typer will NOT run out of something to type.
 
 You can now set a required Word Per Minute rate. Failure to achieve the
 posted rate, is treated just the same as failing to achieve the required
