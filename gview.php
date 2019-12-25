@@ -278,6 +278,7 @@ if (!has_capability('mod/mootyper:viewgrades', context_module::instance($cm->id)
         .'&mtname='.$mootyper->name
         .'&isexam='.$mootyper->isexam
         .'&lsnname='.$lsnname->lessonname
+        .'&timelimit='.$mootyper->timelimit
         .'&requiredgoal='.$mootyper->requiredgoal
         .'&requiredwpm='.$mootyper->requiredwpm
         .'">'.get_string('csvexport', 'mootyper')

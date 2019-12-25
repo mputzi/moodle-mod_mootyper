@@ -51,6 +51,7 @@ function array_to_csv_download($array, $filename = "export.csv", $delimiter=";")
     $mtname = optional_param('mtname', '', PARAM_RAW); // Get the activity name for this MooTyper.
     $misexam = optional_param('isexam', 0, PARAM_INT); // Get the mode for this MooTyper.
     $lsnname = optional_param('lsnname', '', PARAM_RAW); // Get the lesson name for this MooTyper.
+    $timelimit = optional_param('timelimit', 0, PARAM_INT); // Get the timelimit for this MooTyper.
     $requiredgoal = optional_param('requiredgoal', 0, PARAM_INT); // Get the required precision goal for this MooTyper.
     $requiredwpm = optional_param('requiredwpm', 0, PARAM_INT); // Get the required precision goal for this MooTyper.
     $cm = get_coursemodule_from_id('mootyper', $id, 0, false, MUST_EXIST);
@@ -81,6 +82,7 @@ function array_to_csv_download($array, $filename = "export.csv", $delimiter=";")
 
     // Get the lesson name, required precision, and required WPM for the csv spreadsheet row 1 entry.
     $lsnname = get_string('flesson', 'mootyper')." = ".$lsnname;
+    $timelimit = get_string('timelimit', 'mootyper')." = ".$timelimit.":00 ".get_string('minutes');
     $requiredgoal = get_string('requiredgoal', 'mootyper').' = '.$requiredgoal.'%';
     $requiredwpm = get_string('requiredwpm', 'mootyper').' = '.$requiredwpm;
 
@@ -111,6 +113,7 @@ function array_to_csv_download($array, $filename = "export.csv", $delimiter=";")
                      $mtname,
                      $mtmode,
                      $lsnname,
+                     $timelimit,
                      $requiredgoal,
                      $requiredwpm);
 
