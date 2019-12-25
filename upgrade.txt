@@ -70,6 +70,10 @@ someone later clicks on Settings, there will be something in isexam, and use it.
 12/24/19 TRK1_311 Exercise timelimit coded and appears to be working correctly.
 12/24/19 TRK1-326 and TRK1_327 Added timelimit setting to the labels above the
 grade tables in gview.php and owngrades.php
+12/24/19 TRK1_168 TRK1_311 Reopened as I discovered I could not change from a site default
+of any positive number down to a zero. Discovered that I could not do the same for
+timelimit and for %. Fixed and testing. Added TRK1_328.
+12/25/19 TRK1_329 Added timelimit to the first line of output in the csvexport file.
 
 
 === 3.8.1 ===
