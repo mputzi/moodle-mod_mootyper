@@ -98,11 +98,36 @@ via links in the Administration block, which overcomes these limitations.
 
 6. NEW IN THIS RELEASE
 
-Implemented, a few more keyboard layouts.
+You can now set a typing time limit from 0:00 (not used) to 10:00 minutes.
+However, you will need to make sure each exercise is long enough so that your
+fastest typer will NOT run out of something to type.
 
-7. OTHER RECENT NEW CAPABILITIES
+You can now set a required Word Per Minute rate. Failure to achieve the
+posted rate, is treated just the same as failing to achieve the required
+precision.
 
-There are now four settings that affect the typing modes. 
+You can mix and match the time limit, precision, and wpm.
+
+A zero timelimit lets the student type all the way to the end of the exercise,
+just as it always has. If a time limit is set, the exercise is halted when
+time expires.
+
+A zero required precision means the grade will NOT be shown with a red
+background no matter the precision achieved for the exercise. Any other
+required precision is treated as before.
+
+A zero required WPM rate means the grade will NOT be shown with a red
+background no matter the WPM rate achieved for the exercise. Any other
+required precision like the required precision rate. Red grade background
+for not exceeding the required WPM. Green if it is exceeded.
+
+If using both a required precision and required WPM, they must both be
+exceeded to get a green "passed" background. If one is exceeded and one
+is not, the grade background will be red.
+
+7. OTHER IMPORTANT CAPABILITIES
+
+There are four settings that affect the typing modes. 
   1.The original mode - This mode requires you to type the correct letter before
   you can move to the next letter. Extra spaces are ignored. Mistyped letters
   are counted as mistakes.
