@@ -58,6 +58,7 @@ $epo = optional_param('e', 0, PARAM_INT);
 // Get settings for current mootyper activity.
 // During initial actvity setup, there is no mode set, so get the site default.
 $modepo = optional_param('mode', $moocfg->isexam, PARAM_INT);
+$wpmpo = optional_param('requiredwpm', $moocfg->defaultwpm, PARAM_INT);
 $lessonpo = optional_param('lesson', $mootyper->lesson, PARAM_INT);
 $exercisepo = optional_param('exercise', $mootyper->exercise, PARAM_INT);
 $textalign = optional_param('textalign', $mootyper->textalign, PARAM_INT);
@@ -99,15 +100,11 @@ if ($mootyper->requiredgoal == null || is_null($mootyper->requiredgoal)) {
 }
 $goalpo = optional_param('requiredgoal', $dfgoal, PARAM_INT); // Display with default or current setting.
 
-// Check to see if current MooTyper WPM goal is empty.
-if ($mootyper->requiredwpm == null || is_null($mootyper->requiredwpm)) {
-    // Current MooTyper WPM goal is empty so set it to the site default.
-    $dfwpm = $moocfg->defaultwpm;
-} else {
-    // Otherwise use current MooTyper WPM goal.
-    $dfwpm = $mootyper->requiredwpm;
+// Check to see if current MooTyper WPM goal is already set.
+if (!($mootyper->requiredwpm)) {
+    // Current MooTyper WPM goal is set, so use it.
+    $wpmpo = optional_param('requiredwpm', $mootyper->requiredwpm, PARAM_INT);
 }
-$wpmpo = optional_param('requiredwpm', $dfwpm, PARAM_INT); // Display with default or current setting.
 
 // Check to see if current MooTyper activity textalign is empty.
 if ($mootyper->textalign == null || is_null($mootyper->textalign)) {
@@ -244,21 +241,23 @@ if (isset($param1) && get_string('fconfirm', 'mootyper') == $param1) {
     $modepo = optional_param('mode', null, PARAM_INT);
     $lessonpo = optional_param('lesson', null, PARAM_INT);
 
-    $timelimitpo = optional_param('timelimit', $moocfg->defaulttimelimit, PARAM_INT);
-    if ($timelinitpo == 0) {
-        $timelinitpo = $moocfg->defaulttimelimit;
-    }
+    //$timelimitpo = optional_param('timelimit', $moocfg->defaulttimelimit, PARAM_INT);
+    $timelimitpo = optional_param('timelimit', null, PARAM_INT);
+    //if ($timelimitpo == 0) {
+    //    $timelimitpo = $moocfg->defaulttimelimit;
+    //}
 
+    //$goalpo = optional_param('requiredgoal', $moocfg->defaultprecision, PARAM_INT);
+    $goalpo = optional_param('requiredgoal', null, PARAM_INT);
+   // if ($goalpo == 0) {
+    //    $goalpo = $moocfg->defaultprecision;
+    //}
 
-
-    $goalpo = optional_param('requiredgoal', $moocfg->defaultprecision, PARAM_INT);
-    if ($goalpo == 0) {
-        $goalpo = $moocfg->defaultprecision;
-    }
-    $wpmpo = optional_param('requiredwpm', $moocfg->defaultwpm, PARAM_INT);
-    if ($wpmpo == 0) {
-        $wpmpo = $moocfg->defaultwpm;
-    }
+    //$wpmpo = optional_param('requiredwpm', $moocfg->defaultwpm, PARAM_INT);
+    $wpmpo = optional_param('requiredwpm', null, PARAM_INT);
+    //if ($wpmpo == 0) {
+    //    $wpmpo = $moocfg->defaultwpm;
+    //}
     $textalignpo = optional_param('textalign', $dftextalign, PARAM_INT); // Display with default or current setting.
     $continuoustypepo = optional_param('continuoustype', null, PARAM_CLEAN);
     $countmistypedspacespo = optional_param('countmistypedspaces', null, PARAM_CLEAN);
@@ -269,7 +268,6 @@ if (isset($param1) && get_string('fconfirm', 'mootyper') == $param1) {
     $keytoptextcpo = optional_param('keytoptextc', $dfkeytoptextc, PARAM_CLEAN);
     $keytopcolorpo = optional_param('keytopbgc', $dfkeytopcolor, PARAM_CLEAN);
     $backgroundcolorpo = optional_param('keybdbgc', $dfbackgroundcolor, PARAM_CLEAN);
-
     $cursorcolorpo = optional_param('cursorcolor', $dfcursorcolor, PARAM_CLEAN);
     $textbgcpo = optional_param('textbgc', $dftextbgc, PARAM_CLEAN);
     $texterrorcolorpo = optional_param('texterrorcolor', $dftexterrorcolor, PARAM_CLEAN);
