@@ -58,7 +58,7 @@ $epo = optional_param('e', 0, PARAM_INT);
 // Get settings for current mootyper activity.
 // During initial actvity setup, there is no mode set, so get the site default.
 $modepo = optional_param('mode', $moocfg->isexam, PARAM_INT);
-$wpmpo = optional_param('requiredwpm', $moocfg->defaultwpm, PARAM_INT);
+//$wpmpo = optional_param('requiredwpm', $moocfg->defaultwpm, PARAM_INT);
 $lessonpo = optional_param('lesson', $mootyper->lesson, PARAM_INT);
 $exercisepo = optional_param('exercise', $mootyper->exercise, PARAM_INT);
 $textalign = optional_param('textalign', $mootyper->textalign, PARAM_INT);
@@ -95,16 +95,30 @@ if ($mootyper->requiredgoal == null || is_null($mootyper->requiredgoal)) {
     // Current MooTyper precision goal is empty so set it to the site default.
     $dfgoal = $moocfg->defaultprecision;
 } else {
-    // Otherwise use current MooTyper precision goal.
+    // Otherwise use current MooTyper precision requiredgoal.
     $dfgoal = $mootyper->requiredgoal;
 }
 $goalpo = optional_param('requiredgoal', $dfgoal, PARAM_INT); // Display with default or current setting.
 
+// Check to see if current MooTyper requiredwpm is empty.
+if ($mootyper->requiredwpm == null || is_null($mootyper->requiredwpm)) {
+    // Current MooTyper requiredwpm is empty so set it to the site default.
+    $dfwpm = $moocfg->defaultwpm;
+} else {
+    // Otherwise use current MooTyper requiredwpm.
+    $dfwpm = $mootyper->requiredwpm;
+}
+$wpmpo = optional_param('requiredwpm', $dfwpm, PARAM_INT); // Display with default or current setting.
+
+
+/*
 // Check to see if current MooTyper WPM goal is already set.
 if (!($mootyper->requiredwpm)) {
     // Current MooTyper WPM goal is set, so use it.
     $wpmpo = optional_param('requiredwpm', $mootyper->requiredwpm, PARAM_INT);
 }
+*/
+
 
 // Check to see if current MooTyper activity textalign is empty.
 if ($mootyper->textalign == null || is_null($mootyper->textalign)) {
@@ -526,7 +540,10 @@ $htmlout .= '</select>';
 $htmlout .= '</td></tr>';
 $htmlout .= '</table>';
 // Change to BS4 style button to fix issue #77 on github.
-$htmlout .= '<br><input type="submit" name="button" class="btn btn-info" value="'.get_string('fconfirm', 'mootyper').'">';
+$htmlout .= '<br><input type="submit" name="button" class="btn btn-primary" value="'.get_string('fconfirm', 'mootyper').'">';
+// Create return URL for use with Cancel button, 12/26/19.
+$url = $CFG->wwwroot . '/mod/mootyper/view.php?id='.$cm->id;
+$htmlout .= ' <a href="'.$url.'" class="btn btn-secondary" role="button">'.get_string('cancel', 'mootyper').'</a>';
 
 $htmlout .= '</form>';
 $htmlout .= '<br>';
