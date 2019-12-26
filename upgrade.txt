@@ -74,7 +74,9 @@ grade tables in gview.php and owngrades.php
 of any positive number down to a zero. Discovered that I could not do the same for
 timelimit and for %. Fixed and testing. Added TRK1_328.
 12/25/19 TRK1_329 Added timelimit to the first line of output in the csvexport file.
-
+12/26/19 TRK1_168 Required WPM code needed to be changed as in older Moodles it
+was resetting to site defaultwpm each time you went to Settings page.
+12/26/19 TRK1_330 For convenience, I added a Cancel button to the settings page.
 
 === 3.8.1 ===
 11/24/19 Fixed PostrgreSQL compatibility error in locallib.php function get_mootyperlessons.
