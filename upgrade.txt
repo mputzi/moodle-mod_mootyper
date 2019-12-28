@@ -48,7 +48,7 @@ Moodle Versions
 === 3.8.x ===
 12/27/19 Issue #81 at github - Missing space between user name and exercise name in
 the graph when viewing all grades. Fixed and pushed to github master branch.
-
+12/28/19 TRK1_319 Mistake details error reporting added just below the status bar.
 
 
 === 3.8.2 ===

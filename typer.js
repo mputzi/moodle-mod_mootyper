@@ -1,6 +1,7 @@
 var startTime,
     endTime,
     mistakes,
+    mistakestring = "",
     currentPos,
     keyResult,
     started = false,
@@ -46,6 +47,7 @@ function moveCursor(nextPos) {
             if (!(countMistakes)) {
                 // Even with multiple keystrokes on the wrong key, only one mistake is counted.
                 mistakes++;
+                mistakestring += currentChar; // Keep a copy of the wrong letter.
             }
             $('#crka' + (nextPos - 1))
             .removeClass('txtBlack')
@@ -214,6 +216,7 @@ function doCheck() {
 function doStart() {
     startTime = new Date();
     mistakes = 0;
+    mistakestring = "";
     currentPos = 0;
     started = true;
     keyResult = true;
@@ -294,6 +297,7 @@ function keyPressed(e) {
         if (countMistakes) {
             // With multiple keystrokes on the wrong key, each wrong keystroke is counted.
             mistakes++; // Typed the wrong letter so increment mistake count.
+            mistakestring += currentChar; // Keep a copy of the wrong letter.
         }
         keyResult = false; // Mistake count increased after correct key is typed if above disabled and line 37 enabled.
         if ((!continuousType && !countMistypedSpaces) || (!continuousType && countMistypedSpaces)) { // If not set for continuous typing, wait for correct letter.
@@ -520,4 +524,67 @@ function updTimeSpeed() {
     var gwpm = (calculateSpeed(secs) / 5);
     var nwpm = ((calculateSpeed(secs) / 5) - (mistakes / (secs / 60)));
     $('#jsWpm2').html((gwpm.toFixed(1)) + " | " + (nwpm.toFixed(1)));
+
+//console.log('In the updTimeSpeed function before the call to mistakestring_calc.');
+    //$('#jsDetailMistake').html("this is a test");
+    $('#jsDetailMistake').html(countChars(mistakestring));
+    //mistakestring_calc();
+//console.log('In the updTimeSpeed function after the call to mistakestring_calc.');
+
+}
+
+
+//function mistakestring_calc() {
+//console.log('In the mistakestring_calc function before jsDetailMistake.');
+   // document.getElementById('jsDetailMistake').innerHTML = countChars(mistakestring);
+
+   // $('#jsDetailMistake').html(countChars(mistakestring));
+//console.log('In the mistakestring_calc function before jsDetailMistake.');
+
+//}
+
+// Separation of characters = separateChars
+function separateChars(str) {
+//console.log('In the separateChars function and str is '+str);
+
+    var array = new Array();
+    var k = 1 ;
+    array[0] = str[0];
+    
+    for(var i = 1 ;    i<str.length ; i++){        
+        for(var j = 0 ; j<=array.length ; j++){
+            if( j == array.length ){
+                array[k] = str[i] ;
+                k++;    
+            }
+            if ( str[i] == array[j] ) break;    
+        }
+    }
+    return array;
+}
+
+// Counting the number of characters = countChars
+// Separating characters = separateChars
+// result = result
+// night = dem <- number of mistakes for the current character
+function countChars(str) {
+//console.log('In the countChars function and str is '+str);
+
+    var arr = separateChars(str);
+    arr.sort();
+    var arrC = new Array();
+    var result = "" ;
+    //alert(arr);
+    for ( var j = 0 ; j<arr.length ; j++) {
+        var dem = 0 ;
+        for ( var i = 0 ; i< str.length ; i++ ) {
+            if(str[i] == arr[j]) dem++;
+        }
+        
+        //result += '"' + arr[j] + '"' + ' = ' + dem  + '    ;\n' ;
+//        result += arr[j] + '=' + dem  + ', ' ;
+//        result += '"' + arr[j] + '"=' + dem  + ', ' ;
+        result += "'" + arr[j] + "'=" + dem  + ", " ;
+    }
+    return result;
 }
