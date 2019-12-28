@@ -45,6 +45,12 @@ sending an email, leave a comment at
 
 Moodle Versions
 ===============
+=== 3.8.x ===
+12/27/19 Issue #81 at github - Missing space between user name and exercise name in
+the graph when viewing all grades. Fixed and pushed to github master branch.
+
+
+
 === 3.8.2 ===
 12/10/19 TRK1_314 Added lesson ID to the link, Add new exercise to this lesson, ID: XX.
 Also moved the link code so now inside the 'if' that checks and hides the link if the
