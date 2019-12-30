@@ -129,7 +129,8 @@ function get_typer_grades_adv($mootyperid, $exerciseid, $userid=0, $orderby=-1, 
                     .$gradestblname.".precisionfield, "
                     .$gradestblname.".timetaken, "
                     .$exertblname.".exercisename, "
-                    .$gradestblname.".wpm".
+                    .$gradestblname.".wpm,"
+                    .$gradestblname.".mistakedetails".
     " FROM ".$gradestblname.
     " LEFT JOIN ".$userstblname." ON ".$gradestblname.".userid = ".$userstblname.".id".
     " LEFT JOIN ".$exertblname." ON ".$gradestblname.".exercise = ".$exertblname.".id".
@@ -228,7 +229,8 @@ function get_typergradesuser($sid, $uid, $orderby=-1, $desc=false) {
                     .$gradestblname.".pass, "
                     .$gradestblname.".timetaken, "
                     .$exertblname.".exercisename, "
-                    .$gradestblname.".wpm".
+                    .$gradestblname.".wpm,"
+                    .$gradestblname.".mistakedetails".
     " FROM ".$gradestblname.
     " LEFT JOIN ".$userstblname." ON ".$gradestblname.".userid = ".$userstblname.".id".
     " LEFT JOIN ".$exertblname." ON ".$gradestblname.".exercise = ".$exertblname.".id".

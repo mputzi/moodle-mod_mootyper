@@ -191,7 +191,7 @@ if (!has_capability('mod/mootyper:viewmygrades', context_module::instance($cm->i
 
             $htmlout .= '<tr align="center" style="border-top-style: solid;'.$stil.'">
                         <td>'.$fcol.'</td>
-                        <td>'.$gr->mistakes.'</td>
+                        <td>'.$gr->mistakes.': '.$gr->mistakedetails.'</td>
                         <td>'.format_time($gr->timeinseconds).'</td>
                         <td>'.format_float($gr->hitsperminute).'</td>
                         <td>'.$gr->fullhits.'</td>

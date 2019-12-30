@@ -168,7 +168,6 @@ if (!has_capability('mod/mootyper:viewgrades', context_module::instance($cm->id)
         $des = 0;
     }
     $grds = get_typer_grades_adv($mootyper->id, $se, $us, $orderby, $des);
-
     if ($grds != false) {
         if ($des == -1 || $des == 1) {
             $lnkadd = "&desc=0";
@@ -239,7 +238,7 @@ if (!has_capability('mod/mootyper:viewgrades', context_module::instance($cm->id)
             $htmlout .= '<tr align="center" style="border-top-style: solid;'.$stil.'">
                          <td>'.$exclamation.' '.$namelnk.'</td>
                          <td>'.$fcol.'</td>
-                         <td>'.$gr->mistakes.'</td>
+                         <td>'.$gr->mistakes.': '.$gr->mistakedetails.'</td>
                          <td>'.format_time($gr->timeinseconds).'</td>
                          <td>'.format_float($gr->hitsperminute).'</td>
                          <td>'.$gr->fullhits.'</td>

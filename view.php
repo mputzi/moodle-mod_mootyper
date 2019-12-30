@@ -329,6 +329,7 @@ if ($mootyper->lesson != null) {
     <input name='rpAccInput' type='hidden'>
     <input name='rpSpeedInput' type='hidden'>
     <input name='rpWpmInput' type='hidden'>
+    <input name='rpMistakeDetailsInput' type='hidden'>
 
         <?php
 
