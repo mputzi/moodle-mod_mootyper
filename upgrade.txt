@@ -50,6 +50,12 @@ Moodle Versions
 the graph when viewing all grades. Fixed and pushed to github master branch.
 12/28/19 TRK1_319 Mistake details error reporting added just below the status bar.
 12/29/19 Bumped version to 3.8.3 and pushed to github.
+12/29/19 TRK1_332 Added new field, mistakedetails to table mdl_mootyper_grades.
+12/29/19 TRK1_319 Added code to place countChars(mistakestring) into new field.
+12/30/19 TRK1_319 Added code in gview.php and owngrades.php, to place data from
+the, mdl_mootyper_grades->mistakedetails, field, into the grades table in the,
+Mistakes, column for, View all grades, and, View my grades.
+
 
 === 3.8.2 ===
 12/10/19 TRK1_314 Added lesson ID to the link, Add new exercise to this lesson, ID: XX.
