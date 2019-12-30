@@ -235,10 +235,20 @@ if (!has_capability('mod/mootyper:viewgrades', context_module::instance($cm->id)
                        .'&amp;course='.$course->id
                        .'">'.$gr->firstname.' '
                        .$gr->lastname.'</a>';
+
+            // 12/30/19 Combine new mistakedetails with mistakes count.
+            //$strtocut = $gr->mistakes.'<br>'.$gr->mistakedetails;
+            $strtocut = $gr->mistakes.': '.$gr->mistakedetails;
+/*
+            $strtocut = str_replace('\n', '<br>', $strtocut);
+            if (strlen($strtocut) > 19) {
+                $strtocut = substr($strtocut, 0, 19).'...';
+            }
+*/
             $htmlout .= '<tr align="center" style="border-top-style: solid;'.$stil.'">
                          <td>'.$exclamation.' '.$namelnk.'</td>
                          <td>'.$fcol.'</td>
-                         <td>'.$gr->mistakes.': '.$gr->mistakedetails.'</td>
+                         <td>'.$strtocut.'</td>
                          <td>'.format_time($gr->timeinseconds).'</td>
                          <td>'.format_float($gr->hitsperminute).'</td>
                          <td>'.$gr->fullhits.'</td>

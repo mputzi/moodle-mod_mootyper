@@ -189,9 +189,17 @@ if (!has_capability('mod/mootyper:viewmygrades', context_module::instance($cm->i
             $fcol = $gr->exercisename;
             $fcol = get_string('exercise_abreviation', 'mootyper').'-'.$fcol;  // This gets the exercise number.
 
+            // 12/30/19 Combine new mistakedetails with mistakes count.
+            $strtocut = $gr->mistakes.': '.$gr->mistakedetails;
+/*
+            $strtocut = str_replace('\n', '<br>', $strtocut);
+            if (strlen($strtocut) > 17) {
+                $strtocut = substr($strtocut, 0, 17).'...';
+            }
+*/
             $htmlout .= '<tr align="center" style="border-top-style: solid;'.$stil.'">
                         <td>'.$fcol.'</td>
-                        <td>'.$gr->mistakes.': '.$gr->mistakedetails.'</td>
+                        <td>'.$strtocut.'</td>
                         <td>'.format_time($gr->timeinseconds).'</td>
                         <td>'.format_float($gr->hitsperminute).'</td>
                         <td>'.$gr->fullhits.'</td>
