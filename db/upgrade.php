@@ -294,5 +294,16 @@ function xmldb_mootyper_upgrade($oldversion) {
         // Mootyper savepoint reached.
         upgrade_mod_savepoint(true, 2019121400, 'mootyper');
     }
+    // One new field added for version 3.8.3.
+    if ($oldversion < 2019123100) {
+        // Define field mistakedetails to be added to mootyper.
+        $table = new xmldb_table('mootyper_grades');
+        $field = new xmldb_field('mistakedetails', XMLDB_TYPE_CHAR, '256', null, XMLDB_NOTNULL, null, null, 'wpm');
+
+        // Conditionally launch add field mistakedetails.
+        if (!$dbman->field_exists($table, $field)) {
+            $dbman->add_field($table, $field);
+        }
+    }
     return true;
 }

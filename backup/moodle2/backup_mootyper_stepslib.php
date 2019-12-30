@@ -113,7 +113,8 @@ class backup_mootyper_activity_structure_step extends backup_activity_structure_
                                                  'exercise',
                                                  'pass',
                                                  'attemptid',
-                                                 'wpm'));
+                                                 'wpm',
+                                                 'mistakedetails'));
 
         $layouts = new backup_nested_element('layouts');
 
