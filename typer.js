@@ -119,6 +119,7 @@ function doTheEnd() {
     var wpm = (speed / 5) - (mistakes / (samoSekunde / 60));
     $('#jsWpm2').html((gwpm.toFixed(1)) + " | " + (wpm.toFixed(1)));
     $('input[name="rpWpmInput"]').val(wpm);
+    $('input[name="rpMistakeDetailsInput"]').val(countChars(mistakestring));
     $('#tb1').attr('disabled', 'disabled');
     $('#btnContinue').css('visibility', 'visible');
     var rpAttId = document.form1.rpAttId.value;
@@ -525,23 +526,8 @@ function updTimeSpeed() {
     var nwpm = ((calculateSpeed(secs) / 5) - (mistakes / (secs / 60)));
     $('#jsWpm2').html((gwpm.toFixed(1)) + " | " + (nwpm.toFixed(1)));
 
-//console.log('In the updTimeSpeed function before the call to mistakestring_calc.');
-    //$('#jsDetailMistake').html("this is a test");
     $('#jsDetailMistake').html(countChars(mistakestring));
-    //mistakestring_calc();
-//console.log('In the updTimeSpeed function after the call to mistakestring_calc.');
-
 }
-
-
-//function mistakestring_calc() {
-//console.log('In the mistakestring_calc function before jsDetailMistake.');
-   // document.getElementById('jsDetailMistake').innerHTML = countChars(mistakestring);
-
-   // $('#jsDetailMistake').html(countChars(mistakestring));
-//console.log('In the mistakestring_calc function before jsDetailMistake.');
-
-//}
 
 // Separation of characters = separateChars
 function separateChars(str) {
@@ -568,8 +554,6 @@ function separateChars(str) {
 // result = result
 // night = dem <- number of mistakes for the current character
 function countChars(str) {
-//console.log('In the countChars function and str is '+str);
-
     var arr = separateChars(str);
     arr.sort();
     var arrC = new Array();
@@ -580,10 +564,6 @@ function countChars(str) {
         for ( var i = 0 ; i< str.length ; i++ ) {
             if(str[i] == arr[j]) dem++;
         }
-        
-        //result += '"' + arr[j] + '"' + ' = ' + dem  + '    ;\n' ;
-//        result += arr[j] + '=' + dem  + ', ' ;
-//        result += '"' + arr[j] + '"=' + dem  + ', ' ;
         result += "'" + arr[j] + "'=" + dem  + ", " ;
     }
     return result;
