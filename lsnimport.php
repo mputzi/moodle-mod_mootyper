@@ -219,7 +219,7 @@ for ($j = 0; $j < count($res2); $j++) {
                 'context' => $context,
                 'other' => $kbl
             );
-            $event = \mod_mootyper\event\layout_imported::create($params);
+            $event = layout_imported::create($params);
             $event->trigger();
         }
     }
