@@ -55,6 +55,8 @@ the graph when viewing all grades. Fixed and pushed to github master branch.
 12/30/19 TRK1_319 Added code in gview.php and owngrades.php, to place data from
 the, mdl_mootyper_grades->mistakedetails, field, into the grades table in the,
 Mistakes, column for, View all grades, and, View my grades.
+12/31/19 TRK1_333 Converted hard coded, Mistake details, to a language string,
+and wrapped it in a div so I can make it align to the left.
 
 
 === 3.8.2 ===
