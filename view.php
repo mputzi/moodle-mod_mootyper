@@ -397,7 +397,9 @@ if ($mootyper->lesson != null) {
     </div>
 </div>
 
-<strong>Mistake details</strong>: <span id="jsDetailMistake"></span>
+<div style="float: left;">
+    <strong><?php echo get_string('mistakedetails', 'mootyper'); ?></strong><span id="jsDetailMistake"></span>
+</div>
 
 <textarea name="tb1" wrap="off" id="tb1" class="tb1" onfocus="return focusSet(event)"  
     onpaste="return false" onselectstart="return false"
