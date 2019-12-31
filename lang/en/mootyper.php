@@ -150,6 +150,7 @@ $string['lsnname'] = 'Lesson name';
 $string['lsnimport'] = 'Import lesson / KB layout';
 $string['lsnimportadd'] = 'Was successfully added to the database.';
 $string['lsnimportnotadd'] = 'Already in the database. Nothing to do.';
+$string['mistakedetails'] = 'Mistake details: ';
 $string['modulename'] = 'MooTyper';
 $string['modulename_help'] = 'The mootyper module allows us to learn how to type';
 $string['modulenameplural'] = 'MooTypers';
