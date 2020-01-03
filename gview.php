@@ -277,11 +277,11 @@ if (!has_capability('mod/mootyper:viewgrades', context_module::instance($cm->id)
     }
     $htmlout .= '</table><br>';
     $htmlout .= '</form>';
-    $htmlout .= '</div>';
+    $htmlout .= '</div><br>';
 
+    // 1/3/2020 Changed to button.
     // Create link for export and pass mode, lesson name, and required goal to csvexport file.
-    $url1 = '<p style="text-align: left;">
-        <a href="'.$CFG->wwwroot.'/mod/mootyper/csvexport.php?mootyperid='.$mootyper->id
+    $url1 = '<a href="'.$CFG->wwwroot.'/mod/mootyper/csvexport.php?mootyperid='.$mootyper->id
         .'&id='.$id
         .'&coursename='.$course->fullname
         .'&mtname='.$mootyper->name
@@ -290,27 +290,9 @@ if (!has_capability('mod/mootyper:viewgrades', context_module::instance($cm->id)
         .'&timelimit='.$mootyper->timelimit
         .'&requiredgoal='.$mootyper->requiredgoal
         .'&requiredwpm='.$mootyper->requiredwpm
-        .'">'.get_string('csvexport', 'mootyper')
-        .'</a></p>';
+        .'"class="btn btn-primary">'.get_string('csvexport', 'mootyper')
+        .'</a>';
     $htmlout .= $url1;
-    /*
-    // Future development. 11/17/19 Everything here in $urlparams works and gets set
-    // like it is supposed to, but the csvexport.php is not extracting,
-    // Course = coursename, Activity = mtname, and Lesson = lsnname, correctly.
-    // When csvexport.php adds the first line to the data file, those items are
-    // left blank, but the rest of the data file is created correctly.
-    // 11/15/2019 Added new link button for csvexport.
-    $urlparams = array('mootyperid' => $mootyper->id,
-        'id' => $id,
-        'coursname' => $course->fullname,
-        'mtname=' => $mootyper->name,
-        'isexam=' => $mootyper->isexam,
-        'lsnname=' => $lsnname->lessonname,
-        .'&requiredgoal='.$mootyper->requiredgoal,
-        .'&requiredwpm='.$mootyper->requiredwpm                       );
-    $url2 = new moodle_url($CFG->wwwroot.'/mod/mootyper/csvexport.php', $urlparams);
-    $htmlout .= html_writer::link($url2, get_string('csvexport', 'mootyper'), ['class' => 'btn btn-primary btn-block']);
-    */
 }
 
 echo $htmlout;
