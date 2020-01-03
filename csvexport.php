@@ -147,7 +147,7 @@ $mid = optional_param('mootyperid', 0, PARAM_INT);
 // Fourth item determines sort order of the data.
 // 2 is lastname. 10 is exercise name.
 // The function get_typer_grades_adv needs further work on sorting.
-$grds = get_typer_grades_adv($mid, 0, 0, 2, 0); // is time completed.
+$grds = get_typer_grades_adv($mid, 0, 0, 2, 0);
 //$grds = get_typer_grades_adv($mid, 0, 0, 10, 0);
 
 array_to_csv_download($grds, get_string('gradesfilename', 'mootyper'));
