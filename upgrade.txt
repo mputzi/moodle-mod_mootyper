@@ -60,6 +60,14 @@ and wrapped it in a div so I can make it align to the left.
 12/31/19 Experimenting with .tb1 settings in styles.css to try and keep the hidden
 textarea from creating a blank line below the, Mistake details. Might need to make
 a single row, two column table, for them.
+01/02/20 TRK1_320 layout_imported, line 222 in lsnimport.php fixed.
+01/03/20 Minor fix and publish, Armenian(V5) layout.
+01/03/20 TRK1_264 Changed Export to .csv link to a BS4 style primary button
+on the View all grades page.
+01/03/20 TRK1_335 Added, Mistake details, data to the, Mistakes, column
+to the, Export to .csv, file output data.
+01/04/20 Spell checked lessons and switched some to paragraph format.
+01/04/20 Some code cleanup based on last version check on Moodle.
 
 
 === 3.8.2 ===

@@ -16,9 +16,10 @@
 
 /**
  * This file is used to export exercise attempts in csv format.
+ *
  * Called from gview.php (View All Grades).
  * Changed the code 03/10/2019 to work with removing ...lib.php function get_typergradesfull.
- * Added the mode, lesson name, and required precision to row one of the csv output file.
+ * Adds the mode, lesson name, timelimit, required precision, required wpm to row one of the csv output file.
  * Also changed to use the lesson name, with whitespace removed, as the filename.
  *
  * @package    mod_mootyper
@@ -108,6 +109,7 @@ function array_to_csv_download($array, $filename = "export.csv", $delimiter=";")
     header("Pragma: no-cache");
     header("Expires: 0");
     $f = fopen('php://output', 'w');
+
 
     $details = array($coursename,
                      $mtname,

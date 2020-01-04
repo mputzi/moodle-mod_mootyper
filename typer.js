@@ -497,6 +497,7 @@ function calculateAccuracy() {
  * @param {number} currentPos.
  * @param {number} fullText.
  * @param {number} currentPos.
+ * @param {varchar} mistakestring.
  */
 function updTimeSpeed() {
     newCas = new Date();
@@ -525,8 +526,31 @@ function updTimeSpeed() {
     var gwpm = (calculateSpeed(secs) / 5);
     var nwpm = ((calculateSpeed(secs) / 5) - (mistakes / (secs / 60)));
     $('#jsWpm2').html((gwpm.toFixed(1)) + " | " + (nwpm.toFixed(1)));
+    if (mistakestring) {
+        $('#jsDetailMistake').html(countChars(mistakestring));
+    }
+}
 
-    $('#jsDetailMistake').html(countChars(mistakestring));
+/**
+ * Count the number of characters.
+ * Separating characters = separateChars
+ * @param {int} dem. Number of mistakes for the current character
+ * @result {varchar} result.
+ */
+function countChars(str) {
+    var arr = separateChars(str);
+    arr.sort();
+    var arrC = new Array();
+    var result = "" ;
+    //alert(arr);
+    for ( var j = 0 ; j<arr.length ; j++) {
+        var dem = 0 ;
+        for ( var i = 0 ; i< str.length ; i++ ) {
+            if(str[i] == arr[j]) dem++;
+        }
+        result += "'" + arr[j] + "'=" + dem  + ", " ;
+    }
+    return result;
 }
 
 // Separation of characters = separateChars
@@ -547,24 +571,4 @@ function separateChars(str) {
         }
     }
     return array;
-}
-
-// Counting the number of characters = countChars
-// Separating characters = separateChars
-// result = result
-// night = dem <- number of mistakes for the current character
-function countChars(str) {
-    var arr = separateChars(str);
-    arr.sort();
-    var arrC = new Array();
-    var result = "" ;
-    //alert(arr);
-    for ( var j = 0 ; j<arr.length ; j++) {
-        var dem = 0 ;
-        for ( var i = 0 ; i< str.length ; i++ ) {
-            if(str[i] == arr[j]) dem++;
-        }
-        result += "'" + arr[j] + "'=" + dem  + ", " ;
-    }
-    return result;
 }

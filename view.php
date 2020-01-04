@@ -420,7 +420,9 @@ if ($mootyper->lesson != null) {
         include($keyboard);
         ?>
 </div>
+
 </form>
+
 </div>
         <?php
         $texttoinit = '';

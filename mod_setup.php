@@ -58,7 +58,6 @@ $epo = optional_param('e', 0, PARAM_INT);
 // Get settings for current mootyper activity.
 // During initial actvity setup, there is no mode set, so get the site default.
 $modepo = optional_param('mode', $moocfg->isexam, PARAM_INT);
-//$wpmpo = optional_param('requiredwpm', $moocfg->defaultwpm, PARAM_INT);
 $lessonpo = optional_param('lesson', $mootyper->lesson, PARAM_INT);
 $exercisepo = optional_param('exercise', $mootyper->exercise, PARAM_INT);
 $textalign = optional_param('textalign', $mootyper->textalign, PARAM_INT);
@@ -109,16 +108,6 @@ if ($mootyper->requiredwpm == null || is_null($mootyper->requiredwpm)) {
     $dfwpm = $mootyper->requiredwpm;
 }
 $wpmpo = optional_param('requiredwpm', $dfwpm, PARAM_INT); // Display with default or current setting.
-
-
-/*
-// Check to see if current MooTyper WPM goal is already set.
-if (!($mootyper->requiredwpm)) {
-    // Current MooTyper WPM goal is set, so use it.
-    $wpmpo = optional_param('requiredwpm', $mootyper->requiredwpm, PARAM_INT);
-}
-*/
-
 
 // Check to see if current MooTyper activity textalign is empty.
 if ($mootyper->textalign == null || is_null($mootyper->textalign)) {
@@ -254,24 +243,9 @@ $param1 = optional_param('button', '', PARAM_TEXT);
 if (isset($param1) && get_string('fconfirm', 'mootyper') == $param1) {
     $modepo = optional_param('mode', null, PARAM_INT);
     $lessonpo = optional_param('lesson', null, PARAM_INT);
-
-    //$timelimitpo = optional_param('timelimit', $moocfg->defaulttimelimit, PARAM_INT);
     $timelimitpo = optional_param('timelimit', null, PARAM_INT);
-    //if ($timelimitpo == 0) {
-    //    $timelimitpo = $moocfg->defaulttimelimit;
-    //}
-
-    //$goalpo = optional_param('requiredgoal', $moocfg->defaultprecision, PARAM_INT);
     $goalpo = optional_param('requiredgoal', null, PARAM_INT);
-   // if ($goalpo == 0) {
-    //    $goalpo = $moocfg->defaultprecision;
-    //}
-
-    //$wpmpo = optional_param('requiredwpm', $moocfg->defaultwpm, PARAM_INT);
     $wpmpo = optional_param('requiredwpm', null, PARAM_INT);
-    //if ($wpmpo == 0) {
-    //    $wpmpo = $moocfg->defaultwpm;
-    //}
     $textalignpo = optional_param('textalign', $dftextalign, PARAM_INT); // Display with default or current setting.
     $continuoustypepo = optional_param('continuoustype', null, PARAM_CLEAN);
     $countmistypedspacespo = optional_param('countmistypedspaces', null, PARAM_CLEAN);
@@ -326,14 +300,13 @@ echo $OUTPUT->header();
 echo $OUTPUT->heading($mootyper->name);
 $htmlout = '';
 $htmlout .= '<div align="center" style="font-size:1em;
-            font-weight:bold;background: '.$backgroundcolorpo.';
-            border:2px solid black;
-            -webkit-border-radius:16px;
-            -moz-border-radius:16px;
-            border-radius:16px;">';
+    font-weight:bold;background: '.$backgroundcolorpo.';
+    border:2px solid black;
+    -webkit-border-radius:16px;
+    -moz-border-radius:16px;
+    border-radius:16px;">';
 $htmlout .= '<script type="text/javascript">
-function removeAtts()
-{
+function removeAtts() {
     document.getElementById("lesson").disabled = false;
     document.getElementById("mode").disabled = false;
     document.getElementById("exercise").disabled = false;
@@ -341,26 +314,24 @@ function removeAtts()
 </script>';
 $htmlout .= '<form id="setupform" onsubmit="removeAtts();" name="setupform" method="POST">';
 $disselect = $epo == 1 ? ' disabled="disabled"' : '';
-$htmlout .= '<table><tr><td>'.get_string('fmode', 'mootyper').'</td>
-                        <td><select'.$disselect.' onchange="this.form.submit()" name="mode" id="mode">';
+$htmlout .= '<table><tr><td>'
+    .get_string('fmode', 'mootyper').'</td><td><select'
+    .$disselect.' onchange="this.form.submit()" name="mode" id="mode">';
 
 // 3/22/16 Modified to use only improved function get_mootyperlessons.
 if (has_capability('mod/mootyper:aftersetup', context_module::instance($cm->id))) {
     $lessons = get_mootyperlessons($USER->id, $course->id);
 }
 
-
-///////////////////////////////////////////////////////////////////////////////
-
-
 // Start building htmlout for this page based on exam or lesson exercise.
 if ($modepo == 0 || is_null($modepo)) { // If mode is 0, this is a lesson?
     $htmlout .= '<option selected="true" value="0">'.get_string('sflesson', 'mootyper').'</option>
-                 <option value="1">'.get_string('isexamtext', 'mootyper').'</option>
-                 <option value="2">'.get_string('practice', 'mootyper').'</option>';
+        <option value="1">'.get_string('isexamtext', 'mootyper').'</option>
+        <option value="2">'.get_string('practice', 'mootyper').'</option>';
     $htmlout .= '</select></td></tr><tr><td>';
-    $htmlout .= get_string('excategory', 'mootyper').'</td>
-                <td><select'.$disselect.' onchange="this.form.submit()" id="lesson" name="lesson">';
+    $htmlout .= get_string('excategory', 'mootyper')
+        .'</td><td><select'.$disselect
+        .' onchange="this.form.submit()" id="lesson" name="lesson">';
     for ($ij = 0; $ij < count($lessons); $ij++) {
         if ($lessons[$ij]['id'] == $lessonpo) {
             $htmlout .= '<option selected="true" value="'.$lessons[$ij]['id'].'">'.$lessons[$ij]['lessonname'].'</option>';
@@ -368,23 +339,23 @@ if ($modepo == 0 || is_null($modepo)) { // If mode is 0, this is a lesson?
             $htmlout .= '<option value="'.$lessons[$ij]['id'].'">'.$lessons[$ij]['lessonname'].'</option>';
         }
     }
-
-    $htmlout .= '</select></td></tr><tr><td>'.get_string('timelimit', 'mootyper').'</td>
-                 <td><input value="'.$timelimitpo.'" style="width: 35px;" type="text" name="timelimit"> '.get_string('minutes').' </td></tr>';
-
-
-
-    $htmlout .= '</select></td></tr><tr><td>'.get_string('requiredgoal', 'mootyper').'</td>
-                 <td><input value="'.$goalpo.'" style="width: 35px;" type="text" name="requiredgoal"> % </td></tr>';
-    $htmlout .= '</select></td></tr><tr><td>'.get_string('requiredwpm', 'mootyper').'</td>
-                 <td><input value="'.$wpmpo.'" style="width: 35px;" type="text" name="requiredwpm"></td></tr>';
+    $htmlout .= '</select></td></tr><tr><td>'
+        .get_string('timelimit', 'mootyper').'</td><td><input value="'
+        .$timelimitpo.'" style="width: 35px;" type="text" name="timelimit"> '
+        .get_string('minutes').' </td></tr>';
+    $htmlout .= '</select></td></tr><tr><td>'
+        .get_string('requiredgoal', 'mootyper').'</td><td><input value="'
+        .$goalpo.'" style="width: 35px;" type="text" name="requiredgoal"> % </td></tr>';
+    $htmlout .= '</select></td></tr><tr><td>'
+        .get_string('requiredwpm', 'mootyper').'</td><td><input value="'
+        .$wpmpo.'" style="width: 35px;" type="text" name="requiredwpm"></td></tr>';
 } else if ($modepo == 1) { // Or, if mode is 1, this is an exam?
     $htmlout .= '<option value="0">'.get_string('sflesson', 'mootyper').'</option>
-                 <option value="1" selected="true">'.get_string('isexamtext', 'mootyper').'</option>
-                 <option value="2">'.get_string('practice', 'mootyper').'</option>';
+        <option value="1" selected="true">'.get_string('isexamtext', 'mootyper').'</option>
+        <option value="2">'.get_string('practice', 'mootyper').'</option>';
     $htmlout .= '</select></td></tr><tr><td>';
-    $htmlout .= get_string('flesson', 'mootyper').'</td>
-                <td><select'.$disselect.' onchange="this.form.submit()" id="lesson" name="lesson">';
+    $htmlout .= get_string('flesson', 'mootyper').'</td><td><select'
+        .$disselect.' onchange="this.form.submit()" id="lesson" name="lesson">';
     for ($ij = 0; $ij < count($lessons); $ij++) {
         if ($lessons[$ij]['id'] == $lessonpo) {
             $htmlout .= '<option selected="true" value="'.$lessons[$ij]['id'].'">'.$lessons[$ij]['lessonname'].'</option>';
@@ -402,22 +373,23 @@ if ($modepo == 0 || is_null($modepo)) { // If mode is 0, this is a lesson?
             $htmlout .= '<option value="'.$exercises[$ik]['id'].'">'.$exercises[$ik]['exercisename'].'</option>';
         }
     }
-
-    $htmlout .= '</select></td></tr><tr><td>'.get_string('timelimit', 'mootyper').'</td>
-                 <td><input value="'.$timelimitpo.'" style="width: 35px;" type="text" name="timelimit"> '.get_string('minutes').' </td></tr>';
-
-
-    $htmlout .= '</select></td></tr><tr><td>'.get_string('requiredgoal', 'mootyper').'</td>
-                 <td><input value="'.$goalpo.'" style="width: 35px;" type="text" name="requiredgoal"> % </td></tr>';
-    $htmlout .= '</select></td></tr><tr><td>'.get_string('requiredwpm', 'mootyper').'</td>
-                 <td><input value="'.$wpmpo.'" style="width: 35px;" type="text" name="requiredwpm"></td></tr>';
+    $htmlout .= '</select></td></tr><tr><td>'
+        .get_string('timelimit', 'mootyper').'</td><td><input value="'
+        .$timelimitpo.'" style="width: 35px;" type="text" name="timelimit"> '
+        .get_string('minutes').' </td></tr>';
+    $htmlout .= '</select></td></tr><tr><td>'
+        .get_string('requiredgoal', 'mootyper').'</td><td><input value="'
+        .$goalpo.'" style="width: 35px;" type="text" name="requiredgoal"> % </td></tr>';
+    $htmlout .= '</select></td></tr><tr><td>'
+        .get_string('requiredwpm', 'mootyper').'</td><td><input value="'
+        .$wpmpo.'" style="width: 35px;" type="text" name="requiredwpm"></td></tr>';
 } else if ($modepo == 2) { // If mode is 2, this is a practice lesson?
     $htmlout .= '<option selected="true" value="0">'.get_string('sflesson', 'mootyper').'</option>
-                 <option value="1">'.get_string('isexamtext', 'mootyper').'</option>
-                 <option value="2" selected="true">'.get_string('practice', 'mootyper').'</option>';
+        <option value="1">'.get_string('isexamtext', 'mootyper').'</option>
+        <option value="2" selected="true">'.get_string('practice', 'mootyper').'</option>';
     $htmlout .= '</select></td></tr><tr><td>';
-    $htmlout .= get_string('excategory', 'mootyper').'</td>
-                <td><select'.$disselect.' onchange="this.form.submit()" id="lesson" name="lesson">';
+    $htmlout .= get_string('excategory', 'mootyper').'</td><td><select'
+        .$disselect.' onchange="this.form.submit()" id="lesson" name="lesson">';
     for ($ij = 0; $ij < count($lessons); $ij++) {
         if ($lessons[$ij]['id'] == $lessonpo) {
             $htmlout .= '<option selected="true" value="'.$lessons[$ij]['id'].'">'.$lessons[$ij]['lessonname'].'</option>';
@@ -425,16 +397,16 @@ if ($modepo == 0 || is_null($modepo)) { // If mode is 0, this is a lesson?
             $htmlout .= '<option value="'.$lessons[$ij]['id'].'">'.$lessons[$ij]['lessonname'].'</option>';
         }
     }
-
-
-    $htmlout .= '</select></td></tr><tr><td>'.get_string('timelimit', 'mootyper').'</td>
-                 <td><input value="'.$timelimitpo.'" style="width: 35px;" type="text" name="timelimit"> '.get_string('minutes').' </td></tr>';
-
-
-    $htmlout .= '</select></td></tr><tr><td>'.get_string('requiredgoal', 'mootyper').'</td>
-                 <td><input value="'.$goalpo.'" style="width: 35px;" type="text" name="requiredgoal"> % </td></tr>';
-    $htmlout .= '</select></td></tr><tr><td>'.get_string('requiredwpm', 'mootyper').'</td>
-                 <td><input value="'.$wpmpo.'" style="width: 35px;" type="text" name="requiredwpm"></td></tr>';
+    $htmlout .= '</select></td></tr><tr><td>'
+        .get_string('timelimit', 'mootyper').'</td><td><input value="'
+        .$timelimitpo.'" style="width: 35px;" type="text" name="timelimit"> '
+        .get_string('minutes').' </td></tr>';
+    $htmlout .= '</select></td></tr><tr><td>'
+        .get_string('requiredgoal', 'mootyper').'</td><td><input value="'
+        .$goalpo.'" style="width: 35px;" type="text" name="requiredgoal"> % </td></tr>';
+    $htmlout .= '</select></td></tr><tr><td>'
+        .get_string('requiredwpm', 'mootyper').'</td><td><input value="'
+        .$wpmpo.'" style="width: 35px;" type="text" name="requiredwpm"></td></tr>';
 }
 
 // Add a selector for text alignment.
