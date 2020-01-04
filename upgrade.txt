@@ -57,6 +57,9 @@ the, mdl_mootyper_grades->mistakedetails, field, into the grades table in the,
 Mistakes, column for, View all grades, and, View my grades.
 12/31/19 TRK1_333 Converted hard coded, Mistake details, to a language string,
 and wrapped it in a div so I can make it align to the left.
+12/31/19 Experimenting with .tb1 settings in styles.css to try and keep the hidden
+textarea from creating a blank line below the, Mistake details. Might need to make
+a single row, two column table, for them.
 
 
 === 3.8.2 ===
