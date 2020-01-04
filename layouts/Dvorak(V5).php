@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * This file defines the Dvorak(V5.2)keyboard layout.
+ * This file defines the Dvorak(V5.3)keyboard layout.
  *
  * @package    mod_mootyper
  * @copyright  2019 AL Rachels (drachels@drachels.com)
