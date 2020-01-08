@@ -1,7 +1,7 @@
 /**
  * @fileOverview English(USV5.1) keyboard driver.
  * @author <a href="mailto:drachels@drachels.com">AL Rachels</a>
- * @version 5.1
+ * @version 5.2
  * @since 03/05/2019
  */
 
@@ -187,5 +187,5 @@ function getKeyID(tCrka) {
  * @returns {(number|Array)}.
  */
 function isLetter(str) {
-    return str.length === 1 && str.match(/[a-z]/i);
+    return str.length === 1 && str.match(/[!-ﻼ]/i);
 }
