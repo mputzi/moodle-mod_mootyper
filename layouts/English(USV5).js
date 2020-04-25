@@ -1,7 +1,7 @@
 /**
- * @fileOverview English(USV5.1) keyboard driver.
+ * @fileOverview English(USV5.3) keyboard driver.
  * @author <a href="mailto:drachels@drachels.com">AL Rachels</a>
- * @version 5.2
+ * @version 5.3
  * @since 03/05/2019
  */
 

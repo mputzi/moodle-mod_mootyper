@@ -1,7 +1,7 @@
 /**
- * @fileOverview Vietnamese(V4.2) keyboard driver.
+ * @fileOverview Vietnamese(V4.3) keyboard driver.
  * @author <a href="mailto:drachels@drachels.com">AL Rachels</a>
- * @version 4.2
+ * @version 4.3
  * @since 06/16/2018
  */
 

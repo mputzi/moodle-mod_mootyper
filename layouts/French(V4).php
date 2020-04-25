@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * This file defines the French(V4.1) keyboard layout.
+ * This file defines the French(V4.2) keyboard layout.
  *
  * @package    mod_mootyper
  * @copyright  2016 onwards AL Rachels (drachels@drachels.com)
@@ -33,7 +33,7 @@ echo (isset($displaynone) && ($displaynone == true)) ? 'display:none;' : '';
     <section>
         <div class="mtrow" style='float: left; margin-left:5px; font-size: 15px !important; line-height: 15px'>
             <div id="jkey²" class="normal" style='text-align:left;'>&nbsp;<br>²</div>
-            <div id="jkey1" class="normal" style='text-align:left;'>1<br>& </div>
+            <div id="jkey1" class="normal" style='text-align:left;'>1<br>&amp; </div>
             <div id="jkey2" class="normal" style='text-align:left;'>2<br>é
                 <span style="color:red">&nbsp;~</span></div>
             <div id="jkey3" class="normal" style='text-align:left;'>3<br>"

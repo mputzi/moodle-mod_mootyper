@@ -1,7 +1,7 @@
 /**
- * @fileOverview Serbian(V4.1) keyboard driver.
+ * @fileOverview Serbian(V4.2) keyboard driver.
  * @author <a href="mailto:drachels@drachels.com">AL Rachels</a>
- * @version 4.1
+ * @version 4.2
  * @since 7/11/2018
  */
 

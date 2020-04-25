@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * This file defines the Romanian(V5.0) keyboard layout.
+ * This file defines the Romanian(V5.1) keyboard layout.
  *
  * @package    mod_mootyper
  * @copyright  2019 AL Rachels (drachels@drachels.com)
@@ -46,7 +46,7 @@ echo (isset($displaynone) && ($displaynone == true)) ? 'display:none;' : '';
                 <span style="color:red">&nbsp;&nbsp;&nbsp;°</span></div>
             <div id="jkey6" class="normal" style='text-align:left;'>^<br>6
                 <span style="color:red">&nbsp;&nbsp;&nbsp;˛</span></div>
-            <div id="jkey7" class="normal" style='text-align:left;'>&<br>7
+            <div id="jkey7" class="normal" style='text-align:left;'>&amp;<br>7
                 <span style="color:red">&nbsp;&nbsp;&nbsp;`</span></div>
             <div id="jkey8" class="normal" style='text-align:left;'>*<br>8
                 <span style="color:red">&nbsp;&nbsp;&nbsp;˙</span></div>

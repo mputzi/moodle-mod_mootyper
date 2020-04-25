@@ -1,7 +1,7 @@
 /**
- * @fileOverview Swedish(V4.2) keyboard driver.
+ * @fileOverview Swedish(V4.4) keyboard driver.
  * @author <a href="mailto:drachels@drachels.com">AL Rachels</a>
- * @version 4.2
+ * @version 4.4
  * @since 06/17/2018
  */
 
