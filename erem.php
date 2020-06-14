@@ -29,25 +29,31 @@
 use \mod_mootyper\event\exercise_deleted;
 use \mod_mootyper\event\lesson_deleted;
 
-// Changed to this newer format 03/01/2019.
+// Changed to this newer format 20190301.
 require(__DIR__ . '/../../config.php');
-
-require_login($course, true, $cm);
 
 global $DB;
 
 $id = optional_param('id', 0, PARAM_INT); // Course_module ID.
-if ($id) {
-    $course     = $DB->get_record('course', array('id' => $id), '*', MUST_EXIST);
-} else {
-    print_error(get_string('mootypererror', 'mootyper'));
+
+if (! $cm = get_coursemodule_from_id('mootyper', $id)) {
+    print_error("Course Module ID was incorrect");
 }
-$context = context_course::instance($id);
+
+if (! $course = $DB->get_record("course", array('id' => $cm->course))) {
+    print_error("Course is misconfigured");
+}
+
+require_login($course, true, $cm);
+
+$context = context_module::instance($cm->id);
 
 // If r is set we remove an exercise.
 // if l is set we remove a lesson and all its exercises.
 $exerciseid = optional_param('r', '', PARAM_TEXT);
 $lessonid = optional_param('l', '', PARAM_TEXT);
+//Added cmid so can exit back to MooTyper activity we came from.
+$cmid = optional_param('cmid', '0', PARAM_INT); // Course Module ID.
 
 if ($exerciseid) {
     $lessonpo = optional_param('lesson', '', PARAM_INT);
@@ -76,7 +82,11 @@ if ($exerciseid) {
     $event = lesson_deleted::create($params);
     $event->trigger();
 }
-
+// 20200224 $cid not needed after changes to id. Delete after more testing. Out of sequence
+// lesson delete seems to have made follow on exercise appear as part of wrong lesson!
+// Lesson contained three exercises. I deleted number 2, and then number 3 appeared as part
+// of another lesson, lesson aaaa(121).
+// Later - seems to work okay now.
 $cid = optional_param('id', 0, PARAM_INT);
-$webdir = $CFG->wwwroot . '/mod/mootyper/exercises.php?id='.$cid.'&lesson='.$lessonpo;
+$webdir = $CFG->wwwroot . '/mod/mootyper/exercises.php?id='.$id.'&lesson='.$lessonpo;
 header('Location: '.$webdir);

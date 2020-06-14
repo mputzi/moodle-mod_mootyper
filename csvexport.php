@@ -33,7 +33,6 @@ use \mod_mootyper\event\export_viewallgrades_to_csv;
 // Changed to this newer format 03/10/2019.
 require(__DIR__ . '/../../config.php');
 require_once(__DIR__ . '/lib.php');
-//require_once(__DIR__ . '/locallib.php');
 
 require_login(0, true, null, false);
 
