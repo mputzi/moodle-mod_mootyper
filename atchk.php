@@ -29,11 +29,11 @@
  */
 
 require(__DIR__ . '/../../config.php');
-require_once(__DIR__ . '/locallib.php');
+//require_once(__DIR__ . '/locallib.php');
 
 global $DB;
 
-// Added the following 02/02/19 and things seem to be working correctly.
+// For security, added the following 20190202 and things seem to be working correctly.
 require_login();
 
 $record = new stdClass();
