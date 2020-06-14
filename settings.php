@@ -24,11 +24,12 @@
  */
 
 defined('MOODLE_INTERNAL') || die;
+use \mod_mootyper\local\keyboards;
 
 if ($ADMIN->fulltree) {
     // Changed to this newer format 03/10/2019.
     require_once(__DIR__ . '/lib.php');
-    require_once(__DIR__ . '/locallib.php');
+    //require_once(__DIR__ . '/locallib.php');
 
     // Availability settings.
     $settings->add(new admin_setting_heading('mod_mootyper/availibility', get_string('availability'), ''));
@@ -117,7 +118,8 @@ if ($ADMIN->fulltree) {
         array('value' => 1, 'adv' => false)));
 
     // Default keyboard layout.
-    $layouts = get_keyboard_layouts_db();
+    //$layouts = get_keyboard_layouts_db();
+    $layouts = keyboards::get_keyboard_layouts_db();
     $settings->add(new admin_setting_configselect('mod_mootyper/defaultlayout',
         get_string('defaultlayout', 'mootyper'), '', 3, $layouts));
 

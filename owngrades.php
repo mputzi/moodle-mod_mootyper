@@ -27,11 +27,12 @@
  */
 
 use \mod_mootyper\event\viewed_own_grades;
+use \mod_mootyper\local\results;
 
 // Changed to this newer format 03/01/2019.
 require(__DIR__ . '/../../config.php');
 require_once(__DIR__ . '/lib.php');
-require_once(__DIR__ . '/locallib.php');
+//require_once(__DIR__ . '/locallib.php');
 
 global $USER;
 
@@ -189,14 +190,9 @@ if (!has_capability('mod/mootyper:viewmygrades', context_module::instance($cm->i
             $fcol = $gr->exercisename;
             $fcol = get_string('exercise_abreviation', 'mootyper').'-'.$fcol;  // This gets the exercise number.
 
-            // 12/30/19 Combine new mistakedetails with mistakes count.
+            // 20191230 Combine new mistakedetails with mistakes count.
             $strtocut = $gr->mistakes.': '.$gr->mistakedetails;
-/*
-            $strtocut = str_replace('\n', '<br>', $strtocut);
-            if (strlen($strtocut) > 17) {
-                $strtocut = substr($strtocut, 0, 17).'...';
-            }
-*/
+
             $htmlout .= '<tr align="center" style="border-top-style: solid;'.$stil.'">
                         <td>'.$fcol.'</td>
                         <td>'.$strtocut.'</td>
@@ -214,7 +210,7 @@ if (!has_capability('mod/mootyper:viewmygrades', context_module::instance($cm->i
             $seriesprecision[] = $gr->precisionfield;  // Get the precision percentage value.
             $serieswpm[] = $gr->wpm; // Get the corrected words per minute rate.
         }
-        $avg = get_grades_avg($grds);
+        $avg = results::get_grades_avg($grds);
         if (!($mtmode == 1)) {
             $htmlout .= '<tr align="center" style="border-top-style: solid;">
                         <td><strong>'.get_string('average', 'mootyper').': </strong></td>
@@ -233,8 +229,24 @@ if (!has_capability('mod/mootyper:viewmygrades', context_module::instance($cm->i
     } else {
         echo get_string('nogrades', 'mootyper');
     }
+
     $htmlout .= '</div>';
 }
+
+// 20200414 Added a return button.
+// 20200426 Modified return button for end of lesson.
+// 20200428 Added rounded corners.
+if ($id == 0 && $n > 0) {
+    $url2 = '<a href="'.$CFG->wwwroot . '/mod/mootyper/view.php?id='.$cm->id
+        .'"class="btn btn-primary" style="border-radius: 8px">'.get_string('returnto', 'mootyper', $mootyper->name).
+        '</a>';
+} else {
+    $url2 = '<a href="'.$CFG->wwwroot . '/mod/mootyper/view.php?id='.$id
+        .'"class="btn btn-primary" style="border-radius: 8px">'.get_string('returnto', 'mootyper', $mootyper->name).
+        '</a>';
+}
+$htmlout .= '<br>'.$url2;
+
 echo $htmlout;
 
 // Trigger module viewed_own_grades event.
@@ -250,7 +262,7 @@ if (($grds != false) && ($CFG->branch > 31)) {  // If there are NOT any grades, 
 
     $chart = new core\chart_bar();  // Tell the api I want a bar chart.
     $chart->set_horizontal(true); // Calling set_horizontal() passing true as parameter will display horizontal bar charts.
-    $chart->set_title(get_string('charttitlemyowngrades', 'mootyper')); // Tell the api what I want for a the chart title.
+    $chart->set_title(get_string('charttitlemyowngrades', 'mootyper')); // Tell the api what I want for a chart title.
     $chart->add_series($serie1);  // Pass the hits per minute data to the api.
     $chart->add_series($serie2);  // Pass the precision data to the api.
     $chart->add_series($serie3);  // Pass the words per minute data to the api.
