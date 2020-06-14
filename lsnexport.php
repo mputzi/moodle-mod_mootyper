@@ -29,7 +29,6 @@ use \mod_mootyper\event\lesson_exported;
 
 require(__DIR__ . '/../../config.php');
 require_once(__DIR__ . '/lib.php');
-require_once(__DIR__ . '/locallib.php');
 
 global $CFG, $DB, $USER;
 
@@ -49,21 +48,16 @@ $data->mootyper = $id;
 $context = context_course::instance($id);
 
 $params = array();
+$params[] = $lsn;
 // Get name of lesson to export based on incoming lesson id.
 $sql = "SELECT lessonname
         FROM {mootyper_lessons}
-        WHERE id = $lsn";
-$fname = $DB->get_record_sql($sql);
+        WHERE id = ?";
+// 20200613 Changed $sql to use $params.
+$fname = $DB->get_record_sql($sql, $params);
 $filename = $fname->lessonname;
 
-// Trigger lesson_export event.
-$params = array(
-    'objectid' => $data->mootyper,
-    'context' => $context,
-    'other' => $filename
-);
-$event = lesson_exported::create($params);
-$event->trigger();
+
 
 // Check to see if we need GMT added to filename based on lesson export filename setting.
 if (get_config('mod_mootyper', 'lesson_export_filename')) {
@@ -77,24 +71,24 @@ header('Content-Disposition: attachement; filename="'.$filename.'";');
 header("Pragma: no-cache");
 header("Expires: 0");
 $f = fopen('php://output', 'w');
-// Commenting out next line as headers/field list not needed for lessons.
-// fputcsv($f, $params, $delimiter);
+
 // Find out how many exercises are in the lesson we are exporting.
 $sqlc = "SELECT COUNT(mte.texttotype)
         FROM {mootyper_lessons} mtl
         LEFT JOIN {mootyper_exercises} mte
         ON mte.lesson =  mtl.id
-        WHERE mtl.id = $lsn";
-
-$count = $DB->count_records_sql($sqlc, $params = null);
+        WHERE mtl.id = ?";
+// 20200613 Changed $sqlc to use $params.
+$count = $DB->count_records_sql($sqlc, $params);
 // Added mte.id so exercises CAN be duplicates without getting debug message in output file.
 $sql = "SELECT mte.id, mte.texttotype
         FROM {mootyper_lessons} mtl
         LEFT JOIN {mootyper_exercises} mte
         ON mte.lesson =  mtl.id
-        WHERE mtl.id = $lsn";
+        WHERE mtl.id = ?";
 
-if ($exercise = $DB->get_records_sql($sql, $params = null)) {
+// 20200613 Changed $sql to use $params.
+if ($exercise = $DB->get_records_sql($sql, $params)) {
     foreach ($exercise as $txt) {
         // Decrement the exercise count so we know when to NOT include
         // a new exercise indicator.
@@ -111,4 +105,14 @@ if ($exercise = $DB->get_records_sql($sql, $params = null)) {
     }
     fclose($f);
 }
+
+// Trigger lesson_export event.
+$params = array(
+    'objectid' => $data->mootyper,
+    'context' => $context,
+    'other' => $filename
+);
+$event = lesson_exported::create($params);
+$event->trigger();
+
 return;

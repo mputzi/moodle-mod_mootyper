@@ -28,8 +28,10 @@
 
 defined('MOODLE_INTERNAL') || die();
 
+use \mod_mootyper\local\keyboards;
+
 require_once($CFG->dirroot.'/course/moodleform_mod.php');
-require_once($CFG->dirroot.'/mod/mootyper/locallib.php');
+//require_once($CFG->dirroot.'/mod/mootyper/locallib.php');
 /**
  * Module instance settings form.
  *
@@ -182,7 +184,7 @@ class mod_mootyper_mod_form extends moodleform_mod {
 
         // Add a dropdown slector for keyboard layouts. 11/22/17.
         // Use function in localib.php to get layouts.
-        $layouts = get_keyboard_layouts_db();
+        $layouts = keyboards::get_keyboard_layouts_db();
         $mform->addElement('select', 'layout', get_string('layout', 'mootyper'), $layouts);
         $mform->addHelpButton('layout', 'layout', 'mootyper');
         $mform->setDefault('layout', $mootyperconfig->defaultlayout);

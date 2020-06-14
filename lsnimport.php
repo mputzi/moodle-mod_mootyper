@@ -34,7 +34,7 @@ use \mod_mootyper\event\layout_imported;
 
 require(__DIR__ . '/../../config.php');
 require_once(__DIR__ . '/lib.php');
-require_once(__DIR__ . '/locallib.php');
+//require_once(__DIR__ . '/locallib.php');
 
 /**
  * Define the lesson import function.
@@ -120,13 +120,29 @@ function add_keyboard_layout($dafile) {
 $id = optional_param('id', 0, PARAM_INT); // Course ID.
 $lsn = optional_param('lsn', 0, PARAM_INT); // Lesson ID to download.
 
+/*
 if ($id) {
     $course     = $DB->get_record('course', array('id' => $id), '*', MUST_EXIST);
 } else {
     error('You must specify a course_module ID or an instance ID');
 }
+*/
+
+// 20200418 Added next two if's to replace the one above.
+if (! $cm = get_coursemodule_from_id('mootyper', $id)) {
+    print_error("Course Module ID was incorrect");
+}
+
+//print_object('In mootyper layouts.php printing $cm.');
+//print_object($cm);
+
+if (! $course = $DB->get_record("course", array('id' => $cm->course))) {
+    print_error("Course is misconfigured");
+}
+
 require_login($course, true);
-$context = context_course::instance($id);
+//$context = context_course::instance($id);
+$context = context_module::instance($cm->id);
 
 // Print the page header.
 $PAGE->set_url('/mod/mootyper/exercises.php', array('id' => $course->id));
@@ -161,7 +177,7 @@ for ($i = 0; $i < count($res); $i++) {
 
         if ($importlesson = $DB->get_record_sql($sql)) {
             // If it's true the name is already in the database, do nothing.
-            echo "<tr class='table-light'><td>$lsn</td><td>".get_string('lsnimportnotadd', 'mootyper').'</td></tr>';
+            echo "<tr class='table-dark text-dark'><td>$lsn</td><td>".get_string('lsnimportnotadd', 'mootyper').'</td></tr>';
         } else {
             // If it's not found in the db, then add the new lesson to the database.
             echo "<tr class='table-success'><td><b>$lsn</td><td>".get_string('lsnimportadd', 'mootyper').'</b></td></tr>';
@@ -185,6 +201,9 @@ echo '</tbody>';
 echo '</table>';
 echo '<br><b>'.get_string('layout', 'mootyper').'</b><br>';
 echo '<table class="table table-hover" style="width:100%">';
+echo '<thead class="thead-dark">';
+echo get_string('layout', 'mootyper');
+echo '</thead>';
 echo '<tbody>';
 // Set pointer to keyboard layouts folder, then get all names in there.
 $pth2 = $CFG->dirroot."/mod/mootyper/layouts";
@@ -203,7 +222,7 @@ for ($j = 0; $j < count($res2); $j++) {
 
         if ($importkbl = $DB->get_record_sql($sql)) {
             // If it's true the name is already in the database, do nothing.
-            echo "<tr class='table-light'><td>$kbl</td><td>".get_string('kblimportnotadd', 'mootyper').'</td></tr>';
+            echo "<tr class='table-dark text-dark'><td>$kbl</td><td>".get_string('kblimportnotadd', 'mootyper').'</td></tr>';
         } else {
             // If it's not found in the db, then add the new layout to the database.
             echo "<tr class='table-success'><td><b>$kbl</td><td>".get_string('kblimportadd', 'mootyper').'</b></td></tr>';
@@ -229,6 +248,6 @@ echo '</table>';
 
 $jlnk2 = $CFG->wwwroot . '/mod/mootyper/exercises.php?id='.$id;
 // 11/19/19 Change from a, Continue, link to a, Continue, button.
-echo '<br><a href="'.$jlnk2.'" class="btn btn-primary" role="button">'.get_string('fcontinue', 'mootyper').'</a><br><br>';
+echo '<br><a href="'.$jlnk2.'" class="btn btn-primary"  style="border-radius: 8px">'.get_string('fcontinue', 'mootyper').'</a><br><br>';
 echo $OUTPUT->footer();
 return;

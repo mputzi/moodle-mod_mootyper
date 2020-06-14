@@ -30,6 +30,8 @@
  */
 
 defined('MOODLE_INTERNAL') || die();
+define('MOOTYPER_EVENT_TYPE_OPEN', 'open');
+define('MOOTYPER_EVENT_TYPE_CLOSE', 'close');
 
 /** Example constant.
  * define('NEWMODULE_ULTIMATE_ANSWER', 42);
@@ -385,7 +387,7 @@ function jget_mootyper_record($sid) {
 function mootyper_update_instance(stdClass $mootyper, mod_mootyper_mod_form $mform = null) {
     global $CFG, $DB;
 
-    require_once($CFG->dirroot.'/mod/mootyper/locallib.php');
+    //require_once($CFG->dirroot.'/mod/mootyper/locallib.php');
 
     if (empty($mootyper->timeopen)) {
         $mootyper->timeopen = 0;
@@ -684,7 +686,7 @@ function mootyper_get_extra_capabilities() {
  *
  * This function returns if a scale is being used by one mootyper
  * if it has support for grading and scales. Commented code should be
- * modified if necessary. See forum, glossary or journal modules
+ * modified if necessary. See forum, glossary or mootyper modules
  * as reference.
  *
  * @param int $mootyperid ID of an instance of this module
@@ -886,27 +888,477 @@ function mootyper_get_file_areas($course, $cm, $context) {
 }
 
 /**
- * Serves the files from the mootyper file areas
+ * Serves the files from the mootyper file areas.
  *
- * @param stdClass $course
- * @param stdClass $cm
- * @param stdClass $context
- * @param string $filearea
- * @param array $args
- * @param bool $forcedownload
- * @return void this should never return to the caller
+ * @package mod_mootyper
+ * @category files
+ * @param stdClass $course course object
+ * @param stdClass $cm course module object
+ * @param stdClass $context context object
+ * @param string $filearea file area
+ * @param array $args extra arguments
+ * @param bool $forcedownload whether or not force download
+ * @param array $options additional options affecting the file serving
+ * @return bool false if file not found, does not return if found - just send the file
  */
-function mootyper_pluginfile($course, $cm, $context, $filearea, array $args, $forcedownload) {
-    global $DB, $CFG;
+function mootyper_pluginfile($course, $cm, $context, $filearea, $args, $forcedownload, array $options=array()) {
+    //global $DB, $CFG;
+    //require_once("$CFG->libdir/resourcelib.php");
+    global $DB, $USER;
 
+print_object('1 spacer in function mootyper_pluginfile.');
+print_object('2 spacer in function mootyper_pluginfile.');
+print_object('3 spacer in function mootyper_pluginfile.');
+print_object('4 spacer in function mootyper_pluginfile.');
+
+    // Check the contextlevel is as expected.
     if ($context->contextlevel != CONTEXT_MODULE) {
-        send_file_not_found();
+    //if ($context->contextlevel != CONTEXT_COURSE) {
+        print_object('Context is NOT module.');
+        exit;
+        return false;
     }
 
-    require_login($course, true, $cm);
+    // Make sure the user is logged in and has access to the module.
+    require_course_login($course, true, $cm);
 
-    send_file_not_found();
+    // Make sure the filearea is one of those used by the plugin.
+    //if ($filearea !== 'dictationdata') {
+    //    print_object('Filearea is NOT dictationdata.');
+    if ($filearea !== 'entry') {
+        print_object('Filearea is NOT entry.');
+        exit;
+        return false;
+    }
+
+
+    // Check the relevant capabilities.
+    if (!$course->visible && !has_capability('mod/mootyper:view', $context)) {
+        print_object('Course is NOT visible and does NOT have capability to view.');
+        exit;
+        return false;
+    }
+
+
+    // Args[0] should be the entry id.
+    $entryid = intval(array_shift($args));
+    //$entry = $DB->get_record('mootyper_exercises', array('id' => $entryid), '*', MUST_EXIST);
+    $entry = $DB->get_record('mootyper_entries', array('id' => $entryid), 'id, userid', MUST_EXIST);
+
+    print_object('In function mootyper_pluginfile and printing $entry.');
+    print_object($entry);
+
+    $canmanage = has_capability('mod/mootyper:aftersetup', $context);
+    if (!$canmanage && !has_capability('mod/mootyper:view', $context)) {
+        // Even if it is your own entry.
+        return false;
+    }
+    // Students can only see their own entry.
+    //if (!$canmanage) {
+    if (!$canmanage && $USER->id !== $entry->userid) {
+        return false;
+    }
+
+    //if ($filearea !== 'dictationdata') {
+    if ($filearea !== 'entry') {
+        return false;
+    }
+
+
+    $fs = get_file_storage();
+    $relativepath = implode('/', $args);
+    $fullpath = "/$context->id/mod_mootyper/$filearea/$entryid/$relativepath";
+    $file = $fs->get_file_by_hash(sha1($fullpath));
+
+    if (!$file = $fs->get_file_by_hash(sha1($fullpath))) {
+        print_object('Evidently, the file does not exist!');
+    }
+print_object($file);
+
+    // Finally send the file.
+    send_stored_file($file, null, 0, $forcedownload, $options);
 }
+
+/**
+ * Return the editor and attachment options when editing a mootyper entry
+ *
+ * @param  stdClass $course  course object
+ * @param  stdClass $context context object
+ * @param  stdClass $entry   entry object
+ * @return array array containing the editor and attachment options
+ * @since  Moodle 3.2
+ */
+function mootyper_get_editor_and_attachment_options($course, $context, $entry, $cmid, $ex) {
+    $maxfiles = 99;                // TODO: add some setting.
+    $maxbytes = $course->maxbytes; // TODO: add some setting.
+
+    $editoroptions = array(
+        //'entryid' => $entry->id,
+        'cmid'   => $cmid,
+        'ex' => $ex,
+        'trusttext' => true,
+        'maxfiles' => $maxfiles,
+        'maxbytes' => $maxbytes,
+        'context' => $context,
+        //'subdirs' => file_area_contains_subdirs($context, 'mod_mootyper', 'entry', $entry->id)
+        'subdirs' => false,
+    );
+    $attachmentoptions = array(
+        'subdirs' => false,
+        'maxfiles' => $maxfiles,
+        'maxbytes' => $maxbytes
+    );
+
+    return array($editoroptions, $attachmentoptions);
+}
+/**
+ * Return the editor and attachment options when editing an exercise entry
+ *
+ * @param  stdClass $course course object
+ * @param  stdClass $context context object
+ * @param  stdClass $exercise exercise object
+ * @return array array containing the editor and attachment options
+ * @since  Moodle 3.2
+ */
+function xxx_mootyper_get_editor_and_attachment_options($course, $context, $exercise) {
+    $maxfiles = 99;                // TODO: add some setting.
+    $maxbytes = $course->maxbytes; // TODO: add some setting.
+
+    $editoroptions = array(
+        'maxfiles' => $maxfiles,
+        'maxbytes' => $maxbytes,
+        'context' => $context,
+        'subdirs' => true,
+        'enable_filemanagement' => true
+    );
+    $attachmentoptions = array(
+        'subdirs' => false,
+        'maxfiles' => $maxfiles,
+        'maxbytes' => $maxbytes
+    );
+    return array($editoroptions, $attachmentoptions);
+}
+
+//--------------------------------------------------------------------------------------------------------------
+/**
+ * Creates or updates a MooTyper exercise.
+ *
+ * @param  stdClass $entry entry data
+ * @param  stdClass $course course object
+ * @param  stdClass $cm course module object
+ * @param  stdClass $mootyper mootyper object
+ * @param  stdClass $context context object
+ * @return stdClass the complete new or updated entry
+ * @since  Moodle 3.8
+ */
+function mootyper_edit_entry($entry, $course, $cm, $ex, $context) {
+    global $DB, $USER;
+//print_object('spacer');
+//print_object('3-5 In first part of lib.php, this is $context being passed in from eedit2.php.');
+//print_object($context);
+    list($editoroptions, $attachmentoptions) = mootyper_get_editor_and_attachment_options($course, $context, $entry);
+
+    $entry->id                  = $ex;
+    $entry->texttotype          = trim($entry->texttotype);
+    $entry->dictationdata       = '';          // Updated later.
+    $entry->dictationdataformat = FORMAT_HTML; // Updated later.
+    $entry->dictationdatatrust  = 0;           // Updated later.
+
+    // Update existing entry.
+    $DB->update_record('mootyper_exercises', $entry);
+
+    // Save and relink embedded images and save attachments.
+    if (!empty($entry->dictationdata_editor)) {
+        $entry = file_postupdate_standard_editor($entry, 'dictationdata', $editoroptions, $context, 'mod_mootyper', 'dictationdata', $entry->id);
+    }
+/*
+    if (!empty($entry->attachment_filemanager)) {
+        $entry = file_postupdate_standard_filemanager($entry, 'attachment', $attachmentoptions, $context, 'mod_mootyper',
+            'attachment', $entry->id);
+    }
+*/
+
+
+print_object('spacer');
+print_object('3-6 In later part of lib.php, this is $entry after file postupdate.');
+print_object($entry);
+//exit;
+
+    // Store the updated value values.
+    $DB->update_record('mootyper_exercises', $entry);
+
+    // Refetch complete entry.
+    $entry = $DB->get_record('mootyper_exercises', array('id' => $entry->id));
+/*
+print_object('spacer');
+print_object('3-7 In later part of lib.php, this is $entry after refetch.');
+print_object($entry);
+//exit;
+*/
+
+
+/*
+    // Trigger event and update completion (if entry was created).
+    $eventparams = array(
+        'context' => $context,
+        'objectid' => $entry->id,
+        'other' => array('concept' => $entry->concept)
+    );
+*/
+    return $entry;
+}
+
+
+//-------------------------------------------------------------------------------------------------
+
+/**
+ * Checks to see if there are files that need to be served.
+ *
+ *
+ */
+function mootyper_format_entry_text($ex, $course = false, $cm = false) {
+    
+//print_object('In function printing first occurrence of $ex.');
+//print_object($ex);
+//print_object('In function printing first occurrence of $course.');
+//print_object($course);
+//print_object('In function printing first occurrence of $cm.');
+//print_object($cm);
+
+    if (!$cm) {
+        if ($course) {
+            $courseid = $course->id;
+        } else {
+            $courseid = 0;
+        }
+        $cm = get_coursemodule_from_instance('mootyper', $ex->mootyper, $courseid);
+//print_object('In function printing second occurrence inside the if, of $cm.');
+//print_object($cm);
+    }
+
+    $context = context_module::instance($cm->id);
+
+    $extext = file_rewrite_pluginfile_urls($ex->dictationdata, 'pluginfile.php', $context->id, 'mod_mootyper', 'dictationdata', $ex->id);
+
+//print_object('In function printing second occurrence of $extext.');
+//print_object($extext);
+
+    $formatoptions = array(
+        'context' => $context,
+        'noclean' => false,
+        'trusted' => false
+    );
+
+//print_object('In function printing first occurrence of $formatoptions.');
+//print_object($formatoptions);
+//print_object('In function printing first occurrence of format_text($extext, $entry->format, $formatoptions).');
+
+//print_object(format_text($extext, $ex->dictationdataformat, $formatoptions));
+
+    //return format_text($extext, 1, $formatoptions);
+    return format_text($extext, $ex->dictationdataformat, $formatoptions);
+}
+//-------------------------------------------------------------------------------------------------
+
+/**
+ * Checks to see if there are files that need to be served.
+ * This one is used by simpleentries.php for testing.
+ *
+ */
+function mootyper_format_entry_text2($entry, $course = false, $cm = false) {
+
+    if (!$cm) {
+        if ($course) {
+            $courseid = $course->id;
+        } else {
+            $courseid = 0;
+        }
+        $cm = get_coursemodule_from_instance('mootyper', $entry->mootyper, $courseid);
+    }
+
+    $context = context_module::instance($cm->id);
+    $entrytext = file_rewrite_pluginfile_urls($entry->text, 'pluginfile.php', $context->id, 'mod_mootyper', 'entry', $entry->id);
+
+    $formatoptions = array(
+        'context' => $context,
+        'noclean' => false,
+        'trusted' => false
+    );
+
+    return format_text($entrytext, $entry->format, $formatoptions);
+}
+
+/**
+ * Counts all the mootyper entries (optionally in a given group)
+ */
+function mootyper_count_entries($mootyper, $groupid = 0) {
+    global $DB;
+
+//print_object('In function mootyper_count_entries and printing $mootyper.');
+//print_object($mootyper);
+
+    $cm = mootyper_get_coursemodule($mootyper->id);
+    $context = context_module::instance($cm->id);
+
+    if ($groupid) {     // How many in a particular group?
+
+        $sql = "SELECT DISTINCT u.id FROM {mootyper_entries} me
+                JOIN {groups_members} g ON g.userid = me.userid
+                JOIN {user} u ON u.id = g.userid
+                WHERE me.mootyper = ? AND g.groupid = ?";
+        $mootypers = $DB->get_records_sql($sql, array($mootyper->id, $groupid));
+
+    } else { // Count all the entries from the whole course.
+
+        $sql = "SELECT DISTINCT u.id FROM {mootyper_entries} me
+                JOIN {user} u ON u.id = me.userid
+                WHERE me.mootyper = ?";
+        $mootypers = $DB->get_records_sql($sql, array($mootyper->id));
+    }
+
+    if (!$mootypers) {
+        return 0;
+    }
+
+    $canadd = get_users_by_capability($context, 'mod/mootyper:addentries', 'u.id');
+    $entriesmanager = get_users_by_capability($context, 'mod/mootyper:manageentries', 'u.id');
+
+    // Remove unenrolled participants.
+    foreach ($mootypers as $userid => $notused) {
+
+        if (!isset($entriesmanager[$userid]) && !isset($canadd[$userid])) {
+            unset($mootypers[$userid]);
+        }
+    }
+
+    return count($mootypers);
+}
+
+
+/**
+ * Returns the mootyper instance course_module id
+ *
+ * @param integer $mootyper
+ * @return object
+ */
+function mootyper_get_coursemodule($mootyperid) {
+
+    global $DB;
+
+    return $DB->get_record_sql("SELECT cm.id FROM {course_modules} cm
+                                JOIN {modules} m ON m.id = cm.module
+                                WHERE cm.instance = ? AND m.name = 'mootyper'", array($mootyperid));
+}
+
+
+/**
+ * Update the calendar entries for this mootyper activity.
+ *
+ * @param stdClass $mootyper the row from the database table mootyper.
+ * @param int $cmid The coursemodule id
+ * @return bool
+ */
+//function mootyper_update_calendar(stdClass $mootyper, $cmid) {
+function mootyper_update_calendar($mootyper, $cmid) {
+    global $DB, $CFG;
+
+    if ($CFG->branch > 30) { // If Moodle less than version 3.1 skip this.
+        require_once($CFG->dirroot.'/calendar/lib.php');
+
+        // Get CMID if not sent as part of $mootyper.
+        if (!isset($mootyper->coursemodule)) {
+            $cm = get_coursemodule_from_instance('mootyper', $mootyper->id, $mootyper->course);
+            $mootyper->coursemodule = $cm->id;
+        }
+
+        // Mootyper start calendar events.
+        $event = new stdClass();
+        $event->eventtype = MOOTYPER_EVENT_TYPE_OPEN;
+        // The MOOTYPER_EVENT_TYPE_OPEN event should only be an action event if no close time is specified.
+        $event->type = empty($mootyper->timeclose) ? CALENDAR_EVENT_TYPE_ACTION : CALENDAR_EVENT_TYPE_STANDARD;
+        if ($event->id = $DB->get_field('event', 'id',
+            array('modulename' => 'mootyper', 'instance' => $mootyper->id, 'eventtype' => $event->eventtype))) {
+            if ((!empty($mootyper->timeopen)) && ($mootyper->timeopen > 0)) {
+                // Calendar event exists so update it.
+                $event->name = get_string('calendarstart', 'mootyper', $mootyper->name);
+                $event->description = format_module_intro('mootyper', $mootyper, $cmid);
+                $event->timestart = $mootyper->timeopen;
+                $event->timesort = $mootyper->timeopen;
+                $event->visible = instance_is_visible('mootyper', $mootyper);
+                $event->timeduration = 0;
+
+                $calendarevent = calendar_event::load($event->id);
+                $calendarevent->update($event, false);
+            } else {
+                // Calendar event is no longer needed.
+                $calendarevent = calendar_event::load($event->id);
+                $calendarevent->delete();
+            }
+        } else {
+            // Event doesn't exist so create one.
+            if ((!empty($mootyper->timeopen)) && ($mootyper->timeopen > 0)) {
+                $event->name = get_string('calendarstart', 'mootyper', $mootyper->name);
+                $event->description = format_module_intro('mootyper', $mootyper, $cmid);
+                $event->courseid = $mootyper->course;
+                $event->groupid = 0;
+                $event->userid = 0;
+                $event->modulename = 'mootyper';
+                $event->instance = $mootyper->id;
+                $event->timestart = $mootyper->timeopen;
+                $event->timesort = $mootyper->timeopen;
+                $event->visible = instance_is_visible('mootyper', $mootyper);
+                $event->timeduration = 0;
+
+                calendar_event::create($event, false);
+            }
+        }
+
+        // Mootyper end calendar events.
+        $event = new stdClass();
+        $event->type = CALENDAR_EVENT_TYPE_ACTION;
+        $event->eventtype = MOOTYPER_EVENT_TYPE_CLOSE;
+        if ($event->id = $DB->get_field('event', 'id',
+            array('modulename' => 'mootyper', 'instance' => $mootyper->id, 'eventtype' => $event->eventtype))) {
+            if ((!empty($mootyper->timeclose)) && ($mootyper->timeclose > 0)) {
+                // Calendar event exists so update it.
+                $event->name = get_string('calendarend', 'mootyper', $mootyper->name);
+                $event->description = format_module_intro('mootyper', $mootyper, $cmid);
+                $event->timestart = $mootyper->timeclose;
+                $event->timesort = $mootyper->timeclose;
+                $event->visible = instance_is_visible('mootyper', $mootyper);
+                $event->timeduration = 0;
+
+                $calendarevent = calendar_event::load($event->id);
+                $calendarevent->update($event, false);
+            } else {
+                // Calendar event is on longer needed.
+                $calendarevent = calendar_event::load($event->id);
+                $calendarevent->delete();
+            }
+        } else {
+            // Event doesn't exist so create one.
+            if ((!empty($mootyper->timeclose)) && ($mootyper->timeclose > 0)) {
+                $event->name = get_string('calendarend', 'mootyper', $mootyper->name);
+                $event->description = format_module_intro('mootyper', $mootyper, $cmid);
+                $event->courseid = $mootyper->course;
+                $event->groupid = 0;
+                $event->userid = 0;
+                $event->modulename = 'mootyper';
+                $event->instance = $mootyper->id;
+                $event->timestart = $mootyper->timeclose;
+                $event->timesort = $mootyper->timeclose;
+                $event->visible = instance_is_visible('mootyper', $mootyper);
+                $event->timeduration = 0;
+
+                calendar_event::create($event, false);
+            }
+        }
+
+        return true;
+    }
+}
+//-------------------------------------------------------------------------------------------------
+
 
 // Navigation API.
 
@@ -936,7 +1388,8 @@ function mootyper_pluginfile($course, $cm, $context, $filearea, array $args, $fo
  * @param navigation_node $navref {@link navigation_node}
  */
 function mootyper_extend_settings_navigation(settings_navigation $settingsnav, navigation_node $navref) {
-    global $PAGE, $DB;
+    global $mootyper, $PAGE, $DB;
+    // 20200226 Added $mootyper so can go directly to the lesson you want to edit
 
     $cm = $PAGE->cm;
     if (!$cm) {
@@ -952,25 +1405,39 @@ function mootyper_extend_settings_navigation(settings_navigation $settingsnav, n
 
     // Link to the Add new lessons w/exercises page.
     if (has_capability('mod/mootyper:aftersetup', $cm->context)) {
-        $link = new moodle_url('eins.php', array('id' => $course->id));
+        $link = new moodle_url('eins.php', array('id' => $cm->id));
         $linkname = get_string('eaddnew', 'mootyper');
         $icon = new pix_icon('icon', '', 'mootyper', array('class' => 'icon'));
         $node = $navref->add($linkname, $link, navigation_node::TYPE_SETTING, null, null, $icon);
     }
 
+    // Consider making this work for siteadmin only. If so, separate the two.
     // Link to Import new lessons w/exercises and new keyboard layouts.
-    if (has_capability('mod/mootyper:aftersetup', $cm->context)) {
-        $link = new moodle_url('lsnimport.php', array('id' => $course->id));
+    if (has_capability('mod/mootyper:editall', $cm->context)) {
+        $link = new moodle_url('lsnimport.php', array('id' => $cm->id));
         $linkname = get_string('lsnimport', 'mootyper');
+        $icon = new pix_icon('icon', '', 'mootyper', array('class' => 'icon'));
+        $node = $navref->add($linkname, $link, navigation_node::TYPE_SETTING, null, null, $icon);
+    }
+
+    // 20200226 Link to manage keyboard layouts works for siteadmin only.
+    if (is_siteadmin()) {
+        $link = new moodle_url('layouts.php', array('id' => $cm->id));
+        $linkname = get_string('loheading', 'mootyper');
         $icon = new pix_icon('icon', '', 'mootyper', array('class' => 'icon'));
         $node = $navref->add($linkname, $link, navigation_node::TYPE_SETTING, null, null, $icon);
     }
 
     // Link to lessons w/exercises management page.
     if (has_capability('mod/mootyper:aftersetup', $cm->context)) {
-        $link = new moodle_url('exercises.php', array('id' => $course->id));
+        // 02/24/2020 Change to be like other modules code base.
+        //$link = new moodle_url('exercises.php', array('id' => $cm->id, 'course' =>  $course->id));
+    $mootyper = $DB->get_record('mootyper', array('id' => $cm->instance) , '*', MUST_EXIST);
+
+        $link = new moodle_url('exercises.php', array('id' => $cm->id, 'lesson' => $mootyper->lesson));
         $linkname = get_string('editexercises', 'mootyper');
         $icon = new pix_icon('icon', '', 'mootyper', array('class' => 'icon'));
         $node = $navref->add($linkname, $link, navigation_node::TYPE_SETTING, null, null, $icon);
     }
+
 }

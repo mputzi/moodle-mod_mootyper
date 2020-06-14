@@ -27,10 +27,13 @@
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later.
  */
 
+use \mod_mootyper\local\keyboards;
+use \mod_mootyper\local\lessons;
+
 // Changed to this newer format 03/01/2019.
 require(__DIR__ . '/../../config.php');
 require_once(__DIR__ . '/lib.php');
-require_once(__DIR__ . '/locallib.php');
+//require_once(__DIR__ . '/locallib.php');
 
 global $USER;
 
@@ -320,7 +323,7 @@ $htmlout .= '<table><tr><td>'
 
 // 3/22/16 Modified to use only improved function get_mootyperlessons.
 if (has_capability('mod/mootyper:aftersetup', context_module::instance($cm->id))) {
-    $lessons = get_mootyperlessons($USER->id, $course->id);
+    $lessons = lessons::get_mootyperlessons($USER->id, $course->id);
 }
 
 // Start building htmlout for this page based on exam or lesson exercise.
@@ -364,7 +367,7 @@ if ($modepo == 0 || is_null($modepo)) { // If mode is 0, this is a lesson?
         }
     }
     $htmlout .= '</select></td></tr>';
-    $exercises = get_exercises_by_lesson($lessonpo);
+    $exercises = lessons::get_exercises_by_lesson($lessonpo);
     $htmlout .= '<tr><td>'.get_string('fexercise', 'mootyper').'</td><td><select'.$disselect.' name="exercise" id="exercise">';
     for ($ik = 0; $ik < count($exercises); $ik++) {
         if ($exercises[$ik]['id'] == $exercisepo) {
@@ -458,7 +461,8 @@ $showkeyboardchecked = $showkeyboardpo == 'on' ? ' checked="checked"' : '';
 $htmlout .= '<input type="checkbox"'.$showkeyboardchecked.' " name="showkeyboard">';
 
 // Add the dropdown slector for keyboard layouts.
-$layouts = get_keyboard_layouts_db();
+//$layouts = get_keyboard_layouts_db();
+$layouts = keyboards::get_keyboard_layouts_db();
 $deflayout = $moocfg->defaultlayout;
 $htmlout .= '<tr><td>'.get_string('layout', 'mootyper').'</td><td><select name="layout">';
 // Get the ID and name of each keyboard layout in the DB.
@@ -512,10 +516,10 @@ $htmlout .= '</select>';
 $htmlout .= '</td></tr>';
 $htmlout .= '</table>';
 // Change to BS4 style button to fix issue #77 on github.
-$htmlout .= '<br><input type="submit" name="button" class="btn btn-primary" value="'.get_string('fconfirm', 'mootyper').'">';
+$htmlout .= '<br><input type="submit" name="button" class="btn btn-primary" style="border-radius: 8px" value="'.get_string('fconfirm', 'mootyper').'">';
 // Create return URL for use with Cancel button, 12/26/19.
 $url = $CFG->wwwroot . '/mod/mootyper/view.php?id='.$cm->id;
-$htmlout .= ' <a href="'.$url.'" class="btn btn-secondary" role="button">'.get_string('cancel', 'mootyper').'</a>';
+$htmlout .= ' <a href="'.$url.'" class="btn btn-secondary" style="border-radius: 8px">'.get_string('cancel', 'mootyper').'</a>';
 
 $htmlout .= '</form>';
 $htmlout .= '<br>';
