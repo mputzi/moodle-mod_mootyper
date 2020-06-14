@@ -26,11 +26,12 @@
  */
 
 use \mod_mootyper\event\viewed_all_grades;
+use \mod_mootyper\local\lessons;
+use \mod_mootyper\local\results;
 
 // Changed to this newer format 03/01/2019.
 require(__DIR__ . '/../../config.php');
 require_once(__DIR__ . '/lib.php');
-require_once(__DIR__ . '/locallib.php');
 
 global $USER;
 
@@ -150,7 +151,7 @@ if (!has_capability('mod/mootyper:viewgrades', context_module::instance($cm->id)
         $htmlout .= '</select>';
         $htmlout .= '</td></tr>';
     } else {
-        $exes = get_exercises_by_lesson($mootyper->lesson);
+        $exes = lessons::get_exercises_by_lesson($mootyper->lesson);
         $htmlout .= '<tr><td>'.get_string('fexercise', 'mootyper').'</td><td>';
         $htmlout .= '<select name="exercise" onchange="this.form.submit()">';
         $htmlout .= '<option value="0">'.get_string('allstring', 'mootyper').'</option>';
@@ -237,14 +238,8 @@ if (!has_capability('mod/mootyper:viewgrades', context_module::instance($cm->id)
                        .$gr->lastname.'</a>';
 
             // 12/30/19 Combine new mistakedetails with mistakes count.
-            //$strtocut = $gr->mistakes.'<br>'.$gr->mistakedetails;
             $strtocut = $gr->mistakes.': '.$gr->mistakedetails;
-/*
-            $strtocut = str_replace('\n', '<br>', $strtocut);
-            if (strlen($strtocut) > 19) {
-                $strtocut = substr($strtocut, 0, 19).'...';
-            }
-*/
+
             $htmlout .= '<tr align="center" style="border-top-style: solid;'.$stil.'">
                          <td>'.$exclamation.' '.$namelnk.'</td>
                          <td>'.$fcol.'</td>
@@ -262,7 +257,7 @@ if (!has_capability('mod/mootyper:viewgrades', context_module::instance($cm->id)
             $seriesprecision[] = $gr->precisionfield;  // Get the precision percentage value.
             $serieswpm[] = $gr->wpm; // Get the corrected words per minute rate.
         }
-        $avg = get_grades_avg($grds);
+        $avg = results::get_grades_avg($grds);
         $htmlout .= '<tr align="center" style="border-top-style: solid;">
                      <td><strong>'.get_string('average', 'mootyper').': </strong></td>
                      <td>&nbsp;</td><td>'.$avg['mistakes'].'</td>
@@ -279,7 +274,7 @@ if (!has_capability('mod/mootyper:viewgrades', context_module::instance($cm->id)
     $htmlout .= '</form>';
     $htmlout .= '</div><br>';
 
-    // 1/3/2020 Changed to button.
+    // 20200103 Changed to button. 20200428 Added round corners.
     // Create link for export and pass mode, lesson name, and required goal to csvexport file.
     $url1 = '<a href="'.$CFG->wwwroot.'/mod/mootyper/csvexport.php?mootyperid='.$mootyper->id
         .'&id='.$id
@@ -290,9 +285,15 @@ if (!has_capability('mod/mootyper:viewgrades', context_module::instance($cm->id)
         .'&timelimit='.$mootyper->timelimit
         .'&requiredgoal='.$mootyper->requiredgoal
         .'&requiredwpm='.$mootyper->requiredwpm
-        .'"class="btn btn-primary">'.get_string('csvexport', 'mootyper')
+        .'"class="btn btn-primary" style="border-radius: 8px">'.get_string('csvexport', 'mootyper')
         .'</a>';
     $htmlout .= $url1;
+
+    // 20200413 Added a return button. 20200428 Added round corners.
+    $url2 = '<a href="'.$CFG->wwwroot . '/mod/mootyper/view.php?id='.$id
+        .'"class="btn btn-primary" style="border-radius: 8px">'.get_string('returnto', 'mootyper', $mootyper->name).
+        '</a>';
+    $htmlout .= ' '.$url2;
 }
 
 echo $htmlout;
