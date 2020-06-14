@@ -1,7 +1,7 @@
 /**
- * @fileOverview EnglishWKeypad(USV6.1) keyboard driver.
+ * @fileOverview EnglishWKeypad(USV6.2) keyboard driver.
  * @author <a href="mailto:drachels@drachels.com">AL Rachels</a>
- * @version 6.1
+ * @version 6.2
  * @since 05/17/2019
  */
 

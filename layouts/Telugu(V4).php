@@ -57,8 +57,8 @@ echo (isset($displaynone) && ($displaynone == true)) ? 'display:none;' : '';
                 <br><span style="color:blue">౦</span>&nbsp;&nbsp;&nbsp;0</div>
             <div id="jkeyminus" class="normal" style="text-align:left;">-&nbsp;&nbsp;ః
                 <br>&nbsp; &nbsp; &nbsp;-</div>
-            <div id="jkeyequals" class="normal" style="font-size: 14px !important; text-align:left;">=&nbsp;ఋ<br>
-                <span style="color:blue">ౄ</span><span style="text-align:right;"> ృ</span></div>
+            <div id="jkeyequals" class="normal" style="font-size: 10px !important; text-align:left;">=&nbsp;ఋ<br>
+                <span style="color:blue">ౄ</span><span style="font-size: 10px !important; text-align:right;"> ృ</span></div>
             <div id="jkeybackspace" class="normal" style="width: 95px;">Backspace</div>
         </div>
         <div class="mtrow" style='float: left; margin-left:5px; font-size: 15px !important; line-height: 15px'>
