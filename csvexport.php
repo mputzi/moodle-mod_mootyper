@@ -33,7 +33,7 @@ use \mod_mootyper\event\export_viewallgrades_to_csv;
 // Changed to this newer format 03/10/2019.
 require(__DIR__ . '/../../config.php');
 require_once(__DIR__ . '/lib.php');
-require_once(__DIR__ . '/locallib.php');
+//require_once(__DIR__ . '/locallib.php');
 
 require_login(0, true, null, false);
 
@@ -110,7 +110,6 @@ function array_to_csv_download($array, $filename = "export.csv", $delimiter=";")
     header("Expires: 0");
     $f = fopen('php://output', 'w');
 
-
     $details = array($coursename,
                      $mtname,
                      $mtmode,
@@ -147,9 +146,15 @@ function array_to_csv_download($array, $filename = "export.csv", $delimiter=";")
 
 $mid = optional_param('mootyperid', 0, PARAM_INT);
 // Fourth item determines sort order of the data.
-// 2 is lastname. 10 is exercise name.
+// 2 is lastname. 10 is exercise name, ($mid, 0, 0, 10, 0).
 // The function get_typer_grades_adv needs further work on sorting.
 $grds = get_typer_grades_adv($mid, 0, 0, 2, 0);
-//$grds = get_typer_grades_adv($mid, 0, 0, 10, 0);
+
+// Add suspicion mark to first name for each suspicious entry.
+foreach ($grds as $gr) {
+    if ($gr->suspicion) {
+        $gr->firstname = '!!!!! '.$gr->firstname;
+    }
+}
 
 array_to_csv_download($grds, get_string('gradesfilename', 'mootyper'));
