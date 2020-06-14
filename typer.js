@@ -59,7 +59,7 @@ function moveCursor(nextPos) {
         $('#crka' + nextPos).addClass('txtBlue');
     }
     keyResult = true;
-    scroll_to_next_line($('#crka' + nextPos));
+    scrollToNextLine($('#crka' + nextPos));
 }
 
 /**
@@ -67,12 +67,12 @@ function moveCursor(nextPos) {
  *
  * @param {DOM object} obj
  */
-function scroll_to_next_line(obj) {
+function scrollToNextLine(obj) {
     var scrollBox = $('#texttoenter');
     if ($(obj).length > 0) {
         scrollBox.animate({
             scrollTop: $(obj).offset().top - scrollBox.offset().top + scrollBox.scrollTop()
-        },10);
+        }, 10);
     }
 }
 
@@ -84,13 +84,13 @@ $(document).ready(function() {
         "opacity": "0.0"
     });
     $("html, body").keyup(function(e) {
-        scroll_to_next_line($('#crka' + currentPos));
+        scrollToNextLine($('#crka' + currentPos));
     })
     .mouseup(function(e) {
         $('#keyboard textarea:last').focus();
     });
     $('#keyboard textarea:last').focus();
-    scroll_to_next_line($("#keyboard"));
+    scrollToNextLine($("#keyboard"));
 });
 
 /**
@@ -127,7 +127,7 @@ function doTheEnd() {
     $.get(juri, function(data) { });
     // At the end, add a scroll bar so student can see all the text and their mistakes.
     $('#texttoenter').css({"overflow-y":"scroll"});
-    scroll_to_next_line($("#reportDiv input:last").focus());
+    scrollToNextLine($("#reportDiv input:last").focus());
 }
 
 /**
