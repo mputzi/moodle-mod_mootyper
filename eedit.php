@@ -28,40 +28,67 @@ use \mod_mootyper\event\exercise_edited;
 // Changed to this newer format 03/01/2019.
 require(__DIR__ . '/../../config.php');
 require_once(__DIR__ . '/lib.php');
-require_once(__DIR__ . '/locallib.php');
+//require_once(__DIR__ . '/locallib.php');
 
-global $DB, $USER;
+global $DB, $OUTPUT, $PAGE, $USER;
 
-$id = optional_param('id', 0, PARAM_INT); // Course_module ID.
-$exerciseid = optional_param('ex', 0, PARAM_INT);
-if ($id) {
-    $course     = $DB->get_record('course', array('id' => $id), '*', MUST_EXIST);
-} else {
-    print_error(get_string('mootypererror', 'mootyper'));
+print_object('1 spacer in mootyper eedit2.php.');
+print_object('2 spacer in mootyper eedit2.php.');
+print_object('3 spacer in mootyper eedit2.php.');
+print_object('4 spacer in mootyper eedit2.php.');
+
+$id = optional_param('id', 0, PARAM_INT); // Course ID.
+//$cmid = optional_param('cmid', 0, PARAM_INT); // Course_module ID.
+$ex = optional_param('ex', 0, PARAM_INT); // Id of exercise to edit.
+print_object($ex);
+// If lessonid is available, put in lsnnamepo, otherwise leave it blank.
+//$lsnnamepo = optional_param('lesson', '', PARAM_TEXT);
+$lsnnamepo = '';
+// If lessonid is available, put it in lsnnamepo, otherwise enter a -1 as flag for new lesson name.
+//$lessonpo = optional_param('lesson', -1, PARAM_INT);
+$lessonpo = '';
+
+if (! $cm = get_coursemodule_from_id('mootyper', $id)) {
+    print_error(get_string('mootypercmerror', 'mootyper'));
 }
-if ($exerciseid == 0) {
-    print_error('No exercise to edit!');
+
+if (! $course = $DB->get_record("course", array('id' => $cm->course))) {
+    print_error(get_string('mootypercmmisconfig', 'mootyper'));
 }
 
-// Get the id of the lesson/category and then use it to get the lesson/category name.
-$rcrd = $DB->get_record('mootyper_exercises', array('id' => $exerciseid), 'lesson', MUST_EXIST);
-$lsncat = $DB->get_record('mootyper_lessons', array('id' => $rcrd->lesson), 'lessonname', MUST_EXIST);
+// TODO: Looks like $exercise and $rcrd are exact duplicates. Maybe need to combine?
+$exercise = $DB->get_record('mootyper_exercises', array('id' => $ex), '*', MUST_EXIST);
+$rcrd = $DB->get_record('mootyper_exercises', array('id' => $ex), '*', MUST_EXIST);
 
-$context = context_course::instance($id);
-require_login($course, true);
+// Get the id of the lesson name from the current exercise, and then use it to get the lesson name.
+$lesson = $DB->get_record('mootyper_exercises', array('id' => $ex), 'lesson', MUST_EXIST);
+$lessonname = $DB->get_record('mootyper_lessons', array('id' => $lesson->lesson), 'lessonname', MUST_EXIST);
+
+// This context->id will be used for the path to file storage.
+$context = context_module::instance($cm->id);
+//$context = context_course::instance($id);
+
+require_login($course, true, $cm);
 
 // Check to see if Confirm button is clicked and returning 'Confirm' to trigger update record.
 $param1 = optional_param('button', '', PARAM_TEXT);
 
 if (isset($param1) && get_string('fconfirm', 'mootyper') == $param1 ) {
     $newtext = optional_param('texttotype', '', PARAM_RAW);
-    $rcrd = $DB->get_record('mootyper_exercises', array('id' => $exerciseid), '*', MUST_EXIST);
+    $newdictation = optional_param('dictationdata', '', PARAM_RAW);
+print_object($ex);
+
+    $rcrd = $DB->get_record('mootyper_exercises', array('id' => $ex), '*', MUST_EXIST);
+    //$rcrd = $DB->get_record('mootyper_exercises', array('id' => $exerciseid), '*', MUST_EXIST);
+print_object($rcrd);
+
     $updr = new stdClass();
     $updr->id = $rcrd->id;
     $updr->texttotype = str_replace("\r\n", '\n', $newtext);
     $updr->exercisename = $rcrd->exercisename;
     $updr->lesson = $rcrd->lesson;
     $updr->snumber = $rcrd->snumber;
+    //$updr->dictationdata = $newdictation;
     $DB->update_record('mootyper_exercises', $updr);
 
     // Trigger module exercise_edited event.
@@ -76,6 +103,7 @@ if (isset($param1) && get_string('fconfirm', 'mootyper') == $param1 ) {
     $event = exercise_edited::create($params);
     $event->trigger();
 
+    //$webdir = $CFG->wwwroot . '/mod/mootyper/exercises.php?id='.$id.'&cmid='.$cmid.'&lesson='.$rcrd->lesson;
     $webdir = $CFG->wwwroot . '/mod/mootyper/exercises.php?id='.$id.'&lesson='.$rcrd->lesson;
     echo '<script type="text/javascript">window.location="'.$webdir.'";</script>';
 
@@ -95,12 +123,28 @@ if (isset($moocfg->defaulteditalign)) {
     $align = $editalign;
 }
 
-$PAGE->set_url('/mod/mootyper/eedit.php', array('id' => $course->id, 'ex' => $exerciseid));
+//$PAGE->set_url('/mod/mootyper/eedit.php', array('id' => $course->id, 'ex' => $exerciseid));
+$PAGE->set_url('/mod/mootyper/eedit.php', array('id' => $course->id, 'ex' => $ex));
 $PAGE->set_title(get_string('etitle', 'mootyper'));
 $PAGE->set_heading(get_string('eheading', 'mootyper'));
 $PAGE->set_cacheable(false);
+//$PAGE->set_pagelayout('base');
+//$PAGE->set_pagelayout('standard');
 echo $OUTPUT->header();
-$exercisetoedit = $DB->get_record('mootyper_exercises', array('id' => $exerciseid), 'texttotype', MUST_EXIST); ?>
+//$exercisetoedit = $DB->get_record('mootyper_exercises', array('id' => $ex), 'id, texttotype, exercisename, lesson, snumber, dictationdata', MUST_EXIST);
+$exercisetoedit = $DB->get_record('mootyper_exercises', array('id' => $ex), 'id, texttotype, exercisename, lesson, snumber', MUST_EXIST);
+
+/*
+print_object('spacer');
+print_object('spacer');
+*/
+print_object('This is the ORIGINAL form version (eedit) using edit button 1.');
+/*
+print_object('$exercisetoedit');
+print_object($exercisetoedit);
+*/
+
+ ?>
 
 <script type="text/javascript">
 function isLetter(str) {
@@ -161,7 +205,8 @@ echo '<div align="center" style="font-size:1em;
      border:2px solid black;
      -webkit-border-radius:16px;
      -moz-border-radius:16px;border-radius:16px;">';
-echo get_string('flesson', 'mod_mootyper').'/'.get_string('lsnname', 'mod_mootyper').' = '.$lsncat->lessonname.'<br>';
+//echo get_string('flesson', 'mod_mootyper').'/'.get_string('lsnname', 'mod_mootyper').' = '.$lsncat->lessonname.'<br>';
+    echo get_string('lsnname', 'mod_mootyper').' = '.$lessonname->lessonname.'<br>';
 
 echo '<form method="POST">';
 
@@ -187,14 +232,49 @@ foreach ($aligns as $akey => $aval) {
 
 echo '</select></span>';
 // Create a link back to where we came from in case we want to cancel.
+//$url = $CFG->wwwroot . '/mod/mootyper/exercises.php?id='.$id.'&cmid='.$cmid.'&lesson='.$rcrd->lesson;
 $url = $CFG->wwwroot . '/mod/mootyper/exercises.php?id='.$id.'&lesson='.$rcrd->lesson;
 
+// Add a text area for editing the text of the exercise.
 echo '<span id="text_holder_span" class=""></span><br>'.get_string('fexercise', 'mootyper').':<br>'.
     '<textarea name="texttotype" id="texttotype" rows="3" cols="60" style="text-align:'.$align.'">'.
     str_replace('\n', "&#10;", $exercisetoedit->texttotype).
-    '</textarea><br>'.'<br><input class="btn btn-primary" name="button" onClick="return clClick()" type="submit" value="'
-    .get_string('fconfirm', 'mootyper').'"> <a href="'.$url.'" class="btn btn-secondary" role="button">'
-    .get_string('cancel', 'mootyper').'</a>'.'</form>';
-echo '<br></div>';
+    '</textarea>';
+
+/*
+// Add a text area for adding, editing, or deleting the dictation audio of an exercise.
+echo '<span id="audio_holder_span" class=""></span><br>'.get_string('dictationdatalabel', 'mootyper').':<br>'.
+    '<textarea name="audiodata" id="audiodata" rows="3" cols="60">'.
+    $exercisetoedit->dictationdata.
+    '</textarea>';
+*/
+//This text area needs to be an atto editor.//////////////////////////////////////////////////////////
+// Add a text area for adding the audio for dictation of the exercise.
+//echo '<span id="audio_holder_span" class=""></span><br>'.get_string('dictationdatalabel', 'mootyper').'<br>'
+//    .'<textarea rows="4" cols="60" name="audiodata" id="audiodata" style="text-align:'.$align.'">
+//    </textarea>';
+
+
+    $editor = editors_get_preferred_editor(FORMAT_HTML);
+    $attobuttons = 'files = recordrtc'. PHP_EOL .'list = unorderedlist, orderedlist'. PHP_EOL .'other = html, htmlplus';
+
+    $editor->use_editor('exercisetoedit', ['context' => $context, 'enable_filemanagement' => true, 'autosave' => true, 'atto:toolbar' => $attobuttons], ['return_types' => FILE_EXTERNAL]);
+
+    //$editor->use_editor('exercisetoedit', ['context' => $context, 'enable_filemanagement' => true, 'autosave' => true], ['return_types' => FILE_EXTERNAL]);
+
+    //$editor = file_prepare_standard_editor($lessonpo, 'audiotexttotype', $editoroptions, $context, 'mod_mootyper', 'exercise', $lsnrecord->id);
+    //$editor = file_prepare_standard_editor($lessonpo, 'audiotexttotype', $context, 'mod_mootyper', 'exercise', $lsnrecord->id);
+
+
+
+// Add a confirm and cancel button.
+echo '<br><br><input class="btn btn-primary" style="border-radius: 8px" name="button" onClick="return clClick()" type="submit" value="'.get_string('fconfirm', 'mootyper').'"> <a href="'.$url.'" class="btn btn-secondary"  style="border-radius: 8px">'.get_string('cancel', 'mootyper').'</a>'.'</form>';
+
+
+
+
+
+
+echo '</div>';
 
 echo $OUTPUT->footer();
