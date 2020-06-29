@@ -1,7 +1,7 @@
 /**
- * @fileOverview Danish(V4.4) keyboard driver.
+ * @fileOverview Danish(V4.2) keyboard driver.
  * @author <a href="mailto:drachels@drachels.com">AL Rachels</a>
- * @version 4.4
+ * @version 4.2
  * @since 06/19/2018
  */
 

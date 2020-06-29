@@ -52,7 +52,7 @@ echo (isset($displaynone) && ($displaynone == true)) ? 'display:none;' : '';
             <div id="jkeytab" class="normal" style="width: 60px;">Tab</div>
             <div id="jkeyq" class="normal" style='text-align:left;'>&nbsp;๐<br>&nbsp; &nbsp; &nbsp;ๆ</div>
             <div id="jkeyw" class="normal" style='text-align:left;'>&nbsp;"<br>&nbsp; &nbsp; &nbsp;ไ</div>
-            <div id="jkeye" class="normal" style='text-align:left;'>&nbsp;ฎ<br>&nbsp;&nbsp;&nbsp;ำ</div>
+            <div id="jkeye" class="normal" style='text-align:left;'>&nbsp;ฎ<br>&nbsp; &nbsp; &nbsp;ำ</div>
             <div id="jkeyr" class="normal" style='text-align:left;'>&nbsp;ฑ<br>&nbsp; &nbsp; &nbsp;พ</div>
             <div id="jkeyt" class="normal" style='text-align:left;'>&nbsp;ธ<br>&nbsp; &nbsp; &nbsp;ะ</div>
             <div id="jkeyy" class="normal" style='text-align:left;'>&nbsp;&nbsp;ํ<br>&nbsp; &nbsp; &nbsp;ั</div>
@@ -85,8 +85,8 @@ echo (isset($displaynone) && ($displaynone == true)) ? 'display:none;' : '';
             <div id="jkeyx" class="normal" style='text-align:left;'>&nbsp;)<br>&nbsp; &nbsp; &nbsp;ป</div>
             <div id="jkeyc" class="normal" style='text-align:left;'>&nbsp;ฉ<br>&nbsp; &nbsp; &nbsp;แ</div>
             <div id="jkeyv" class="normal" style='text-align:left;'>&nbsp;ฮ<br>&nbsp; &nbsp; &nbsp;อ</div>
-            <div id="jkeyb" class="normal" style='text-align:left;'>&nbsp;ฺ<br>&nbsp;&nbsp;&nbsp;&nbsp;ิ</div>
-            <div id="jkeyn" class="normal" style='text-align:left;'>&nbsp;์<br>&nbsp;&nbsp;&nbsp;&nbsp;ื</div>
+            <div id="jkeyb" class="normal" style='text-align:left;'>&nbsp;ฺ<br>&nbsp; &nbsp; &nbsp; &nbsp;ิ</div>
+            <div id="jkeyn" class="normal" style='text-align:left;'>&nbsp;์<br>&nbsp; &nbsp; &nbsp; &nbsp;ื</div>
             <div id="jkeym" class="normal" style='text-align:left;'>&nbsp;?<br>&nbsp;&nbsp; &nbsp;ท</div>
             <div id="jkeycomma" class="normal" style='text-align:left;'>&nbsp;ฒ<br>&nbsp;&nbsp; &nbsp;ม</div>
             <div id="jkeyperiod" class="normal" style='text-align:left;'>&nbsp;ฬ<br>&nbsp;&nbsp; &nbsp;ใ</div>

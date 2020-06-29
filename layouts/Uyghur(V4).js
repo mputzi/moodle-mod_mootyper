@@ -1,7 +1,7 @@
 /**
- * @fileOverview Uyghur(V4.1)Dual keyboard driver.
+ * @fileOverview Uyghur(V4.0)Dual keyboard driver.
  * @author <a href="mailto:drachels@drachels.com">AL Rachels</a>
- * @version 4.1
+ * @version 4.0
  * @since 04/01/2016
  */
 
@@ -110,7 +110,7 @@ function thenFinger(tCrka) {
     } else if (tCrka.match(/[2@ۋسش9)ول.<]/i)) {
         return 3; // Highlight the correct key above in green.
     // @codingStandardsIgnoreLine
-    } else if (tCrka.match(/[3#ېدژغ8*ڭكۆ،<]/i)) {
+    } else if (tCrka.match(/[3#ېدژغ8*ڭكۆ،>]/i)) {
         return 2; // Highlight the correct key above in yellow.
     // @codingStandardsIgnoreLine
     } else if (tCrka.match(/[4$رافۈ5%تەگب6^يىخن7&ۇقجم]/i)) {

@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * This file defines the Hungarian(V4.2) keyboard layout.
+ * This file defines the Hungarian(V4.1) keyboard layout.
  *
  * @package    mod_mootyper
  * @copyright  2016 onwards AL Rachels (drachels@drachels.com)
@@ -87,13 +87,13 @@ echo (isset($displaynone) && ($displaynone == true)) ? 'display:none;' : '';
         <div class="mtrow" style='float: left; margin-left:5px; font-size: 15px !important; line-height: 15px'>
             <div id="jkeycaps" class="normal" style="width: 80px;">C.lock</div>
             <div id="jkeya" class="finger4" style='text-align:left;'>A<br>&nbsp;</div>
-            <div id="jkeys" class="finger3" style='text-align:left;'>S<br>&nbsp;&nbsp;&nbsp;&nbsp;
+            <div id="jkeys" class="finger3" style='text-align:left;'>S<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 <span style="color:blue">đ</span></div>
             <div id="jkeyd" class="finger2" style='text-align:left;'>D<br>&nbsp;&nbsp;&nbsp;&nbsp;
                 <span style="color:blue">Đ</span></div>
-            <div id="jkeyf" class="finger1" style='text-align:left;'>F<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <div id="jkeyf" class="finger1" style='text-align:left;'>F<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 <span style="color:blue">[</span></div>
-            <div id="jkeyg" class="normal" style='text-align:left;'>G<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <div id="jkeyg" class="normal" style='text-align:left;'>G<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 <span style="color:blue">]</span></div>
             <div id="jkeyh" class="normal" style='text-align:left;'>H<br>&nbsp;</div>
             <div id="jkeyj" class="finger1" style='text-align:left;'>J<br>&nbsp;</div>
@@ -103,7 +103,7 @@ echo (isset($displaynone) && ($displaynone == true)) ? 'display:none;' : '';
                 <span style="color:blue">Ł</span></div>
             <div id="jkeyé" class="finger4" style='text-align:left;'>É<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 <span style="color:blue">$</span></div>
-            <div id="jkeyá" class="normal" style='text-align:left;'>Á<br>&nbsp;&nbsp;&nbsp;&nbsp;
+            <div id="jkeyá" class="normal" style='text-align:left;'>Á<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 <span style="color:blue">ß</span></div>
             <div id="jkeyű" class="normal" style='text-align:left;'>Ű<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 <span style="color:blue">¤</span></div>
@@ -118,12 +118,12 @@ echo (isset($displaynone) && ($displaynone == true)) ? 'display:none;' : '';
             <div id="jkeyx" class="normal" style='text-align:left;'>X<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 <span style="color:blue">#</span></div>
             <div id="jkeyc" class="normal" style='text-align:left;'>C<br>&nbsp;&nbsp;&nbsp;&nbsp;
-                <span style="color:blue">&amp;</span></div>
+                <span style="color:blue">&amp</span></div>
             <div id="jkeyv" class="normal" style='text-align:left;'>V<br>&nbsp;&nbsp;&nbsp;
                 <span style="color:blue">@</span></div>
-            <div id="jkeyb" class="normal" style='text-align:left;'>B<br>&nbsp;&nbsp;&nbsp;&nbsp;
+            <div id="jkeyb" class="normal" style='text-align:left;'>B<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 <span style="color:blue">{</span></div>
-            <div id="jkeyn" class="normal" style='text-align:left;'>N<br>&nbsp;&nbsp;&nbsp;&nbsp;
+            <div id="jkeyn" class="normal" style='text-align:left;'>N<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 <span style="color:blue">}</span></div>
             <div id="jkeym" class="normal" style='text-align:left;'>M<br>&nbsp;</div>
             <div id="jkeycomma" class="normal" style='text-align:left;'>?<br>,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;

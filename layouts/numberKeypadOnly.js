@@ -1,8 +1,8 @@
 /**
- * @fileOverview Czech(V5.1) keyboard driver.
+ * @fileOverview numberKeypadOnly keyboard driver.
  * @author <a href="mailto:drachels@drachels.com">AL Rachels</a>
- * @version 5.1
- * @since 06/24/2018
+ * @version 1.0
+ * @since 05/01/2019
  */
 
 /**
@@ -37,29 +37,31 @@ function keyupFirst(event) {
  * @param {string} ltr The current letter.
  */
 function keyboardElement(ltr) {
-    if ((ltr !== 'Ł') && (ltr !== 'Đ')) {
-        this.chr = ltr.toLowerCase();
-    } else {
-        this.chr = ltr.toUpperCase();
-    }
+    this.chr = ltr.toLowerCase();
     this.alt = false;
     if (isLetter(ltr)) { // Set specified shift key for right or left.
-        // @codingStandardsIgnoreLine
-        if (ltr.match(/[°12345QWERTASDFGYXCVB]/)) {
+        if (ltr.match(/[QWERTASDFGZXCVB]/)) {
             this.shiftright = true;
-        // @codingStandardsIgnoreLine
-        } else if (ltr.match(/[67890%ˇZUIOP/('HJKL"!NM?:_]/)) {
+        } else if (ltr.match(/[YUIOPHJKLNM]/)) {
+            this.shiftleft = true;
+        }
+    } else {
+        if (ltr.match(/[~!@#$%]/)) {
+            this.shiftright = true;
+        } else if (ltr.match(/[\^&*()_+{}|:"<>?]/)) {
             this.shiftleft = true;
         }
     }
-    if (ltr.match(/[~^˘˛`˙˝¨¸\\|€÷×đĐ\[\]łŁ$ß#&@{}<>*]/)) {
-        this.alt = true;
-    }
     this.turnOn = function() {
-        if (this.chr === ' ') {
+        if (isLetter(this.chr)) {
+            document.getElementById(getKeyID(this.chr)).className = "next" + thenFinger(this.chr.toLowerCase());
+        } else if (this.chr === ' ') {
             document.getElementById(getKeyID(this.chr)).className = "nextSpace";
         } else {
             document.getElementById(getKeyID(this.chr)).className = "next" + thenFinger(this.chr.toLowerCase());
+        }
+        if (this.chr === '\n' || this.chr === '\r\n' || this.chr === '\n\r' || this.chr === '\r') {
+            document.getElementById('jkeyenter').className = "next4";
         }
         if (this.shiftleft) {
             document.getElementById('jkeyshiftl').className = "next4";
@@ -72,11 +74,18 @@ function keyboardElement(ltr) {
         }
     };
     this.turnOff = function() {
+        if (isLetter(this.chr)) {
         // @codingStandardsIgnoreLine
-            if (this.chr.match(/[asdfjklů]/i)) {
-            document.getElementById(getKeyID(this.chr)).className = "finger" + thenFinger(this.chr.toLowerCase());
+            if (this.chr.match(/[asdfjkl;]/i)) {
+                document.getElementById(getKeyID(this.chr)).className = "finger" + thenFinger(this.chr.toLowerCase());
+            } else {
+                document.getElementById(getKeyID(this.chr)).className = "normal";
+            }
         } else {
             document.getElementById(getKeyID(this.chr)).className = "normal";
+        }
+        if (this.chr === '\n' || this.chr === '\r\n' || this.chr === '\n\r' || this.chr === '\r') {
+            document.getElementById('jkeyenter').classname = "normal";
         }
         if (this.shiftleft) {
             document.getElementById('jkeyshiftl').className = "normal";
@@ -99,16 +108,16 @@ function thenFinger(tCrka) {
     if (tCrka === ' ') {
         return 5; // Highlight the spacebar.
     // @codingStandardsIgnoreLine
-    } else if (tCrka.match(/[\n;°1+~q\\ay0é˝pů"$\-_*=%¨ú/÷§!ß´ˇ)(×¨']/i)) {
+    } else if (tCrka.match(/[`~1!qaz0)p;:/?\-_[{'"=+\]}\\|]/i)) {
         return 4; // Highlight the correct key above in red.
     // @codingStandardsIgnoreLine
-    } else if (tCrka.match(/[2ěˇw|sđx#9í´olŁ.:>]/)) {
+    } else if (tCrka.match(/[2@wsx9(ol.>]/i)) {
         return 3; // Highlight the correct key above in green.
     // @codingStandardsIgnoreLine
-    } else if (tCrka.match(/[3š^e€dĐ[c&8á˙ikł,?<]/)) {
+    } else if (tCrka.match(/[3#edc8*ik,<]/i)) {
         return 2; // Highlight the correct key above in yellow.
     // @codingStandardsIgnoreLine
-    } else if (tCrka.match(/[4č˘rf\[v@5ř°tg\]b{6ž˛zhn}7ý`ujm]/i)) {
+    } else if (tCrka.match(/[4$rfv5%tgb6^yhn7&ujm]/i)) {
         return 1; // Highlight the correct key above in blue.
     } else {
         return 6; // Do not change any highlight.
@@ -123,78 +132,58 @@ function thenFinger(tCrka) {
 function getKeyID(tCrka) {
     if (tCrka === ' ') {
         return "jkeyspace";
+    } else if (tCrka === ',') {
+        return "jkeycomma";
     } else if (tCrka === '\n') {
         return "jkeyenter";
-    } else if (tCrka === '°' || tCrka === ';') {
-        return "jkeyscolon";
-    } else if (tCrka === '1' || tCrka === '+' || tCrka === '~') {
-        return "jkey1";
-    } else if (tCrka === '2' || tCrka === 'ě' || tCrka === 'ˇ') {
-        return "jkey2";
-    } else if (tCrka === '3' || tCrka === 'š' || tCrka === '^') {
-        return "jkey3";
-    } else if (tCrka === '4' || tCrka === 'č' || tCrka === '˘') {
-        return "jkey4";
-    } else if (tCrka === '5' || tCrka === 'ř' || tCrka === '°') {
-        return "jkey5";
-    } else if (tCrka === '6' || tCrka === 'ž' || tCrka === '˛') {
-        return "jkey6";
-    } else if (tCrka === '7' || tCrka === 'ý' || tCrka === '`') {
-        return "jkey7";
-    } else if (tCrka === '8' || tCrka === 'á' || tCrka === '˙') {
-        return "jkey8";
-    } else if (tCrka === '9' || tCrka === 'í') {
-        return "jkey9";
-    } else if (tCrka === '0' || tCrka === 'é' || tCrka === '˝') {
-        return "jkey0";
-    } else if (tCrka === '%' || tCrka === '=' || tCrka === '¨') {
-        return "jkeyequal";
-    } else if (tCrka === 'ˇ' || tCrka === '´') {
-        return "jkeyaccent";
-    } else if (tCrka === '\\') {
-        return "jkeyq";
-    } else if (tCrka === '|') {
-        return "jkeyw";
-    } else if (tCrka === '€') {
-        return "jkeye";
-    } else if (tCrka === '/' || tCrka === 'ú' || tCrka === '÷') {
-        return "jkeyú";
-    } else if (tCrka === '(' || tCrka === ')' || tCrka === '×') {
-        return "jkey)";
-    } else if (tCrka === "'" || tCrka === '¨') {
-        return "jkey¨";
-    } else if (tCrka.match(/đ/)) {
-        return "jkeys";
-    } else if (tCrka.match(/Đ/)) {
-        return "jkeyd";
-    } else if (tCrka === '[') {
-        return "jkeyf";
-    } else if (tCrka === ']') {
-        return "jkeyg";
-    } else if (tCrka.match(/ł/)) {
-        return "jkeyk";
-    } else if (tCrka.match(/Ł/)) {
-        return "jkeyl";
-    } else if (tCrka === '"' || tCrka === 'ů' || tCrka === '$') {
-        return "jkeyů";
-    } else if (tCrka === '!' || tCrka === '§' || tCrka === 'ß') {
-        return "jkey§";
-    } else if (tCrka === '#') {
-        return "jkeyx";
-    } else if (tCrka === '&') {
-        return "jkeyc";
-    } else if (tCrka === '@') {
-        return "jkeyv";
-    } else if (tCrka === '{') {
-        return "jkeyb";
-    } else if (tCrka === '}') {
-        return "jkeyn";
-    } else if (tCrka === ',' || tCrka === '?' || tCrka === '<') {
-        return "jkeycomma";
-    } else if (tCrka === '.' || tCrka === ':' || tCrka === '>') {
+    } else if (tCrka === '.') {
         return "jkeyperiod";
-    } else if (tCrka === '-' || tCrka === '_' || tCrka === '*') {
+    } else if (tCrka === '-' || tCrka === '_') {
         return "jkeyminus";
+    } else if (tCrka === '`') {
+        return "jkeybackquote";
+    } else if (tCrka === '!') {
+        return "jkey1";
+    } else if (tCrka === '@') {
+        return "jkey2";
+    } else if (tCrka === '#') {
+        return "jkey3";
+    } else if (tCrka === '$') {
+        return "jkey4";
+    } else if (tCrka === '%') {
+        return "jkey5";
+    } else if (tCrka === '^') {
+        return "jkey6";
+    } else if (tCrka === '&') {
+        return "jkey7";
+    } else if (tCrka === '*') {
+        return "jkey8";
+    } else if (tCrka === '(') {
+        return "jkey9";
+    } else if (tCrka === ')') {
+        return "jkey0";
+    } else if (tCrka === '-' || tCrka === '_') {
+        return "jkeyminus";
+    } else if (tCrka === '[' || tCrka === '{') {
+        return "jkeybracketl";
+    } else if (tCrka === ']' || tCrka === '}') {
+        return "jkeybracketr";
+    } else if (tCrka === ';' || tCrka === ':') {
+        return "jkeysemicolon";
+    } else if (tCrka === "'" || tCrka === '"') {
+        return "jkeycrtica";
+    } else if (tCrka === "\\" || tCrka === '|') {
+        return "jkeybackslash";
+    } else if (tCrka === ',' || tCrka === '<') {
+        return "jkeycomma";
+    } else if (tCrka === '.' || tCrka === '>') {
+        return "jkeyperiod";
+    } else if (tCrka === '=' || tCrka === '+') {
+        return "jkeyequals";
+    } else if (tCrka === '?' || tCrka === '/') {
+        return "jkeyslash";
+    } else if (tCrka === '~' || tCrka === '`') {
+        return "jkeybackquote";
     } else {
         return "jkey" + tCrka;
     }
@@ -206,5 +195,5 @@ function getKeyID(tCrka) {
  * @returns {(number|Array)}.
  */
 function isLetter(str) {
-    return str.length === 1 && str.match(/[!-ﻼ]/i);
+    return str.length === 1 && str.match(/[a-z]/i);
 }

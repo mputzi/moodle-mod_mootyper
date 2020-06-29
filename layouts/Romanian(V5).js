@@ -1,7 +1,7 @@
 /**
- * @fileOverview Romanian(V5.1) keyboard driver.
+ * @fileOverview Romanian(V5.0) keyboard driver.
  * @author <a href="mailto:drachels@drachels.com">AL Rachels</a>
- * @version 5.1
+ * @version 5.0
  * @since 02/15/2019
  */
 

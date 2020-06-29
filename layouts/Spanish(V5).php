@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * This file defines the Spanish(V5.2) keyboard layout.
+ * This file defines the Spanish(V5.1) keyboard layout.
  *
  * @package    mod_mootyper
  * @copyright  2019 AL Rachels (drachels@drachels.com)
@@ -39,12 +39,12 @@ echo (isset($displaynone) && ($displaynone == true)) ? 'display:none;' : '';
             <div id="jkey2" class="normal" style='text-align:left;'>"<br>2
                 <span style="color:blue;">&nbsp;@</span></div>
             <div id="jkey3" class="normal" style='text-align:left;'>·<br>3
-                <span style="color:blue;">&nbsp;&nbsp;#</span></div>
+                <span style="color:blue;">&nbsp;&nbsp;&nbsp;#</span></div>
             <div id="jkey4" class="normal" style='text-align:left;'>$<br>4
                 <span style="color:red;">&nbsp;&nbsp;~</span></div>
             <div id="jkey5" class="normal" style='text-align:left;'>%<br>5
                 <span style="color:blue;">&nbsp;&nbsp;&nbsp;€</span></div>
-            <div id="jkey6" class="normal" style='text-align:left;'>&amp;<br>6
+            <div id="jkey6" class="normal" style='text-align:left;'>&amp<br>6
                 <span style="color:blue;">&nbsp;&nbsp;¬</span></div>
             <div id="jkey7" class="normal" style='text-align:left;'>/<br>7</div>
             <div id="jkey8" class="normal" style='text-align:left;'>(<br>8</div>
@@ -87,7 +87,7 @@ echo (isset($displaynone) && ($displaynone == true)) ? 'display:none;' : '';
             <div id="jkeyl" class="finger3" style='text-align:left;'>L<br>&nbsp;</div>
             <div id="jkeyñ" class="finger4" style='text-align:left;'>Ñ<br>&nbsp;</div>
             <div id="jkeyrighttick" class="normal" style='color:red; text-align:left;'>¨
-                <br>´<span style="color:blue;">&nbsp; &nbsp; &nbsp;{</span></div>
+                <br>´<span style="color:blue;">&nbsp;&nbsp;&nbsp;{</span></div>
             <div id="jkeyç" class="normal" style='text-align:left;'>Ç<br>
                 <span style="color:blue">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}</span></div>
         </div>

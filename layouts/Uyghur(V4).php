@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * This file defines the Uygher(V4.1)Dual keyboard layout.
+ * This file defines the Uygher(V4.0)Dual keyboard layout.
  *
  * @package    mod_mootyper
  * @copyright  2012 Jaka Luthar (jaka.luthar@gmail.com)
@@ -42,7 +42,7 @@ if ($directionality === 'rtl') {
             <div id="jkey0" class="normal" style='text-align:left;'>(<br>0&nbsp; &nbsp; &nbsp;</div>
             <div id="jkey9" class="normal" style='text-align:left;'>)<br>9&nbsp; &nbsp; &nbsp;</div>
             <div id="jkey8" class="normal" style='text-align:left;'>*<br>8&nbsp; &nbsp; &nbsp;</div>
-            <div id="jkey7" class="normal" style='text-align:left;'>&amp;<br>7&nbsp; &nbsp; &nbsp;</div>
+            <div id="jkey7" class="normal" style='text-align:left;'>&<br>7&nbsp; &nbsp; &nbsp;</div>
             <div id="jkey6" class="normal" style='text-align:left;'>^<br>6&nbsp; &nbsp; &nbsp;</div>
             <div id="jkey5" class="normal" style='text-align:left;'>%<br>5&nbsp; &nbsp; &nbsp;</div>
             <div id="jkey4" class="normal" style='text-align:left;'>$<br>4&nbsp; &nbsp; &nbsp;</div>
@@ -123,7 +123,7 @@ if ($directionality === 'rtl') {
             <div id="jkey4" class="normal" style='text-align:left;'>$<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;4</div>
             <div id="jkey5" class="normal" style='text-align:left;'>%<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;5</div>
             <div id="jkey6" class="normal" style='text-align:left;'>^<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;6</div>
-            <div id="jkey7" class="normal" style='text-align:left;'>&amp;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;7</div>
+            <div id="jkey7" class="normal" style='text-align:left;'>&<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;7</div>
             <div id="jkey8" class="normal" style='text-align:left;'>*<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;8</div>
             <div id="jkey9" class="normal" style='text-align:left;'>)<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;9</div>
             <div id="jkey0" class="normal" style='text-align:left;'>(<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0</div>
@@ -150,7 +150,7 @@ if ($directionality === 'rtl') {
         <div class="mtrow" style='float: left; margin-left:5px; font-size: 15px !important; line-height: 15px'>
             <div id="jkeycaps" class="normal" style="width: 80px;  font-size: 12px !important;">Caps Lock</div>
             <div id="jkeyھ" class="finger4" style='text-align:left;'>A<br>&nbsp; &nbsp; &nbsp;ھ</div>
-            <div id="jkeyس" class="finger3" style='text-align:left;'>S<br>&nbsp;&nbsp;&nbsp;س</div>
+            <div id="jkeyس" class="finger3" style='text-align:left;'>S<br>&nbsp;&nbsp; &nbsp;س</div>
             <div id="jkeyد" class="finger2" style='text-align:left;'>D ژ<br>&nbsp; &nbsp; &nbsp;د</div>
             <div id="jkeyf" class="finger1" style='text-align:left;'>F ف<br>&nbsp; &nbsp; &nbsp;ا</div>
             <div id="jkeyە" class="normal" style='text-align:left;'>G گ<br>&nbsp; &nbsp; &nbsp;ە</div>

@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * This file defines the Hebrew(V5.1)dual keyboard layout.
+ * This file defines the Hebrew(V5.0)dual keyboard layout.
  *
  * @package    mod_mootyper
  * @copyright  2012 Jaka Luthar (jaka.luthar@gmail.com)
@@ -40,7 +40,7 @@ if ($directionality === 'rtl') {
             <div id="jkey0" class="normal" style='text-align:left;'>(<br>0</div>
             <div id="jkey9" class="normal" style='text-align:left;'>)<br>9</div>
             <div id="jkey8" class="normal" style='text-align:left;'>*<br>8</div>
-            <div id="jkey7" class="normal" style='text-align:left;'>&amp;<br>7</div>
+            <div id="jkey7" class="normal" style='text-align:left;'>&amp<br>7</div>
             <div id="jkey6" class="normal" style='text-align:left;'>^<br>6</div>
             <div id="jkey5" class="normal" style='text-align:left;'>%<br>5</div>
             <div id="jkey4" class="normal" style='text-align:left;'>$<br>4</div>
@@ -120,7 +120,7 @@ if ($directionality === 'rtl') {
             <div id="jkey4" class="normal" style='text-align:left;'>$<br>4</div>
             <div id="jkey5" class="normal" style='text-align:left;'>%<br>5</div>
             <div id="jkey6" class="normal" style='text-align:left;'>^<br>6</div>
-            <div id="jkey7" class="normal" style='text-align:left;'>&amp;<br>7</div>
+            <div id="jkey7" class="normal" style='text-align:left;'>&amp<br>7</div>
             <div id="jkey8" class="normal" style='text-align:left;'>*<br>8</div>
             <div id="jkey9" class="normal" style='text-align:left;'>)<br>9</div>
             <div id="jkey0" class="normal" style='text-align:left;'>(<br>0</div>

@@ -1,7 +1,7 @@
 /**
- * @fileOverview Hebrew(V5.1)dual keyboard driver.
+ * @fileOverview Hebrew(V5.0)dual keyboard driver.
  * @author <a href="mailto:drachels@drachels.com">AL Rachels</a>
- * @version 5.1
+ * @version 5.0
  * @since 04/03/2018
  */
 
