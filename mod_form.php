@@ -29,9 +29,7 @@
 defined('MOODLE_INTERNAL') || die();
 
 use \mod_mootyper\local\keyboards;
-
 require_once($CFG->dirroot.'/course/moodleform_mod.php');
-//require_once($CFG->dirroot.'/mod/mootyper/locallib.php');
 /**
  * Module instance settings form.
  *
