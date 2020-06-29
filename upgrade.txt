@@ -44,151 +44,43 @@ sending an email, leave a comment at
     https://moodle.org/plugins/mod_mootyper
 
 Moodle Versions
+===============
 === 3.9.0 ===
-05/21/20 Started development for v3.9.0.
-05/21/20 Opened ticket MooTyper_411, View all grades does not support groups.
-05/21/20 Moved all the dev code from moodle37 to moodle3dev. Due to having so
-many total tickets in User Support Tracker, I have initiated a separate tracker
-activity for MooTyper. Here's a list of the old to new ticket codes.
-....Converted TRK1_343, to MooTyper_412, Need, Cancel/Return, button
-    for exercises.php page.
-....Converted TRK1_382, to MooTyper_413, Buttons need round corners
-    like the page backgrounds.
-....Converted TRK1_357, to MooTyper_414, Need to move functions in
-    locallib.php to ../classes/local/file_as_needed.php
-....Converted TRK1_257, to MooTyper_415, Need a layout add/remove page.
-....Converted TRK1_381, to MooTyper_416, Students can type in address for eedit.php.
-....Converted TRK1_374, to MooTyper_417, EnglishWKeypad(V6) needs some keys adjusted
-....Converted TRK1_354, to MooTyper_418, Change $id to $cmid like other plugins.
-....Converted TRK1_303, to MooTyper_419, Should add $cmid in url to allow direct
-    return from editing exercises.
-....Converted TRK1_376, to MooTyper_420, owngrades not usinging
-    results::get_grades_avg yet.
-....Converted TRK1_375, to MooTyper_421, gview.php not using
-    results::get_grades_avg yet.
-....Converted TRK1_373, to MooTyper_422, M37 MT Slovenian layout needs multiple
-    keys adjusted.
-....Converted TRK1_372, to MooTyper_423, M37 MT layout - Number keypad 
-    only - + and Enter keys are too tall
-....Converted TRK1_371, to MooTyper_424, Hungarian layout B and N need spaces
-    removed for Alt characters.
-....Converted TRK1_370, to MooTyper_425, Cancel on eins.php should go to
-    view.php instead of exercises.php.
-....Converted TRK1_369, to MooTyper_426, in m37 file eins.php needs cleanup.
-....Converted TRK1_368, to MooTyper_427, Add new lesson with an exercise
-    editing link is broken.
-....Converted TRK1_367, to MooTyper_428, line 326 of mod_setup.php needs
-    change to lessons::get_mootyperlessons.
-....Converted TRK1_366, to MooTyper_429, Need return button on gview.php page.
-....Converted TRK1_360, to MooTyper_430, Export as .csv file does not include
-    suspicous grade indicator.
-....Converted TRK1_356, to MooTyper_431, Change Import lessons and layouts
-    to work for siteadmin/manager only.
-....Converted TRK1_363, to MooTyper_432, eins.php about line 207, ... is
-    hard coded.
-....Converted TRK1_351, to MooTyper_433, Add capability to go from view.php
-    directly to the lesson being used.
-....Converted TRK1_362, to MooTyper_434, CSS .normal does not work correctly
-    in current version.
-....Converted TRK1_365, to MooTyper_435, Need to be able to delete un-need
-    lesson files from lesson folder.
-....Converted TRK1_364, to MooTyper_436, Lesson import request to change
-    to file upload.
-....Converted TRK1_238, to MooTyper_437, Request for new Audio Exercise Mode.
-....Converted TRK1_288, to MooTyper_438, move contents of the csvexport.php
-    file into gview.php file.
-....Converted TRK1_358, to MooTyper_439, Possible unused function
-    get_typerexercises() and get_typerexercisesfull($lsn = 0) in
-    classes/local/lessons.php.
-....Converted TRK1_253, to MooTyper_440, Arabic(V4)dual - space bar showing
-    shift is needed.
-....Converted TRK1_355, to MooTyper_441, Use current MooTyper for layouts.php
-    background color.
-....Converted TRK1_353, to MooTyper_442, set return url in layouts.php, to
-    return to same MooTyper
-....Converted TRK1_352, to MooTyper_443, discovered & is an invalid character
-    in my keyboard layout php files.
-....Converted TRK1_350, to MooTyper_444, Need to fix delete exercise so the
-    Return to works.
-....Converted TRK1_347, to MooTyper_445, Need to change all refs to audio
-    over to dictation.
-....Converted TRK1_349, to MooTyper_446, User ownership stops dictation
-    from working.
-....Converted TRK1_348, to MooTyper_447, Investigate using Atto for text
-    to type.
-....Converted TRK1_339, to MooTyper_448, exercises.php needs mods for audio.
-....Converted TRK1_338, to MooTyper_449, eedit.php needs mods for audio.
-....Converted TRK1_346, to MooTyper_450, should combine *_form.php's into
-    mod_form.php like Hot Question does.
-....Converted TRK1_345, to MooTyper_451, eedit.php line 44, print error
-    is hard coded.
-....Converted TRK1_344, to MooTyper_452, Change align from center to
-    left for audio and buttons.
-....Converted TRK1_342, to MooTyper_453, Need to change, text alignment,
-    from an activity setting to exercise setting.
-....Converted TRK1_334, to MooTyper_454, 100% accuracy gives 'undefined'=0
-    in Mistake details.
-....Converted TRK1_341, to MooTyper_455, view.php needs mods for audio,
-....Converted TRK1_340, to MooTyper_456, need to modify database tables
-    for MooTyper audio capability.
-....Converted TRK1_331, to MooTyper_457, Moodle 3.2 when adding new
-    activity produces two undefined constant debug msg.
-....Converted TRK1_313, to MooTyper_458, site admin should be able
-    to see and change who can edit an exercise or a lesson.
-....Converted TRK1_316, to MooTyper_459, It would be nice if a
-    Lesson name could be edited.
-....Converted TRK1_280, to MooTyper_460, When viewing page
-    exercises.php, lesson in the URL is wrong number.
-....Converted TRK1_201, to MooTyper_461, provider.php file NEEDS REWRITE.
-....Converted TRK1_144, to MooTyper_462, Need Uyghur keyboard layout - RTL. 
-....Converted TRK1_220, to MooTyper_463, incorrect inline SQL needs to
-    be fixed.
-....Converted TRK1_292, to MooTyper_464, lib.php function
-    get_typer_grades_adv sort order needs fixing
-....Converted TRK1_289, to MooTyper_465, Convert owngrades.php
-    table to BS4 table.
-....Converted TRK1_287, to MooTyper_466, Export order looks unordered
-    due to sort on lastname.
-....Converted TRK1_281, to MooTyper_467, See about adding Tab as
-    a character to type in an exercise.
-....Converted TRK1_277, to MooTyper_468, log link where you have
-    deleted own grade returns to view all grades instead of own grades.
-....Converted TRK1_130, to MooTyper_469, Pratice lesson grade remove
-    should check it is last grade before removing.
-....Converted TRK1_78, to MooTyper_470, Going to add a category
-    does not create nav bar breadcrumb.
-....Converted TRK1_202, to MooTyper_471, Need to add missing items
-    to activity edit page - mod_form.php.
-....Converted TRK1_141, to MooTyper_472, Need Korean keyboard layout.
-....Converted TRK1_143, to MooTyper_473, Activity heading help does
-    not stay toggled open with Boost.
-....Converted TRK1_137, to MooTyper_474, Vietnamese keyboard unable
-    to type some characters.
-....Converted TRK1_54, to MooTyper_475, Need to implement groups.
-20200613 Lots of code cleanup making sure all the dictation stuff is removed.
-20200614 MooTyper_539, Need BS 4 buttons on exercise.php page, completed
-    and pushed to github along with LOTS of other changes.
-
-=== 3.8.4 ===
-01/10/2020 Started dev work to add dictation mode.
-01/22/2020 Got all the bits working except being able to play a video in
-exercises.php or view.php after I have recorded it in edit.php. Posted help
-request in General developer forum.
-02/06/2020 Posted to forum again. Still stuck at the same point.
-02/10/2020 Posted to forum again. Still stuck at the same point.
-02/12/2020 Posted to forum again. Still stuck at the same point.
-03/24/2020 Posted progress report to form. Still stuck. Can add, listen to,
-and edit in edit.php entry editor. As soon as I save, I cannot get the
-file to play.
-04/28/2020 Over the past four months, I have made a "boat-load" of changes to
-nearly every file in MooTyper. One major one is to start eliminating the
-functions in locallib.php and give their own class file in ../classes/local/.
-Right now I have most functions in keyboards.php, lessons.php, and results.php.
-04/28/2020 Finally figured out how to set round corners to all the buttons.
-04/29/2020 Finished rounding buttons.
-04/29/2020 Finished moving functions from locallib.php to classes. Had to move
-mootyper_update_calendar(stdClass $mootyper, $cmid) into lib.php. Think it
-would not work in results.php due to having stdClass in it.
+20200618 I have thrown away six months worth of development work, and as of today
+    have started over. I am systematically going through all the code changes
+    I developed, and am applying them here, while doing lots of testing to make
+    sure that I am not breaking anything.
+20200620 MooTyper_411, View all grades does not support groups, changed status
+    to, Being tested.
+20200620 MooTyper_542, in gview change $htmlout's to echo's. Makes the code
+    more consistent with the rest of MooTyper, and easier to make changes.
+20200624 MooTyper_411, View all grades does not support groups. Made change
+    to case, in lib.php. In gview.php (View all grades) added code to
+    support Separate and Visible groups, groupmode. The change also fixed the
+    missing, Exercise, dropdown, so that, View by exercise, is now working again.
+20200624 MooTyper_463, lsnexport.php incorrect inline SQL needs to be fixed.
+    Changed code to use $params.
+20200624 MooTyper_547, Duplicating a MooTyper does not set the cursor color correctly.
+    There was an error in mod_setup.php, line 219, which was using the keyboard
+    background color, instead of using the cursor color.
+20200625 MooTyper_548, if (lessons::is_editable_by_me($USER->id, $id, $lessonpo))
+    giving wrong results. Second if, second $id should have been $crs.
+20200625 MooTyper_549, classes/local/lessons.php function is_user_enrolled incorrect
+    inline SQL needs to be fixed. Changed to use $params.
+20200625 MooTyper_550, Keyboard layout EnglishWKeypad(USV6) incorrectly renders
+    in Opera. Fixed by adding one pixel to the width of the background in css.
+20200625 MooTyper_551, Change exercises.php table background color to same as
+    current MooTyper color. Eliminates DB get for MooTyper configuration.
+20200625 MooTyper_552, Change eedit.php table background color to same as
+    current MooTyper color. Adds DB get for current MooTyper.
+20200625 MooTyper_553, Change eins.php table background color to same as
+    current MooTyper color. Adds DB get for current MooTyper.
+20200627 MooTyper_558, mod_setup.php has duplicate lines of code for timelimit,
+    requiredgoal, and requiredwpm. Removed 30 (10x3) duplicate lines and replaced
+    them with a copy of just the 10 needed lines.
+20200628 MooTyper_557, view.php Edit/edit exercises link should only be visible
+    if I can edit the current lesson. Changed the if around line 353 to also
+    check the lesson visibility. Hide Settings button if not editable by me.
 
 === 3.8.3 ===
 12/27/19 Issue #81 at github - Missing space between user name and exercise name in
@@ -213,19 +105,6 @@ on the View all grades page.
 to the, Export to .csv, file output data.
 01/04/20 Spell checked lessons and switched some to paragraph format.
 01/04/20 Some code cleanup based on last version check on Moodle.
-01/11/20 TRK1_334 Made code change in gcnext.php that changes undefined to
-the definition of the nomistakes string, that I also added. Published to
-master branch for next release.
-01/11/20 TRK1_338 Got audiodata code working for eedit.php but still needs
-work as editor is full width and not showing recordrtc toolbutton.
-01/17/20 TRK1_343 & TRK1_303 Added Return button to bottom of exercises.php
-that returns you to the MooTyper you started editing from.
-01/17/20 TRK1_344 Changed label info, audio player, and buttons, View all
-grades, Settings, View my grades, and Continue, to align=left. The reason
-was the layout looked odd 99% of the time due to the Continue button
-being hidden, except when an exercise was completed.
-01/18/20 TRK1_345 Changed hard coded error in eedit.php at line 44 to use
-new, $string['mootypexerciseererror'] = 'You must specify an exercise ID';.
 
 
 === 3.8.2 ===
