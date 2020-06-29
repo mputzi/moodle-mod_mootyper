@@ -33,7 +33,6 @@ use \mod_mootyper\local\lessons;
 // Changed to this newer format 03/01/2019.
 require(__DIR__ . '/../../config.php');
 require_once(__DIR__ . '/lib.php');
-//require_once(__DIR__ . '/locallib.php');
 
 global $USER;
 
@@ -217,7 +216,7 @@ $backgroundcolorpo = optional_param('keybdbgc', $dfbackgroundcolor, PARAM_CLEAN)
 // Check to see if current MooTyper cursorcolor is empty.
 if ($mootyper->cursorcolor == null || is_null($mootyper->cursorcolor)) {
     // Current MooTyper cursorcolor is empty so set it to the sites cursorcolor default.
-    $dfcursorcolor = $moocfg->keyboardbgc;
+    $dfcursorcolor = $moocfg->cursorcolor;
 } else {
     $dfcursorcolor = $mootyper->cursorcolor;
 }
@@ -342,16 +341,6 @@ if ($modepo == 0 || is_null($modepo)) { // If mode is 0, this is a lesson?
             $htmlout .= '<option value="'.$lessons[$ij]['id'].'">'.$lessons[$ij]['lessonname'].'</option>';
         }
     }
-    $htmlout .= '</select></td></tr><tr><td>'
-        .get_string('timelimit', 'mootyper').'</td><td><input value="'
-        .$timelimitpo.'" style="width: 35px;" type="text" name="timelimit"> '
-        .get_string('minutes').' </td></tr>';
-    $htmlout .= '</select></td></tr><tr><td>'
-        .get_string('requiredgoal', 'mootyper').'</td><td><input value="'
-        .$goalpo.'" style="width: 35px;" type="text" name="requiredgoal"> % </td></tr>';
-    $htmlout .= '</select></td></tr><tr><td>'
-        .get_string('requiredwpm', 'mootyper').'</td><td><input value="'
-        .$wpmpo.'" style="width: 35px;" type="text" name="requiredwpm"></td></tr>';
 } else if ($modepo == 1) { // Or, if mode is 1, this is an exam?
     $htmlout .= '<option value="0">'.get_string('sflesson', 'mootyper').'</option>
         <option value="1" selected="true">'.get_string('isexamtext', 'mootyper').'</option>
@@ -376,16 +365,6 @@ if ($modepo == 0 || is_null($modepo)) { // If mode is 0, this is a lesson?
             $htmlout .= '<option value="'.$exercises[$ik]['id'].'">'.$exercises[$ik]['exercisename'].'</option>';
         }
     }
-    $htmlout .= '</select></td></tr><tr><td>'
-        .get_string('timelimit', 'mootyper').'</td><td><input value="'
-        .$timelimitpo.'" style="width: 35px;" type="text" name="timelimit"> '
-        .get_string('minutes').' </td></tr>';
-    $htmlout .= '</select></td></tr><tr><td>'
-        .get_string('requiredgoal', 'mootyper').'</td><td><input value="'
-        .$goalpo.'" style="width: 35px;" type="text" name="requiredgoal"> % </td></tr>';
-    $htmlout .= '</select></td></tr><tr><td>'
-        .get_string('requiredwpm', 'mootyper').'</td><td><input value="'
-        .$wpmpo.'" style="width: 35px;" type="text" name="requiredwpm"></td></tr>';
 } else if ($modepo == 2) { // If mode is 2, this is a practice lesson?
     $htmlout .= '<option selected="true" value="0">'.get_string('sflesson', 'mootyper').'</option>
         <option value="1">'.get_string('isexamtext', 'mootyper').'</option>
@@ -400,6 +379,8 @@ if ($modepo == 0 || is_null($modepo)) { // If mode is 0, this is a lesson?
             $htmlout .= '<option value="'.$lessons[$ij]['id'].'">'.$lessons[$ij]['lessonname'].'</option>';
         }
     }
+}
+
     $htmlout .= '</select></td></tr><tr><td>'
         .get_string('timelimit', 'mootyper').'</td><td><input value="'
         .$timelimitpo.'" style="width: 35px;" type="text" name="timelimit"> '
@@ -410,7 +391,8 @@ if ($modepo == 0 || is_null($modepo)) { // If mode is 0, this is a lesson?
     $htmlout .= '</select></td></tr><tr><td>'
         .get_string('requiredwpm', 'mootyper').'</td><td><input value="'
         .$wpmpo.'" style="width: 35px;" type="text" name="requiredwpm"></td></tr>';
-}
+
+
 
 // Add a selector for text alignment.
 $aligns = array(get_string('defaulttextalign_left', 'mod_mootyper'),
@@ -461,7 +443,6 @@ $showkeyboardchecked = $showkeyboardpo == 'on' ? ' checked="checked"' : '';
 $htmlout .= '<input type="checkbox"'.$showkeyboardchecked.' " name="showkeyboard">';
 
 // Add the dropdown slector for keyboard layouts.
-//$layouts = get_keyboard_layouts_db();
 $layouts = keyboards::get_keyboard_layouts_db();
 $deflayout = $moocfg->defaultlayout;
 $htmlout .= '<tr><td>'.get_string('layout', 'mootyper').'</td><td><select name="layout">';
@@ -516,7 +497,8 @@ $htmlout .= '</select>';
 $htmlout .= '</td></tr>';
 $htmlout .= '</table>';
 // Change to BS4 style button to fix issue #77 on github.
-$htmlout .= '<br><input type="submit" name="button" class="btn btn-primary" style="border-radius: 8px" value="'.get_string('fconfirm', 'mootyper').'">';
+$htmlout .= '<br><input type="submit" name="button" class="btn btn-primary" style="border-radius: 8px" value="'
+    .get_string('fconfirm', 'mootyper').'">';
 // Create return URL for use with Cancel button, 12/26/19.
 $url = $CFG->wwwroot . '/mod/mootyper/view.php?id='.$cm->id;
 $htmlout .= ' <a href="'.$url.'" class="btn btn-secondary" style="border-radius: 8px">'.get_string('cancel', 'mootyper').'</a>';
