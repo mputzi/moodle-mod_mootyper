@@ -19,7 +19,7 @@
  *
  * This sub-module is called from gview.php, (View All Grades),
  * or from owngrades.php, (View my grades).
- * Currently it does NOT include an Are you sure check before it removes.
+ * Currently it does include a, Confirm... check before it removes.
  *
  * @package    mod_mootyper
  * @copyright  2011 Jaka Luthar (jaka.luthar@gmail.com)
@@ -31,8 +31,6 @@ use \mod_mootyper\event\owngrades_deleted;
 use \mod_mootyper\event\grade_deleted;
 
 require(__DIR__ . '/../../config.php');
-
-require_login($course, true, $cm);
 
 global $DB;
 
@@ -47,6 +45,7 @@ $course     = $mootyper->course;
 $cm         = get_coursemodule_from_instance('mootyper', $mootyper->id, $course->id, false, MUST_EXIST);
 
 $context = context_module::instance($cm->id);
+require_login($course, true, $cm);
 
 if (isset($gradeid)) {
     $dbgrade = $DB->get_record('mootyper_grades', array('id' => $gradeid));
