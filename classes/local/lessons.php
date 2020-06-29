@@ -79,14 +79,14 @@ class lessons  {
         $sql = "SELECT id, lessonname
             FROM ".$CFG->prefix."mootyper_lessons
             WHERE ((visible = 2 AND authorid = ".$u.") OR
-                (visible = 1 AND ".lessons::is_user_enrolled($u, $c)." = 1) OR
-                (visible = 0 AND ".lessons::is_user_enrolled($u, $c)." = 1) OR
-                (".lessons::can_view_edit_all($u, $c)." = 1))
+                (visible = 1 AND ".self::is_user_enrolled($u, $c)." = 1) OR
+                (visible = 0 AND ".self::is_user_enrolled($u, $c)." = 1) OR
+                (".self::can_view_edit_all($u, $c)." = 1))
             ORDER BY lessonname";
         /*
         /// This was taken out, because we have some context_module::instance confusion
           OR
-                        (visible = 0)) OR ".lessons::can_view_edit_all($u, $c).")
+                        (visible = 0)) OR ".self::can_view_edit_all($u, $c).")
         /// ... 3/22/16 Was added again due to changes for 2.7.1 release.
 
         */
@@ -117,7 +117,7 @@ class lessons  {
         }
     }
 
-    /** 
+    /**
      * 12/11/19 Modified to add missing compare of current
      * course to courseid listed in the lesson. TRK1-315.
      *
@@ -135,10 +135,12 @@ class lessons  {
         } else {
             $crs = $lesson->courseid;
         }
-        if ((($lesson->editable == 0)
-            || ($lesson->editable == 1 && (lessons::is_user_enrolled($usr, $id) && ($id == $lesson->courseid)))
-            || ($lesson->editable == 2 && $lesson->authorid == $usr))
-            || lessons::can_view_edit_all($usr, $crs)) {
+
+        if (($lesson->editable == 0)
+            // 20200625 Fix for ticket MooTyper_548. When editable is 1, changed second $id to $crs.
+            || (($lesson->editable == 1) && (self::is_user_enrolled($usr, $id)) && ($crs == $lesson->courseid))
+            || (($lesson->editable == 2) && ($lesson->authorid == $usr))
+            || (self::can_view_edit_all($usr, $crs))) {
             return true;
         } else {
             return false;
@@ -194,7 +196,7 @@ class lessons  {
      * @return int
      */
     public static function get_new_snumber($lsnid) {
-        $exes = lessons::get_exercises_by_lesson($lsnid);
+        $exes = self::get_exercises_by_lesson($lsnid);
         if (count($exes) == 0) {
             return 1;
         }
@@ -244,10 +246,14 @@ class lessons  {
      */
     public static function is_user_enrolled($usr, $crs) {
         global $DB, $CFG;
+
+        $params = array();
+        $params[] = $usr;
         $sql2 = "SELECT * FROM ".$CFG->prefix."user_enrolments
-                 WHERE userid = ".$usr;
-        $enrolls = $DB->get_records_sql($sql2, array());
+                 WHERE userid = ?";
+        $enrolls = $DB->get_records_sql($sql2, $params);
         $rt = count($enrolls) > 0 ? 1 : 0;
+
         return $rt;
     }
 
