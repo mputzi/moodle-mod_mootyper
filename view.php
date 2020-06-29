@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Allows viewing a particular instance of mootyper
+ * Allows viewing/use of a particular instance of mootyper
  *
  * You can have a rather longer description of the file as well,
  * if you like, and it can span multiple lines.
@@ -28,6 +28,7 @@
 
 use \mod_mootyper\event\course_module_viewed;
 use \mod_mootyper\local\keyboards;
+use \mod_mootyper\local\lessons;
 use \mod_mootyper\local\results;
 
 // Changed to this newer format 03/01/2019.
@@ -43,7 +44,6 @@ $n = optional_param('n', 0, PARAM_INT); // Mootyper instance ID - it should be n
 $directionality = get_string('thisdirection', 'langconfig');
 $userpassword = optional_param('userpassword', '', PARAM_RAW);
 $backtocourse = optional_param('backtocourse', false, PARAM_RAW);
-
 /*
  Upon first time entry to the activity, $id is available and used while
  $n is not available and is set to 0. When returning to the activity
@@ -83,7 +83,7 @@ $mootyperoutput = $PAGE->get_renderer('mod_mootyper');
 
 // Output starts here.
 echo $mootyperoutput->header($mootyper, $cm);
-echo '<script src="//code.jquery.com/jquery-1.11.0.min.js"></script>';
+echo '<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>';
 
 // Get the color and text alignment configuration settings and use them in the MooTyper activity.
 $color1 = $mootyper->statsbgc;
@@ -231,7 +231,7 @@ if ($mootyper->lesson != null) {
     $count = $DB->count_records_sql($sqlc, $params = null);
 
     if (isset($texttoenter)) {
-        // 11/30/19 Modified to pass data required by exercise_, exam_, and lesson_completed events.
+        // 20191130 Modified to pass data required by exercise_, exam_, and lesson_completed events.
         $insertdir = $CFG->wwwroot . '/mod/mootyper/gcnext.php?cmid='.$cm->id.
             '&lsnname='.$lsnname->id.'&exercisename='.$exercise->exercisename.'&mtmode='.$mtmode.'&count='.$count;
     }
@@ -254,7 +254,6 @@ if ($mootyper->lesson != null) {
         } else {
             $displaynone = true;
         }
-        //$keyboardjs = get_instance_layout_js_file($mootyper->layout);
         $keyboardjs = keyboards::get_instance_layout_js_file($mootyper->layout);
         echo '<script type="text/javascript" src="' . $keyboardjs . '"></script>';
         echo '<script type="text/javascript" src="typer.js"></script>';
@@ -266,31 +265,30 @@ if ($mootyper->lesson != null) {
         <?php
 
         echo '<div id="infoDiv" align="left">';
-
         // Old MooTypers without the mode set need this initialized to empty.
-        $infostr = '';
+        $tempstr = '';
         // Add label containing mode, lesson name, exercise x of x, required precision and WPM above the status bar.
         if ($mtmode === '0') {
-            $infostr = get_string('fmode', 'mootyper').' = '
+            $tempstr = get_string('fmode', 'mootyper').' = '
                 .get_string('flesson', 'mootyper');
         } else if ($mtmode === '1') {
-            $infostr = get_string('fmode', 'mootyper').' = '
+            $tempstr = get_string('fmode', 'mootyper').' = '
                 .get_string('isexamtext', 'mootyper');
         } else if ($mtmode === '2') {
-            $infostr = get_string('fmode', 'mootyper').' = '
+            $tempstr = get_string('fmode', 'mootyper').' = '
                 .get_string('practice', 'mootyper');
         }
-        $infostr = $infostr.'&nbsp;&nbsp; '
+        $tempstr = $tempstr.'&nbsp;&nbsp; '
             .get_string('lsnname', 'mootyper').' = '.$lsnname->lessonname
             .'&nbsp;&nbsp; '
             .get_string('exercise', 'mootyper', $exercise->exercisename).$count;
-        $infostr = $infostr.'<br>'
+        $tempstr = $tempstr.'<br>'
             .get_string('timelimit', 'mootyper').' ('.$reqiredtimelimit.':00)'
             .'&nbsp;&nbsp; '
             .get_string('requiredgoal', 'mootyper').' ('.$reqiredgoal.'%)'
             .'&nbsp;&nbsp; '
             .get_string('requiredwpm', 'mootyper').' ('.$reqiredwpm.')';
-        echo $infostr.'</div>';
+        echo $tempstr;
         ?>
 </h5>
 
@@ -345,22 +343,41 @@ if ($mootyper->lesson != null) {
             $stats1 = "'statsLDiv'";
             $stats2 = "'statsRDiv'";
         }
-        // 20200428 Added round corners to buttons.
+
+        // 20200428 Added round corners to buttons. This one is View all grades.
         if (has_capability('mod/mootyper:viewgrades', context_module::instance($cm->id))) {
-            $jlnk4 = $CFG->wwwroot . '/mod/mootyper/gview.php?id=' . $id . '&n=' . $mootyper->id;;
-            echo '<a href="' . $jlnk4 . '" class="btn btn-primary btn-sm"  style="border-radius: 8px">' . get_string('viewgrades', 'mootyper') . '</a>&nbsp;';
+            $jlnk4 = $CFG->wwwroot.'/mod/mootyper/gview.php?id='.$id.'&n='.$mootyper->id;
+            echo '<a href="'.$jlnk4
+                .'" class="btn btn-primary btn-sm"  style="border-radius: 8px">'
+                .get_string('viewgrades', 'mootyper').'</a>&nbsp;';
         }
-        if (has_capability('mod/mootyper:aftersetup', context_module::instance($cm->id))) {
-            $jlnk6 = $CFG->wwwroot . "/mod/mootyper/mod_setup.php?n=" . $mootyper->id . "&e=1";
-            echo '<a href="' . $jlnk6 . '" class="btn btn-primary btn-sm"  style="border-radius: 8px">' . get_string('fsettings', 'mootyper') . '</a>&nbsp;';
+        // This is the Settings button.
+        // 20200628 Added check to hide button if the lesson is NOT editable by current user.
+        if ((has_capability('mod/mootyper:aftersetup', context_module::instance($cm->id)))
+            && (lessons::is_editable_by_me($USER->id, $mootyper->id, $lsnname->id))) {
+
+            $jlnk6 = $CFG->wwwroot."/mod/mootyper/mod_setup.php?n=".$mootyper->id."&e=1";
+            echo '<a href="'.$jlnk6
+                .'" class="btn btn-primary btn-sm"  style="border-radius: 8px">'
+                .get_string('fsettings', 'mootyper').'</a>&nbsp;';
         }
+        // This is the View my grades button.
         if (has_capability('mod/mootyper:viewmygrades', context_module::instance($cm->id))) {
-            $jlnk7 = $CFG->wwwroot . "/mod/mootyper/owngrades.php?id=" . $id . "&n=" . $mootyper->id;
-            echo '<a href="' . $jlnk7 . '" class="btn btn-primary btn-sm"  style="border-radius: 8px">' . get_string('viewmygrades', 'mootyper') . '</a>';
+            $jlnk7 = $CFG->wwwroot."/mod/mootyper/owngrades.php?id=".$id."&n=". $mootyper->id;
+            echo '<a href="'.$jlnk7
+                .'" class="btn btn-primary btn-sm"  style="border-radius: 8px">'
+                .get_string('viewmygrades', 'mootyper').'</a>';
         }
+        // Next button is Continue. Hidden until exercise is complete.
+        // It is followed by the Status bar and Mistake details.
         ?>
 
-<input class="btn btn-primary btn-sm" style="visibility: hidden;" id="btnContinue" name='btnContinue' type="submit" value=<?php
+<input class="btn btn-primary btn-sm" 
+       style="border-radius: 8px; visibility: hidden;"
+       id="btnContinue"
+       name='btnContinue'
+       type="submit"
+       value=<?php
         echo "'" . get_string('fcontinue', 'mootyper') . "'"; ?>>
 
     <div id='wrapStats'>
