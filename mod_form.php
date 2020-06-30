@@ -65,6 +65,8 @@ class mod_mootyper_mod_form extends moodleform_mod {
     public function definition() {
         global $CFG, $COURSE, $DB;
         $mform = $this->_form;
+        // 20200630 Added to fix link to control access to the management link.
+        $id = optional_param('update', 0, PARAM_INT); // Course module ID.
 
         $mootyperconfig = get_config('mod_mootyper');
 
@@ -231,9 +233,13 @@ class mod_mootyper_mod_form extends moodleform_mod {
         $mform->setDefault('texterrorcolor', $mootyperconfig->texterrorcolor);
 
         // MooTyper activity, link to Lesson/Categories and exercises.
-        $mform->addElement('header', 'mootyperz', get_string('pluginadministration', 'mootyper'));
-        $jlnk3 = $CFG->wwwroot . '/mod/mootyper/exercises.php?id='.$COURSE->id;
-        $mform->addElement('html', '<a id="jlnk3" href="'.$jlnk3.'">'.get_string('emanage', 'mootyper').'</a>');
+        // 20200630 When a cmid is available, show the link.
+        if ($id) {
+            $mform->addElement('header', 'mootyperz', get_string('pluginadministration', 'mootyper'));
+            //$jlnk3 = $CFG->wwwroot . '/mod/mootyper/exercises.php?id='.$COURSE->id;
+            $jlnk3 = $CFG->wwwroot . '/mod/mootyper/exercises.php?id='.$id;
+            $mform->addElement('html', '<a id="jlnk3" href="'.$jlnk3.'">'.get_string('emanage', 'mootyper').'</a>');
+        }
 
         // The rest of the common activity settings.
         $this->standard_grading_coursemodule_elements();

@@ -45,6 +45,10 @@ sending an email, leave a comment at
 
 Moodle Versions
 ===============
+=== 3.9.0+ ===
+20200630 MooTyper_560, mod_form.php page, under MooTyper Administration, the link
+    is broken. Have a fix inplace and being tested.
+
 === 3.9.0 ===
 20200618 I have thrown away six months worth of development work, and as of today
     have started over. I am systematically going through all the code changes
@@ -81,6 +85,7 @@ Moodle Versions
 20200628 MooTyper_557, view.php Edit/edit exercises link should only be visible
     if I can edit the current lesson. Changed the if around line 353 to also
     check the lesson visibility. Hide Settings button if not editable by me.
+20200629 Released MooTyper v3.9.0. Closed 36 tickets with this release.
 
 === 3.8.3 ===
 12/27/19 Issue #81 at github - Missing space between user name and exercise name in
