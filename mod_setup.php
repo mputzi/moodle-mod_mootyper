@@ -381,18 +381,16 @@ if ($modepo == 0 || is_null($modepo)) { // If mode is 0, this is a lesson?
     }
 }
 
-    $htmlout .= '</select></td></tr><tr><td>'
-        .get_string('timelimit', 'mootyper').'</td><td><input value="'
-        .$timelimitpo.'" style="width: 35px;" type="text" name="timelimit"> '
-        .get_string('minutes').' </td></tr>';
-    $htmlout .= '</select></td></tr><tr><td>'
-        .get_string('requiredgoal', 'mootyper').'</td><td><input value="'
-        .$goalpo.'" style="width: 35px;" type="text" name="requiredgoal"> % </td></tr>';
-    $htmlout .= '</select></td></tr><tr><td>'
-        .get_string('requiredwpm', 'mootyper').'</td><td><input value="'
-        .$wpmpo.'" style="width: 35px;" type="text" name="requiredwpm"></td></tr>';
-
-
+$htmlout .= '</select></td></tr><tr><td>'
+    .get_string('timelimit', 'mootyper').'</td><td><input value="'
+    .$timelimitpo.'" style="width: 35px;" type="text" name="timelimit"> '
+    .get_string('minutes').' </td></tr>';
+$htmlout .= '</select></td></tr><tr><td>'
+    .get_string('requiredgoal', 'mootyper').'</td><td><input value="'
+    .$goalpo.'" style="width: 35px;" type="text" name="requiredgoal"> % </td></tr>';
+$htmlout .= '</select></td></tr><tr><td>'
+    .get_string('requiredwpm', 'mootyper').'</td><td><input value="'
+    .$wpmpo.'" style="width: 35px;" type="text" name="requiredwpm"></td></tr>';
 
 // Add a selector for text alignment.
 $aligns = array(get_string('defaulttextalign_left', 'mod_mootyper'),
