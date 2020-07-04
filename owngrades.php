@@ -208,7 +208,8 @@ if (!has_capability('mod/mootyper:viewmygrades', context_module::instance($cm->i
             $seriesprecision[] = $gr->precisionfield;  // Get the precision percentage value.
             $serieswpm[] = $gr->wpm; // Get the corrected words per minute rate.
         }
-        // 20200704 Added code to include average of wpm.
+
+        // 20200704 Added code to include average date of completion and average wpm.
         $avg = results::get_grades_avg($grds);
         if (!($mtmode == 1)) {
             echo '<tr align="center" style="border-top-style: solid;">
@@ -218,7 +219,7 @@ if (!has_capability('mod/mootyper:viewmygrades', context_module::instance($cm->i
                 <td>'.format_float($avg['hitsperminute']).'</td>
                 <td>'.$avg['fullhits'].'</td>
                 <td>'.format_float($avg['precisionfield']).'%</td>
-                <td></td>
+                <td>'.date(get_config('mod_mootyper', 'dateformat'), $avg['timetaken']).'</td>
                 <td>'.format_float($avg['wpm']).'</td>
                 <td></td>
                 </tr>';

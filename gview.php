@@ -297,7 +297,7 @@ if (!has_capability('mod/mootyper:viewgrades', context_module::instance($cm->id)
             }
         }
 
-        // 20200704 Added code to include average of wpm.
+        // 20200704 Added code to include average date of completion and average wpm.
         $avg = results::get_grades_avg($grds);
         echo '<tr align="center" style="border-top-style: solid;">
             <td><strong>'.get_string('average', 'mootyper').': </strong></td>
@@ -306,7 +306,7 @@ if (!has_capability('mod/mootyper:viewgrades', context_module::instance($cm->id)
             <td>'.format_float($avg['hitsperminute']).'</td>
             <td>'.$avg['fullhits'].'</td>
             <td>'.format_float($avg['precisionfield']).'%</td>
-            <td></td>
+            <td>'.date(get_config('mod_mootyper', 'dateformat'), $avg['timetaken']).'</td>
             <td>'.format_float($avg['wpm']).'</td>
             <td></td>
             </tr>';
