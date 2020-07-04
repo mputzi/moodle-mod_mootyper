@@ -85,18 +85,21 @@ class results  {
      * @return string
      */
     public static function get_grades_avg($grades) {
+        // 20200704 Added code to include average of wpm.
         $avg = array();
         $avg['mistakes'] = 0;
         $avg['timeinseconds'] = 0;
         $avg['hitsperminute'] = 0;
         $avg['fullhits'] = 0;
         $avg['precisionfield'] = 0;
+        $avg['wpm'] = 0;
         foreach ($grades as $g) {
             $avg['mistakes'] += $g->mistakes;
             $avg['timeinseconds'] += $g->timeinseconds;
             $avg['hitsperminute'] += $g->hitsperminute;
             $avg['fullhits'] += $g->fullhits;
             $avg['precisionfield'] += $g->precisionfield;
+            $avg['wpm'] += $g->wpm;
         }
         $c = count($grades);
         $avg['mistakes'] = $avg['mistakes'] / $c;
@@ -104,12 +107,14 @@ class results  {
         $avg['hitsperminute'] = $avg['hitsperminute'] / $c;
         $avg['fullhits'] = $avg['fullhits'] / $c;
         $avg['precisionfield'] = $avg['precisionfield'] / $c;
+        $avg['wpm'] = $avg['wpm'] / $c;
 
         $avg['mistakes'] = round($avg['mistakes'], 0);
         $avg['timeinseconds'] = round($avg['timeinseconds'], 0);
         $avg['hitsperminute'] = round($avg['hitsperminute'], 2);
         $avg['fullhits'] = round($avg['fullhits'], 0);
         $avg['precisionfield'] = round($avg['precisionfield'], 2);
+        $avg['wpm'] = round($avg['wpm'], 2);
         return $avg;
     }
 

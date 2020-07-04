@@ -297,6 +297,7 @@ if (!has_capability('mod/mootyper:viewgrades', context_module::instance($cm->id)
             }
         }
 
+        // 20200704 Added code to include average of wpm.
         $avg = results::get_grades_avg($grds);
         echo '<tr align="center" style="border-top-style: solid;">
             <td><strong>'.get_string('average', 'mootyper').': </strong></td>
@@ -305,7 +306,10 @@ if (!has_capability('mod/mootyper:viewgrades', context_module::instance($cm->id)
             <td>'.format_float($avg['hitsperminute']).'</td>
             <td>'.$avg['fullhits'].'</td>
             <td>'.format_float($avg['precisionfield']).'%</td>
-            <td></td><td></td><td></td></tr>';
+            <td></td>
+            <td>'.format_float($avg['wpm']).'</td>
+            <td></td>
+            </tr>';
         echo '</table>';
     } else {
         echo get_string('nogrades', 'mootyper');
