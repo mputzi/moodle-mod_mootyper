@@ -25,6 +25,7 @@
  */
 
 use \mod_mootyper\event\course_exercises_viewed;
+use \mod_mootyper\event\invalid_access_attempt;
 use \mod_mootyper\local\lessons;
 
 // Changed to this newer format 03/01/2019.
@@ -45,10 +46,29 @@ if (! $cm = get_coursemodule_from_id('mootyper', $id)) {
 if (! $course = $DB->get_record("course", array('id' => $cm->course))) {
     print_error("Course is misconfigured");
 }
-
+/*
+print_object('1 spacer');
+print_object('2 spacer');
+print_object('3 spacer');
+print_object('4 spacer');
+print_object($id);
+print_object($course);
+*/
 require_login($course, true);
 $context = context_module::instance($cm->id);
-
+If (!(has_capability('mod/mootyper:aftersetup', $context))) {
+    // Trigger invalid_access_attempt with redirect to course page.
+    $params = array(
+        'objectid' => $id,
+        'context' => $context,
+        'other' => array(
+            'file' => 'exercises.php'
+        )
+    );
+    $event = invalid_access_attempt::create($params);
+    $event->trigger();
+    redirect('../../course/view.php?id='.$course->id, get_string('invalidaccessexp', 'mootyper'));
+}
 $mootyper = $DB->get_record('mootyper', array('id' => $cm->instance) , '*', MUST_EXIST);
 $lessonpo = optional_param('lesson', 0, PARAM_INT);
 

@@ -26,6 +26,7 @@
  **/
 
 use \mod_mootyper\event\exercise_added;
+use \mod_mootyper\event\invalid_access_attempt;
 use \mod_mootyper\local\lessons;
 
 // Changed to this newer format 03/01/2019.
@@ -56,6 +57,20 @@ require_login($course, true);
 $context = context_module::instance($cm->id);
 
 $mootyper = $DB->get_record('mootyper', array('id' => $cm->instance) , '*', MUST_EXIST);
+
+If (!(has_capability('mod/mootyper:aftersetup', $context))) {
+    // Trigger invalid_access_attempt with redirect to course page.
+    $params = array(
+        'objectid' => $id,
+        'context' => $context,
+        'other' => array(
+            'file' => 'eins.php'
+        )
+    );
+    $event = invalid_access_attempt::create($params);
+    $event->trigger();
+    redirect('../../course/view.php?id='.$course->id, get_string('invalidaccessexp', 'mootyper'));
+}
 
 // Check to see if Confirm button is clicked and returning 'Confirm' to trigger insert record.
 $param1 = optional_param('button', '', PARAM_TEXT);
@@ -184,7 +199,7 @@ echo '</select>';
 if ($lessonpo == -1) {
 
     // Set up place to enter new lesson name.
-    echo '<br><br>...'.get_string('lsnname', 'mootyper').': <input type="text" name="lessonname" id="lessonname">
+    echo '<br><br>'.get_string('lsnname', 'mootyper').': <input type="text" name="lessonname" id="lessonname">
         <span style="color:red;" id="namemsg"></span>';
 
     // Set up visibility selector options for this new lesson.

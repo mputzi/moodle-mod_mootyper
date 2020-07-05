@@ -24,6 +24,7 @@
  */
 
 use \mod_mootyper\event\exercise_edited;
+use \mod_mootyper\event\invalid_access_attempt;
 
 // Changed to this newer format 20190301.
 require(__DIR__ . '/../../config.php');
@@ -57,6 +58,20 @@ $context = context_module::instance($cm->id);
 $mootyper = $DB->get_record('mootyper', array('id' => $cm->instance) , '*', MUST_EXIST);
 
 require_login($course, true, $cm);
+
+If (!(has_capability('mod/mootyper:aftersetup', $context))) {
+    // Trigger invalid_access_attempt with redirect to course page.
+    $params = array(
+        'objectid' => $id,
+        'context' => $context,
+        'other' => array(
+            'file' => 'eedit.php'
+        )
+    );
+    $event = invalid_access_attempt::create($params);
+    $event->trigger();
+    redirect('../../course/view.php?id='.$course->id, get_string('invalidaccessexp', 'mootyper'));
+}
 
 // Check to see if Confirm button is clicked and returning 'Confirm' to trigger update record.
 $param1 = optional_param('button', '', PARAM_TEXT);
