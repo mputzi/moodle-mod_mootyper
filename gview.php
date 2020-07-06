@@ -27,6 +27,7 @@
  */
 
 use \mod_mootyper\event\viewed_all_grades;
+use \mod_mootyper\event\invalid_access_attempt;
 use \mod_mootyper\local\lessons;
 use \mod_mootyper\local\results;
 
@@ -65,22 +66,31 @@ $mtmode = $mootyper->isexam;
 require_login($course, true, $cm);
 $context = context_module::instance($cm->id);
 
-// Trigger view all grades event.
-$params = array(
-        'objectid' => $mootyper->id,
-        'context' => $context,
-        'other' => array(
-            'lessonid' => $mootyper->lesson,
-            'lessonname' => $lsnname->lessonname
-        )
-    );
-$event = viewed_all_grades::create($params);
-$event->trigger();
-
 // Prevent students from typing in address to view all grades.
 if (!has_capability('mod/mootyper:viewgrades', context_module::instance($cm->id))) {
-    redirect('view.php?id='.$id, get_string('invalidaccess', 'mootyper'));
+    // Trigger invalid_access_attempt with redirect to course page.
+    $params = array(
+        'objectid' => $id,
+        'context' => $context,
+        'other' => array(
+            'file' => 'gview.php'
+        )
+    );
+    $event = invalid_access_attempt::create($params);
+    $event->trigger();
+    redirect('view.php?id='.$id, get_string('invalidaccessexp', 'mootyper'));
 } else {
+    // Trigger view all grades event.
+    $params = array(
+            'objectid' => $mootyper->id,
+            'context' => $context,
+            'other' => array(
+                'lessonid' => $mootyper->lesson,
+                'lessonname' => $lsnname->lessonname
+            )
+        );
+    $event = viewed_all_grades::create($params);
+    $event->trigger();
     // The following needs to retrieve keybdbgc for setting this background.
     $color3 = $mootyper->keybdbgc;
 

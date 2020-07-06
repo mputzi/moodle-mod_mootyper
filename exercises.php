@@ -46,14 +46,7 @@ if (! $cm = get_coursemodule_from_id('mootyper', $id)) {
 if (! $course = $DB->get_record("course", array('id' => $cm->course))) {
     print_error("Course is misconfigured");
 }
-/*
-print_object('1 spacer');
-print_object('2 spacer');
-print_object('3 spacer');
-print_object('4 spacer');
-print_object($id);
-print_object($course);
-*/
+
 require_login($course, true);
 $context = context_module::instance($cm->id);
 If (!(has_capability('mod/mootyper:aftersetup', $context))) {
