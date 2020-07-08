@@ -45,9 +45,50 @@ sending an email, leave a comment at
 
 Moodle Versions
 ===============
-=== 3.9.0+ ===
+=== 3.9.1 ===
+20200708 MooTyper_570, mod_setup.php can be directly accessed by students. 20200708
+    Pushed to MT V3.9.1 code on github.
+20200708 MooTyper_569, lsnimport.php can be directly accessed by students. 20200708
+    Pushed to MT V3.9.1 code on github.
+20200708 MooTyper_568, gview.php can be directly accessed by students. 20200708
+    Pushed to MT V3.9.1 code on github.
+20200708 MooTyper_565, eins.php can be directly accessed by students. 20200708
+    Pushed to MT V3.9.1 code on github.
+20200708 MooTyper_566, eedit.php can be directly accessed by students. Duplicate
+    of MT_416. Fixed in current version. 20200708 Pushed to MT V3.9.1 code on github.
+20200708 MooTyper_416, Students can type in address for eedit.php. 20200708
+    Pushed to MT V3.9.1 code on github.
+20200708 MooTyper_559, exercises.php can be directly accessed by students. 20200708
+    Pushed to MT V3.9.1 code on github.
+20200708 MooTyper_563, REMOVED FUNCTION - change variable name in lib.php function
+    get_grade_averages($grads). 20200708 Pushed to MT V3.9.1 code on github.
+20200708 MooTyper_418, Change $id to $cmid like other plugins. Needed for enhanced
+    navigation. 20200708 Pushed to MT V3.9.1 code on github.
+20200708 MooTyper_432, eins.php about line 207, ... is hard coded. Removed the
+    ellipse. 20200708 Pushed to MT V3.9.1 code on github.
 20200630 MooTyper_560, mod_form.php page, under MooTyper Administration, the link
-    is broken. Have a fix inplace and being tested.
+    is broken. Have a fix inplace and being tested. 20200708 Pushed to MT V3.9.1
+    code on github.
+20200708 MooTyper_558, mod_setup.php has duplicate lines of code for timelimit,
+    requiredgoal, and requiredwpm. Removed duplicate lines of code. 20200708
+    Pushed to MT V3.9.1 code on github.
+20200708 MooTyper_546, delete a grade doesn't work correctly. Fixed. 20200708
+    Pushed to MT V3.9.1 code on github.
+20200708 MooTyper_474, Vietnamese keyboard unable to type some characters.
+    20200708 Pushed to MT V3.9.1 code on github.
+20200708 MooTyper_462, Need Uyghur keyboard layout - RTL. 20200708 Pushed
+    to MT V3.9.1 code on github. Created course on m3x demo site.
+20200708 MooTyper_425, Cancel on eins.php should go to view.php instead of
+    exercises.php. 20200708 Pushed to MT V3.9.1 code on github.
+20200708 MooTyper_422, MT Slovenian layout needs multiple keys adjusted.
+    20200708 Pushed to MT V3.9.1 code on github. Changed spacing layout
+    on multiple keytops.
+20200708 MooTyper_452, Change align from center to left for audio and
+    buttons 20200708 Pushed to MT V3.9.1 code on github.
+20200708 MooTyper_440, Arabic(V4)dual - space bar showing shift is needed.
+   Deleted extra layouts. 20200708 Pushed to MT V3.9.1 code on github.
+20200708 MooTyper_434, CSS .normal does not work correctly in current version.
+    20200708 Pushed to MT V3.9.1 code on github. Made various tweaks to the css.
 
 === 3.9.0 ===
 20200618 I have thrown away six months worth of development work, and as of today
