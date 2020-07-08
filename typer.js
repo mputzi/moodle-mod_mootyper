@@ -260,8 +260,8 @@ function keyPressed(e) {
         currentChar === '\n\r' || currentChar === '\r') && (keychar === ' '))) {
         moveCursor(currentPos + 1);
 
-       // if ((currentPos === fullText.length - 1) || ((secs >= rpTimeLimit3) && (rpTimeLimit3 > 0))) {  // Student is at the end of the exercise.
-        if ((currentPos === fullText.length - 1) || (rpTimeLimit3 < 0)) {  // Student is at the end of the exercise or has ran out of time.
+        // Student is at the end of the exercise or has ran out of time.
+        if ((currentPos === fullText.length - 1) || (rpTimeLimit3 < 0)) {
 
             $('#tb1').val($('#tb1').val() + currentChar);
             var elemOff = new keyboardElement(currentChar);
@@ -271,8 +271,8 @@ function keyPressed(e) {
             doTheEnd();
             return true;
         }
-
-        if (currentPos < fullText.length - 1) {  // Student still has more to type.
+        // Student still has more to type.
+        if (currentPos < fullText.length - 1) {
             var nextChar = fullText[currentPos + 1];
             if (showKeyboard) {
                 var thisE = new keyboardElement(currentChar);
@@ -292,18 +292,24 @@ function keyPressed(e) {
         currentChar = fullText[currentPos + 1];
         currentPos++;
         return true;
-    } else if (keychar === ' ' && !countMistypedSpaces) { // Ignore mistyped extra spaces unless set to count them.
+    // Ignore mistyped extra spaces unless set to count them.
+    } else if (keychar === ' ' && !countMistypedSpaces) {
         return false;
     } else {
         if (countMistakes) {
             // With multiple keystrokes on the wrong key, each wrong keystroke is counted.
-            mistakes++; // Typed the wrong letter so increment mistake count.
-            mistakestring += currentChar; // Keep a copy of the wrong letter.
+            // Typed the wrong letter so increment mistake count.
+            mistakes++;
+            // Keep a copy of the wrong letter.
+            mistakestring += currentChar;
         }
-        keyResult = false; // Mistake count increased after correct key is typed if above disabled and line 37 enabled.
-        if ((!continuousType && !countMistypedSpaces) || (!continuousType && countMistypedSpaces)) { // If not set for continuous typing, wait for correct letter.
+        // Mistake count increased after correct key is typed if disabled and line 37 enabled.
+        keyResult = false;
+        // If not set for continuous typing, wait for correct letter.
+        if ((!continuousType && !countMistypedSpaces) || (!continuousType && countMistypedSpaces)) {
             return false;
-        } else if (currentPos < fullText.length - 1) { // If continuous typing, show wrong letter and move on.
+        // If continuous typing, show wrong letter and move on.
+        } else if (currentPos < fullText.length - 1) {
                 var nextChar = fullText[currentPos + 1];
             if (showKeyboard) {
                     var thisE = new keyboardElement(currentChar);
@@ -320,8 +326,8 @@ function keyPressed(e) {
             }
         }
         moveCursor(currentPos + 1);
-       // if ((currentPos === fullText.length - 1) || ((secs >= rpTimeLimit3) && (rpTimeLimit3 > 0))) {  // Student is at the end of the exercise.
-        if ((currentPos === fullText.length - 1) || (rpTimeLimit3 < 0)) {  // Student is at the end of the exercise or ran out of time.
+        // Student is at the end of the exercise or ran out of time.
+        if ((currentPos === fullText.length - 1) || (rpTimeLimit3 < 0)) {
 
             $('#tb1').val($('#tb1').val() + currentChar);
             var elemOff = new keyboardElement(currentChar);
@@ -466,9 +472,11 @@ function inittexttoenter(ttext, tinprogress, tmistakes, thits, tstarttime, tatte
  */
 function calculateSpeed(sc) {
     if ((!continuousType && !countMistypedSpaces) || (!continuousType && countMistypedSpaces)) {
-        return (((currentPos + mistakes) * 60) / sc); // Normally use this.
+        // Normally use this.
+        return (((currentPos + mistakes) * 60) / sc); 
     } else {
-        return ((currentPos * 60) / sc); // Use this when set to continuous type.
+        // Use this when set to continuous type.
+        return ((currentPos * 60) / sc);
     }
 }
 
@@ -483,7 +491,8 @@ function calculateAccuracy() {
     if (currentPos + mistakes === 0) {
         return 0;
     }
-    return (((currentPos - mistakes) * 100) / currentPos); // Only correctly typed count.
+    // Only correctly typed count.
+    return (((currentPos - mistakes) * 100) / currentPos); 
 }
 
 /**

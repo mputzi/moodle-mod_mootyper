@@ -49,6 +49,8 @@ if (! $course = $DB->get_record("course", array('id' => $cm->course))) {
 
 require_login($course, true);
 $context = context_module::instance($cm->id);
+
+// 20200706 Added to prevent student direct URL access attempts.
 If (!(has_capability('mod/mootyper:aftersetup', $context))) {
     // Trigger invalid_access_attempt with redirect to course page.
     $params = array(
@@ -62,6 +64,7 @@ If (!(has_capability('mod/mootyper:aftersetup', $context))) {
     $event->trigger();
     redirect('../../course/view.php?id='.$course->id, get_string('invalidaccessexp', 'mootyper'));
 }
+
 $mootyper = $DB->get_record('mootyper', array('id' => $cm->instance) , '*', MUST_EXIST);
 $lessonpo = optional_param('lesson', 0, PARAM_INT);
 

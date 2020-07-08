@@ -178,30 +178,6 @@ function get_typer_grades_adv($mootyperid, $exerciseid, $userid=0, $orderby=-1, 
 }
 
 /**
- * Get averages for users for this MooTyper.
- *
- * @param int $grads
- * @return array.
- */
-function get_grades_average($grads) {
-    $povprecje = array();
-    $cnt = count($grads);
-    $povprecje['mistakes'] = 0;
-    $povprecje['timeinseconds'] = 0;
-    $povprecje['hitsperminute'] = 0;
-    $povprecje['precision'] = 0;
-    foreach ($grads as $grade) {
-        $povprecje['mistakes'] = $povprecje['mistakes'] + $grade->mistakes;
-        $povprecje['timeinseconds']  = $povprecje['timeinseconds'] + $grade->timeinseconds;
-    }
-    if ($cnt != 0) {
-        $povprecje['mistakes'] = $povprecje['mistakes'] / $cnt;
-        $povprecje['timeinseconds'] = $povprecje['timeinseconds'] / $cnt;
-    }
-    return $povprecje;
-}
-
-/**
  * Get grades for one user.
  *
  * @param int $sid

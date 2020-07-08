@@ -66,7 +66,7 @@ $mtmode = $mootyper->isexam;
 require_login($course, true, $cm);
 $context = context_module::instance($cm->id);
 
-// Prevent students from typing in address to view all grades.
+// 20200706 Added to prevent student direct URL access attempts.
 if (!has_capability('mod/mootyper:viewgrades', context_module::instance($cm->id))) {
     // Trigger invalid_access_attempt with redirect to course page.
     $params = array(

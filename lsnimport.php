@@ -29,6 +29,7 @@
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later.
  */
 
+use \mod_mootyper\event\invalid_access_attempt;
 use \mod_mootyper\event\lesson_imported;
 use \mod_mootyper\event\layout_imported;
 
@@ -131,6 +132,21 @@ if (! $course = $DB->get_record("course", array('id' => $cm->course))) {
 
 require_login($course, true);
 $context = context_module::instance($cm->id);
+
+// 20200706 Added to prevent student direct URL access attempts.
+If (!(has_capability('mod/mootyper:aftersetup', $context))) {
+    // Trigger invalid_access_attempt with redirect to course page.
+    $params = array(
+        'objectid' => $id,
+        'context' => $context,
+        'other' => array(
+            'file' => 'lsnimport.php'
+        )
+    );
+    $event = invalid_access_attempt::create($params);
+    $event->trigger();
+    redirect('../../course/view.php?id='.$course->id, get_string('invalidaccessexp', 'mootyper'));
+}
 
 // Print the page header.
 $PAGE->set_url('/mod/mootyper/exercises.php', array('id' => $course->id));
