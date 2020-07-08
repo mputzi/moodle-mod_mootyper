@@ -27,6 +27,7 @@
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later.
  */
 
+use \mod_mootyper\event\invalid_access_attempt;
 use \mod_mootyper\local\keyboards;
 use \mod_mootyper\local\lessons;
 
@@ -52,6 +53,21 @@ if ($id) {
 }
 require_login($course, true, $cm);
 $context = context_module::instance($cm->id);
+
+// 20200706 Added to prevent student direct URL access attempts.
+If (!(has_capability('mod/mootyper:aftersetup', $context))) {
+    // Trigger invalid_access_attempt with redirect to course page.
+    $params = array(
+        'objectid' => $id,
+        'context' => $context,
+        'other' => array(
+            'file' => 'mod_setup.php'
+        )
+    );
+    $event = invalid_access_attempt::create($params);
+    $event->trigger();
+    redirect('../../course/view.php?id='.$course->id, get_string('invalidaccessexp', 'mootyper'));
+}
 
 // Get the default config for MooTyper.
 $moocfg = get_config('mod_mootyper');
@@ -316,6 +332,7 @@ function removeAtts() {
 </script>';
 $htmlout .= '<form id="setupform" onsubmit="removeAtts();" name="setupform" method="POST">';
 $disselect = $epo == 1 ? ' disabled="disabled"' : '';
+
 $htmlout .= '<table><tr><td>'
     .get_string('fmode', 'mootyper').'</td><td><select'
     .$disselect.' onchange="this.form.submit()" name="mode" id="mode">';
