@@ -211,6 +211,7 @@ if (!has_capability('mod/mootyper:viewmygrades', context_module::instance($cm->i
 
         // 20200704 Added code to include average date of completion and average wpm.
         $avg = results::get_grades_avg($grds);
+        // Do statistics for Practice and Lesson modes, but not Exam as it is just one exercise.
         if (!($mtmode == 1)) {
             echo '<tr align="center" style="border-top-style: solid;">
                 <td><strong>'.get_string('average', 'mootyper').': </strong></td>
