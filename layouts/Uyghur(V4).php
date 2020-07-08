@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * This file defines the Uygher(V4.0)Dual keyboard layout.
+ * This file defines the Uygher(V4.1)Dual keyboard layout.
  *
  * @package    mod_mootyper
  * @copyright  2012 Jaka Luthar (jaka.luthar@gmail.com)
@@ -150,7 +150,7 @@ if ($directionality === 'rtl') {
         <div class="mtrow" style='float: left; margin-left:5px; font-size: 15px !important; line-height: 15px'>
             <div id="jkeycaps" class="normal" style="width: 80px;  font-size: 12px !important;">Caps Lock</div>
             <div id="jkeyھ" class="finger4" style='text-align:left;'>A<br>&nbsp; &nbsp; &nbsp;ھ</div>
-            <div id="jkeyس" class="finger3" style='text-align:left;'>S<br>&nbsp;&nbsp; &nbsp;س</div>
+            <div id="jkeyس" class="finger3" style='text-align:left;'>S<br>&nbsp;&nbsp;&nbsp;س</div>
             <div id="jkeyد" class="finger2" style='text-align:left;'>D ژ<br>&nbsp; &nbsp; &nbsp;د</div>
             <div id="jkeyf" class="finger1" style='text-align:left;'>F ف<br>&nbsp; &nbsp; &nbsp;ا</div>
             <div id="jkeyە" class="normal" style='text-align:left;'>G گ<br>&nbsp; &nbsp; &nbsp;ە</div>

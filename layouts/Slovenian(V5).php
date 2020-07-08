@@ -86,9 +86,9 @@ echo (isset($displaynone) && ($displaynone == true)) ? 'display:none;' : '';
             <div id="jkeya" class="finger4" style='text-align:left;'>A<br>&nbsp;</div>
             <div id="jkeys" class="finger3" style='text-align:left;'>S<br>&nbsp;</div>
             <div id="jkeyd" class="finger2" style='text-align:left;'>D<br>&nbsp;</div>
-            <div id="jkeyf" class="finger1" style='text-align:left;'>F<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <div id="jkeyf" class="finger1" style='text-align:left;'>F<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 <span style="color:blue">[</span></div>
-            <div id="jkeyg" class="normal" style='text-align:left;'>G<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <div id="jkeyg" class="normal" style='text-align:left;'>G<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 <span style="color:blue">]</span></div>
             <div id="jkeyh" class="normal" style='text-align:left;'>H<br>&nbsp;</div>
             <div id="jkeyj" class="finger1" style='text-align:left;'>J<br>&nbsp;</div>
@@ -97,7 +97,7 @@ echo (isset($displaynone) && ($displaynone == true)) ? 'display:none;' : '';
             <div id="jkeyl" class="finger3" style='text-align:left;'>L<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 <span style="color:blue">Ł</span></div>
             <div id="jkeyč" class="finger4" style='text-align:left;'>Č<br>&nbsp;</div>
-            <div id="jkeyć" class="normal" style='text-align:left;'>Ć<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <div id="jkeyć" class="normal" style='text-align:left;'>Ć<br>&nbsp;&nbsp;&nbsp;&nbsp;
                 <span style="color:blue">ß</span></div>
             <div id="jkeyž" class="normal" style='text-align:left;'>Ž<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 <span style="color:blue">¤</span></div>
@@ -111,9 +111,9 @@ echo (isset($displaynone) && ($displaynone == true)) ? 'display:none;' : '';
             <div id="jkeyc" class="normal" style='text-align:left;'>C<br>&nbsp;</div>
             <div id="jkeyv" class="normal" style='text-align:left;'>V<br>&nbsp;&nbsp;&nbsp;
                 <span style="color:blue">@</span></div>
-            <div id="jkeyb" class="normal" style='text-align:left;'>B<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <div id="jkeyb" class="normal" style='text-align:left;'>B<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 <span style="color:blue">{</span></div>
-            <div id="jkeyn" class="normal" style='text-align:left;'>N<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <div id="jkeyn" class="normal" style='text-align:left;'>N<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 <span style="color:blue">}</span></div>
             <div id="jkeym" class="normal" style='text-align:left;'>M<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 <span style="color:blue">§</span></div>
