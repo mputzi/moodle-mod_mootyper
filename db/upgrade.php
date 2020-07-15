@@ -304,6 +304,8 @@ function xmldb_mootyper_upgrade($oldversion) {
         if (!$dbman->field_exists($table, $field)) {
             $dbman->add_field($table, $field);
         }
+        // Mootyper savepoint reached.
+        upgrade_mod_savepoint(true, 2019123100, 'mootyper');
     }
     return true;
 }
