@@ -60,7 +60,7 @@ $mootyper = $DB->get_record('mootyper', array('id' => $cm->instance) , '*', MUST
 require_login($course, true, $cm);
 
 // 20200706 Added to prevent student direct URL access attempts.
-If (!(has_capability('mod/mootyper:aftersetup', $context))) {
+if (!(has_capability('mod/mootyper:aftersetup', $context))) {
     // Trigger invalid_access_attempt with redirect to course page.
     $params = array(
         'objectid' => $id,
