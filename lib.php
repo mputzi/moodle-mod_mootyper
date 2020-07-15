@@ -1058,7 +1058,7 @@ function mootyper_extend_settings_navigation(settings_navigation $settingsnav, n
             if (lessons::is_editable_by_me($USER->id, $mootyper->id, $lesson->id)) {
                 $link = new moodle_url('exercises.php', array('id' => $cm->id, 'lesson' => $mootyper->lesson));
                 $linkname = get_string('editexercises', 'mootyper');
-                /* For testing use this: 
+                /* For testing use this for extra details:
                 $linkname = get_string('editexercises', 'mootyper')
                     .' - uid: '.$USER->id
                     .' mtid: '.$mootyper->id
