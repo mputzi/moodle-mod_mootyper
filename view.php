@@ -83,7 +83,7 @@ $mootyperoutput = $PAGE->get_renderer('mod_mootyper');
 
 // Output starts here.
 echo $mootyperoutput->header($mootyper, $cm);
-//echo '<script src="//code.jquery.com/jquery-1.11.0.min.js"></script>';
+// echo '<script src="//code.jquery.com/jquery-1.11.0.min.js"></script>';
 
 echo '<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>';
 

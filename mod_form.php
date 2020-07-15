@@ -236,7 +236,7 @@ class mod_mootyper_mod_form extends moodleform_mod {
         // 20200630 When a cmid is available, show the link.
         if ($id) {
             $mform->addElement('header', 'mootyperz', get_string('pluginadministration', 'mootyper'));
-            //$jlnk3 = $CFG->wwwroot . '/mod/mootyper/exercises.php?id='.$COURSE->id;
+            // $jlnk3 = $CFG->wwwroot . '/mod/mootyper/exercises.php?id='.$COURSE->id;
             $jlnk3 = $CFG->wwwroot . '/mod/mootyper/exercises.php?id='.$id;
             $mform->addElement('html', '<a id="jlnk3" href="'.$jlnk3.'">'.get_string('emanage', 'mootyper').'</a>');
         }
