@@ -26,10 +26,16 @@
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later.
  */
 
-defined('MOODLE_INTERNAL') || die();
+if (!defined('MOODLE_INTERNAL')) {
+    // It must be included from a Moodle page
+    die('Direct access to this script is forbidden.');
+}
+
+require_once($CFG->dirroot.'/course/moodleform_mod.php');
 
 use \mod_mootyper\local\keyboards;
-require_once($CFG->dirroot.'/course/moodleform_mod.php');
+use core_grades\component_gradeitems;
+
 /**
  * Module instance settings form.
  *
@@ -54,17 +60,21 @@ class mod_mootyper_mod_form extends moodleform_mod {
      * @param mixed $course the current course  if it was already loaded,
      *                      otherwise this class will load one from the context as required.
      */
+/*
     public function __construct($current, $section, $cm, $course) {
         $this->course = $course;
         parent::__construct($current, $section, $cm, $course);
     }
+*/
 
     /**
      * Define the MooTyper mod_form.
      */
     public function definition() {
         global $CFG, $COURSE, $DB;
-        $mform = $this->_form;
+
+        $mform =& $this->_form;
+
         // 20200630 Added to fix link to control access to the management link.
         $id = optional_param('update', 0, PARAM_INT); // Course module ID.
 
@@ -241,12 +251,166 @@ class mod_mootyper_mod_form extends moodleform_mod {
             $mform->addElement('html', '<a id="jlnk3" href="'.$jlnk3.'">'.get_string('emanage', 'mootyper').'</a>');
         }
 
+        // Add mootyper grading options for the whole activity.
+        $this->add_mootyper_grade_settings($mform, 'mootyper');
+
         // The rest of the common activity settings.
         $this->standard_grading_coursemodule_elements();
         $this->standard_coursemodule_elements();
         $this->apply_admin_defaults();
         $this->add_action_buttons();
     }
+
+
+    /**
+     * Add the whole mootyper grade settings to the mform.
+     *
+     * @param   \mform $mform
+     * @param   string $itemname
+     */
+    private function add_mootyper_grade_settings($mform, string $itemname) {
+        global $COURSE;
+
+        $component = "mod_{$this->_modname}";
+        $defaultgradingvalue = 0;
+//print_object('$itemname is: '.$itemname);
+//print_object('$component is: '.$component);
+
+        $itemnumber = component_gradeitems::get_itemnumber_from_itemname($component, $itemname);
+//$itemnumber = 1;
+//print_object('$itemnumber is: '.$itemnumber);
+
+//die;
+        $gradefieldname = component_gradeitems::get_field_name_for_itemnumber($component, $itemnumber, 'grade');
+        $gradecatfieldname = component_gradeitems::get_field_name_for_itemnumber($component, $itemnumber, 'gradecat');
+        $gradepassfieldname = component_gradeitems::get_field_name_for_itemnumber($component, $itemnumber, 'gradepass');
+        $sendstudentnotificationsfieldname = component_gradeitems::get_field_name_for_itemnumber($component, $itemnumber,
+                'sendstudentnotifications');
+
+        // The advancedgradingmethod is different in that it is suffixed with an area name... which is not the
+        // itemnumber.
+        $methodfieldname = "advancedgradingmethod_{$itemname}";
+
+        $headername = "{$gradefieldname}_header";
+        $mform->addElement('header', $headername, get_string("grade_{$itemname}_header", $component));
+
+        $isupdate = !empty($this->_cm);
+        $gradeoptions = [
+            'isupdate' => $isupdate,
+            'currentgrade' => false,
+            'hasgrades' => false,
+            'canrescale' => false,
+            'useratings' => false,
+        ];
+
+        if ($isupdate) {
+            $gradeitem = grade_item::fetch([
+                'itemtype' => 'mod',
+                'itemmodule' => $this->_cm->modname,
+                'iteminstance' => $this->_cm->instance,
+                'itemnumber' => $itemnumber,
+                'courseid' => $COURSE->id,
+            ]);
+            if ($gradeitem) {
+                $gradeoptions['currentgrade'] = $gradeitem->grademax;
+                $gradeoptions['currentgradetype'] = $gradeitem->gradetype;
+                $gradeoptions['currentscaleid'] = $gradeitem->scaleid;
+                $gradeoptions['hasgrades'] = $gradeitem->has_grades();
+            }
+        }
+        $mform->addElement(
+            'modgrade',
+            $gradefieldname,
+            get_string("{$gradefieldname}_title", $component),
+            $gradeoptions
+        );
+        $mform->addHelpButton($gradefieldname, 'modgrade', 'grades');
+        $mform->setDefault($gradefieldname, $defaultgradingvalue);
+
+        if (!empty($this->current->_advancedgradingdata['methods']) && !empty($this->current->_advancedgradingdata['areas'])) {
+            $areadata = $this->current->_advancedgradingdata['areas'][$itemname];
+            $mform->addElement(
+                'select',
+                $methodfieldname,
+                get_string('gradingmethod', 'core_grading'),
+                $this->current->_advancedgradingdata['methods']
+            );
+            $mform->addHelpButton($methodfieldname, 'gradingmethod', 'core_grading');
+            $mform->hideIf($methodfieldname, "{$gradefieldname}[modgrade_type]", 'eq', 'none');
+        }
+
+        // Grade category.
+        $mform->addElement(
+            'select',
+            $gradecatfieldname,
+            get_string('gradecategoryonmodform', 'grades'),
+            grade_get_categories_menu($COURSE->id, $this->_outcomesused)
+        );
+        $mform->addHelpButton($gradecatfieldname, 'gradecategoryonmodform', 'grades');
+        $mform->hideIf($gradecatfieldname, "{$gradefieldname}[modgrade_type]", 'eq', 'none');
+
+        // Grade to pass.
+        $mform->addElement('text', $gradepassfieldname, get_string('gradepass', 'grades'));
+        $mform->addHelpButton($gradepassfieldname, 'gradepass', 'grades');
+        $mform->setDefault($gradepassfieldname, '');
+        $mform->setType($gradepassfieldname, PARAM_RAW);
+        $mform->hideIf($gradepassfieldname, "{$gradefieldname}[modgrade_type]", 'eq', 'none');
+
+    }
+
+
+    /**
+     * Handle definition after data for grade settings.
+     *
+     * @param array $data
+     * @param array $files
+     * @param array $errors
+     */
+    private function validation_mootyper_grade(array $data, array $files, array $errors) {
+        global $COURSE;
+
+        $mform =& $this->_form;
+
+        $component = "mod_mootyper";
+        $itemname = 'mootyper';
+        $itemnumber = component_gradeitems::get_itemnumber_from_itemname($component, $itemname);
+        $gradefieldname = component_gradeitems::get_field_name_for_itemnumber($component, $itemnumber, 'grade');
+        $gradepassfieldname = component_gradeitems::get_field_name_for_itemnumber($component, $itemnumber, 'grade');
+
+        $gradeitem = grade_item::fetch([
+            'itemtype' => 'mod',
+            'itemmodule' => $data['modulename'],
+            'iteminstance' => $data['instance'],
+            'itemnumber' => $itemnumber,
+            'courseid' => $COURSE->id,
+        ]);
+
+        if ($mform->elementExists('cmidnumber') && $this->_cm) {
+            if (!grade_verify_idnumber($data['cmidnumber'], $COURSE->id, $gradeitem, $this->_cm)) {
+                $errors['cmidnumber'] = get_string('idnumbertaken');
+            }
+        }
+
+        // Check that the grade pass is a valid number.
+        $gradepassvalid = false;
+        if (isset($data[$gradepassfieldname])) {
+            if (unformat_float($data[$gradepassfieldname], true) === false) {
+                $errors[$gradepassfieldname] = get_string('err_numeric', 'form');
+            } else {
+                $gradepassvalid = true;
+            }
+        }
+
+        // Grade to pass: ensure that the grade to pass is valid for points and scales.
+        // If we are working with a scale, convert into a positive number for validation.
+        if ($gradepassvalid && isset($data[$gradepassfieldname]) && (!empty($data[$gradefieldname]))) {
+            $grade = $data[$gradefieldname];
+            if (unformat_float($data[$gradepassfieldname]) > $grade) {
+                $errors[$gradepassfieldname] = get_string('gradepassgreaterthangrade', 'grades', $grade);
+            }
+        }
+    }
+
 
     /**
      * Enforce validation rules here.
@@ -256,6 +420,7 @@ class mod_mootyper_mod_form extends moodleform_mod {
      * @return array
      **/
     public function validation($data, $files) {
+
         $errors = parent::validation($data, $files);
 
         // Check open and close times are consistent.
