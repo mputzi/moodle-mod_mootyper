@@ -307,5 +307,47 @@ function xmldb_mootyper_upgrade($oldversion) {
         // Mootyper savepoint reached.
         upgrade_mod_savepoint(true, 2019123100, 'mootyper');
     }
+    // Four new fields added for version 3.9.1.
+    if ($oldversion < 2020072400) {
+
+        // Define field assessed to be added to mootyper.
+        $table = new xmldb_table('mootyper');
+        $field = new xmldb_field('assessed', XMLDB_TYPE_INTEGER, '10', null, XMLDB_NOTNULL, null, '0', 'timeclose');
+
+        // Conditionally launch add field assessed.
+        if (!$dbman->field_exists($table, $field)) {
+            $dbman->add_field($table, $field);
+        }
+
+        // Define field assesstimestart to be added to mootyper.
+        $table = new xmldb_table('mootyper');
+        $field = new xmldb_field('assesstimestart', XMLDB_TYPE_INTEGER, '10', null, XMLDB_NOTNULL, null, '0', 'assessed');
+
+        // Conditionally launch add field assesstimestart.
+        if (!$dbman->field_exists($table, $field)) {
+            $dbman->add_field($table, $field);
+        }
+
+        // Define field assesstimefinish to be added to mootyper.
+        $table = new xmldb_table('mootyper');
+        $field = new xmldb_field('assesstimefinish', XMLDB_TYPE_INTEGER, '10', null, XMLDB_NOTNULL, null, '0', 'assesstimestart');
+
+        // Conditionally launch add field assesstimefinish.
+        if (!$dbman->field_exists($table, $field)) {
+            $dbman->add_field($table, $field);
+        }
+
+        // Define field scale to be added to mootyper.
+        $table = new xmldb_table('mootyper');
+        $field = new xmldb_field('scale', XMLDB_TYPE_INTEGER, '10', null, XMLDB_NOTNULL, null, '0', 'assesstimefinish');
+
+        // Conditionally launch add field scale.
+        if (!$dbman->field_exists($table, $field)) {
+            $dbman->add_field($table, $field);
+        }
+
+        // Mootyper savepoint reached.
+        upgrade_mod_savepoint(true, 2020072400, 'mootyper');
+    }
     return true;
 }
