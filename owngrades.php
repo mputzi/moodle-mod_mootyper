@@ -209,19 +209,66 @@ if (!has_capability('mod/mootyper:viewmygrades', context_module::instance($cm->i
             $serieswpm[] = $gr->wpm; // Get the corrected words per minute rate.
         }
 
-        // 20200704 Added code to include average date of completion and average wpm.
-        $avg = results::get_grades_avg($grds);
+        // 20200704 Added code to include mean date of completion and mean wpm.
+        // 20200727 Changed from avg to mean and added code for additional statistics.
+        $mean = results::get_grades_mean($grds);
+        $median = results::get_grades_median($grds);
+        $mode = results::get_grades_mode($grds);
+        $range = results::get_grades_range($grds);
+        $stil = 'background-color: '.(get_config('mod_mootyper', 'textbgc')).';';
+
         // Do statistics for Practice and Lesson modes, but not Exam as it is just one exercise.
         if (!($mtmode == 1)) {
+            // Print blank table row.
             echo '<tr align="center" style="border-top-style: solid;">
-                <td><strong>'.get_string('average', 'mootyper').': </strong></td>
-                <td>'.$avg['mistakes'].'</td>
-                <td>'.format_time($avg['timeinseconds']).'</td>
-                <td>'.format_float($avg['hitsperminute']).'</td>
-                <td>'.$avg['fullhits'].'</td>
-                <td>'.format_float($avg['precisionfield']).'%</td>
-                <td>'.date(get_config('mod_mootyper', 'dateformat'), $avg['timetaken']).'</td>
-                <td>'.format_float($avg['wpm']).'</td>
+                <td></td><td></td><td></td><td></td><td></td>
+                <td></td><td></td><td></td><td></td></tr>';
+            // Print means.
+            echo '<tr align="center" style="border-top-style: solid;'.$stil.'">
+                <td><strong>'.get_string('mean', 'mootyper').': </strong></td>
+                <td>'.$mean['mistakes'].'</td>
+                <td>'.format_time($mean['timeinseconds']).'</td>
+                <td>'.format_float($mean['hitsperminute']).'</td>
+                <td>'.$mean['fullhits'].'</td>
+                <td>'.format_float($mean['precisionfield']).'%</td>
+                <td>'.date(get_config('mod_mootyper', 'dateformat'), $mean['timetaken']).'</td>
+                <td>'.format_float($mean['wpm']).'</td>
+                <td></td>
+                </tr>';
+            // Print medians.
+            echo '<tr align="center" style="border-top-style: solid;'.$stil.'">
+                <td><strong>'.get_string('median', 'mootyper').': </strong></td>
+                <td>'.$median['mistakes'].'</td>
+                <td>'.format_time($median['timeinseconds']).'</td>
+                <td>'.format_float($median['hitsperminute']).'</td>
+                <td>'.$median['fullhits'].'</td>
+                <td>'.format_float($median['precisionfield']).'%</td>
+                <td>'.date(get_config('mod_mootyper', 'dateformat'), $median['timetaken']).'</td>
+                <td>'.format_float($median['wpm']).'</td>
+                <td></td>
+                </tr>';
+            // Print modes.
+            echo '<tr align="center" style="border-top-style: solid;'.$stil.'">
+                <td><strong>'.get_string('mode', 'mootyper').': </strong></td>
+                <td>'.$mode['mistakes'].'</td>
+                <td>'.format_time($mode['timeinseconds']).'</td>
+                <td>'.format_float($mode['hitsperminute']).'</td>
+                <td>'.$mode['fullhits'].'</td>
+                <td>'.format_float($mode['precisionfield']).'%</td>
+                <td>'.date(get_config('mod_mootyper', 'dateformat'), $mode['timetaken']).'</td>
+                <td>'.format_float($mode['wpm']).'</td>
+                <td></td>
+                </tr>';
+            // Print ranges.
+            echo '<tr align="center" style="border-top-style: solid;'.$stil.'">
+                <td><strong>'.get_string('range', 'mootyper').': </strong></td>
+                <td>'.$range['mistakes'].'</td>
+                <td>'.format_time($range['timeinseconds']).'</td>
+                <td>'.format_float($range['hitsperminute']).'</td>
+                <td>'.$range['fullhits'].'</td>
+                <td>'.format_float($range['precisionfield']).'%</td>
+                <td>'.$range['timetaken'].'</td>
+                <td>'.format_float($range['wpm']).'</td>
                 <td></td>
                 </tr>';
         }
