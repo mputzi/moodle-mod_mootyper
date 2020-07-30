@@ -163,19 +163,19 @@ function getKeyID(tCrka) {
     } else if (tCrka === '[' || tCrka === '«') {
         return "jkey[";
     } else if (tCrka === 'ژ') {
-        return "jkeyد";  // D.
+        return "jkeyد"; // D.
     } else if (tCrka === 'ف' || tCrka === 'ا') {
-        return "jkeyf";  // F.
+        return "jkeyf"; // F.
     } else if (tCrka === 'گ') {
-        return "jkeyە";  // G.
+        return "jkeyە"; // G.
     } else if (tCrka === 'خ') {
-        return "jkeyى";  // H.
+        return "jkeyى"; // H.
     } else if (tCrka === 'ج') {
-        return "jkeyق";  // J.
+        return "jkeyق"; // J.
     } else if (tCrka === 'ۆ') {
-        return "jkeyك";  // K.
+        return "jkeyك"; // K.
     } else if (tCrka === 'لا' || tCrka === 'ل') {
-        return "jkeyl";  // L.
+        return "jkeyl"; // L.
     } else if (tCrka === ':') {
         return "jkey؛";
     } else if (tCrka === '"') {
