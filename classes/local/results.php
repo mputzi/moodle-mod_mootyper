@@ -80,7 +80,8 @@ class results  {
     }
 
     /**
-     * Calculate averages.
+     * Calculate averages (mean).
+     *
      * @param int $grades
      * @return string
      */
@@ -111,7 +112,7 @@ class results  {
         $avg['precisionfield'] = $avg['precisionfield'] / $c;
         $avg['timetaken'] = $avg['timetaken'] / $c;
         $avg['wpm'] = $avg['wpm'] / $c;
-
+        // Due to limited display space, round off the results.
         $avg['mistakes'] = round($avg['mistakes'], 0);
         $avg['timeinseconds'] = round($avg['timeinseconds'], 0);
         $avg['hitsperminute'] = round($avg['hitsperminute'], 2);
@@ -121,6 +122,306 @@ class results  {
         $avg['wpm'] = round($avg['wpm'], 2);
         return $avg;
     }
+
+    /**
+     * Calculate mean (average).
+     *
+     * @param int $grades
+     * @return string
+     */
+    public static function get_grades_mean($grades) {
+        $mean = array();
+        $mean['mistakes'] = 0;
+        $mean['timeinseconds'] = 0;
+        $mean['hitsperminute'] = 0;
+        $mean['fullhits'] = 0;
+        $mean['precisionfield'] = 0;
+        $mean['timetaken'] = 0;
+        $mean['wpm'] = 0;
+        foreach ($grades as $g) {
+            $mean['mistakes'] += $g->mistakes;
+            $mean['timeinseconds'] += $g->timeinseconds;
+            $mean['hitsperminute'] += $g->hitsperminute;
+            $mean['fullhits'] += $g->fullhits;
+            $mean['precisionfield'] += $g->precisionfield;
+            $mean['timetaken'] += $g->timetaken;
+            $mean['wpm'] += $g->wpm;
+        }
+        $c = count($grades);
+        $mean['mistakes'] = $mean['mistakes'] / $c;
+        $mean['timeinseconds'] = $mean['timeinseconds'] / $c;
+        $mean['hitsperminute'] = $mean['hitsperminute'] / $c;
+        $mean['fullhits'] = $mean['fullhits'] / $c;
+        $mean['precisionfield'] = $mean['precisionfield'] / $c;
+        $mean['timetaken'] = $mean['timetaken'] / $c;
+        $mean['wpm'] = $mean['wpm'] / $c;
+
+        // Due to limited display space, round off the results.
+        $mean['mistakes'] = round($mean['mistakes'], 2);
+        $mean['timeinseconds'] = round($mean['timeinseconds'], 2);
+        $mean['hitsperminute'] = round($mean['hitsperminute'], 2);
+        $mean['fullhits'] = round($mean['fullhits'], 0);
+        $mean['precisionfield'] = round($mean['precisionfield'], 2);
+        $mean['timetaken'] = round($mean['timetaken'], 0);
+        $mean['wpm'] = round($mean['wpm'], 2);
+        return $mean;
+    }
+
+    /**
+     * Calculate median (middle).
+     *
+     * @param int $grades
+     * @return string
+     */
+    public static function get_grades_median($grades) {
+        $median = array();
+        $mistakes = array();
+        $timeinseconds = array();
+        $hitsperminute = array();
+        $fullhits = array();
+        $precisionfield = array();
+        $timetaken = array();
+        $wpm = array();
+
+        $c = count($grades);
+
+        foreach ($grades as $g) {
+            $mistakes[$c] = $g->mistakes;
+            $timeinseconds[$c] = $g->timeinseconds;
+            $hitsperminute[$c] = $g->hitsperminute;
+            $fullhits[$c] = $g->fullhits;
+            $precisionfield[$c] = $g->precisionfield;
+            $timetaken[$c] = $g->timetaken;
+            $wpm[$c] = $g->wpm;
+            $c = $c - 1;
+        }
+
+        sort($mistakes);
+        $count = count($mistakes);
+        $index = floor($count / 2);
+        if (!$count) {
+            $total = "no values";
+        } else if ($count & 1) {    // Count is odd.
+            $total = $mistakes[$index];
+        } else {                   // Count is even.
+            $total = ($mistakes[$index - 1] + $mistakes[$index]) / 2;
+        }
+        $median['mistakes'] = $total;
+
+        sort($timeinseconds);
+        $count = count($timeinseconds);
+        $index = floor($count / 2);
+        if (!$count) {
+            $total = "no values";
+        } else if ($count & 1) {    // Count is odd.
+            $total = $timeinseconds[$index];
+        } else {                   // Count is even.
+            $total = ($timeinseconds[$index - 1] + $timeinseconds[$index]) / 2;
+        }
+        $median['timeinseconds'] = $total;
+
+        sort($hitsperminute);
+        $count = count($hitsperminute);
+        $index = floor($count / 2);
+        if (!$count) {
+            $total = "no values";
+        } else if ($count & 1) {    // Count is odd.
+            $total = $hitsperminute[$index];
+        } else {                   // Count is even.
+            $total = ($hitsperminute[$index - 1] + $hitsperminute[$index]) / 2;
+        }
+        $median['hitsperminute'] = $total;
+
+        sort($fullhits);
+        $count = count($fullhits);
+        $index = floor($count / 2);
+        if (!$count) {
+            $total = "no values";
+        } else if ($count & 1) {    // Count is odd.
+            $total = $fullhits[$index];
+        } else {                   // Count is even.
+            $total = ($fullhits[$index - 1] + $fullhits[$index]) / 2;
+        }
+        $median['fullhits'] = $total;
+
+        sort($precisionfield);
+        $count = count($precisionfield);
+        $index = floor($count / 2);
+        if (!$count) {
+            $total = "no values";
+        } else if ($count & 1) {    // Count is odd.
+            $total = $precisionfield[$index];
+        } else {                   // Count is even.
+            $total = ($precisionfield[$index - 1] + $precisionfield[$index]) / 2;
+        }
+        $median['precisionfield'] = $total;
+
+        sort($timetaken);
+        $count = count($timetaken);
+        $index = floor($count / 2);
+        if (!$count) {
+            $total = "no values";
+        } else if ($count & 1) {    // Count is odd.
+            $total = $timetaken[$index];
+        } else {                   // Count is even.
+            $total = ($timetaken[$index - 1] + $timetaken[$index]) / 2;
+        }
+        $median['timetaken'] = $total;
+
+        sort($wpm);
+        $count = count($wpm);
+        $index = floor($count / 2);
+        if (!$count) {
+            $total = "no values";
+        } else if ($count & 1) {    // Count is odd.
+            $total = $wpm[$index];
+        } else {                   // Count is even.
+            $total = ($wpm[$index - 1] + $wpm[$index]) / 2;
+        }
+        $median['wpm'] = $total;
+
+        return $median;
+    }
+
+    /**
+     * Calculate mode (item with highest count).
+     *
+     * @param int $grades
+     * @return string
+     */
+    public static function get_grades_mode($grades) {
+        $mode = array();
+        $mistakes = array();
+        $timeinseconds = array();
+        $hitsperminute = array();
+        $fullhits = array();
+        $precisionfield = array();
+        $timetaken = array();
+        $wpm = array();
+
+        $c = count($grades);
+
+        foreach ($grades as $g) {
+            $mistakes[$c] = $g->mistakes;
+            $timeinseconds[$c] = $g->timeinseconds;
+            $hitsperminute[$c] = $g->hitsperminute;
+            $fullhits[$c] = $g->fullhits;
+            $precisionfield[$c] = $g->precisionfield;
+            $timetaken[$c] = $g->timetaken;
+            $wpm[$c] = $g->wpm;
+            $c = $c - 1;
+        }
+
+        $v = array_count_values($mistakes);
+        arsort($v);
+        foreach ($v as $k => $v) {
+            $total = $k;
+            break;
+        }
+        $mode['mistakes'] = $total;
+
+        $v = array_count_values($timeinseconds);
+        arsort($v);
+        foreach ($v as $k => $v) {
+            $total = $k;
+            break;
+        }
+        $mode['timeinseconds'] = $total;
+
+        $v = array_count_values($hitsperminute);
+        arsort($v);
+        foreach ($v as $k => $v) {
+            $total = $k;
+            break;
+        }
+        $mode['hitsperminute'] = $total;
+
+        $v = array_count_values($fullhits);
+        arsort($v);
+        foreach ($v as $k => $v) {
+            $total = $k;
+            break;
+        }
+        $mode['fullhits'] = $total;
+
+        $v = array_count_values($precisionfield);
+        arsort($v);
+        foreach ($v as $k => $v) {
+            $total = $k;
+            break;
+        }
+        $mode['precisionfield'] = $total;
+
+        $v = array_count_values($timetaken);
+        arsort($v);
+        foreach ($v as $k => $v) {
+            $total = $k;
+            break;
+        }
+        $mode['timetaken'] = $total;
+
+        $v = array_count_values($wpm);
+        arsort($v);
+        foreach ($v as $k => $v) {
+            $total = $k;
+            break;
+        }
+        $mode['wpm'] = $total;
+
+        return $mode;
+    }
+
+    /**
+     * Calculate range.
+     *
+     * @param int $grades
+     * @return string
+     */
+    public static function get_grades_range($grades) {
+        $range = array();
+        $mistakes = array();
+        $timeinseconds = array();
+        $hitsperminute = array();
+        $fullhits = array();
+        $precisionfield = array();
+        $timetaken = array();
+        $wpm = array();
+
+        $c = count($grades);
+
+        foreach ($grades as $g) {
+            $mistakes[$c] = $g->mistakes;
+            $timeinseconds[$c] = $g->timeinseconds;
+            $hitsperminute[$c] = $g->hitsperminute;
+            $fullhits[$c] = $g->fullhits;
+            $precisionfield[$c] = $g->precisionfield;
+            $timetaken[$c] = $g->timetaken;
+            $wpm[$c] = $g->wpm;
+            $c = $c - 1;
+        }
+
+        $range['mistakes'] = max($mistakes) - min($mistakes);
+        $range['timeinseconds'] = max($timeinseconds) - min($timeinseconds);
+        $range['hitsperminute'] = max($hitsperminute) - min($hitsperminute);
+        $range['fullhits'] = max($fullhits) - min($fullhits);
+        $range['precisionfield'] = max($precisionfield) - min($precisionfield);
+
+        // Need to see about refining this a little more.
+        $diff1 = (max($timetaken)) - (min($timetaken));
+        $days = floor($diff1 / (60 * 60 * 24));
+        $diff2 = ($diff1 - ((60 * 60 * 24) * $days));
+        $hours = floor($diff2 / (60 * 60));
+        $diff3 = ($diff1 - ((60 * 60 * 24) * $days) - (60 * 60 * $hours));
+        $minutes = floor($diff3 / 60);
+        $diff4 = ($diff1 - ((60 * 60 * 24) * $days) - (60 * 60 * $hours) - (60 * $minutes));
+        $seconds = floor($diff4 / 60);
+        $range['timetaken'] = $days.' d '.$hours.' h '.$minutes.' m ';
+
+        $range['wpm'] = max($wpm) - min($wpm);
+
+        return $range;
+    }
+
 
     /**
      * Check to see if this MooTyper is available for use.
