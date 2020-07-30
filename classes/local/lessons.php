@@ -118,12 +118,13 @@ class lessons  {
     }
 
     /**
-     * 12/11/19 Modified to add missing compare of current
+     * 20191211 Modified to add missing compare of current
      * course to courseid listed in the lesson. TRK1-315.
      *
      * Check if current user can edit.
      *
      * @param int $usr
+     * @param int $id
      * @param int $lsn
      * @return boolean
      */
