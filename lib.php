@@ -60,11 +60,11 @@ function mootyper_supports($feature) {
         case FEATURE_COMPLETION_HAS_RULES:
             return false;
         case FEATURE_GRADE_HAS_GRADE:
-            return false;
+            return true;
         case FEATURE_GRADE_OUTCOMES:
             return false;
         case FEATURE_RATE:
-            return false;
+            return true;
         case FEATURE_BACKUP_MOODLE2:
             return true;
         case FEATURE_SHOW_DESCRIPTION:
@@ -262,18 +262,33 @@ function get_typergradesuser($sid, $uid, $orderby=-1, $desc=false) {
  * @param mod_mootyper_mod_form $mform
  * @return int The id of the newly inserted mootyper record.
  */
-function mootyper_add_instance(stdClass $mootyper, mod_mootyper_mod_form $mform = null) {
+//function mootyper_add_instance(stdClass $mootyper, mod_mootyper_mod_form $mform = null) {
+function mootyper_add_instance($mootyper, $mform = null) {
     global $CFG, $DB;
 
     $mootyper->timecreated = time();
+
+    if (empty($mootyper->assessed)) {
+        $mootyper->assessed = 0;
+    }
+
+    if (empty($mootyper->ratingtime) or empty($mootyper->assessed)) {
+        $mootyper->assesstimestart  = 0;
+        $mootyper->assesstimefinish = 0;
+    }
+
     // Changed to add instance now instead of in the return, 02/15/19.
-    $mootyper->id = $DB->insert_record("mootyper", $mootyper);
+    $mootyper->id = $DB->insert_record('mootyper', $mootyper);
 
     // You may have to add extra stuff in here.
-    // Added next line for behat test 2/11/19.
+    // Added next line for behat test 20190211.
     $cmid = $mootyper->coursemodule;
 
     mootyper_update_calendar($mootyper, $cmid);
+    mootyper_grade_item_update($mootyper);
+
+    $completiontimeexpected = !empty($mootyper->completionexpected) ? $mootyper->completionexpected : null;
+    \core_completion\api::update_completion_date_event($mootyper->coursemodule, 'mootyper', $mootyper->id, $completiontimeexpected);
 
     return $mootyper->id;
 }
@@ -358,8 +373,23 @@ function jget_mootyper_record($sid) {
  * @param mod_mootyper_mod_form $mform
  * @return boolean Success/Fail
  */
-function mootyper_update_instance(stdClass $mootyper, mod_mootyper_mod_form $mform = null) {
+//function mootyper_update_instance(stdClass $mootyper, mod_mootyper_mod_form $mform = null) {
+function mootyper_update_instance($mootyper, $mform = null) {
     global $CFG, $DB;
+    //print_object($mootyper);
+
+    $mootyper->timemodified = time();
+    $mootyper->id = $mootyper->instance;
+
+    if (empty($mootyper->assessed)) {
+        $mootyper->assessed = 0;
+    }
+
+    //if (empty($mootyper->ratingtime) or empty($mootyper->assessed)) {
+    if (empty($mootyper->assessed)) {
+        $mootyper->assesstimestart  = 0;
+        $mootyper->assesstimefinish = 0;
+    }
 
     if (empty($mootyper->timeopen)) {
         $mootyper->timeopen = 0;
@@ -371,16 +401,46 @@ function mootyper_update_instance(stdClass $mootyper, mod_mootyper_mod_form $mfo
     $cmid       = $mootyper->coursemodule;
     $cmidnumber = $mootyper->cmidnumber;
     $courseid   = $mootyper->course;
-
     $mootyper->id = $mootyper->instance;
-
     $context = context_module::instance($cmid);
     $mootyper->timemodified = time();
-
     $mootyper->id = $mootyper->instance;
+
+    $oldmootyper = $DB->get_record('mootyper', array('id' => $mootyper->id));
+
+    // MDL-3942 - if the aggregation type or scale (i.e. max grade) changes then
+    // recalculate the grades for the entire mootyper if  scale changes - do we
+    // need to recheck the ratings, if ratings higher than scale how do we want
+    // to respond? For count and sum aggregation types the grade we check to make
+    // sure they do not exceed the scale (i.e. max score) when calculating the grade.
+    $updategrades = false;
+
+    if ($oldmootyper->assessed <> $mootyper->assessed) {
+        // Whether this mootyper is rated.
+        $updategrades = true;
+    }
+
+    if ($oldmootyper->scale <> $mootyper->scale) {
+        // The scale currently in use.
+        $updategrades = true;
+    }
+
+    if (empty($oldmootyper->grade_mootyper) || $oldmootyper->grade_mootyper <> $mootyper->grade_mootyper) {
+        // The whole mootyper grading.
+        $updategrades = true;
+    }
+
+    if ($updategrades) {
+        mootyper_update_grades($mootyper); // Recalculate grades for the mootyper.
+    }
 
     // You may have to add extra stuff in here.
     mootyper_update_calendar($mootyper, $cmid);
+    mootyper_grade_item_update($mootyper);
+
+    $completiontimeexpected = !empty($mootyper->completionexpected) ? $mootyper->completionexpected : null;
+    \core_completion\api::update_completion_date_event($mootyper->coursemodule, 'mootyper', $mootyper->id, $completiontimeexpected);
+
     return $DB->update_record('mootyper', $mootyper);
 }
 
@@ -677,8 +737,14 @@ function mootyper_scale_used($mootyperid, $scaleid) {
  * @param int $scaleid
  * @return boolean true if the scale is used by any mootyper instance
  */
-function mootyper_scale_used_anywhere($scaleid) {
-    return false;
+function mootyper_scale_used_anywhere(int $scaleid): bool {
+    global $DB;
+
+    if (empty($scaleid)) {
+        return false;
+    }
+
+    return $DB->record_exists('mootyper', ['scale' => $scaleid * -1]);
 }
 
 /**
@@ -694,40 +760,60 @@ function mootyper_scale_used_anywhere($scaleid) {
  * @param mixed $grades Optional array/object of grade(s); 'reset' means reset grades in gradebook
  * @return int 0 if ok
  */
-function mootyper_grade_item_update($mootyper, $grades=null) {
+function mootyper_grade_item_update($mootyper, $ratings = null, $mootypergrades = null): void {
     global $CFG;
-    if (!function_exists('grade_update')) { // Workaround for buggy PHP versions.
-        require_once($CFG->libdir.'/gradelib.php');
-    }
+    require_once("{$CFG->libdir}/gradelib.php");
 
-    $params = array('itemname' => $mootyper->name, 'idnumber' => $mootyper->cmidnumber);
+    // Update the rating.
+    $item = [
+        'itemname' => get_string('gradeitemnameforrating', 'mootyper', $mootyper),
+        'idnumber' => $mootyper->cmidnumber,
+    ];
 
-    // $params = array();
-    // $params['itemname'] = clean_param($mootyper->name, PARAM_NOTAGS);
-    // $params['gradetype'] = GRADE_TYPE_VALUE;
-    // $params['grademax']  = $mootyper->grade;
-    // $params['grademin']  = 0;
-
-    if (!$mootyper->assessed or $mootyper->scale == 0) {
-        $params['gradetype'] = GRADE_TYPE_NONE;
-
+    if (!$mootyper->assessed || $mootyper->scale == 0) {
+        $item['gradetype'] = GRADE_TYPE_NONE;
     } else if ($mootyper->scale > 0) {
-        $params['gradetype'] = GRADE_TYPE_VALUE;
-        $params['grademax']  = $mootyper->scale;
-        $params['grademin']  = 0;
-
+        $item['gradetype'] = GRADE_TYPE_VALUE;
+        $item['grademax']  = $mootyper->scale;
+        $item['grademin']  = 0;
     } else if ($mootyper->scale < 0) {
-        $params['gradetype'] = GRADE_TYPE_SCALE;
-        $params['scaleid']   = -$mootyper->scale;
+        $item['gradetype'] = GRADE_TYPE_SCALE;
+        $item['scaleid']   = -$mootyper->scale;
     }
 
-    if ($grades === 'reset') {
-        $params['reset'] = true;
-        $grades = null;
+    if ($ratings === 'reset') {
+        $item['reset'] = true;
+        $ratings = null;
+    }
+    // Itemnumber 0 is the rating.
+    grade_update('mod/mootyper', $mootyper->course, 'mod', 'mootyper', $mootyper->id, 0, $ratings, $item);
+
+    // Whole mootyper grade.
+    $item = [
+        'itemname' => get_string('gradeitemnameforwholemootyper', 'mootyper', $mootyper),
+        // Note: We do not need to store the idnumber here.
+    ];
+
+    if (!$mootyper->grade_mootyper) {
+        $item['gradetype'] = GRADE_TYPE_NONE;
+    } else if ($mootyper->grade_mootyper > 0) {
+        $item['gradetype'] = GRADE_TYPE_VALUE;
+        $item['grademax'] = $mootyper->grade_mootyper;
+        $item['grademin'] = 0;
+    } else if ($mootyper->grade_mootyper < 0) {
+        $item['gradetype'] = GRADE_TYPE_SCALE;
+        $item['scaleid'] = $mootyper->grade_mootyper * -1;
     }
 
-    return grade_update('mod/mootyper', $mootyper->course, 'mod', 'mootyper', $mootyper->id, 0, $grades, $params);
+    if ($mootypergrades === 'reset') {
+        $item['reset'] = true;
+        $mootypergrades = null;
+    }
+    // Itemnumber 1 is the whole mootyper grade.
+    grade_update('mod/mootyper', $mootyper->course, 'mod', 'mootyper', $mootyper->id, 1, $mootypergrades, $item);
 }
+    //return grade_update('mod/mootyper', $mootyper->course, 'mod', 'mootyper', $mootyper->id, 0, $grades, $params);
+//}
 
 /**
  * Update mootyper grades in the gradebook.
@@ -760,22 +846,81 @@ function mootyper_grade_item_update($mootyper, $grades=null) {
 function mootyper_update_grades($mootyper, $userid=0, $nullifnone=true) {
     global $CFG, $DB;
     require_once($CFG->libdir.'/gradelib.php');
+    $cm = get_coursemodule_from_instance('mootyper', $mootyper->id);
+    $mootyper->cmidnumber = $cm->idnumber;
 
+    $ratings = null;
+    if ($mootyper->assessed) {
+        require_once($CFG->dirroot.'/rating/lib.php');
+
+        $rm = new rating_manager();
+        $ratings = $rm->get_user_grades((object) [
+            'component' => 'mod_mootyper',
+            'ratingarea' => 'exercise',
+            'contextid' => \context_module::instance($cm->id)->id,
+
+            'modulename' => 'mootyper',
+            'moduleid  ' => $mootyper->id,
+            'userid' => $userid,
+            'aggregationmethod' => $mootyper->assessed,
+            'scaleid' => $mootyper->scale,
+            'itemtable' => 'mootyper_exercises',
+            'itemtableusercolumn' => 'userid',
+        ]);
+    }
+
+    $mootypergrades = null;
+    if ($mootyper->requiredgoal) {
+        $sql = <<<EOF
+SELECT
+    g.userid,
+    0 as datesubmitted,
+    g.grade as rawgrade,
+    g.timetaken as dategraded
+  FROM {mootyper} m
+  JOIN {mootyper_grades} g ON g.mootyper = m.id
+ WHERE m.id = :mootyperid
+EOF;
+
+        $params = [
+            'mootyperid' => $mootyper->id,
+        ];
+
+        if ($userid) {
+            $sql .= " AND g.userid = :userid";
+            $params['userid'] = $userid;
+        }
+
+        $mootypergrades = [];
+        if ($grades = $DB->get_recordset_sql($sql, $params)) {
+            foreach ($grades as $userid => $grade) {
+                if ($grade->rawgrade != -1) {
+                    $mootypergrades[$userid] = $grade;
+                }
+            }
+            $grades->close();
+        }
+    }
+
+    mootyper_grade_item_update($mootyper, $ratings, $mootypergrades);
+    /*
     if (!$mootyper->assessed) {
         mootyper_grade_item_update($mootyper);
-
     } else if ($grades = mootyper_get_user_grades($mootyper, $userid)) {
         mootyper_grade_item_update($mootyper, $grades);
 
     } else if ($userid and $nullifnone) {
+
         $grade = new stdClass();
         $grade->userid   = $userid;
         $grade->rawgrade = null;
         mootyper_grade_item_update($mootyper, $grade);
 
     } else {
+
         mootyper_grade_item_update($mootyper);
     }
+    */
 }
 
 
