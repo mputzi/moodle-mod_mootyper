@@ -27,6 +27,10 @@ defined('MOODLE_INTERNAL') || die();
 
 $string['allstring'] = 'All';
 $string['average'] = 'Average';
+$string['mean'] = 'Mean';
+$string['median'] = 'Median';
+$string['mode'] = 'Mode';
+$string['range'] = 'Range';
 $string['bymootyper'] = 'by exercise';
 $string['byuser'] = 'by user';
 $string['calendarend'] = '{$a} closes';
@@ -119,7 +123,17 @@ $string['fsettings'] = 'Settings';
 $string['fsetup'] = 'Setup';
 $string['fullhits'] = 'All hits';
 $string['gradesfilename'] = 'grades.csv';
+$string['gradeitemnameforwholemootyper'] = 'Whole mootyper grade for {$a->name}';
+
+$string['gradeitemnameforrating'] = 'Rating grade for {$a->name}';
+
 $string['grade_deleted'] = 'Deleted a grade';
+$string['grade_mootyper_header'] = 'Whole MooTyper grading';
+$string['grade_mootyper_name'] = 'Whole Mootyper';
+
+$string['grade_mootyper_title'] = 'Grade';
+$string['grade_rating_name'] = 'Rating';
+
 $string['gviewmode'] = 'View';
 $string['hitsperminute'] = 'Hits/minute';
 $string['invalidaccess'] = 'Invalid access';
