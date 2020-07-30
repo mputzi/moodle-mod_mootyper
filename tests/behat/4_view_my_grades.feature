@@ -1,5 +1,5 @@
 @mod @mod_mootyper
-Feature: Teacher can setup mootyper
+Feature: Teacher can view my grades
   In order to complete mootyper lessons
   As a teacher
   I need to set up a mootyper activity
@@ -17,7 +17,7 @@ Feature: Teacher can setup mootyper
     And I log in as "teacher1"
     And I follow "Course 1"
     And I turn editing mode on
-	
+
   Scenario: A teacher creates a mootyper activity
     # Teacher 1 adds mootyper activity.
     Given I add a "mootyper" to section "1" and I fill the form with:
