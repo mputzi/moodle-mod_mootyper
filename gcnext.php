@@ -27,8 +27,9 @@ use \mod_mootyper\event\exercise_completed;
 use \mod_mootyper\event\exam_completed;
 use \mod_mootyper\event\lesson_completed;
 
-// Changed to this newer format 03/01/2019.
+// Changed to this format 20190301.
 require(__DIR__ . '/../../config.php');
+require_once(__DIR__ . '/lib.php'); // new
 
 global $CFG, $DB;
 
@@ -84,8 +85,13 @@ $record->mistakedetails = optional_param('rpMistakeDetailsInput', '', PARAM_CLEA
 if (stripos($record->mistakedetails, "undefined") !== false) {
     $record->mistakedetails = get_string('nomistakes', 'mootyper');
 }
-$DB->insert_record('mootyper_grades', $record, false);
+//print_object($record);
+    $mootyper  = $DB->get_record('mootyper', array('id' => $record->mootyper), '*', MUST_EXIST); // new
 
+$DB->insert_record('mootyper_grades', $record, false);
+    //mootyper_grade_item_update($mootyper); // new
+    mootyper_update_grades($mootyper); // new
+//die; // new
 // 20191129 Added trigger for exercise_completed event.
 // 20191201 Added modification to also trigger exam_completed event.
 $params = array(
