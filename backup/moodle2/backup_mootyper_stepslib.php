@@ -55,6 +55,7 @@ class backup_mootyper_activity_structure_step extends backup_activity_structure_
                                               'assesstimestart',
                                               'assesstimefinished',
                                               'scale',
+                                              'grade_mootyper',
                                               'usepassword',
                                               'password',
                                               'exercise',

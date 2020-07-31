@@ -308,7 +308,7 @@ function xmldb_mootyper_upgrade($oldversion) {
         upgrade_mod_savepoint(true, 2019123100, 'mootyper');
     }
     // Four new fields added for version 3.9.1.
-    if ($oldversion < 2020072400) {
+    if ($oldversion < 2020073100) {
 
         // Define field assessed to be added to mootyper.
         $table = new xmldb_table('mootyper');
@@ -346,8 +346,17 @@ function xmldb_mootyper_upgrade($oldversion) {
             $dbman->add_field($table, $field);
         }
 
+        // Define field grade_mootyper to be added to mootyper.
+        $table = new xmldb_table('mootyper');
+        $field = new xmldb_field('grade_mootyper', XMLDB_TYPE_INTEGER, '10', null, XMLDB_NOTNULL, null, '0', 'scale');
+
+        // Conditionally launch add field grade_mootyper.
+        if (!$dbman->field_exists($table, $field)) {
+            $dbman->add_field($table, $field);
+        }
+
         // Mootyper savepoint reached.
-        upgrade_mod_savepoint(true, 2020072400, 'mootyper');
+        upgrade_mod_savepoint(true, 2020073100, 'mootyper');
     }
     return true;
 }
