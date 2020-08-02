@@ -323,6 +323,7 @@ if (!has_capability('mod/mootyper:viewgrades', context_module::instance($cm->id)
             echo '<tr align="center" style="border-top-style: solid;">
                 <td></td><td></td><td></td><td></td><td></td>
                 <td></td><td></td><td></td><td></td></tr>';
+
             // Print means.
             echo '<tr align="center" style="border-top-style: solid;'.$stil.'">
                 <td><strong>'.get_string('mean', 'mootyper').': </strong></td><td></td>
@@ -335,6 +336,7 @@ if (!has_capability('mod/mootyper:viewgrades', context_module::instance($cm->id)
                 <td>'.format_float($mean['wpm']).'</td>
                 <td></td>
                 </tr>';
+
             // Print medians.
             echo '<tr align="center" style="border-top-style: solid;'.$stil.'">
                 <td><strong>'.get_string('median', 'mootyper').': </strong></td><td></td>
@@ -347,7 +349,8 @@ if (!has_capability('mod/mootyper:viewgrades', context_module::instance($cm->id)
                 <td>'.format_float($median['wpm']).'</td>
                 <td></td>
                 </tr>';
-            // Print modes.
+
+/*            // Print modes.
             echo '<tr align="center" style="border-top-style: solid;'.$stil.'">
                 <td><strong>'.get_string('mode', 'mootyper').': </strong></td><td></td>
                 <td>'.$mode['mistakes'].'</td>
@@ -359,6 +362,21 @@ if (!has_capability('mod/mootyper:viewgrades', context_module::instance($cm->id)
                 <td>'.format_float($mode['wpm']).'</td>
                 <td></td>
                 </tr>';
+*/
+            // Print modes.
+            echo '<tr align="center" style="border-top-style: solid;'.$stil.'">
+                <td><strong>'.get_string('mode', 'mootyper').': </strong></td><td></td>
+                <td>'.$mode['mistakes'].'</td>
+                <td>'.$mode['timeinseconds'].'</td>
+                <td>'.$mode['hitsperminute'].'</td>
+                <td>'.$mode['fullhits'].'</td>
+                <td>'.$mode['precisionfield'].'</td>
+                <td>'.$mode['timetaken'].'</td>
+                <td>'.$mode['wpm'].'</td>
+                <td></td>
+                </tr>';
+
+
             // Print ranges.
             echo '<tr align="center" style="border-top-style: solid;'.$stil.'">
                 <td><strong>'.get_string('range', 'mootyper').': </strong></td><td></td>

@@ -251,12 +251,12 @@ if (!has_capability('mod/mootyper:viewmygrades', context_module::instance($cm->i
             echo '<tr align="center" style="border-top-style: solid;'.$stil.'">
                 <td><strong>'.get_string('mode', 'mootyper').': </strong></td>
                 <td>'.$mode['mistakes'].'</td>
-                <td>'.format_time($mode['timeinseconds']).'</td>
-                <td>'.format_float($mode['hitsperminute']).'</td>
+                <td>'.$mode['timeinseconds'].'</td>
+                <td>'.$mode['hitsperminute'].'</td>
                 <td>'.$mode['fullhits'].'</td>
-                <td>'.format_float($mode['precisionfield']).'%</td>
-                <td>'.date(get_config('mod_mootyper', 'dateformat'), $mode['timetaken']).'</td>
-                <td>'.format_float($mode['wpm']).'</td>
+                <td>'.$mode['precisionfield'].'</td>
+                <td>'.$mode['timetaken'].'</td>
+                <td>'.$mode['wpm'].'</td>
                 <td></td>
                 </tr>';
             // Print ranges.

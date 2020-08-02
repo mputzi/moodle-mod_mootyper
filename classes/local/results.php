@@ -307,66 +307,104 @@ class results  {
             $hitsperminute[$c] = $g->hitsperminute;
             $fullhits[$c] = $g->fullhits;
             $precisionfield[$c] = $g->precisionfield;
-            $timetaken[$c] = $g->timetaken;
+            // Convert to date and disregard the seconds so we can get
+            // mode to nearest month, day, year, hour and minute.
+            $timetaken[$c] = date(get_config('mod_mootyper', 'dateformat'), $g->timetaken);
             $wpm[$c] = $g->wpm;
             $c = $c - 1;
         }
 
+        // Calculate mode for Total Mistakes.
         $v = array_count_values($mistakes);
         arsort($v);
         foreach ($v as $k => $v) {
             $total = $k;
             break;
         }
-        $mode['mistakes'] = $total;
+        if ($v <= 1) {
+            $mode['mistakes'] = 'no mode';
+        } else {
+            $mode['mistakes'] = $total;
+        }
 
+        // Calculate mode for Elapsed time.
         $v = array_count_values($timeinseconds);
         arsort($v);
         foreach ($v as $k => $v) {
             $total = $k;
             break;
         }
-        $mode['timeinseconds'] = $total;
+        if ($v <= 1) {
+            $mode['timeinseconds'] = 'no mode';
+        } else {
+            $mode['timeinseconds'] = format_time($total);
+        }
 
+        // Calculate mode for Hits Per Minute.
         $v = array_count_values($hitsperminute);
         arsort($v);
         foreach ($v as $k => $v) {
             $total = $k;
             break;
         }
-        $mode['hitsperminute'] = $total;
+        if ($v <= 1) {
+            $mode['hitsperminute'] = 'no mode';
+        } else {
+            $mode['hitsperminute'] = format_float($total);
+        }
 
+        // Calculate mode for All Hits.
         $v = array_count_values($fullhits);
         arsort($v);
         foreach ($v as $k => $v) {
             $total = $k;
             break;
         }
-        $mode['fullhits'] = $total;
+        if ($v <= 1) {
+            $mode['fullhits'] = 'no mode';
+        } else {
+            $mode['fullhits'] = $total;
+        }
 
+        // Calculate mode for Precision.
         $v = array_count_values($precisionfield);
         arsort($v);
         foreach ($v as $k => $v) {
             $total = $k;
             break;
         }
-        $mode['precisionfield'] = $total;
+        if ($v <= 1) {
+            $mode['precisionfield'] = 'no mode';
+        } else {
+            $mode['precisionfield'] = format_float($total).('%');
+        }
 
+        // Calculate mode for Time Completed.
         $v = array_count_values($timetaken);
         arsort($v);
         foreach ($v as $k => $v) {
             $total = $k;
             break;
         }
-        $mode['timetaken'] = $total;
+        if ($v <= 1) {
+            $mode['timetaken'] = 'no mode';
+        } else {
+            //$mode['timetaken'] = date(get_config('mod_mootyper', 'dateformat'), $total);
+            $mode['timetaken'] = $total;
+        }
 
+        // Calculate mode for Words Per Minute.
         $v = array_count_values($wpm);
         arsort($v);
         foreach ($v as $k => $v) {
             $total = $k;
             break;
         }
-        $mode['wpm'] = $total;
+        if ($v <= 1) {
+            $mode['wpm'] = 'no mode';
+        } else {
+            $mode['wpm'] = format_float($total);
+        }
 
         return $mode;
     }
