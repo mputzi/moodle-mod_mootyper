@@ -322,7 +322,7 @@ class results  {
             break;
         }
         if ($v <= 1) {
-            $mode['mistakes'] = 'no mode';
+            $mode['mistakes'] = get_string('nomode', 'mootyper');
         } else {
             $mode['mistakes'] = $total;
         }
@@ -335,7 +335,7 @@ class results  {
             break;
         }
         if ($v <= 1) {
-            $mode['timeinseconds'] = 'no mode';
+            $mode['timeinseconds'] = get_string('nomode', 'mootyper');
         } else {
             $mode['timeinseconds'] = format_time($total);
         }
@@ -348,7 +348,7 @@ class results  {
             break;
         }
         if ($v <= 1) {
-            $mode['hitsperminute'] = 'no mode';
+            $mode['hitsperminute'] = get_string('nomode', 'mootyper');
         } else {
             $mode['hitsperminute'] = format_float($total);
         }
@@ -374,7 +374,7 @@ class results  {
             break;
         }
         if ($v <= 1) {
-            $mode['precisionfield'] = 'no mode';
+            $mode['precisionfield'] = get_string('nomode', 'mootyper');
         } else {
             $mode['precisionfield'] = format_float($total).('%');
         }
@@ -387,7 +387,7 @@ class results  {
             break;
         }
         if ($v <= 1) {
-            $mode['timetaken'] = 'no mode';
+            $mode['timetaken'] = get_string('nomode', 'mootyper');
         } else {
             //$mode['timetaken'] = date(get_config('mod_mootyper', 'dateformat'), $total);
             $mode['timetaken'] = $total;
@@ -401,7 +401,7 @@ class results  {
             break;
         }
         if ($v <= 1) {
-            $mode['wpm'] = 'no mode';
+            $mode['wpm'] = get_string('nomode', 'mootyper');
         } else {
             $mode['wpm'] = format_float($total);
         }
@@ -460,6 +460,31 @@ class results  {
         return $range;
     }
 
+    /**
+     * Get the latest entry in mdl_mootyper_grades for the current user.
+     *
+     * Used in gcnext.php.
+     * @param int $mootyper  ID of the current MooTyper activity.
+     * @param int $user      ID of the current user.
+     * @param int $exercise  ID of the current MooTyper exercise.
+     * @param int $timetaken Unix time when exercise was completed.
+     */
+    public static function get_grade_entry($mootyper, $user, $exercise, $timetaken) {
+        global $USER, $DB, $CFG;
+        $sql = "SELECT * FROM ".$CFG->prefix."mootyper_grades".
+               " WHERE mootyper = ".$mootyper
+                        ." AND userid = ".$user
+                        ." AND exercise = ".$exercise
+                        ." AND timetaken = ".$timetaken.
+               " ORDER BY timetaken";
+
+        if ($rec = $DB->get_record_sql($sql, array())) {
+            return $rec;
+        } else {
+            return null;
+        }
+
+    }
 
     /**
      * Check to see if this MooTyper is available for use.
