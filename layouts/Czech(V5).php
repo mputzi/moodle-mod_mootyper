@@ -54,7 +54,7 @@ echo (isset($displaynone) && ($displaynone == true)) ? 'display:none;' : '';
             <div id="jkey0" class="normal" style='text-align:left;'>0<br>é
                 <span style="color:red">&nbsp;&nbsp;&nbsp;˝</span></div>
             <div id="jkeyequal" class="normal" style='text-align:left;'>%<br>=
-                <span style="color:red">&nbsp;&nbsp;&nbsp;¨</span></div>
+                <span style="color:red">&nbsp;&nbsp;¨</span></div>
             <div id="jkeyaccent" class="normal" style='text-align:left;'>ˇ<br>´</div>
             <div id="jkeybackspace" class="normal" style="width: 95px;">Backspace</div>
         </div>
