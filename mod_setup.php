@@ -331,13 +331,19 @@ function removeAtts() {
 }
 </script>';
 $htmlout .= '<form id="setupform" onsubmit="removeAtts();" name="setupform" method="POST">';
-$disselect = $epo == 1 ? ' disabled="disabled"' : '';
+
+// 20200801 Admin can change Mode and Lesson name at any time. All others just during first setup.
+if (is_siteadmin()) {
+    $disselect ='';
+} else {
+    $disselect = $epo == 1 ? ' disabled="disabled"' : '';
+}
 
 $htmlout .= '<table><tr><td>'
     .get_string('fmode', 'mootyper').'</td><td><select'
     .$disselect.' onchange="this.form.submit()" name="mode" id="mode">';
 
-// 3/22/16 Modified to use only improved function get_mootyperlessons.
+// 20160322 Modified to use only improved function get_mootyperlessons.
 if (has_capability('mod/mootyper:aftersetup', context_module::instance($cm->id))) {
     $lessons = lessons::get_mootyperlessons($USER->id, $course->id);
 }
