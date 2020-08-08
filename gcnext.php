@@ -26,6 +26,7 @@
 use \mod_mootyper\event\exercise_completed;
 use \mod_mootyper\event\exam_completed;
 use \mod_mootyper\event\lesson_completed;
+use \mod_mootyper\local\results;
 
 // Changed to this format 20190301.
 require(__DIR__ . '/../../config.php');
@@ -85,13 +86,40 @@ $record->mistakedetails = optional_param('rpMistakeDetailsInput', '', PARAM_CLEA
 if (stripos($record->mistakedetails, "undefined") !== false) {
     $record->mistakedetails = get_string('nomistakes', 'mootyper');
 }
-//print_object($record);
-    $mootyper  = $DB->get_record('mootyper', array('id' => $record->mootyper), '*', MUST_EXIST); // new
+// 20200808 Added code for using MooTyper exercise grades as Moodle Ratings.
+$mootyper  = $DB->get_record('mootyper', array('id' => $record->mootyper), '*', MUST_EXIST);
 
 $DB->insert_record('mootyper_grades', $record, false);
+
+// Need id of the record we just inserted.
+$rec = results::get_grade_entry($mootyper->id, $record->userid, $record->exercise, $record->timetaken);
+
+if ($mootyper->assessed) {
+    // Need code to place the exercise grade into the rating table.
+    $assessrcd = new stdClass();
+    $assessrcd->contextid = \context_module::instance($cm->id)->id;
+    $assessrcd->component = 'mod_mootyper';
+    $assessrcd->ratingarea = 'exercises';
+    //$assessrcd->itemid = $mootyper->id; // Wrong id. Needs to be id of this mootyper exercise grade.
+    $assessrcd->itemid = $rec->id;
+    $assessrcd->scaleid = $mootyper->scale;
+    $assessrcd->rating = $record->grade;
+    $assessrcd->userid = $record->userid;
+    //$assessrcd->userid = 2;
+    $assessrcd->timecreated = $record->timetaken;
+    $assessrcd->timemodified = $record->timetaken;
+
+    $DB->insert_record('rating', $assessrcd, false);
+
+    mootyper_update_grades($mootyper, $record->userid); // new
+    //mootyper_grade_item_update($mootyper, $assessrcd, $mootypergrades = null);
+
+} else {
+    // Otherwise, place a whole grade into the mdl_grade_items table.
     //mootyper_grade_item_update($mootyper); // new
     mootyper_update_grades($mootyper); // new
-//die; // new
+}
+
 // 20191129 Added trigger for exercise_completed event.
 // 20191201 Added modification to also trigger exam_completed event.
 $params = array(
@@ -103,6 +131,7 @@ $params = array(
         'activity' => $cm->name
     )
 );
+// If exam or just an exercise is completed, log the appropriate event.
 if ($mtmode === 1) {
     $event = exam_completed::create($params);
 } else {
@@ -110,7 +139,7 @@ if ($mtmode === 1) {
 }
 $event->trigger();
 
-// Added 12/3/19 If all the exercises in a lesson are complete, trigger lesson_completed event, too.
+// Added 20191203 If all the exercises in a lesson are complete, trigger lesson_completed event, too.
 if (!($mtmode === 1) && ($exercisename === $count)) {
     $params = array(
         'objectid' => $cmid,
@@ -124,5 +153,6 @@ if (!($mtmode === 1) && ($exercisename === $count)) {
     $event = lesson_completed::create($params);
     $event->trigger();
 }
+
 $webdir = $CFG->wwwroot . '/mod/mootyper/view.php?n='.$record->mootyper;
 echo '<script type="text/javascript">window.location="'.$webdir.'";</script>';
