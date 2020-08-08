@@ -187,6 +187,7 @@ $string['mootypername'] = 'Test title';
 $string['mootyperopentime'] = 'Open time';
 $string['nogrades'] = 'No grades yet...';
 $string['nomistakes'] = 'No mistakes';
+$string['nomode'] = 'no mode';
 $string['normalkeytops_title'] = 'Key top color';
 $string['normalkeytops_descr'] = 'This sets the color of key tops except homerow keys.';
 $string['normalkeytops_colour'] = '#CCCCCC';
