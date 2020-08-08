@@ -374,9 +374,8 @@ function jget_mootyper_record($sid) {
  * @return boolean Success/Fail
  */
 //function mootyper_update_instance(stdClass $mootyper, mod_mootyper_mod_form $mform = null) {
-function mootyper_update_instance($mootyper, $mform = null) {
-    global $CFG, $DB;
-    //print_object($mootyper);
+function mootyper_update_instance($mootyper, $mform) {
+    global $CFG, $DB, $OUTPUT, $USER;
 
     $mootyper->timemodified = time();
     $mootyper->id = $mootyper->instance;
@@ -763,7 +762,6 @@ function mootyper_scale_used_anywhere(int $scaleid): bool {
 function mootyper_grade_item_update($mootyper, $ratings = null, $mootypergrades = null): void {
     global $CFG;
     require_once("{$CFG->libdir}/gradelib.php");
-
     // Update the rating.
     $item = [
         'itemname' => get_string('gradeitemnameforrating', 'mootyper', $mootyper),
@@ -780,7 +778,6 @@ function mootyper_grade_item_update($mootyper, $ratings = null, $mootypergrades 
         $item['gradetype'] = GRADE_TYPE_SCALE;
         $item['scaleid']   = -$mootyper->scale;
     }
-
     if ($ratings === 'reset') {
         $item['reset'] = true;
         $ratings = null;
@@ -811,6 +808,7 @@ function mootyper_grade_item_update($mootyper, $ratings = null, $mootypergrades 
     }
     // Itemnumber 1 is the whole mootyper grade.
     grade_update('mod/mootyper', $mootyper->course, 'mod', 'mootyper', $mootyper->id, 1, $mootypergrades, $item);
+//die;
 }
     //return grade_update('mod/mootyper', $mootyper->course, 'mod', 'mootyper', $mootyper->id, 0, $grades, $params);
 //}
@@ -843,20 +841,19 @@ function mootyper_grade_item_update($mootyper, $ratings = null, $mootypergrades 
  * @param int $userid update grade of specific user only, 0 means all participants.
  * @return void
  */
-function mootyper_update_grades($mootyper, $userid=0, $nullifnone=true) {
+//function mootyper_update_grades($mootyper, $userid=0, $nullifnone=true) {
+function mootyper_update_grades($mootyper, $userid=0): void {
     global $CFG, $DB;
     require_once($CFG->libdir.'/gradelib.php');
     $cm = get_coursemodule_from_instance('mootyper', $mootyper->id);
     $mootyper->cmidnumber = $cm->idnumber;
-
     $ratings = null;
     if ($mootyper->assessed) {
         require_once($CFG->dirroot.'/rating/lib.php');
-
         $rm = new rating_manager();
         $ratings = $rm->get_user_grades((object) [
             'component' => 'mod_mootyper',
-            'ratingarea' => 'exercise',
+            'ratingarea' => 'exercises',
             'contextid' => \context_module::instance($cm->id)->id,
 
             'modulename' => 'mootyper',
@@ -864,7 +861,7 @@ function mootyper_update_grades($mootyper, $userid=0, $nullifnone=true) {
             'userid' => $userid,
             'aggregationmethod' => $mootyper->assessed,
             'scaleid' => $mootyper->scale,
-            'itemtable' => 'mootyper_exercises',
+            'itemtable' => 'mootyper_grades',
             'itemtableusercolumn' => 'userid',
         ]);
     }
