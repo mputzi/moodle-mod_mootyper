@@ -48,8 +48,10 @@ Moodle Versions
 === 3.9.2 ===
 20200728 Added four new fields to table mootyper. assessed, asstimestart,
     assessedtimefinished, and scale.
-20200730  MooTyper_567, Investigate adding median, mode and range to the bottom
+20200730 MooTyper_567, Investigate adding median, mode and range to the bottom
     of grade tables. Code in place and pushed to github.
+20200808 MooTyper_562, Need to integrate MooTyper grades into Moodle
+    Grades/Rating system, is FINALLY working. Still need to fix delete part.
 
 === 3.9.1+ ===
 20200715 MooTyper_577, File upgrade.php missing final upgrade_mod_savepoint. Added

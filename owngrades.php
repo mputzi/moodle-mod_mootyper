@@ -209,7 +209,7 @@ if (!has_capability('mod/mootyper:viewmygrades', context_module::instance($cm->i
             $serieswpm[] = $gr->wpm; // Get the corrected words per minute rate.
         }
 
-        // 20200704 Added code to include mean date of completion and mean wpm.
+        // 20200704 Added code to include avg date of completion and avg wpm.
         // 20200727 Changed from avg to mean and added code for additional statistics.
         $mean = results::get_grades_mean($grds);
         $median = results::get_grades_median($grds);
@@ -219,11 +219,11 @@ if (!has_capability('mod/mootyper:viewmygrades', context_module::instance($cm->i
 
         // Do statistics for Practice and Lesson modes, but not Exam as it is just one exercise.
         if (!($mtmode == 1)) {
-            // Print blank table row.
+            // 20200727 Print blank table row.
             echo '<tr align="center" style="border-top-style: solid;">
                 <td></td><td></td><td></td><td></td><td></td>
                 <td></td><td></td><td></td><td></td></tr>';
-            // Print means.
+            // 20200727 Print means.
             echo '<tr align="center" style="border-top-style: solid;'.$stil.'">
                 <td><strong>'.get_string('mean', 'mootyper').': </strong></td>
                 <td>'.$mean['mistakes'].'</td>
@@ -235,7 +235,7 @@ if (!has_capability('mod/mootyper:viewmygrades', context_module::instance($cm->i
                 <td>'.format_float($mean['wpm']).'</td>
                 <td></td>
                 </tr>';
-            // Print medians.
+            // 20200727 Print medians.
             echo '<tr align="center" style="border-top-style: solid;'.$stil.'">
                 <td><strong>'.get_string('median', 'mootyper').': </strong></td>
                 <td>'.$median['mistakes'].'</td>
@@ -247,7 +247,7 @@ if (!has_capability('mod/mootyper:viewmygrades', context_module::instance($cm->i
                 <td>'.format_float($median['wpm']).'</td>
                 <td></td>
                 </tr>';
-            // Print modes.
+            // 20200727 Print modes.
             echo '<tr align="center" style="border-top-style: solid;'.$stil.'">
                 <td><strong>'.get_string('mode', 'mootyper').': </strong></td>
                 <td>'.$mode['mistakes'].'</td>
@@ -259,7 +259,7 @@ if (!has_capability('mod/mootyper:viewmygrades', context_module::instance($cm->i
                 <td>'.$mode['wpm'].'</td>
                 <td></td>
                 </tr>';
-            // Print ranges.
+            // 20200727 Print ranges.
             echo '<tr align="center" style="border-top-style: solid;'.$stil.'">
                 <td><strong>'.get_string('range', 'mootyper').': </strong></td>
                 <td>'.$range['mistakes'].'</td>

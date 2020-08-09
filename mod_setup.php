@@ -334,7 +334,7 @@ $htmlout .= '<form id="setupform" onsubmit="removeAtts();" name="setupform" meth
 
 // 20200801 Admin can change Mode and Lesson name at any time. All others just during first setup.
 if (is_siteadmin()) {
-    $disselect ='';
+    $disselect = '';
 } else {
     $disselect = $epo == 1 ? ' disabled="disabled"' : '';
 }

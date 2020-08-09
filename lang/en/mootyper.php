@@ -124,16 +124,12 @@ $string['fsetup'] = 'Setup';
 $string['fullhits'] = 'All hits';
 $string['gradesfilename'] = 'grades.csv';
 $string['gradeitemnameforwholemootyper'] = 'Whole mootyper grade for {$a->name}';
-
 $string['gradeitemnameforrating'] = 'Rating grade for {$a->name}';
-
 $string['grade_deleted'] = 'Deleted a grade';
 $string['grade_mootyper_header'] = 'Whole MooTyper grading';
 $string['grade_mootyper_name'] = 'Whole Mootyper';
-
 $string['grade_mootyper_title'] = 'Grade';
 $string['grade_rating_name'] = 'Rating';
-
 $string['gviewmode'] = 'View';
 $string['hitsperminute'] = 'Hits/minute';
 $string['invalidaccess'] = 'Invalid access';
@@ -209,14 +205,12 @@ $string['pluginadministration'] = 'MooTyper Administration';
 $string['pluginname'] = 'MooTyper';
 $string['practice'] = 'Practice';
 $string['precision'] = 'Precision';
-
 $string['privacy:metadata:mootyper_attempts'] = 'Stores data regarding the status of an attempt.';
 $string['privacy:metadata:mootyper_attempts:mootyperid'] = 'ID of the MooTyper activity for this attempt.';
 $string['privacy:metadata:mootyper_attempts:userid'] = 'Userid of person making this attempt.';
 $string['privacy:metadata:mootyper_attempts:timetaken'] = 'When the attempt was started.';
 $string['privacy:metadata:mootyper_attempts:inprogress'] = 'Status: completed = 0 or still in progress = 1. ';
 $string['privacy:metadata:mootyper_attempts:suspicion'] = 'Flag if too much time or too many mistakes.';
-
 $string['privacy:metadata:mootyper_grades'] = 'Stores results of a completed exercise attempt.';
 $string['privacy:metadata:mootyper_grades:mootyper'] = 'ID of the MooTyper activity for this attempt.';
 $string['privacy:metadata:mootyper_grades:userid'] = 'Userid of person making this attempt.';

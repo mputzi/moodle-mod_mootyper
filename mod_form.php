@@ -52,22 +52,6 @@ class mod_mootyper_mod_form extends moodleform_mod {
     protected $course = null;
 
     /**
-     * Constructor for the base mootyper class.
-     *
-     * @param mixed $current
-     * @param mixed $section
-     * @param int $cm
-     * @param mixed $course the current course  if it was already loaded,
-     *                      otherwise this class will load one from the context as required.
-     */
-/*
-    public function __construct($current, $section, $cm, $course) {
-        $this->course = $course;
-        parent::__construct($current, $section, $cm, $course);
-    }
-*/
-
-    /**
      * Define the MooTyper mod_form.
      */
     public function definition() {
@@ -246,7 +230,6 @@ class mod_mootyper_mod_form extends moodleform_mod {
         // 20200630 When a cmid is available, show the link.
         if ($id) {
             $mform->addElement('header', 'mootyperz', get_string('pluginadministration', 'mootyper'));
-            // $jlnk3 = $CFG->wwwroot . '/mod/mootyper/exercises.php?id='.$COURSE->id;
             $jlnk3 = $CFG->wwwroot . '/mod/mootyper/exercises.php?id='.$id;
             $mform->addElement('html', '<a id="jlnk3" href="'.$jlnk3.'">'.get_string('emanage', 'mootyper').'</a>');
         }
@@ -261,7 +244,6 @@ class mod_mootyper_mod_form extends moodleform_mod {
         $this->add_action_buttons();
     }
 
-
     /**
      * Add the whole mootyper grade settings to the mform.
      *
@@ -273,14 +255,9 @@ class mod_mootyper_mod_form extends moodleform_mod {
 
         $component = "mod_{$this->_modname}";
         $defaultgradingvalue = 0;
-//print_object('$itemname is: '.$itemname);
-//print_object('$component is: '.$component);
 
         $itemnumber = component_gradeitems::get_itemnumber_from_itemname($component, $itemname);
-//$itemnumber = 1;
-//print_object('$itemnumber is: '.$itemnumber);
 
-//die;
         $gradefieldname = component_gradeitems::get_field_name_for_itemnumber($component, $itemnumber, 'grade');
         $gradecatfieldname = component_gradeitems::get_field_name_for_itemnumber($component, $itemnumber, 'gradecat');
         $gradepassfieldname = component_gradeitems::get_field_name_for_itemnumber($component, $itemnumber, 'gradepass');

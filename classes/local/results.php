@@ -389,7 +389,6 @@ class results  {
         if ($v <= 1) {
             $mode['timetaken'] = get_string('nomode', 'mootyper');
         } else {
-            //$mode['timetaken'] = date(get_config('mod_mootyper', 'dateformat'), $total);
             $mode['timetaken'] = $total;
         }
 

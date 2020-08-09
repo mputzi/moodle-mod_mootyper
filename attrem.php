@@ -62,13 +62,6 @@ if (isset($gradeid)) {
     $delopt->itemid = $dbgrade->id;
     $rm = new rating_manager();
     $rm->delete_ratings($delopt);
-    // Not sure if a plugin is supposed to remove a grade from the grade
-    // book if the activity grade that caused it to be entered, is removed.
-    // MooTyper leaves gradebook entries, while removing rating entries
-    // from the mdl_rating table. Same thing with pcast.
-    //mootyper_grade_item_update($mootyper); // Not removing a grade book entry.
-    //mootyper_update_grades($mootyper); // Not removing a grade book entry.
-
 }
 
 // Return to the View my grades or View all grades page.

@@ -30,7 +30,8 @@ use \mod_mootyper\local\results;
 
 // Changed to this format 20190301.
 require(__DIR__ . '/../../config.php');
-require_once(__DIR__ . '/lib.php'); // new
+// 20200808 Added for integration with Moodle rating/grades.
+require_once(__DIR__ . '/lib.php');
 
 global $CFG, $DB;
 
@@ -91,33 +92,29 @@ $mootyper  = $DB->get_record('mootyper', array('id' => $record->mootyper), '*', 
 
 $DB->insert_record('mootyper_grades', $record, false);
 
-// Need id of the record we just inserted.
+// 20200808 Need id of the record we just inserted.
 $rec = results::get_grade_entry($mootyper->id, $record->userid, $record->exercise, $record->timetaken);
-
+// 20200808 Make grade entry depending on whether grade or rating.
 if ($mootyper->assessed) {
-    // Need code to place the exercise grade into the rating table.
+    // 20200808 Need code to place the exercise grade into the rating table.
     $assessrcd = new stdClass();
     $assessrcd->contextid = \context_module::instance($cm->id)->id;
     $assessrcd->component = 'mod_mootyper';
     $assessrcd->ratingarea = 'exercises';
-    //$assessrcd->itemid = $mootyper->id; // Wrong id. Needs to be id of this mootyper exercise grade.
     $assessrcd->itemid = $rec->id;
     $assessrcd->scaleid = $mootyper->scale;
     $assessrcd->rating = $record->grade;
     $assessrcd->userid = $record->userid;
-    //$assessrcd->userid = 2;
     $assessrcd->timecreated = $record->timetaken;
     $assessrcd->timemodified = $record->timetaken;
-
+    // 20200808 Place latest exercise grade into the mdl_rating table.
     $DB->insert_record('rating', $assessrcd, false);
-
-    mootyper_update_grades($mootyper, $record->userid); // new
-    //mootyper_grade_item_update($mootyper, $assessrcd, $mootypergrades = null);
+    // 20200808 Update entry in Moodle Grades.
+    mootyper_update_grades($mootyper, $record->userid);
 
 } else {
     // Otherwise, place a whole grade into the mdl_grade_items table.
-    //mootyper_grade_item_update($mootyper); // new
-    mootyper_update_grades($mootyper); // new
+    mootyper_update_grades($mootyper);
 }
 
 // 20191129 Added trigger for exercise_completed event.

@@ -262,7 +262,6 @@ function get_typergradesuser($sid, $uid, $orderby=-1, $desc=false) {
  * @param mod_mootyper_mod_form $mform
  * @return int The id of the newly inserted mootyper record.
  */
-//function mootyper_add_instance(stdClass $mootyper, mod_mootyper_mod_form $mform = null) {
 function mootyper_add_instance($mootyper, $mform = null) {
     global $CFG, $DB;
 
@@ -362,10 +361,11 @@ function jget_mootyper_record($sid) {
     global $DB;
     return $DB->get_record('mootyper', array('id' => $sid));
 }
+
 /**
  * Updates an instance of the mootyper in the database.
  *
- * Given an object containing all the necessary data,
+ * 20200808 Given an object containing all the necessary data,
  * (defined by the form in mod_form.php) this function
  * will update an existing instance with new data.
  *
@@ -373,7 +373,6 @@ function jget_mootyper_record($sid) {
  * @param mod_mootyper_mod_form $mform
  * @return boolean Success/Fail
  */
-//function mootyper_update_instance(stdClass $mootyper, mod_mootyper_mod_form $mform = null) {
 function mootyper_update_instance($mootyper, $mform) {
     global $CFG, $DB, $OUTPUT, $USER;
 
@@ -384,7 +383,6 @@ function mootyper_update_instance($mootyper, $mform) {
         $mootyper->assessed = 0;
     }
 
-    //if (empty($mootyper->ratingtime) or empty($mootyper->assessed)) {
     if (empty($mootyper->assessed)) {
         $mootyper->assesstimestart  = 0;
         $mootyper->assesstimefinish = 0;
@@ -749,7 +747,7 @@ function mootyper_scale_used_anywhere(int $scaleid): bool {
 /**
  * Creates or updates grade item for the given mootyper instance.
  *
- * Needed by grade_update_mod_grades() in lib/gradelib.php
+ * 20200808 Needed by grade_update_mod_grades() in lib/gradelib.php
  *
  * @category grade
  * @uses GRADE_TYPE_NONE
@@ -808,29 +806,10 @@ function mootyper_grade_item_update($mootyper, $ratings = null, $mootypergrades 
     }
     // Itemnumber 1 is the whole mootyper grade.
     grade_update('mod/mootyper', $mootyper->course, 'mod', 'mootyper', $mootyper->id, 1, $mootypergrades, $item);
-//die;
 }
-    //return grade_update('mod/mootyper', $mootyper->course, 'mod', 'mootyper', $mootyper->id, 0, $grades, $params);
-//}
 
-/**
- * Update mootyper grades in the gradebook.
- *
- * Needed by grade_update_mod_grades() in lib/gradelib.php.
- *
- * @param stdClass $mootyper instance object with extra cmidnumber and modname property.
- * @param int $userid update grade of specific user only, 0 means all participants.
- * @return void
- */
-/** function mootyper_update_grades(stdClass $mootyper, $userid = 0) {
- *    global $CFG, $DB;
- *    require_once($CFG->libdir.'/gradelib.php');
- *
- *    $grades = array(); // Populate array of grade objects indexed by userid.
- *
- *    grade_update('mod/mootyper', $mootyper->course, 'mod', 'mootyper', $mootyper->id, 0, $grades);
- *  }
- */
+
+
 
 /**
  * Update mootyper grades in the gradebook.
@@ -841,7 +820,6 @@ function mootyper_grade_item_update($mootyper, $ratings = null, $mootypergrades 
  * @param int $userid update grade of specific user only, 0 means all participants.
  * @return void
  */
-//function mootyper_update_grades($mootyper, $userid=0, $nullifnone=true) {
 function mootyper_update_grades($mootyper, $userid=0): void {
     global $CFG, $DB;
     require_once($CFG->libdir.'/gradelib.php');
@@ -898,26 +876,7 @@ EOF;
             $grades->close();
         }
     }
-
     mootyper_grade_item_update($mootyper, $ratings, $mootypergrades);
-    /*
-    if (!$mootyper->assessed) {
-        mootyper_grade_item_update($mootyper);
-    } else if ($grades = mootyper_get_user_grades($mootyper, $userid)) {
-        mootyper_grade_item_update($mootyper, $grades);
-
-    } else if ($userid and $nullifnone) {
-
-        $grade = new stdClass();
-        $grade->userid   = $userid;
-        $grade->rawgrade = null;
-        mootyper_grade_item_update($mootyper, $grade);
-
-    } else {
-
-        mootyper_grade_item_update($mootyper);
-    }
-    */
 }
 
 

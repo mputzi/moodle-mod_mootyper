@@ -300,7 +300,7 @@ if (!has_capability('mod/mootyper:viewgrades', context_module::instance($cm->id)
                              <td>'.format_float($gr->precisionfield).'%</td>
                              <td>'.date(get_config('mod_mootyper', 'dateformat'), $gr->timetaken).'</td>
                              <td>'.format_float($gr->wpm).'</td>
-                             <td>'.$removelnk.'</td></tr>';
+                             <td>'.$removelnk.' '.$gr->id.'</td></tr>';
 
                 // Get information to draw the chart for all exercises in this lesson.
                 $labels[] = $gr->firstname.' '.$gr->lastname.' '.$fcol;  // This gets the exercise number.
@@ -319,12 +319,12 @@ if (!has_capability('mod/mootyper:viewgrades', context_module::instance($cm->id)
             $range = results::get_grades_range($grds2);
 
             $stil = 'background-color: '.(get_config('mod_mootyper', 'textbgc')).';';
-            // Print blank table row.
+            // 20200727 Print blank table row.
             echo '<tr align="center" style="border-top-style: solid;">
                 <td></td><td></td><td></td><td></td><td></td>
                 <td></td><td></td><td></td><td></td></tr>';
 
-            // Print means.
+            // 20200727 Print means.
             echo '<tr align="center" style="border-top-style: solid;'.$stil.'">
                 <td><strong>'.get_string('mean', 'mootyper').': </strong></td><td></td>
                 <td>'.$mean['mistakes'].'</td>
@@ -337,7 +337,7 @@ if (!has_capability('mod/mootyper:viewgrades', context_module::instance($cm->id)
                 <td></td>
                 </tr>';
 
-            // Print medians.
+            // 20200727 Print medians.
             echo '<tr align="center" style="border-top-style: solid;'.$stil.'">
                 <td><strong>'.get_string('median', 'mootyper').': </strong></td><td></td>
                 <td>'.$median['mistakes'].'</td>
@@ -350,20 +350,7 @@ if (!has_capability('mod/mootyper:viewgrades', context_module::instance($cm->id)
                 <td></td>
                 </tr>';
 
-/*            // Print modes.
-            echo '<tr align="center" style="border-top-style: solid;'.$stil.'">
-                <td><strong>'.get_string('mode', 'mootyper').': </strong></td><td></td>
-                <td>'.$mode['mistakes'].'</td>
-                <td>'.format_time($mode['timeinseconds']).'</td>
-                <td>'.format_float($mode['hitsperminute']).'</td>
-                <td>'.$mode['fullhits'].'</td>
-                <td>'.format_float($mode['precisionfield']).'%</td>
-                <td>'.date(get_config('mod_mootyper', 'dateformat'), $mode['timetaken']).'</td>
-                <td>'.format_float($mode['wpm']).'</td>
-                <td></td>
-                </tr>';
-*/
-            // Print modes.
+            // 20200727 Print modes.
             echo '<tr align="center" style="border-top-style: solid;'.$stil.'">
                 <td><strong>'.get_string('mode', 'mootyper').': </strong></td><td></td>
                 <td>'.$mode['mistakes'].'</td>
@@ -376,8 +363,7 @@ if (!has_capability('mod/mootyper:viewgrades', context_module::instance($cm->id)
                 <td></td>
                 </tr>';
 
-
-            // Print ranges.
+            // 20200727 Print ranges.
             echo '<tr align="center" style="border-top-style: solid;'.$stil.'">
                 <td><strong>'.get_string('range', 'mootyper').': </strong></td><td></td>
                 <td>'.$range['mistakes'].'</td>

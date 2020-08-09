@@ -60,7 +60,8 @@ class invalid_access_attempt extends \core\event\base {
      * @return string
      */
     public function get_description() {
-        return "The user with id '$this->userid' attempted direct URL access to 'mootyper' file '{$this->other['file']}' while in the course with id '$this->contextinstanceid'.";
+        return "The user with id '$this->userid' attempted direct URL access to 'mootyper' file
+           . '{$this->other['file']}' while in the course with id '$this->contextinstanceid'.";
     }
 
     /**
