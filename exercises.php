@@ -25,6 +25,7 @@
  */
 
 use \mod_mootyper\event\course_exercises_viewed;
+use \mod_mootyper\event\invalid_access_attempt;
 use \mod_mootyper\local\lessons;
 
 // Changed to this newer format 03/01/2019.
@@ -35,7 +36,7 @@ global $DB, $OUTPUT, $PAGE, $USER;
 
 // 20200224 Switched $id to Course_module ID vice course ID.
 $id = optional_param('id', 0, PARAM_INT); // Course module ID.
-//Changed cmid to course id.
+// Changed cmid to course id.
 $course = optional_param('course', '0', PARAM_INT); // Course ID.
 
 if (! $cm = get_coursemodule_from_id('mootyper', $id)) {
@@ -49,27 +50,48 @@ if (! $course = $DB->get_record("course", array('id' => $cm->course))) {
 require_login($course, true);
 $context = context_module::instance($cm->id);
 
-$mootyper = $DB->get_record('mootyper', array('id' => $cm->instance) , '*', MUST_EXIST);
+// 20200706 Added to prevent student direct URL access attempts.
+if (!(has_capability('mod/mootyper:aftersetup', $context))) {
+    // Trigger invalid_access_attempt with redirect to course page.
+    $params = array(
+        'objectid' => $id,
+        'context' => $context,
+        'other' => array(
+            'file' => 'exercises.php'
+        )
+    );
+    $event = invalid_access_attempt::create($params);
+    $event->trigger();
+    redirect('../../course/view.php?id='.$course->id, get_string('invalidaccessexp', 'mootyper'));
+}
 
+$mootyper = $DB->get_record('mootyper', array('id' => $cm->instance) , '*', MUST_EXIST);
 $lessonpo = optional_param('lesson', 0, PARAM_INT);
+
+// Trigger module exercise_viewed event.
+$params = array(
+    'objectid' => $course->id,
+    'context' => $context,
+    'other' => $lessonpo
+);
+$event = course_exercises_viewed::create($params);
+$event->trigger();
 
 // Print the page header.
 $PAGE->set_url('/mod/mootyper/exercises.php', array('id' => $id));
 $PAGE->set_title(get_string('etitle', 'mootyper'));
 $PAGE->set_heading(get_string('eheading', 'mootyper'));
 $PAGE->set_pagelayout('standard');
+
 // Other things you may want to set - remove if not needed.
 $PAGE->set_cacheable(false);
 
 // Output starts here.
 echo $OUTPUT->header();
 
-// Since editing an exercise is a course activity, the keyboard
-// background color info for the MooTyper this was called from,
-// is not available. So, need to get the default keyboard background
-// color from from the MooTyper configuration setting.
-$moocfg = get_config('mod_mootyper');
-$color3 = $moocfg->keyboardbgc;
+// 20200625 Changed from using site default color to current Mootyper
+// keyboard background color.
+$color3 = $mootyper->keybdbgc;
 
 echo '<div align="center" style="font-size:1em;
      font-weight:bold;background: '.$color3.';
@@ -83,6 +105,7 @@ if ($lessonpo == 0 && count($lessons) > 0) {
     $lessonpo = $lessons[0]['id'];
 }
 
+// Create and show a drop down selector for the lesson name to show.
 echo '<form method="post">';
 echo '<br>'.get_string('excategory', 'mootyper').': <select onchange="this.form.submit()" name="lesson">';
 
@@ -98,13 +121,12 @@ for ($ij = 0; $ij < count($lessons); $ij++) {
 }
 
 echo '</select>';
+
 // Preload not editable by me message for the current user.
 $jlink = get_string('noteditablebyme', 'mootyper');
 if (lessons::is_editable_by_me($USER->id, $id, $lessonpo)) {
-
     $deleteurl = $CFG->wwwroot . '/mod/mootyper/erem.php?id='.$id.'&l='.$lessons[$selectedlessonindex]['id'];
     $exporturl = $CFG->wwwroot . '/mod/mootyper/lsnexport.php?id='.$course->id.'&lsn='.$lessons[$selectedlessonindex]['id'];
-
     echo '<br>';
 
     echo '</form><br>';
@@ -119,10 +141,13 @@ if (lessons::is_editable_by_me($USER->id, $id, $lessonpo)) {
     // Build a link to let teachers add a new exercise to the Lesson currently being viewed.
     $jlnk3 = $CFG->wwwroot . '/mod/mootyper/eins.php?id='.$id.'&lesson='.$lessonpo;
 
+    // 20200628 Temp stuff  $vis, $vis->visible, and $vis->editable for development.
+    $vis = $DB->get_record("mootyper_lessons", array('id' => $lessonpo));
     // 20200614 Added a button for, Add a new exercise to the Lesson currently being viewed.
     echo ' <a onclick="return confirm(\''.get_string('eaddnewex', 'mootyper').$lessonpo.
-        '\')" href="'.$jlnk3.'" class="btn btn-primary" style="border-radius: 8px">'
-       .get_string('eaddnewex', 'mootyper').$lessonpo.'</a>';
+        '\')" href="'.$jlnk3.'" class="btn btn-secondary" style="border-radius: 8px">'
+       .get_string('eaddnewex', 'mootyper').$lessonpo.' vis: '.$vis->visible.' ed: '.$vis->editable.'</a>';
+
 } else {
     echo '</form><br>';
 }
@@ -131,24 +156,19 @@ if (lessons::is_editable_by_me($USER->id, $id, $lessonpo)) {
 $style1 = 'style="border-color: #000000; border-style: solid; border-width: 3px; text-align: center;"';
 $style2 = 'style="border-color: #000000; border-style: solid; border-width: 3px; text-align: left;"';
 // Print header row for Lesson table currently being viewed.
-
 echo '<table><tr><td '.$style1.'>'.get_string('ename', 'mootyper').'</td>
                  <td '.$style1.'>'.$lessons[$selectedlessonindex]['lessonname'].'</td>
                  <td '.$style1.'>'.$jlink.'</td></tr>';
-
-
 
 // Print table row for each of the exercises in the lesson currently being viewed.
 $exercises = $DB->get_records("mootyper_exercises", array('lesson' => $lessonpo));
 
 foreach ($exercises as $ex) {
     $strtocut = $ex->texttotype;
-
     $strtocut = str_replace('\n', '<br>', $strtocut);
     if (strlen($strtocut) > 65) {
         $strtocut = substr($strtocut, 0, 65).'...';
     }
-
     // If user can edit, create a delete link to the current exercise.
     $jlink1 = '<a onclick="return confirm(\''.get_string('deleteexconfirm', 'mootyper')
               .$lessons[$selectedlessonindex]['lessonname']
@@ -164,7 +184,6 @@ foreach ($exercises as $ex) {
               .get_string('eeditlabel', 'mootyper').'></a>';
 
     echo '<tr><td '.$style1.'>'.$ex->exercisename.'</td><td '.$style2.'>'.$strtocut.'</td>';
-
     // If the user can edit or delete this lesson and its exercises, then add edit and delete tools.
     if (lessons::is_editable_by_me($USER->id, $id, $lessonpo)) {
         echo '<td '.$style1.'>'.$jlink2.' | '.$jlink1.'</td>';
@@ -180,26 +199,26 @@ $url = $CFG->wwwroot . '/mod/mootyper/view.php?id='.$id;
 $deleteurl = $CFG->wwwroot . '/mod/mootyper/erem.php?id='.$id.'&l='.$lessons[$selectedlessonindex]['id'];
 $exporturl = $CFG->wwwroot . '/mod/mootyper/lsnexport.php?id='.$course->id.'&lsn='.$lessons[$selectedlessonindex]['id'];
 
-// 20200414 Added a return button. 20200428 added round corners.
+// 20200414 Added a, Return, button. 20200428 added round corners.
 echo '<br><a href="'.$url.'" class="btn btn-primary" style="border-radius: 8px">'
     .get_string('returnto', 'mootyper', $mootyper->name).'</a>';
 
-// 20200614 Added an add new lesson with exercise button.
+// 20200614 Added an, Add new lesson with exercise, button.
 $jlnk2 = $CFG->wwwroot . '/mod/mootyper/eins.php?id='.$id.'&course='.$course->id;
 echo ' <a onclick="return confirm(\''.get_string('eaddnew', 'mootyper').
-    '\')" href="'.$jlnk2.'" class="btn btn-primary" style="border-radius: 8px">'
+    '\')" href="'.$jlnk2.'" class="btn btn-secondary" style="border-radius: 8px">'
     .get_string('eaddnew', 'mootyper').'</a>';
 
-if (lessons::is_editable_by_me($USER->id, $id, $lessonpo)) {
-// 20200613 Added a delete lesson button.
-echo ' <a onclick="return confirm(\''.get_string('deletelsnconfirm', 'mootyper').$lessons[$selectedlessonindex]['lessonname'].
-    '\')" href="'.$deleteurl.'" class="btn btn-primary" style="border-radius: 8px">'
-    .get_string('deleteall', 'mootyper').' - '. $lessons[$selectedlessonindex]['lessonname'].'</a>';
-
-// 20200613 Added an export lesson button.
+// 20200613 Added an, Export, lesson button.
 echo ' <a onclick="return confirm(\''.get_string('exportconfirm', 'mootyper').$lessons[$selectedlessonindex]['lessonname'].
-    '\')"  href="'.$exporturl.'" class="btn btn-primary" style="border-radius: 8px">'
-    .get_string('export', 'mootyper').' - '.$lessons[$selectedlessonindex]['lessonname'].'</a>'.'</form>';
+    '\')"  href="'.$exporturl.'" class="btn btn-info" style="border-radius: 8px">'
+    .get_string('export', 'mootyper').' - '.$lessons[$selectedlessonindex]['lessonname'].'</a>';
+
+if (lessons::is_editable_by_me($USER->id, $id, $lessonpo)) {
+    // 20200613 Added a, Delete all from, this lesson button.
+    echo ' <a onclick="return confirm(\''.get_string('deletelsnconfirm', 'mootyper').$lessons[$selectedlessonindex]['lessonname'].
+        '\')" href="'.$deleteurl.'" class="btn btn-danger" style="border-radius: 8px">'
+        .get_string('deleteall', 'mootyper').' - '. $lessons[$selectedlessonindex]['lessonname'].'</a>'.'</form>';
 } else {
     echo '</form>';
 }

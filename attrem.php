@@ -19,7 +19,7 @@
  *
  * This sub-module is called from gview.php, (View All Grades),
  * or from owngrades.php, (View my grades).
- * Currently it does NOT include an Are you sure check before it removes.
+ * Currently it does include a, Confirm... check before it removes.
  *
  * @package    mod_mootyper
  * @copyright  2011 Jaka Luthar (jaka.luthar@gmail.com)
@@ -31,8 +31,6 @@ use \mod_mootyper\event\owngrades_deleted;
 use \mod_mootyper\event\grade_deleted;
 
 require(__DIR__ . '/../../config.php');
-
-require_login($course, true, $cm);
 
 global $DB;
 
@@ -47,12 +45,23 @@ $course     = $mootyper->course;
 $cm         = get_coursemodule_from_instance('mootyper', $mootyper->id, $course->id, false, MUST_EXIST);
 
 $context = context_module::instance($cm->id);
+require_login($course, true, $cm);
 
 if (isset($gradeid)) {
     $dbgrade = $DB->get_record('mootyper_grades', array('id' => $gradeid));
-    // Changed from attempt_id to attemptid 01/29/18.
+    // Changed from attempt_id to attemptid 20180129.
     $DB->delete_records('mootyper_attempts', array('id' => $dbgrade->attemptid));
     $DB->delete_records('mootyper_grades', array('id' => $dbgrade->id));
+
+    // 20200808 Delete ratings too.
+    require_once($CFG->dirroot.'/rating/lib.php');
+    $delopt = new stdClass;
+    $delopt->contextid = $context->id;
+    $delopt->component = 'mod_mootyper';
+    $delopt->ratingarea = 'exercises';
+    $delopt->itemid = $dbgrade->id;
+    $rm = new rating_manager();
+    $rm->delete_ratings($delopt);
 }
 
 // Return to the View my grades or View all grades page.

@@ -31,12 +31,12 @@ require_once('../../config.php');
 //require_once(__DIR__ . '/locallib.php');
 
 global $DB, $OUTPUT, $PAGE;
-
+/*
 print_object('1 spacer in mootyper layouts.php.');
 print_object('2 spacer in mootyper layouts.php.');
 print_object('3 spacer in mootyper layouts.php.');
 print_object('4 spacer in mootyper layouts.php.');
-
+*/
 // Fetch URL parameters.
 $id = optional_param('id', 0, PARAM_INT); // Course ID.
 
@@ -168,11 +168,11 @@ echo '<tbody>';
 
 // Need to make it so only an admin can do a layout delete!
 foreach ($layouts as $lo) {
-   // if (lessons::is_editable_by_me($USER->id, $layoutspo, $lsn)) {
+    // if (lessons::is_editable_by_me($USER->id, $layoutspo, $lsn)) {
         // List the keyboards by name.
         echo '<tr><td>'.$lo.'</td><td>'.$jlink1.'</td></tr>';
-   // }
-   // echo ' ';
+    // }
+    // echo ' ';
 }
 echo '</tbody>';
 echo '</table>';
@@ -181,6 +181,9 @@ echo '</div>';
 // 20200226 Added a continue button that takes you back to the MooTyper you came from.
 $url = $CFG->wwwroot . '/mod/mootyper/view.php?id='.$id;
 
-echo '<br><a href="'.$url.'" class="btn btn-primary" style="border-radius: 8px">'.get_string('returnto', 'mootyper', $mootyper->name).'</a><br><br>';
+echo '<br><a href="'.$url
+    .'" class="btn btn-primary" style="border-radius: 8px">'
+    .get_string('returnto', 'mootyper', $mootyper->name)
+    .'</a><br><br>';
 
 echo $OUTPUT->footer();

@@ -52,7 +52,7 @@ $context = context_module::instance($cm->id);
 // if l is set we remove a lesson and all its exercises.
 $exerciseid = optional_param('r', '', PARAM_TEXT);
 $lessonid = optional_param('l', '', PARAM_TEXT);
-//Added cmid so can exit back to MooTyper activity we came from.
+// Added cmid so can exit back to MooTyper activity we came from.
 $cmid = optional_param('cmid', '0', PARAM_INT); // Course Module ID.
 
 if ($exerciseid) {

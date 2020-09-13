@@ -19,17 +19,16 @@
  *
  * All the core Moodle functions, neeeded to allow the module to work
  * integrated in Moodle should be placed here.
- * All the mootyper specific functions, needed to implement all the module
- * logic, should go to locallib.php. This will help to save some memory when
- * Moodle is performing actions across all modules.
  *
  * @package    mod_mootyper
  * @copyright  2012 Jaka Luthar (jaka.luthar@gmail.com)
  * @copyright  2016 onwards AL Rachels (drachels@drachels.com)
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later.
  */
+use \mod_mootyper\local\lessons;
 
 defined('MOODLE_INTERNAL') || die();
+
 define('MOOTYPER_EVENT_TYPE_OPEN', 'open');
 define('MOOTYPER_EVENT_TYPE_CLOSE', 'close');
 
@@ -49,7 +48,7 @@ define('MOOTYPER_EVENT_TYPE_CLOSE', 'close');
 function mootyper_supports($feature) {
     switch ($feature) {
         case FEATURE_GROUPS;
-            return false;
+            return true;
         case FEATURE_GROUPINGS:
             return false;
         case FEATURE_GROUPMEMBERSONLY:
@@ -61,11 +60,11 @@ function mootyper_supports($feature) {
         case FEATURE_COMPLETION_HAS_RULES:
             return false;
         case FEATURE_GRADE_HAS_GRADE:
-            return false;
+            return true;
         case FEATURE_GRADE_OUTCOMES:
             return false;
         case FEATURE_RATE:
-            return false;
+            return true;
         case FEATURE_BACKUP_MOODLE2:
             return true;
         case FEATURE_SHOW_DESCRIPTION:
@@ -179,30 +178,6 @@ function get_typer_grades_adv($mootyperid, $exerciseid, $userid=0, $orderby=-1, 
 }
 
 /**
- * Get averages for users for this MooTyper.
- *
- * @param int $grads
- * @return array.
- */
-function get_grades_average($grads) {
-    $povprecje = array();
-    $cnt = count($grads);
-    $povprecje['mistakes'] = 0;
-    $povprecje['timeinseconds'] = 0;
-    $povprecje['hitsperminute'] = 0;
-    $povprecje['precision'] = 0;
-    foreach ($grads as $grade) {
-        $povprecje['mistakes'] = $povprecje['mistakes'] + $grade->mistakes;
-        $povprecje['timeinseconds']  = $povprecje['timeinseconds'] + $grade->timeinseconds;
-    }
-    if ($cnt != 0) {
-        $povprecje['mistakes'] = $povprecje['mistakes'] / $cnt;
-        $povprecje['timeinseconds'] = $povprecje['timeinseconds'] / $cnt;
-    }
-    return $povprecje;
-}
-
-/**
  * Get grades for one user.
  *
  * @param int $sid
@@ -287,19 +262,32 @@ function get_typergradesuser($sid, $uid, $orderby=-1, $desc=false) {
  * @param mod_mootyper_mod_form $mform
  * @return int The id of the newly inserted mootyper record.
  */
-function mootyper_add_instance(stdClass $mootyper, mod_mootyper_mod_form $mform = null) {
+function mootyper_add_instance($mootyper, $mform = null) {
     global $CFG, $DB;
 
-    require_once($CFG->dirroot.'/mod/mootyper/locallib.php');
     $mootyper->timecreated = time();
+
+    if (empty($mootyper->assessed)) {
+        $mootyper->assessed = 0;
+    }
+
+    if (empty($mootyper->ratingtime) or empty($mootyper->assessed)) {
+        $mootyper->assesstimestart  = 0;
+        $mootyper->assesstimefinish = 0;
+    }
+
     // Changed to add instance now instead of in the return, 02/15/19.
-    $mootyper->id = $DB->insert_record("mootyper", $mootyper);
+    $mootyper->id = $DB->insert_record('mootyper', $mootyper);
 
     // You may have to add extra stuff in here.
-    // Added next line for behat test 2/11/19.
+    // Added next line for behat test 20190211.
     $cmid = $mootyper->coursemodule;
 
     mootyper_update_calendar($mootyper, $cmid);
+    mootyper_grade_item_update($mootyper);
+
+    $completiontimeexpected = !empty($mootyper->completionexpected) ? $mootyper->completionexpected : null;
+    \core_completion\api::update_completion_date_event($mootyper->coursemodule, 'mootyper', $mootyper->id, $completiontimeexpected);
 
     return $mootyper->id;
 }
@@ -373,10 +361,11 @@ function jget_mootyper_record($sid) {
     global $DB;
     return $DB->get_record('mootyper', array('id' => $sid));
 }
+
 /**
  * Updates an instance of the mootyper in the database.
  *
- * Given an object containing all the necessary data,
+ * 20200808 Given an object containing all the necessary data,
  * (defined by the form in mod_form.php) this function
  * will update an existing instance with new data.
  *
@@ -384,10 +373,20 @@ function jget_mootyper_record($sid) {
  * @param mod_mootyper_mod_form $mform
  * @return boolean Success/Fail
  */
-function mootyper_update_instance(stdClass $mootyper, mod_mootyper_mod_form $mform = null) {
-    global $CFG, $DB;
+function mootyper_update_instance($mootyper, $mform) {
+    global $CFG, $DB, $OUTPUT, $USER;
 
-    //require_once($CFG->dirroot.'/mod/mootyper/locallib.php');
+    $mootyper->timemodified = time();
+    $mootyper->id = $mootyper->instance;
+
+    if (empty($mootyper->assessed)) {
+        $mootyper->assessed = 0;
+    }
+
+    if (empty($mootyper->assessed)) {
+        $mootyper->assesstimestart  = 0;
+        $mootyper->assesstimefinish = 0;
+    }
 
     if (empty($mootyper->timeopen)) {
         $mootyper->timeopen = 0;
@@ -399,16 +398,49 @@ function mootyper_update_instance(stdClass $mootyper, mod_mootyper_mod_form $mfo
     $cmid       = $mootyper->coursemodule;
     $cmidnumber = $mootyper->cmidnumber;
     $courseid   = $mootyper->course;
-
     $mootyper->id = $mootyper->instance;
-
     $context = context_module::instance($cmid);
     $mootyper->timemodified = time();
-
     $mootyper->id = $mootyper->instance;
+
+    $oldmootyper = $DB->get_record('mootyper', array('id' => $mootyper->id));
+
+    // MDL-3942 - if the aggregation type or scale (i.e. max grade) changes then
+    // recalculate the grades for the entire mootyper if  scale changes - do we
+    // need to recheck the ratings, if ratings higher than scale how do we want
+    // to respond? For count and sum aggregation types the grade we check to make
+    // sure they do not exceed the scale (i.e. max score) when calculating the grade.
+    $updategrades = false;
+
+    if ($oldmootyper->assessed <> $mootyper->assessed) {
+        // Whether this mootyper is rated.
+        $updategrades = true;
+    }
+
+    if ($oldmootyper->scale <> $mootyper->scale) {
+        // The scale currently in use.
+        $updategrades = true;
+    }
+
+    // 20200907 Skip grading options for Moodle less than v3.8.
+    if ($CFG->branch > 37) {
+        if (empty($oldmootyper->grade_mootyper) || $oldmootyper->grade_mootyper <> $mootyper->grade_mootyper) {
+            // The whole mootyper grading.
+            $updategrades = true;
+        }
+
+        if ($updategrades) {
+            mootyper_update_grades($mootyper); // Recalculate grades for the mootyper.
+        }
+    }
 
     // You may have to add extra stuff in here.
     mootyper_update_calendar($mootyper, $cmid);
+    mootyper_grade_item_update($mootyper);
+
+    $completiontimeexpected = !empty($mootyper->completionexpected) ? $mootyper->completionexpected : null;
+    \core_completion\api::update_completion_date_event($mootyper->coursemodule, 'mootyper', $mootyper->id, $completiontimeexpected);
+
     return $DB->update_record('mootyper', $mootyper);
 }
 
@@ -686,7 +718,7 @@ function mootyper_get_extra_capabilities() {
  *
  * This function returns if a scale is being used by one mootyper
  * if it has support for grading and scales. Commented code should be
- * modified if necessary. See forum, glossary or mootyper modules
+ * modified if necessary. See forum, glossary or journal modules
  * as reference.
  *
  * @param int $mootyperid ID of an instance of this module
@@ -695,6 +727,14 @@ function mootyper_get_extra_capabilities() {
  */
 function mootyper_scale_used($mootyperid, $scaleid) {
     return false;
+
+    $rec = $DB->get_record("mootyper", array("id" => $mootyperid, "grade" => -$scaleid));
+
+    if (!empty($rec) && !empty($scaleid)) {
+        $return = true;
+    }
+
+    return $return;
 }
 
 /**
@@ -705,14 +745,20 @@ function mootyper_scale_used($mootyperid, $scaleid) {
  * @param int $scaleid
  * @return boolean true if the scale is used by any mootyper instance
  */
-function mootyper_scale_used_anywhere($scaleid) {
-    return false;
+function mootyper_scale_used_anywhere(int $scaleid): bool {
+    global $DB;
+
+    if (empty($scaleid)) {
+        return false;
+    }
+
+    return $DB->record_exists('mootyper', ['scale' => $scaleid * -1]);
 }
 
 /**
  * Creates or updates grade item for the given mootyper instance.
  *
- * Needed by grade_update_mod_grades() in lib/gradelib.php
+ * 20200808 Needed by grade_update_mod_grades() in lib/gradelib.php
  *
  * @category grade
  * @uses GRADE_TYPE_NONE
@@ -722,59 +768,59 @@ function mootyper_scale_used_anywhere($scaleid) {
  * @param mixed $grades Optional array/object of grade(s); 'reset' means reset grades in gradebook
  * @return int 0 if ok
  */
-function mootyper_grade_item_update($mootyper, $grades=null) {
+function mootyper_grade_item_update($mootyper, $ratings = null, $mootypergrades = null): void {
     global $CFG;
-    if (!function_exists('grade_update')) { // Workaround for buggy PHP versions.
-        require_once($CFG->libdir.'/gradelib.php');
-    }
+    require_once("{$CFG->libdir}/gradelib.php");
+    // Update the rating.
+    $item = [
+        'itemname' => get_string('gradeitemnameforrating', 'mootyper', $mootyper),
+        'idnumber' => $mootyper->cmidnumber,
+    ];
 
-    $params = array('itemname' => $mootyper->name, 'idnumber' => $mootyper->cmidnumber);
-
-    // $params = array();
-    // $params['itemname'] = clean_param($mootyper->name, PARAM_NOTAGS);
-    // $params['gradetype'] = GRADE_TYPE_VALUE;
-    // $params['grademax']  = $mootyper->grade;
-    // $params['grademin']  = 0;
-
-    if (!$mootyper->assessed or $mootyper->scale == 0) {
-        $params['gradetype'] = GRADE_TYPE_NONE;
-
+    if (!$mootyper->assessed || $mootyper->scale == 0) {
+        $item['gradetype'] = GRADE_TYPE_NONE;
     } else if ($mootyper->scale > 0) {
-        $params['gradetype'] = GRADE_TYPE_VALUE;
-        $params['grademax']  = $mootyper->scale;
-        $params['grademin']  = 0;
-
+        $item['gradetype'] = GRADE_TYPE_VALUE;
+        $item['grademax']  = $mootyper->scale;
+        $item['grademin']  = 0;
     } else if ($mootyper->scale < 0) {
-        $params['gradetype'] = GRADE_TYPE_SCALE;
-        $params['scaleid']   = -$mootyper->scale;
+        $item['gradetype'] = GRADE_TYPE_SCALE;
+        $item['scaleid']   = -$mootyper->scale;
     }
-
-    if ($grades === 'reset') {
-        $params['reset'] = true;
-        $grades = null;
+    if ($ratings === 'reset') {
+        $item['reset'] = true;
+        $ratings = null;
     }
+    // Itemnumber 0 is the rating.
+    grade_update('mod/mootyper', $mootyper->course, 'mod', 'mootyper', $mootyper->id, 0, $ratings, $item);
 
-    return grade_update('mod/mootyper', $mootyper->course, 'mod', 'mootyper', $mootyper->id, 0, $grades, $params);
+    // 20200907 Skip mootyper grading options for Moodle less than v3.8.
+    if ($CFG->branch > 37) {
+        // Whole mootyper grade.
+        $item = [
+            'itemname' => get_string('gradeitemnameforwholemootyper', 'mootyper', $mootyper),
+            // Note: We do not need to store the idnumber here.
+        ];
+
+        if (!$mootyper->grade_mootyper) {
+            $item['gradetype'] = GRADE_TYPE_NONE;
+        } else if ($mootyper->grade_mootyper > 0) {
+            $item['gradetype'] = GRADE_TYPE_VALUE;
+            $item['grademax'] = $mootyper->grade_mootyper;
+            $item['grademin'] = 0;
+        } else if ($mootyper->grade_mootyper < 0) {
+            $item['gradetype'] = GRADE_TYPE_SCALE;
+            $item['scaleid'] = $mootyper->grade_mootyper * -1;
+        }
+
+        if ($mootypergrades === 'reset') {
+            $item['reset'] = true;
+            $mootypergrades = null;
+        }
+        // Itemnumber 1 is the whole mootyper grade.
+        grade_update('mod/mootyper', $mootyper->course, 'mod', 'mootyper', $mootyper->id, 1, $mootypergrades, $item);
+    }
 }
-
-/**
- * Update mootyper grades in the gradebook.
- *
- * Needed by grade_update_mod_grades() in lib/gradelib.php.
- *
- * @param stdClass $mootyper instance object with extra cmidnumber and modname property.
- * @param int $userid update grade of specific user only, 0 means all participants.
- * @return void
- */
-/** function mootyper_update_grades(stdClass $mootyper, $userid = 0) {
- *    global $CFG, $DB;
- *    require_once($CFG->libdir.'/gradelib.php');
- *
- *    $grades = array(); // Populate array of grade objects indexed by userid.
- *
- *    grade_update('mod/mootyper', $mootyper->course, 'mod', 'mootyper', $mootyper->id, 0, $grades);
- *  }
- */
 
 /**
  * Update mootyper grades in the gradebook.
@@ -785,25 +831,63 @@ function mootyper_grade_item_update($mootyper, $grades=null) {
  * @param int $userid update grade of specific user only, 0 means all participants.
  * @return void
  */
-function mootyper_update_grades($mootyper, $userid=0, $nullifnone=true) {
+function mootyper_update_grades($mootyper, $userid=0): void {
     global $CFG, $DB;
     require_once($CFG->libdir.'/gradelib.php');
+    $cm = get_coursemodule_from_instance('mootyper', $mootyper->id);
+    $mootyper->cmidnumber = $cm->idnumber;
+    $ratings = null;
+    if ($mootyper->assessed) {
+        require_once($CFG->dirroot.'/rating/lib.php');
+        $rm = new rating_manager();
+        $ratings = $rm->get_user_grades((object) [
+            'component' => 'mod_mootyper',
+            'ratingarea' => 'exercises',
+            'contextid' => \context_module::instance($cm->id)->id,
 
-    if (!$mootyper->assessed) {
-        mootyper_grade_item_update($mootyper);
-
-    } else if ($grades = mootyper_get_user_grades($mootyper, $userid)) {
-        mootyper_grade_item_update($mootyper, $grades);
-
-    } else if ($userid and $nullifnone) {
-        $grade = new stdClass();
-        $grade->userid   = $userid;
-        $grade->rawgrade = null;
-        mootyper_grade_item_update($mootyper, $grade);
-
-    } else {
-        mootyper_grade_item_update($mootyper);
+            'modulename' => 'mootyper',
+            'moduleid  ' => $mootyper->id,
+            'userid' => $userid,
+            'aggregationmethod' => $mootyper->assessed,
+            'scaleid' => $mootyper->scale,
+            'itemtable' => 'mootyper_grades',
+            'itemtableusercolumn' => 'userid',
+        ]);
     }
+
+    $mootypergrades = null;
+    if ($mootyper->requiredgoal) {
+        $sql = <<<EOF
+SELECT
+    g.userid,
+    0 as datesubmitted,
+    g.grade as rawgrade,
+    g.timetaken as dategraded
+  FROM {mootyper} m
+  JOIN {mootyper_grades} g ON g.mootyper = m.id
+ WHERE m.id = :mootyperid
+EOF;
+
+        $params = [
+            'mootyperid' => $mootyper->id,
+        ];
+
+        if ($userid) {
+            $sql .= " AND g.userid = :userid";
+            $params['userid'] = $userid;
+        }
+
+        $mootypergrades = [];
+        if ($grades = $DB->get_recordset_sql($sql, $params)) {
+            foreach ($grades as $userid => $grade) {
+                if ($grade->rawgrade != -1) {
+                    $mootypergrades[$userid] = $grade;
+                }
+            }
+            $grades->close();
+        }
+    }
+    mootyper_grade_item_update($mootyper, $ratings, $mootypergrades);
 }
 
 
@@ -888,366 +972,26 @@ function mootyper_get_file_areas($course, $cm, $context) {
 }
 
 /**
- * Serves the files from the mootyper file areas.
+ * Serves the files from the mootyper file areas
  *
- * @package mod_mootyper
- * @category files
- * @param stdClass $course course object
- * @param stdClass $cm course module object
- * @param stdClass $context context object
- * @param string $filearea file area
- * @param array $args extra arguments
- * @param bool $forcedownload whether or not force download
- * @param array $options additional options affecting the file serving
- * @return bool false if file not found, does not return if found - just send the file
+ * @param stdClass $course
+ * @param stdClass $cm
+ * @param stdClass $context
+ * @param string $filearea
+ * @param array $args
+ * @param bool $forcedownload
+ * @return void this should never return to the caller
  */
-function mootyper_pluginfile($course, $cm, $context, $filearea, $args, $forcedownload, array $options=array()) {
-    //global $DB, $CFG;
-    //require_once("$CFG->libdir/resourcelib.php");
-    global $DB, $USER;
+function mootyper_pluginfile($course, $cm, $context, $filearea, array $args, $forcedownload) {
+    global $DB, $CFG;
 
-print_object('1 spacer in function mootyper_pluginfile.');
-print_object('2 spacer in function mootyper_pluginfile.');
-print_object('3 spacer in function mootyper_pluginfile.');
-print_object('4 spacer in function mootyper_pluginfile.');
-
-    // Check the contextlevel is as expected.
     if ($context->contextlevel != CONTEXT_MODULE) {
-    //if ($context->contextlevel != CONTEXT_COURSE) {
-        print_object('Context is NOT module.');
-        exit;
-        return false;
+        send_file_not_found();
     }
 
-    // Make sure the user is logged in and has access to the module.
-    require_course_login($course, true, $cm);
+    require_login($course, true, $cm);
 
-    // Make sure the filearea is one of those used by the plugin.
-    //if ($filearea !== 'dictationdata') {
-    //    print_object('Filearea is NOT dictationdata.');
-    if ($filearea !== 'entry') {
-        print_object('Filearea is NOT entry.');
-        exit;
-        return false;
-    }
-
-
-    // Check the relevant capabilities.
-    if (!$course->visible && !has_capability('mod/mootyper:view', $context)) {
-        print_object('Course is NOT visible and does NOT have capability to view.');
-        exit;
-        return false;
-    }
-
-
-    // Args[0] should be the entry id.
-    $entryid = intval(array_shift($args));
-    //$entry = $DB->get_record('mootyper_exercises', array('id' => $entryid), '*', MUST_EXIST);
-    $entry = $DB->get_record('mootyper_entries', array('id' => $entryid), 'id, userid', MUST_EXIST);
-
-    print_object('In function mootyper_pluginfile and printing $entry.');
-    print_object($entry);
-
-    $canmanage = has_capability('mod/mootyper:aftersetup', $context);
-    if (!$canmanage && !has_capability('mod/mootyper:view', $context)) {
-        // Even if it is your own entry.
-        return false;
-    }
-    // Students can only see their own entry.
-    //if (!$canmanage) {
-    if (!$canmanage && $USER->id !== $entry->userid) {
-        return false;
-    }
-
-    //if ($filearea !== 'dictationdata') {
-    if ($filearea !== 'entry') {
-        return false;
-    }
-
-
-    $fs = get_file_storage();
-    $relativepath = implode('/', $args);
-    $fullpath = "/$context->id/mod_mootyper/$filearea/$entryid/$relativepath";
-    $file = $fs->get_file_by_hash(sha1($fullpath));
-
-    if (!$file = $fs->get_file_by_hash(sha1($fullpath))) {
-        print_object('Evidently, the file does not exist!');
-    }
-print_object($file);
-
-    // Finally send the file.
-    send_stored_file($file, null, 0, $forcedownload, $options);
-}
-
-/**
- * Return the editor and attachment options when editing a mootyper entry
- *
- * @param  stdClass $course  course object
- * @param  stdClass $context context object
- * @param  stdClass $entry   entry object
- * @return array array containing the editor and attachment options
- * @since  Moodle 3.2
- */
-function mootyper_get_editor_and_attachment_options($course, $context, $entry, $cmid, $ex) {
-    $maxfiles = 99;                // TODO: add some setting.
-    $maxbytes = $course->maxbytes; // TODO: add some setting.
-
-    $editoroptions = array(
-        //'entryid' => $entry->id,
-        'cmid'   => $cmid,
-        'ex' => $ex,
-        'trusttext' => true,
-        'maxfiles' => $maxfiles,
-        'maxbytes' => $maxbytes,
-        'context' => $context,
-        //'subdirs' => file_area_contains_subdirs($context, 'mod_mootyper', 'entry', $entry->id)
-        'subdirs' => false,
-    );
-    $attachmentoptions = array(
-        'subdirs' => false,
-        'maxfiles' => $maxfiles,
-        'maxbytes' => $maxbytes
-    );
-
-    return array($editoroptions, $attachmentoptions);
-}
-/**
- * Return the editor and attachment options when editing an exercise entry
- *
- * @param  stdClass $course course object
- * @param  stdClass $context context object
- * @param  stdClass $exercise exercise object
- * @return array array containing the editor and attachment options
- * @since  Moodle 3.2
- */
-function xxx_mootyper_get_editor_and_attachment_options($course, $context, $exercise) {
-    $maxfiles = 99;                // TODO: add some setting.
-    $maxbytes = $course->maxbytes; // TODO: add some setting.
-
-    $editoroptions = array(
-        'maxfiles' => $maxfiles,
-        'maxbytes' => $maxbytes,
-        'context' => $context,
-        'subdirs' => true,
-        'enable_filemanagement' => true
-    );
-    $attachmentoptions = array(
-        'subdirs' => false,
-        'maxfiles' => $maxfiles,
-        'maxbytes' => $maxbytes
-    );
-    return array($editoroptions, $attachmentoptions);
-}
-
-//--------------------------------------------------------------------------------------------------------------
-/**
- * Creates or updates a MooTyper exercise.
- *
- * @param  stdClass $entry entry data
- * @param  stdClass $course course object
- * @param  stdClass $cm course module object
- * @param  stdClass $mootyper mootyper object
- * @param  stdClass $context context object
- * @return stdClass the complete new or updated entry
- * @since  Moodle 3.8
- */
-function mootyper_edit_entry($entry, $course, $cm, $ex, $context) {
-    global $DB, $USER;
-//print_object('spacer');
-//print_object('3-5 In first part of lib.php, this is $context being passed in from eedit2.php.');
-//print_object($context);
-    list($editoroptions, $attachmentoptions) = mootyper_get_editor_and_attachment_options($course, $context, $entry);
-
-    $entry->id                  = $ex;
-    $entry->texttotype          = trim($entry->texttotype);
-    $entry->dictationdata       = '';          // Updated later.
-    $entry->dictationdataformat = FORMAT_HTML; // Updated later.
-    $entry->dictationdatatrust  = 0;           // Updated later.
-
-    // Update existing entry.
-    $DB->update_record('mootyper_exercises', $entry);
-
-    // Save and relink embedded images and save attachments.
-    if (!empty($entry->dictationdata_editor)) {
-        $entry = file_postupdate_standard_editor($entry, 'dictationdata', $editoroptions, $context, 'mod_mootyper', 'dictationdata', $entry->id);
-    }
-/*
-    if (!empty($entry->attachment_filemanager)) {
-        $entry = file_postupdate_standard_filemanager($entry, 'attachment', $attachmentoptions, $context, 'mod_mootyper',
-            'attachment', $entry->id);
-    }
-*/
-
-
-print_object('spacer');
-print_object('3-6 In later part of lib.php, this is $entry after file postupdate.');
-print_object($entry);
-//exit;
-
-    // Store the updated value values.
-    $DB->update_record('mootyper_exercises', $entry);
-
-    // Refetch complete entry.
-    $entry = $DB->get_record('mootyper_exercises', array('id' => $entry->id));
-/*
-print_object('spacer');
-print_object('3-7 In later part of lib.php, this is $entry after refetch.');
-print_object($entry);
-//exit;
-*/
-
-
-/*
-    // Trigger event and update completion (if entry was created).
-    $eventparams = array(
-        'context' => $context,
-        'objectid' => $entry->id,
-        'other' => array('concept' => $entry->concept)
-    );
-*/
-    return $entry;
-}
-
-
-//-------------------------------------------------------------------------------------------------
-
-/**
- * Checks to see if there are files that need to be served.
- *
- *
- */
-function mootyper_format_entry_text($ex, $course = false, $cm = false) {
-    
-//print_object('In function printing first occurrence of $ex.');
-//print_object($ex);
-//print_object('In function printing first occurrence of $course.');
-//print_object($course);
-//print_object('In function printing first occurrence of $cm.');
-//print_object($cm);
-
-    if (!$cm) {
-        if ($course) {
-            $courseid = $course->id;
-        } else {
-            $courseid = 0;
-        }
-        $cm = get_coursemodule_from_instance('mootyper', $ex->mootyper, $courseid);
-//print_object('In function printing second occurrence inside the if, of $cm.');
-//print_object($cm);
-    }
-
-    $context = context_module::instance($cm->id);
-
-    $extext = file_rewrite_pluginfile_urls($ex->dictationdata, 'pluginfile.php', $context->id, 'mod_mootyper', 'dictationdata', $ex->id);
-
-//print_object('In function printing second occurrence of $extext.');
-//print_object($extext);
-
-    $formatoptions = array(
-        'context' => $context,
-        'noclean' => false,
-        'trusted' => false
-    );
-
-//print_object('In function printing first occurrence of $formatoptions.');
-//print_object($formatoptions);
-//print_object('In function printing first occurrence of format_text($extext, $entry->format, $formatoptions).');
-
-//print_object(format_text($extext, $ex->dictationdataformat, $formatoptions));
-
-    //return format_text($extext, 1, $formatoptions);
-    return format_text($extext, $ex->dictationdataformat, $formatoptions);
-}
-//-------------------------------------------------------------------------------------------------
-
-/**
- * Checks to see if there are files that need to be served.
- * This one is used by simpleentries.php for testing.
- *
- */
-function mootyper_format_entry_text2($entry, $course = false, $cm = false) {
-
-    if (!$cm) {
-        if ($course) {
-            $courseid = $course->id;
-        } else {
-            $courseid = 0;
-        }
-        $cm = get_coursemodule_from_instance('mootyper', $entry->mootyper, $courseid);
-    }
-
-    $context = context_module::instance($cm->id);
-    $entrytext = file_rewrite_pluginfile_urls($entry->text, 'pluginfile.php', $context->id, 'mod_mootyper', 'entry', $entry->id);
-
-    $formatoptions = array(
-        'context' => $context,
-        'noclean' => false,
-        'trusted' => false
-    );
-
-    return format_text($entrytext, $entry->format, $formatoptions);
-}
-
-/**
- * Counts all the mootyper entries (optionally in a given group)
- */
-function mootyper_count_entries($mootyper, $groupid = 0) {
-    global $DB;
-
-//print_object('In function mootyper_count_entries and printing $mootyper.');
-//print_object($mootyper);
-
-    $cm = mootyper_get_coursemodule($mootyper->id);
-    $context = context_module::instance($cm->id);
-
-    if ($groupid) {     // How many in a particular group?
-
-        $sql = "SELECT DISTINCT u.id FROM {mootyper_entries} me
-                JOIN {groups_members} g ON g.userid = me.userid
-                JOIN {user} u ON u.id = g.userid
-                WHERE me.mootyper = ? AND g.groupid = ?";
-        $mootypers = $DB->get_records_sql($sql, array($mootyper->id, $groupid));
-
-    } else { // Count all the entries from the whole course.
-
-        $sql = "SELECT DISTINCT u.id FROM {mootyper_entries} me
-                JOIN {user} u ON u.id = me.userid
-                WHERE me.mootyper = ?";
-        $mootypers = $DB->get_records_sql($sql, array($mootyper->id));
-    }
-
-    if (!$mootypers) {
-        return 0;
-    }
-
-    $canadd = get_users_by_capability($context, 'mod/mootyper:addentries', 'u.id');
-    $entriesmanager = get_users_by_capability($context, 'mod/mootyper:manageentries', 'u.id');
-
-    // Remove unenrolled participants.
-    foreach ($mootypers as $userid => $notused) {
-
-        if (!isset($entriesmanager[$userid]) && !isset($canadd[$userid])) {
-            unset($mootypers[$userid]);
-        }
-    }
-
-    return count($mootypers);
-}
-
-
-/**
- * Returns the mootyper instance course_module id
- *
- * @param integer $mootyper
- * @return object
- */
-function mootyper_get_coursemodule($mootyperid) {
-
-    global $DB;
-
-    return $DB->get_record_sql("SELECT cm.id FROM {course_modules} cm
-                                JOIN {modules} m ON m.id = cm.module
-                                WHERE cm.instance = ? AND m.name = 'mootyper'", array($mootyperid));
+    send_file_not_found();
 }
 
 
@@ -1258,8 +1002,7 @@ function mootyper_get_coursemodule($mootyperid) {
  * @param int $cmid The coursemodule id
  * @return bool
  */
-//function mootyper_update_calendar(stdClass $mootyper, $cmid) {
-function mootyper_update_calendar($mootyper, $cmid) {
+function mootyper_update_calendar(stdClass $mootyper, $cmid) {
     global $DB, $CFG;
 
     if ($CFG->branch > 30) { // If Moodle less than version 3.1 skip this.
@@ -1357,7 +1100,6 @@ function mootyper_update_calendar($mootyper, $cmid) {
         return true;
     }
 }
-//-------------------------------------------------------------------------------------------------
 
 
 // Navigation API.
@@ -1388,8 +1130,7 @@ function mootyper_update_calendar($mootyper, $cmid) {
  * @param navigation_node $navref {@link navigation_node}
  */
 function mootyper_extend_settings_navigation(settings_navigation $settingsnav, navigation_node $navref) {
-    global $mootyper, $PAGE, $DB;
-    // 20200226 Added $mootyper so can go directly to the lesson you want to edit
+    global $PAGE, $DB, $USER;
 
     $cm = $PAGE->cm;
     if (!$cm) {
@@ -1411,19 +1152,10 @@ function mootyper_extend_settings_navigation(settings_navigation $settingsnav, n
         $node = $navref->add($linkname, $link, navigation_node::TYPE_SETTING, null, null, $icon);
     }
 
-    // Consider making this work for siteadmin only. If so, separate the two.
     // Link to Import new lessons w/exercises and new keyboard layouts.
-    if (has_capability('mod/mootyper:editall', $cm->context)) {
+    if (has_capability('mod/mootyper:aftersetup', $cm->context)) {
         $link = new moodle_url('lsnimport.php', array('id' => $cm->id));
         $linkname = get_string('lsnimport', 'mootyper');
-        $icon = new pix_icon('icon', '', 'mootyper', array('class' => 'icon'));
-        $node = $navref->add($linkname, $link, navigation_node::TYPE_SETTING, null, null, $icon);
-    }
-
-    // 20200226 Link to manage keyboard layouts works for siteadmin only.
-    if (is_siteadmin()) {
-        $link = new moodle_url('layouts.php', array('id' => $cm->id));
-        $linkname = get_string('loheading', 'mootyper');
         $icon = new pix_icon('icon', '', 'mootyper', array('class' => 'icon'));
         $node = $navref->add($linkname, $link, navigation_node::TYPE_SETTING, null, null, $icon);
     }
@@ -1431,13 +1163,22 @@ function mootyper_extend_settings_navigation(settings_navigation $settingsnav, n
     // Link to lessons w/exercises management page.
     if (has_capability('mod/mootyper:aftersetup', $cm->context)) {
         // 02/24/2020 Change to be like other modules code base.
-        //$link = new moodle_url('exercises.php', array('id' => $cm->id, 'course' =>  $course->id));
-    $mootyper = $DB->get_record('mootyper', array('id' => $cm->instance) , '*', MUST_EXIST);
-
-        $link = new moodle_url('exercises.php', array('id' => $cm->id, 'lesson' => $mootyper->lesson));
-        $linkname = get_string('editexercises', 'mootyper');
-        $icon = new pix_icon('icon', '', 'mootyper', array('class' => 'icon'));
-        $node = $navref->add($linkname, $link, navigation_node::TYPE_SETTING, null, null, $icon);
+        $mootyper = $DB->get_record('mootyper', array('id' => $cm->instance) , '*', MUST_EXIST);
+        $lesson = $DB->get_record('mootyper_lessons', array('id' => $mootyper->lesson) , '*');
+        // 20200627 Modified to show link only if user can edit the current lesson.
+        if ($lesson) {
+            if (lessons::is_editable_by_me($USER->id, $mootyper->id, $lesson->id)) {
+                $link = new moodle_url('exercises.php', array('id' => $cm->id, 'lesson' => $mootyper->lesson));
+                $linkname = get_string('editexercises', 'mootyper');
+                /* For testing use this for extra details:
+                $linkname = get_string('editexercises', 'mootyper')
+                    .' - uid: '.$USER->id
+                    .' mtid: '.$mootyper->id
+                    .' lsnid: '.$lesson->id;
+                */
+                $icon = new pix_icon('icon', '', 'mootyper', array('class' => 'icon'));
+                $node = $navref->add($linkname, $link, navigation_node::TYPE_SETTING, null, null, $icon);
+            }
+        }
     }
-
 }

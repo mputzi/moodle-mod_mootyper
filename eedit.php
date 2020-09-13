@@ -24,6 +24,7 @@
  */
 
 use \mod_mootyper\event\exercise_edited;
+use \mod_mootyper\event\invalid_access_attempt;
 
 // Changed to this newer format 20190301.
 require(__DIR__ . '/../../config.php');
@@ -54,9 +55,24 @@ $lessonname = $DB->get_record('mootyper_lessons', array('id' => $lesson->lesson)
 
 // This context->id will be used for the path to file storage.
 $context = context_module::instance($cm->id);
-//$context = context_course::instance($id);
+$mootyper = $DB->get_record('mootyper', array('id' => $cm->instance) , '*', MUST_EXIST);
 
 require_login($course, true, $cm);
+
+// 20200706 Added to prevent student direct URL access attempts.
+if (!(has_capability('mod/mootyper:aftersetup', $context))) {
+    // Trigger invalid_access_attempt with redirect to course page.
+    $params = array(
+        'objectid' => $id,
+        'context' => $context,
+        'other' => array(
+            'file' => 'eedit.php'
+        )
+    );
+    $event = invalid_access_attempt::create($params);
+    $event->trigger();
+    redirect('../../course/view.php?id='.$course->id, get_string('invalidaccessexp', 'mootyper'));
+}
 
 // Check to see if Confirm button is clicked and returning 'Confirm' to trigger update record.
 $param1 = optional_param('button', '', PARAM_TEXT);
@@ -106,15 +122,15 @@ if (isset($moocfg->defaulteditalign)) {
     $align = $editalign;
 }
 
-//$PAGE->set_url('/mod/mootyper/eedit.php', array('id' => $course->id, 'ex' => $exerciseid));
 $PAGE->set_url('/mod/mootyper/eedit.php', array('id' => $course->id, 'ex' => $ex));
 $PAGE->set_title(get_string('etitle', 'mootyper'));
 $PAGE->set_heading(get_string('eheading', 'mootyper'));
 $PAGE->set_cacheable(false);
 echo $OUTPUT->header();
-$exercisetoedit = $DB->get_record('mootyper_exercises', array('id' => $ex), 'id, texttotype, exercisename, lesson, snumber', MUST_EXIST);
+$exercisetoedit = $DB->get_record('mootyper_exercises',
+    array('id' => $ex), 'id, texttotype, exercisename, lesson, snumber', MUST_EXIST);
 
- ?>
+?>
 
 <script type="text/javascript">
 function isLetter(str) {
@@ -169,7 +185,8 @@ function clClick() {
 
 </script>
 <?php
-$color3 = $moocfg->keyboardbgc;
+// 20200625 Get the current MooTyper keyboard background default color for our page background here.
+$color3 = $mootyper->keybdbgc;
 echo '<div align="center" style="font-size:1em;
      font-weight:bold;background: '.$color3.';
      border:2px solid black;
@@ -204,18 +221,37 @@ echo '</select></span>';
 $url = $CFG->wwwroot . '/mod/mootyper/exercises.php?id='.$id.'&lesson='.$rcrd->lesson;
 
 // Add a text area for editing the text of the exercise.
-echo '<span id="text_holder_span" class=""></span><br>'.get_string('fexercise', 'mootyper').':<br>'.
-    '<textarea name="texttotype" id="texttotype" rows="3" cols="60" style="text-align:'.$align.'">'.
-    str_replace('\n', "&#10;", $exercisetoedit->texttotype).
-    '</textarea>';
+echo '<span id="text_holder_span" class=""></span><br>'
+    .get_string('fexercise', 'mootyper')
+    .':<br>'
+    .'<textarea name="texttotype" id="texttotype" rows="3" cols="60" style="text-align:'
+    .$align.'">'
+    .str_replace('\n', "&#10;", $exercisetoedit->texttotype)
+    .'</textarea>';
 
-    $editor = editors_get_preferred_editor(FORMAT_HTML);
-    $attobuttons = 'files = recordrtc'. PHP_EOL .'list = unorderedlist, orderedlist'. PHP_EOL .'other = html, htmlplus';
+$editor = editors_get_preferred_editor(FORMAT_HTML);
+$attobuttons = 'files = recordrtc'. PHP_EOL .'list = unorderedlist, orderedlist'. PHP_EOL .'other = html, htmlplus';
 
-    $editor->use_editor('exercisetoedit', ['context' => $context, 'enable_filemanagement' => true, 'autosave' => true, 'atto:toolbar' => $attobuttons], ['return_types' => FILE_EXTERNAL]);
+$editor->use_editor('exercisetoedit',
+    ['context' => $context,
+    'enable_filemanagement' => true,
+    'autosave' => true,
+    'atto:toolbar' => $attobuttons],
+    ['return_types' => "FILE_EXTERNAL"]
+    );
 
 // Add a confirm and cancel button.
-echo '<br><br><input class="btn btn-primary" style="border-radius: 8px" name="button" onClick="return clClick()" type="submit" value="'.get_string('fconfirm', 'mootyper').'"> <a href="'.$url.'" class="btn btn-secondary"  style="border-radius: 8px">'.get_string('cancel', 'mootyper').'</a>'.'</form>';
+echo '<br><br><input class="btn btn-primary"
+    style="border-radius: 8px"
+    name="button"
+    onClick="return clClick()"
+    type="submit" value="'
+    .get_string('fconfirm', 'mootyper')
+    .'"> <a href="'
+    .$url
+    .'" class="btn btn-secondary"  style="border-radius: 8px">'
+    .get_string('cancel', 'mootyper')
+    .'</a>'.'</form>';
 
 echo '</div>';
 

@@ -26,6 +26,7 @@
  **/
 
 use \mod_mootyper\event\exercise_added;
+use \mod_mootyper\event\invalid_access_attempt;
 use \mod_mootyper\local\lessons;
 
 // Changed to this newer format 03/01/2019.
@@ -54,6 +55,23 @@ if (! $course = $DB->get_record("course", array('id' => $cm->course))) {
 require_login($course, true);
 
 $context = context_module::instance($cm->id);
+
+$mootyper = $DB->get_record('mootyper', array('id' => $cm->instance) , '*', MUST_EXIST);
+
+// 20200706 Added to prevent student direct URL access attempts.
+if (!(has_capability('mod/mootyper:aftersetup', $context))) {
+    // Trigger invalid_access_attempt with redirect to course page.
+    $params = array(
+        'objectid' => $id,
+        'context' => $context,
+        'other' => array(
+            'file' => 'eins.php'
+        )
+    );
+    $event = invalid_access_attempt::create($params);
+    $event->trigger();
+    redirect('../../course/view.php?id='.$course->id, get_string('invalidaccessexp', 'mootyper'));
+}
 
 // Check to see if Confirm button is clicked and returning 'Confirm' to trigger insert record.
 $param1 = optional_param('button', '', PARAM_TEXT);
@@ -150,8 +168,8 @@ if (has_capability('mod/mootyper:editall', context_course::instance($course->id)
     }
 }
 
-// Get the site keyboard background default color for our page background here.
-$color3 = $moocfg->keyboardbgc;
+// 20200625 Get the current MooTyper keyboard background default color for our page background here.
+$color3 = $mootyper->keybdbgc;
 // Add colored background with border.
 echo '<div align="center" style="font-size:1em;
     font-weight:bold;background: '.$color3.';
@@ -182,7 +200,7 @@ echo '</select>';
 if ($lessonpo == -1) {
 
     // Set up place to enter new lesson name.
-    echo '<br><br>...'.get_string('lsnname', 'mootyper').': <input type="text" name="lessonname" id="lessonname">
+    echo '<br><br>'.get_string('lsnname', 'mootyper').': <input type="text" name="lessonname" id="lessonname">
         <span style="color:red;" id="namemsg"></span>';
 
     // Set up visibility selector options for this new lesson.
@@ -274,7 +292,6 @@ function clClick() {
 </script>
 
 <?php
-
 // Create a link back to where we came from in case we want to cancel.
 if ($lessonpo == -1) {
     // 20200414 On cancel, go back to the MT activity if invoked from there.
@@ -289,10 +306,12 @@ echo '<br><span id="text_holder_span" class=""></span><br>'.get_string('fexercis
     .'<textarea rows="4" cols="60" name="texttotype" id="texttotype" style="text-align:'.$align.'"></textarea>';
 
 // Add a confirm and cancel button.
-echo '<br><br><input class="btn btn-primary" style="border-radius: 8px" name="button" onClick="return clClick()" type="submit" value="'
-    .get_string('fconfirm', 'mootyper').'"> <a href="'.$url.'" class="btn btn-secondary"  style="border-radius: 8px">'
+echo '<br><br><input class="btn btn-primary" style="border-radius: 8px"
+     name="button" onClick="return clClick()" type="submit" value="'
+    .get_string('fconfirm', 'mootyper').'"> <a href="'
+    .$url.'" class="btn btn-secondary"  style="border-radius: 8px">'
     .get_string('cancel', 'mootyper').'</a>'.'</form>';
 
-echo '<br></div>';
+echo '</div>';
 
 echo $OUTPUT->footer();

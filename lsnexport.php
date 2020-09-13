@@ -45,7 +45,6 @@ $context = context_course::instance($id);
 
 $data = new StdClass();
 $data->mootyper = $id;
-$context = context_course::instance($id);
 
 $params = array();
 $params[] = $lsn;
@@ -56,8 +55,6 @@ $sql = "SELECT lessonname
 // 20200613 Changed $sql to use $params.
 $fname = $DB->get_record_sql($sql, $params);
 $filename = $fname->lessonname;
-
-
 
 // Check to see if we need GMT added to filename based on lesson export filename setting.
 if (get_config('mod_mootyper', 'lesson_export_filename')) {

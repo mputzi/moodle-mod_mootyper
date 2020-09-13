@@ -26,10 +26,12 @@
 use \mod_mootyper\event\exercise_completed;
 use \mod_mootyper\event\exam_completed;
 use \mod_mootyper\event\lesson_completed;
+use \mod_mootyper\local\results;
 
-// Changed to this newer format 03/01/2019.
+// Changed to this format 20190301.
 require(__DIR__ . '/../../config.php');
-//require_once(__DIR__ . '/locallib.php');
+// 20200808 Added for integration with Moodle rating/grades.
+require_once(__DIR__ . '/lib.php');
 
 global $CFG, $DB;
 
@@ -81,14 +83,42 @@ $record->pass = $passfield;
 $record->attemptid = optional_param('rpAttId', '', PARAM_INT);
 $record->wpm = (max(0, optional_param('rpWpmInput', '', PARAM_FLOAT)));
 $record->mistakedetails = optional_param('rpMistakeDetailsInput', '', PARAM_CLEAN);
-// 01/11/2020 Check to see if there were no mistakes made and change undefined to nomistakes string.
-if (stripos($record->mistakedetails, "undefined") !==false) {
+// 20200111 Check to see if there were no mistakes made and change undefined to nomistakes string.
+if (stripos($record->mistakedetails, "undefined") !== false) {
     $record->mistakedetails = get_string('nomistakes', 'mootyper');
 }
+// 20200808 Added code for using MooTyper exercise grades as Moodle Ratings.
+$mootyper  = $DB->get_record('mootyper', array('id' => $record->mootyper), '*', MUST_EXIST);
+
 $DB->insert_record('mootyper_grades', $record, false);
 
-// Added 11/29/19. Trigger exercise_completed event.
-// Added 12/1/19 modification to also trigger exam_completed event.
+// 20200808 Need id of the record we just inserted.
+$rec = results::get_grade_entry($mootyper->id, $record->userid, $record->exercise, $record->timetaken);
+// 20200808 Make grade entry depending on whether grade or rating.
+if ($mootyper->assessed) {
+    // 20200808 Need code to place the exercise grade into the rating table.
+    $ratingoptions = new stdClass();
+    $ratingoptions->contextid = \context_module::instance($cm->id)->id;
+    $ratingoptions->component = 'mod_mootyper';
+    $ratingoptions->ratingarea = 'exercises';
+    $ratingoptions->itemid = $rec->id;
+    $ratingoptions->scaleid = $mootyper->scale;
+    $ratingoptions->rating = $record->grade;
+    $ratingoptions->userid = $record->userid;
+    $ratingoptions->timecreated = $record->timetaken;
+    $ratingoptions->timemodified = $record->timetaken;
+    // 20200808 Place latest exercise grade into the mdl_rating table.
+    $DB->insert_record('rating', $ratingoptions, false);
+    // 20200808 Update entry in Moodle Grades.
+    mootyper_update_grades($mootyper, $record->userid);
+
+} else {
+    // Otherwise, place a whole grade into the mdl_grade_items table.
+    mootyper_update_grades($mootyper);
+}
+
+// 20191129 Added trigger for exercise_completed event.
+// 20191201 Added modification to also trigger exam_completed event.
 $params = array(
     'objectid' => $cmid,
     'context' => $context,
@@ -98,6 +128,7 @@ $params = array(
         'activity' => $cm->name
     )
 );
+// If exam or just an exercise is completed, log the appropriate event.
 if ($mtmode === 1) {
     $event = exam_completed::create($params);
 } else {
@@ -105,7 +136,7 @@ if ($mtmode === 1) {
 }
 $event->trigger();
 
-// Added 12/3/19 If all the exercises in a lesson are complete, trigger lesson_completed event, too.
+// Added 20191203 If all the exercises in a lesson are complete, trigger lesson_completed event, too.
 if (!($mtmode === 1) && ($exercisename === $count)) {
     $params = array(
         'objectid' => $cmid,
@@ -119,5 +150,6 @@ if (!($mtmode === 1) && ($exercisename === $count)) {
     $event = lesson_completed::create($params);
     $event->trigger();
 }
+
 $webdir = $CFG->wwwroot . '/mod/mootyper/view.php?n='.$record->mootyper;
 echo '<script type="text/javascript">window.location="'.$webdir.'";</script>';

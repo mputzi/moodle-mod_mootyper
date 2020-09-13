@@ -29,12 +29,12 @@
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later.
  */
 
+use \mod_mootyper\event\invalid_access_attempt;
 use \mod_mootyper\event\lesson_imported;
 use \mod_mootyper\event\layout_imported;
 
 require(__DIR__ . '/../../config.php');
 require_once(__DIR__ . '/lib.php');
-//require_once(__DIR__ . '/locallib.php');
 
 /**
  * Define the lesson import function.
@@ -117,32 +117,36 @@ function add_keyboard_layout($dafile) {
     $DB->insert_record('mootyper_layouts', $record, true);
 }
 
+// Page starts here.
 $id = optional_param('id', 0, PARAM_INT); // Course ID.
 $lsn = optional_param('lsn', 0, PARAM_INT); // Lesson ID to download.
-
-/*
-if ($id) {
-    $course     = $DB->get_record('course', array('id' => $id), '*', MUST_EXIST);
-} else {
-    error('You must specify a course_module ID or an instance ID');
-}
-*/
 
 // 20200418 Added next two if's to replace the one above.
 if (! $cm = get_coursemodule_from_id('mootyper', $id)) {
     print_error("Course Module ID was incorrect");
 }
 
-//print_object('In mootyper layouts.php printing $cm.');
-//print_object($cm);
-
 if (! $course = $DB->get_record("course", array('id' => $cm->course))) {
     print_error("Course is misconfigured");
 }
 
 require_login($course, true);
-//$context = context_course::instance($id);
 $context = context_module::instance($cm->id);
+
+// 20200706 Added to prevent student direct URL access attempts.
+if (!(has_capability('mod/mootyper:aftersetup', $context))) {
+    // Trigger invalid_access_attempt with redirect to course page.
+    $params = array(
+        'objectid' => $id,
+        'context' => $context,
+        'other' => array(
+            'file' => 'lsnimport.php'
+        )
+    );
+    $event = invalid_access_attempt::create($params);
+    $event->trigger();
+    redirect('../../course/view.php?id='.$course->id, get_string('invalidaccessexp', 'mootyper'));
+}
 
 // Print the page header.
 $PAGE->set_url('/mod/mootyper/exercises.php', array('id' => $course->id));
@@ -185,7 +189,7 @@ for ($i = 0; $i < count($res); $i++) {
             // Since we added a new lesson, make a log entry about it.
             $data = new StdClass();
             $data->mootyper = $id;
-            $context = context_course::instance($id);
+            $context = context_module::instance($id);
             // Trigger lesson_imported event.
             $params = array(
                 'objectid' => $data->mootyper,
@@ -231,7 +235,7 @@ for ($j = 0; $j < count($res2); $j++) {
             // Since we added a new layout, make a log entry about it.
             $data = new StdClass();
             $data->mootyper = $id;
-            $context = context_course::instance($id);
+            $context = context_module::instance($id);
             // Trigger layout_imported event.
             $params = array(
                 'objectid' => $data->mootyper,
@@ -248,6 +252,7 @@ echo '</table>';
 
 $jlnk2 = $CFG->wwwroot . '/mod/mootyper/exercises.php?id='.$id;
 // 11/19/19 Change from a, Continue, link to a, Continue, button.
-echo '<br><a href="'.$jlnk2.'" class="btn btn-primary"  style="border-radius: 8px">'.get_string('fcontinue', 'mootyper').'</a><br><br>';
+echo '<a href="'.$jlnk2.'" class="btn btn-primary"  style="border-radius: 8px">'.get_string('fcontinue', 'mootyper').'</a><br>';
 echo $OUTPUT->footer();
 return;
+
