@@ -15,30 +15,32 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * The mod_mootyper layout imported event.
+ * The mod_mootyper invalid access attempt event.
+ *
+ * Logs invalid direct URL entry attempts to MooTyper php files.
  *
  * @package     mod_mootyper
  * @copyright   2016 AL Rachels (drachels@drachels.com)
- * @license http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later.
+ * @license http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
 namespace mod_mootyper\event;
 defined('MOODLE_INTERNAL') || die();
 
 /**
- * The mod_mootyper layout imported event class.
+ * The mod_mootyper invalid access attempt event class.
  *
  * @package    mod_mootyper
  * @copyright  2016 AL Rachels drachels@drachels.com
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-class layout_imported extends \core\event\base {
+class invalid_access_attempt extends \core\event\base {
 
     /**
      * Init method.
      */
     protected function init() {
-        $this->data['crud'] = 'u';
+        $this->data['crud'] = 'd';
         $this->data['edulevel'] = self::LEVEL_TEACHING;
         $this->data['objecttable'] = 'mootyper';
     }
@@ -49,7 +51,7 @@ class layout_imported extends \core\event\base {
      * @return string
      */
     public static function get_name() {
-        return get_string('layout_imported', 'mod_mootyper');
+        return get_string('invalidaccess', 'mod_mootyper');
     }
 
     /**
@@ -58,8 +60,8 @@ class layout_imported extends \core\event\base {
      * @return string
      */
     public function get_description() {
-        return "The user with id '$this->userid' imported a 'mootyper' keyboard layout, '$this->other',
-            while in the MooTyper with id '$this->contextinstanceid'.";
+        return "The user with id '$this->userid' attempted direct URL access to 'mootyper' file
+           . '{$this->other['file']}' while in the course with id '$this->contextinstanceid'.";
     }
 
     /**
@@ -67,7 +69,7 @@ class layout_imported extends \core\event\base {
      * @return \moodle_url
      */
     public function get_url() {
-        return new \moodle_url('/mod/mootyper/exercises.php', array('id' => $this->contextinstanceid));
+        return new \moodle_url('/mod/mootyper/view.php', array('id' => $this->contextinstanceid));
     }
 
     /**
@@ -76,7 +78,7 @@ class layout_imported extends \core\event\base {
      * @return array of parameters to be passed to legacy add_to_log() function.
      */
     protected function get_legacy_logdata() {
-        $url = new \moodle_url('exercises.php', array('id' => $this->contextinstanceid));
-        return array($this->courseid, 'mootyper', 'exercises', $url->out(), $this->objectid, $this->contextinstanceid);
+        $url = new \moodle_url('view.php', array('id' => $this->contextinstanceid));
+        return array($this->courseid, 'mootyper', 'view', $url->out(), $this->objectid, $this->contextinstanceid);
     }
 }
