@@ -18,17 +18,23 @@
  * This file tracks student progress through an exercise.
  *
  * Called from three places in typer.js file.
- *     doStart - opens an entry in mdl_mootyper_attempts.
- *     doCheck - opens multiple entries in mdl_mootyper_checks
- *               new entry every 4 seconds of mistakes, hits, and checktime.
- *     doTheEnd - mdl_mootyper_checks - all entries for the attempt are deleted when exercise is completed.
+ *      doStart - opens an entry in mdl_mootyper_attempts.
+ *      doCheck - opens multiple entries in mdl_mootyper_checks and creates a
+ *                new entry every 4 seconds listing mistakes, hits, and checktime.
+ *     doTheEnd - mdl_mootyper_checks - updates the entry in mdl_mootyper_attempts
+ *                and all entries for the checks are deleted when exercise is completed.
+ * Delete grade - If you delete an entry from View my grades (owngrades.php),
+ *                it removes deletes the attempt from mdl_mootyper_attempts,
+ *                but does not remove any of the mdl_mootyper_checks entries.
  *
  * @package    mod_mootyper
  * @copyright  2012 Jaka Luthar (jaka.luthar@gmail.com)
+ * @copyright  2016 onwards AL Rachels (drachels@drachels.com)
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
 require(__DIR__ . '/../../config.php');
+require_once(__DIR__ . '/locallib.php');
 
 global $DB;
 

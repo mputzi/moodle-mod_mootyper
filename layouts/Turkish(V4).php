@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * This file defines the Turkish(V4.2) keyboard layout.
+ * This file defines the Turkish(V4.1) keyboard layout.
  *
  * @package    mod_mootyper
  * @copyright  2016 onwards AL Rachels (drachels@drachels.com)
@@ -39,12 +39,12 @@ echo (isset($displaynone) && ($displaynone == true)) ? 'display:none;' : '';
             <div id="jkey2" class="normal" style='text-align:left;'>'<br>2
                 <span style="color:blue">&nbsp;&nbsp;£</span></div>
             <div id="jkey3" class="normal" style='text-align:left; color:red;'>^<br>
-                <span style="color:black">3</span><span style="color:blue">&nbsp;&nbsp;&nbsp;#</span></div>
+                <span style="color:black">3<span style="color:blue">&nbsp;&nbsp;&nbsp;#</span></div>
             <div id="jkey4" class="normal" style='text-align:left;'>+<br>4
                 <span style="color:blue">&nbsp;&nbsp;$</span></div>
             <div id="jkey5" class="normal" style='text-align:left;'>%<br>5
                 <span style="color:blue">&nbsp;½</span></div>
-            <div id="jkey6" class="normal" style='text-align:left;'>&amp; <br>6</div>
+            <div id="jkey6" class="normal" style='text-align:left;'>&amp <br>6</div>
             <div id="jkey7" class="normal" style='text-align:left;'>/<br>7
                 <span style="color:blue">&nbsp;&nbsp;&nbsp;{</span></div>
             <div id="jkey8" class="normal" style='text-align:left;'>(<br>8
@@ -127,7 +127,7 @@ echo (isset($displaynone) && ($displaynone == true)) ? 'display:none;' : '';
             <div id="jkeyö" class="normal" style='text-align:left;'>Ö
                 <br>&nbsp;&nbsp;&nbsp;</div>
             <div id="jkeyç" class="normal" style='text-align:left;'>Ç
-                <br><span style="color:blue">&nbsp;&nbsp;&nbsp;</span></div>
+                <br><span style="color:blue">&nbsp;&nbsp;&nbsp;</div>
             <div id="jkeyperiod" class="normal" style='text-align:left;'>:
                 <br>.&nbsp;&nbsp;&nbsp;&nbsp;</div>
             <div id="jkeyshiftd" class="normal" style="width: 105px; border-right-style: solid;">Shift</div>

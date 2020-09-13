@@ -1,7 +1,7 @@
 /**
- * @fileOverview Uyghur(V4.1)Dual keyboard driver.
+ * @fileOverview Uyghur(V4.0)Dual keyboard driver.
  * @author <a href="mailto:drachels@drachels.com">AL Rachels</a>
- * @version 4.1
+ * @version 4.0
  * @since 04/01/2016
  */
 
@@ -110,7 +110,7 @@ function thenFinger(tCrka) {
     } else if (tCrka.match(/[2@ۋسش9)ول.<]/i)) {
         return 3; // Highlight the correct key above in green.
     // @codingStandardsIgnoreLine
-    } else if (tCrka.match(/[3#ېدژغ8*ڭكۆ،<]/i)) {
+    } else if (tCrka.match(/[3#ېدژغ8*ڭكۆ،>]/i)) {
         return 2; // Highlight the correct key above in yellow.
     // @codingStandardsIgnoreLine
     } else if (tCrka.match(/[4$رافۈ5%تەگب6^يىخن7&ۇقجم]/i)) {
@@ -163,19 +163,19 @@ function getKeyID(tCrka) {
     } else if (tCrka === '[' || tCrka === '«') {
         return "jkey[";
     } else if (tCrka === 'ژ') {
-        return "jkeyد";  // D.
+        return "jkeyد"; // D.
     } else if (tCrka === 'ف' || tCrka === 'ا') {
-        return "jkeyf";  // F.
+        return "jkeyf"; // F.
     } else if (tCrka === 'گ') {
-        return "jkeyە";  // G.
+        return "jkeyە"; // G.
     } else if (tCrka === 'خ') {
-        return "jkeyى";  // H.
+        return "jkeyى"; // H.
     } else if (tCrka === 'ج') {
-        return "jkeyق";  // J.
+        return "jkeyق"; // J.
     } else if (tCrka === 'ۆ') {
-        return "jkeyك";  // K.
+        return "jkeyك"; // K.
     } else if (tCrka === 'لا' || tCrka === 'ل') {
-        return "jkeyl";  // L.
+        return "jkeyl"; // L.
     } else if (tCrka === ':') {
         return "jkey؛";
     } else if (tCrka === '"') {

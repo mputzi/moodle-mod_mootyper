@@ -103,7 +103,7 @@ echo (isset($displaynone) && ($displaynone == true)) ? 'display:none;' : '';
             <div id="jempty" class="normal" style="width: 50px;">Meta</div>
             <div id="jempty" class="normal" style="width: 50px;">Menu</div>
             <div id="jkeyctrlr" class="normal" style="width: 50px; border-right-style: solid;">Ctrl</div>
-        </div>
+        <div>
     </section>
 </div>
 </div>

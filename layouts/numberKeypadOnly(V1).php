@@ -30,12 +30,12 @@ echo (isset($displaynone) && ($displaynone == true)) ? 'display:none;' : '';
 <div id="keyboard" class="keypadback">NumberPad Only<br>
     <section>
         <div class="mtrow" style='float: left; margin-left:5px; font-size: 15px !important; line-height: 15px'>
-            <div id="jkeynumlock" class="normal" style='text-align:left;font-size: 12px !important;'>Num<br>Lock</div>
+            <div id="jkeynumlock" class="normal" style='text-align:left;'>Lock<br>&nbsp;</div>
             <div id="jkey/" class="normal" style='text-align:left;'>/<br>&nbsp;</div>
             <div id="jkey*" class="normal" style='text-align:left;'>*<br>&nbsp;</div>
             <div id="jkey-" class="normal" style='text-align:left;'>-<br>&nbsp;</div>
         </div>
-        <div id="jkey+" class="finger4" style="width: 36px; margin-right:5px; float: right; height: 81px;">+</div>
+        <div id="jkey+" class="finger4" style="width: 41px; margin-right:5px; float: right; height: 85px;">+</div>
         <div class="mtrow" style='float: left; margin-left:5px; font-size: 15px !important; line-height: 15px'>
             <div id="jkey7" class="normal" style='text-align:left;'>7<br>&nbsp;</div>
             <div id="jkey8" class="normal" style='text-align:left;'>8<br>&nbsp;</div>
@@ -46,15 +46,15 @@ echo (isset($displaynone) && ($displaynone == true)) ? 'display:none;' : '';
             <div id="jkey5" class="finger2" style='text-align:left;'>5<br>&nbsp;</div>
             <div id="jkey6" class="finger3" style='text-align:left;'>6<br>&nbsp;</div>
         </div>
-        <div id="jkeyenter" class="normal" style="margin-top:5px; width: 36px; margin-right:5px;
-            float: right; height: 81px; font-size: 12px !important;">Enter</div>
+        <div id="jkeyenter" class="normal" style="margin-top:5px; width: 41px; margin-right:5px;
+            float: right; height: 85px;">Enter</div>
         <div class="mtrow" style='float: left; margin-left:5px; font-size: 15px !important; line-height: 15px'>
             <div id="jkey1" class="normal" style='text-align:left;'>1<br>&nbsp;</div>
             <div id="jkey2" class="normal" style='text-align:left;'>2<br>&nbsp;</div>
             <div id="jkey3" class="normal" style='text-align:left;'>3<br>&nbsp;</div>
         </div>
         <div class="mtrow" style='float: left; margin-left:5px; font-size: 15px !important; line-height: 15px'>
-            <div id="jkey0" class="normal" style="width: 75px;">0<br>&nbsp;</div>
+            <div id="jkey0" class="normal" style="width: 80px;">0<br>&nbsp;</div>
             <div id="jkey." class="normal" style='text-align:left;'>.<br>&nbsp;</div>
         </div>
 </section>

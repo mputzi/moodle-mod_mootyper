@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * This file defines the Italian(V4.2)keyboard layout.
+ * This file defines the Italian(V4.1)keyboard layout.
  *
  * @package    mod_mootyper
  * @copyright  2012 Jaka Luthar (jaka.luthar@gmail.com)
@@ -39,7 +39,7 @@ echo (isset($displaynone) && ($displaynone == true)) ? 'display:none;' : '';
             <div id="jkey3" class="normal" style='text-align:left;'>£<br>3</div>
             <div id="jkey4" class="normal" style='text-align:left;'>$<br>4</div>
             <div id="jkey5" class="normal" style='text-align:left;'>%<br>5<span style="color:blue">&nbsp;&nbsp;€</span></div>
-            <div id="jkey6" class="normal" style='text-align:left;'><b>&amp;<br>6</b></div>
+            <div id="jkey6" class="normal" style='text-align:left;'><b>&amp<br>6</b></div>
             <div id="jkey7" class="normal" style='text-align:left;'><b>/<br>7</b></div>
             <div id="jkey8" class="normal" style='text-align:left;'><b>(<br>8</b></div>
             <div id="jkey9" class="normal" style='text-align:left;'><b>)<br>9</b></div>

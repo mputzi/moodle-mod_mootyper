@@ -42,7 +42,7 @@ if ($directionality === 'rtl') {
             <div id="jkey0" class="normal" style='text-align:left;'>(<br>0&nbsp; &nbsp; &nbsp;</div>
             <div id="jkey9" class="normal" style='text-align:left;'>)<br>9&nbsp; &nbsp; &nbsp;</div>
             <div id="jkey8" class="normal" style='text-align:left;'>*<br>8&nbsp; &nbsp; &nbsp;</div>
-            <div id="jkey7" class="normal" style='text-align:left;'>&amp;<br>7&nbsp; &nbsp; &nbsp;</div>
+            <div id="jkey7" class="normal" style='text-align:left;'>&<br>7&nbsp; &nbsp; &nbsp;</div>
             <div id="jkey6" class="normal" style='text-align:left;'>^<br>6&nbsp; &nbsp; &nbsp;</div>
             <div id="jkey5" class="normal" style='text-align:left;'>%<br>5&nbsp; &nbsp; &nbsp;</div>
             <div id="jkey4" class="normal" style='text-align:left;'>$<br>4&nbsp; &nbsp; &nbsp;</div>
@@ -123,7 +123,7 @@ if ($directionality === 'rtl') {
             <div id="jkey4" class="normal" style='text-align:left;'>$<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;4</div>
             <div id="jkey5" class="normal" style='text-align:left;'>%<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;5</div>
             <div id="jkey6" class="normal" style='text-align:left;'>^<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;6</div>
-            <div id="jkey7" class="normal" style='text-align:left;'>&amp;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;7</div>
+            <div id="jkey7" class="normal" style='text-align:left;'>&<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;7</div>
             <div id="jkey8" class="normal" style='text-align:left;'>*<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;8</div>
             <div id="jkey9" class="normal" style='text-align:left;'>)<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;9</div>
             <div id="jkey0" class="normal" style='text-align:left;'>(<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0</div>

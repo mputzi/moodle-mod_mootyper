@@ -1,7 +1,7 @@
 /**
- * @fileOverview Dvorak(V5.3) keyboard driver.
+ * @fileOverview Dvorak(V5.2) keyboard driver.
  * @author <a href="mailto:drachels@drachels.com">AL Rachels</a>
- * @version 5.3
+ * @version 5.2
  * @since 03/09/2019
  */
 
