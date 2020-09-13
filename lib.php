@@ -46,6 +46,8 @@ define('MOOTYPER_EVENT_TYPE_CLOSE', 'close');
  * @return mixed true if the feature is supported, null if unknown
  */
 function mootyper_supports($feature) {
+    global $CFG;
+
     switch ($feature) {
         case FEATURE_GROUPS;
             return true;
