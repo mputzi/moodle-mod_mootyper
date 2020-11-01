@@ -1,10 +1,9 @@
 /**
  * @fileOverview SpanishWKeypad(V6.0) keyboard driver.
  * @author <a href="mailto:drachels@drachels.com">AL Rachels</a>
- * @version 6.0
+ * @version 6.1
  * @since 20201016
  */
-
 
 /**
  * Check for combined character.
@@ -279,6 +278,7 @@ function getKeyID(tCrka) {
         return "jkeyo";
     } else if (tCrka === 'u' || tCrka === 'ú' || tCrka === 'ü') {
         return "jkeyu";
+                                                                 
     } else {
         return "jkey" + tCrka;
     }

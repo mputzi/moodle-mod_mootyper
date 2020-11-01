@@ -15,10 +15,10 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * This file defines the Greek(V4.2) keyboard layout.
+ * This file defines the Greek(V5.1) keyboard layout.
  *
  * @package    mod_mootyper
- * @copyright  2016 onwards AL Rachels (drachels@drachels.com)
+ * @copyright  2020 onwards AL Rachels (drachels@drachels.com)
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
  require_once(dirname(dirname(dirname(dirname(__FILE__)))).'/config.php');
@@ -29,7 +29,7 @@
 echo (isset($displaynone) && ($displaynone == true)) ? 'display:none;' : '';
 ?>
 ">
-<div id="keyboard" class="keyboardback">Greek (V4) Keyboard Layout<br>
+<div id="keyboard" class="keyboardback">Greek (V5) Keyboard Layout<br>
     <section>
         <div class="mtrow" style='float: left; margin-left:5px; font-size: 15px !important; line-height: 15px'>
             <div id="jkeytilde" class="normal" style="text-align:left;">~<br>`</div>
@@ -39,7 +39,7 @@ echo (isset($displaynone) && ($displaynone == true)) ? 'display:none;' : '';
             <div id="jkey3" class="normal" style='text-align:left;'>#<br>3
                 <span style="color:blue">&nbsp;&nbsp;&nbsp;³</span></div>
             <div id="jkey4" class="normal" style='text-align:left;'>$<br>4
-                <span style="color:blue">&nbsp;&nbsp;&nbsp;£</span></div>
+                <span style="color:blue">&nbsp;&nbsp;£</span></div>
             <div id="jkey5" class="normal" style='text-align:left;'>%<br>5
                 <span style="color:blue">&nbsp;&nbsp;&nbsp;§</span></div>
             <div id="jkey6" class="normal" style='text-align:left;'>^<br>6
