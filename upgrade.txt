@@ -45,9 +45,13 @@ sending an email, leave a comment at
 
 Moodle Versions
 ===============
+=== 3.9.4 ===
+20201027 Fixed keytop round borders on Spanish, Portugues(P), and German V6 layouts.
+20201027 Added GermanWKeypad(V6)-icons keyboard layout.
+
 === 3.9.3 ===
-
-
+20201016 Added SpanishWKeypad(V6) keyboard layout.
+20201018 Added PortuguesWKeypad(PortugueseV6) keyboard layout.
 
 === 3.9.2 ===
 20200728 Added four new fields to table mootyper. assessed, asstimestart,
