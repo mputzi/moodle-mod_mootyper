@@ -300,7 +300,7 @@ if (!has_capability('mod/mootyper:viewgrades', context_module::instance($cm->id)
                              <td>'.format_float($gr->precisionfield).'%</td>
                              <td>'.date(get_config('mod_mootyper', 'dateformat'), $gr->timetaken).'</td>
                              <td>'.format_float($gr->wpm).'</td>
-                             <td>'.$removelnk.' '.$gr->id.'</td></tr>';
+                             <td>'.$removelnk.'&nbsp;</td></tr>';
 
                 // Get information to draw the chart for all exercises in this lesson.
                 $labels[] = $gr->firstname.' '.$gr->lastname.' '.$fcol;  // This gets the exercise number.
