@@ -357,6 +357,7 @@ if ($modepo == 0 || is_null($modepo)) { // If mode is 0, this is a lesson?
     $htmlout .= get_string('excategory', 'mootyper')
         .'</td><td><select'.$disselect
         .' onchange="this.form.submit()" id="lesson" name="lesson">';
+
     for ($ij = 0; $ij < count($lessons); $ij++) {
         if ($lessons[$ij]['id'] == $lessonpo) {
             $htmlout .= '<option selected="true" value="'.$lessons[$ij]['id'].'">'.$lessons[$ij]['lessonname'].'</option>';
@@ -403,14 +404,16 @@ if ($modepo == 0 || is_null($modepo)) { // If mode is 0, this is a lesson?
         }
     }
 }
-
+// Add the time limit.
 $htmlout .= '</select></td></tr><tr><td>'
     .get_string('timelimit', 'mootyper').'</td><td><input value="'
     .$timelimitpo.'" style="width: 35px;" type="text" name="timelimit"> '
     .get_string('minutes').' </td></tr>';
+// Add the required precision percentage.
 $htmlout .= '</select></td></tr><tr><td>'
     .get_string('requiredgoal', 'mootyper').'</td><td><input value="'
     .$goalpo.'" style="width: 35px;" type="text" name="requiredgoal"> % </td></tr>';
+// Add the required speed in words per minute.
 $htmlout .= '</select></td></tr><tr><td>'
     .get_string('requiredwpm', 'mootyper').'</td><td><input value="'
     .$wpmpo.'" style="width: 35px;" type="text" name="requiredwpm"></td></tr>';
