@@ -326,6 +326,8 @@ function exam_already_done($mootyper, $userid) {
 /**
  * Get next exercise to do.
  *
+ * Called from view.php file, around line 218.
+ *
  * @param object $mootyperid
  * @param int $lessonid
  * @param int $userid
@@ -1146,7 +1148,7 @@ function mootyper_extend_settings_navigation(settings_navigation $settingsnav, n
         return;
     }
 
-    // Link to the Add new lessons w/exercises page.
+    // Link to the Add new lessons w/exercises page. Visible to any teacher.
     if (has_capability('mod/mootyper:aftersetup', $cm->context)) {
         $link = new moodle_url('eins.php', array('id' => $cm->id));
         $linkname = get_string('eaddnew', 'mootyper');
@@ -1154,15 +1156,24 @@ function mootyper_extend_settings_navigation(settings_navigation $settingsnav, n
         $node = $navref->add($linkname, $link, navigation_node::TYPE_SETTING, null, null, $icon);
     }
 
-    // Link to Import new lessons w/exercises and new keyboard layouts.
-    if (has_capability('mod/mootyper:aftersetup', $cm->context)) {
+    // Link to Import new lessons w/exercises and new keyboard layouts. Visible to admin only.
+    // if (has_capability('mod/mootyper:aftersetup', $cm->context)) {
+    if (is_siteadmin()) {
         $link = new moodle_url('lsnimport.php', array('id' => $cm->id));
         $linkname = get_string('lsnimport', 'mootyper');
         $icon = new pix_icon('icon', '', 'mootyper', array('class' => 'icon'));
         $node = $navref->add($linkname, $link, navigation_node::TYPE_SETTING, null, null, $icon);
     }
 
-    // Link to lessons w/exercises management page.
+    // 20201028 Link to remove keyboard layouts. Visible to siteadmin only.
+    if (is_siteadmin()) {
+        $link = new moodle_url('layouts.php', array('id' => $cm->id));
+        $linkname = get_string('loheading', 'mootyper');
+        $icon = new pix_icon('icon', '', 'mootyper', array('class' => 'icon'));
+        $node = $navref->add($linkname, $link, navigation_node::TYPE_SETTING, null, null, $icon);
+    }
+
+    // Link to lessons w/exercises management page. Visible only if can edit.
     if (has_capability('mod/mootyper:aftersetup', $cm->context)) {
         // 02/24/2020 Change to be like other modules code base.
         $mootyper = $DB->get_record('mootyper', array('id' => $cm->instance) , '*', MUST_EXIST);
