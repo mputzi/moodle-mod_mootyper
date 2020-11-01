@@ -68,10 +68,8 @@ if ($passfield == 1) {
 $record = new stdClass();
 $record->mootyper = optional_param('rpSityperId', '', PARAM_INT);
 $record->userid = optional_param('rpUser', '', PARAM_INT);
-// Gradebook entry has not been implemented, 10/10/17.
-// $record->grade = 0;
-// Temp change to put precision in gradebook for exam.
-$record->grade = optional_param('rpAccInput', '', PARAM_FLOAT);
+// 20200915 Changed from float to int.
+$record->grade = optional_param('rpAccInput', '', PARAM_INT);
 $record->mistakes = optional_param('rpMistakesInput', '', PARAM_INT);
 $record->timeinseconds = optional_param('rpTimeInput', '', PARAM_INT);
 $record->hitsperminute = optional_param('rpSpeedInput', '', PARAM_FLOAT);
