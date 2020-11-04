@@ -266,5 +266,4 @@ function getKeyID(tCrka) {
  */
 function isLetter(str) {
     return str.length === 1 && str.match(/[!-ﻼ]/i);
-
 }
