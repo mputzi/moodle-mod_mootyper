@@ -33,8 +33,9 @@
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
+use \mod_mootyper\local\results;
+
 require(__DIR__ . '/../../config.php');
-require_once(__DIR__ . '/locallib.php');
 
 global $DB;
 
@@ -77,7 +78,8 @@ if ($st == 1) {
     foreach ($dbchcks as $c) {
         $checks[] = array('id' => $c->id, 'mistakes' => $c->mistakes, 'hits' => $c->hits, 'checktime' => $c->checktime);
     }
-    if (suspicion($checks, $attemptold->timetaken)) {
+    // Check for suspicious results for the current exercise.
+    if (results::suspicion($checks, $attemptold->timetaken)) {
         $attemptnew->suspicion = 1;
     } else {
         $attemptnew->suspicion = $attemptold->suspicion;
