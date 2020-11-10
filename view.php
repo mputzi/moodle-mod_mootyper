@@ -231,23 +231,36 @@ if ($mootyper->lesson != null) {
 
     $count = $DB->count_records_sql($sqlc, $params = null);
 
+    // If we have an exercise ready to type, create a grade entry link to use, later when the page is posted.
     if (isset($texttoenter)) {
         // 20191130 Modified to pass data required by exercise_, exam_, and lesson_completed events.
-        $insertdir = $CFG->wwwroot . '/mod/mootyper/gcnext.php?cmid='.$cm->id.
-            '&lsnname='.$lsnname->id.'&exercisename='.$exercise->exercisename.'&mtmode='.$mtmode.'&count='.$count;
+        $insertdir = $CFG->wwwroot
+                     .'/mod/mootyper/gcnext.php?cmid='.$cm->id
+                     .'&lsnname='.$lsnname->id
+                     .'&exercisename='.$exercise->exercisename
+                     .'&mtmode='.$mtmode
+                     .'&count='.$count;
     }
 
     if (exam_already_done($mootyper, $USER->id) && $mtmode === '1') {
         echo get_string('examdone', 'mootyper');
         echo "<br>";
         if (has_capability('mod/mootyper:viewgrades', context_module::instance($cm->id))) {
-            $jlnk4 = $CFG->wwwroot . '/mod/mootyper/gview.php?id=' . $id . '&n=' . $mootyper->id;
-            echo '<a href="' . $jlnk4 . '">' . get_string('viewgrades', 'mootyper') . '</a><br /><br />';
+            $jlnk4 = $CFG->wwwroot
+                     .'/mod/mootyper/gview.php?id='.$id
+                     .'&n='.$mootyper->id;
+            echo '<a href="'.$jlnk4.'">'
+                          .get_string('viewgrades', 'mootyper')
+                          .'</a><br /><br />';
         }
 
         if (has_capability('mod/mootyper:viewmygrades', context_module::instance($cm->id))) {
-            $jlnk7 = $CFG->wwwroot . "/mod/mootyper/owngrades.php?id=" . $id . "&n=" . $mootyper->id;
-            echo '<a href="' . $jlnk7 . '">' . get_string('viewmygrades', 'mootyper') . '</a><br /><br />';
+            $jlnk7 = $CFG->wwwroot
+                     ."/mod/mootyper/owngrades.php?id=".$id
+                     ."&n=".$mootyper->id;
+            echo '<a href="'.$jlnk7
+                            .'">'.get_string('viewmygrades', 'mootyper')
+                            .'</a><br /><br />';
         }
     } else if ($exercise != false) {
         if ($mootyper->showkeyboard) {
@@ -256,7 +269,7 @@ if ($mootyper->lesson != null) {
             $displaynone = true;
         }
         $keyboardjs = keyboards::get_instance_layout_js_file($mootyper->layout);
-        echo '<script type="text/javascript" src="' . $keyboardjs . '"></script>';
+        echo '<script type="text/javascript" src="'.$keyboardjs.'"></script>';
         echo '<script type="text/javascript" src="typer.js"></script>';
 ?>
 <div id="mainDiv" align="left">
@@ -372,14 +385,13 @@ if ($mootyper->lesson != null) {
         // Next button is Continue. Hidden until exercise is complete.
         // It is followed by the Status bar and Mistake details.
         ?>
-
-<input class="btn btn-primary btn-sm" 
-       style="border-radius: 8px; visibility: hidden;"
-       id="btnContinue"
-       name='btnContinue'
-       type="submit"
-       value=<?php
-        echo "'" . get_string('fcontinue', 'mootyper') . "'"; ?>>
+        <input class="btn btn-primary btn-sm" 
+            style="border-radius: 8px; visibility: hidden;"
+            id="btnContinue"
+            name='btnContinue'
+            type="submit"
+            value=<?php
+            echo "'" . get_string('fcontinue', 'mootyper') . "'";?>>
 
     <div id='wrapStats'>
                     <div id=<?php echo $stats1; ?> style='text-align: center; float: left; width:15%;'>
@@ -465,32 +477,53 @@ if ($mootyper->lesson != null) {
         // 20200418 Moved function to ..classes/local/results.php.
         $record = results::get_last_check($mootyper->id);
         if (is_null($record)) {
-            echo '<script type="text/javascript">inittexttoenter("' . $texttoinit . '", 0, 0, 0, 0, 0, "' .
-                $CFG->wwwroot . '", ' . $mootyper->showkeyboard . ', ' . $mootyper->continuoustype .
-                ', '. $mootyper->countmistypedspaces . ', '. $mootyper->countmistakes . ');</script>';
+            echo '<script type="text/javascript">inittexttoenter("'.$texttoinit.'", 0, 0, 0, 0, 0, "'
+                 .$CFG->wwwroot
+                 .'", '.$mootyper->showkeyboard
+                 .', '.$mootyper->continuoustype
+                 .', '.$mootyper->countmistypedspaces
+                 .', '.$mootyper->countmistakes
+                 .');</script>';
         } else {
-            echo '<script type="text/javascript">inittexttoenter("' . $texttoinit . '", 1, ' . $record->mistakes . ', ' .
-                $record->hits . ', ' . $record->timetaken . ', ' . $record->attemptid . ', "' . $CFG->wwwroot . '", ' .
-                $mootyper->showkeyboard . ', ' . $mootyper->continuoustype .', '. $mootyper->countmistypedspaces .
-                ', '. $mootyper->countmistakes . ');</script>';
+            echo '<script type="text/javascript">inittexttoenter("'.$texttoinit
+                 .'", 1, '.$record->mistakes
+                 .', '.$record->hits
+                 .', '.$record->timetaken
+                 .', '.$record->attemptid
+                 .', "'.$CFG->wwwroot
+                 .'", '.$mootyper->showkeyboard
+                 .', '.$mootyper->continuoustype
+                 .', '.$mootyper->countmistypedspaces
+                 .', '.$mootyper->countmistakes
+                 .');</script>';
         }
     } else {
         echo get_string('endlesson', 'mootyper');
         echo "<br />";
         if (has_capability('mod/mootyper:viewgrades', context_module::instance($cm->id))) {
-            $jlnk4 = $CFG->wwwroot . '/mod/mootyper/gview.php?id=' . $id . '&n=' . $mootyper->id;
-            echo '<a href="' . $jlnk4 . '">' . get_string('viewgrades', 'mootyper') . '</a><br /><br />';
+            $jlnk4 = $CFG->wwwroot
+                     .'/mod/mootyper/gview.php?id='.$id
+                     .'&n='.$mootyper->id;
+            echo '<a href="'.$jlnk4.'">'
+                          .get_string('viewgrades', 'mootyper')
+                          .'</a><br /><br />';
         }
         if (has_capability('mod/mootyper:viewmygrades', context_module::instance($cm->id))) {
-            $jlnk7 = $CFG->wwwroot . "/mod/mootyper/owngrades.php?id=" . $id . "&n=" . $mootyper->id;
-            echo '<a href="' . $jlnk7 . '">' . get_string('viewmygrades', 'mootyper') . '</a><br /><br />';
+            $jlnk7 = $CFG->wwwroot
+                     ."/mod/mootyper/owngrades.php?id=".$id
+                     ."&n=".$mootyper->id;
+            echo '<a href="'.$jlnk7. '">'
+                          .get_string('viewmygrades', 'mootyper')
+                          .'</a><br /><br />';
         }
     }
 
 } else {
     if (has_capability('mod/mootyper:setup', context_module::instance($cm->id))) {
-        $valnk = $CFG->wwwroot . "/mod/mootyper/mod_setup.php?n=" . $mootyper->id;
-        echo '<a href="' . $valnk . '">' . get_string('fsetup', 'mootyper') . '</a>';
+        $valnk = $CFG->wwwroot. "/mod/mootyper/mod_setup.php?n=".$mootyper->id;
+        echo '<a href="'.$valnk.'">'
+                      .get_string('fsetup', 'mootyper')
+                      .'</a>';
     } else {
         echo get_string('notreadyyet', 'mootyper');
     }
