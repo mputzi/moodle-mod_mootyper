@@ -45,6 +45,10 @@ sending an email, leave a comment at
 
 Moodle Versions
 ===============
+=== 3.9.5 ===
+20201109 MooTyper_643 Bad grade can be wiped out by a page reload, fixed. Atchk.php
+    was missing the, use \mod_mootyper\local\results;, and results::suspicion.
+
 === 3.9.4 ===
 20201027 Fixed keytop round borders on Spanish, Portugues(P), and German V6 layouts.
 20201027 Added GermanWKeypad(V6)-icons keyboard layout.
