@@ -1,7 +1,7 @@
 /**
- * @fileOverview Danish(V4.2) keyboard driver.
+ * @fileOverview Danish(V4.4) keyboard driver.
  * @author <a href="mailto:drachels@drachels.com">AL Rachels</a>
- * @version 4.2
+ * @version 4.4
  * @since 06/19/2018
  */
 
@@ -43,11 +43,11 @@ function keyboardElement(ltr) {
     if (ltr.match(/[§!"#¤%&/¤()=?`^*>;:_]/i)) {
         this.shift = true;
         this.alt = false;
-    // @codingStandardsIgnoreLine
+        // @codingStandardsIgnoreLine
     } else if (ltr.match(/[@£$€{[\]}\\~µ|]/i)) {
         this.shift = false;
         this.alt = true;
-    // @codingStandardsIgnoreLine
+        // @codingStandardsIgnoreLine
     } else if (ltr.match(/[½1234567890+´¨'<,.-]/)) {
         this.shift = false;
         this.alt = false;
@@ -106,19 +106,19 @@ function keyboardElement(ltr) {
 function thenFinger(tCrka) {
     if (tCrka === ' ') {
         return 5; // Highlight the spacebar.
-    // @codingStandardsIgnoreLine
+        // @codingStandardsIgnoreLine
     } else if (tCrka.match(/[<>|§½´`~1!qa0zpæÆøØåÅ¨^~?\-_}=+\\'*]/i)) {
         return 4; // Highlight the correct key above in red.
-    // @codingStandardsIgnoreLine
+        // @codingStandardsIgnoreLine
     } else if (tCrka.match(/[2"@wsx9)\]ol.:]/i)) {
         return 3; // Highlight the correct key above in green.
-    // @codingStandardsIgnoreLine
+        // @codingStandardsIgnoreLine
     } else if (tCrka.match(/[3#£edc8([ik,;]/i)) {
         return 2; // Highlight the correct key above in yellow.
-    // @codingStandardsIgnoreLine
+        // @codingStandardsIgnoreLine
     } else if (tCrka.match(/[4$vrjnuk¤5%€y6^fb7&{tghmµ/]/i)) {
         return 1; // Highlight the correct key above in blue.
-    // @codingStandardsIgnoreLine
+        // @codingStandardsIgnoreLine
     } else {
         // @codingStandardsIgnoreLine
         return 6; // Do not change any highlight.

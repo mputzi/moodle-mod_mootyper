@@ -1,7 +1,7 @@
 /**
- * @fileOverview Dvorak(V5.2) keyboard driver.
+ * @fileOverview Dvorak(V5.4) keyboard driver.
  * @author <a href="mailto:drachels@drachels.com">AL Rachels</a>
- * @version 5.2
+ * @version 5.4
  * @since 03/09/2019
  */
 
@@ -107,16 +107,16 @@ function keyboardElement(ltr) {
 function thenFinger(tCrka) {
     if (tCrka === ' ') {
         return 5; // Highlight the spacebar.
-    // @codingStandardsIgnoreLine
+        // @codingStandardsIgnoreLine
     } else if (tCrka.match(/[`~1!'"a;:0)lsz\[{/?\-_\]}=+\\|]/i)) {
         return 4; // Highlight the correct key above in red.
-    // @codingStandardsIgnoreLine
+        // @codingStandardsIgnoreLine
     } else if (tCrka.match(/[2@,<oq9(rnv]/i)) {
         return 3; // Highlight the correct key above in green.
-    // @codingStandardsIgnoreLine
+        // @codingStandardsIgnoreLine
     } else if (tCrka.match(/[3#.>ej8*ctw]/i)) {
         return 2; // Highlight the correct key above in yellow.
-    // @codingStandardsIgnoreLine
+        // @codingStandardsIgnoreLine
     } else if (tCrka.match(/[4$puk5%yix6^fdb7&ghm]/i)) {
         return 1; // Highlight the correct key above in blue.
     } else {

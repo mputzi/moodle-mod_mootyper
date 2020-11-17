@@ -1,7 +1,7 @@
 /**
- * @fileOverview Vietnamese(V4.2) keyboard driver.
+ * @fileOverview Vietnamese(V4.4) keyboard driver.
  * @author <a href="mailto:drachels@drachels.com">AL Rachels</a>
- * @version 4.2
+ * @version 4.4
  * @since 06/16/2018
  */
 
@@ -42,21 +42,21 @@ function keyboardElement(ltr) {
     if (ltr.match(/[!@#$%^&*(){}]/i)) {
         this.shift = true;
         this.alt = true;
-    // @codingStandardsIgnoreLine
+        // @codingStandardsIgnoreLine
     } else if (ltr.match(/[`ăâêộ̀̉̃́đ-₫\\;',./]/)) {
         this.shift = false;
         this.alt = false;
         this.accent = false;
-    // @codingStandardsIgnoreLine
+        // @codingStandardsIgnoreLine
     } else if (ltr.match(/[ƯƠĂÂÊÔĐQWERTYUIOP|ASDFGHJKL:~_+"ZXCVBNM<>?]/)) {
         this.shift = true;
         this.alt = false;
         this.accent = false;
-    // @codingStandardsIgnoreLine
+        // @codingStandardsIgnoreLine
     } else if (ltr.match(/[1234567890=[\]]/i)) {
         this.shift = false;
         this.alt = true;
-    // @codingStandardsIgnoreLine
+        // @codingStandardsIgnoreLine
     } else if (ltr.match(/[!@#$%^&*()]/i)) {
         this.shift = true;
         this.alt = true;
@@ -113,16 +113,16 @@ function keyboardElement(ltr) {
 function thenFinger(tCrka) {
     if (tCrka === ' ') {
         return 5; // Highlight the spacebar.
-    // @codingStandardsIgnoreLine
+        // @codingStandardsIgnoreLine
     } else if (tCrka.match(/[`~ă1!'"qa;:đ0)zp\[{/?\-_\]}₫ươ=+\\|]/i)) {
         return 4; // Highlight the correct key above in red.
-    // @codingStandardsIgnoreLine
+        // @codingStandardsIgnoreLine
     } else if (tCrka.match(/[â2@slwx.>oq̣9(]/i)) {
         return 3; // Highlight the correct key above in green.
-    // @codingStandardsIgnoreLine
+        // @codingStandardsIgnoreLine
     } else if (tCrka.match(/[ê3#,<ediḱ8*c]/i)) {
         return 2; // Highlight the correct key above in yellow.
-    // @codingStandardsIgnoreLine
+        // @codingStandardsIgnoreLine
     } else if (tCrka.match(/[ô4$vrjnuk5̀%ỷ6^fb̃7&tghm]/i)) {
         return 1; // Highlight the correct key above in blue.
     } else {

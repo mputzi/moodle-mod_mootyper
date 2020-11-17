@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * This file defines the Vietnamese(V4.3)keyboard layout.
+ * This file defines the Vietnamese(V4.4)keyboard layout.
  *
  * @package    mod_mootyper
  * @copyright  2016 onwards AL Rachels (drachels@drachels.com)
