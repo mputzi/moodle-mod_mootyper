@@ -1,7 +1,7 @@
 /**
- * @fileOverview Portuguese(PortugalV5.1) keyboard driver.
+ * @fileOverview Portuguese(PortugalV5.2) keyboard driver.
  * @author <a href="mailto:drachels@drachels.com">AL Rachels</a>
- * @version 5.1
+ * @version 5.2
  * @since 12/02/2017
  */
 
@@ -42,7 +42,7 @@ function keyboardElement(ltr) {
     if (isLetter(ltr)) { // Set specified shift key for right or left.
         if (ltr.match(/[|!"#$%QWEÉRTAÁÃSDFG>ZXCVB]/)) {
             this.shiftright = true;
-        // @codingStandardsIgnoreLine
+            // @codingStandardsIgnoreLine
         } else if (ltr.match(/[&/()=?»YUÚIÍOÓÕP*`HJKLÇª^NM;:_]/)) {
             this.shiftleft = true;
         }
@@ -150,16 +150,16 @@ function keyboardElement(ltr) {
 function thenFinger(tCrka) {
     if (tCrka === ' ') {
         return 5; // Highlight the spacebar.
-    // @codingStandardsIgnoreLine
+        // @codingStandardsIgnoreLine
     } else if (tCrka.match(/[\\|1!qaãáàâz<>0=}pç\-_'?+*¨ºª«»´`~^]/i)) {
         return 4; // Highlight the correct key above in red.
-    // @codingStandardsIgnoreLine
+        // @codingStandardsIgnoreLine
     } else if (tCrka.match(/[2"@wsx9)\]oóôõl.:]/i)) {
         return 3; // Highlight the correct key above in green.
-    // @codingStandardsIgnoreLine
+        // @codingStandardsIgnoreLine
     } else if (tCrka.match(/[3#£e€éêdc8(\[iík,;]/i)) {
         return 2; // Highlight the correct key above in yellow.
-    // @codingStandardsIgnoreLine
+        // @codingStandardsIgnoreLine
     } else if (tCrka.match(/[4$§rfv5%tgb6&yhn7{uújm/]/i)) {
         return 1; // Highlight the correct key above in blue.
     } else {

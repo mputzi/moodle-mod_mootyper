@@ -1,7 +1,7 @@
 /**
- * @fileOverview Russian(V4.1) keyboard driver.
+ * @fileOverview Russian(V4.2) keyboard driver.
  * @author <a href="mailto:drachels@drachels.com">AL Rachels</a>
- * @version 4.1
+ * @version 4.2
  * @since 12/01/2017
  */
 
@@ -64,7 +64,7 @@ function keyboardElement(ltr) {
             document.getElementById('jkeyshiftd').className = "next4";
             document.getElementById('jkeyshiftl').className = "next4";
         }
-        if ( this.alt) {
+        if (this.alt) {
             document.getElementById('jkeyaltgr').className = "nextSpace";
         }
     };
@@ -100,7 +100,7 @@ function keyboardElement(ltr) {
 function thenFinger(tCrka) {
     if (tCrka === ' ') {
         return 5; // Highlight the spacebar.
-		// @codingStandardsIgnoreLine
+        // @codingStandardsIgnoreLine
     } else if (tCrka.match(/[ё1!йфя0\-=\\)_+/зхъжэ.,]/i)) {
         return 4; // Highlight the correct key above in red.
     } else if (tCrka.match(/[2цыч"9щдю(]/i)) {

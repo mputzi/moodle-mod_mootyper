@@ -1,7 +1,7 @@
 /**
- * @fileOverview Uyghur(V4.0)Dual keyboard driver.
+ * @fileOverview Uyghur(V4.2)Dual keyboard driver.
  * @author <a href="mailto:drachels@drachels.com">AL Rachels</a>
- * @version 4.0
+ * @version 4.2
  * @since 04/01/2016
  */
 
@@ -73,7 +73,7 @@ function keyboardElement(ltr) {
     };
     this.turnOff = function() {
         if (isLetter(this.chr)) {
-        // @codingStandardsIgnoreLine
+            // @codingStandardsIgnoreLine
             if (this.chr.match(/[فھسداقكل؛ף]/i)) {
                 document.getElementById(getKeyID(this.chr)).className = "finger" + thenFinger(this.chr.toUpperCase());
             } else {
@@ -103,16 +103,16 @@ function keyboardElement(ltr) {
 function thenFinger(tCrka) {
     if (tCrka === ' ') {
         return 5; // Highlight the spacebar.
-    // @codingStandardsIgnoreLine
+        // @codingStandardsIgnoreLine
     } else if (tCrka.match(/[`~1!چھز0پ؛:ئ؟\-_\]»«'"=+[«\\|(]/i)) {
         return 4; // Highlight the correct key above in red.
-    // @codingStandardsIgnoreLine
+        // @codingStandardsIgnoreLine
     } else if (tCrka.match(/[2@ۋسش9)ول.<]/i)) {
         return 3; // Highlight the correct key above in green.
-    // @codingStandardsIgnoreLine
+        // @codingStandardsIgnoreLine
     } else if (tCrka.match(/[3#ېدژغ8*ڭكۆ،>]/i)) {
         return 2; // Highlight the correct key above in yellow.
-    // @codingStandardsIgnoreLine
+        // @codingStandardsIgnoreLine
     } else if (tCrka.match(/[4$رافۈ5%تەگب6^يىخن7&ۇقجم]/i)) {
         return 1; // Highlight the correct key above in blue.
     } else {

@@ -1,7 +1,7 @@
 /**
- * @fileOverview EnglishWKeypad(USV6.0) keyboard driver.
+ * @fileOverview EnglishWKeypad(USV6.1) keyboard driver.
  * @author <a href="mailto:drachels@drachels.com">AL Rachels</a>
- * @version 6.0
+ * @version 6.1
  * @since 05/17/2019
  */
 
@@ -79,7 +79,7 @@ function keyboardElement(ltr) {
     };
     this.turnOff = function() {
         if (isLetter(this.chr)) {
-        // @codingStandardsIgnoreLine
+            // @codingStandardsIgnoreLine
             if (this.chr.match(/[asdfjkl;]/i)) {
                 // Turns off highlight of normal home row keys.
                 document.getElementById(getKeyID(this.chr)).className = "finger" + thenFinger(this.chr.toLowerCase());
@@ -131,16 +131,16 @@ function keyboardElement(ltr) {
 function thenFinger(tCrka) {
     if (tCrka === ' ') {
         return 5; // Highlight the spacebar.
-    // @codingStandardsIgnoreLine
+        // @codingStandardsIgnoreLine
     } else if (tCrka.match(/[`~1!qaz0)p;:/?\-_[{'"=+\]}\\|]/i)) {
         return 4; // Highlight the correct key above in red.
-    // @codingStandardsIgnoreLine
+        // @codingStandardsIgnoreLine
     } else if (tCrka.match(/[2@wsx9(ol.>]/i)) {
         return 3; // Highlight the correct key above in green.
-    // @codingStandardsIgnoreLine
+        // @codingStandardsIgnoreLine
     } else if (tCrka.match(/[3#edc8*ik,<]/i)) {
         return 2; // Highlight the correct key above in yellow.
-    // @codingStandardsIgnoreLine
+        // @codingStandardsIgnoreLine
     } else if (tCrka.match(/[4$rfv5%tgb6^yhn7&ujm]/i)) {
         return 1; // Highlight the correct key above in blue.
     } else {
@@ -156,22 +156,22 @@ function thenFinger(tCrka) {
 function thenPadFinger(tCrka) {
     if (tCrka === ' ') {
         return 5; // Highlight the spacebar.
-    // @codingStandardsIgnoreLine
+        // @codingStandardsIgnoreLine
     } else if (tCrka.match(/[-+]/i)) {
         return 4; // Highlight the correct key above in red.
-    // @codingStandardsIgnoreLine
+        // @codingStandardsIgnoreLine
     } else if (tCrka.match(/[*963.]/i)) {
         return 3; // Highlight the correct key above in green.
-    // @codingStandardsIgnoreLine
+        // @codingStandardsIgnoreLine
     } else if (tCrka.match(/[//852]/i)) {
         return 2; // Highlight the correct key above in yellow.
-    // @codingStandardsIgnoreLine
+        // @codingStandardsIgnoreLine
     } else if (tCrka.match(/[7410]/i)) {
         return 1; // Highlight the correct key above in blue.
-    // @codingStandardsIgnoreLine
+        // @codingStandardsIgnoreLine
     } else {
         return 6; // Do not change any highlight.
-    // @codingStandardsIgnoreLine
+        // @codingStandardsIgnoreLine
     }
 }
 

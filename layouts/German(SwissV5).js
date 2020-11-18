@@ -1,7 +1,7 @@
 /**
- * @fileOverview German(SwissV5.0) keyboard driver.
+ * @fileOverview German(SwissV5.1) keyboard driver.
  * @author <a href="mailto:drachels@drachels.com">AL Rachels</a>
- * @version 5.0
+ * @version 5.1
  * @since 20201104
  */
 
@@ -51,7 +51,7 @@ function keyboardElement(ltr) {
     if (isLetter(ltr)) { // Set specified shift key for right or left.
         if (ltr.match(/[°+"*ç%QWEÊRTAÂSDFG>YXCVB]/)) {
             this.shiftright = true;
-        // @codingStandardsIgnoreLine
+            // @codingStandardsIgnoreLine
         } else if (ltr.match(/[&/()=?`è!£éà£;:_ZUIOÔPÜ*HJKLÖNM;:_]/)) {
             this.shiftleft = true;
         }
@@ -84,7 +84,7 @@ function keyboardElement(ltr) {
         this.alt = true;
         this.accent = true;
     }
-    if (ltr === 'ñ'|| ltr === 'ã') {
+    if (ltr === 'ñ' || ltr === 'ã') {
         this.alt = true;
         this.tilde = true;
     }
@@ -169,16 +169,16 @@ function keyboardElement(ltr) {
 function thenFinger(tCrka) {
     if (tCrka === ' ') {
         return 5; // Highlight the spacebar.
-    // @codingStandardsIgnoreLine
+        // @codingStandardsIgnoreLine
     } else if (tCrka.match(/[\n§°1+¦qaâãy<>0=pöé.:'?´üè\[äà{\-_^`~¨!\]$£}\\]/i)) {
         return 4; // Highlight the correct key above in red.
-    // @codingStandardsIgnoreLine
+        // @codingStandardsIgnoreLine
     } else if (tCrka.match(/[2"@wsx9)oôöl.:]/i)) {
         return 3; // Highlight the correct key above in green.
-    // @codingStandardsIgnoreLine
+        // @codingStandardsIgnoreLine
     } else if (tCrka.match(/[3*#eëê€dc8(¢iïîk,;]/i)) {
         return 2; // Highlight the correct key above in yellow.
-    // @codingStandardsIgnoreLine
+        // @codingStandardsIgnoreLine
     } else if (tCrka.match(/[4çrfv5%tgb6&¬zhn7|uûjm/]/i)) {
         return 1; // Highlight the correct key above in blue.
     } else {
@@ -240,7 +240,7 @@ function getKeyID(tCrka) {
         return "jkeya";
     } else if (tCrka.match(/[äà{]/)) {
         return "jkeyumlauta";
-    } else if ( tCrka === '$' || tCrka === '£' || tCrka === '}') {
+    } else if (tCrka === '$' || tCrka === '£' || tCrka === '}') {
         return "jkeydollar";
     } else if (tCrka === ',' || tCrka === ';') {
         return "jkeycomma";

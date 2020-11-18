@@ -1,7 +1,7 @@
 /**
- * @fileOverview Romanian(V5.0) keyboard driver.
+ * @fileOverview Romanian(V5.1) keyboard driver.
  * @author <a href="mailto:drachels@drachels.com">AL Rachels</a>
- * @version 5.0
+ * @version 5.1
  * @since 02/15/2019
  */
 
@@ -45,7 +45,7 @@ function keyboardElement(ltr) {
     if (isLetter(ltr)) { // Set specified shift key for right or left.
         if (ltr.match(/[”!QAZ@WSX#EDĐC$RFV%TGB]/)) {
             this.shiftright = true;
- //       } else if (ltr.match(/[^ZHN&UJM*IK;«(OL:»)PȘ:?]/)) {
+            //       } else if (ltr.match(/[^ZHN&UJM*IK;«(OL:»)PȘ:?]/)) {
         } else if (ltr.match(/[ZHN^YHN&UJM*IK;«(OL:»)PȘĂ{Î}ÂȚ":?_–+±|]/)) {
             this.shiftleft = true;
         }
@@ -71,7 +71,7 @@ function keyboardElement(ltr) {
     };
     this.turnOff = function() {
         // @codingStandardsIgnoreLine
-            if (this.chr.match(/[asdfjklș]/i)) {
+        if (this.chr.match(/[asdfjklș]/i)) {
             document.getElementById(getKeyID(this.chr)).className = "finger" + thenFinger(this.chr.toLowerCase());
         } else {
             document.getElementById(getKeyID(this.chr)).className = "normal";
@@ -96,16 +96,16 @@ function keyboardElement(ltr) {
 function thenFinger(tCrka) {
     if (tCrka === ' ') {
         return 5; // Highlight the spacebar.
-    // @codingStandardsIgnoreLine
+        // @codingStandardsIgnoreLine
     } else if (tCrka.match(/[\n„”`~1!~qa\\z0)˝pșş/?ă\[{}\]țţî\-_¨–=+¸±â'"|]/i)) {
         return 4; // Highlight the correct key above in red.
-    // @codingStandardsIgnoreLine
+        // @codingStandardsIgnoreLine
     } else if (tCrka.match(/[2@ˇwsßx9(´olł>».:]/)) {
         return 3; // Highlight the correct key above in green.
-    // @codingStandardsIgnoreLine
+        // @codingStandardsIgnoreLine
     } else if (tCrka.match(/[3#e€dđc©8*·ik,;<«]/)) {
         return 2; // Highlight the correct key above in yellow.
-    // @codingStandardsIgnoreLine
+        // @codingStandardsIgnoreLine
     } else if (tCrka.match(/[4$˘rfv5%°tgb6^˛yhn7&`ujm]/i)) {
         return 1; // Highlight the correct key above in blue.
     } else {
@@ -169,7 +169,7 @@ function getKeyID(tCrka) {
         return "jkeyc";
     } else if (tCrka === 'ţ') {
         return "jkeyt";
-    } else if (tCrka === 'ł' || tCrka ==='Ł') {
+    } else if (tCrka === 'ł' || tCrka === 'Ł') {
         return "jkeyl";
     } else if (tCrka === ',' || tCrka === ';' || tCrka === '<' || tCrka === '«') {
         return "jkeycomma";
@@ -177,7 +177,7 @@ function getKeyID(tCrka) {
         return "jkeyperiod";
     } else if (tCrka === '§') {
         return "jkeyp";
-    } else if (tCrka === 'ș' ||tCrka === ';' || tCrka === ':') {
+    } else if (tCrka === 'ș' || tCrka === ';' || tCrka === ':') {
         return "jkeyș";
     } else if (tCrka === '/' || tCrka === '?') {
         return "jkey/";

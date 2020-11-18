@@ -1,7 +1,7 @@
 /**
- * @fileOverview Serbian(V4.1) keyboard driver.
+ * @fileOverview Serbian(V4.2) keyboard driver.
  * @author <a href="mailto:drachels@drachels.com">AL Rachels</a>
- * @version 4.1
+ * @version 4.2
  * @since 7/11/2018
  */
 
@@ -43,11 +43,11 @@ function keyboardElement(ltr) {
     if (ltr.match(/[~!"#$%&/()=?*;:_]/i)) {
         this.shift = true;
         this.alt = false;
-    // @codingStandardsIgnoreLine
+        // @codingStandardsIgnoreLine
     } else if (ltr.match(/[`1234567890'+,.-]/)) {
         this.shift = false;
         this.alt = false;
-    // @codingStandardsIgnoreLine
+        // @codingStandardsIgnoreLine
     } else if (ltr.match(/[€<>]/)) {
         this.shift = false;
         this.alt = true;
@@ -69,7 +69,7 @@ function keyboardElement(ltr) {
             document.getElementById('jkeyshiftd').className = "next4";
             document.getElementById('jkeyshiftl').className = "next4";
         }
-        if ( this.alt) {
+        if (this.alt) {
             document.getElementById('jkeyaltgr').className = "nextSpace";
         }
     };
@@ -105,7 +105,7 @@ function keyboardElement(ltr) {
 function thenFinger(tCrka) {
     if (tCrka === ' ') {
         return 5; // Highlight the spacebar.
-		// @codingStandardsIgnoreLine
+        // @codingStandardsIgnoreLine
     } else if (tCrka.match(/[`~1!љаѕ0=пч\-_'?шћ+*ђж]/i)) {
         return 4; // Highlight the correct key above in red.
     } else if (tCrka.match(/[2"њсџ9)ол.:>]/i)) {
@@ -113,7 +113,7 @@ function thenFinger(tCrka) {
         // @codingStandardsIgnoreLine
     } else if (tCrka.match(/[3#е€љдц8(ик,;<]/i)) {
         return 2; // Highlight the correct key above in yellow.
-    // @codingStandardsIgnoreLine
+        // @codingStandardsIgnoreLine
     } else if (tCrka.match(/[4$рфв5%тгб6&зхн7ујм/]/i)) {
         return 1; // Highlight the correct key above in blue.
     } else {

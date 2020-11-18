@@ -1,7 +1,7 @@
 /**
- * @fileOverview SpanishWKeypad(V6.0) keyboard driver.
+ * @fileOverview SpanishWKeypad(V6.2) keyboard driver.
  * @author <a href="mailto:drachels@drachels.com">AL Rachels</a>
- * @version 6.1
+ * @version 6.2
  * @since 20201016
  */
 
@@ -54,7 +54,7 @@ function keyboardElement(ltr) {
         if (ltr.match(/[ª>!"·$%]/i)) {
             this.shiftright = true;
             this.shiftleft = false;
-        // @codingStandardsIgnoreLine
+            // @codingStandardsIgnoreLine
         } else if (ltr.match(/[&/()=?¿^*¨;:_]/i)) {
             this.shiftright = false;
             this.shiftleft = true;
@@ -118,7 +118,7 @@ function keyboardElement(ltr) {
     };
     this.turnOff = function() {
         if (isLetter(this.chr)) {
-        // @codingStandardsIgnoreLine
+            // @codingStandardsIgnoreLine
             if (this.chr.match(/[asdfjklñ]/i)) {
                 // Turns off highlight of normal home row keys.
                 document.getElementById(getKeyID(this.chr)).className = "finger" + thenFinger(this.chr.toLowerCase());
@@ -173,13 +173,13 @@ function keyboardElement(ltr) {
 function thenFinger(tCrka) {
     if (tCrka === ' ') {
         return 5; // Highlight the spacebar.
-    // @codingStandardsIgnoreLine
+        // @codingStandardsIgnoreLine
     } else if (tCrka.match(/[ºª\\1!|qaáz<>0=pñ\'?`^\[´¨{\-_¡¿+*\]ç}]/i)) {
         return 4; // Highlight the correct key above in red.
-    // @codingStandardsIgnoreLine
+        // @codingStandardsIgnoreLine
     } else if (tCrka.match(/[2"@wsx9)oól.:]/i)) {
         return 3; // Highlight the correct key above in green.
-    // @codingStandardsIgnoreLine
+        // @codingStandardsIgnoreLine
     } else if (tCrka.match(/[3·#eé€dc8(iík,;]/i)) {
         return 2; // Highlight the correct key above in yellow.    // @codingStandardsIgnoreLine
     } else if (tCrka.match(/[4$~rf5%€tgv6&¬yhnb7/uúüjm]/i)) {
@@ -197,22 +197,22 @@ function thenFinger(tCrka) {
 function thenPadFinger(tCrka) {
     if (tCrka === ' ') {
         return 5; // Highlight the spacebar.
-    // @codingStandardsIgnoreLine
+        // @codingStandardsIgnoreLine
     } else if (tCrka.match(/[-+]/i)) {
         return 4; // Highlight the correct key above in red.
-    // @codingStandardsIgnoreLine
+        // @codingStandardsIgnoreLine
     } else if (tCrka.match(/[*963.]/i)) {
         return 3; // Highlight the correct key above in green.
-    // @codingStandardsIgnoreLine
+        // @codingStandardsIgnoreLine
     } else if (tCrka.match(/[//852]/i)) {
         return 2; // Highlight the correct key above in yellow.
-    // @codingStandardsIgnoreLine
+        // @codingStandardsIgnoreLine
     } else if (tCrka.match(/[7410]/i)) {
         return 1; // Highlight the correct key above in blue.
-    // @codingStandardsIgnoreLine
+        // @codingStandardsIgnoreLine
     } else {
         return 6; // Do not change any highlight.
-    // @codingStandardsIgnoreLine
+        // @codingStandardsIgnoreLine
     }
 }
 
@@ -238,7 +238,7 @@ function getKeyID(tCrka) {
         return "jkey2";
     } else if (tCrka === '·' || tCrka === '#') {
         return "jkey3";
-    } else if (tCrka === '$'|| tCrka === '~') {
+    } else if (tCrka === '$' || tCrka === '~') {
         return "jkey4";
     } else if (tCrka === '%') {
         return "jkey5";
@@ -278,7 +278,7 @@ function getKeyID(tCrka) {
         return "jkeyo";
     } else if (tCrka === 'u' || tCrka === 'ú' || tCrka === 'ü') {
         return "jkeyu";
-                                                                 
+
     } else {
         return "jkey" + tCrka;
     }
