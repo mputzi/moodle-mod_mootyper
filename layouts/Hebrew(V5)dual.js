@@ -1,7 +1,7 @@
 /**
- * @fileOverview Hebrew(V5.1)dual keyboard driver.
+ * @fileOverview Hebrew(V5.0)dual keyboard driver.
  * @author <a href="mailto:drachels@drachels.com">AL Rachels</a>
- * @version 5.1
+ * @version 5.0
  * @since 04/03/2018
  */
 
@@ -75,7 +75,7 @@ function keyboardElement(ltr) {
     };
     this.turnOff = function() {
         if (isLetter(this.chr)) {
-            // @codingStandardsIgnoreLine
+        // @codingStandardsIgnoreLine
             if (this.chr.match(/[ASDFJKLשדגכחלךף]/i)) {
                 document.getElementById(getKeyID(this.chr)).className = "finger" + thenFinger(this.chr.toUpperCase());
             } else {
@@ -107,16 +107,16 @@ function keyboardElement(ltr) {
 function thenFinger(tCrka) {
     if (tCrka === ' ') {
         return 5; // Highlight the spacebar.
-        // @codingStandardsIgnoreLine
+    // @codingStandardsIgnoreLine
     } else if (tCrka.match(/[;~1!QAZשזz0)פp;ף:/?\-_־[{"=+\]}\\|.]/i)) {
         return 4; // Highlight the correct key above in red.
-        // @codingStandardsIgnoreLine
+    // @codingStandardsIgnoreLine
     } else if (tCrka.match(/[םW2@'wsץס9ךxד(ol>]/i)) {
         return 3; // Highlight the correct key above in green.
-        // @codingStandardsIgnoreLine
+    // @codingStandardsIgnoreLine
     } else if (tCrka.match(/[ן€3E#קגבלתedc8*ik,<]/i)) {
         return 2; // Highlight the correct key above in yellow.
-        // @codingStandardsIgnoreLine
+    // @codingStandardsIgnoreLine
     } else if (tCrka.match(/[4$ראט₪וrRTYfvכעיחהנ5נמצ%tgb6^yhn7&ujmװױײ]/i)) {
         return 1; // Highlight the correct key above in blue.
     } else {

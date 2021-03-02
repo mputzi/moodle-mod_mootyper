@@ -1,7 +1,7 @@
 /**
- * @fileOverview Ukrainian(V4.2) keyboard driver.
+ * @fileOverview Ukrainian(V4.1) keyboard driver.
  * @author <a href="mailto:drachels@drachels.com">AL Rachels</a>
- * @version 4.2
+ * @version 4.1
  * @since 06/30/2018
  */
 
@@ -42,7 +42,7 @@ function keyboardElement(ltr) {
     // @codingStandardsIgnoreLine
     if (ltr.match(/[₴!"№;%:?*()_+/,]/i)) {
         this.shift = true;
-        // @codingStandardsIgnoreLine
+    // @codingStandardsIgnoreLine
     } else if (ltr.match(/['1234567890\-=\\.]/i)) {
         this.shift = false;
     } else if (isLetter(ltr)) {
@@ -63,7 +63,7 @@ function keyboardElement(ltr) {
             document.getElementById('jkeyshiftd').className = "next4";
             document.getElementById('jkeyshiftl').className = "next4";
         }
-        if (this.alt) {
+        if ( this.alt) {
             document.getElementById('jkeyaltgr').className = "nextSpace";
         }
     };
@@ -99,7 +99,7 @@ function keyboardElement(ltr) {
 function thenFinger(tCrka) {
     if (tCrka === ' ') {
         return 5; // Highlight the spacebar.
-        // @codingStandardsIgnoreLine
+		// @codingStandardsIgnoreLine
     } else if (tCrka.match(/['₴1!йфя0\-=\\)_+/зхъжэїє.,]/i)) {
         return 4; // Highlight the correct key above in red.
     } else if (tCrka.match(/[2ціч"9щдю(]/i)) {

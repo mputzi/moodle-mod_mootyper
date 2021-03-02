@@ -15,7 +15,7 @@
 // along with Moodle. If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * This file defines the Swedish(V4.4) keyboard layout.
+ * This file defines the Swedish(V4.4)keyboard layout.
  *
  * @package   mod_mootyper
  * @copyright 2016 onwards AL Rachels (drachels@drachels.com)
@@ -55,7 +55,7 @@ echo (isset($displaynone) && ($displaynone == true)) ? 'display:none;' : '';
 					%<br>5 <span style="color: blue">&nbsp;&nbsp;&nbsp;€</span>
 				</div>
 				<div id="jkey6" class="normal" style='text-align: left;'>
-					&amp <br>6
+					&amp;<br>6
 				</div>
 				<div id="jkey7" class="normal" style='text-align: left;'>
 					/<br>7 <span style="color: blue">&nbsp;&nbsp;&nbsp;{</span>

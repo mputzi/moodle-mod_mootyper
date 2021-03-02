@@ -64,7 +64,7 @@ echo (isset($displaynone) && ($displaynone == true)) ? 'display:none;' : '';
 					</b>
 				</div>
 				<div id="jkey7" class="normal">
-					<b>&amp<br>7
+					<b>&amp;<br>7
 					</b>
 				</div>
 				<div id="jkey8" class="normal">

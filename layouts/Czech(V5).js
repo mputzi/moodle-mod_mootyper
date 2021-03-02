@@ -1,7 +1,7 @@
 /**
- * @fileOverview Czech(V5.2) keyboard driver.
+ * @fileOverview Czech(V5.1) keyboard driver.
  * @author <a href="mailto:drachels@drachels.com">AL Rachels</a>
- * @version 5.2
+ * @version 5.1
  * @since 06/24/2018
  */
 
@@ -47,7 +47,7 @@ function keyboardElement(ltr) {
         // @codingStandardsIgnoreLine
         if (ltr.match(/[°12345QWERTASDFGYXCVB]/)) {
             this.shiftright = true;
-            // @codingStandardsIgnoreLine
+        // @codingStandardsIgnoreLine
         } else if (ltr.match(/[67890%ˇZUIOP/('HJKL"!NM?:_]/)) {
             this.shiftleft = true;
         }
@@ -73,7 +73,7 @@ function keyboardElement(ltr) {
     };
     this.turnOff = function() {
         // @codingStandardsIgnoreLine
-        if (this.chr.match(/[asdfjklů]/i)) {
+            if (this.chr.match(/[asdfjklů]/i)) {
             document.getElementById(getKeyID(this.chr)).className = "finger" + thenFinger(this.chr.toLowerCase());
         } else {
             document.getElementById(getKeyID(this.chr)).className = "normal";
@@ -98,16 +98,16 @@ function keyboardElement(ltr) {
 function thenFinger(tCrka) {
     if (tCrka === ' ') {
         return 5; // Highlight the spacebar.
-        // @codingStandardsIgnoreLine
+    // @codingStandardsIgnoreLine
     } else if (tCrka.match(/[\n;°1+~q\\ay0é˝pů"$\-_*=%¨ú/÷§!ß´ˇ)(×¨']/i)) {
         return 4; // Highlight the correct key above in red.
-        // @codingStandardsIgnoreLine
+    // @codingStandardsIgnoreLine
     } else if (tCrka.match(/[2ěˇw|sđx#9í´olŁ.:>]/)) {
         return 3; // Highlight the correct key above in green.
-        // @codingStandardsIgnoreLine
+    // @codingStandardsIgnoreLine
     } else if (tCrka.match(/[3š^e€dĐ[c&8á˙ikł,?<]/)) {
         return 2; // Highlight the correct key above in yellow.
-        // @codingStandardsIgnoreLine
+    // @codingStandardsIgnoreLine
     } else if (tCrka.match(/[4č˘rf\[v@5ř°tg\]b{6ž˛zhn}7ý`ujm]/i)) {
         return 1; // Highlight the correct key above in blue.
     } else {

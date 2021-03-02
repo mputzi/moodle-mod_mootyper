@@ -1,7 +1,7 @@
 /**
- * @fileOverview Belgium(DutchV5.2) keyboard driver.
+ * @fileOverview Belgium(DutchV5.1) keyboard driver.
  * @author <a href="mailto:drachels@drachels.com">AL Rachels</a>
- * @version 5.2
+ * @version 5.1
  * @since 03/13/2019
  */
 
@@ -45,7 +45,7 @@ function keyboardElement(ltr) {
         // @codingStandardsIgnoreLine
         if (ltr.match(/[AZERTQSDFGWXCVB³12345>]/)) {
             this.shiftright = true;
-            // @codingStandardsIgnoreLine
+        // @codingStandardsIgnoreLine
         } else if (ltr.match(/[YUIOPHJKLMN67890°_¨*M%£?./+]/)) {
             this.shiftleft = true;
         }

@@ -1,7 +1,7 @@
 /**
- * @fileOverview Estonian(V4.2) keyboard driver.
+ * @fileOverview Estonian(V4.1) keyboard driver.
  * @author <a href="mailto:drachels@drachels.com">AL Rachels</a>
- * @version 4.2
+ * @version 4.0
  * @since 03/11/2018
  */
 
@@ -78,7 +78,7 @@ function keyboardElement(ltr) {
     };
     this.turnOff = function() {
         // @codingStandardsIgnoreLine
-        if (this.chr.match(/[asdfjklö]/i)) {
+            if (this.chr.match(/[asdfjklö]/i)) {
             document.getElementById(getKeyID(this.chr)).className = "finger" + thenFinger(this.chr.toLowerCase());
         } else {
             document.getElementById(getKeyID(this.chr)).className = "normal";
@@ -101,16 +101,16 @@ function keyboardElement(ltr) {
 function thenFinger(tCrka) {
     if (tCrka === ' ') {
         return 5; // Highlight the spacebar.
-        // @codingStandardsIgnoreLine
+    // @codingStandardsIgnoreLine
     } else if (tCrka.match(/[\n~ˇ1!qa><|zž0=}pö\-_+?\\üä^`´õ§*'½]/i)) {
         return 4; // Highlight the correct key above in red.
-        // @codingStandardsIgnoreLine
+    // @codingStandardsIgnoreLine
     } else if (tCrka.match(/[2"@wsšx9)\]ol.:]/)) {
         return 3; // Highlight the correct key above in green.
-        // @codingStandardsIgnoreLine
+    // @codingStandardsIgnoreLine
     } else if (tCrka.match(/[3#£e€dc8(\[ik,;]/)) {
         return 2; // Highlight the correct key above in yellow.
-        // @codingStandardsIgnoreLine
+    // @codingStandardsIgnoreLine
     } else if (tCrka.match(/[4¤$rfv5%€tgb6&yhn7{ujm/]/i)) {
         return 1; // Highlight the correct key above in blue.
     } else {

@@ -55,7 +55,7 @@ echo (isset($displaynone) && ($displaynone == true)) ? 'display:none;' : '';
 					%<br>5 <span style="color: blue">&nbsp;&nbsp;&nbsp;€</span>
 				</div>
 				<div id="jkey6" class="normal" style='text-align: left;'>
-					&amp <br>6
+					&amp;<br>6
 				</div>
 				<div id="jkey7" class="normal" style='text-align: left;'>
 					/<br>7<span style="color: blue">&nbsp;&nbsp;&nbsp;{</span>

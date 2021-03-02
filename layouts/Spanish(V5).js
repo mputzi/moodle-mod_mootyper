@@ -1,7 +1,7 @@
 /**
- * @fileOverview Spanish(V5.2) keyboard driver.
+ * @fileOverview Spanish(V5.1) keyboard driver.
  * @author <a href="mailto:drachels@drachels.com">AL Rachels</a>
- * @version 5.2
+ * @version 5.1
  * @since 03/09/2019
  */
 
@@ -55,7 +55,7 @@ function keyboardElement(ltr) {
         if (ltr.match(/[ª>!"·$%]/i)) {
             this.shiftright = true;
             this.shiftleft = false;
-            // @codingStandardsIgnoreLine
+        // @codingStandardsIgnoreLine
         } else if (ltr.match(/[&/()=?¿^*¨;:_]/i)) {
             this.shiftright = false;
             this.shiftleft = true;
@@ -108,7 +108,7 @@ function keyboardElement(ltr) {
     };
     this.turnOff = function() {
         if (isLetter(this.chr)) {
-            // @codingStandardsIgnoreLine
+        // @codingStandardsIgnoreLine
             if (this.chr.match(/[asdfjklñ]/i)) {
                 document.getElementById(getKeyID(this.chr)).className = "finger" + thenFinger(this.chr.toLowerCase());
             } else {
@@ -143,13 +143,13 @@ function keyboardElement(ltr) {
 function thenFinger(tCrka) {
     if (tCrka === ' ') {
         return 5; // Highlight the spacebar.
-        // @codingStandardsIgnoreLine
+    // @codingStandardsIgnoreLine
     } else if (tCrka.match(/[ºª\\1!|qaáz<>0=pñ\'?`^\[´¨{\-_¡¿+*\]ç}]/i)) {
         return 4; // Highlight the correct key above in red.
-        // @codingStandardsIgnoreLine
+    // @codingStandardsIgnoreLine
     } else if (tCrka.match(/[2"@wsx9)oól.:]/i)) {
         return 3; // Highlight the correct key above in green.
-        // @codingStandardsIgnoreLine
+    // @codingStandardsIgnoreLine
     } else if (tCrka.match(/[3·#eé€dc8(iík,;]/i)) {
         return 2; // Highlight the correct key above in yellow.    // @codingStandardsIgnoreLine
     } else if (tCrka.match(/[4$~rf5%€tgv6&¬yhnb7/uúüjm]/i)) {
@@ -181,7 +181,7 @@ function getKeyID(tCrka) {
         return "jkey2";
     } else if (tCrka === '·' || tCrka === '#') {
         return "jkey3";
-    } else if (tCrka === '$' || tCrka === '~') {
+    } else if (tCrka === '$'|| tCrka === '~') {
         return "jkey4";
     } else if (tCrka === '%') {
         return "jkey5";

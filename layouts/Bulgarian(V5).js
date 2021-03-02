@@ -1,7 +1,7 @@
 /**
- * @fileOverview Bulgarian(V5.2) keyboard driver.
+ * @fileOverview Bulgarian(V5.1) keyboard driver.
  * @author <a href="mailto:drachels@drachels.com">AL Rachels</a>
- * @version 5.2
+ * @version 5.1
  * @since 6/20/2018
  */
 
@@ -42,7 +42,7 @@ function keyboardElement(ltr) {
     // @codingStandardsIgnoreLine
     if (ltr.match(/[)!?+"%ыУЕИШѝЯАОЖЮЙЪЭФ]/i)) {
         this.shiftright = true;
-        // @codingStandardsIgnoreLine
+    // @codingStandardsIgnoreLine
     } else if (ltr.match(/[=:/–№$€ЩКСДЗЦ§“ГТНВМЧХПРЛБ]/)) {
         this.shiftleft = true;
     }
@@ -64,7 +64,7 @@ function keyboardElement(ltr) {
         if (this.shiftright) {
             document.getElementById('jkeyshiftr').className = "next4";
         }
-        if (this.alt) {
+        if ( this.alt) {
             document.getElementById('jkeyaltgr').className = "nextSpace";
         }
     };
@@ -102,7 +102,7 @@ function keyboardElement(ltr) {
 function thenFinger(tCrka) {
     if (tCrka === ' ') {
         return 5; // Highlight the spacebar.
-        // @codingStandardsIgnoreLine
+		// @codingStandardsIgnoreLine
     } else if (tCrka.match(/[()1!,ыьѝюЮ0№зЗмМбБ\-$цЦчЧ.€;§„“]/i)) {
         return 4; // Highlight the correct key above in red.
     } else if (tCrka.match(/[2?уУяЯйЙ9–дДвВлЛ]/i)) {
