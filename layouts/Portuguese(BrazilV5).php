@@ -36,9 +36,9 @@ echo (isset($displaynone) && ($displaynone == true)) ? 'display:none;' : '';
             <div id="jkey1" class="normal" style='text-align:left;'>!<br>1
                 <span style="color:blue">&nbsp;&nbsp;&nbsp;¹</span></div>
             <div id="jkey2" class="normal" style='text-align:left;'>@<br>2
-                <span tyle="color:blue">&nbsp;&nbsp;&nbsp;²</span></div>
+                <span style="color:blue">&nbsp;&nbsp;&nbsp;²</span></div>
             <div id="jkey3" class="normal" style='text-align:left;'>#<br>3
-                <span tyle="color:blue">&nbsp;&nbsp;&nbsp;³</span></div>
+                <span style="color:blue">&nbsp;&nbsp;&nbsp;³</span></div>
             <div id="jkey4" class="normal" style='text-align:left;'>$<br>4
                 <span style="color:blue">&nbsp;&nbsp;&nbsp;£</span></div>
             <div id="jkey5" class="normal" style='text-align:left;'>%<br>5
@@ -71,7 +71,7 @@ echo (isset($displaynone) && ($displaynone == true)) ? 'display:none;' : '';
             <div id="jkeyo" class="normal" style='text-align:left;'>O<br>&nbsp;</div>
             <div id="jkeyp" class="normal" style='text-align:left;'>P<br>&nbsp;</div>
             <div id="jkeyacuteaccent" class="normal" style='text-align:left;'>
-                <span style="color:red">`<br><span style="color:red">´</span></div>
+                <span style="color:red">`<br>´</span></div>
             <div id="jkeybracketl" class="normal" style='text-align:left; font-size: 15px !important; line-height: 15px'>{
                 <br>[<span style="color:blue">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ª</span></div>
         </div>
@@ -88,8 +88,7 @@ echo (isset($displaynone) && ($displaynone == true)) ? 'display:none;' : '';
             <div id="jkeyk" class="finger2" style='text-align:left;'>K<br>&nbsp;</div>
             <div id="jkeyl" class="finger3" style='text-align:left;'>L<br>&nbsp;</div>
             <div id="jkeyç" class="finger4" style='text-align:left;'>Ç<br>&nbsp;</div>
-            <div id="jkeytilde" class="normal" style='text-align:left;'><span style="color:red">^<br>
-                <span style="color:red"> ~</span></div>
+            <div id="jkeytilde" class="normal" style='text-align:left;'><span style="color:red">^<br> ~</span></div>
             <div id="jkeybracketr" class="normal" style='text-align:left;'>}<br>]
                 <span style="color:blue">&nbsp;&nbsp;&nbsp;º</span></div>
         </div>

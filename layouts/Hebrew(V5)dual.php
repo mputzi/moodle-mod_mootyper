@@ -184,7 +184,6 @@ if ($directionality === 'rtl') {
         </div>
 </section>
 </div>
-</div>
 <?php
 }
 

@@ -120,7 +120,6 @@ echo (isset($displaynone) && ($displaynone == true)) ? 'display:none;' : '';
             <div id="jkeyctrlr" class="normal" style="width: 60px; float: left;">Ctrl</div>
         </div>
         </section>
-       </div>
             </td>
             <td style="width:203px;">
                 <div class="mtrow" style='line-height: 15px'>
@@ -159,4 +158,5 @@ echo (isset($displaynone) && ($displaynone == true)) ? 'display:none;' : '';
             </td>
         </tr>
 </table>
+</div>
 </div>
