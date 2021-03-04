@@ -37,8 +37,8 @@ require_once(__DIR__ . '/lib.php');
 
 global $USER;
 
-$id = optional_param('id', 0, PARAM_INT); // Course_module ID, or
-$n  = optional_param('n', 0, PARAM_INT);  // Mootyper instance ID - it should be named as the first character of the module.
+$id = optional_param('id', 0, PARAM_INT); // Course_module ID.
+$n  = optional_param('n', 0, PARAM_INT);  // Or Mootyper instance ID - it should be named as the first character of the module.
 $se = optional_param('exercise', 0, PARAM_INT);
 $md = optional_param('jmode', 0, PARAM_INT);
 $us = optional_param('juser', 0, PARAM_INT);
