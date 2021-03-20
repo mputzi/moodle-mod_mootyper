@@ -45,6 +45,11 @@ sending an email, leave a comment at
 
 Moodle Versions
 ===============
+=== 3.9.6 ===
+20201230 MooTyper_663 owngrades.php grade table right border does not render in some browsers
+    was due to incorrect td count in some rows. Checked and now renders correctly in Firefox,
+    Chrome, Edge, Opera, and Safari.
+
 === 3.9.5 ===
 20201109 MooTyper_643 Bad grade can be wiped out by a page reload, fixed. Atchk.php
     was missing the, use \mod_mootyper\local\results;, and results::suspicion.
