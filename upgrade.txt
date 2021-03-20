@@ -46,9 +46,28 @@ sending an email, leave a comment at
 Moodle Versions
 ===============
 === 3.9.6 ===
-20201230 MooTyper_663 owngrades.php grade table right border does not render in some browsers
-    was due to incorrect td count in some rows. Checked and now renders correctly in Firefox,
-    Chrome, Edge, Opera, and Safari.
+20201224 MooTyper_660 Aesop's Fables needs to be split into multiple files. Done.
+20201225 MooTyper_662 View.php has lots of space period space errors. Fixed as needed.
+20201230 MooTyper_663 owngrades.php grade table right border does not render in some
+    browsers was due to incorrect td count in some rows. Checked and now renders
+    correctly in Firefox, Chrome, Edge, Opera, and Safari.
+20210304 MooTyper_653 Need to format all KB layout files. Fixed lots of minor
+    format errors and tags.
+20200317 MooTyper_674 Need Estonia(EEV5) KB layout. Created files and tested.
+20210318 MooTyper_676 Need Danish(DNV5) KB layout. Created files and tested.
+20210318 MooTyper_677 Need Hungarian(HUV5) KB layout. Created files and tested.
+20210318 MooTyper_679 Need Italian(ITV5) KB layout. Created files and tested.
+20210318 MooTyper_680 Need Norwegian(NOV5) KB layout. Created files and tested.
+20210318 MooTyper_681 Need Russian(RUV5) KB layout. Created files and tested.
+20210319 MooTyper_682 Need Serbian(SR_CRV5) KB layout. Created files and tested.
+20210319 MooTyper_683 Need Swedish(SEV5) KB layout. Created files and tested.
+20210319 MooTyper_686 Need Turkish(TRV5) KB layout. Created files and tested.
+20210319 MooTyper_687 Need Ukrainian(UKV5) keyboard layout. Created files and tested.
+20210320 MooTyper_646 Need French(V5) and FrenchWKeypad(V6) KB layouts. Created
+    and tested. The carat,^, is on two keys, row 1 on the nine key as an Alt,
+    and row 2 on the key to the right of P. THe highlight defaults to the row 2
+    key without Alt being highlighted.
+
 
 === 3.9.5 ===
 20201109 MooTyper_643 Bad grade can be wiped out by a page reload, fixed. Atchk.php
@@ -56,11 +75,11 @@ Moodle Versions
 
 === 3.9.4 ===
 20201027 Fixed keytop round borders on Spanish, Portugues(P), and German V6 layouts.
-20201027 Added GermanWKeypad(V6)-icons keyboard layout.
+20201027 Added GermanWKeypad(V6)-icons KB layout.
 
 === 3.9.3 ===
-20201016 Added SpanishWKeypad(V6) keyboard layout.
-20201018 Added PortuguesWKeypad(PortugueseV6) keyboard layout.
+20201016 Added SpanishWKeypad(V6) KB layout.
+20201018 Added PortuguesWKeypad(PortugueseV6) KB layout.
 
 === 3.9.2 ===
 20200728 Added four new fields to table mootyper. assessed, asstimestart,
