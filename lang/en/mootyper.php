@@ -174,6 +174,7 @@ $string['mootyperclosed'] = 'This MooTyper closed on {$a}.';
 $string['mootyper:editall'] = 'Edit all';
 $string['mootypererror'] = 'You must specify a course_module ID or an instance ID';
 $string['mootyperopen'] = 'This MooTyper will be open on {$a}.';
+$string['mootyper:rate'] = 'Rate exercises';
 $string['mootyper:setup'] = 'Setup';
 $string['mootyper:view'] = 'View';
 $string['mootyper:viewgrades'] = 'View all grades';
