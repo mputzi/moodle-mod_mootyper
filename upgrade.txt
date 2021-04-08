@@ -45,6 +45,18 @@ sending an email, leave a comment at
 
 Moodle Versions
 ===============
+=== 4.0.0 ===
+20210325  MooTyper_619 Need to add capability to add names to exercise name numbers.
+    Done and testing.
+20210327 MooTyper_459 - It would be nice if a Lesson name could be edited. Got this
+    and 619 working today. Still need to add exercise names to lesson file exports
+    and detect them for imports.
+20210327 MooTyper_692 - Need exercise names added in lsnexport and lsnimport. At 1550
+    got the lsnexport.php file working. Exercise name is added right after the break
+    indicator for the exercise texttotype, followed by another break indicator,
+    unless it is the last exercise name.
+20210331 MooTyper_675 - Create Icelandic KB Layout. Created files and tested.
+
 === 3.9.6 ===
 20201224 MooTyper_660 Aesop's Fables needs to be split into multiple files. Done.
 20201225 MooTyper_662 View.php has lots of space period space errors. Fixed as needed.
