@@ -78,7 +78,12 @@ if (!(has_capability('mod/mootyper:aftersetup', $context))) {
 $param1 = optional_param('button', '', PARAM_TEXT);
 
 if (isset($param1) && get_string('fconfirm', 'mootyper') == $param1 ) {
+    // 20210325 Added as part of capability to edit lesson and exercise names.
+    $newlessonname = optional_param('lesson_name', '', PARAM_RAW);
+    $newexercisename = optional_param('exercise_name', '', PARAM_RAW);
     $newtext = optional_param('texttotype', '', PARAM_RAW);
+
+    // Future development.
     $newdictation = optional_param('dictationdata', '', PARAM_RAW);
 
     $rcrd = $DB->get_record('mootyper_exercises', array('id' => $ex), '*', MUST_EXIST);
@@ -86,10 +91,16 @@ if (isset($param1) && get_string('fconfirm', 'mootyper') == $param1 ) {
     $updr = new stdClass();
     $updr->id = $rcrd->id;
     $updr->texttotype = str_replace("\r\n", '\n', $newtext);
-    $updr->exercisename = $rcrd->exercisename;
+    // 20210327 Added as part of new capability to edit lesson and exercise names.
+    $updr->exercisename = str_replace("\r\n", '\n', $newexercisename);
+    $lessonname->id = $rcrd->lesson;
+    $lessonname->lessonname = str_replace("\r\n", '\n', $newlessonname);
+
     $updr->lesson = $rcrd->lesson;
     $updr->snumber = $rcrd->snumber;
     $DB->update_record('mootyper_exercises', $updr);
+    // 20210327 Added as part of new capability to edit lesson and exercise names.
+    $DB->update_record('mootyper_lessons', $lessonname);
 
     // Trigger module exercise_edited event.
     $params = array(
@@ -192,9 +203,33 @@ echo '<div align="center" style="font-size:1em;
      border:2px solid black;
      -webkit-border-radius:16px;
      -moz-border-radius:16px;border-radius:16px;">';
-    echo get_string('lsnname', 'mod_mootyper').' = '.$lessonname->lessonname.'<br>';
 
 echo '<form method="POST">';
+// 20210327 Moved inside the form post.
+//echo get_string('lsnname', 'mod_mootyper').' = '.$lessonname->lessonname.'<br>';
+
+// 20210327 Add a text area for editing the name of the lesson.
+echo '<label>'.get_string('lsnname', 'mootyper').' = 
+    <input type="text" name="lesson_name" value="'
+    .str_replace('\n', "&#10;", $lessonname->lessonname)
+    .'"</label><br />';
+
+/*
+// 20210327 Add a text area for editing the name of the exercise.
+echo '<span id="text_holder_span" class=""></span><br>'
+    .get_string('exercise_name', 'mootyper')
+    .': '
+    .'<textarea name="exercise_name" id="exercise_name" cols="25" rows="1" style="text-align:">'
+    .str_replace('\n', "&#10;", $exercisetoedit->exercisename)
+    .'</textarea><br>';
+*/
+// 20210327 Add a text area for editing the name of the exercise.
+echo '<label>'.get_string('exercise_name', 'mootyper').' = 
+    <input type="text" name="exercise_name" value="'
+    .str_replace('\n', "&#10;", $exercisetoedit->exercisename)
+    .'"</label><br />';
+
+
 
 // Get our alignment strings and add a selector for text alignment.
 $aligns = array(get_string('defaulttextalign_left', 'mod_mootyper'),

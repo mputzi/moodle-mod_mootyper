@@ -95,10 +95,15 @@ if (isset($param1) && get_string('fconfirm', 'mootyper') == $param1 ) {
         $lessonid = $lessonpo;
     }
     // Get next sequence number for this exercise.
+
     $snum = lessons::get_new_snumber($lessonid);
+
     // Add exercise to mdl_mootyper_exercises table.
+    // 20210325 Added a new exercise_name to snum.
+    $exercise_namepo = optional_param('exercise_name', '', PARAM_TEXT);
     $erecord = new stdClass();
-    $erecord->exercisename = "".$snum;
+    // 20210325 Add new exercise name to the auto sname and add to the table.
+    $erecord->exercisename = "".$snum.' '.$exercise_namepo;
     $erecord->snumber = $snum;
     $erecord->lesson = $lessonid;
     $erecord->texttotype = str_replace("\r\n", '\n', $texttotypeepo);
@@ -196,12 +201,26 @@ for ($ij = 0; $ij < count($lessons); $ij++) {
 }
 echo '</select>';
 
+// 20210325 Prevent error before exercise name is actually created.
+if ($snum = null) {
+    $num = ' ';
+}
+// 20210325 Set up place to enter new exercise name. //// 20210331 Move into the first exercise if statement.
+//echo '<br><br>'.get_string('exercise_name', 'mootyper').': '.$snum.' <input type="text" name="exercise_name" id="exercise_name"></span>';
+
 // Add lesson name, visibility, and editing options if this is a new lesson.
 if ($lessonpo == -1) {
 
     // Set up place to enter new lesson name.
     echo '<br><br>'.get_string('lsnname', 'mootyper').': <input type="text" name="lessonname" id="lessonname">
         <span style="color:red;" id="namemsg"></span>';
+
+    // 20210325 Prevent error before exercise name is actually created.
+    if ($snum = null) {
+       $num = ' ';
+    }
+    // 20210325 Set up place to enter new exercise name.
+    echo '<br><br>'.get_string('exercise_name', 'mootyper').': '.$snum.' <input type="text" name="exercise_name" id="exercise_name"></span>';
 
     // Set up visibility selector options for this new lesson.
     echo '<br><br>'.get_string('visibility', 'mootyper').': <select name="visible">';
@@ -220,6 +239,9 @@ if ($lessonpo == -1) {
         echo '<option value="0">'.get_string('eaccess0', 'mootyper').'</option>';
     }
     echo '</select>';
+}else{
+    // 20210325 Set up place to enter new exercise name.
+    echo '<br><br>'.get_string('exercise_name', 'mootyper').': '.$snum.' <input type="text" name="exercise_name" id="exercise_name"></span>';
 }
 
 // Get our alignment strings and add a selector for text alignment.

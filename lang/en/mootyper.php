@@ -106,6 +106,7 @@ $string['exercise_added'] = 'Added exercise';
 $string['exercise_edited'] = 'Edited exercise';
 $string['exercise_completed'] = 'Completed an exercise';
 $string['exercise_deleted'] = 'Deleted an exercise';
+$string['exercise_name'] = 'Exercise name';
 $string['eventlessonexport'] = 'Exported lesson';
 $string['failbgc_title'] = 'Failing grade background color';
 $string['failbgc_descr'] = 'This sets the background color for a failing grade.';

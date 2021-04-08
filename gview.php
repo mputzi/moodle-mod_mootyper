@@ -37,8 +37,8 @@ require_once(__DIR__ . '/lib.php');
 
 global $USER;
 
-$id = optional_param('id', 0, PARAM_INT); // Course_module ID.
-$n  = optional_param('n', 0, PARAM_INT);  // Or Mootyper instance ID - it should be named as the first character of the module.
+$id = optional_param('id', 0, PARAM_INT); // Course_module ID, or
+$n  = optional_param('n', 0, PARAM_INT);  // Mootyper instance ID - it should be named as the first character of the module.
 $se = optional_param('exercise', 0, PARAM_INT);
 $md = optional_param('jmode', 0, PARAM_INT);
 $us = optional_param('juser', 0, PARAM_INT);
@@ -290,11 +290,12 @@ if (!has_capability('mod/mootyper:viewgrades', context_module::instance($cm->id)
                 // 20191230 Combine new mistakedetails with mistakes count.
                 $strtocut = $gr->mistakes.': '.$gr->mistakedetails;
 
+                // 20210327 Added alignment to Exercise, Mistakes and Elapsed time columns.
                 echo '<tr align="center" style="border-top-style: solid;'.$stil.'">
                              <td>'.$exclamation.' '.$namelnk.'</td>
-                             <td>'.$fcol.'</td>
-                             <td>'.$strtocut.'</td>
-                             <td>'.format_time($gr->timeinseconds).'</td>
+                             <td align="left">'.$fcol.'</td>
+                             <td align="left">'.$strtocut.'</td>
+                             <td align="right">'.format_time($gr->timeinseconds).'</td>
                              <td>'.format_float($gr->hitsperminute).'</td>
                              <td>'.$gr->fullhits.'</td>
                              <td>'.format_float($gr->precisionfield).'%</td>

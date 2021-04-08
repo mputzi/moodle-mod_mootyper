@@ -141,7 +141,7 @@ if (lessons::is_editable_by_me($USER->id, $id, $lessonpo)) {
     // Build a link to let teachers add a new exercise to the Lesson currently being viewed.
     $jlnk3 = $CFG->wwwroot . '/mod/mootyper/eins.php?id='.$id.'&lesson='.$lessonpo;
 
-    // 20200628 Temp stuff $vis, $vis->visible, and $vis->editable for development.
+    // 20200628 Temp stuff  $vis, $vis->visible, and $vis->editable for development.
     $vis = $DB->get_record("mootyper_lessons", array('id' => $lessonpo));
     // 20200614 Added a button for, Add a new exercise to the Lesson currently being viewed.
     echo ' <a onclick="return confirm(\''.get_string('eaddnewex', 'mootyper').$lessonpo.
@@ -164,11 +164,19 @@ echo '<table><tr><td '.$style1.'>'.get_string('ename', 'mootyper').'</td>
 $exercises = $DB->get_records("mootyper_exercises", array('lesson' => $lessonpo));
 
 foreach ($exercises as $ex) {
+    // 20210326 Shorten displayed exercisename as well as text to type.
     $strtocut = $ex->texttotype;
     $strtocut = str_replace('\n', '<br>', $strtocut);
     if (strlen($strtocut) > 65) {
         $strtocut = substr($strtocut, 0, 65).'...';
     }
+    $exnametocut = $ex->exercisename;
+    $exnametocut = str_replace('\n', '<br>', $exnametocut);
+    if (strlen($exnametocut) > 20) {
+        $exnametocut = substr($exnametocut, 0, 20).'...';
+    }
+
+
     // If user can edit, create a delete link to the current exercise.
     $jlink1 = '<a onclick="return confirm(\''.get_string('deleteexconfirm', 'mootyper')
               .$lessons[$selectedlessonindex]['lessonname']
@@ -183,7 +191,10 @@ foreach ($exercises as $ex) {
               .'"><img src="pix/edit.png" alt='
               .get_string('eeditlabel', 'mootyper').'></a>';
 
-    echo '<tr><td '.$style1.'>'.$ex->exercisename.'</td><td '.$style2.'>'.$strtocut.'</td>';
+    // 20210326 Shorten displayed exercisename as well as text to type.
+    //echo '<tr><td '.$style1.'>'.$ex->exercisename.'</td><td '.$style2.'>'.$strtocut.'</td>';
+    echo '<tr><td '.$style2.'>'.$exnametocut.'</td><td '.$style2.'>'.$strtocut.'</td>';
+
     // If the user can edit or delete this lesson and its exercises, then add edit and delete tools.
     if (lessons::is_editable_by_me($USER->id, $id, $lessonpo)) {
         echo '<td '.$style1.'>'.$jlink2.' | '.$jlink1.'</td>';

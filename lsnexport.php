@@ -78,7 +78,7 @@ $sqlc = "SELECT COUNT(mte.texttotype)
 // 20200613 Changed $sqlc to use $params.
 $count = $DB->count_records_sql($sqlc, $params);
 // Added mte.id so exercises CAN be duplicates without getting debug message in output file.
-$sql = "SELECT mte.id, mte.texttotype
+$sql = "SELECT mte.id, mte.texttotype, mte.exercisename
         FROM {mootyper_lessons} mtl
         LEFT JOIN {mootyper_exercises} mte
         ON mte.lesson =  mtl.id
@@ -91,15 +91,20 @@ if ($exercise = $DB->get_records_sql($sql, $params)) {
         // a new exercise indicator.
         --$count;
         if ($count > 0) {
-            // Write out the next exercise with a new exercise indicator and blank line after it.
-            $field = array($txt->texttotype.chr(10).'/**/'.chr(10));
+            // Write out the next exercise and exercise name with a break indicator.
+            $field1 = array($txt->texttotype.chr(10).'/**/'.chr(10));
+            $field2 = array($txt->exercisename.chr(10).'/**/'.chr(10));
         } else {
-            // Write out last exercise with no indicator and no blank line after it.
-            $field = array($txt->texttotype.chr(10));
+            // Write out last exercise with with a break indicator follwed by the exercise name
+            // and no break indicator after it.
+            $field1 = array($txt->texttotype.chr(10).'/**/'.chr(10));
+            $field2 = array($txt->exercisename.chr(10));
         }
-        // Write out the last exercise without a new exercise indicator after it.
-        fwrite($f, implode(" ", $field));
+        // Place the texttotyper followed by the exercise name in our file $f.
+        fwrite($f, implode(" ", $field1));
+        fwrite($f, implode(" ", $field2));
     }
+    // Close download our file then close it. 
     fclose($f);
 }
 
