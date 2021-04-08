@@ -1,17 +1,23 @@
-º1234567890'¡
-ª!"·$%&/()=?¿
+º1234567890'¡\nª!"·$%&/()=?¿
 /**/
-qwertyuiop`+
-QWERTYUIOP^*
+1 row one
 /**/
-asdfghjklñ´ç
-ASDFGHJKLÑ¨Ç
+qwertyuiop`+\nQWERTYUIOP^*
 /**/
-zxcvbnm,.-
-ZXCVBNM;:_
+2 row two
 /**/
-\\|@#~€¬[]
-{}
+asdfghjklñ´ç\nASDFGHJKLÑ¨Ç
 /**/
-áéíóúü €€
-ÁÉÍÓÚÜ €€
+3 row three
+/**/
+zxcvbnm,.-\nZXCVBNM;:_
+/**/
+4 row four
+/**/
+\\|@#~€¬[]\n{}
+/**/
+5 Alt Gr keys
+/**/
+áéíóúü €€\nÁÉÍÓÚÜ €€
+/**/
+6 accents

@@ -1,1 +1,3 @@
 0123456789\n./*-+
+/**/
+1 All number pad keys

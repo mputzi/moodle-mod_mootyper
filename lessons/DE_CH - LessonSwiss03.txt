@@ -1,15 +1,19 @@
-ja öd das las als alfa kalk skala kajak salsa
-aktiv Vase nerven Feder David Susi vertikal
+ja öd das las als alfa kalk skala kajak salsa\naktiv Vase nerven Feder David Susi vertikal
 /**/
-aufwärts, gültig, erklären, tüchtig, zusätzlich, aufwühlend
-Plüschtiere, Wüste, Bäume, führen Käfig, Frühstück, prägen
+1
 /**/
-Nach dem Länderspiel hat Andi seinen Rücktritt angekündigt.
-Andy stylen Jury E-Book loyal Pop-Art Yak x-fach Party City
-abc abcdefg hijklmnop qrstuvw xyz öäü ,.- abcdefg hijklmnop
+aufwärts, gültig, erklären, tüchtig, zusätzlich, aufwühlend\nPlüschtiere, Wüste, Bäume, führen Käfig, Frühstück, prägen
 /**/
-trésor, matière, à pied, déménage, François...
-île, Bâle, Rhône, théâtre, Môtier, se dépêcher, un tête-à-tête
+2
 /**/
-Heute beträgt die Aussentemperatur 40° Celsius.
-Das ist viel zu heiss!
+Nach dem Länderspiel hat Andi seinen Rücktritt angekündigt.\nAndy stylen Jury E-Book loyal Pop-Art Yak x-fach Party City\nabc abcdefg hijklmnop qrstuvw xyz öäü ,.- abcdefg hijklmnop
+/**/
+3
+/**/
+trésor, matière, à pied, déménage, François...\n\nîle, Bâle, Rhône, théâtre, Môtier, se dépêcher, un tête-à-tête
+/**/
+4
+/**/
+Heute beträgt die Aussentemperatur 40° Celsius.\nDas ist viel zu heiss!
+/**/
+5
