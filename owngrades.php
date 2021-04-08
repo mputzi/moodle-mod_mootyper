@@ -191,10 +191,11 @@ if (!has_capability('mod/mootyper:viewmygrades', context_module::instance($cm->i
             // 20191230 Combine new mistakedetails with mistakes count.
             $strtocut = $gr->mistakes.': '.$gr->mistakedetails;
 
+                // 20210327 Added alignment to Exercise, Mistakes and Elapsed time columns.
             echo '<tr align="center" style="border-top-style: solid;'.$stil.'">
-                <td>'.$fcol.'</td>
-                <td>'.$strtocut.'</td>
-                <td>'.format_time($gr->timeinseconds).'</td>
+                <td align="left">'.$fcol.'</td>
+                <td align="left">'.$strtocut.'</td>
+                <td align="right">'.format_time($gr->timeinseconds).'</td>
                 <td>'.format_float($gr->hitsperminute).'</td>
                 <td>'.$gr->fullhits.'</td>
                 <td>'.format_float($gr->precisionfield).'%</td>
