@@ -120,11 +120,11 @@ $layoutspo = array();
 
 // Cannot remember why I have this if here.
 //if ($layoutspo[0] == 0 && count($layouts) > 0) {
-if ($layoutspo == 0 && count($layouts) > 0) {
-    $layoutspo = $layouts[0];
-}
+//if ($layoutspo == 0 && count($layouts) > 0) {
+//    $layoutspo = $layouts[0];
+//}
 
-$selectedlayoutindex = 0;
+//$selectedlayoutindex = 0;
 /*
 for ($ij = 0; $ij < count($layouts); $ij++) {
     if ($layouts[$ij] == $layoutspo) {
@@ -140,8 +140,10 @@ for ($ij = 0; $ij < count($layouts); $ij++) {
     // If user can edit, create a delete link to the current exercise.
     $jlink1 = '<a onclick="return confirm(\''.get_string('deleteexconfirm', 'mootyper')
               .$lessons[$selectedlessonindex]['lessonname']
-              .'\')" href="erem.php?id='.$id.'&r='
-              .$ex->id.'&lesson='.$lessonpo.'"><img src="pix/delete.png" alt="'
+              .'\')" href="erem.php?id='.$id
+              .'&r='.$ex->id
+              .'&lesson='.$lessonpo
+              .'"><img src="pix/delete.png" alt="'
               .get_string('delete', 'mootyper').'"></a>';
 */
 
@@ -168,11 +170,8 @@ echo '<tbody>';
 
 // Need to make it so only an admin can do a layout delete!
 foreach ($layouts as $lo) {
-    // if (lessons::is_editable_by_me($USER->id, $layoutspo, $lsn)) {
         // List the keyboards by name.
         echo '<tr><td>'.$lo.'</td><td>'.$jlink1.'</td></tr>';
-    // }
-    // echo ' ';
 }
 echo '</tbody>';
 echo '</table>';

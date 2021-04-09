@@ -18,6 +18,7 @@
  * This file is used to remove layouts.
  *
  * Called from layouts.php when clicking on icon to remove a layout.
+ * Still under development.
  *
  * @package    mod_mootyper
  * @copyright  2011 Jaka Luthar (jaka.luthar@gmail.com)
@@ -25,10 +26,34 @@
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later.
  */
 
+use \mod_mootyper\event\layout_deleted;
+
 // Changed to this newer format 20190301.
 require(__DIR__ . '/../../config.php');
 
 global $DB;
+$id = optional_param('id', 0, PARAM_INT); // Course_module ID.
+
+if (! $cm = get_coursemodule_from_id('mootyper', $id)) {
+    print_error("Course Module ID was incorrect");
+}
+
+if (! $course = $DB->get_record("course", array('id' => $cm->course))) {
+    print_error("Course is misconfigured");
+}
+
+require_login($course, true);
+$context = context_module::instance($cm->id);
+
+$layoutid = optional_param('xxx' '', PARAM_TEXT);
+$layoutname = optional_param('xxx' '', PARAM_TEXT);
+// Added cmid so can exit back to MooTyper activity we came from.
+$cmid = optional_param('cmid', '0', PARAM_INT); // Course Module ID.
+
+
+// put the actual delete here.
+
+
 
 $cid = optional_param('id', 0, PARAM_INT);
 $webdir = $CFG->wwwroot . '/mod/mootyper/layouts.php?id='.$id.'&lesson='.$lessonpo;
