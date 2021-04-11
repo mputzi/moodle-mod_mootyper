@@ -27,13 +27,15 @@
  */
 
 if (!defined('MOODLE_INTERNAL')) {
-    // It must be included from a Moodle page
+    // It must be included from a Moodle page.
     die('Direct access to this script is forbidden.');
 }
 
 require_once($CFG->dirroot.'/course/moodleform_mod.php');
 
 use \mod_mootyper\local\keyboards;
+use \mod_mootyper\local\lessons;
+
 use core_grades\component_gradeitems;
 
 /**
@@ -55,17 +57,36 @@ class mod_mootyper_mod_form extends moodleform_mod {
      * Define the MooTyper mod_form.
      */
     public function definition() {
-        global $CFG, $COURSE, $DB;
+        global $CFG, $COURSE, $DB, $PAGE, $USER;;
 
         $mform =& $this->_form;
+print_object('spacer mod_form 1a');
+print_object('spacer mod_form 2a');
+print_object('spacer mod_form 3a');
+print_object('spacer mod_form 4a');
 
-        // 20200630 Added to fix link to control access to the management link.
-        $id = optional_param('update', 0, PARAM_INT); // Course module ID.
+        // 20200630 Added to fix link to control user access to the management link.
+        $cmid = optional_param('update', 0, PARAM_INT); // Course module ID.
+        $course = optional_param('course', 0, PARAM_INT); // Course module ID.
+
+        if ($cmid) {
+            $cm         = get_coursemodule_from_id('mootyper', $cmid, 0, false, MUST_EXIST);
+            $course     = $DB->get_record('course', array('id' => $cm->course), '*', MUST_EXIST);
+            $mootyper  = $DB->get_record('mootyper', array('id' => $cm->instance), '*', MUST_EXIST);
+
+            $lessonid = optional_param('lesson', $mootyper->lesson, PARAM_INT);
+            $exercisepo = optional_param('exercise', $mootyper->exercise, PARAM_INT);
+
+            // Note that $exercisepo is available only it this is an exam.
+            $epo = optional_param('e', 0, PARAM_INT);
+        }
 
         $mootyperconfig = get_config('mod_mootyper');
 
+        // MooTyper activity setup, add the General heading.
         $mform->addElement('header', 'general', get_string('general', 'form'));
 
+        // MooTyper activity setup,, add the MooTyper activity name.
         $mform->addElement('text', 'name', get_string('name'), array('size' => '64'));
         if (!empty($CFG->formatstringstriptags)) {
             $mform->setType('name', PARAM_TEXT);
@@ -81,16 +102,20 @@ class mod_mootyper_mod_form extends moodleform_mod {
             $this->add_intro_editor();
         }
 
-        // MooTyper activity setup, Availability settings.
+        // MooTyper activity setup, Availability heading.
         $mform->addElement('header', 'availabilityhdr', get_string('availability'));
-
+        
+        // MooTyper activity setup, add the time open selector.
         $mform->addElement('date_time_selector', 'timeopen',
                            get_string('mootyperopentime', 'mootyper'),
                            array('optional' => true, 'step' => 1));
+
+        // MooTyper activity setup, add the time open selector.
         $mform->addElement('date_time_selector', 'timeclose',
                            get_string('mootyperclosetime', 'mootyper'),
                            array('optional' => true, 'step' => 1));
-        // MooTyper activity password setup.
+
+        // MooTyper activity setup, add password settings.
         $mform->addElement('selectyesno', 'usepassword', get_string('usepassword', 'mootyper'));
         $mform->addHelpButton('usepassword', 'usepassword', 'mootyper');
         $mform->setDefault('usepassword', $mootyperconfig->password);
@@ -103,19 +128,76 @@ class mod_mootyper_mod_form extends moodleform_mod {
         $mform->disabledIf('password', 'usepassword', 'eq', 0);
         $mform->disabledIf('passwordunmask', 'usepassword', 'eq', 0);
 
-        // MooTyper activity setup, Options settings.
+        // MooTyper activity setup, Options heading.
         $mform->addElement('header', 'optionhdr', get_string('options', 'mootyper'));
 
-        /* TODO: Add a dropdown selector for isexam (the activity mode).
+//////////////////////////////////////////////////// MODE - start
+
+        // TODO: Maybe this should be hidden during activity re-edits, unless it is an admin.
+        // 20201116 Added a dropdown selector for isexam (the activity mode).
         $modes = array(get_string('sflesson', 'mod_mootyper'),
                       get_string('isexamtext', 'mod_mootyper'),
                       get_string('practice', 'mod_mootyper'));
         $mform->addElement('select', 'isexam', get_string('fmode', 'mootyper'), $modes);
         $mform->addHelpButton('isexam', 'fmode', 'mootyper');
         $mform->setDefault('isexam', $mootyperconfig->isexam);
-         */
+           
 
-        // TODO: Add a dropdown selector of lesson/category.
+//////////////////////////////////////////////////// MODE - END
+
+//////////////////////////////////////////////////// LESSON NAME - start
+
+        // TODO: Maybe this should be hidden during activity re-edits, unless it is an admin.
+        // 20201116 Added a drop down selector for the lesson name.
+        if ($cmid) {
+            $lessons = lessons::get_mootyperlessons($USER->id, $course->id);
+        } else {
+            $lessons = lessons::get_mootyperlessons($USER->id, $course);
+        }
+
+        $lsns = array();
+        for ($ij = 0; $ij < count($lessons); $ij++) {
+                $lsns[$lessons[$ij]['id']] = $lessons[$ij]['lessonname'];
+        }
+
+        $mform->addElement('select', 'lesson', get_string('flesson', 'mootyper').' test 1a', $lsns, array('onchange' => 'javascript:fetchExerciseNames("$lessonid")'));
+        $mform->addHelpButton('lesson', 'flesson', 'mootyper');
+        if ($cmid) {
+            $mform->setDefault('lesson', $mootyper->lesson);
+        } else {
+            $mform->setDefault('lesson', $lessons[0]['id']);
+
+        }
+
+//////////////////////////////////////////////////////// LESSON NAME - end
+
+//////////////////////////////////////////////////////// EXERCISES - start
+
+        // TODO: Maybe this should be hidden during activity re-edits, unless it is an admin.
+        // 20201116 Added an exercise drop down selector. Disable it except when the mode is exam.
+        if ($cmid) {
+            $exercises = lessons::get_exercises_by_lesson($lessonid);
+        } else {
+            $exercises = lessons::get_exercises_by_lesson($lessons[0]['id']);
+
+        }
+        $exs = array();
+        for ($ij = 0; $ij < count($exercises); $ij++) {
+                $exs[$exercises[$ij]['id']] = $exercises[$ij]['exercisename'];
+        }
+
+
+        // 20200918 Changed for new amd stuff.
+        $mform->addElement('select', 'ename', get_string('ename', 'mootyper').' test 3a', $exs);
+        $mform->addHelpButton('ename', 'ename', 'mootyper');
+        $mform->setDefault('ename', 1);
+        //$mform->hideIf('ename', 'isexam', 'neq', '1');
+        $mform->disabledIf('ename', 'isexam', 'neq', '1');
+
+
+/////////////////////////////////////////////////////////////  EXERCISES - end
+
+//////////////////////////////////////////////////////////////////////
 
         // 20191223 Added a dropdown slector for timelimit.
         $tlimit = array();
@@ -228,9 +310,9 @@ class mod_mootyper_mod_form extends moodleform_mod {
 
         // MooTyper activity, link to Lesson/Categories and exercises.
         // 20200630 When a cmid is available, show the link.
-        if ($id) {
+        if ($cmid) {
             $mform->addElement('header', 'mootyperz', get_string('pluginadministration', 'mootyper'));
-            $jlnk3 = $CFG->wwwroot . '/mod/mootyper/exercises.php?id='.$id;
+            $jlnk3 = $CFG->wwwroot . '/mod/mootyper/exercises.php?id='.$cmid;
             $mform->addElement('html', '<a id="jlnk3" href="'.$jlnk3.'">'.get_string('emanage', 'mootyper').'</a>');
         }
 
@@ -390,6 +472,34 @@ class mod_mootyper_mod_form extends moodleform_mod {
         }
     }
 
+    /**
+     * If the current user can use any lesson exercise, return null, else return their user id.
+     *
+     * For use with utils methods like get_sharable_exercises_choices.
+     *
+     * @return int|null the $userlimit option.
+     */
+    protected function get_user_retriction($cmid): ?int {
+        global $USER;
+
+        //$context = $this->_customdata['context'];
+print_object(context_module::instance($cmid));
+print_object(has_capability('mod/mootyper:editall', context_module::instance($cmid)));
+//die;
+//print_object(context_module::instance($cm->id));
+//print_object(context_module::instance($cm->id));
+//print_object(context_module::instance($cm->id));
+
+        //if (has_capability('moodle/mootyper:editall', $context)) {
+        if (has_capability('mod/mootyper:editall', context_module::instance($cmid))) {
+            return null;
+        //} else if (has_capability('moodle/mootyper:aftersetup', $context)) {
+        } else if (has_capability('mod/mootyper:aftersetup', context_module::instance($cmid))) {
+            return $USER->id;
+        } else {
+            throw new \coding_exception('This user is not allowed to use this lesson exercise.');
+        }
+    }
 
     /**
      * Enforce validation rules here.

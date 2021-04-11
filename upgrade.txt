@@ -48,6 +48,7 @@ Moodle Versions
 === 4.0.0 ===
 20210325  MooTyper_619 Need to add capability to add names to exercise name numbers.
     Done and testing.
+20210326 MooTyper_441 - Use current MooTyper for layouts.php background color. Implemented. 
 20210327 MooTyper_459 - It would be nice if a Lesson name could be edited. Got this
     and 619 working today. Still need to add exercise names to lesson file exports
     and detect them for imports.
@@ -56,6 +57,8 @@ Moodle Versions
     indicator for the exercise texttotype, followed by another break indicator,
     unless it is the last exercise name.
 20210331 MooTyper_675 - Create Icelandic KB Layout. Created files and tested.
+20210408 MooTyper_694 - Invalid get_string() identifier: 'mootyper:rate' #95. Added string.
+
 
 === 3.9.6 ===
 20201224 MooTyper_660 Aesop's Fables needs to be split into multiple files. Done.

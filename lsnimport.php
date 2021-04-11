@@ -110,7 +110,7 @@ function read_lessons_file($dafile, $authoridarg, $visiblearg, $editablearg, $co
         // 20210328 Save exercise name instead of just a number.
         $erecord->exercisename = $exercisename; // Add the exercise name here.
         $erecord->lesson = $lessonid;
-        $erecord->snumber = $j + 1;
+        $erecord->snumber = ($j + 2)/2;
         $DB->insert_record('mootyper_exercises', $erecord, false);
     }
 }
@@ -131,6 +131,160 @@ function add_keyboard_layout($dafile) {
     $record->jspath = substr($wwwfile, 0, strripos($wwwfile, '.')).'.js';
     $DB->insert_record('mootyper_layouts', $record, true);
 }
+
+/**
+ * Define import and update exercise function.
+ * @param string $dafile
+ * @param int $lsnid
+ */
+function update_exercises_file($dafile, $lsnid, $lsn) {
+    global $DB, $CFG, $USER;
+
+
+    //print_object('++++++++++++++++++++++++Made it to the new function.+++++++++++++++++++++++++');
+    //print_object($lsnid.' <-1 This is the current lesson id.'); // This gives the whole file name.
+    //print_object($lsn.' <-2 This is the current lesson id.'); // This gives the lesson id.
+
+    // Scan the mootyper lessons folder for lessonname.txt files.
+    $thefile = $CFG->dirroot."/mod/mootyper/lessons/".$dafile;
+    // Extract the lesson name from the file name.
+    $record = new stdClass();
+    $periodpos = strrpos($dafile, '.');
+    $lessonname = substr($dafile, 0, $periodpos);
+
+    // Now read the whole lesson file so we can split it into exercises and exercise names.
+    $fh = fopen($thefile, 'r');
+    $thedata = fread($fh, filesize($thefile));
+    fclose($fh);
+
+    //print_object($thedata.' <-This is the current $thedata from the lesson file.');
+
+    $haha = "";
+    for ($i = 0; $i < strlen($thedata); $i++) {
+        $haha .= $thedata[$i];
+    }
+    $haha = trim($haha);
+    // Break lesson into an array of separate exercises followed by exercise names.
+    $splitted = explode ('/**/' , $haha);
+
+    for ($j = 0; $j < count($splitted); $j+=2) {
+        // Remove whitespace from both sides of $splitted.
+        $fexercise = trim($splitted[$j]);
+        print_object($fexercise.' <-This is the trimmed fexercise from the file.');
+
+        $fexercisename = trim($splitted[$j+1]);
+        print_object($fexercisename.' <-This is the trimmed fexercisename from the file.');
+
+        // Create sql to see if lesson name is already an installed lesson.
+        $sql = "SELECT id, texttotype, exercisename, lesson, snumber
+                  FROM {mootyper_exercises}
+                 WHERE lesson = '".$lsnid."'";
+
+        //print_object($sql);
+        //print_object(' <-This is the first  sql.');
+
+        // Get the total number of exercises that belong to this lesson.
+        $snumber = count($DB->get_records_sql($sql));
+        //print_object($snumber.' <-This is the current snumber.');
+
+
+        //print_object('+++++++++++++++++++++++++++++');
+
+        $snum = $j/2+1;
+        //print_object($snum. ' printing $snum');
+        $sql = "SELECT id, texttotype, exercisename, lesson, snumber
+                  FROM {mootyper_exercises}
+                 WHERE lesson = '".$lsnid."' AND snumber = '".$snum."'";
+
+
+        //print_object($sql);
+        //print_object(' <-This is the second  sql.');
+
+        $record = $DB->get_record_sql($sql);
+        //print_object($record);
+
+        if (($record->texttotype == $fexercise) && ($record->exercisename == $fexercisename)) {
+        //if (strcmp($record->texttotype, $fexercise) && strcmp($record->exercisename, $fexercisename)) {
+
+            //print_object('File texttotype and exercisenames are the same. Nothing to do.');
+            echo "<tr class='table-dark text-dark'><td>$lsn</td><td>".get_string('lsnimportnotadd', 'mootyper').'</td></tr>';
+
+        } else if (($record->texttotype == $fexercise) && !($record->exercisename == $fexercisename)) {
+        //} else if (strcmp($record->texttotype, $fexercise) && strcmp($record->exercisename, $fexercisename)) {
+            //print_object('the texttotype is the same but the exercisename is not.');
+            $record->exercisename = $fexercisename;
+            //$DB->update_record('mootyper_exercises', $record, true);
+            $DB->update_record('mootyper_exercises', $record, false);
+            echo "<tr class='table-success'><td><b>$lsn</td><td>".get_string('exercise_name_updated', 'mootyper', $fexercisename).'</b></td></tr>';
+        } else if (!($record->texttotype == $fexercise) && ($record->exercisename == $fexercisename)) {
+        //} else if (strcmp($record->texttotype, $fexercise) && strcmp($record->exercisename, $fexercisename)) {
+            //print_object('the texttotype is different but the exercisename is the same.');
+            // Need updated string for adding changed text to type.
+            //$DB->update_record('mootyper_exercises', $record, true);
+            $DB->update_record('mootyper_exercises', $record, false);
+
+            echo "<tr class='table-success'><td><b>$lsn</td><td>".get_string('lsnimportadd', 'mootyper').'</b></td></tr>';
+
+        }
+
+        //print_object('+++++++++++++++++++++++++++++');
+
+
+        /*
+        // Create sql to see if lesson name is already an installed lesson.
+        $sql = "SELECT texttotype, exercisename, lesson, snumber,
+                STRCMP(texttotype, '".$exercise."') AS Txt_Value,
+                STRCMP(exercisename, '".$exercisename."') AS Ex_Value
+                 FROM {mootyper_exercises}
+                WHERE lesson = '".$lsnid."' AND STRCMP(texttotype, '".$exercise."') = 1";
+
+        */
+
+        //print_object($sql.'<-This is the current sql.');
+
+        //$currentexercise = $DB->get_records_sql($sql);
+
+        //print_object($DB->get_records_sql($sql));
+
+        // 20210328 Added same cleanup for exercisename.
+        $fexercisename = trim($splitted[$j+1]);
+
+        $texttotype = "";
+        // Place each character of an exercise into $texttotype.
+        for ($k = 0; $k < strlen($fexercise); $k++) {
+            $ch = $fexercise[$k];
+            if ($ch == "\n") {
+                $texttotype .= '\n';
+            } else {
+                $texttotype .= $ch;
+            }
+        }
+
+    }
+
+
+
+    // Create sql to see if lesson name is already an installed lesson.
+    // $sql = "SELECT texttotype, exercisename, lesson
+    //           FROM {mootyper_exercises}
+    //          WHERE lesson = '".$lsnid."'";
+
+    //$importexercise = $DB->get_records_sql($sql);
+    //print_object($importexercise);
+
+    //print_object($authoridarg.' <-This is the id of the creator of this lesson, it is admin during upgrade.'); // This is the id of the author.
+    //print_object($visiblearg.' <-This is the site wide Lesson visibility setting.'); // This is the visibility setting.
+    //print_object($editablearg.' <-This is the site wide editability setting for this lesson.'); // This is the editablility setting.
+    //print_object($coursearg.' <-Course id is null during install and upgrade.'); // This would normally be the course id but it is null for upgrade/install.
+    //print_object($lessonname->id.' <-This is the current lesson name.'); // This is the lesson name without the .txt.
+
+    //print_object('++++++++++++++++++++++++Exiting from the new function.+++++++++++++++++++++++++');
+
+
+}
+///////////////////////////////////////////////////////////////////////////////////////////
+
+
 
 // Actual page starts here.
 $id = optional_param('id', 0, PARAM_INT); // Course ID.
@@ -190,13 +344,29 @@ for ($i = 0; $i < count($res); $i++) {
         $periodpos = strrpos($fl, '.');
         $lsn = substr($fl, 0, $periodpos);
         // Create sql to see if lesson name is already an installed lesson.
-        $sql = "SELECT lessonname
+        $sql = "SELECT lessonname, id
             FROM {mootyper_lessons}
             WHERE lessonname = '".$lsn."'";
 
         if ($importlesson = $DB->get_record_sql($sql)) {
+
+
+            // If it's true we need to compare the exercise files and upgrade the exercises, if needed.
+            //print_object($fl);
+            //print_object($periodpos);
+            //print_object($lsn);
+            //print_object($sql);
+            //print_object($importlesson = $DB->get_record_sql($sql));
+            print_object($importlesson->id);
+            //print_object($importlesson);
+            //update_exercises_file($fl, $USER->id, 0, 2); // changed from this to the next line instead.
+
+
+
+            update_exercises_file($fl, $importlesson->id, $lsn);
+//////////////////////////////move the next echo into the update_exercises_file function.
             // If it's true the name is already in the database, do nothing.
-            echo "<tr class='table-dark text-dark'><td>$lsn</td><td>".get_string('lsnimportnotadd', 'mootyper').'</td></tr>';
+            //echo "<tr class='table-dark text-dark'><td>$lsn</td><td>".get_string('lsnimportnotadd', 'mootyper').'</td></tr>';
         } else {
             // If it's not found in the db, then add the new lesson to the database.
             echo "<tr class='table-success'><td><b>$lsn</td><td>".get_string('lsnimportadd', 'mootyper').'</b></td></tr>';
