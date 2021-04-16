@@ -31,4 +31,4 @@ $plugin->requires  = 2017111300;      // Requires Moodle 3.4.
 $plugin->cron      = 60;              // Period for cron to check this module (secs).
 $plugin->component = 'mod_mootyper';
 $plugin->maturity  = MATURITY_STABLE;
-$plugin->release   = '4.0.1 (Build: 2021041600)';
+$plugin->release   = '4.0.0 (Build: 2021041600)';
