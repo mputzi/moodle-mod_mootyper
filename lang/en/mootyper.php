@@ -100,7 +100,7 @@ $string['etitle'] = 'MooTyper exercises';
 $string['examdone'] = 'Exam completed.';
 $string['excategory'] = 'Lesson name';
 $string['excategory_help'] = 'Pick a Lesson name to use for this MooTyper.';
-$string['exercise'] = 'Exercise {$a} of ';
+$string['exercise'] = 'Exercise = {$a} of ';
 $string['exercise_abreviation'] = 'Ex';
 $string['exercise_added'] = 'Added exercise';
 $string['exercise_edited'] = 'Edited exercise';
