@@ -2,7 +2,7 @@
  * @fileOverview Turkmen(TKV5.0) keyboard driver.
  * @author <a href="mailto:drachels@drachels.com">AL Rachels</a>
  * @version 5.0
- * @since 20210319
+ * @since 20210507
  */
 
 /**
@@ -40,19 +40,12 @@ function keyboardElement(ltr) {
     this.chr = ltr.toLowerCase();
     this.alt = false;
     if (isLetter(ltr)) { // Set specified shift key for right or left.
-        if (ltr.match(/[ÄWERTASDFGZÜÇÝB]/)) {
+        if (ltr.match(/[Ž!@#$%ÄWERTASDFGZÜÇÝB]/)) {
             this.shiftright = true;
-        } else if (ltr.match(/[YUIOPHJKLNM]/)) {
+        } else if (ltr.match(/[№&*()_+YUIOPŇÖŞHJKL:"NM<>?]/)) {
             this.shiftleft = true;
         }
-    } else {
-        // @codingStandardsIgnoreLine
-        if (ltr.match(/[ž!"£$%|]/i)) {
-            this.shiftright = true;
-        } else if (ltr.match(/[\№&*()_+{}:@Ž<>?]/)) {
-            this.shiftleft = true;
-        }
-    }
+    } 
 
 
     this.turnOn = function() {
@@ -111,16 +104,17 @@ function thenFinger(tCrka) {
     if (tCrka === ' ') {
         return 5; // Highlight the spacebar.
     // @codingStandardsIgnoreLine
-    } else if (tCrka.match(/[ž¬¦1!äaáz0)p;:/?\-_ň@Ň'=+\öÖşŞŽ#]/i)) {
+    } else if (tCrka.match(/[ž1!äaz0)p;:/?\-_ň'"=+\öş]/i)) {
         return 4; // Highlight the correct key above in red.
     // @codingStandardsIgnoreLine
-    } else if (tCrka.match(/[2"wsü9(oól.>]/i)) {
+    } else if (tCrka.match(/[2@wsü9(ol.>]/i)) {
         return 3; // Highlight the correct key above in green.
     // @codingStandardsIgnoreLine
-    } else if (tCrka.match(/[3£eédç8*iík,<]/i)) {
+    } else if (tCrka.match(/[3#edç8*ik,<]/i)) {
         return 2; // Highlight the correct key above in yellow.
     // @codingStandardsIgnoreLine
-    } else if (tCrka.match(/[4$€rfý5%tgb6^yhn7&uújm]/i)) {
+    //} else if (tCrka.match(/[4$€rfý5%tgb6№yhn7&uújm]/i)) {
+    } else if (tCrka.match(/[4$rfý5%tgb6№yhn7&ujm]/i)) {
         return 1; // Highlight the correct key above in blue.
     } else {
         return 6; // Do not change any highlight.
