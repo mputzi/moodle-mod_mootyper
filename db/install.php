@@ -118,7 +118,7 @@ function read_lessons_file($dafile, $authoridarg, $visiblearg, $editablearg, $co
             // * If it is not a letter
             // * and if it is not a number
             // * compare against $allowed array.
-            // * Iif not included die
+            // * If not included die
             // * or something.
             $ch = $vaja[$k];
             if ($ch == "\n") {
