@@ -29,7 +29,7 @@ use stdClass;
 class cron_task extends \core\task\scheduled_task {
 
     // Use the logging trait to get some nice, juicy, logging.
-    use \core\task\logging_trait;
+    // use \core\task\logging_trait;
 
     /**
      * Get a descriptive name for this task (shown to admins).
