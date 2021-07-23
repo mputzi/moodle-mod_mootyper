@@ -52,6 +52,7 @@ $string['countmistakes_help'] = 'If enabled, all keystrokes for the same mistake
 $string['countmistypedspaces'] = 'Count mistyped spaces';
 $string['countmistypedspaces_help'] = 'If enabled, a mistyped space is counted as a mistake.';
 $string['course_exercises_viewed'] = 'Viewed exercises';
+$string['crontask'] = 'Background processing for MooTyper module';
 $string['csvexport'] = 'Export to .csv';
 $string['cursorcolor_title'] = 'Cursor color';
 $string['cursorcolor_descr'] = 'This sets the cursor color of the next letter to type.';

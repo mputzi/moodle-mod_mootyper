@@ -34,6 +34,7 @@ use \mod_mootyper\local\results;
 // Changed to this newer format 03/01/2019.
 require(__DIR__ . '/../../config.php');
 require_once(__DIR__ . '/lib.php');
+//require_once(__DIR__ . '/../../lib/jquery/jquery-3.5.1.js');
 
 global $mootyper, $USER, $CFG, $THEME;
 
@@ -76,6 +77,8 @@ $completion->set_module_viewed($cm);
 
 // Moved set_title and set_heading to renderer.php.
 $PAGE->set_url('/mod/mootyper/view.php', array('id' => $cm->id));
+// 20210722 Added this to replace former src URL link to googleapis.
+$PAGE->requires->jquery();
 
 $context = context_module::instance($cm->id);
 
@@ -83,8 +86,6 @@ $mootyperoutput = $PAGE->get_renderer('mod_mootyper');
 
 // Output starts here.
 echo $mootyperoutput->header($mootyper, $cm);
-
-echo '<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>';
 
 // Get the color and text alignment configuration settings and use them in the MooTyper activity.
 $color1 = $mootyper->statsbgc;

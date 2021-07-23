@@ -550,10 +550,16 @@ function mootyper_print_recent_activity($course, $viewfullnames, $timestart) {
     global $CFG, $USER, $DB, $OUTPUT;
 
     $dbparams = array($timestart, $course->id, 'mootyper');
-    $namefields = user_picture::fields('u', null, 'userid');
+    // 20212611 Added Moodle branch check.
+    if ($CFG->branch < 311) {
+        $namefields = user_picture::fields('u', null, 'userid');
+    } else {
+        $userfieldsapi = \core_user\fields::for_userpic();
+        $namefields = $userfieldsapi->get_sql('u', false, '', 'userid', false)->selects;;
+    }
     $sql = "SELECT mtg.id, mtg.mootyper, mtg.timetaken, cm.id AS cmid, $namefields
          FROM {mootyper_grades} mtg
-              JOIN {mootyper} mt         ON mt.id = mtg.mootyper
+              JOIN {mootyper} mt       ON mt.id = mtg.mootyper
               JOIN {course_modules} cm ON cm.instance = mt.id
               JOIN {modules} md        ON md.id = cm.module
               JOIN {user} u            ON u.id = mtg.userid
@@ -676,18 +682,6 @@ function mootyper_get_recent_mod_activity(&$activities, &$index, $timestart, $co
  * @return void
  */
 function mootyper_print_recent_mod_activity($activity, $courseid, $detail, $modnames, $viewfullnames) {
-}
-
-/**
- * Function to be run periodically according to the moodle cron.
- * This function searches for things that need to be done, such
- * as sending out mail, toggling flags etc ...
- *
- * @return boolean
- * @todo Finish documenting this function.
- **/
-function mootyper_cron () {
-    return true;
 }
 
 /**

@@ -45,19 +45,29 @@ sending an email, leave a comment at
 
 Moodle Versions
 ===============
+=== 4.0.1 ===
+20210626 MooTyper_755 - recent activity causes a debug meesage. Added a branch
+    check so that M3.10 and below use the old, user_picture and M3.11 and above
+    will use the new, \core_user\fields, code.
+20210722 MooTyper_747 - Convert from lib.php cron function to /classes/task/cron_task.php.
+    Added one new string and two needed files. Sheduled tasks reports success. 
+20210722 MooTyper - Need to remove from view.php, a line of code. See ticket for details.
+    Removed the line of code and replaced with $PAGE-&gt;requires-&gt;jquery().
+
+
 === 4.0.0 ===
-20210325  MooTyper_619 Need to add capability to add names to exercise name numbers.
+20210325  MooTyper_619/259 Need to add capability to add names to exercise name numbers.
     Done and testing.
-20210326 MooTyper_441 - Use current MooTyper for layouts.php background color. Implemented. 
-20210327 MooTyper_459 - It would be nice if a Lesson name could be edited. Got this
+20210326 MooTyper_441/180 - Use current MooTyper for layouts.php background color. Implemented. 
+20210327 MooTyper_459/198 - It would be nice if a Lesson name could be edited. Got this
     and 619 working today. Still need to add exercise names to lesson file exports
     and detect them for imports.
-20210327 MooTyper_692 - Need exercise names added in lsnexport and lsnimport. At 1550
+20210327 MooTyper_692/296 - Need exercise names added in lsnexport and lsnimport. At 1550
     got the lsnexport.php file working. Exercise name is added right after the break
     indicator for the exercise texttotype, followed by another break indicator,
     unless it is the last exercise name.
-20210331 MooTyper_675 - Create Icelandic KB Layout. Created files and tested.
-20210408 MooTyper_694 - Invalid get_string() identifier: 'mootyper:rate' #95. Added string.
+20210331 MooTyper_675/280 - Create Icelandic KB Layout. Created files and tested.
+20210408 MooTyper_694/298 - Invalid get_string() identifier: 'mootyper:rate' #95. Added string.
 
 
 === 3.9.6 ===

@@ -14,21 +14,25 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
-
 /**
- * Version information.
+ * Definition of MooTyper scheduled tasks.
  *
- * @package    mod_mootyper
- * @copyright  2012 Jaka Luthar (jaka.luthar@gmail.com)
- * @copyright  2016 onwards AL Rachels (drachels@drachels.com)
- * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ * @package   mod_mootyper
+ * @category  task
+ * @copyright 2021 AL Rachels <drachels@drachels.com>
+ * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
 defined('MOODLE_INTERNAL') || die();
 
-$plugin->version   = 2021072200;      // The current module version (Date: YYYYMMDDXX).
-$plugin->requires  = 2017111300;      // Requires Moodle 3.4.
-$plugin->cron      = 60;              // Period for cron to check this module (secs).
-$plugin->component = 'mod_mootyper';
-$plugin->maturity  = MATURITY_STABLE;
-$plugin->release   = '4.0.1 (Build: 2021072200)';
+$tasks = array(
+    array(
+        'classname' => 'mod_mootyper\task\cron_task',
+        'blocking' => 0,
+        'minute' => '*',
+        'hour' => '*',
+        'day' => '*',
+        'month' => '*',
+        'dayofweek' => '*'
+    )
+);
