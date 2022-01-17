@@ -3,12 +3,12 @@
 Features
 ========
 Everything you need to start typing instruction
-in Moodle is provided in this plugin. 
+in Moodle is provided in this plugin.
 
-"When looking at grades, exclamation marks are present if 
+"When looking at grades, exclamation marks are present if
 the person typed more than 60 chars in 5 seconds (which is
-kind of imposible)...or if the exercise took more than 10 
-minutes to complete...so this is to warn teacher about a 
+kind of imposible)...or if the exercise took more than 10
+minutes to complete...so this is to warn teacher about a
 potential cheeters..."
 
 Lessons - A selection of example lessons, are
@@ -45,12 +45,14 @@ sending an email, leave a comment at
 
 Moodle Versions
 ===============
+=== 4.1.0 ===
+20220117 Avoid storing absolute paths in database (mootyper_layouts)
 === 4.0.1 ===
 20210626 MooTyper_755 - recent activity causes a debug meesage. Added a branch
     check so that M3.10 and below use the old, user_picture and M3.11 and above
     will use the new, \core_user\fields, code.
 20210722 MooTyper_747 - Convert from lib.php cron function to /classes/task/cron_task.php.
-    Added one new string and two needed files. Sheduled tasks reports success. 
+    Added one new string and two needed files. Sheduled tasks reports success.
 20210722 MooTyper - Need to remove from view.php, a line of code. See ticket for details.
     Removed the line of code and replaced with $PAGE-&gt;requires-&gt;jquery().
 
@@ -58,7 +60,7 @@ Moodle Versions
 === 4.0.0 ===
 20210325  MooTyper_619/259 Need to add capability to add names to exercise name numbers.
     Done and testing.
-20210326 MooTyper_441/180 - Use current MooTyper for layouts.php background color. Implemented. 
+20210326 MooTyper_441/180 - Use current MooTyper for layouts.php background color. Implemented.
 20210327 MooTyper_459/198 - It would be nice if a Lesson name could be edited. Got this
     and 619 working today. Still need to add exercise names to lesson file exports
     and detect them for imports.
@@ -425,7 +427,7 @@ but discovered one shiftright error today, that should have been shiftleft, and 
 03/15/19 Fixed, TRK1_173 - MooTyper - Confirm on eedit.php should return to caller.
 03/15/19 Fixed, TRK1_192 - MooTyper - eins.php remove exercise does not return to
 the correct lesson view.
-03/15/19 Fixed, TRK1_193 - MooTyper - erem.php after removing an exercise you 
+03/15/19 Fixed, TRK1_193 - MooTyper - erem.php after removing an exercise you
 do not go to the correct lesson.
 03/19/19 Added confirm popup when deleting a grade from gview.php, View all grades.
 03/16/19 Added confirm popup when deleting a grade from owngrades.php, Vy my grades.
@@ -448,7 +450,7 @@ and Spanish(V5) keyboard layouts to github.
 12/06/18 M36 - Started dev on adding Mode and Exercise category to the MooTyper
 activity Edit page. Got them both there with help. Exercise category still
 needs work as id is not matching the name correctly, yet.
-12/11/18 M36 - Got both Mode and Exercise category working. Now need Exercise to 
+12/11/18 M36 - Got both Mode and Exercise category working. Now need Exercise to
 show when Exam mode is selected.
 12/13/18 M36 - Got Exercise to show when mode is Exam. Now need it to show an
 actual list of numbers for the chose Exercise category.
@@ -486,7 +488,7 @@ for the characters in each js file of each keyboard drivers target alphabet.
 activity completion. Started work on the grade completion part.
 06/26/18 Worked some more on added gradebook capabiltiy to MooTyper.
 06/27/18 Created Italian(V4) keyboard layout.
-06/27/18 Created Turkish(V4) keyboard layout. And removed some 
+06/27/18 Created Turkish(V4) keyboard layout. And removed some
 fixed spaces in the new keyboard php files after fixing line
 lengths.
 06/29/18 Created Arabic(V4) keyboard layout. Still needs major work.
@@ -588,7 +590,7 @@ causing it to break.
 three language strings for left, center, and right.
 03/11/18 Created Estonian(V4) keyboard layout at request of Virgo Pihlapuu.
 03/11/18 Got text alignment selector working in eedit.php.
-03/12/18 Got text alignment selector working in eins.php and added new language string to warn users 
+03/12/18 Got text alignment selector working in eins.php and added new language string to warn users
 to set alignment before starting to type, as setting alignment clears the textarea.
 03/12/18 Cleaned code and pushed to github for new release.
 
@@ -605,7 +607,7 @@ to fix the problem of some symbols being changed when used in exercises.
 12/06/17 Created French(V4) keyboard layout. Waiting for assistance to make sure combined
 characters are accounted for.
 12/12/17 I think the French(V4) keyboard layout is ready for release. One more check by
-Séverin and I'll know for sure. 
+Séverin and I'll know for sure.
 12/12/17 Dinis has completed MooTyper translation for Portuguese.
 12/18/17 Pushed code to github that as Course Reset capability for MooTyper.
 12/22/17 Released MooTyper 3.4.2 to Moodle.
@@ -634,7 +636,7 @@ time of creating a MooTyper activity.
 12/01/17 Released MooTyper 3.4.1.
 
 === 3.4.0 STABLE ===
-11/06/17 Over the past two weeks I have been working on eliminating the last few 
+11/06/17 Over the past two weeks I have been working on eliminating the last few
 instances of _POST and _GET. Finally got rid of the last one today in mod_setup.php.
 While working on this I also made a new log entry for removing a lesson and made the
 previous one cover just the removal of an exercise from a lesson.
@@ -655,9 +657,9 @@ Charts are shown only when in Moodle 3.2 and higher.
 10/12/17 Fixed instances of _POST being used when it should not in eedit.php and eins.php.
 10/19/17 Fixed some instances of _GET being used in attrem.php.
 10/20/17 Fixed some instances of _GET being used in atchk.php
-10/24/17 Removed DIE and Require_login from atchk.php to fix things back to what 
+10/24/17 Removed DIE and Require_login from atchk.php to fix things back to what
 they should be. With either of those lines, students could restart a lesson fromt
-the beginning without being fourced to complete and take a "bad" grade. With 
+the beginning without being fourced to complete and take a "bad" grade. With
 either of those two lines, the code for suspicious grades did not work.
 10/25/17 Finished fixing _POST and _GET in all files pushed to git and published new version 3.3.1.
 
@@ -666,7 +668,7 @@ either of those two lines, the code for suspicious grades did not work.
 NOTE: Moodle 3.2 implements new Graph API, so this MooTyper will be
 for MooTyper 3.2 and 3.3 only.
 7/19/17 Started adding chart to owngrades.php, View own grades page.
-7/20/17 Have dynamic chart working for own grades when grades are present. 
+7/20/17 Have dynamic chart working for own grades when grades are present.
 Added language string for it's title.
 7/20/17 Discovered the column label, Exercise, for the owngrades table was
 hard coded. Changed to get_string.
@@ -727,9 +729,9 @@ added a few missing keys to the non-v2 layouts.
         - Mode = Lesson or Exam
         - showkeyboard
         - continuous type
-8/18/17 Current 3.2.0 STABLE released instead of 3.1.5.	
+8/18/17 Current 3.2.0 STABLE released instead of 3.1.5.
 
-=== 3.1.4 STABLE === 
+=== 3.1.4 STABLE ===
 6/5/17 Currently have backup working with user data for grades.
 6/7/17 Worked on lesson import.
 6/8/17 Worked on lesson import for keyboard part. had to add gloabl db and cfg to this part just like lesson.
@@ -827,7 +829,7 @@ a MooTyper activity to check grades. Only students are prevented if availability
 07/18/2016 Implemented code to show entries in the Recent Activity Block.
 07/30/2016 Implemented code to use open and close dates for MooTyper activities.
 07/30/2016 Implemented renderer.php file and started creating functions in it.
-08/02/2016 Implemented code for passwords. Had to add new usepassword field 
+08/02/2016 Implemented code for passwords. Had to add new usepassword field
 to mdl_mootyper table.
 08/06/2016 Changed Exercise filename to show "Exercise x of y' instead of a
 single meaningless digit.
@@ -839,7 +841,7 @@ filenames.
 07/01/2016 Previously, I attempted to add a setting for the date and time format
 but gave it up to work on other new capabilities and enhancements. Today, I tried
 again based on a clue regarding get_config. Took only a few minutes and I now have
-it working. Need to finalize the directions and see what codes can be used. Right 
+it working. Need to finalize the directions and see what codes can be used. Right
 now I know about d, M, Y, G and i as well as comma and colon.
 07/02/2016 Added color picker setting for passing grades. Not used for exam as no
 pass/fail is implemented for exam.
@@ -870,7 +872,7 @@ it in the discussion group.
 06/26/2016 Last night when doing some testing, I discovered the lesson export
 format was not correct. Updated the code in lsnexport.php and pushed to github.
 06/30/2016 Modified lesson export format again. Each exported line of text need
-both CR adn LF, not just the CR I had been using. With just a CR, the text of the 
+both CR adn LF, not just the CR I had been using. With just a CR, the text of the
 first exercise of a lesson would would not show up until it was opend for editing
 and then saved. New format works out of the box.
 07/01/2016 Released this version on Moodle.
@@ -891,7 +893,7 @@ especially keys with two symbols on them.
 04/04/16 Redid the icon as an SVG file.
 04/06/16 Change suspicion indication from red to yellow to make it stand out more.
 I also added more characters to the lesson install.php. Made copy of the original
-version so I can experiment. 
+version so I can experiment.
 04/07/16 Added links under the Administration block to go
 directly to MooTyper Administration and Add new exercise/category pages. The two
 links also use the new icon file.
@@ -906,9 +908,9 @@ Minor code cleanup.
 
 === 2.9 ===
 2.9 (Build: 2016032300) (2016032300)Moodle 2.9
-Release date: Thursday, 24 March 2016, 12:54 PM 
+Release date: Thursday, 24 March 2016, 12:54 PM
 
-* Fixed function moodleform_mod::add_intro_editor() is deprecated, in mod_form.php. 
+* Fixed function moodleform_mod::add_intro_editor() is deprecated, in mod_form.php.
 * Removed non-English sample lessons
 * Removed extra language files.
 * Changed version.
@@ -920,8 +922,8 @@ Release date: Tuesday, 22 March 2016, 5:24 PM
 Modified ename language string.
 Fixed function can_view_edit_all($usr, $c) that was letting everyone modify every lesson.
 Fixed function is_user_enrolled($usr, $crs) that was incorrectly comparing a courseid to modifieid.
-Modified the call to function get_typerlessons() in mod_setup.php so the function is no longer 
-used. It was incorrectly being called for everyone and giving them edit/remove capability they 
+Modified the call to function get_typerlessons() in mod_setup.php so the function is no longer
+used. It was incorrectly being called for everyone and giving them edit/remove capability they
 should not have had.
 Modified mod_setup.php to only call function get_mootyperlessons($u, $c) so edit/remove works correctly.
 Removed some of the junk lines in locallib.php and modified the remarks at the top of the file.
@@ -936,7 +938,7 @@ required changes in code:
   * Fixed all deprecated add_to_log functions.
   * Sorted language strings.
   * Added language strings for new events.
-  * Added language strings for missing permissions. 
+  * Added language strings for missing permissions.
   * Fixed multiple notices of trying to get property of non-object errors when viewing lessons.
   * Fixed function moodleform_mod::add_intro_editor() is deprecated error.
   * Fixed get_context_instance() is deprecated when viewing list of MootTyper activities.
@@ -955,8 +957,8 @@ No updates for about a year and a half.
   Release date: Thursday, 28 August 2014, 3:17 PM
 * 2.5 (Build: 2014071300) (2014071300)Moodle 2.7
   Release date: Sunday, 13 July 2014, 5:38 AM
-  
-=== No releases for 2.4, 2.5, 2.6 ===  
+
+=== No releases for 2.4, 2.5, 2.6 ===
 
 === 2.3 ===
 

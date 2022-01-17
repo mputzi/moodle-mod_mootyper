@@ -120,15 +120,12 @@ function read_lessons_file($dafile, $authoridarg, $visiblearg, $editablearg, $co
  * @param string $dafile
  */
 function add_keyboard_layout($dafile) {
-    global $DB, $CFG, $USER;
-    $thefile = $CFG->dirroot."/mod/mootyper/layouts/".$dafile;
-    $wwwfile = $CFG->wwwroot."/mod/mootyper/layouts/".$dafile;
-    $record = new stdClass();
+    global $DB;
     $periodpos = strrpos($dafile, '.');
     $layoutname = substr($dafile, 0, $periodpos);
-    $record->filepath = $thefile;
-    $record->name = $layoutname;
-    $record->jspath = substr($wwwfile, 0, strripos($wwwfile, '.')).'.js';
+    $record = (object) [
+        'name'     => $layoutname,
+    ];
     $DB->insert_record('mootyper_layouts', $record, true);
 }
 
@@ -360,4 +357,3 @@ $jlnk2 = $CFG->wwwroot . '/mod/mootyper/exercises.php?id='.$id;
 echo '<a href="'.$jlnk2.'" class="btn btn-primary"  style="border-radius: 8px">'.get_string('fcontinue', 'mootyper').'</a><br>';
 echo $OUTPUT->footer();
 return;
-

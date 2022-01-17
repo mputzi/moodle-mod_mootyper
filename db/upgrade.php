@@ -358,5 +358,18 @@ function xmldb_mootyper_upgrade($oldversion) {
         // Mootyper savepoint reached.
         upgrade_mod_savepoint(true, 2020073100, 'mootyper');
     }
+    // Drop fields filepath and jspath and use relative paths instead.
+    if ($oldversion < 2022011700) {
+        $table = new xmldb_table('mootyper_layouts');
+        $field = new xmldb_field('jspath');
+        if ($dbman->field_exists($table, $field)) {
+            $dbman->drop_field($table, $field);
+        }
+        $field = new xmldb_field('filepath');
+        if ($dbman->field_exists($table, $field)) {
+            $dbman->drop_field($table, $field);
+        }
+        upgrade_mod_savepoint(true, 2022011700, 'mootyper');
+    }
     return true;
 }
