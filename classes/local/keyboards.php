@@ -56,9 +56,9 @@ class keyboards  {
      * @param int $lid
      */
     public static function get_instance_layout_file($lid) {
-        global $DB;
+        global $CFG,$DB;
         $dbrec = $DB->get_record('mootyper_layouts', array('id' => $lid));
-        return $dbrec->filepath;
+        return "$CFG->dirroot/mod/mootyper/layouts/$dbrec->name.php";
     }
 
     /**
@@ -66,9 +66,9 @@ class keyboards  {
      * @param int $lid
      */
     public static function get_instance_layout_js_file($lid) {
-        global $DB;
+        global $CFG,$DB;
         $dbrec = $DB->get_record('mootyper_layouts', array('id' => $lid));
-        return $dbrec->jspath;
+        return "$CFG->wwwroot/mod/mootyper/layouts/$dbrec->name.js";
     }
 
 }

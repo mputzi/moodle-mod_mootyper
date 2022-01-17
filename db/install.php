@@ -61,15 +61,12 @@ function xmldb_mootyper_install() {
  * @param string $dafile
  */
 function add_keyboard_layout($dafile) {
-    global $DB, $CFG;
-    $thefile = $CFG->dirroot."/mod/mootyper/layouts/".$dafile;
-    $wwwfile = $CFG->wwwroot."/mod/mootyper/layouts/".$dafile;
-    $record = new stdClass();
+    global $DB;
     $periodpos = strrpos($dafile, '.');
     $layoutname = substr($dafile, 0, $periodpos);
-    $record->filepath = $thefile;
-    $record->name = $layoutname;
-    $record->jspath = substr($wwwfile, 0, strripos($wwwfile, '.')).'.js';
+    $record = (object) [
+        'name'     => $layoutname,
+    ];
     $DB->insert_record('mootyper_layouts', $record, true);
 }
 
@@ -110,7 +107,7 @@ function read_lessons_file($dafile, $authoridarg, $visiblearg, $editablearg, $co
     for ($j = 0; $j < count($splitted); $j++) {
         $vaja = trim($splitted[$j]);
         // @codingStandardsIgnoreLine
-        $allowed = array('\\', '~', '!', '@', '#', '$', '%', '^', '&', '(', ')', '*', '_', '+', ':', ';', '"', '{', '}', '>', '<', '?', '\'', '-', '/', '=', '.', ',', ' ', '|', '¡', '`', 'ç', 'ñ', 'º', '¿', 'ª', '·', '\n', '\r', '\r\n', '\n\r', ']', '[', '¬', '´', '`');
+        $allowed = array('\\', '~', '!', '@', '#', '$', '%', '^', '&', '(', ')', '*', '_', '+', ':', ';', '"', '{', '}', '>', '<', '?', '\'', '-', '/', '=', '.', ',', ' ', '|', 'ï¿½', '`', 'ï¿½', 'ï¿½', 'ï¿½', 'ï¿½', 'ï¿½', 'ï¿½', '\n', '\r', '\r\n', '\n\r', ']', '[', 'ï¿½', 'ï¿½', '`');
         $nm = "".($j + 1);
         $texttotype = "";
         for ($k = 0; $k < strlen($vaja); $k++) {
