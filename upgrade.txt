@@ -50,9 +50,21 @@ Moodle Versions
     Completed pull request and now testing MooTyper v4.1.0.
 
 === 4.0.1 ===
+20210416 MooTyper_701 - Exception - Return value of mootyper_grade_item_update() must
+    be an instance of void, none returned. Made two changes in the moodle3dev lib.php
+    file to remove the :void in the function line of the code.
+20210507 MooTyper_714 - Turkmen(TKV5) pull request. Did the pull request, then fixed
+    missing shift indicators for all of row 1 and for a few other letters in other
+    rows. № was missing from blue row and there were 3 non-existent keys included.
+    Also converted all \r\n over to \n.
+20210507 MooTyper_715 - Owngrades.php stats table missing right vertical border.
+    Tracked it down to an extra table cell definition at about line 205.
+20210511 MooTyper_465 - Convert owngrades.php and gview.php grade tables to BS4 table.
+    I think I have these two files fixed. Will still need to do others, but will do
+    another ticket for them.
 20210626 MooTyper_755 - recent activity causes a debug meesage. Added a branch
-    check so that M3.10 and below use the old, user_picture and M3.11 and above
-    will use the new, \core_user\fields, code.
+   check so that M3.10 and below use the old, user_picture and M3.11 and above
+   will use the new, \core_user\fields, code.
 20210722 MooTyper_747 - Convert from lib.php cron function to /classes/task/cron_task.php.
     Added one new string and two needed files. Sheduled tasks reports success.
 20210722 MooTyper - Need to remove from view.php, a line of code. See ticket for details.

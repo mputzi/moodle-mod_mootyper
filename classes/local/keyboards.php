@@ -35,6 +35,44 @@ defined('MOODLE_INTERNAL') || die();
 class keyboards  {
 
     /**
+     * Checks if a layout given by name is installed.
+     *
+     * @param string $layoutname
+     * @return bool true if layout with name $layoutname is installed
+     * @throws \dml_exception
+     */
+    public static function is_layout_installed(string $layoutname = ''): bool {
+        global $DB;
+        $params = ['name' => $layoutname];
+        $layouts = $DB->get_records('mootyper_layouts', $params);
+        if (empty($layouts)) {
+            return false;
+        }
+        return true;
+    }
+
+    /**
+     * Gets the id of a layout given by name.
+     *
+     * @param string $layoutname
+     * @return string id of the layout if installed, els 0 if layout was not found
+     * @throws \dml_exception
+     */
+    public static function get_id_of_layout_by_layoutname(string $layoutname = ''): string {
+        global $DB;
+        if (!self::is_layout_installed($layoutname)) {
+            return 0;
+        } else {
+            $params = ['name' => $layoutname];
+            $layouts = $DB->get_records('mootyper_layouts', $params);
+            foreach ($layouts as $layout) {
+                $layoutid = $layout->id;
+            }
+            return $layoutid;
+        }
+    }
+
+    /**
      * Get a list of MooTyper keyboards.
      * @return array
      */

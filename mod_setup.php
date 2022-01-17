@@ -184,9 +184,15 @@ if ($mootyper->showkeyboard == null || is_null($mootyper->showkeyboard)) {
 $showkeyboardpo = optional_param('showkeyboard', $dfkb, PARAM_CLEAN);
 
 // Check to see current MooTyper layout is empty.
+$mootyperconfig = get_config('mod_mootyper');
 if ($mootyper->layout == null || is_null($mootyper->layout)) {
     // Current MooTyper layout is empty so set it to the site default.
-    $dfly = $moocfg->defaultlayout;
+    if (isset($mootyperconfig->defaultlayout_filenamewithoutfiletype) &&
+            keyboards::is_layout_installed("$mootyperconfig->defaultlayout_filenamewithoutfiletype")) {
+        $dfly = keyboards::get_layout_id($mootyperconfig->defaultlayout_filenamewithoutfiletype);
+    } else {
+        $dfly = $moocfg->defaultlayout;
+    }
 } else {
     // Otherwise use current MooTyper layout.
     $dfly = $mootyper->layout;
