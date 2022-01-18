@@ -38,7 +38,7 @@ $lsn = optional_param('lsn', 0, PARAM_INT); // Lesson ID to download.
 if ($id) {
     $course = $DB->get_record('course', array('id' => $id), '*', MUST_EXIST);
 } else {
-    print_error(get_string('mootypererror', 'mootyper'));
+    throw new moodle_exception(get_string('mootypererror', 'mootyper'));
 }
 require_login($course, true);
 $context = context_course::instance($id);
@@ -104,7 +104,7 @@ if ($exercise = $DB->get_records_sql($sql, $params)) {
         fwrite($f, implode(" ", $field1));
         fwrite($f, implode(" ", $field2));
     }
-    // Close download our file then close it. 
+    // Close download our file then close it.
     fclose($f);
 }
 

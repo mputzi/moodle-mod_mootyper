@@ -37,15 +37,8 @@ global $DB, $OUTPUT, $PAGE, $USER;
 // 20200224 Switched $id to Course_module ID vice course ID.
 $id = optional_param('id', 0, PARAM_INT); // Course module ID.
 // Changed cmid to course id.
-$course = optional_param('course', '0', PARAM_INT); // Course ID.
-
-if (! $cm = get_coursemodule_from_id('mootyper', $id)) {
-    print_error("Course Module ID was incorrect");
-}
-
-if (! $course = $DB->get_record("course", array('id' => $cm->course))) {
-    print_error("Course is misconfigured");
-}
+$cm = get_coursemodule_from_id('mootyper', $id, 0, false, MUST_EXIST);
+$course = $DB->get_record('course', array('id' => $cm->course), '*', MUST_EXIST);
 
 require_login($course, true);
 $context = context_module::instance($cm->id);
@@ -141,7 +134,7 @@ if (lessons::is_editable_by_me($USER->id, $id, $lessonpo)) {
     // Build a link to let teachers add a new exercise to the Lesson currently being viewed.
     $jlnk3 = $CFG->wwwroot . '/mod/mootyper/eins.php?id='.$id.'&lesson='.$lessonpo;
 
-    // 20200628 Temp stuff  $vis, $vis->visible, and $vis->editable for development.
+    // 20200628 Following variable is temporary for development.
     $vis = $DB->get_record("mootyper_lessons", array('id' => $lessonpo));
     // 20200614 Added a button for, Add a new exercise to the Lesson currently being viewed.
     echo ' <a onclick="return confirm(\''.get_string('eaddnewex', 'mootyper').$lessonpo.
@@ -192,7 +185,6 @@ foreach ($exercises as $ex) {
               .get_string('eeditlabel', 'mootyper').'></a>';
 
     // 20210326 Shorten displayed exercisename as well as text to type.
-    //echo '<tr><td '.$style1.'>'.$ex->exercisename.'</td><td '.$style2.'>'.$strtocut.'</td>';
     echo '<tr><td '.$style2.'>'.$exnametocut.'</td><td '.$style2.'>'.$strtocut.'</td>';
 
     // If the user can edit or delete this lesson and its exercises, then add edit and delete tools.

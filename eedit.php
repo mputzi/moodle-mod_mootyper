@@ -37,13 +37,8 @@ $ex = optional_param('ex', 0, PARAM_INT); // Id of exercise to edit.
 $lsnnamepo = '';
 $lessonpo = '';
 
-if (! $cm = get_coursemodule_from_id('mootyper', $id)) {
-    print_error(get_string('mootypercmerror', 'mootyper'));
-}
-
-if (! $course = $DB->get_record("course", array('id' => $cm->course))) {
-    print_error(get_string('mootypercmmisconfig', 'mootyper'));
-}
+$cm = get_coursemodule_from_id('mootyper', $id, 0, false, MUST_EXIST);
+$course = $DB->get_record('course', array('id' => $cm->course), '*', MUST_EXIST);
 
 // TODO: Looks like $exercise and $rcrd are exact duplicates. Maybe need to combine?
 $exercise = $DB->get_record('mootyper_exercises', array('id' => $ex), '*', MUST_EXIST);
@@ -205,31 +200,18 @@ echo '<div align="center" style="font-size:1em;
      -moz-border-radius:16px;border-radius:16px;">';
 
 echo '<form method="POST">';
-// 20210327 Moved inside the form post.
-//echo get_string('lsnname', 'mod_mootyper').' = '.$lessonname->lessonname.'<br>';
 
 // 20210327 Add a text area for editing the name of the lesson.
-echo '<label>'.get_string('lsnname', 'mootyper').' = 
-    <input type="text" name="lesson_name" value="'
+echo '<label>'.get_string('lsnname', 'mootyper')
+    .' = <input type="text" name="lesson_name" value="'
     .str_replace('\n', "&#10;", $lessonname->lessonname)
     .'"</label><br />';
 
-/*
 // 20210327 Add a text area for editing the name of the exercise.
-echo '<span id="text_holder_span" class=""></span><br>'
-    .get_string('exercise_name', 'mootyper')
-    .': '
-    .'<textarea name="exercise_name" id="exercise_name" cols="25" rows="1" style="text-align:">'
-    .str_replace('\n', "&#10;", $exercisetoedit->exercisename)
-    .'</textarea><br>';
-*/
-// 20210327 Add a text area for editing the name of the exercise.
-echo '<label>'.get_string('exercise_name', 'mootyper').' = 
-    <input type="text" name="exercise_name" value="'
+echo '<label>'.get_string('exercise_name', 'mootyper')
+    .' = <input type="text" name="exercise_name" value="'
     .str_replace('\n', "&#10;", $exercisetoedit->exercisename)
     .'"</label><br />';
-
-
 
 // Get our alignment strings and add a selector for text alignment.
 $aligns = array(get_string('defaulttextalign_left', 'mod_mootyper'),

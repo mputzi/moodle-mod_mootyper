@@ -27,7 +27,7 @@
  */
 use \mod_mootyper\local\lessons;
 
-defined('MOODLE_INTERNAL') || die();
+defined('MOODLE_INTERNAL') || die(); // @codingStandardsIgnoreLine
 
 define('MOOTYPER_EVENT_TYPE_OPEN', 'open');
 define('MOOTYPER_EVENT_TYPE_CLOSE', 'close');
@@ -1152,7 +1152,6 @@ function mootyper_extend_settings_navigation(settings_navigation $settingsnav, n
     }
 
     // Link to Import new lessons w/exercises and new keyboard layouts. Visible to admin only.
-    // if (has_capability('mod/mootyper:aftersetup', $cm->context)) {
     if (is_siteadmin()) {
         $link = new moodle_url('lsnimport.php', array('id' => $cm->id));
         $linkname = get_string('lsnimport', 'mootyper');
@@ -1178,12 +1177,6 @@ function mootyper_extend_settings_navigation(settings_navigation $settingsnav, n
             if (lessons::is_editable_by_me($USER->id, $mootyper->id, $lesson->id)) {
                 $link = new moodle_url('exercises.php', array('id' => $cm->id, 'lesson' => $mootyper->lesson));
                 $linkname = get_string('editexercises', 'mootyper');
-                /* For testing use this for extra details:
-                $linkname = get_string('editexercises', 'mootyper')
-                    .' - uid: '.$USER->id
-                    .' mtid: '.$mootyper->id
-                    .' lsnid: '.$lesson->id;
-                */
                 $icon = new pix_icon('icon', '', 'mootyper', array('class' => 'icon'));
                 $node = $navref->add($linkname, $link, navigation_node::TYPE_SETTING, null, null, $icon);
             }

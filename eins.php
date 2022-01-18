@@ -37,20 +37,13 @@ global $USER, $DB;
 
 // 20200224 Switched $id to Course_module ID vice course ID.
 $id = optional_param('id', 0, PARAM_INT); // Course ID.
-$course = optional_param('course', 0, PARAM_INT); // Course_module ID.
+$cm = get_coursemodule_from_id('mootyper', $id, 0, false, MUST_EXIST);
+$course = $DB->get_record('course', array('id' => $cm->course), '*', MUST_EXIST);
 // If lessonid is available, put in lsnnamepos, otherwise leave it blank.
 $lsnnamepo = optional_param('lesson', '', PARAM_TEXT);
 // If lessonid is available, put it in lsnnamepos, otherwise enter a -1.
 // Flag for new lesson name is -1.
 $lessonpo = optional_param('lesson', -1, PARAM_INT);
-
-if (! $cm = get_coursemodule_from_id('mootyper', $id)) {
-    print_error("Course Module ID was incorrect");
-}
-
-if (! $course = $DB->get_record("course", array('id' => $cm->course))) {
-    print_error("Course is misconfigured");
-}
 
 require_login($course, true);
 
@@ -100,10 +93,10 @@ if (isset($param1) && get_string('fconfirm', 'mootyper') == $param1 ) {
 
     // Add exercise to mdl_mootyper_exercises table.
     // 20210325 Added a new exercise_name to snum.
-    $exercise_namepo = optional_param('exercise_name', '', PARAM_TEXT);
+    $exercisenamepo = optional_param('exercise_name', '', PARAM_TEXT);
     $erecord = new stdClass();
     // 20210325 Add new exercise name to the auto sname and add to the table.
-    $erecord->exercisename = "".$snum.' '.$exercise_namepo;
+    $erecord->exercisename = "".$snum.' '.$exercisenamepo;
     $erecord->snumber = $snum;
     $erecord->lesson = $lessonid;
     $erecord->texttotype = str_replace("\r\n", '\n', $texttotypeepo);
@@ -205,8 +198,6 @@ echo '</select>';
 if ($snum = null) {
     $num = ' ';
 }
-// 20210325 Set up place to enter new exercise name. //// 20210331 Move into the first exercise if statement.
-//echo '<br><br>'.get_string('exercise_name', 'mootyper').': '.$snum.' <input type="text" name="exercise_name" id="exercise_name"></span>';
 
 // Add lesson name, visibility, and editing options if this is a new lesson.
 if ($lessonpo == -1) {
@@ -217,10 +208,11 @@ if ($lessonpo == -1) {
 
     // 20210325 Prevent error before exercise name is actually created.
     if ($snum = null) {
-       $num = ' ';
+        $num = ' ';
     }
     // 20210325 Set up place to enter new exercise name.
-    echo '<br><br>'.get_string('exercise_name', 'mootyper').': '.$snum.' <input type="text" name="exercise_name" id="exercise_name"></span>';
+    echo '<br><br>'.get_string('exercise_name', 'mootyper').': '
+        .$snum.' <input type="text" name="exercise_name" id="exercise_name"></span>';
 
     // Set up visibility selector options for this new lesson.
     echo '<br><br>'.get_string('visibility', 'mootyper').': <select name="visible">';
@@ -239,9 +231,10 @@ if ($lessonpo == -1) {
         echo '<option value="0">'.get_string('eaccess0', 'mootyper').'</option>';
     }
     echo '</select>';
-}else{
+} else {
     // 20210325 Set up place to enter new exercise name.
-    echo '<br><br>'.get_string('exercise_name', 'mootyper').': '.$snum.' <input type="text" name="exercise_name" id="exercise_name"></span>';
+    echo '<br><br>'.get_string('exercise_name', 'mootyper').': '
+        .$snum.' <input type="text" name="exercise_name" id="exercise_name"></span>';
 }
 
 // Get our alignment strings and add a selector for text alignment.

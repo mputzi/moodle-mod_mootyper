@@ -47,7 +47,8 @@ Moodle Versions
 ===============
 === 4.1.0 ===
 20220117 MooTyper_808 - Avoid storing absolute paths in database (mootyper_layouts).
-    Completed pull request and now testing MooTyper v4.1.0.
+    Completed pull request and now testing MooTyper v4.1.0. Duplicate of
+    MooTyper_635, which I closed also.
 
 === 4.0.1 ===
 20210416 MooTyper_701 - Exception - Return value of mootyper_grade_item_update() must

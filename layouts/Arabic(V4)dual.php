@@ -107,7 +107,7 @@ if ($directionality === 'rtl') {
 </section>
 </div>
 </div>
-<?php
+    <?php
 } else {
 ?>
 ">
@@ -185,6 +185,5 @@ if ($directionality === 'rtl') {
         </div>
 </section>
 </div>
-<?php
+    <?php
 }
-

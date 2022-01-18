@@ -56,7 +56,7 @@ class restore_mootyper_activity_task extends restore_activity_task {
      *
      * @return array
      */
-    static public function define_decode_contents() {
+    public static function define_decode_contents() {
         $contents = array();
 
         $contents[] = new restore_decode_content('mootyper', array('intro'), 'mootyper');
@@ -70,7 +70,7 @@ class restore_mootyper_activity_task extends restore_activity_task {
      *
      * @return array of restore_decode_rule
      */
-    static public function define_decode_rules() {
+    public static function define_decode_rules() {
         $rules = array();
 
         $rules[] = new restore_decode_rule('MOOTYPERVIEWBYID',
@@ -92,7 +92,7 @@ class restore_mootyper_activity_task extends restore_activity_task {
      *
      * @return restore_log_rule[]
      */
-    static public function define_restore_log_rules() {
+    public static function define_restore_log_rules() {
         $rules = array();
 
         $rules[] = new restore_log_rule('mootyper', 'add', 'view.php?id={course_module}', '{mootyper}');
@@ -114,7 +114,7 @@ class restore_mootyper_activity_task extends restore_activity_task {
      *
      * @return restore_log_rule[]
      */
-    static public function define_restore_log_rules_for_course() {
+    public static function define_restore_log_rules_for_course() {
         $rules = array();
 
         return $rules;

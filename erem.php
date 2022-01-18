@@ -35,14 +35,8 @@ require(__DIR__ . '/../../config.php');
 global $DB;
 
 $id = optional_param('id', 0, PARAM_INT); // Course_module ID.
-
-if (! $cm = get_coursemodule_from_id('mootyper', $id)) {
-    print_error("Course Module ID was incorrect");
-}
-
-if (! $course = $DB->get_record("course", array('id' => $cm->course))) {
-    print_error("Course is misconfigured");
-}
+$cm = get_coursemodule_from_id('mootyper', $id, 0, false, MUST_EXIST);
+$course = $DB->get_record('course', array('id' => $cm->course), '*', MUST_EXIST);
 
 require_login($course, true, $cm);
 
@@ -82,8 +76,9 @@ if ($exerciseid) {
     $event = lesson_deleted::create($params);
     $event->trigger();
 }
-// 20200224 $cid not needed after changes to id. Delete after more testing. Out of sequence
-// lesson delete seems to have made follow on exercise appear as part of wrong lesson!
+// 20200224 Variable $cid not needed after changes to id. Delete after more testing.
+// Out of sequence lesson delete seems to have made follow on exercise appear as part
+// of wrong lesson!
 // Lesson contained three exercises. I deleted number 2, and then number 3 appeared as part
 // of another lesson, lesson aaaa(121).
 // Later - seems to work okay now.

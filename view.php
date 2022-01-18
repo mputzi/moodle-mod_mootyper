@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Allows viewing/use of a particular instance of mootyper
+ * Allows viewing/use of a particular instance of mootyper.
  *
  * You can have a rather longer description of the file as well,
  * if you like, and it can span multiple lines.
@@ -34,12 +34,11 @@ use \mod_mootyper\local\results;
 // Changed to this newer format 03/01/2019.
 require(__DIR__ . '/../../config.php');
 require_once(__DIR__ . '/lib.php');
-//require_once(__DIR__ . '/../../lib/jquery/jquery-3.5.1.js');
 
 global $mootyper, $USER, $CFG, $THEME;
 
-$id = optional_param('id', 0, PARAM_INT); // Course_module ID, or
-$n = optional_param('n', 0, PARAM_INT); // Mootyper instance ID - it should be named as the first character of the module.
+$id = optional_param('id', 0, PARAM_INT); // Course_module ID.
+$n = optional_param('n', 0, PARAM_INT); // Mootyper instance ID.
 // Get the current "thisdirection" string from the langconfig.php file, so that
 // the status bar and any dual keyboard layouts render correctly.
 $directionality = get_string('thisdirection', 'langconfig');
@@ -60,7 +59,7 @@ if ($id) {
     $course = $DB->get_record('course', array('id' => $mootyper->course), '*', MUST_EXIST);
     $cm = get_coursemodule_from_instance('mootyper', $mootyper->id, $course->id, false, MUST_EXIST);
 } else {
-    print_error(get_string('mootypererror', 'mootyper'));
+    throw new moodle_exception(get_string('mootypererror', 'mootyper'));
 }
 
 $mtmode = $mootyper->isexam;
@@ -441,9 +440,9 @@ if ($mootyper->lesson != null) {
     onpaste="return false" onselectstart="return false"
     onCopy="return false" onCut="return false" 
     onDrag="return false" onDrop="return false" autocomplete="off">
-    <?php
+        <?php
         echo get_string('chere', 'mootyper') . '...';
-    ?>
+        ?>
 </textarea>
 <div style="float: left; padding-bottom: 10px;" id="texttoenter"></div><br />
         <?php

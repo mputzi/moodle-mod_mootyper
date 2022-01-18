@@ -24,7 +24,7 @@
 
 namespace mod_mootyper\event;
 
-defined('MOODLE_INTERNAL') || die();
+defined('MOODLE_INTERNAL') || die(); // @codingStandardsIgnoreLine
 
 /**
  * The mod_mootyper exercises viewed event class.

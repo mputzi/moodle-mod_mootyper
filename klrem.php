@@ -33,14 +33,8 @@ require(__DIR__ . '/../../config.php');
 
 global $DB;
 $id = optional_param('id', 0, PARAM_INT); // Course_module ID.
-
-if (! $cm = get_coursemodule_from_id('mootyper', $id)) {
-    print_error("Course Module ID was incorrect");
-}
-
-if (! $course = $DB->get_record("course", array('id' => $cm->course))) {
-    print_error("Course is misconfigured");
-}
+$cm = get_coursemodule_from_id('mootyper', $id, 0, false, MUST_EXIST);
+$course = $DB->get_record('course', array('id' => $cm->course), '*', MUST_EXIST);
 
 require_login($course, true);
 $context = context_module::instance($cm->id);
@@ -51,7 +45,7 @@ $layoutname = optional_param('xxx' '', PARAM_TEXT);
 $cmid = optional_param('cmid', '0', PARAM_INT); // Course Module ID.
 
 
-// put the actual delete here.
+// Put the actual delete here.
 
 
 

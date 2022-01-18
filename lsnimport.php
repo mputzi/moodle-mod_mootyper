@@ -74,19 +74,17 @@ function read_lessons_file($dafile, $authoridarg, $visiblearg, $editablearg, $co
     $haha = trim($haha);
     // Break lesson into an array of separate exercises.
     $splitted = explode ('/**/' , $haha);
-    //for ($j = 0; $j < count($splitted); $j++) {
     // 20210328 Changed for loop to count by two so we can get exercise name along with the exercise text.
-    for ($j = 0; $j < count($splitted); $j+=2) {
+    for ($j = 0; $j < count($splitted); $j += 2) {
         // Remove whitespace from both sides of $splitted.
         $exercise = trim($splitted[$j]);
         // 20210328 Added same cleanup for exercisename.
-        $exercisename = trim($splitted[$j+1]);
+        $exercisename = trim($splitted[$j + 1]);
 
 		// @codingStandardsIgnoreLine
         $allowed = array('ё', 'ë', '¸','á', 'é', 'í', 'ï', 'ó', 'ú', '\\', '~', '!', '@', '#', '$', '%', '^', '&', '(', ')', '*', '_', '+', ':', ';', '"', '{', '}', '>', '<', '?', '\'', '-', '/', '=', '.', ',', ' ', '|', '¡', '`', 'ç', 'ñ', 'º', '¿', 'ª', '·', '\n', '\r', '\r\n', '\n\r', ']', '[', '¬', '´', '`', '§', '°', '€', '¦', '¢', '£', '?', '¹', '²', '³', '¨', '?', 'ù', 'µ', 'û','÷', '×', 'ł', 'Ł', 'ß', '¤', '«', '»');
         // Create a number to use as the exercise name. Start with 1 and increment for each exercise detected.
         // 20210328 We now get an actual exercise name from the lessonname.txt file, so $nm not needed now.
-        $nm = "".($j + 1);
         $texttotype = "";
         // Place each character of an exercise into $texttotype.
         for ($k = 0; $k < strlen($exercise); $k++) {
@@ -103,14 +101,13 @@ function read_lessons_file($dafile, $authoridarg, $visiblearg, $editablearg, $co
                 $texttotype .= $ch;
             }
         }
-        // Create new entry in the mootyper_exercises
+        // Create new entry in the mootyper_exercises.
         $erecord = new stdClass();
         $erecord->texttotype = $texttotype;
-        //$erecord->exercisename = $nm; // Detect the exercise name and add it here, or replace $nm.
         // 20210328 Save exercise name instead of just a number.
         $erecord->exercisename = $exercisename; // Add the exercise name here.
         $erecord->lesson = $lessonid;
-        $erecord->snumber = ($j + 2)/2;
+        $erecord->snumber = ($j + 2) / 2;
         $DB->insert_record('mootyper_exercises', $erecord, false);
     }
 }
@@ -158,10 +155,10 @@ function update_exercises_file($dafile, $lsnid, $lsn) {
     // Break lesson into an array of separate exercises followed by exercise names.
     $splitted = explode ('/**/' , $haha);
 
-    for ($j = 0; $j < count($splitted); $j+=2) {
+    for ($j = 0; $j < count($splitted); $j += 2) {
         // Remove whitespace from both sides of $splitted.
         $fexercise = trim($splitted[$j]);
-        $fexercisename = trim($splitted[$j+1]);
+        $fexercisename = trim($splitted[$j + 1]);
 
         // Create sql to see how many exercises are in this lesson.
         $sql = "SELECT id, texttotype, exercisename, lesson, snumber
@@ -170,7 +167,7 @@ function update_exercises_file($dafile, $lsnid, $lsn) {
 
         // Get the total number of exercises that belong to this lesson.
         $snumber = count($DB->get_records_sql($sql));
-        $snum = $j/2+1;
+        $snum = $j / 2 + 1;
         $sql = "SELECT id, texttotype, exercisename, lesson, snumber
                   FROM {mootyper_exercises}
                  WHERE lesson = '".$lsnid."' AND snumber = '".$snum."'";
@@ -184,7 +181,8 @@ function update_exercises_file($dafile, $lsnid, $lsn) {
             $record->lesson = $lsnid;
             $record->snumber = $snum;
             $DB->insert_record('mootyper_exercises', $record, false);
-            echo "<tr class='table-success'><td><b>$lsn</td><td>".get_string('exercise_name_added', 'mootyper', $fexercisename).'</b></td></tr>';
+            echo "<tr class='table-success'><td><b>$lsn</td><td>"
+                .get_string('exercise_name_added', 'mootyper', $fexercisename).'</b></td></tr>';
         } else if (($record->texttotype == $fexercise) && ($record->exercisename == $fexercisename)) {
             // If no changes, then do not need to do anything.
             echo "<tr class='table-dark text-dark'><td>$lsn</td><td>".get_string('lsnimportnotadd', 'mootyper').'</td></tr>';
@@ -192,46 +190,23 @@ function update_exercises_file($dafile, $lsnid, $lsn) {
             // If the text is the same but the exercise name is different, then change it.
             $record->exercisename = $fexercisename;
             $DB->update_record('mootyper_exercises', $record, false);
-            echo "<tr class='table-success'><td><b>$lsn</td><td>".get_string('exercise_name_updated', 'mootyper', $fexercisename).'</b></td></tr>';
+            echo "<tr class='table-success'><td><b>$lsn</td><td>"
+                .get_string('exercise_name_updated', 'mootyper', $fexercisename).'</b></td></tr>';
         } else if (!($record->texttotype == $fexercise) && ($record->exercisename == $fexercisename)) {
-            // If the text is different but not the exercise name, the update the text.
+            // If the text is different but not the exercise name, then update the text.
             // Need updated string for adding changed text to type.
             $record->texttotype = $fexercise;
             $DB->update_record('mootyper_exercises', $record, false);
             echo "<tr class='table-success'><td><b>$lsn</td><td>".get_string('lsnimportadd', 'mootyper').'</b></td></tr>';
         }
-/*
-        // 20210328 Added same cleanup for exercisename.
-        $fexercisename = trim($splitted[$j+1]);
-        $texttotype = "";
-        // Place each character of an exercise into $texttotype.
-        for ($k = 0; $k < strlen($fexercise); $k++) {
-            $ch = $fexercise[$k];
-            if ($ch == "\n") {
-                $texttotype .= '\n';
-            } else {
-                $texttotype .= $ch;
-            }
-        }
-*/
     }
-
-
-
 }
 
 // Actual page starts here.
 $id = optional_param('id', 0, PARAM_INT); // Course ID.
 $lsn = optional_param('lsn', 0, PARAM_INT); // Lesson ID to download.
-
-// 20200418 Added next two if's to replace the one that used to be here.
-if (! $cm = get_coursemodule_from_id('mootyper', $id)) {
-    print_error("Course Module ID was incorrect");
-}
-
-if (! $course = $DB->get_record("course", array('id' => $cm->course))) {
-    print_error("Course is misconfigured");
-}
+$cm = get_coursemodule_from_id('mootyper', $id, 0, false, MUST_EXIST);
+$course = $DB->get_record('course', array('id' => $cm->course), '*', MUST_EXIST);
 
 require_login($course, true);
 $context = context_module::instance($cm->id);

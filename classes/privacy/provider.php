@@ -62,7 +62,7 @@ class provider implements
      * @param collection $collection The initialised collection to add items to.
      * @return collection The updated collection of metadata items.
      */
-    public static function _get_metadata(collection $collection) {
+    public static function get_metadata(collection $collection) {
         $collection->add_database_table('mootyper_attempts', [
             'mootyperid' => 'privacy:metadata:mootyper_attempts:mootyperid',
             'userid' => 'privacy:metadata:mootyper_attempts:userid',
@@ -115,7 +115,7 @@ class provider implements
      * @param int $userid The user to search for.
      * @return contextlist $contextlist The contextlist containing the list of contexts used in this plugin.
      */
-    public static function _get_contexts_for_userid(int $userid) {
+    public static function get_contexts_for_userid(int $userid) {
         $contextlist = new contextlist();
         $modid = self::get_modid();
         if (!$modid) {
@@ -178,7 +178,7 @@ class provider implements
      *
      * @param approved_contextlist $contextlist a list of contexts approved for export.
      */
-    public static function _export_user_data(approved_contextlist $contextlist) {
+    public static function export_user_data(approved_contextlist $contextlist) {
         global $DB;
 
         $user = $contextlist->get_user();
@@ -201,7 +201,7 @@ class provider implements
             writer::with_context($context)->export_data([], $contextdata);
         }
         // Find the MooTyper IDs.
-        $mootyperidstocmids = static::_get_mootyper_ids_to_cmids_from_cmids($cmids);
+        $mootyperidstocmids = static::get_mootyper_ids_to_cmids_from_cmids($cmids);
 
         list($contextsql, $contextparams) = $DB->get_in_or_equal($contextlist->get_contextids(), SQL_PARAMS_NAMED);
 
@@ -239,7 +239,7 @@ class provider implements
         ] + $contextparams;
         $recordset = $DB->get_recordset_sql($sql, $params);
 
-        static::_recordset_loop_and_export($recordset, 'mootyper', [], function($carry, $record) {
+        static::recordset_loop_and_export($recordset, 'mootyper', [], function($carry, $record) {
             $carry[] = (object) [
                 'mootyper' => $record->mootyper,
                 'userid' => $record->userid,
@@ -283,7 +283,7 @@ class provider implements
         ] + $contextparams;
         $recordset = $DB->get_recordset_sql($sql, $params);
 
-        static::_recordset_loop_and_export($recordset, 'mootyper', [], function($carry, $record) {
+        static::recordset_loop_and_export($recordset, 'mootyper', [], function($carry, $record) {
             $carry[] = (object) [
                 'mootyperid' => $record->mamootyperid,
                 'userid' => $record->mauserid,
@@ -306,7 +306,7 @@ class provider implements
      * @param array $subcontext The subcontext of the mootyper.
      * @param \stdClass $user The user record.
      */
-    protected static function _export_mootyper_data_for_user(array $mootyperdata, \context_module $context,
+    protected static function export_mootyper_data_for_user(array $mootyperdata, \context_module $context,
                                                             array $subcontext, \stdClass $user) {
 
         // Fetch the generic module data for the mootyper.
@@ -325,7 +325,7 @@ class provider implements
      *
      * @param \context $context the context to delete in.
      */
-    public static function _delete_data_for_all_users_in_context(\context $context) {
+    public static function delete_data_for_all_users_in_context(\context $context) {
         global $DB;
 
         if (empty($context)) {
@@ -341,7 +341,7 @@ class provider implements
      *
      * @param approved_contextlist $contextlist a list of contexts approved for deletion.
      */
-    public static function _delete_data_for_user(approved_contextlist $contextlist) {
+    public static function delete_data_for_user(approved_contextlist $contextlist) {
         global $DB;
 
         if (empty($contextlist->count())) {
@@ -390,7 +390,7 @@ class provider implements
      * @param array $cmids The course module IDs.
      * @return array In the form of [$mootyperid => $cmid].
      */
-    protected static function _get_mootyper_ids_to_cmids_from_cmids(array $cmids) {
+    protected static function get_mootyper_ids_to_cmids_from_cmids(array $cmids) {
         global $DB;
         list($insql, $inparams) = $DB->get_in_or_equal($cmids, SQL_PARAMS_NAMED);
         $sql = "
@@ -416,7 +416,7 @@ class provider implements
      * @param callable $export The function to export the dataset, receives the last value from $splitkey and the dataset.
      * @return void
      */
-    protected static function _recordset_loop_and_export(\moodle_recordset $recordset, $splitkey, $initial,
+    protected static function recordset_loop_and_export(\moodle_recordset $recordset, $splitkey, $initial,
             callable $reducer, callable $export) {
 
         $data = $initial;

@@ -37,7 +37,7 @@ require_once(__DIR__ . '/lib.php');
 
 global $USER;
 
-$id = optional_param('id', 0, PARAM_INT); // Course_module ID, or
+$id = optional_param('id', 0, PARAM_INT); // Course_module ID, or.
 $n  = optional_param('n', 0, PARAM_INT);  // Mootyper instance ID - it should be named as the first character of the module.
 $se = optional_param('exercise', 0, PARAM_INT);
 $md = optional_param('jmode', 0, PARAM_INT);
@@ -59,7 +59,7 @@ if ($id) {
     $cm         = get_coursemodule_from_instance('mootyper', $mootyper->id, $course->id, false, MUST_EXIST);
     $id = $cm->id; // Since we had ID of 0, we really need Course module ID for cvsexport, so set it.
 } else {
-    print_error(get_string('mootypererror', 'mootyper'));
+    throw new moodle_exception(get_string('mootypererror', 'mootyper'));
 }
 $lsnname = $DB->get_record('mootyper_lessons', array('id' => $mootyper->lesson), '*', MUST_EXIST);
 $mtmode = $mootyper->isexam;
