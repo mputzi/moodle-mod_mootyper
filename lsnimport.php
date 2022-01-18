@@ -133,6 +133,7 @@ function add_keyboard_layout($dafile) {
  * Define import and update exercise function.
  * @param string $dafile
  * @param int $lsnid
+ * @param int $lsn
  */
 function update_exercises_file($dafile, $lsnid, $lsn) {
     global $DB, $CFG, $USER;

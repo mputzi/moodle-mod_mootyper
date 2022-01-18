@@ -98,9 +98,8 @@ class provider implements
     private static $modid;
     /**
      * Get an id list of MooTyper activities.
-     *
-     * @param int $modid the module id.
-     * @return modid the module id list.
+     * @return false|mixed
+     * @throws \dml_exception
      */
     private static function get_modid() {
         global $DB;
@@ -302,10 +301,10 @@ class provider implements
     /**
      * Export the supplied personal data for a single mootyper activity, along with any generic data or area files.
      *
-     * @param array $mootyperdata the personal data to export for the mootyper.
-     * @param $context the context of the mootyper.
-     * @param $subcontext the subcontext of the mootyper.
-     * @param $user the user record.
+     * @param array $mootyperdata The personal data to export for the mootyper.
+     * @param \context_module $context The context of the mootyper.
+     * @param array $subcontext The subcontext of the mootyper.
+     * @param \stdClass $user The user record.
      */
     protected static function _export_mootyper_data_for_user(array $mootyperdata, \context_module $context,
                                                             array $subcontext, \stdClass $user) {

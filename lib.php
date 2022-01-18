@@ -658,7 +658,7 @@ function mootyper_print_recent_activity($course, $viewfullnames, $timestart) {
  *
  * This callback function is supposed to populate the passed array with
  * custom activity records. These records are then rendered into HTML via
- * {@link mootyper_print_recent_mod_activity()}.
+ * mootyper_print_recent_mod_activity().
  *
  * @param array $activities sequentially indexed array of objects with the 'cmid' property
  * @param int $index the index in the $activities to use for the next record
@@ -762,8 +762,9 @@ function mootyper_scale_used_anywhere(int $scaleid): bool {
  * @uses GRADE_TYPE_NONE
  * @uses GRADE_TYPE_VALUE
  * @uses GRADE_TYPE_SCALE
- * @param stdClass $mootyper instance object with extra cmidnumber and modname property
- * @param mixed $grades Optional array/object of grade(s); 'reset' means reset grades in gradebook
+ * @param stdClass $mootyper Instance object with extra cmidnumber and modname property
+ * @param mixed $ratings
+ * @param mixed $mootypergrades
  * @return int 0 if ok
  */
 function mootyper_grade_item_update($mootyper, $ratings = null, $mootypergrades = null): void {
@@ -958,7 +959,7 @@ function reset_mootyper_instance($mootyperid) {
  * Returns the lists of all browsable file areas within the given module context.
  *
  * The file area 'intro' for the activity introduction field is added automatically
- * by {@link file_browser::get_file_info_context_module()}
+ * by file_browser::get_file_info_context_module().
  *
  * @param stdClass $course
  * @param stdClass $cm
@@ -1124,8 +1125,8 @@ function mootyper_update_calendar(stdClass $mootyper, $cmid) {
  * This function is called when the context for the page is a mootyper module. This is not called by AJAX
  * so it is safe to rely on the $PAGE.
  *
- * @param settings_navigation $settingsnav {@link settings_navigation}
- * @param navigation_node $navref {@link navigation_node}
+ * @param settings_navigation $settingsnav
+ * @param navigation_node $navref
  */
 function mootyper_extend_settings_navigation(settings_navigation $settingsnav, navigation_node $navref) {
     global $PAGE, $DB, $USER;
