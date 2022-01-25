@@ -45,6 +45,19 @@ sending an email, leave a comment at
 
 Moodle Versions
 ===============
+=== 4.1.1 ===
+20220122 MooTyper_613 - Would be nice to have a link to index.php on grade pages.
+    Added links to index.php on the view.php, gview.php, and owngrades.php pages.
+    They all work but I think I want to move them to the right like I have them in
+    Diary's.
+20220125 MooTyper_547 - Duplicating a MooTyper does not set the cursor color correctly.
+    Originally thought I had this fixed in MooTyper v3.9.0. However, I finally have
+    tracked the problem to line 77, in file, backup_mootyper_stepslib.php where the
+    variable, cursocolor was mistyped as coursorcolor.
+
+
+
+
 === 4.1.0 ===
 20220117 MooTyper_808 - Avoid storing absolute paths in database (mootyper_layouts).
     Completed pull request and now testing MooTyper v4.1.0. Duplicate of
