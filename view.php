@@ -302,7 +302,10 @@ if ($mootyper->lesson != null) {
             .get_string('requiredgoal', 'mootyper').' ('.$reqiredgoal.'%)'
             .'&nbsp;&nbsp; '
             .get_string('requiredwpm', 'mootyper').' ('.$reqiredwpm.')';
-        echo $tempstr;
+        $temp = '<span class="reportlink"><a href="index.php?id='.$course->id.'">'.get_string('viewallmootypers', 'mootyper').'</a></span>';
+
+        echo $tempstr.' '.$temp;
+
         ?>
 </h5>
 

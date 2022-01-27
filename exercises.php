@@ -136,11 +136,18 @@ if (lessons::is_editable_by_me($USER->id, $id, $lessonpo)) {
 
     // 20200628 Following variable is temporary for development.
     $vis = $DB->get_record("mootyper_lessons", array('id' => $lessonpo));
+    // 20220125 Added words instead of numbers, to the button.
+    $visible = get_string('vaccess'.$vis->visible, 'mootyper');
+    $editable = get_string('eaccess'.$vis->editable, 'mootyper');
+
     // 20200614 Added a button for, Add a new exercise to the Lesson currently being viewed.
+    // 20220125 Modified the info on the buttons, words instead of numbers.
     echo ' <a onclick="return confirm(\''.get_string('eaddnewex', 'mootyper').$lessonpo.
         '\')" href="'.$jlnk3.'" class="btn btn-secondary" style="border-radius: 8px">'
-       .get_string('eaddnewex', 'mootyper').$lessonpo.' vis: '.$vis->visible.' ed: '.$vis->editable.'</a>';
-
+        .get_string('eaddnewex', 'mootyper').$lessonpo
+        .' Author ID: '.$vis->authorid
+        .', '.get_string('visibility', 'mootyper').': '.$visible
+        .', '.get_string('editable', 'mootyper').': '.$editable.'</a>';
 } else {
     echo '</form><br>';
 }
