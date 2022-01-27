@@ -54,9 +54,13 @@ Moodle Versions
     Originally thought I had this fixed in MooTyper v3.9.0. However, I finally have
     tracked the problem to line 77, in file, backup_mootyper_stepslib.php where the
     variable, cursocolor was mistyped as coursorcolor.
-
-
-
+20220125 MooTyper_718 - Exercises.php file need fix dev stuff in the big top button.
+    Modified the code in exercises.php so it now shows, Author ID: xx, Lesson visible
+    to: xxx, and Can edit: xxx. After testing, will need to turn Author ID: into
+    a language string.
+20220126 MooTyper_442 - Set return url in layouts.php, to return to same MooTyper.
+    Change button url and it appears to be working correctly. 
+20220126 MooTyper_415 - Need a layout add/remove page. 
 
 === 4.1.0 ===
 20220117 MooTyper_808 - Avoid storing absolute paths in database (mootyper_layouts).

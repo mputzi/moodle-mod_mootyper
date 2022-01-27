@@ -78,30 +78,55 @@ $layoutspo = array();
 // and get the id from $layouts.
 
 // If user can edit, create a remove link to the current KB layout.
-$jlink1 = '<a onclick="return confirm(\''.get_string('deleteexconfirm', 'mootyper')
-          .'"><img src="pix/delete.png" alt="'
-          .get_string('delete', 'mootyper').'"></a>';
+//$jlink1 = '<a onclick="return confirm(\''.get_string('deleteexconfirm', 'mootyper')
+//          .'"><img src="pix/delete.png" alt="'
+//          .get_string('delete', 'mootyper').'"></a>';
+
+$jlinkklrem = $CFG->wwwroot . '/mod/mootyper/klrem.php?id='.$id;
+
 
 echo '<div class="container">';
 echo '<table class="table table-hover">';
-echo '<thead><tr><th>Layout name</th><th>Remove</th>';
+echo '<thead><tr><th>'.get_string('layout', 'mootyper').'</th><th>'.get_string('delete', 'mootyper').'</th>';
 echo '</tr></thead>';
 
 echo '<tbody>';
-
+// 20200226 Added a continue button that takes you back to the MooTyper you came from.
+$url1 = $CFG->wwwroot . '/mod/mootyper/layouts.php?id='.$id;
 // Need to make it so only an admin can do a layout delete!
 foreach ($layouts as $lo) {
-        // List the keyboards by name.
-        echo '<tr><td>'.$lo.'</td><td>'.$jlink1.'</td></tr>';
+    // List the keyboards by name with a delete button.
+/*
+    echo '<tr><td>'.$lo.'</td><td>'
+        .'<a href="'.$jlinkklrem.'&kb='.$lo
+        .'" class="btn btn-primary" style="border-radius: 8px">'
+        .get_string('deletekb', 'mootyper', $lo)
+        .'</a></td></tr>';
+*/
+
+    echo '<tr><td>'.$lo.'</td><td>'
+        .'<a onclick="return confirm(\''.get_string('deletelsnconfirm', 'mootyper').$lo.
+    '\')" href="'.$jlinkklrem.'&kb='.$lo
+        .'" class="btn btn-warning" style="border-radius: 8px">'
+        .get_string('deletekb', 'mootyper', $lo)
+        .'</a></td></tr>';
+
+/*
+        // 20200614 Added a, Confirm deletion, button.
+        .' <a onclick="return confirm(\''.get_string('deletelsnconfirm', 'mootyper').$lo
+        .'\')" href="'.$jlinkklrem.'" class="btn btn-secondary" style="border-radius: 8px">'
+        .get_string('deletekb', 'mootyper', $lo).'</a></td></tr>';
+*/
+
 }
 echo '</tbody>';
 echo '</table>';
 echo '</div>';
 
 // 20200226 Added a continue button that takes you back to the MooTyper you came from.
-$url = $CFG->wwwroot . '/mod/mootyper/view.php?id='.$id;
+$url2 = $CFG->wwwroot . '/mod/mootyper/view.php?id='.$id;
 
-echo '<br><a href="'.$url
+echo '<br><a href="'.$url2
     .'" class="btn btn-primary" style="border-radius: 8px">'
     .get_string('returnto', 'mootyper', $mootyper->name)
     .'</a><br><br>';

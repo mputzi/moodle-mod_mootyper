@@ -71,4 +71,5 @@ class keyboards {
         return "$CFG->wwwroot/mod/mootyper/layouts/$dbrec->name.js";
     }
 
+
 }

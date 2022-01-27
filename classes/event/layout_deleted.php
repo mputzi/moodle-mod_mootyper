@@ -59,7 +59,7 @@ class layout_deleted extends \core\event\base {
      */
     public function get_description() {
         return "The user with id '$this->userid' deleted the 'keyboard' layout,
-               '{$this->other['layout']}', while in the course with id, '$this->contextinstanceid'.";
+               '{$this->other['layout']}', while in the MooTyper course module with id, '$this->contextinstanceid'.";
     }
 
     /**
