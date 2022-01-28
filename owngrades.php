@@ -80,7 +80,10 @@ if (!has_capability('mod/mootyper:viewmygrades', context_module::instance($cm->i
     $PAGE->set_cacheable(false);
     echo $OUTPUT->header();
     echo $OUTPUT->heading($mootyper->name);
-    $temp = '<span class="reportlink"><a href="index.php?id='.$course->id.'">'.get_string('viewallmootypers', 'mootyper').'</a></span>';
+    $temp = '<span class="reportlink"><a href="index.php?id='
+        .$course->id.'">'
+        .get_string('viewallmootypers', 'mootyper')
+        .'</a></span>';
     echo $temp;
     echo '<div align="center" style="font-size:1em;
         font-weight:bold;background: '.$color3.';

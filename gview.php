@@ -102,7 +102,10 @@ if (!has_capability('mod/mootyper:viewgrades', context_module::instance($cm->id)
     echo $OUTPUT->header();
     echo '<link rel="stylesheet" type="text/css" href="styles.css">';
     echo $OUTPUT->heading($mootyper->name);
-    $temp = '<span class="reportlink"><a href="index.php?id='.$course->id.'">'.get_string('viewallmootypers', 'mootyper').'</a></span>';
+    $temp = '<span class="reportlink"><a href="index.php?id='
+        .$course->id.'">'
+        .get_string('viewallmootypers', 'mootyper')
+        .'</a></span>';
     echo $temp;
     // 20200620 Changed $htmlout's to echo's.
     echo '<div align="center" style="font-size:1em;

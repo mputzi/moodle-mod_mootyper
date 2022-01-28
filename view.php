@@ -244,6 +244,10 @@ if ($mootyper->lesson != null) {
 
     if (exam_already_done($mootyper, $USER->id) && $mtmode === '1') {
         echo get_string('examdone', 'mootyper');
+        echo '<span class="reportlink"><a href="index.php?id='
+            .$course->id.'">'
+            .get_string('viewallmootypers', 'mootyper')
+            .'</a></span>';
         echo "<br>";
         if (has_capability('mod/mootyper:viewgrades', context_module::instance($cm->id))) {
             $jlnk4 = $CFG->wwwroot
@@ -302,8 +306,10 @@ if ($mootyper->lesson != null) {
             .get_string('requiredgoal', 'mootyper').' ('.$reqiredgoal.'%)'
             .'&nbsp;&nbsp; '
             .get_string('requiredwpm', 'mootyper').' ('.$reqiredwpm.')';
-        $temp = '<span class="reportlink"><a href="index.php?id='.$course->id.'">'.get_string('viewallmootypers', 'mootyper').'</a></span>';
-
+        $temp = '<span class="reportlink"><a href="index.php?id='
+            .$course->id.'">'
+            .get_string('viewallmootypers', 'mootyper')
+            .'</a></span>';
         echo $tempstr.' '.$temp;
 
         ?>
@@ -502,6 +508,10 @@ if ($mootyper->lesson != null) {
         }
     } else {
         echo get_string('endlesson', 'mootyper');
+        echo '<span class="reportlink"><a href="index.php?id='
+            .$course->id.'">'
+            .get_string('viewallmootypers', 'mootyper')
+            .'</a></span>';
         echo "<br />";
         if (has_capability('mod/mootyper:viewgrades', context_module::instance($cm->id))) {
             $jlnk4 = $CFG->wwwroot
