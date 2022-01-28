@@ -24,7 +24,6 @@
 
 use \mod_mootyper\event\course_module_viewed;
 use \mod_mootyper\local\keyboards;
-use \mod_mootyper\local\lessons;
 
 require_once('../../config.php');
 
@@ -55,7 +54,6 @@ $PAGE->set_cacheable(false);
 // Output starts here.
 echo $OUTPUT->header();
 echo $OUTPUT->heading(get_string('loheading', 'mootyper'));
-echo '<h2>Under development - Remove not implemented yet.</h2>';
 
 // 20200226 Switched from course id to current MooTyper id so
 // that I can use the current MooTyper keyboard background color.
@@ -68,65 +66,32 @@ echo '<div align="left" style="font-size:1em;
      -moz-border-radius:16px;border-radius:16px;"><table>';
 
 $layouts = keyboards::get_keyboard_layouts_db();
-
-$layoutspo = array();
-
-// Will need to create a remove layout php file klrem.php, like the one
-// I have for exercise remove, erem.php.
-// Will need to pass the name of the layout to remove as at this point
-// the layout name is all we have to work with. MIGHT be able to backtrack
-// and get the id from $layouts.
-
-// If user can edit, create a remove link to the current KB layout.
-//$jlink1 = '<a onclick="return confirm(\''.get_string('deleteexconfirm', 'mootyper')
-//          .'"><img src="pix/delete.png" alt="'
-//          .get_string('delete', 'mootyper').'"></a>';
-
+// 20220126 Set up a return to page link to use after deleting a layout.
 $jlinkklrem = $CFG->wwwroot . '/mod/mootyper/klrem.php?id='.$id;
-
 
 echo '<div class="container">';
 echo '<table class="table table-hover">';
 echo '<thead><tr><th>'.get_string('layout', 'mootyper').'</th><th>'.get_string('delete', 'mootyper').'</th>';
 echo '</tr></thead>';
-
 echo '<tbody>';
-// 20200226 Added a continue button that takes you back to the MooTyper you came from.
-$url1 = $CFG->wwwroot . '/mod/mootyper/layouts.php?id='.$id;
-// Need to make it so only an admin can do a layout delete!
-foreach ($layouts as $lo) {
-    // List the keyboards by name with a delete button.
-/*
-    echo '<tr><td>'.$lo.'</td><td>'
-        .'<a href="'.$jlinkklrem.'&kb='.$lo
-        .'" class="btn btn-primary" style="border-radius: 8px">'
-        .get_string('deletekb', 'mootyper', $lo)
-        .'</a></td></tr>';
-*/
 
+// 20220126 Changed to button with popup confirm. Only an admin can do a layout delete!
+foreach ($layouts as $lo) {
+    // 20220126 List the keyboards by name with a delete button.
     echo '<tr><td>'.$lo.'</td><td>'
-        .'<a onclick="return confirm(\''.get_string('deletelsnconfirm', 'mootyper').$lo.
-    '\')" href="'.$jlinkklrem.'&kb='.$lo
+        .'<a onclick="return confirm(\''.get_string('deletelsnconfirm', 'mootyper').$lo
+        .'\')" href="'.$jlinkklrem.'&kb='.$lo
         .'" class="btn btn-warning" style="border-radius: 8px">'
         .get_string('deletekb', 'mootyper', $lo)
         .'</a></td></tr>';
-
-/*
-        // 20200614 Added a, Confirm deletion, button.
-        .' <a onclick="return confirm(\''.get_string('deletelsnconfirm', 'mootyper').$lo
-        .'\')" href="'.$jlinkklrem.'" class="btn btn-secondary" style="border-radius: 8px">'
-        .get_string('deletekb', 'mootyper', $lo).'</a></td></tr>';
-*/
-
 }
 echo '</tbody>';
 echo '</table>';
 echo '</div>';
 
 // 20200226 Added a continue button that takes you back to the MooTyper you came from.
-$url2 = $CFG->wwwroot . '/mod/mootyper/view.php?id='.$id;
-
-echo '<br><a href="'.$url2
+$url = $CFG->wwwroot . '/mod/mootyper/view.php?id='.$id;
+echo '<br><a href="'.$url
     .'" class="btn btn-primary" style="border-radius: 8px">'
     .get_string('returnto', 'mootyper', $mootyper->name)
     .'</a><br><br>';

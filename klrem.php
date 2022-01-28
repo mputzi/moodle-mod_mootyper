@@ -40,52 +40,28 @@ $course = $DB->get_record('course', array('id' => $cm->course), '*', MUST_EXIST)
 
 require_login($course, true);
 $context = context_module::instance($cm->id);
-
-//$layoutname = optional_param('kb', '', PARAM_TEXT);
+// 20220126 If we have a layout name, run the delete code.
 if ($kb) {
-    // Put the actual delete here.
-    echo 'Put the actual delete here as we have made it to klrem.<br>';
-    echo 'I have two variables being passed to this file, $id and $kb.<br>';
-    echo 'The varible $id tells us which MooTyper activity we are in and it is: '.$id.' and $kb is: '.$kb.'<br>';
-    echo 'Need to search for and delete the keyboard layout named, '.$kb;
+    // 20220126 Search and retrieve the layout by name.
     $kbrecord = $DB->get_record('mootyper_layouts', array('name' => $kb), '*', MUST_EXIST);
 
-    print_object($kbrecord);
-    // Get the absolute path to the current working directory.
+    // 20220126 Get the absolute path to the current working directory.
     $pathtodir = getcwd();
-    echo "Absolute Path To Directory is: ";
-    echo $pathtodir.'<br>';
-    // Create an absolute pointer to the php and js files that are to be deleted.
+    // 20220126 Create an absolute pointer to the php and js files that are to be deleted.
     $filepointer1 = $pathtodir.'/layouts/'.$kb.'.php';
     $filepointer2 = $pathtodir.'/layouts/'.$kb.'.js';
-    echo "Modified Paths to the files is: ";
-    echo $filepointer1.'<br>';
-    echo $filepointer2.'<br>';
 
-
-    //$filepointer1 = $CFG->wwwroot . '/mod/mootyper/layouts/'.$kb.'.php';
-    //$filepointer2 = $CFG->wwwroot . '/mod/mootyper/layouts/'.$kb.'.js';
-    //$filepointer1 = $CFG->dataroot . '/mod/mootyper/layouts/'.$kb.'.php';
-    //$filepointer2 = $CFG->dataroot . '/mod/mootyper/layouts/'.$kb.'.js';
-    echo 'The database record we need to delete is in the mootyper_layouts table with an $id of: '.$kbrecord->id.'<br>';
-    echo 'The keyboard php file to delete is $filepointer1: '.$filepointer1.'<br>';
-    echo '$The keyboard js file to delete is $filepointer2: '.$filepointer2.'<br>';
-
-    // Use unlink() function to delete the two physical files for the layout being deleted. 
-    if (!unlink($filepointer1)) { 
-        echo ("$filepointer1 cannot be deleted due to an error."); 
-    } 
-    else { 
-        echo ("$filepointer1 has been deleted."); 
+    // 20220126 Use unlink() function to delete the two physical files for the layout being deleted.
+    if (!unlink($filepointer1)) {
+        echo ("$filepointer1 cannot be deleted due to an error.");
+        die;
     }
-    if (!unlink($filepointer2)) { 
-        echo ("$filepointer2 cannot be deleted due to an error."); 
-    } 
-    else { 
-        echo ("$filepointer2 has been deleted."); 
+    if (!unlink($filepointer2)) {
+        echo ("$filepointer2 cannot be deleted due to an error.");
+        die;
     }
 
-    // Delete the database record for the layout being deleted.
+    // 20220126 Delete the database record for the layout being deleted.
     $DB->delete_records('mootyper_layouts', array('id' => $kbrecord->id));
 
     // Trigger module layout_deleted event.
@@ -98,11 +74,7 @@ if ($kb) {
     );
     $event = layout_deleted::create($params);
     $event->trigger();
-
-    //$kbrecord2 = $DB->get_record('mootyper_layouts', array('id' => $kbrecord->id), '*', MUST_EXIST);
-    //print_object($kbrecord2);
-
-    //die;
 }
+// 20220126 After deletion, return to the list of layouts so we can delete more, if we need to.
 $webdir = $CFG->wwwroot . '/mod/mootyper/layouts.php?id='.$id;
 header('Location: '.$webdir);

@@ -70,6 +70,4 @@ class keyboards {
         $dbrec = $DB->get_record('mootyper_layouts', array('id' => $lid));
         return "$CFG->wwwroot/mod/mootyper/layouts/$dbrec->name.js";
     }
-
-
 }
