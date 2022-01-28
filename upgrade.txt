@@ -48,8 +48,7 @@ Moodle Versions
 === 4.1.1 ===
 20220122 MooTyper_613 - Would be nice to have a link to index.php on grade pages.
     Added links to index.php on the view.php, gview.php, and owngrades.php pages.
-    They all work but I think I want to move them to the right like I have them in
-    Diary's.
+    Added links for when lesson is complete and when exam is complete.
 20220125 MooTyper_547 - Duplicating a MooTyper does not set the cursor color correctly.
     Originally thought I had this fixed in MooTyper v3.9.0. However, I finally have
     tracked the problem to line 77, in file, backup_mootyper_stepslib.php where the
@@ -60,7 +59,10 @@ Moodle Versions
     a language string.
 20220126 MooTyper_442 - Set return url in layouts.php, to return to same MooTyper.
     Change button url and it appears to be working correctly. 
-20220126 MooTyper_415 - Need a layout add/remove page. 
+20220126 MooTyper_415 - Need a layout add/remove page. Added and tested code. Switched
+    to using buttons with popup confirm window.
+
+
 
 === 4.1.0 ===
 20220117 MooTyper_808 - Avoid storing absolute paths in database (mootyper_layouts).
