@@ -62,31 +62,38 @@ class provider implements
      * @param collection $collection The initialised collection to add items to.
      * @return collection The updated collection of metadata items.
      */
-    public static function get_metadata(collection $collection) {
-        $collection->add_database_table('mootyper_attempts', [
-            'mootyperid' => 'privacy:metadata:mootyper_attempts:mootyperid',
-            'userid' => 'privacy:metadata:mootyper_attempts:userid',
-            'timetaken' => 'privacy:metadata:mootyper_attempts:timetaken',
-            'inprogress' => 'privacy:metadata:mootyper_attempts:inprogress',
-            'suspicion' => 'privacy:metadata:mootyper_attempts:suspicion',
-        ], 'privacy:metadata:mootyper_attempts');
+    public static function get_metadata(collection $collection) : collection {
+        $collection->add_database_table(
+            'mootyper_attempts',
+            [
+                'mootyperid' => 'privacy:metadata:mootyper_attempts:mootyperid',
+                'userid' => 'privacy:metadata:mootyper_attempts:userid',
+                'timetaken' => 'privacy:metadata:mootyper_attempts:timetaken',
+                'inprogress' => 'privacy:metadata:mootyper_attempts:inprogress',
+                'suspicion' => 'privacy:metadata:mootyper_attempts:suspicion',
+            ],
+            'privacy:metadata:mootyper_attempts'
+        );
 
-        $collection->add_database_table('mootyper_grades', [
-            'mootyper' => 'privacy:metadata:mootyper_grades:mootyper',
-            'userid' => 'privacy:metadata:mootyper_grades:userid',
-            'grade' => 'privacy:metadata:mootyper_grades:grade',
-            'mistakes' => 'privacy:metadata:mootyper_grades:mistakes',
-            'timeinseconds' => 'privacy:metadata:mootyper_grades:timeinseconds',
-            'hitsperminute' => 'privacy:metadata:mootyper_grades:hitsperminute',
-            'fullhits' => 'privacy:metadata:mootyper_grades:fullhits',
-            'precisionfield' => 'privacy:metadata:mootyper_grades:precisionfield',
-            'timetaken' => 'privacy:metadata:mootyper_grades:timetaken',
-            'exercise' => 'privacy:metadata:mootyper_grades:exercise',
-            'pass' => 'privacy:metadata:mootyper_grades:pass',
-            'attemptid' => 'privacy:metadata:mootyper_grades:attemptid',
-            'wpm' => 'privacy:metadata:mootyper_grades:wpm',
-        ], 'privacy:metadata:mootyper_grades');
-
+        $collection->add_database_table(
+            'mootyper_grades',
+            [
+                'mootyper' => 'privacy:metadata:mootyper_grades:mootyper',
+                'userid' => 'privacy:metadata:mootyper_grades:userid',
+                'grade' => 'privacy:metadata:mootyper_grades:grade',
+                'mistakes' => 'privacy:metadata:mootyper_grades:mistakes',
+                'timeinseconds' => 'privacy:metadata:mootyper_grades:timeinseconds',
+                'hitsperminute' => 'privacy:metadata:mootyper_grades:hitsperminute',
+                'fullhits' => 'privacy:metadata:mootyper_grades:fullhits',
+                'precisionfield' => 'privacy:metadata:mootyper_grades:precisionfield',
+                'timetaken' => 'privacy:metadata:mootyper_grades:timetaken',
+                'exercise' => 'privacy:metadata:mootyper_grades:exercise',
+                'pass' => 'privacy:metadata:mootyper_grades:pass',
+                'attemptid' => 'privacy:metadata:mootyper_grades:attemptid',
+                'wpm' => 'privacy:metadata:mootyper_grades:wpm',
+            ],
+            'privacy:metadata:mootyper_grades'
+        );
         return $collection;
     }
 
@@ -96,6 +103,7 @@ class provider implements
      * @var int $modid the module id.
      */
     private static $modid;
+
     /**
      * Get an id list of MooTyper activities.
      * @return false|mixed
@@ -115,7 +123,7 @@ class provider implements
      * @param int $userid The user to search for.
      * @return contextlist $contextlist The contextlist containing the list of contexts used in this plugin.
      */
-    public static function get_contexts_for_userid(int $userid) {
+    public static function get_contexts_for_userid(int $userid) : contextlist {
         $contextlist = new contextlist();
         $modid = self::get_modid();
         if (!$modid) {
@@ -360,7 +368,7 @@ class provider implements
     /**
      * Delete multiple users within a single context.
      *
-     * @param   approved_userlist       $userlist The approved context and user information to delete information for.
+     * @param approved_userlist $userlist The approved context and user information to delete information for.
      */
     public static function delete_data_for_users(approved_userlist $userlist) {
         global $DB;
