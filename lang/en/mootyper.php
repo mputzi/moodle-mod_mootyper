@@ -27,6 +27,7 @@ defined('MOODLE_INTERNAL') || die();
 
 $string['allstring'] = 'All';
 $string['average'] = 'Average';
+$string['authorid'] = 'Author ID';
 $string['mean'] = 'Mean';
 $string['median'] = 'Median';
 $string['mode'] = 'Mode';
@@ -40,6 +41,9 @@ $string['charttitleallgrades'] = 'All Grades';
 $string['charttitlemyowngrades'] = 'My Own Grades';
 $string['chere'] = 'Click here to start';
 $string['closebeforeopen'] = 'Could not update the MooTyper. You have specified a close date before the open date.';
+
+$string['completiondetail:lesson'] = 'Completed exercises in lesson: {$a}%';
+
 $string['configdateformat'] = 'This defines how dates are shown in grade reports. The default value, "M d, Y G:i" is Month, day, year and 24 hour format time. Refer to Date in the PHP manual for more examples and predefined date constants.';
 $string['configrequirepassword'] = 'Configure password';
 $string['configpassword_desc'] = 'Whether a password is required in order to access the lesson.';
