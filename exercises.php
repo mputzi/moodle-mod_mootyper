@@ -145,7 +145,7 @@ if (lessons::is_editable_by_me($USER->id, $id, $lessonpo)) {
     echo ' <a onclick="return confirm(\''.get_string('eaddnewex', 'mootyper').$lessonpo.
         '\')" href="'.$jlnk3.'" class="btn btn-secondary" style="border-radius: 8px">'
         .get_string('eaddnewex', 'mootyper').$lessonpo
-        .' Author ID: '.$vis->authorid
+        .', '.get_string('authorid', 'mootyper').': '.$vis->authorid
         .', '.get_string('visibility', 'mootyper').': '.$visible
         .', '.get_string('editable', 'mootyper').': '.$editable.'</a>';
 } else {
