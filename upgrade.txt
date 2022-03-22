@@ -55,6 +55,10 @@ Moodle Versions
     needed code in the renderer.php file down around line 66.
 20220219 MooTyper_821 - Issue #104 - Data Privacy is broken. Made the needed changes then
     also got a pull request for this. Export requests do work.
+20220322 MooTyper_799 - Need new Moodle 4.0 icon. Discovered I can just make two copies
+    of the switch with a branch check for greater than m3.11. The copy of the switch for
+    Moodle 4.0 and above should contain the new case FEATURE_MOD_PURPOSE: return
+    MOD_PURPOSE_ASSESSMENT; 
 
 === 4.1.1 === released 20220128
 20220122 MooTyper_613 - Would be nice to have a link to index.php on grade pages.
