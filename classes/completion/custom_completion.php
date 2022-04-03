@@ -26,8 +26,6 @@ namespace mod_mootyper\completion;
 
 use core_completion\activity_custom_completion;
 
-defined('MOODLE_INTERNAL') || die();
-
 /**
  * Class custom_completion.
  * @package mod_mootyper
@@ -42,10 +40,6 @@ class custom_completion extends \core_completion\activity_custom_completion {
      */
     public function get_state(string $rule): int {
         global $DB;
-        $debug = array();
-        $debug['CP0a spacer $rule: '] = 'made it here';
-        $debug['CP0b entered get_state(string $rule) function of custom_completiong and checking item string $rule: '] = 'made it here';
-
 
         $this->validate_rule($rule);
 
@@ -69,8 +63,6 @@ class custom_completion extends \core_completion\activity_custom_completion {
                 $status = $total ? ($mootyper->completedlesson <= ($ticked * 100 / $total)) : false;
             }
         }
-print_object($debug);
-die;
         return $status ? COMPLETION_COMPLETE : COMPLETION_INCOMPLETE;
     }
 
@@ -80,11 +72,10 @@ die;
      * @return array
      */
     public static function get_defined_custom_rules(): array {
-        $debug['CP1a spacer: '] = 'made it here';
-        $debug['CP1b entered get_defined_custom_rules() function of custom_completion and returning completedlesson: '] = 'made it here - completedlesson';
+        // This function gets called upon after completing the first exercise.
+        // Will need to do a lesson completion check and return the 'completedlesson' message only when all exercises are done.
+        // Will also need to combine a mode check since exam mode will always be done after just one exercise.
 
-print_object($debug);
-//die;
         return ['completedlesson'];
     }
 
@@ -95,10 +86,6 @@ print_object($debug);
      */
     public function get_custom_rule_descriptions(): array {
         $entries = $this->cm->customdata['customcompletionrules']['completedlesson'] ?? 0;
-        $debug['CP2a spacer: '] = 'made it here';
-        $debug['CP2b entered get_custom_rule_descriptions() function of custom_completion and returning completedlesson: '] = 'made it here';
-print_object($debug);
-die;
         return [
             'completedlesson' => get_string('completiondetail:lesson', 'mootyper', $entries),
         ];
@@ -110,9 +97,7 @@ die;
      * @return array
      */
     public function get_sort_order(): array {
-        $debug['CP3 entered get_sort_order() function of custom_completion and returning completedlesson: '] = 'made it here';
-print_object($debug);
-die;
+
         return [
             'completionview',
             'completedlesson',
