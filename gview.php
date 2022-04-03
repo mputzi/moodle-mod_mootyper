@@ -196,7 +196,7 @@ if (!has_capability('mod/mootyper:viewgrades', context_module::instance($cm->id)
         echo '</select>';
         echo '</td>';
     }
-    // Show the Exercise selector.
+    // Show the Exercise selector. To work, the View must be set to, by exercise.
     if ($md == 0 || $md == 1 || $mtmode == 2) {
         $exes = lessons::get_exercises_by_lesson($mootyper->lesson);
         echo '<td>'.get_string('fexercise', 'mootyper').'  </td><td>';
