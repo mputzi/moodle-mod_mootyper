@@ -41,6 +41,7 @@ define('MOOTYPER_EVENT_TYPE_CLOSE', 'close');
 /**
  * Returns the information on whether the module supports a feature.
  *
+ * @uses FEATURE_MOD_PURPOSE:
  * @uses FEATURE_BACKUP_MOODLE2
  * @uses FEATURE_COMPLETION_TRACKS_VIEWS
  * @uses FEATURE_COMPLETION_HAS_RULES
