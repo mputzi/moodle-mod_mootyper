@@ -844,7 +844,7 @@ function mootyper_grade_item_update($mootyper, $ratings = null, $mootypergrades 
             // Note: We do not need to store the idnumber here.
         ];
 
-        if (!$mootyper->grade_mootyper) {
+        if (empty($mootyper->grade_mootyper)) {
             $item['gradetype'] = GRADE_TYPE_NONE;
         } else if ($mootyper->grade_mootyper > 0) {
             $item['gradetype'] = GRADE_TYPE_VALUE;
