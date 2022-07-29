@@ -71,8 +71,7 @@ function add_keyboard_layout($dafile) {
 }
 
 /**
- * Read lesson file and add into the database.
- *
+ * Define the lesson import function.
  * @param string $dafile
  * @param int $authoridarg
  * @param int $visiblearg
@@ -80,21 +79,25 @@ function add_keyboard_layout($dafile) {
  * @param int $coursearg
  */
 function read_lessons_file($dafile, $authoridarg, $visiblearg, $editablearg, $coursearg=null) {
-    global $DB, $CFG;
+    global $DB, $CFG, $USER;
+    // Scan the mootyper lessons folder for lessonname.txt files.
     $thefile = $CFG->dirroot."/mod/mootyper/lessons/".$dafile;
-    // Echo thefile.
+    // Extract the lesson name from the file name.
     $record = new stdClass();
     $periodpos = strrpos($dafile, '.');
     $lessonname = substr($dafile, 0, $periodpos);
-    // Echo the lessonname.
-    $record->lessonname = $lessonname;
-    $record->authorid = $authoridarg;
-    $record->visible = $visiblearg;
-    $record->editable = $editablearg;
+
+    // Create new record for the mootyper_lessons table for this lessonname.
+    $record->lessonname = $lessonname; // Add the lesson name.
+    $record->authorid = $authoridarg; // Add the author id.
+    $record->visible = $visiblearg; // Add the visibility setting.
+    $record->editable = $editablearg; // Add the edit-ability setting.
     if (!is_null($coursearg)) {
-        $record->courseid = $coursearg;
+        $record->courseid = $coursearg; // If we have a course id use it, otherwise set to null.
     }
+    // Create entry in the mootyper_lessons table based on new data.
     $lessonid = $DB->insert_record('mootyper_lessons', $record, true);
+    // Now read the whole file so we can split it into exercises.
     $fh = fopen($thefile, 'r');
     $thedata = fread($fh, filesize($thefile));
     fclose($fh);
@@ -103,32 +106,42 @@ function read_lessons_file($dafile, $authoridarg, $visiblearg, $editablearg, $co
         $haha .= $thedata[$i];
     }
     $haha = trim($haha);
+    // Break lesson into an array of separate exercises.
     $splitted = explode ('/**/' , $haha);
-    for ($j = 0; $j < count($splitted); $j++) {
-        $vaja = trim($splitted[$j]);
-        // @codingStandardsIgnoreLine
-        $allowed = array('\\', '~', '!', '@', '#', '$', '%', '^', '&', '(', ')', '*', '_', '+', ':', ';', '"', '{', '}', '>', '<', '?', '\'', '-', '/', '=', '.', ',', ' ', '|', '�', '`', '�', '�', '�', '�', '�', '�', '\n', '\r', '\r\n', '\n\r', ']', '[', '�', '�', '`');
-        $nm = "".($j + 1);
+    // 20210328 Changed for loop to count by two so we can get exercise name along with the exercise text.
+    for ($j = 0; $j < count($splitted); $j += 2) {
+        // Remove whitespace from both sides of $splitted.
+        $exercise = trim($splitted[$j]);
+        // 20210328 Added same cleanup for exercisename.
+        $exercisename = trim($splitted[$j + 1]);
+
+		// @codingStandardsIgnoreLine
+        $allowed = array('ё', 'ë', '¸','á', 'é', 'í', 'ï', 'ó', 'ú', '\\', '~', '!', '@', '#', '$', '%', '^', '&', '(', ')', '*', '_', '+', ':', ';', '"', '{', '}', '>', '<', '?', '\'', '-', '/', '=', '.', ',', ' ', '|', '¡', '`', 'ç', 'ñ', 'º', '¿', 'ª', '·', '\n', '\r', '\r\n', '\n\r', ']', '[', '¬', '´', '`', '§', '°', '€', '¦', '¢', '£', '?', '¹', '²', '³', '¨', '?', 'ù', 'µ', 'û','÷', '×', 'ł', 'Ł', 'ß', '¤', '«', '»');
+        // Create a number to use as the exercise name. Start with 1 and increment for each exercise detected.
+        // 20210328 We now get an actual exercise name from the lessonname.txt file, so $nm not needed now.
         $texttotype = "";
-        for ($k = 0; $k < strlen($vaja); $k++) {
+        // Place each character of an exercise into $texttotype.
+        for ($k = 0; $k < strlen($exercise); $k++) {
             // TODO
             // * If it is not a letter
             // * and if it is not a number
             // * compare against $allowed array.
             // * If not included die
             // * or something.
-            $ch = $vaja[$k];
+            $ch = $exercise[$k];
             if ($ch == "\n") {
                 $texttotype .= '\n';
             } else {
                 $texttotype .= $ch;
             }
         }
+        // Create new entry in the mootyper_exercises.
         $erecord = new stdClass();
         $erecord->texttotype = $texttotype;
-        $erecord->exercisename = $nm;
+        // 20210328 Save exercise name instead of just a number.
+        $erecord->exercisename = $exercisename; // Add the exercise name here.
         $erecord->lesson = $lessonid;
-        $erecord->snumber = $j + 1;
+        $erecord->snumber = ($j + 2) / 2;
         $DB->insert_record('mootyper_exercises', $erecord, false);
     }
 }
