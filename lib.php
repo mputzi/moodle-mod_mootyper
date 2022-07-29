@@ -843,7 +843,7 @@ function mootyper_grade_item_update($mootyper, $ratings = null, $mootypergrades 
             'itemname' => get_string('gradeitemnameforwholemootyper', 'mootyper', $mootyper),
             // Note: We do not need to store the idnumber here.
         ];
-
+        // 20220412 Merged pull request for master #107.
         if (empty($mootyper->grade_mootyper)) {
             $item['gradetype'] = GRADE_TYPE_NONE;
         } else if ($mootyper->grade_mootyper > 0) {
