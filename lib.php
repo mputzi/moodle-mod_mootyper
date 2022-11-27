@@ -843,8 +843,8 @@ function mootyper_grade_item_update($mootyper, $ratings = null, $mootypergrades 
             'itemname' => get_string('gradeitemnameforwholemootyper', 'mootyper', $mootyper),
             // Note: We do not need to store the idnumber here.
         ];
-        // 20220412 Merged pull request for master #107.
-        if (empty($mootyper->grade_mootyper)) {
+
+        if (!$mootyper->grade_mootyper) {
             $item['gradetype'] = GRADE_TYPE_NONE;
         } else if ($mootyper->grade_mootyper > 0) {
             $item['gradetype'] = GRADE_TYPE_VALUE;
@@ -1188,24 +1188,8 @@ function mootyper_extend_settings_navigation(settings_navigation $settingsnav, n
 
     // Link to the Add new lessons w/exercises page. Visible to any teacher.
     if (has_capability('mod/mootyper:aftersetup', $cm->context)) {
-        $link = new moodle_url('eins.php', array('id' => $cm->id));
+        $link = new moodle_url('/mod/mootyper/eins.php', array('id' => $cm->id));
         $linkname = get_string('eaddnew', 'mootyper');
-        $icon = new pix_icon('icon', '', 'mootyper', array('class' => 'icon'));
-        $node = $navref->add($linkname, $link, navigation_node::TYPE_SETTING, null, null, $icon);
-    }
-
-    // Link to Import new lessons w/exercises and new keyboard layouts. Visible to admin only.
-    if (is_siteadmin()) {
-        $link = new moodle_url('lsnimport.php', array('id' => $cm->id));
-        $linkname = get_string('lsnimport', 'mootyper');
-        $icon = new pix_icon('icon', '', 'mootyper', array('class' => 'icon'));
-        $node = $navref->add($linkname, $link, navigation_node::TYPE_SETTING, null, null, $icon);
-    }
-
-    // 20201028 Link to remove keyboard layouts. Visible to siteadmin only.
-    if (is_siteadmin()) {
-        $link = new moodle_url('layouts.php', array('id' => $cm->id));
-        $linkname = get_string('loheading', 'mootyper');
         $icon = new pix_icon('icon', '', 'mootyper', array('class' => 'icon'));
         $node = $navref->add($linkname, $link, navigation_node::TYPE_SETTING, null, null, $icon);
     }
@@ -1218,11 +1202,27 @@ function mootyper_extend_settings_navigation(settings_navigation $settingsnav, n
         // 20200627 Modified to show link only if user can edit the current lesson.
         if ($lesson) {
             if (lessons::is_editable_by_me($USER->id, $mootyper->id, $lesson->id)) {
-                $link = new moodle_url('exercises.php', array('id' => $cm->id, 'lesson' => $mootyper->lesson));
+                $link = new moodle_url('/mod/mootyper/exercises.php', array('id' => $cm->id, 'lesson' => $mootyper->lesson));
                 $linkname = get_string('editexercises', 'mootyper');
                 $icon = new pix_icon('icon', '', 'mootyper', array('class' => 'icon'));
                 $node = $navref->add($linkname, $link, navigation_node::TYPE_SETTING, null, null, $icon);
             }
         }
+    }
+
+    // Link to Import new lessons w/exercises and new keyboard layouts. Visible to admin only.
+    if (is_siteadmin()) {
+        $link = new moodle_url('/mod/mootyper/lsnimport.php', array('id' => $cm->id));
+        $linkname = get_string('lsnimport', 'mootyper');
+        $icon = new pix_icon('icon', '', 'mootyper', array('class' => 'icon'));
+        $node = $navref->add($linkname, $link, navigation_node::TYPE_SETTING, null, null, $icon);
+    }
+
+    // 20201028 Link to remove keyboard layouts. Visible to siteadmin only.
+    if (is_siteadmin()) {
+        $link = new moodle_url('/mod/mootyper/layouts.php', array('id' => $cm->id));
+        $linkname = get_string('loheading', 'mootyper');
+        $icon = new pix_icon('icon', '', 'mootyper', array('class' => 'icon'));
+        $node = $navref->add($linkname, $link, navigation_node::TYPE_SETTING, null, null, $icon);
     }
 }
