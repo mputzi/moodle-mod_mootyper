@@ -50,14 +50,14 @@ if ($md == 1) {
     $se = 0;
 }
 if ($id) {
-    $cm         = get_coursemodule_from_id('mootyper', $id, 0, false, MUST_EXIST);
-    $course     = $DB->get_record('course', array('id' => $cm->course), '*', MUST_EXIST);
+    $cm        = get_coursemodule_from_id('mootyper', $id, 0, false, MUST_EXIST);
+    $course    = $DB->get_record('course', array('id' => $cm->course), '*', MUST_EXIST);
     $mootyper  = $DB->get_record('mootyper', array('id' => $cm->instance), '*', MUST_EXIST);
 } else if ($n) {
     $mootyper  = $DB->get_record('mootyper', array('id' => $n), '*', MUST_EXIST);
-    $course     = $DB->get_record('course', array('id' => $mootyper->course), '*', MUST_EXIST);
-    $cm         = get_coursemodule_from_instance('mootyper', $mootyper->id, $course->id, false, MUST_EXIST);
-    $id = $cm->id; // Since we had ID of 0, we really need Course module ID for cvsexport, so set it.
+    $course    = $DB->get_record('course', array('id' => $mootyper->course), '*', MUST_EXIST);
+    $cm        = get_coursemodule_from_instance('mootyper', $mootyper->id, $course->id, false, MUST_EXIST);
+    $id        = $cm->id; // Since we had ID of 0, we really need Course module ID for cvsexport, so set it.
 } else {
     throw new moodle_exception(get_string('mootypererror', 'mootyper'));
 }
@@ -149,7 +149,8 @@ if (!has_capability('mod/mootyper:viewgrades', context_module::instance($cm->id)
     if ($currentgroup) {
         $groups = $currentgroup;
     } else {
-        $groups = '';
+        // 20220805 Changed from '' to 0 for PostreSQL.
+        $groups = 0;
     }
     echo '</td>';
 
@@ -173,7 +174,7 @@ if (!has_capability('mod/mootyper:viewgrades', context_module::instance($cm->id)
         // 20200620 Added class="custom-select singleselect" to look like group selector.
         echo '<select name="juser" onchange="this.form.submit()" class="custom-select singleselect">';
         echo '<option value="0">'.get_string('allstring', 'mootyper').'</option>';
-        // 20200621 Filter Student selector to only show group memebers when set to visible groups or separate groups.
+        // 20200621 Filter Student selector to only show group members when set to visible groups or separate groups.
         if (($usrs != false) && ($groupmode != false)) {
             foreach ($usrs as $x) {
                 if (($us == $x->id) && (groups_is_member($groups, $x->id))) {
