@@ -47,6 +47,7 @@ $rcrd = $DB->get_record('mootyper_exercises', array('id' => $ex), '*', MUST_EXIS
 // Get the id of the lesson name from the current exercise, and then use it to get the lesson name.
 $lesson = $DB->get_record('mootyper_exercises', array('id' => $ex), 'lesson', MUST_EXIST);
 $lessonname = $DB->get_record('mootyper_lessons', array('id' => $lesson->lesson), 'lessonname', MUST_EXIST);
+$actuallesson = $DB->get_record('mootyper_lessons', array('id' => $lesson->lesson));
 
 // This context->id will be used for the path to file storage.
 $context = context_module::instance($cm->id);
@@ -219,6 +220,7 @@ $aligns = array(get_string('defaulttextalign_left', 'mod_mootyper'),
               get_string('defaulttextalign_right', 'mod_mootyper'));
 echo '<span id="editalign" class="">'.get_string('defaulttextalign', 'mootyper').': ';
 echo '<select onchange="this.form.submit()" name="editalign">';
+
 // This will loop through ALL three alignments and show current alignment setting.
 foreach ($aligns as $akey => $aval) {
     // The first if is executed ONLY when, when defaulttextalign matches one of the alignments
@@ -257,8 +259,28 @@ $editor->use_editor('exercisetoedit',
     ['return_types' => "FILE_EXTERNAL"]
     );
 
+// 20220723 Add some details so we know more about this lesson and it's exercises.
+$lessonauthor = $DB->get_record("user", array('id' => $actuallesson->authorid));
+$coursename = $DB->get_record("course", array('id' => $actuallesson->courseid));
+// Add a number 0, 1, or 2 to get the correct string to use.
+$visible = get_string('vaccess'.$actuallesson->visible, 'mootyper');
+$editable = get_string('eaccess'.$actuallesson->editable, 'mootyper');
+echo '<br>'.get_string('authorid', 'mootyper').': '.$actuallesson->authorid.', '
+           .$lessonauthor->firstname.' '.$lessonauthor->lastname.'<br>';
+echo get_string('visibility', 'mootyper').': '.$visible.', ';
+echo get_string('editable', 'mootyper').': '.$editable.'<br>';
+// 20220729 Added check for missing courseid and and name that would indicate the lesson came with MooTyper.
+if ((!$actuallesson->courseid) || (!$coursename->fullname)) {
+    echo get_string('lessonincluded', 'mootyper');
+
+} else {
+    echo get_string('createdin', 'mootyper').$actuallesson->courseid.', '.$coursename->fullname;
+}
+
+echo '</select></span><br>';
+
 // Add a confirm and cancel button.
-echo '<br><br><input class="btn btn-primary"
+echo '<input class="btn btn-primary"
     style="border-radius: 8px"
     name="button"
     onClick="return clClick()"
