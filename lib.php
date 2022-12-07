@@ -64,8 +64,6 @@ function mootyper_supports($feature) {
         }
     }
     switch ($feature) {
-        case FEATURE_MOD_PURPOSE:
-            return MOD_PURPOSE_ASSESSMENT;
         case FEATURE_BACKUP_MOODLE2:
             return true;
         case FEATURE_COMPLETION_TRACKS_VIEWS:
