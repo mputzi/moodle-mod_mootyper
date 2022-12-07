@@ -22,9 +22,9 @@ THE QUACK FROG\n\nThere was once a Frog who made proclamation that he was a lear
 /**/
 6 THE QUACK FROG
 /**/
-THE WOLF IN SHEEP’S CLOTHING\n\nA Wolf once clothed himself in the fleece of a sheep, and being mistaken for one of the flock, got into the fold. He had a chance to make way with as many sheep as he liked; but his time for doing so was short, for the Shepherd, coming into the fold during the night, discovered him.\n\nTying him to a tree, he left him hanging there, still in his sheep’s dress, as a warning to other wolves who might be prowling about.\n\nSome shepherds who chanced to pass by saw him there, and stopped to inquire why sheep should be thus served. As they came nearer and saw that it was not a sheep but a Wolf, the Shepherd said, "This is the way I serve a Wolf, even though I find him wearing the habit of a sheep."
+THE WOLF IN SHEEP'S CLOTHING\n\nA Wolf once clothed himself in the fleece of a sheep, and being mistaken for one of the flock, got into the fold. He had a chance to make way with as many sheep as he liked; but his time for doing so was short, for the Shepherd, coming into the fold during the night, discovered him.\n\nTying him to a tree, he left him hanging there, still in his sheep's dress, as a warning to other wolves who might be prowling about.\n\nSome shepherds who chanced to pass by saw him there, and stopped to inquire why sheep should be thus served. As they came nearer and saw that it was not a sheep but a Wolf, the Shepherd said, "This is the way I serve a Wolf, even though I find him wearing the habit of a sheep."
 /**/
-7 THE WOLF IN SHEEP’S CLOTHING
+7 THE WOLF IN SHEEP'S CLOTHING
 /**/
 THE BOY AND THE FILBERTS\n\nA Boy once thrust his hand into a pitcher nearly filled with Filberts. He grasped as many as his hand could possibly hold; but when he tried to draw out his closed fist, the narrowness of the neck prevented him from doing so. Unwilling to lose his nuts, yet unable to get them by drawing out his hand, he burst into tears and bitterly lamented his hard fortune. A person standing by finally gave him this wise and reasonable advice:\n\n"Be satisfied to take half as many, my boy, and you will get them easily."
 /**/

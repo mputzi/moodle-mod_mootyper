@@ -1,4 +1,4 @@
-THE HORSE AND THE GROOM\n\nA Groom, who used to steal a Horse’s corn and sell it, was yet very busy all the day long in grooming and wisping him. "If you really wish me," said the Horse, "to look sleek and fine, give me less currying and more corn."
+THE HORSE AND THE GROOM\n\nA Groom, who used to steal a Horse's corn and sell it, was yet very busy all the day long in grooming and wisping him. "If you really wish me," said the Horse, "to look sleek and fine, give me less currying and more corn."
 /**/
 1 THE HORSE AND THE GROOM
 /**/
@@ -10,7 +10,7 @@ THE BOASTING TRAVELER\n\nA man who had traveled in foreign parts bragged, on his
 /**/
 3 THE BOASTING TRAVELER
 /**/
-THE HEDGE AND THE VINEYARD\n\nA foolish young Heir, who had come into possession of his wise father’s estate, broke up all the Hedges about his Vineyard because they bore no grapes. The throwing down of these fences laid his grounds open to man and beast, and his vines were presently destroyed. The simple fellow learned, when it was too late, that it was quite as necessary to protect his Vineyard as to possess it.
+THE HEDGE AND THE VINEYARD\n\nA foolish young Heir, who had come into possession of his wise father's estate, broke up all the Hedges about his Vineyard because they bore no grapes. The throwing down of these fences laid his grounds open to man and beast, and his vines were presently destroyed. The simple fellow learned, when it was too late, that it was quite as necessary to protect his Vineyard as to possess it.
 /**/
 4 THE HEDGE AND THE VINEYARD
 /**/
@@ -26,7 +26,7 @@ A WIDOW AND HER SHEEP\n\nA certain widow, who had only a single Sheep and wished
 /**/
 7 A WIDOW AND HER SHEEP
 /**/
-THE MAN AND THE LION\n\nA Man and a Lion were once journeying together and came at length to high words as to which was the braver and stronger creature of the two. As the dispute waxed warmer they happened to pass, on the roadside, the statue of a man strangling a lion. "See there," said the Man. "What more proof can you have of our undeniable superiority than that?"\n\n"That," said the Lion, "is a man’s version of the story; let us be the sculptors, and for one lion under the feet of a man, you shall have twenty men under the paws of lions."
+THE MAN AND THE LION\n\nA Man and a Lion were once journeying together and came at length to high words as to which was the braver and stronger creature of the two. As the dispute waxed warmer they happened to pass, on the roadside, the statue of a man strangling a lion. "See there," said the Man. "What more proof can you have of our undeniable superiority than that?"\n\n"That," said the Lion, "is a man's version of the story; let us be the sculptors, and for one lion under the feet of a man, you shall have twenty men under the paws of lions."
 /**/
 8 THE MAN AND THE LION
 /**/
@@ -34,7 +34,7 @@ THE LIONESS\n\nA great stir was once made as to which of the Beasts could boast 
 /**/
 9 THE LIONESS
 /**/
-THE BOY WHO STOLE APPLES\n\nAn Old Man once found a rude Boy in his Apple Tree and sternly ordered him to come down. The young rogue answered that he would not.\n\n"Then I will fetch you down," said the Old Man. So he threw twigs and bundles of grass up at him, but this only made the young scapegrace laugh.\n\n"Very well," said the Old Man. "If neither words nor grass will bring you down, I will try what virtue there is in stones." With that he pelted the Boy heartily with stones, which soon brought him down from the tree to beg the Old Man’s pardon.
+THE BOY WHO STOLE APPLES\n\nAn Old Man once found a rude Boy in his Apple Tree and sternly ordered him to come down. The young rogue answered that he would not.\n\n"Then I will fetch you down," said the Old Man. So he threw twigs and bundles of grass up at him, but this only made the young scapegrace laugh.\n\n"Very well," said the Old Man. "If neither words nor grass will bring you down, I will try what virtue there is in stones." With that he pelted the Boy heartily with stones, which soon brought him down from the tree to beg the Old Man's pardon.
 /**/
 10 THE BOY WHO STOLE APPLES
 /**/
@@ -46,7 +46,7 @@ THE OLD MAN AND DEATH\n\nAn Old Laborer, bent with age and toil, was gathering b
 /**/
 12 THE OLD MAN AND DEATH
 /**/
-A FATHER AND HIS TWO DAUGHTERS\n\nA Man who had two Daughters married one to a Gardener, the other to a Potter. Going to visit at the Gardener’s, he asked his Daughter how it fared with her. "Excellently well," said she; "we have all that we want if only we may have a heavy rain to water our plants."\n\nGoing on to the Potter’s, he asked his other Daughter how matters went with her. "There is nothing that we want but that this fine weather and hot sun may continue, so that our tiles will bake well."\n\n"Alas," said the Father, "if you wish for fine weather, and your sister for rain, which shall I myself pray for?"
+A FATHER AND HIS TWO DAUGHTERS\n\nA Man who had two Daughters married one to a Gardener, the other to a Potter. Going to visit at the Gardener's, he asked his Daughter how it fared with her. "Excellently well," said she; "we have all that we want if only we may have a heavy rain to water our plants."\n\nGoing on to the Potter's, he asked his other Daughter how matters went with her. "There is nothing that we want but that this fine weather and hot sun may continue, so that our tiles will bake well."\n\n"Alas," said the Father, "if you wish for fine weather, and your sister for rain, which shall I myself pray for?"
 /**/
 13 A FATHER AND HIS TWO DAUGHTERS
 /**/
