@@ -67,11 +67,14 @@ class results {
      */
     public static function suspicion($checks, $starttime) {
         for ($i = 1; $i < count($checks); $i++) {
+            // 20220724 Translate says udarci = blows. English might be better to use, strokes1 and 2, or check1 and check2?
             $udarci1 = $checks[$i]['mistakes'] + $checks[$i]['hits'];
             $udarci2 = $checks[($i - 1)]['mistakes'] + $checks[($i - 1)]['hits'];
+            // 20220724 If current hit count is suddenly 60 strokes higher than last check, mark as suspicious.
             if ($udarci2 > ($udarci1 + 60)) {
                 return true;
             }
+            // 20220724 If it has been more than ten minutes since the last check, mark as suspicious.
             if ($checks[($i - 1)]['checktime'] > ($starttime + 300)) {
                 return true;
             }
