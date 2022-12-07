@@ -76,8 +76,9 @@ class backup_mootyper_activity_structure_step extends backup_activity_structure_
                                               'textalign',
                                               'cursorcolor',
                                               'textbgc',
-                                              'texterrorcolor'.
-                                              'countmistakes'));
+                                              'texterrorcolor',
+                                              'countmistakes',
+                                              'completionlesson'));
 
         $attempts = new backup_nested_element('attempts');
 
