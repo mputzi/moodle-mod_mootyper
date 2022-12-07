@@ -56,68 +56,43 @@ define('MOOTYPER_EVENT_TYPE_CLOSE', 'close');
  * @param string $feature
  * @return mixed True if yes (some features may use other values)
  */
-
 function mootyper_supports($feature) {
     global $CFG;
-    if ($CFG->branch > 311) {
-        switch ($feature) {
-            case FEATURE_MOD_PURPOSE:
-                return MOD_PURPOSE_ASSESSMENT;
-            case FEATURE_BACKUP_MOODLE2:
-                return true;
-            case FEATURE_COMPLETION_TRACKS_VIEWS:
-                return true;
-            case FEATURE_COMPLETION_HAS_RULES:
-                return true;
-            case FEATURE_GRADE_HAS_GRADE:
-                return true;
-            case FEATURE_GRADE_OUTCOMES:
-                return false;
-            case FEATURE_GROUPS;
-                return true;
-            case FEATURE_GROUPINGS:
-                return true;
-            case FEATURE_GROUPMEMBERSONLY:
-                return true;
-            case FEATURE_MOD_INTRO:
-                return true;
-            case FEATURE_RATE:
-                return true;
-            case FEATURE_SHOW_DESCRIPTION:
-                return true;
-
-            default:
-                return null;
-        }
-    } else {
-        switch ($feature) {
-            case FEATURE_BACKUP_MOODLE2:
-                return true;
-            case FEATURE_COMPLETION_TRACKS_VIEWS:
-                return true;
-            case FEATURE_COMPLETION_HAS_RULES:
-                return true;
-            case FEATURE_GRADE_HAS_GRADE:
-                return true;
-            case FEATURE_GRADE_OUTCOMES:
-                return false;
-            case FEATURE_GROUPS;
-                return true;
-            case FEATURE_GROUPINGS:
-                return true;
-            case FEATURE_GROUPMEMBERSONLY:
-                return true;
-            case FEATURE_MOD_INTRO:
-                return true;
-            case FEATURE_RATE:
-                return true;
-            case FEATURE_SHOW_DESCRIPTION:
-                return true;
-
-            default:
-                return null;
+    if ((int)$CFG->branch > 311) {
+        if ($feature === FEATURE_MOD_PURPOSE) {
+            return MOD_PURPOSE_COLLABORATION;
         }
     }
+    switch ($feature) {
+        case FEATURE_MOD_PURPOSE:
+            return MOD_PURPOSE_ASSESSMENT;
+        case FEATURE_BACKUP_MOODLE2:
+            return true;
+        case FEATURE_COMPLETION_TRACKS_VIEWS:
+            return true;
+        case FEATURE_COMPLETION_HAS_RULES:
+            return true;
+        case FEATURE_GRADE_HAS_GRADE:
+            return true;
+        case FEATURE_GRADE_OUTCOMES:
+            return false;
+        case FEATURE_GROUPS;
+            return true;
+        case FEATURE_GROUPINGS:
+            return true;
+        case FEATURE_GROUPMEMBERSONLY:
+            return true;
+        case FEATURE_MOD_INTRO:
+            return true;
+        case FEATURE_RATE:
+            return true;
+        case FEATURE_SHOW_DESCRIPTION:
+            return true;
+
+        default:
+            return null;
+    }
+
 }
 
 /**
@@ -316,7 +291,7 @@ function mootyper_add_instance($mootyper, $mform = null) {
         $mootyper->assessed = 0;
     }
 
-    if (empty($mootyper->ratingtime) or empty($mootyper->assessed)) {
+    if (empty($mootyper->ratingtime) || empty($mootyper->assessed)) {
         $mootyper->assesstimestart  = 0;
         $mootyper->assesstimefinish = 0;
     }
@@ -844,7 +819,7 @@ function mootyper_grade_item_update($mootyper, $ratings = null, $mootypergrades 
             // Note: We do not need to store the idnumber here.
         ];
 
-        if (!$mootyper->grade_mootyper) {
+        if (empty($mootyper->grade_mootyper)) {
             $item['gradetype'] = GRADE_TYPE_NONE;
         } else if ($mootyper->grade_mootyper > 0) {
             $item['gradetype'] = GRADE_TYPE_VALUE;
