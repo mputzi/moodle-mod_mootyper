@@ -103,15 +103,6 @@ class mod_mootyper_mod_form extends moodleform_mod {
         // MooTyper activity setup, Options settings.
         $mform->addElement('header', 'optionhdr', get_string('options', 'mootyper'));
 
-        /* TODO: Add a dropdown selector for isexam (the activity mode).
-        $modes = array(get_string('sflesson', 'mod_mootyper'),
-                      get_string('isexamtext', 'mod_mootyper'),
-                      get_string('practice', 'mod_mootyper'));
-        $mform->addElement('select', 'isexam', get_string('fmode', 'mootyper'), $modes);
-        $mform->addHelpButton('isexam', 'fmode', 'mootyper');
-        $mform->setDefault('isexam', $mootyperconfig->isexam);
-         */
-
         // TODO: Add a dropdown selector of lesson/category.
 
         // 20191223 Added a dropdown slector for timelimit.
