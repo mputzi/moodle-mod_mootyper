@@ -104,7 +104,7 @@ if ($directionality === 'rtl') {
             <div id="jkeyfn" class="normal" style="width: 50px;">Fn</div>
             <div id="jkeyctrll" class="normal" style="width: 60px;">Ctrl</div>
         </div>
-</section>
+    </section>
 </div>
 </div>
 <?php
@@ -183,7 +183,7 @@ if ($directionality === 'rtl') {
             <div id="jkeyfn" class="normal" style="width: 50px;">Fn</div>
             <div id="jkeyctrlr" class="normal" style="width: 60px;">Ctrl</div>
         </div>
-</section>
+    </section>
 </div>
 <?php
 }
