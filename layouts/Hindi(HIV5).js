@@ -39,14 +39,14 @@ function keyupFirst(event) {
 function keyboardElement(ltr) {
     this.chr = ltr.toLowerCase();
     this.alt = false;
-    if (isLetter(ltr)) { // Verify this is a unicode letter.
+    //if (isLetter(ltr)) { // Verify this is a unicode letter.
         // @codingStandardsIgnoreLine
-        if (ltr.match(/[ ]/)) {
-            this.shiftright = true; // Set specified shift key for right.
-        } else if (ltr.match(/[त्रक्षश्र()ःऋभङघधझढञफऱखथछठऑळशष।य़]/)) {
-            this.shiftleft = true; // Set specified shift key for left.
-        }
-    }
+        //if (ltr.match(/[्ॅऍ र्ज्ञत्रक्षश्र()ऋः]/)) {
+        //    this.shiftright = true; // Set specified shift key for right.
+        //} else if (ltr.match(/[]/)) {
+        //    this.shiftleft = true; // Set specified shift key for left.
+        //}
+    //}
 
     this.turnOn = function() {
         if (isLetter(this.chr)) {
@@ -59,10 +59,10 @@ function keyboardElement(ltr) {
         if (this.chr === '\n' || this.chr === '\r\n' || this.chr === '\n\r' || this.chr === '\r') {
             document.getElementById('jkeyenter').className = "next4";
         }
-        if (this.shiftleft) {
-            document.getElementById('jkeyshiftl').className = "next4";
-        }
-        if (this.shiftright) {
+        //if (this.shiftleft) {
+        //    document.getElementById('jkeyshiftl').className = "next4";
+        //}
+        //if (this.shiftright) {
             document.getElementById('jkeyshiftr').className = "next4";
         }
     };
@@ -80,12 +80,12 @@ function keyboardElement(ltr) {
         if (this.chr === '\n' || this.chr === '\r\n' || this.chr === '\n\r' || this.chr === '\r') {
             document.getElementById('jkeyenter').classname = "normal";
         }
-        if (this.shiftleft) {
-            document.getElementById('jkeyshiftl').className = "normal";
-        }
-        if (this.shiftright) {
-            document.getElementById('jkeyshiftr').className = "normal";
-        }
+        //if (this.shiftleft) {
+        //    document.getElementById('jkeyshiftl').className = "normal";
+        //}
+        //if (this.shiftright) {
+        //    document.getElementById('jkeyshiftr').className = "normal";
+        //}
     };
 }
 
