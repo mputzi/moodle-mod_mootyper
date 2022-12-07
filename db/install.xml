@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<XMLDB PATH="mod/mootyper/db" VERSION="20200731" COMMENT="XMLDB file for Moodle mod/mootyper"
+<XMLDB PATH="mod/mootyper/db" VERSION="20220810" COMMENT="XMLDB file for Moodle mod/mootyper"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:noNamespaceSchemaLocation="../../../lib/xmldb/xmldb.xsd"
 >
@@ -41,6 +41,7 @@
         <FIELD NAME="textbgc" TYPE="char" LENGTH="20" NOTNULL="true" SEQUENCE="false" COMMENT="Text to type background color setting."/>
         <FIELD NAME="texterrorcolor" TYPE="char" LENGTH="20" NOTNULL="true" SEQUENCE="false" COMMENT="Background color setting for mis-typed letters."/>
         <FIELD NAME="countmistakes" TYPE="int" LENGTH="1" NOTNULL="true" DEFAULT="0" SEQUENCE="false" COMMENT="Count all keystroke mistakes, or just once per key."/>
+        <FIELD NAME="completionlesson" TYPE="int" LENGTH="2" NOTNULL="false" DEFAULT="0" SEQUENCE="false"/>
       </FIELDS>
       <KEYS>
         <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
