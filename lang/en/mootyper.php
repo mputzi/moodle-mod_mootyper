@@ -42,7 +42,10 @@ $string['charttitlemyowngrades'] = 'My Own Grades';
 $string['chere'] = 'Click here to start';
 $string['closebeforeopen'] = 'Could not update the MooTyper. You have specified a close date before the open date.';
 
-$string['completiondetail:lesson'] = 'Completed exercises in lesson: {$a}%';
+$string['completiondetail:lesson'] = 'Student must complete lesson:x {$a}';
+$string['completionlessondesc'] = 'Student must complete lesson:y {$a}';
+$string['completionlessongroup'] = 'Require completion';
+$string['completionlesson'] = 'Student must complete {$a->one} exercises for lesson {$a->two}. ';
 
 $string['configdateformat'] = 'This defines how dates are shown in grade reports. The default value, "M d, Y G:i" is Month, day, year and 24 hour format time. Refer to Date in the PHP manual for more examples and predefined date constants.';
 $string['configrequirepassword'] = 'Configure password';
@@ -56,6 +59,10 @@ $string['countmistakes_help'] = 'If enabled, all keystrokes for the same mistake
 $string['countmistypedspaces'] = 'Count mistyped spaces';
 $string['countmistypedspaces_help'] = 'If enabled, a mistyped space is counted as a mistake.';
 $string['course_exercises_viewed'] = 'Viewed exercises';
+
+$string['createdin'] = 'Created in course: ';
+
+
 $string['crontask'] = 'Background processing for MooTyper module';
 $string['csvexport'] = 'Export to .csv';
 $string['cursorcolor_title'] = 'Cursor color';
@@ -143,6 +150,8 @@ $string['grade_mootyper_title'] = 'Grade';
 $string['grade_rating_name'] = 'Rating';
 $string['gviewmode'] = 'View';
 $string['hitsperminute'] = 'Hits/minute';
+$string['incorrectmodule'] = 'Course Module ID was incorrect';
+
 $string['invalidaccess'] = 'Invalid access';
 $string['invalidaccessexp'] = 'You do not have permission to view the page you attempted to access! The attempt was logged!';
 $string['isexamtext'] = 'Exam';
@@ -162,12 +171,15 @@ $string['layout_deleted'] = 'Keyboard layout deleted';
 $string['layout_help'] = 'You can select a Keyboard layout to be shown when the Show keyboard option is set to Yes.';
 $string['layout_imported'] = 'Keyboard layout imported';
 $string['lesson_completed'] = 'Lesson completed';
+$string['lesson_deleted'] = 'Deleted a lesson and its exercises';
 $string['lesson_export'] = 'Lesson export setting';
 $string['lesson_export_filename'] = 'Lesson export filename';
 $string['lesson_export_filenameconfig'] = 'Add GMT as part of exported lesson filenames for simple versioning system.';
 $string['lesson_exported'] = 'Exported lesson';
 $string['lesson_imported'] = 'Imported lesson';
-$string['lesson_deleted'] = 'Deleted a lesson and its exercises';
+
+$string['lessonincluded'] = 'This lesson was included with the MooTyper plugin.';
+
 $string['loginfail'] = 'Login failed, please try again...';
 $string['loheading'] = 'Manage MooTyper Layouts';
 $string['lsnname'] = 'Lesson name';
