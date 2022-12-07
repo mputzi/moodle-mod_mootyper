@@ -42,10 +42,44 @@ If you like the plugin and want to say hi publicly instead of
 sending an email, leave a comment at
 
     https://moodle.org/plugins/mod_mootyper
+===============
+=== Deferred to next version. ===
+20220505 MooTyper_836v - Completion file custom_completion.php needs work especially for
+    completexercise. 20220813 Added four missing functions for completionlesson to the
+    mod_form.php file so that now the extra selection check box shows when setting the
+    completion requirements.
+20211121 MooTyper_757v - Issue#99 at github Error in phpUnit for core_calender.
+    20220413 Got a pull request that fixes this. More info at:
+    https://github.com/drachels/moodle-mod_mootyper/issues/99. I've applied
+    the pull request, but have not had time to verify the fix.
+
 
 Moodle Versions
 ===============
-=== 4.2.0 === pending
+
+
+=== 4.2.1 === release pending
+20200521 MooTyper_458v - Site admin should be able to see who created and can edit an
+    exercise or a lesson. Added the needed information code to eedit.php.
+20220413 MooTyper_843v - When using PostgreSQL, View all grades, is broken for, All
+    participants. In gview.php, about line 153, changed $groups = ''; to $groups = 0; 
+20220729 MooTyper_901v - Need two new strings in eedit.php about line 287 and 289
+    regarding changing lesson info. Added the two new strings, "This lesson was
+    included with the MooTyper plugin." and "Created in course:."
+20220816 MooTyper_908v - Grade to pass in Whole MooTyper grading should automatically
+    use the defaultprecision. Made changes in the mod_form.php file.
+20220922 MooTyper_923v - I think the, Export/edit exercises, link needs to be moved up
+    in the nav link hierarchy. In the lib.php file, down around line 1196, I moved the
+    code for the, Export/edit exercises, link so that it gets added to the navigation
+    hierarchy sooner. Still visible only if the teacher can edit the lesson being used.
+20221023 MooTyper_940v - Need to create new icons, monologo.svg and monologo.png.
+    Created both icons and they are being used in this Moodle 4.x.x site.
+20221127 MooTyper_967v - #108 From the MooTyper settings page, other Moodtype nav links
+    are broken. The fix is to specify the the complete path. e.g. $link = new
+    moodle_url('/mod/mootyper/eins.php', array('id' => $cm->id)); See ticket for
+    specific changes that were made.
+
+=== 4.2.0 === released 20220403
 20220128 MooTyper_814 - Need string for authorid on the exercises.php page button. Added
     the string and code needed to display it about line 148 of file exercises.php. 
 20220128 MooTyper_699 - Create Hindi(HIV5) KB Layout. Created the initial versions of the
@@ -105,7 +139,7 @@ Moodle Versions
 
 
 === 4.0.0 === release 2021041600
-20210325  MooTyper_619/259 Need to add capability to add names to exercise name numbers.
+20210325 MooTyper_619/259 Need to add capability to add names to exercise name numbers.
     Done and testing.
 20210326 MooTyper_441/180 - Use current MooTyper for layouts.php background color. Implemented.
 20210327 MooTyper_459/198 - It would be nice if a Lesson name could be edited. Got this
