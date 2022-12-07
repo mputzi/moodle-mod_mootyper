@@ -67,7 +67,9 @@ class mod_mootyper_renderer extends plugin_renderer_base {
         }
 
         if ($CFG->branch > 310) {
-            // 20220214 New code from pull request. However, needs to take in to account to show completion only when all the exercises are done, or if it is an exam, after just the one exercise of the exam.
+            // 20220214 New code from pull request. However, needs to take in to account to show
+            // completion only when all the exercises are done, or if it is an exam, after just
+            // the one exercise of the exam.
             $cminfo = cm_info::create($cm);
             $completiondetails = \core_completion\cm_completion_details::get_instance($cminfo, $USER->id);
             $activitydates = \core\activity_dates::get_dates_for_module($cminfo, $USER->id);
