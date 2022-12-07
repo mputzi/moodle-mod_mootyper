@@ -348,7 +348,7 @@ if (has_capability('mod/mootyper:aftersetup', context_module::instance($cm->id))
     $lessons = lessons::get_mootyperlessons($USER->id, $course->id);
 }
 
-// Start building htmlout for this page based on exam or lesson exercise.
+// Start building htmlout for this page based on exam or lesson exercise. Mode = 0 is Lesson.
 if ($modepo == 0 || is_null($modepo)) { // If mode is 0, this is a lesson?
     $htmlout .= '<option selected="true" value="0">'.get_string('sflesson', 'mootyper').'</option>
         <option value="1">'.get_string('isexamtext', 'mootyper').'</option>
