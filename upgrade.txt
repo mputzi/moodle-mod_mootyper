@@ -44,25 +44,34 @@ sending an email, leave a comment at
     https://moodle.org/plugins/mod_mootyper
 ===============
 === Deferred to next version. ===
-20220505 MooTyper_836v - Completion file custom_completion.php needs work especially for
-    completexercise. 20220813 Added four missing functions for completionlesson to the
-    mod_form.php file so that now the extra selection check box shows when setting the
-    completion requirements.
-20211121 MooTyper_757v - Issue#99 at github Error in phpUnit for core_calender.
-    20220413 Got a pull request that fixes this. More info at:
-    https://github.com/drachels/moodle-mod_mootyper/issues/99. I've applied
-    the pull request, but have not had time to verify the fix.
+
+
 
 
 Moodle Versions
 ===============
+=== 4.2.2 === posted 20230104
+20221008 MooTyper_930 - In exam mode, WPM by itself, does not generate a grade. See the
+    ticket for specific details. Added one string, modified a $sql, added automatic
+    feedback, and added multiple if checks to create the correct raw grade needed
+    by the Moodle rating and grading systems.
+20230103 MooTyper_980 - In practice and lesson modes, WPM by itself, does not generate
+    the correct rating for the grade book. Deferred to MooTyper_930 as the fix for it
+    will also fix this ticket.
 
-
-=== 4.2.1 === release pending
+=== 4.2.1 === released 20221207
 20200521 MooTyper_458v - Site admin should be able to see who created and can edit an
     exercise or a lesson. Added the needed information code to eedit.php.
+20211121 MooTyper_757v - Issue#99 at github Error in phpUnit for core_calender.
+    20220413 Got a pull request that fixes this. More info at:
+    https://github.com/drachels/moodle-mod_mootyper/issues/99. I've applied
+    the pull request, but have not had time to verify the fix.
 20220413 MooTyper_843v - When using PostgreSQL, View all grades, is broken for, All
-    participants. In gview.php, about line 153, changed $groups = ''; to $groups = 0; 
+    participants. In gview.php, about line 153, changed $groups = ''; to $groups = 0;
+20220505 MooTyper_836v - Completion file custom_completion.php needs work especially for
+    completexercise. 20220813 Added four missing functions for completionlesson to the
+    mod_form.php file so that now the extra selection check box shows when setting the
+    completion requirements.
 20220729 MooTyper_901v - Need two new strings in eedit.php about line 287 and 289
     regarding changing lesson info. Added the two new strings, "This lesson was
     included with the MooTyper plugin." and "Created in course:."
