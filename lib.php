@@ -871,17 +871,15 @@ function mootyper_update_grades($mootyper, $userid=0): void {
     }
 
     $mootypergrades = null;
-    if ($mootyper->requiredgoal) {
-        $sql = <<<EOF
-SELECT
-    g.userid,
-    0 as datesubmitted,
-    g.grade as rawgrade,
-    g.timetaken as dategraded
-  FROM {mootyper} m
-  JOIN {mootyper_grades} g ON g.mootyper = m.id
- WHERE m.id = :mootyperid
-EOF;
+    if (($mootyper->requiredgoal) || ($mootyper->requiredwpm)) {
+        $sql = "SELECT g.userid,
+                       0 as datesubmitted,
+                       g.grade as rawgrade,
+                       g.timetaken as dategraded,
+                       g.mistakedetails
+                  FROM {mootyper} m
+                  JOIN {mootyper_grades} g ON g.mootyper = m.id
+                 WHERE m.id = :mootyperid";
 
         $params = [
             'mootyperid' => $mootyper->id,
@@ -896,6 +894,7 @@ EOF;
         if ($grades = $DB->get_recordset_sql($sql, $params)) {
             foreach ($grades as $userid => $grade) {
                 if ($grade->rawgrade != -1) {
+                    $grade->feedback = $grade->mistakedetails;
                     $mootypergrades[$userid] = $grade;
                 }
             }
