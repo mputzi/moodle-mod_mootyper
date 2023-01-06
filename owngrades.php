@@ -136,6 +136,7 @@ if (!has_capability('mod/mootyper:viewmygrades', context_module::instance($cm->i
     $arrtextadds[8] = '<span class="arrow-s" style="font-size:1em;"></span>';
     $arrtextadds[9] = '<span class="arrow-s" style="font-size:1em;"></span>';
     $arrtextadds[12] = '<span class="arrow-s" style="font-size:1em;"></span>';
+    $arrtextadds[13] = '<span class="arrow-s" style="font-size:1em;"></span>';
     $arrtextadds[$orderby] = $des == -1 || $des == 1 ? '<span class="arrow-s" style="font-size:1em;">
         </span>' : '<span class="arrow-n" style="font-size:1em;"></span>';
     if ($grds != false) {
@@ -155,6 +156,8 @@ if (!has_capability('mod/mootyper:viewmygrades', context_module::instance($cm->i
             .get_string('timetaken', 'mootyper').'</a>'.$arrtextadds[9].'</td>
             <td><a href="?id='.$id.'&n='.$n.'&orderby=12'.$lnkadd.'">'
             .get_string('wpm', 'mootyper').'</a>'.$arrtextadds[12].'</td>
+            <td><a href="?id='.$id.'&n='.$n.'&orderby=12'.$lnkadd.'">'
+            .get_string('gradenoun').'</a>'.$arrtextadds[13].'</td>
             <td>'.get_string('delete', 'mootyper').'</td></tr>';
 
         foreach ($grds as $gr) {
@@ -206,6 +209,7 @@ if (!has_capability('mod/mootyper:viewmygrades', context_module::instance($cm->i
                 <td>'.format_float($gr->precisionfield).'%</td>
                 <td>'.date(get_config('mod_mootyper', 'dateformat'), $gr->timetaken).'</td>
                 <td>'.format_float($gr->wpm).'</td>
+                <td>'.format_float($gr->grade).'</td>
                 <td>'.$removelnk.'</td>
                 <td>'.' '.'</td>
                 </tr>';
@@ -213,6 +217,7 @@ if (!has_capability('mod/mootyper:viewmygrades', context_module::instance($cm->i
             $serieshitsperminute[] = $gr->hitsperminute; // Get the hits per minute value.
             $seriesprecision[] = $gr->precisionfield;  // Get the precision percentage value.
             $serieswpm[] = $gr->wpm; // Get the corrected words per minute rate.
+            $seriesgrade[] = $gr->grade; // Get the grade value.
         }
 
         // 20200704 Added code to include avg date of completion and avg wpm.
@@ -239,6 +244,7 @@ if (!has_capability('mod/mootyper:viewmygrades', context_module::instance($cm->i
                 <td>'.format_float($mean['precisionfield']).'%</td>
                 <td>'.date(get_config('mod_mootyper', 'dateformat'), $mean['timetaken']).'</td>
                 <td>'.format_float($mean['wpm']).'</td>
+                <td>'.format_float($mean['grade']).'</td>
                 <td></td>
                 </tr>';
             // 20200727 Print medians.
@@ -251,6 +257,7 @@ if (!has_capability('mod/mootyper:viewmygrades', context_module::instance($cm->i
                 <td>'.format_float($median['precisionfield']).'%</td>
                 <td>'.date(get_config('mod_mootyper', 'dateformat'), $median['timetaken']).'</td>
                 <td>'.format_float($median['wpm']).'</td>
+                <td>'.format_float($median['grade']).'</td>
                 <td></td>
                 </tr>';
             // 20200727 Print modes.
@@ -263,6 +270,7 @@ if (!has_capability('mod/mootyper:viewmygrades', context_module::instance($cm->i
                 <td>'.$mode['precisionfield'].'</td>
                 <td>'.$mode['timetaken'].'</td>
                 <td>'.$mode['wpm'].'</td>
+                <td>'.$mode['grade'].'</td>
                 <td></td>
                 </tr>';
             // 20200727 Print ranges.
@@ -275,6 +283,7 @@ if (!has_capability('mod/mootyper:viewmygrades', context_module::instance($cm->i
                 <td>'.format_float($range['precisionfield']).'%</td>
                 <td>'.$range['timetaken'].'</td>
                 <td>'.format_float($range['wpm']).'</td>
+                <td>'.format_float($range['grade']).'</td>
                 <td></td>
                 </tr>';
         }
@@ -313,13 +322,15 @@ if (($grds != false) && ($CFG->branch > 31)) {  // If there are NOT any grades, 
     $serie1 = new core\chart_series(get_string('hitsperminute', 'mootyper'), $serieshitsperminute);
     $serie2 = new core\chart_series(get_string('precision', 'mootyper'), $seriesprecision);
     $serie3 = new core\chart_series(get_string('wpm', 'mootyper'), $serieswpm);
+    $serie4 = new core\chart_series(get_string('gradenoun'), $seriesgrade);
 
     $chart = new core\chart_bar();  // Tell the api I want a bar chart.
     $chart->set_horizontal(true); // Calling set_horizontal() passing true as parameter will display horizontal bar charts.
     $chart->set_title(get_string('charttitlemyowngrades', 'mootyper')); // Tell the api what I want for a chart title.
-    $chart->add_series($serie1);  // Pass the hits per minute data to the api.
+    //$chart->add_series($serie1);  // Pass the hits per minute data to the api.
     $chart->add_series($serie2);  // Pass the precision data to the api.
     $chart->add_series($serie3);  // Pass the words per minute data to the api.
+    $chart->add_series($serie4);  // Pass the grade data to the api.
     $chart->set_labels($labels);  // Pass the exercise number data to the api.
     $chart->get_xaxis(0, true)->set_label(get_string('xaxislabel', 'mootyper'));  // Pass a label to add to the x-axis.
     $chart->get_yaxis(0, true)->set_label(get_string('fexercise', 'mootyper')); // Pass the label to add to the y-axis.

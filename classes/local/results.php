@@ -98,6 +98,7 @@ class results {
         $avg['precisionfield'] = 0;
         $avg['timetaken'] = 0;
         $avg['wpm'] = 0;
+        $avg['grade'] = 0;
         foreach ($grades as $g) {
             $avg['mistakes'] += $g->mistakes;
             $avg['timeinseconds'] += $g->timeinseconds;
@@ -106,6 +107,7 @@ class results {
             $avg['precisionfield'] += $g->precisionfield;
             $avg['timetaken'] += $g->timetaken;
             $avg['wpm'] += $g->wpm;
+            $avg['grade'] += $g->grade;
         }
         $c = count($grades);
         $avg['mistakes'] = $avg['mistakes'] / $c;
@@ -115,6 +117,7 @@ class results {
         $avg['precisionfield'] = $avg['precisionfield'] / $c;
         $avg['timetaken'] = $avg['timetaken'] / $c;
         $avg['wpm'] = $avg['wpm'] / $c;
+        $avg['grade'] = $avg['grade'] / $c;
         // Due to limited display space, round off the results.
         $avg['mistakes'] = round($avg['mistakes'], 0);
         $avg['timeinseconds'] = round($avg['timeinseconds'], 0);
@@ -123,6 +126,7 @@ class results {
         $avg['precisionfield'] = round($avg['precisionfield'], 2);
         $avg['timetaken'] = round($avg['timetaken'], 0);
         $avg['wpm'] = round($avg['wpm'], 2);
+        $avg['grade'] = round($avg['grade'], 2);
         return $avg;
     }
 
@@ -141,6 +145,7 @@ class results {
         $mean['precisionfield'] = 0;
         $mean['timetaken'] = 0;
         $mean['wpm'] = 0;
+        $mean['grade'] = 0;
         foreach ($grades as $g) {
             $mean['mistakes'] += $g->mistakes;
             $mean['timeinseconds'] += $g->timeinseconds;
@@ -149,6 +154,7 @@ class results {
             $mean['precisionfield'] += $g->precisionfield;
             $mean['timetaken'] += $g->timetaken;
             $mean['wpm'] += $g->wpm;
+            $mean['grade'] += $g->grade;
         }
         $c = count($grades);
         $mean['mistakes'] = $mean['mistakes'] / $c;
@@ -158,6 +164,7 @@ class results {
         $mean['precisionfield'] = $mean['precisionfield'] / $c;
         $mean['timetaken'] = $mean['timetaken'] / $c;
         $mean['wpm'] = $mean['wpm'] / $c;
+        $mean['grade'] = $mean['grade'] / $c;
 
         // Due to limited display space, round off the results.
         $mean['mistakes'] = round($mean['mistakes'], 2);
@@ -167,6 +174,7 @@ class results {
         $mean['precisionfield'] = round($mean['precisionfield'], 2);
         $mean['timetaken'] = round($mean['timetaken'], 0);
         $mean['wpm'] = round($mean['wpm'], 2);
+        $mean['grade'] = round($mean['grade'], 2);
         return $mean;
     }
 
@@ -185,6 +193,7 @@ class results {
         $precisionfield = array();
         $timetaken = array();
         $wpm = array();
+        $grade = array();
 
         $c = count($grades);
 
@@ -196,6 +205,7 @@ class results {
             $precisionfield[$c] = $g->precisionfield;
             $timetaken[$c] = $g->timetaken;
             $wpm[$c] = $g->wpm;
+            $grade[$c] = $g->grade;
             $c = $c - 1;
         }
 
@@ -283,6 +293,18 @@ class results {
         }
         $median['wpm'] = $total;
 
+        sort($grade);
+        $count = count($grade);
+        $index = floor($count / 2);
+        if (!$count) {
+            $total = "no values";
+        } else if ($count & 1) {    // Count is odd.
+            $total = $grade[$index];
+        } else {                   // Count is even.
+            $total = ($grade[$index - 1] + $grade[$index]) / 2;
+        }
+        $median['grade'] = $total;
+
         return $median;
     }
 
@@ -301,6 +323,7 @@ class results {
         $precisionfield = array();
         $timetaken = array();
         $wpm = array();
+        $grade = array();
 
         $c = count($grades);
 
@@ -314,6 +337,7 @@ class results {
             // mode to nearest month, day, year, hour and minute.
             $timetaken[$c] = date(get_config('mod_mootyper', 'dateformat'), $g->timetaken);
             $wpm[$c] = $g->wpm;
+            $grade[$c] = $g->grade;
             $c = $c - 1;
         }
 
@@ -408,6 +432,19 @@ class results {
             $mode['wpm'] = format_float($total);
         }
 
+        // Calculate mode for Grade.
+        $v = array_count_values($grade);
+        arsort($v);
+        foreach ($v as $k => $v) {
+            $total = $k;
+            break;
+        }
+        if ($v <= 1) {
+            $mode['grade'] = get_string('nomode', 'mootyper');
+        } else {
+            $mode['grade'] = format_float($total);
+        }
+
         return $mode;
     }
 
@@ -426,6 +463,7 @@ class results {
         $precisionfield = array();
         $timetaken = array();
         $wpm = array();
+        $grade = array();
 
         $c = count($grades);
 
@@ -437,6 +475,7 @@ class results {
             $precisionfield[$c] = $g->precisionfield;
             $timetaken[$c] = $g->timetaken;
             $wpm[$c] = $g->wpm;
+            $grade[$c] = $g->grade;
             $c = $c - 1;
         }
 
@@ -458,6 +497,7 @@ class results {
         $range['timetaken'] = $days.' d '.$hours.' h '.$minutes.' m ';
 
         $range['wpm'] = max($wpm) - min($wpm);
+        $range['grade'] = max($grade) - min($grade);
 
         return $range;
     }

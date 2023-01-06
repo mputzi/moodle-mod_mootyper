@@ -149,6 +149,7 @@ function get_typer_grades_adv($mootyperid, $exerciseid, $userid=0, $orderby=-1, 
                     .$gradestblname.".timetaken, "
                     .$exertblname.".exercisename, "
                     .$gradestblname.".wpm,"
+                    .$gradestblname.".grade,"
                     .$gradestblname.".mistakedetails".
     " FROM ".$gradestblname.
     " LEFT JOIN ".$userstblname." ON ".$gradestblname.".userid = ".$userstblname.".id".
@@ -182,6 +183,8 @@ function get_typer_grades_adv($mootyperid, $exerciseid, $userid=0, $orderby=-1, 
         $oby = " ORDER BY ".$gradestblname.".pass";
     } else if ($orderby == 12) {
         $oby = " ORDER BY ".$gradestblname.".wpm";
+    } else if ($orderby == 13) {
+        $oby = " ORDER BY ".$gradestblname.".grade";
     } else {
         $oby = "";
     }
@@ -225,6 +228,7 @@ function get_typergradesuser($sid, $uid, $orderby=-1, $desc=false) {
                     .$gradestblname.".timetaken, "
                     .$exertblname.".exercisename, "
                     .$gradestblname.".wpm,"
+                    .$gradestblname.".grade,"
                     .$gradestblname.".mistakedetails".
     " FROM ".$gradestblname.
     " LEFT JOIN ".$userstblname." ON ".$gradestblname.".userid = ".$userstblname.".id".
@@ -255,6 +259,8 @@ function get_typergradesuser($sid, $uid, $orderby=-1, $desc=false) {
         $oby = " ORDER BY ".$exertblname.".exercisename";
     } else if ($orderby == 12) {
         $oby = " ORDER BY ".$gradestblname.".wpm";
+    } else if ($orderby == 13) {
+        $oby = " ORDER BY ".$gradestblname.".grade";
     } else {
         $oby = "";
     }

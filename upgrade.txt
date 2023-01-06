@@ -58,6 +58,13 @@ Moodle Versions
 20230103 MooTyper_980 - In practice and lesson modes, WPM by itself, does not generate
     the correct rating for the grade book. Deferred to MooTyper_930 as the fix for it
     will also fix this ticket.
+20230105 MooTyper_981 - Need new grade/rating coloumn for grade table on grade pages.
+    Made needed changes in gview.php, lib.php, owngrades.php, and results.php. I now
+    am getting a grade column when viewing the owngrades.php page and the gview.php
+    page. Might want to see about adding the grade data to the charts.
+20230105 MooTyper_982 - Need to enable new grade chart bar and possibly add an on/off
+    toggle for each bar. Added a new series 4 for grades. Temporarily commented out
+    series 1 for hits per minute, resulting in a x-axis that goes from 0 to 100.
 
 === 4.2.1 === released 20221207
 20200521 MooTyper_458v - Site admin should be able to see who created and can edit an

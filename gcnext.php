@@ -95,7 +95,10 @@ $mootyper = $DB->get_record('mootyper', array('id' => $record->mootyper), '*', M
 // 20230102 Update $record->grade and $record->mistakedetails as needed to get the correct grade or rating.
 if (($mootyper->requiredgoal == 0) && ($mootyper->requiredwpm > 0)) {
     // Results for WPM only.
-    $record->grade = (max(0, optional_param('rpWpmInput', '', PARAM_FLOAT)));
+    // This gives incorrect results as it does not take into account the scale value!
+    //$record->grade = (max(0, optional_param('rpWpmInput', '', PARAM_FLOAT)));
+    $record->grade = (min($mootyper->scale, ($mootyper->scale * ((max(0, optional_param('rpWpmInput', '', PARAM_FLOAT)))
+                     / $mootyper->requiredwpm))));
 } else if (($mootyper->requiredgoal > 0) && ($mootyper->requiredwpm > 0)) {
     // Results for both goal and wpm.
     $halfscale = $mootyper->scale / 2;
@@ -104,7 +107,11 @@ if (($mootyper->requiredgoal == 0) && ($mootyper->requiredwpm > 0)) {
                      / $mootyper->requiredwpm)))));
 } else if (($mootyper->requiredgoal > 0) && ($mootyper->requiredwpm == 0)) {
     // Results for goal only.
-    $record->grade = optional_param('rpAccInput', '', PARAM_FLOAT);
+    // Just like wpm only, this will give the wrong results as it does not take into account the scale value.
+    //$record->grade = optional_param('rpAccInput', '', PARAM_FLOAT);
+    $record->grade = (min(100, ($mootyper->scale * (optional_param('rpAccInput', '', PARAM_FLOAT) / 100))));
+
+
 } else if (($mootyper->requiredgoal == 0) && ($mootyper->requiredwpm == 0)) {
     // Results for no goal and no wpm.
     $record->grade = null;
