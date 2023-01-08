@@ -156,7 +156,7 @@ if (!has_capability('mod/mootyper:viewmygrades', context_module::instance($cm->i
             .get_string('timetaken', 'mootyper').'</a>'.$arrtextadds[9].'</td>
             <td><a href="?id='.$id.'&n='.$n.'&orderby=12'.$lnkadd.'">'
             .get_string('wpm', 'mootyper').'</a>'.$arrtextadds[12].'</td>
-            <td><a href="?id='.$id.'&n='.$n.'&orderby=12'.$lnkadd.'">'
+            <td><a href="?id='.$id.'&n='.$n.'&orderby=13'.$lnkadd.'">'
             .get_string('gradenoun').'</a>'.$arrtextadds[13].'</td>
             <td>'.get_string('delete', 'mootyper').'</td></tr>';
 

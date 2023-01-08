@@ -259,7 +259,7 @@ if (!has_capability('mod/mootyper:viewgrades', context_module::instance($cm->id)
             .get_string('timetaken', 'mootyper').'</a>'.$arrtextadds[9].'</td>
             <td><a href="?id='.$id.'&n='.$n.'&orderby=12'.$lnkadd.'">'
             .get_string('wpm', 'mootyper').'</a>'.$arrtextadds[12].'</td>
-            <td><a href="?id='.$id.'&n='.$n.'&orderby=12'.$lnkadd.'">'
+            <td><a href="?id='.$id.'&n='.$n.'&orderby=13'.$lnkadd.'">'
             .get_string('gradenoun').'</a>'.$arrtextadds[13].'</td>
             <td>'.get_string('delete', 'mootyper').'</td></tr>';
 
@@ -418,6 +418,7 @@ echo ' <a href="'.$CFG->wwwroot.'/mod/mootyper/csvexport.php?mootyperid='.$mooty
     .'&timelimit='.$mootyper->timelimit
     .'&requiredgoal='.$mootyper->requiredgoal
     .'&requiredwpm='.$mootyper->requiredwpm
+    .'&scale='.$mootyper->scale
     .'"class="btn btn-secondary" style="border-radius: 8px">'.get_string('csvexport', 'mootyper')
     .'</a>';
 
