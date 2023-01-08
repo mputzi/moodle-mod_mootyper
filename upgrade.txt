@@ -65,6 +65,15 @@ Moodle Versions
 20230105 MooTyper_982 - Need to enable new grade chart bar and possibly add an on/off
     toggle for each bar. Added a new series 4 for grades. Temporarily commented out
     series 1 for hits per minute, resulting in a x-axis that goes from 0 to 100.
+20230106 MooTyper_983 - Need new grade data added to CSV download file.  Made code
+    changes to gview.php and csvexport.php. Data is now in the download.
+20230107 MooTyper_984 - Sort controls on gview.php and owngrades.php pages are not
+    working correctly. Fixed them, both pages, and they now appear to be working
+    correctly.
+20230108 MooTyper_985 - Need date/time added to CSVexport file name. Added code
+    that pastes the current date and time into the file name, just before the .csv
+    at the end of the file name.
+
 
 === 4.2.1 === released 20221207
 20200521 MooTyper_458v - Site admin should be able to see who created and can edit an
