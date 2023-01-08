@@ -54,6 +54,7 @@ function array_to_csv_download($array, $filename = "export.csv", $delimiter=";")
     $timelimit = optional_param('timelimit', 0, PARAM_INT); // Get the timelimit for this MooTyper.
     $requiredgoal = optional_param('requiredgoal', 0, PARAM_INT); // Get the required precision goal for this MooTyper.
     $requiredwpm = optional_param('requiredwpm', 0, PARAM_INT); // Get the required precision goal for this MooTyper.
+    $scale = optional_param('scale', 0, PARAM_INT); // Get the scale for this MooTyper.
 
     $cm = get_coursemodule_from_id('mootyper', $id, 0, false, MUST_EXIST);
     $context = context_module::instance($cm->id);
@@ -78,13 +79,14 @@ function array_to_csv_download($array, $filename = "export.csv", $delimiter=";")
     }
 
     // Create a spreadsheet csv filename based on the lesson name.
-    $filename = get_string('flesson', 'mootyper')."_".$lsnname.'.csv';
+    $filename = get_string('flesson', 'mootyper')."_".$lsnname.'_'.gmdate("Ymd_Hi").'GMT.csv';
 
     // Get the lesson name, required precision, and required WPM for the csv spreadsheet row 1 entry.
     $lsnname = get_string('flesson', 'mootyper')." = ".$lsnname;
     $timelimit = get_string('timelimit', 'mootyper')." = ".$timelimit.":00 ".get_string('minutes');
     $requiredgoal = get_string('requiredgoal', 'mootyper').' = '.$requiredgoal.'%';
     $requiredwpm = get_string('requiredwpm', 'mootyper').' = '.$requiredwpm;
+    $scale = get_string('gradenoun').' = '.$scale;
 
     // Trigger export_viewallgrades_to_csv event.
     $params = array(
@@ -115,7 +117,8 @@ function array_to_csv_download($array, $filename = "export.csv", $delimiter=";")
                      $lsnname,
                      $timelimit,
                      $requiredgoal,
-                     $requiredwpm);
+                     $requiredwpm,
+                     $scale);
 
     $headings = array(get_string('student', 'mootyper'),
                       get_string('fexercise', 'mootyper'),
@@ -125,7 +128,8 @@ function array_to_csv_download($array, $filename = "export.csv", $delimiter=";")
                       get_string('fullhits', 'mootyper'),
                       get_string('precision', 'mootyper'),
                       get_string('timetaken', 'mootyper'),
-                      get_string('wpm', 'mootyper'));
+                      get_string('wpm', 'mootyper'),
+                      get_string('gradenoun'));
     fputcsv($f, $details, $delimiter);
     fputcsv($f, $headings, $delimiter);
     foreach ($array as $gr) {
@@ -136,8 +140,9 @@ function array_to_csv_download($array, $filename = "export.csv", $delimiter=";")
                         format_float($gr->hitsperminute),
                         $gr->fullhits,
                         format_float($gr->precisionfield).'%',
-                        date(get_config('mod_mootyper', 'dateformat'),
-                        $gr->timetaken), $gr->wpm);
+                        date(get_config('mod_mootyper', 'dateformat'), $gr->timetaken),
+                        $gr->wpm,
+                        $gr->grade);
         fputcsv($f, $fields, $delimiter);
     }
     fclose($f);
