@@ -73,7 +73,9 @@ Moodle Versions
 20230108 MooTyper_985 - Need date/time added to CSVexport file name. Added code
     that pastes the current date and time into the file name, just before the .csv
     at the end of the file name.
-
+20230108 MooTyper_986 - Postgresql error in gcnext.php at line 141. The Moodle
+    ratings table expects an integer, so I changed the code to give 0 decimals.
+    See the ticket for exact details. 
 
 === 4.2.1 === released 20221207
 20200521 MooTyper_458v - Site admin should be able to see who created and can edit an
