@@ -138,7 +138,7 @@ if ($mootyper->assessed) {
     $ratingoptions->ratingarea = 'exercises';
     $ratingoptions->itemid = $rec->id;
     $ratingoptions->scaleid = $mootyper->scale;
-    $ratingoptions->rating = $record->grade;
+    $ratingoptions->rating = number_format($record->grade, 0);
     $ratingoptions->userid = $record->userid;
     $ratingoptions->timecreated = $record->timetaken;
     $ratingoptions->timemodified = $record->timetaken;
