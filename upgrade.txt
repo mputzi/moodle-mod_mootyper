@@ -76,7 +76,10 @@ Moodle Versions
 20230108 MooTyper_986 - Postgresql generates errors in proposed MooTyper v4.2.2. 
     The Moodle ratings table expects an integer, so I changed the code to give 0 decimals.
     Also, with PostgreSQL the $exercises table order is scrambled. Fixed by sorting
-    the table before use. See the ticket for exact details. 
+    the table before use. See the ticket for exact details.
+20230114 MooTyper_991 - Got debug message regarding duplicate values in column 'firstname'.
+    The function in lib.php had an SQL that was getting unique users by firstname. The
+    fix was to reorder the SQL and get the users id first. 
 
 === 4.2.1 === released 20221207
 20200521 MooTyper_458v - Site admin should be able to see who created and can edit an

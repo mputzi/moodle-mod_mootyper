@@ -105,9 +105,9 @@ function get_users_of_one_instance($mootyperid) {
     $toreturn = array();
     $gradestblname = $CFG->prefix."mootyper_grades";
     $userstblname = $CFG->prefix."user";
-    $sql = "SELECT DISTINCT ".$userstblname.".firstname, "
-                             .$userstblname.".lastname, "
-                             .$userstblname.".id".
+    $sql = "SELECT DISTINCT ".$userstblname.".id, "
+                             .$userstblname.".firstname, "
+                             .$userstblname.".lastname".
                      " FROM ".$gradestblname.
                 " LEFT JOIN ".$userstblname." ON ".$gradestblname.".userid = ".$userstblname.".id".
           " WHERE (mootyper=".$mootyperid.")";
