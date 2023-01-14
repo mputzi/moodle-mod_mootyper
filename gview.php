@@ -425,7 +425,7 @@ echo ' <a href="'.$CFG->wwwroot.'/mod/mootyper/csvexport.php?mootyperid='.$mooty
 echo '</form>';
 echo '</div><br>';
 
-// 20200624 Must have data in $labels, must have grades in $grds, and branch 32 or higher, to graph anything.
+// 20200624 Must have data in $labels, must have grades in $grds, and branch 32 or higher, to graph anything. Note: Graph is handled by ...moodle/lib/graphlib.php.
 if (($labels) && ($grds != false) && ($CFG->branch > 31)) {
     // There was data selected so create the info the api needs passed to it for each series we want to chart.
     $serie1 = new core\chart_series(get_string('hitsperminute', 'mootyper'), $serieshitsperminute);
