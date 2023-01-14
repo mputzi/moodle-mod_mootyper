@@ -162,7 +162,8 @@ echo '<table><tr><td '.$style1.'>'.get_string('ename', 'mootyper').'</td>
 
 // Print table row for each of the exercises in the lesson currently being viewed.
 $exercises = $DB->get_records("mootyper_exercises", array('lesson' => $lessonpo));
-
+// 20230110 PostgreSQL gets sloppy with the order, but this seems to fix it.
+sort($exercises);
 foreach ($exercises as $ex) {
     // 20210326 Shorten displayed exercisename as well as text to type.
     $strtocut = $ex->texttotype;
