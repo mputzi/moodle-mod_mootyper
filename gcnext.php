@@ -56,18 +56,16 @@ if (optional_param('rpAccInput', '', PARAM_FLOAT) >= optional_param('rpGoal', ''
 } else {
     $passfield = 0;
 }
-// Check to see if wpm rate was good enough to pass, only if accuracy passed, or if only set for WPM.
-if (($passfield == 1) || ($passfield == 0 && $mtmode = 1)) {
-    if (optional_param('rpWpmInput', '', PARAM_FLOAT) >= optional_param('rpWPM', '', PARAM_FLOAT)) {
-        $passfield = 1;
-    } else {
-        $passfield = 0;
-    }
+
+// Check to see if wpm rate was good enough to pass.
+if (($passfield == 1) && (optional_param('rpWpmInput', '', PARAM_FLOAT) >= optional_param('rpWPM', '', PARAM_FLOAT))) {
+    $passfield = 1;
+} else {
+    $passfield = 0;
 }
 
 // Need to add some code here to generate the $record->grade entry based on whether the grade is
 // based on both precision and wpm, just precision, or just wpm.
-
 $record = new stdClass();
 $record->mootyper = optional_param('rpSityperId', '', PARAM_INT);
 $record->userid = optional_param('rpUser', '', PARAM_INT);
@@ -96,7 +94,6 @@ $mootyper = $DB->get_record('mootyper', array('id' => $record->mootyper), '*', M
 if (($mootyper->requiredgoal == 0) && ($mootyper->requiredwpm > 0)) {
     // Results for WPM only.
     // This gives incorrect results as it does not take into account the scale value!
-    //$record->grade = (max(0, optional_param('rpWpmInput', '', PARAM_FLOAT)));
     $record->grade = (min($mootyper->scale, ($mootyper->scale * ((max(0, optional_param('rpWpmInput', '', PARAM_FLOAT)))
                      / $mootyper->requiredwpm))));
 } else if (($mootyper->requiredgoal > 0) && ($mootyper->requiredwpm > 0)) {
