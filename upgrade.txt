@@ -50,7 +50,7 @@ sending an email, leave a comment at
 
 Moodle Versions
 ===============
-=== 4.2.2 === posted 20230104
+=== 4.2.2 === posted 20230116
 20221008 MooTyper_930 - In exam mode, WPM by itself, does not generate a grade. See the
     ticket for specific details. Added one string, modified a $sql, added automatic
     feedback, and added multiple if checks to create the correct raw grade needed
@@ -80,6 +80,11 @@ Moodle Versions
 20230114 MooTyper_991 - Got debug message regarding duplicate values in column 'firstname'.
     The function in lib.php had an SQL that was getting unique users by firstname. The
     fix was to reorder the SQL and get the users id first. 
+20230116 MooTyper_992 - In gcnext.php, line 60 not giving fail when % fails and WPM passes.
+    Fixed by modifying line 60 to require %pass and WPMpass for green background, no
+    matter what the mode is. Otherwise the background should be red. See ticket for
+    details.
+
 
 === 4.2.1 === released 20221207
 20200521 MooTyper_458v - Site admin should be able to see who created and can edit an
