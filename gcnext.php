@@ -104,8 +104,6 @@ if (($mootyper->requiredgoal == 0) && ($mootyper->requiredwpm > 0)) {
                      / $mootyper->requiredwpm)))));
 } else if (($mootyper->requiredgoal > 0) && ($mootyper->requiredwpm == 0)) {
     // Results for goal only.
-    // Just like wpm only, this will give the wrong results as it does not take into account the scale value.
-    //$record->grade = optional_param('rpAccInput', '', PARAM_FLOAT);
     $record->grade = (min(100, ($mootyper->scale * (optional_param('rpAccInput', '', PARAM_FLOAT) / 100))));
 
 

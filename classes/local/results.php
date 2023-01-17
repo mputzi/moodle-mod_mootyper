@@ -502,6 +502,182 @@ class results {
         return $range;
     }
 
+
+    /**
+     * Calculate counts.
+     *
+     * @param int $grades
+     * @return string
+     */
+    public static function get_grades_agcount($grades) {
+        $agcount = array();
+        $mistakes = array();
+        $timeinseconds = array();
+        $hitsperminute = array();
+        $fullhits = array();
+        $precisionfield = array();
+        $timetaken = array();
+        $wpm = array();
+        $grade = array();
+
+        $c = count($grades);
+
+        foreach ($grades as $g) {
+            $mistakes[$c] = $g->mistakes;
+            $timeinseconds[$c] = $g->timeinseconds;
+            $hitsperminute[$c] = $g->hitsperminute;
+            $fullhits[$c] = $g->fullhits;
+            $precisionfield[$c] = $g->precisionfield;
+            $timetaken[$c] = $g->timetaken;
+            $wpm[$c] = $g->wpm;
+            $grade[$c] = 1;
+            $c = $c - 1;
+        }
+        // Hits per minute, Precision, Time taken, and WPM are meaningless as counts.
+        $agcount['mistakes'] = array_sum($mistakes);
+        $agcount['timeinseconds'] = array_sum($timeinseconds);
+        $agcount['hitsperminute'] = array_sum($hitsperminute);
+        $agcount['fullhits'] = array_sum($fullhits);
+        $agcount['precisionfield'] = array_sum($precisionfield);
+        $agcount['timetaken'] = array_sum($timetaken);
+        $agcount['wpm'] = array_sum($wpm);
+        $agcount['grade'] = array_sum($grade);
+
+        return $agcount;
+    }
+
+    /**
+     * Calculate aggregatemax.
+     *
+     * @param int $grades
+     * @return string
+     */
+    public static function get_grades_agmax($grades) {
+        $agmax = array();
+        $mistakes = array();
+        $timeinseconds = array();
+        $hitsperminute = array();
+        $fullhits = array();
+        $precisionfield = array();
+        $timetaken = array();
+        $wpm = array();
+        $grade = array();
+
+        $c = count($grades);
+
+        foreach ($grades as $g) {
+            $mistakes[$c] = $g->mistakes;
+            $timeinseconds[$c] = $g->timeinseconds;
+            $hitsperminute[$c] = $g->hitsperminute;
+            $fullhits[$c] = $g->fullhits;
+            $precisionfield[$c] = $g->precisionfield;
+            $timetaken[$c] = $g->timetaken;
+            $wpm[$c] = $g->wpm;
+            $grade[$c] = $g->grade;
+            $c = $c - 1;
+        }
+
+        $agmax['mistakes'] = max($mistakes);
+        $agmax['timeinseconds'] = max($timeinseconds);
+        $agmax['hitsperminute'] = max($hitsperminute);
+        $agmax['fullhits'] = max($fullhits);
+        $agmax['precisionfield'] = max($precisionfield);
+        $agmax['timetaken'] = max($timetaken);
+        $agmax['wpm'] = max($wpm);
+        $agmax['grade'] = max($grade);
+
+        return $agmax;
+    }
+
+    /**
+     * Calculate aggregatemin.
+     *
+     * @param int $grades
+     * @return string
+     */
+    public static function get_grades_agmin($grades) {
+        $agmin = array();
+        $mistakes = array();
+        $timeinseconds = array();
+        $hitsperminute = array();
+        $fullhits = array();
+        $precisionfield = array();
+        $timetaken = array();
+        $wpm = array();
+        $grade = array();
+
+        $c = count($grades);
+
+        foreach ($grades as $g) {
+            $mistakes[$c] = $g->mistakes;
+            $timeinseconds[$c] = $g->timeinseconds;
+            $hitsperminute[$c] = $g->hitsperminute;
+            $fullhits[$c] = $g->fullhits;
+            $precisionfield[$c] = $g->precisionfield;
+            $timetaken[$c] = $g->timetaken;
+            $wpm[$c] = $g->wpm;
+            $grade[$c] = $g->grade;
+            $c = $c - 1;
+        }
+
+        $agmin['mistakes'] = min($mistakes);
+        $agmin['timeinseconds'] = min($timeinseconds);
+        $agmin['hitsperminute'] = min($hitsperminute);
+        $agmin['fullhits'] = min($fullhits);
+        $agmin['precisionfield'] = min($precisionfield);
+        $agmin['timetaken'] = min($timetaken);
+        $agmin['wpm'] = min($wpm);
+        $agmin['grade'] = min($grade);
+
+        return $agmin;
+    }
+
+    /**
+     * Calculate aggregatesum.
+     *
+     * @param int $grades
+     * @return string
+     */
+    public static function get_grades_agsum($grades) {
+        $agsum = array();
+        $mistakes = array();
+        $timeinseconds = array();
+        $hitsperminute = array();
+        $fullhits = array();
+        $precisionfield = array();
+        $timetaken = array();
+        $wpm = array();
+        $grade = array();
+
+        $c = count($grades);
+
+        foreach ($grades as $g) {
+            $mistakes[$c] = $g->mistakes;
+            $timeinseconds[$c] = $g->timeinseconds;
+            $hitsperminute[$c] = $g->hitsperminute;
+            $fullhits[$c] = $g->fullhits;
+            $precisionfield[$c] = $g->precisionfield;
+            $timetaken[$c] = $g->timetaken;
+            $wpm[$c] = $g->wpm;
+            $grade[$c] = $g->grade;
+            $c = $c - 1;
+        }
+
+        $agsum['mistakes'] = array_sum($mistakes);
+        $agsum['timeinseconds'] = array_sum($timeinseconds);
+        $agsum['hitsperminute'] = array_sum($hitsperminute);
+        $agsum['fullhits'] = array_sum($fullhits);
+
+        // These next three are meaningless as sums.
+        $agsum['precisionfield'] = array_sum($precisionfield);
+        $agsum['timetaken'] = array_sum($timeinseconds);
+        $agsum['wpm'] = array_sum($wpm);
+
+        $agsum['grade'] = array_sum($grade);
+
+        return $agsum;
+    }
+
     /**
      * Get the latest entry in mdl_mootyper_grades for the current user.
      *

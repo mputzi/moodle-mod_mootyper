@@ -222,10 +222,16 @@ if (!has_capability('mod/mootyper:viewmygrades', context_module::instance($cm->i
 
         // 20200704 Added code to include avg date of completion and avg wpm.
         // 20200727 Changed from avg to mean and added code for additional statistics.
+        // 20230117 Added code for ratings info, if used.
         $mean = results::get_grades_mean($grds);
         $median = results::get_grades_median($grds);
         $mode = results::get_grades_mode($grds);
         $range = results::get_grades_range($grds);
+        $agcount = results::get_grades_agcount($grds);
+        $agmax = results::get_grades_agmax($grds);
+        $agmin = results::get_grades_agmin($grds);
+        $agsum = results::get_grades_agsum($grds);
+
         $stil = 'background-color: '.(get_config('mod_mootyper', 'textbgc')).';';
 
         // Do statistics for Practice and Lesson modes, but not Exam as it is just one exercise.
@@ -287,6 +293,83 @@ if (!has_capability('mod/mootyper:viewmygrades', context_module::instance($cm->i
                 <td></td>
                 </tr>';
         }
+
+        // 202230117 If assessed, print rating aggregate statistics.
+        if ($mootyper->assessed) {
+            // 202317 Add a section title.
+            echo '<tr align="left" style="border-top-style: solid;">
+                <td colspan="9">'.get_string('rating', 'rating').' '.get_string('aggregatetype', 'rating').'</td></tr>';
+
+            // 202230117 Print rating aggregateavg.
+            echo '<tr align="center" style="border-top-style: solid;'.$stil.'">
+                <td><strong>'.get_string('aggregateavg', 'rating').': </strong></td>
+                <td style="opacity: 0.5;">'.$mean['mistakes'].'</td>
+                <td style="opacity: 0.5;">'.format_time($mean['timeinseconds']).'</td>
+                <td style="opacity: 0.5;">'.format_float($mean['hitsperminute']).'</td>
+                <td style="opacity: 0.5;">'.$mean['fullhits'].'</td>
+                <td style="opacity: 0.5;">'.format_float($mean['precisionfield']).'%</td>
+                <td style="opacity: 0.5;">'.date(get_config('mod_mootyper', 'dateformat'), $mean['timetaken']).'</td>
+                <td style="opacity: 0.5;">'.format_float($mean['wpm']).'</td>
+                <td>'.format_float($mean['grade']).'</td>
+                <td>'.get_string('aggregationavg', 'reportbuilder').'</td>
+                </tr>';
+
+            // 202230117 Print rating aggregatecount. Hits per minute, Precision, Completed, and WPM are meaningless as a count.
+            echo '<tr align="center" style="border-top-style: solid;'.$stil.'">
+                <td><strong>'.get_string('aggregatecount', 'rating').': </strong></td>
+                <td style="opacity: 0.5;">'.$agcount['mistakes'].'</td>
+                <td style="opacity: 0.5;">'.format_time($agcount['timeinseconds']).'</td>
+                <td style="opacity: 0.5;"> -- </td>
+                <td style="opacity: 0.5;">'.$agcount['fullhits'].'</td>
+                <td style="opacity: 0.5;"> -- </td>
+                <td style="opacity: 0.5;"> -- </td>
+                <td style="opacity: 0.5;"> -- </td>
+                <td>'.format_float($agcount['grade']).'</td>
+                <td>'.get_string('aggregationcount', 'reportbuilder').'</td>
+                </tr>';
+
+            // 202230117 Print rating aggregatemax.
+            echo '<tr align="center" style="border-top-style: solid;'.$stil.'">
+                <td><strong>'.get_string('aggregatemax', 'rating').': </strong></td>
+                <td style="opacity: 0.5;">'.$agmax['mistakes'].'</td>
+                <td style="opacity: 0.5;">'.format_time($agmax['timeinseconds']).'</td>
+                <td style="opacity: 0.5;">'.format_float($agmax['hitsperminute']).'</td>
+                <td style="opacity: 0.5;">'.$agmax['fullhits'].'</td>
+                <td style="opacity: 0.5;">'.format_float($agmax['precisionfield']).'%</td>
+                <td style="opacity: 0.5;">'.date(get_config('mod_mootyper', 'dateformat'), $agmax['timetaken']).'</td>
+                <td style="opacity: 0.5;">'.format_float($agmax['wpm']).'</td>
+                <td>'.format_float($agmax['grade']).'</td>
+                <td>'.get_string('aggregationmax', 'reportbuilder').'</td>
+                </tr>';
+
+            // 202230117 Print rating aggregatemin.
+            echo '<tr align="center" style="border-top-style: solid;'.$stil.'">
+                <td><strong>'.get_string('aggregatemin', 'rating').': </strong></td>
+                <td style="opacity: 0.5;">'.$agmin['mistakes'].'</td>
+                <td style="opacity: 0.5;">'.format_time($agmin['timeinseconds']).'</td>
+                <td style="opacity: 0.5;">'.format_float($agmin['hitsperminute']).'</td>
+                <td style="opacity: 0.5;">'.$agmin['fullhits'].'</td>
+                <td style="opacity: 0.5;">'.format_float($agmin['precisionfield']).'%</td>
+                <td style="opacity: 0.5;">'.date(get_config('mod_mootyper', 'dateformat'), $agmin['timetaken']).'</td>
+                <td style="opacity: 0.5;">'.format_float($agmin['wpm']).'</td>
+                <td>'.format_float($agmin['grade']).'</td>
+                <td>'.get_string('aggregationmin', 'reportbuilder').'</td>
+                </tr>';
+
+            // 202230117 Print rating aggregatesum. Precision, Completed, and WPM are meaningless as a sum.
+            echo '<tr align="center" style="border-top-style: solid;'.$stil.'">
+                <td><strong>'.get_string('aggregatesum', 'rating').': </strong></td>
+                <td style="opacity: 0.5;">'.$agsum['mistakes'].'</td>
+                <td style="opacity: 0.5;">'.format_time($agsum['timeinseconds']).'</td>
+                <td style="opacity: 0.5;">'.format_float($agsum['hitsperminute']).'</td>
+                <td style="opacity: 0.5;">'.$agsum['fullhits'].'</td>
+                <td style="opacity: 0.5;"> -- </td>
+                <td style="opacity: 0.5;"> -- </td>
+                <td style="opacity: 0.5;"> -- </td>
+                <td>'.format_float($agsum['grade']).'</td>
+                <td>'.get_string('aggregationsum', 'reportbuilder').'</td>
+                </tr>';
+        }
         echo '</table>';
 
     } else {
@@ -327,7 +410,7 @@ if (($grds != false) && ($CFG->branch > 31)) {  // If there are NOT any grades, 
     $chart = new core\chart_bar();  // Tell the api I want a bar chart.
     $chart->set_horizontal(true); // Calling set_horizontal() passing true as parameter will display horizontal bar charts.
     $chart->set_title(get_string('charttitlemyowngrades', 'mootyper')); // Tell the api what I want for a chart title.
-    //$chart->add_series($serie1);  // Pass the hits per minute data to the api.
+    // Temp $chart->add_series($serie1);  // Pass the hits per minute data to the api.
     $chart->add_series($serie2);  // Pass the precision data to the api.
     $chart->add_series($serie3);  // Pass the words per minute data to the api.
     $chart->add_series($serie4);  // Pass the grade data to the api.

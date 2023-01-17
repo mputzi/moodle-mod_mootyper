@@ -329,6 +329,10 @@ if (!has_capability('mod/mootyper:viewgrades', context_module::instance($cm->id)
             $median = results::get_grades_median($grds2);
             $mode = results::get_grades_mode($grds2);
             $range = results::get_grades_range($grds2);
+            $agcount = results::get_grades_agcount($grds2);
+            $agmax = results::get_grades_agmax($grds2);
+            $agmin = results::get_grades_agmin($grds2);
+            $agsum = results::get_grades_agsum($grds2);
 
             $stil = 'background-color: '.(get_config('mod_mootyper', 'textbgc')).';';
             // 20200727 Print blank table row.
@@ -339,7 +343,7 @@ if (!has_capability('mod/mootyper:viewgrades', context_module::instance($cm->id)
             // 20200727 Print means.
             echo '<tr align="center" style="border-top-style: solid;'.$stil.'">
                 <td><strong>'.get_string('mean', 'mootyper').': </strong></td><td></td>
-                <td>'.$mean['mistakes'].'</td>
+                <td align ="left">'.$mean['mistakes'].'</td>
                 <td>'.format_time($mean['timeinseconds']).'</td>
                 <td>'.format_float($mean['hitsperminute']).'</td>
                 <td>'.$mean['fullhits'].'</td>
@@ -353,7 +357,7 @@ if (!has_capability('mod/mootyper:viewgrades', context_module::instance($cm->id)
             // 20200727 Print medians.
             echo '<tr align="center" style="border-top-style: solid;'.$stil.'">
                 <td><strong>'.get_string('median', 'mootyper').': </strong></td><td></td>
-                <td>'.$median['mistakes'].'</td>
+                <td align ="left">'.$median['mistakes'].'</td>
                 <td>'.format_time($median['timeinseconds']).'</td>
                 <td>'.format_float($median['hitsperminute']).'</td>
                 <td>'.$median['fullhits'].'</td>
@@ -367,7 +371,7 @@ if (!has_capability('mod/mootyper:viewgrades', context_module::instance($cm->id)
             // 20200727 Print modes.
             echo '<tr align="center" style="border-top-style: solid;'.$stil.'">
                 <td><strong>'.get_string('mode', 'mootyper').': </strong></td><td></td>
-                <td>'.$mode['mistakes'].'</td>
+                <td align ="left">'.$mode['mistakes'].'</td>
                 <td>'.$mode['timeinseconds'].'</td>
                 <td>'.$mode['hitsperminute'].'</td>
                 <td>'.$mode['fullhits'].'</td>
@@ -381,7 +385,7 @@ if (!has_capability('mod/mootyper:viewgrades', context_module::instance($cm->id)
             // 20200727 Print ranges.
             echo '<tr align="center" style="border-top-style: solid;'.$stil.'">
                 <td><strong>'.get_string('range', 'mootyper').': </strong></td><td></td>
-                <td>'.$range['mistakes'].'</td>
+                <td align ="left">'.$range['mistakes'].'</td>
                 <td>'.format_time($range['timeinseconds']).'</td>
                 <td>'.format_float($range['hitsperminute']).'</td>
                 <td>'.$range['fullhits'].'</td>
@@ -391,6 +395,83 @@ if (!has_capability('mod/mootyper:viewgrades', context_module::instance($cm->id)
                 <td>'.format_float($range['grade']).'</td>
                 <td></td>
                 </tr>';
+
+            // 202230116 If assessed, print rating aggregate statistics.
+            if ($mootyper->assessed) {
+                // 202316 Add a section title.
+                echo '<tr align="left" style="border-top-style: solid;">
+                    <td colspan="9">'.get_string('rating', 'rating').' '.get_string('aggregatetype', 'rating').'</td></tr>';
+
+                // 202230116 Print rating aggregateavg.
+                echo '<tr align="left" style="border-top-style: solid;'.$stil.'">
+                    <td colspan="2"><strong>'.get_string('aggregateavg', 'rating').': </strong></td>
+                    <td align ="left" style="opacity: 0.5;">'.$mean['mistakes'].'</td>
+                    <td style="opacity: 0.5;">'.format_time($mean['timeinseconds']).'</td>
+                    <td style="opacity: 0.5;">'.format_float($mean['hitsperminute']).'</td>
+                    <td style="opacity: 0.5;">'.$mean['fullhits'].'</td>
+                    <td style="opacity: 0.5;">'.format_float($mean['precisionfield']).'%</td>
+                    <td style="opacity: 0.5;">'.date(get_config('mod_mootyper', 'dateformat'), $mean['timetaken']).'</td>
+                    <td style="opacity: 0.5;">'.format_float($mean['wpm']).'</td>
+                    <td>'.format_float($mean['grade']).'</td>
+                    <td>'.get_string('aggregationavg', 'reportbuilder').'</td>
+                    </tr>';
+
+                // 202230116 Print rating aggregatecount. Hits per minute, Precision, Completed, and WPM are meaningless as a count.
+                echo '<tr align="left" style="border-top-style: solid;'.$stil.'">
+                    <td colspan="2"><strong>'.get_string('aggregatecount', 'rating').': </strong></td>
+                    <td align ="left" style="opacity: 0.5;">'.$agcount['mistakes'].'</td>
+                    <td style="opacity: 0.5;">'.format_time($agcount['timeinseconds']).'</td>
+                    <td style="opacity: 0.5;"> -- </td>
+                    <td style="opacity: 0.5;">'.$agcount['fullhits'].'</td>
+                    <td style="opacity: 0.5;"> -- </td>
+                    <td style="opacity: 0.5;"> -- </td>
+                    <td style="opacity: 0.5;"> -- </td>
+                    <td>'.format_float($agcount['grade']).'</td>
+                    <td>'.get_string('aggregationcount', 'reportbuilder').'</td>
+                    </tr>';
+
+                // 202230116 Print rating aggregatemax.
+                echo '<tr align="left" style="border-top-style: solid;'.$stil.'">
+                    <td colspan="2"><strong>'.get_string('aggregatemax', 'rating').': </strong></td>
+                    <td align ="left" style="opacity: 0.5;">'.$agmax['mistakes'].'</td>
+                    <td style="opacity: 0.5;">'.format_time($agmax['timeinseconds']).'</td>
+                    <td style="opacity: 0.5;">'.format_float($agmax['hitsperminute']).'</td>
+                    <td style="opacity: 0.5;">'.$agmax['fullhits'].'</td>
+                    <td style="opacity: 0.5;">'.format_float($agmax['precisionfield']).'%</td>
+                    <td style="opacity: 0.5;">'.date(get_config('mod_mootyper', 'dateformat'), $agmax['timetaken']).'</td>
+                    <td style="opacity: 0.5;">'.format_float($agmax['wpm']).'</td>
+                    <td>'.format_float($agmax['grade']).'</td>
+                    <td>'.get_string('aggregationmax', 'reportbuilder').'</td>
+                    </tr>';
+
+                // 202230116 Print rating aggregatemin.
+                echo '<tr align="left" style="border-top-style: solid;'.$stil.'">
+                    <td colspan="2"><strong>'.get_string('aggregatemin', 'rating').': </strong></td>
+                    <td align ="left" style="opacity: 0.5;">'.$agmin['mistakes'].'</td>
+                    <td style="opacity: 0.5;">'.format_time($agmin['timeinseconds']).'</td>
+                    <td style="opacity: 0.5;">'.format_float($agmin['hitsperminute']).'</td>
+                    <td style="opacity: 0.5;">'.$agmin['fullhits'].'</td>
+                    <td style="opacity: 0.5;">'.format_float($agmin['precisionfield']).'%</td>
+                    <td style="opacity: 0.5;">'.date(get_config('mod_mootyper', 'dateformat'), $agmin['timetaken']).'</td>
+                    <td style="opacity: 0.5;">'.format_float($agmin['wpm']).'</td>
+                    <td>'.format_float($agmin['grade']).'</td>
+                    <td>'.get_string('aggregationmin', 'reportbuilder').'</td>
+                    </tr>';
+
+                // 202230116 Print rating aggregatesum. Precision, Completed, and WPM are meaningless as a sum.
+                echo '<tr align="left" style="border-top-style: solid;'.$stil.'">
+                    <td colspan="2"><strong>'.get_string('aggregatesum', 'rating').': </strong></td>
+                    <td align ="left" style="opacity: 0.5;">'.$agsum['mistakes'].'</td>
+                    <td style="opacity: 0.5;">'.format_time($agsum['timeinseconds']).'</td>
+                    <td style="opacity: 0.5;">'.format_float($agsum['hitsperminute']).'</td>
+                    <td style="opacity: 0.5;">'.$agsum['fullhits'].'</td>
+                    <td style="opacity: 0.5;"> -- </td>
+                    <td style="opacity: 0.5;"> -- </td>
+                    <td style="opacity: 0.5;"> -- </td>
+                    <td>'.format_float($agsum['grade']).'</td>
+                    <td>'.get_string('aggregationsum', 'reportbuilder').'</td>
+                    </tr>';
+            }
             echo '</table>';
         }
     } else {
@@ -425,7 +506,8 @@ echo ' <a href="'.$CFG->wwwroot.'/mod/mootyper/csvexport.php?mootyperid='.$mooty
 echo '</form>';
 echo '</div><br>';
 
-// 20200624 Must have data in $labels, must have grades in $grds, and branch 32 or higher, to graph anything. Note: Graph is handled by ...moodle/lib/graphlib.php.
+// 20200624 Must have data in $labels, must have grades in $grds, and branch 32 or higher, to graph anything.
+// Note: Graph is handled by ...moodle/lib/graphlib.php.
 if (($labels) && ($grds != false) && ($CFG->branch > 31)) {
     // There was data selected so create the info the api needs passed to it for each series we want to chart.
     $serie1 = new core\chart_series(get_string('hitsperminute', 'mootyper'), $serieshitsperminute);
@@ -436,7 +518,7 @@ if (($labels) && ($grds != false) && ($CFG->branch > 31)) {
     $chart = new core\chart_bar();  // Tell the api we want a bar chart.
     $chart->set_horizontal(true); // Calling set_horizontal() passing true as parameter will display horizontal bar charts.
     $chart->set_title(get_string('charttitleallgrades', 'mootyper')); // Tell the api what we want for a the chart title.
-    //$chart->add_series($serie1);  // Pass the hits per minute data to the api.
+    // Temp $chart->add_series($serie1);  // Pass the hits per minute data to the api.
     $chart->add_series($serie2);  // Pass the precision data to the api.
     $chart->add_series($serie3);  // Pass the words per minute data to the api.
     $chart->add_series($serie4);  // Pass the grade data to the api.

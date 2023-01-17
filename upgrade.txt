@@ -44,13 +44,15 @@ sending an email, leave a comment at
     https://moodle.org/plugins/mod_mootyper
 ===============
 === Deferred to next version. ===
-
+20230105 MooTyper_982 - Need to enable new grade chart bar and possibly add an on/off
+    toggle for each bar. Added a new series 4 for grades. Temporarily commented out
+    series 1 for hits per minute, resulting in a x-axis that goes from 0 to 100.
 
 
 
 Moodle Versions
 ===============
-=== 4.2.2 === posted 20230116
+=== 4.2.2 === posted 20230117
 20221008 MooTyper_930 - In exam mode, WPM by itself, does not generate a grade. See the
     ticket for specific details. Added one string, modified a $sql, added automatic
     feedback, and added multiple if checks to create the correct raw grade needed
@@ -62,9 +64,7 @@ Moodle Versions
     Made needed changes in gview.php, lib.php, owngrades.php, and results.php. I now
     am getting a grade column when viewing the owngrades.php page and the gview.php
     page. Might want to see about adding the grade data to the charts.
-20230105 MooTyper_982 - Need to enable new grade chart bar and possibly add an on/off
-    toggle for each bar. Added a new series 4 for grades. Temporarily commented out
-    series 1 for hits per minute, resulting in a x-axis that goes from 0 to 100.
+
 20230106 MooTyper_983 - Need new grade data added to CSV download file.  Made code
     changes to gview.php and csvexport.php. Data is now in the download.
 20230107 MooTyper_984 - Sort controls on gview.php and owngrades.php pages are not
@@ -84,7 +84,8 @@ Moodle Versions
     Fixed by modifying line 60 to require %pass and WPMpass for green background, no
     matter what the mode is. Otherwise the background should be red. See ticket for
     details.
-
+20230116 MooTyper_993 - Need to see about adding Count, Max, Min, or Sum to the grades
+    reports based on rating setting. Have made needed code changes to result.php, gview.php, and owngrades.php. The rating info only shows up when ratings are being used.
 
 === 4.2.1 === released 20221207
 20200521 MooTyper_458v - Site admin should be able to see who created and can edit an
