@@ -311,7 +311,7 @@ if (!has_capability('mod/mootyper:viewmygrades', context_module::instance($cm->i
                 <td style="opacity: 0.5;">'.date(get_config('mod_mootyper', 'dateformat'), $mean['timetaken']).'</td>
                 <td style="opacity: 0.5;">'.format_float($mean['wpm']).'</td>
                 <td>'.format_float($mean['grade']).'</td>
-                <td>'.get_string('aggregationavg', 'reportbuilder').'</td>
+                <td>'.get_string('agavg', 'mootyper').'</td>
                 </tr>';
 
             // 202230117 Print rating aggregatecount. Hits per minute, Precision, Completed, and WPM are meaningless as a count.
@@ -325,7 +325,7 @@ if (!has_capability('mod/mootyper:viewmygrades', context_module::instance($cm->i
                 <td style="opacity: 0.5;"> -- </td>
                 <td style="opacity: 0.5;"> -- </td>
                 <td>'.format_float($agcount['grade']).'</td>
-                <td>'.get_string('aggregationcount', 'reportbuilder').'</td>
+                <td>'.get_string('agcount', 'mootyper').'</td>
                 </tr>';
 
             // 202230117 Print rating aggregatemax.
@@ -339,7 +339,7 @@ if (!has_capability('mod/mootyper:viewmygrades', context_module::instance($cm->i
                 <td style="opacity: 0.5;">'.date(get_config('mod_mootyper', 'dateformat'), $agmax['timetaken']).'</td>
                 <td style="opacity: 0.5;">'.format_float($agmax['wpm']).'</td>
                 <td>'.format_float($agmax['grade']).'</td>
-                <td>'.get_string('aggregationmax', 'reportbuilder').'</td>
+                <td>'.get_string('agmax', 'mootyper').'</td>
                 </tr>';
 
             // 202230117 Print rating aggregatemin.
@@ -353,7 +353,7 @@ if (!has_capability('mod/mootyper:viewmygrades', context_module::instance($cm->i
                 <td style="opacity: 0.5;">'.date(get_config('mod_mootyper', 'dateformat'), $agmin['timetaken']).'</td>
                 <td style="opacity: 0.5;">'.format_float($agmin['wpm']).'</td>
                 <td>'.format_float($agmin['grade']).'</td>
-                <td>'.get_string('aggregationmin', 'reportbuilder').'</td>
+                <td>'.get_string('agmin', 'mootyper').'</td>
                 </tr>';
 
             // 202230117 Print rating aggregatesum. Precision, Completed, and WPM are meaningless as a sum.
@@ -367,7 +367,7 @@ if (!has_capability('mod/mootyper:viewmygrades', context_module::instance($cm->i
                 <td style="opacity: 0.5;"> -- </td>
                 <td style="opacity: 0.5;"> -- </td>
                 <td>'.format_float($agsum['grade']).'</td>
-                <td>'.get_string('aggregationsum', 'reportbuilder').'</td>
+                <td>'.get_string('agsum', 'mootyper').'</td>
                 </tr>';
         }
         echo '</table>';

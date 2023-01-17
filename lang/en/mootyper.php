@@ -25,6 +25,11 @@
 
 defined('MOODLE_INTERNAL') || die();
 
+$string['agavg'] = 'Average';
+$string['agcount'] = 'Count';
+$string['agmax'] = 'Maximum';
+$string['agmin'] = 'Minimum';
+$string['agsum'] = 'Sum';
 $string['allstring'] = 'All';
 $string['average'] = 'Average';
 $string['authorid'] = 'Author ID';
