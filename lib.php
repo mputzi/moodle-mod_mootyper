@@ -450,6 +450,12 @@ function mootyper_update_instance($mootyper, $mform) {
 
     // 20200907 Skip grading options for Moodle less than v3.8.
     if ($CFG->branch > 37) {
+        // 20230117 Fixes whole grades MTs created prior to adding Moodle grading to MooTyper.
+        if (empty($oldmootyper->scale) && $oldmootyper->grade_mootyper > 0) {
+            $mootyper->scale = $mootyper->grade_mootyper;
+            // The whole mootyper grading.
+            $updategrades = true;
+        }
         if (empty($oldmootyper->grade_mootyper) || $oldmootyper->grade_mootyper <> $mootyper->grade_mootyper) {
             // The whole mootyper grading.
             $updategrades = true;
