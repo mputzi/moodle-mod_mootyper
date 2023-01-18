@@ -8,19 +8,25 @@ in Moodle is provided in this plugin.
 "When looking at grades, exclamation marks are present if
 the person typed more than 60 chars in 5 seconds (which is
 kind of imposible)...or if the exercise took more than 10
-minutes to complete...so this is to warn teacher about a
-potential cheeters..."
+minutes to complete...so this is to warn a teacher about a
+potential cheeter..."
 
 Lessons - A selection of example lessons, are
 included. If you choose not to use them, you can delete
 them before triggering the installation, or you can
 delete them after the installation is completed. Lessons
-can be completed in practice mode or exam mode.
+can be completed in lesson mode, practice mode or exam mode.
 
 Keyboard Layouts - A selection of keyboard layouts
 are included. You can create your own and have it included
 by bumping the version number, then upgrading. Keyboard
-visualization during lessons is optional.
+visualization during lessons is optional. An admin can
+delete unwanted keyboard layouts at any time.
+
+After the V4.2.2 upgrade, any old MooTyper using, Whole grades,
+will need to be edited and then saved. No need to make any
+changes, just need to save to update the mdl_mootyper table
+for the scale entry. (rating and grades were added v3.9.1)
 
 Installation
 ============
@@ -85,7 +91,8 @@ Moodle Versions
     matter what the mode is. Otherwise the background should be red. See ticket for
     details.
 20230116 MooTyper_993 - Need to see about adding Count, Max, Min, or Sum to the grades
-    reports based on rating setting. Have made needed code changes to result.php, gview.php, and owngrades.php. The rating info only shows up when ratings are being used.
+    reports based on rating setting. Have made needed code changes to result.php, gview.php,
+    and owngrades.php. The rating info only shows up when ratings are being used.
 
 === 4.2.1 === released 20221207
 20200521 MooTyper_458v - Site admin should be able to see who created and can edit an
