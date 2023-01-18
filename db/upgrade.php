@@ -307,7 +307,7 @@ function xmldb_mootyper_upgrade($oldversion) {
         // Mootyper savepoint reached.
         upgrade_mod_savepoint(true, 2019123100, 'mootyper');
     }
-    // Four new fields added for version 3.9.1.
+    // Five new fields added for version 3.9.1.
     if ($oldversion < 2020073100) {
 
         // Define field assessed to be added to mootyper.
@@ -358,7 +358,7 @@ function xmldb_mootyper_upgrade($oldversion) {
         // Mootyper savepoint reached.
         upgrade_mod_savepoint(true, 2020073100, 'mootyper');
     }
-    // For v5.1.0. Drop fields filepath and jspath and use relative paths instead.
+    // For v4.1.0. Drop fields filepath and jspath and use relative paths instead.
     if ($oldversion < 2022011700) {
         $table = new xmldb_table('mootyper_layouts');
         $field = new xmldb_field('jspath');
