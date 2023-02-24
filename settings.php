@@ -140,7 +140,7 @@ if ($ADMIN->fulltree) {
         'mod_mootyper/dateformat',
         get_string('dateformat', 'mootyper'),
         get_string('configdateformat', 'mootyper'),
-        'M d, Y G:i', PARAM_TEXT, 15)
+        'M d, Y G:i A', PARAM_TEXT, 15)
     );
 
     // Passing grade background colour setting.
