@@ -50,47 +50,66 @@ sending an email, leave a comment at
     https://moodle.org/plugins/mod_mootyper
 ===============
 === Deferred to next version. ===
-20230105 MooTyper_982 - Need to enable new grade chart bar and possibly add an on/off
-    toggle for each bar. Added a new series 4 for grades. Temporarily commented out
-    series 1 for hits per minute, resulting in a x-axis that goes from 0 to 100.
 
+20230215 MooTyper_1011 - Need to add an on/off toggle or check box for each bar
+    on the grade charts.
 
 
 Moodle Versions
 ===============
-=== 4.2.2 === posted 20230117
-20221008 MooTyper_930 - In exam mode, WPM by itself, does not generate a grade. See the
+=== 4.2.3 === pending
+20230105 MooTyper_982 - Need to enable new, Grade, bar to the chart. Added a new
+    series 4 for grades. Temporarily commented out series 1 for hits per minute,
+    resulting in a x-axis that goes from 0 to 100.
+20230123 MooTyper_996v - Need to add AM / PM to date format for gview.php and owngrades.php. 
+    Changed the settings.php page code, down around line 143 from this: 'M d, Y G:i' to this:
+    'M d, Y G:i A'. Once I went to the MooTyper settings page, added the A there, it started
+    showing AM and PM with the times.
+20230206 MooTyper_1009v - Need to remove V4 layouts that also have a V5 version. Removed
+    copies of keyboard layouts that have both a V4 and V5 layout. 
+20230207 MooTyper_1010v - A user has requested a German(V5) KB Layout. I duplicated the
+    German(V5)-icons files as just, German(V5). I then modified the php file to no longer
+    use the icons, but instead, to use the words, like I did in the German(V4) php file.
+20230224 MooTyper_472 - Need Korean keyboard layout. Dropping this ticket because of the
+    way Korean is displayed in syllables. Not compatible with view.php and typer.js files.
+20230224 MooTyper_699 - Create Hindi(HIV5) KB Layout. Dropping this ticket because the
+    Hindi alphabet is not in the Courier New font file so it is not compatible with
+    view.php and typer.js files.
+
+
+
+=== 4.2.2 === posted 20230118
+20221008 MooTyper_930v - In exam mode, WPM by itself, does not generate a grade. See the
     ticket for specific details. Added one string, modified a $sql, added automatic
     feedback, and added multiple if checks to create the correct raw grade needed
     by the Moodle rating and grading systems.
-20230103 MooTyper_980 - In practice and lesson modes, WPM by itself, does not generate
+20230103 MooTyper_980v - In practice and lesson modes, WPM by itself, does not generate
     the correct rating for the grade book. Deferred to MooTyper_930 as the fix for it
     will also fix this ticket.
-20230105 MooTyper_981 - Need new grade/rating coloumn for grade table on grade pages.
+20230105 MooTyper_981v - Need new grade/rating coloumn for grade table on grade pages.
     Made needed changes in gview.php, lib.php, owngrades.php, and results.php. I now
     am getting a grade column when viewing the owngrades.php page and the gview.php
     page. Might want to see about adding the grade data to the charts.
-
-20230106 MooTyper_983 - Need new grade data added to CSV download file.  Made code
+20230106 MooTyper_983v - Need new grade data added to CSV download file.  Made code
     changes to gview.php and csvexport.php. Data is now in the download.
-20230107 MooTyper_984 - Sort controls on gview.php and owngrades.php pages are not
+20230107 MooTyper_984v - Sort controls on gview.php and owngrades.php pages are not
     working correctly. Fixed them, both pages, and they now appear to be working
     correctly.
-20230108 MooTyper_985 - Need date/time added to CSVexport file name. Added code
+20230108 MooTyper_985v - Need date/time added to CSVexport file name. Added code
     that pastes the current date and time into the file name, just before the .csv
     at the end of the file name.
-20230108 MooTyper_986 - Postgresql generates errors in proposed MooTyper v4.2.2. 
+20230108 MooTyper_986v - Postgresql generates errors in proposed MooTyper v4.2.2. 
     The Moodle ratings table expects an integer, so I changed the code to give 0 decimals.
     Also, with PostgreSQL the $exercises table order is scrambled. Fixed by sorting
     the table before use. See the ticket for exact details.
-20230114 MooTyper_991 - Got debug message regarding duplicate values in column 'firstname'.
+20230114 MooTyper_991v - Got debug message regarding duplicate values in column 'firstname'.
     The function in lib.php had an SQL that was getting unique users by firstname. The
     fix was to reorder the SQL and get the users id first. 
-20230116 MooTyper_992 - In gcnext.php, line 60 not giving fail when % fails and WPM passes.
+20230116 MooTyper_992v - In gcnext.php, line 60 not giving fail when % fails and WPM passes.
     Fixed by modifying line 60 to require %pass and WPMpass for green background, no
     matter what the mode is. Otherwise the background should be red. See ticket for
     details.
-20230116 MooTyper_993 - Need to see about adding Count, Max, Min, or Sum to the grades
+20230116 MooTyper_993v - Need to see about adding Count, Max, Min, or Sum to the grades
     reports based on rating setting. Have made needed code changes to result.php, gview.php,
     and owngrades.php. The rating info only shows up when ratings are being used.
 
