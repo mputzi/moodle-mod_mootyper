@@ -24,7 +24,7 @@
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 namespace mod_mootyper\local;
-defined('MOODLE_INTERNAL') || die();
+defined('MOODLE_INTERNAL') || die(); // @codingStandardsIgnoreLine
 
 /**
  * Utility class for MooTyper results.
@@ -33,7 +33,7 @@ defined('MOODLE_INTERNAL') || die();
  * @copyright  AL Rachels (drachels@drachels.com)
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-class results  {
+class results {
 
 
     /**
@@ -67,11 +67,14 @@ class results  {
      */
     public static function suspicion($checks, $starttime) {
         for ($i = 1; $i < count($checks); $i++) {
+            // 20220724 Translate says udarci = blows. English might be better to use, strokes1 and 2, or check1 and check2?
             $udarci1 = $checks[$i]['mistakes'] + $checks[$i]['hits'];
             $udarci2 = $checks[($i - 1)]['mistakes'] + $checks[($i - 1)]['hits'];
+            // 20220724 If current hit count is suddenly 60 strokes higher than last check, mark as suspicious.
             if ($udarci2 > ($udarci1 + 60)) {
                 return true;
             }
+            // 20220724 If it has been more than ten minutes since the last check, mark as suspicious.
             if ($checks[($i - 1)]['checktime'] > ($starttime + 300)) {
                 return true;
             }
@@ -95,6 +98,7 @@ class results  {
         $avg['precisionfield'] = 0;
         $avg['timetaken'] = 0;
         $avg['wpm'] = 0;
+        $avg['grade'] = 0;
         foreach ($grades as $g) {
             $avg['mistakes'] += $g->mistakes;
             $avg['timeinseconds'] += $g->timeinseconds;
@@ -103,6 +107,7 @@ class results  {
             $avg['precisionfield'] += $g->precisionfield;
             $avg['timetaken'] += $g->timetaken;
             $avg['wpm'] += $g->wpm;
+            $avg['grade'] += $g->grade;
         }
         $c = count($grades);
         $avg['mistakes'] = $avg['mistakes'] / $c;
@@ -112,6 +117,7 @@ class results  {
         $avg['precisionfield'] = $avg['precisionfield'] / $c;
         $avg['timetaken'] = $avg['timetaken'] / $c;
         $avg['wpm'] = $avg['wpm'] / $c;
+        $avg['grade'] = $avg['grade'] / $c;
         // Due to limited display space, round off the results.
         $avg['mistakes'] = round($avg['mistakes'], 0);
         $avg['timeinseconds'] = round($avg['timeinseconds'], 0);
@@ -120,6 +126,7 @@ class results  {
         $avg['precisionfield'] = round($avg['precisionfield'], 2);
         $avg['timetaken'] = round($avg['timetaken'], 0);
         $avg['wpm'] = round($avg['wpm'], 2);
+        $avg['grade'] = round($avg['grade'], 2);
         return $avg;
     }
 
@@ -138,6 +145,7 @@ class results  {
         $mean['precisionfield'] = 0;
         $mean['timetaken'] = 0;
         $mean['wpm'] = 0;
+        $mean['grade'] = 0;
         foreach ($grades as $g) {
             $mean['mistakes'] += $g->mistakes;
             $mean['timeinseconds'] += $g->timeinseconds;
@@ -146,6 +154,7 @@ class results  {
             $mean['precisionfield'] += $g->precisionfield;
             $mean['timetaken'] += $g->timetaken;
             $mean['wpm'] += $g->wpm;
+            $mean['grade'] += $g->grade;
         }
         $c = count($grades);
         $mean['mistakes'] = $mean['mistakes'] / $c;
@@ -155,6 +164,7 @@ class results  {
         $mean['precisionfield'] = $mean['precisionfield'] / $c;
         $mean['timetaken'] = $mean['timetaken'] / $c;
         $mean['wpm'] = $mean['wpm'] / $c;
+        $mean['grade'] = $mean['grade'] / $c;
 
         // Due to limited display space, round off the results.
         $mean['mistakes'] = round($mean['mistakes'], 2);
@@ -164,6 +174,7 @@ class results  {
         $mean['precisionfield'] = round($mean['precisionfield'], 2);
         $mean['timetaken'] = round($mean['timetaken'], 0);
         $mean['wpm'] = round($mean['wpm'], 2);
+        $mean['grade'] = round($mean['grade'], 2);
         return $mean;
     }
 
@@ -182,6 +193,7 @@ class results  {
         $precisionfield = array();
         $timetaken = array();
         $wpm = array();
+        $grade = array();
 
         $c = count($grades);
 
@@ -193,6 +205,7 @@ class results  {
             $precisionfield[$c] = $g->precisionfield;
             $timetaken[$c] = $g->timetaken;
             $wpm[$c] = $g->wpm;
+            $grade[$c] = $g->grade;
             $c = $c - 1;
         }
 
@@ -280,6 +293,18 @@ class results  {
         }
         $median['wpm'] = $total;
 
+        sort($grade);
+        $count = count($grade);
+        $index = floor($count / 2);
+        if (!$count) {
+            $total = "no values";
+        } else if ($count & 1) {    // Count is odd.
+            $total = $grade[$index];
+        } else {                   // Count is even.
+            $total = ($grade[$index - 1] + $grade[$index]) / 2;
+        }
+        $median['grade'] = $total;
+
         return $median;
     }
 
@@ -298,6 +323,7 @@ class results  {
         $precisionfield = array();
         $timetaken = array();
         $wpm = array();
+        $grade = array();
 
         $c = count($grades);
 
@@ -311,6 +337,7 @@ class results  {
             // mode to nearest month, day, year, hour and minute.
             $timetaken[$c] = date(get_config('mod_mootyper', 'dateformat'), $g->timetaken);
             $wpm[$c] = $g->wpm;
+            $grade[$c] = $g->grade;
             $c = $c - 1;
         }
 
@@ -405,6 +432,19 @@ class results  {
             $mode['wpm'] = format_float($total);
         }
 
+        // Calculate mode for Grade.
+        $v = array_count_values($grade);
+        arsort($v);
+        foreach ($v as $k => $v) {
+            $total = $k;
+            break;
+        }
+        if ($v <= 1) {
+            $mode['grade'] = get_string('nomode', 'mootyper');
+        } else {
+            $mode['grade'] = format_float($total);
+        }
+
         return $mode;
     }
 
@@ -423,6 +463,7 @@ class results  {
         $precisionfield = array();
         $timetaken = array();
         $wpm = array();
+        $grade = array();
 
         $c = count($grades);
 
@@ -434,6 +475,7 @@ class results  {
             $precisionfield[$c] = $g->precisionfield;
             $timetaken[$c] = $g->timetaken;
             $wpm[$c] = $g->wpm;
+            $grade[$c] = $g->grade;
             $c = $c - 1;
         }
 
@@ -455,8 +497,185 @@ class results  {
         $range['timetaken'] = $days.' d '.$hours.' h '.$minutes.' m ';
 
         $range['wpm'] = max($wpm) - min($wpm);
+        $range['grade'] = max($grade) - min($grade);
 
         return $range;
+    }
+
+
+    /**
+     * Calculate counts.
+     *
+     * @param int $grades
+     * @return string
+     */
+    public static function get_grades_agcount($grades) {
+        $agcount = array();
+        $mistakes = array();
+        $timeinseconds = array();
+        $hitsperminute = array();
+        $fullhits = array();
+        $precisionfield = array();
+        $timetaken = array();
+        $wpm = array();
+        $grade = array();
+
+        $c = count($grades);
+
+        foreach ($grades as $g) {
+            $mistakes[$c] = $g->mistakes;
+            $timeinseconds[$c] = $g->timeinseconds;
+            $hitsperminute[$c] = $g->hitsperminute;
+            $fullhits[$c] = $g->fullhits;
+            $precisionfield[$c] = $g->precisionfield;
+            $timetaken[$c] = $g->timetaken;
+            $wpm[$c] = $g->wpm;
+            $grade[$c] = 1;
+            $c = $c - 1;
+        }
+        // Hits per minute, Precision, Time taken, and WPM are meaningless as counts.
+        $agcount['mistakes'] = array_sum($mistakes);
+        $agcount['timeinseconds'] = array_sum($timeinseconds);
+        $agcount['hitsperminute'] = array_sum($hitsperminute);
+        $agcount['fullhits'] = array_sum($fullhits);
+        $agcount['precisionfield'] = array_sum($precisionfield);
+        $agcount['timetaken'] = array_sum($timetaken);
+        $agcount['wpm'] = array_sum($wpm);
+        $agcount['grade'] = array_sum($grade);
+
+        return $agcount;
+    }
+
+    /**
+     * Calculate aggregatemax.
+     *
+     * @param int $grades
+     * @return string
+     */
+    public static function get_grades_agmax($grades) {
+        $agmax = array();
+        $mistakes = array();
+        $timeinseconds = array();
+        $hitsperminute = array();
+        $fullhits = array();
+        $precisionfield = array();
+        $timetaken = array();
+        $wpm = array();
+        $grade = array();
+
+        $c = count($grades);
+
+        foreach ($grades as $g) {
+            $mistakes[$c] = $g->mistakes;
+            $timeinseconds[$c] = $g->timeinseconds;
+            $hitsperminute[$c] = $g->hitsperminute;
+            $fullhits[$c] = $g->fullhits;
+            $precisionfield[$c] = $g->precisionfield;
+            $timetaken[$c] = $g->timetaken;
+            $wpm[$c] = $g->wpm;
+            $grade[$c] = $g->grade;
+            $c = $c - 1;
+        }
+
+        $agmax['mistakes'] = max($mistakes);
+        $agmax['timeinseconds'] = max($timeinseconds);
+        $agmax['hitsperminute'] = max($hitsperminute);
+        $agmax['fullhits'] = max($fullhits);
+        $agmax['precisionfield'] = max($precisionfield);
+        $agmax['timetaken'] = max($timetaken);
+        $agmax['wpm'] = max($wpm);
+        $agmax['grade'] = max($grade);
+
+        return $agmax;
+    }
+
+    /**
+     * Calculate aggregatemin.
+     *
+     * @param int $grades
+     * @return string
+     */
+    public static function get_grades_agmin($grades) {
+        $agmin = array();
+        $mistakes = array();
+        $timeinseconds = array();
+        $hitsperminute = array();
+        $fullhits = array();
+        $precisionfield = array();
+        $timetaken = array();
+        $wpm = array();
+        $grade = array();
+
+        $c = count($grades);
+
+        foreach ($grades as $g) {
+            $mistakes[$c] = $g->mistakes;
+            $timeinseconds[$c] = $g->timeinseconds;
+            $hitsperminute[$c] = $g->hitsperminute;
+            $fullhits[$c] = $g->fullhits;
+            $precisionfield[$c] = $g->precisionfield;
+            $timetaken[$c] = $g->timetaken;
+            $wpm[$c] = $g->wpm;
+            $grade[$c] = $g->grade;
+            $c = $c - 1;
+        }
+
+        $agmin['mistakes'] = min($mistakes);
+        $agmin['timeinseconds'] = min($timeinseconds);
+        $agmin['hitsperminute'] = min($hitsperminute);
+        $agmin['fullhits'] = min($fullhits);
+        $agmin['precisionfield'] = min($precisionfield);
+        $agmin['timetaken'] = min($timetaken);
+        $agmin['wpm'] = min($wpm);
+        $agmin['grade'] = min($grade);
+
+        return $agmin;
+    }
+
+    /**
+     * Calculate aggregatesum.
+     *
+     * @param int $grades
+     * @return string
+     */
+    public static function get_grades_agsum($grades) {
+        $agsum = array();
+        $mistakes = array();
+        $timeinseconds = array();
+        $hitsperminute = array();
+        $fullhits = array();
+        $precisionfield = array();
+        $timetaken = array();
+        $wpm = array();
+        $grade = array();
+
+        $c = count($grades);
+
+        foreach ($grades as $g) {
+            $mistakes[$c] = $g->mistakes;
+            $timeinseconds[$c] = $g->timeinseconds;
+            $hitsperminute[$c] = $g->hitsperminute;
+            $fullhits[$c] = $g->fullhits;
+            $precisionfield[$c] = $g->precisionfield;
+            $timetaken[$c] = $g->timetaken;
+            $wpm[$c] = $g->wpm;
+            $grade[$c] = $g->grade;
+            $c = $c - 1;
+        }
+
+        $agsum['mistakes'] = array_sum($mistakes);
+        $agsum['timeinseconds'] = array_sum($timeinseconds);
+        $agsum['hitsperminute'] = array_sum($hitsperminute);
+        $agsum['fullhits'] = array_sum($fullhits);
+
+        // These next three are meaningless as sums.
+        $agsum['precisionfield'] = array_sum($precisionfield);
+        $agsum['timetaken'] = array_sum($timeinseconds);
+        $agsum['wpm'] = array_sum($wpm);
+
+        $agsum['grade'] = array_sum($grade);
+
+        return $agsum;
     }
 
     /**

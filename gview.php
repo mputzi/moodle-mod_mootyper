@@ -37,7 +37,7 @@ require_once(__DIR__ . '/lib.php');
 
 global $USER;
 
-$id = optional_param('id', 0, PARAM_INT); // Course_module ID, or
+$id = optional_param('id', 0, PARAM_INT); // Course_module ID, or.
 $n  = optional_param('n', 0, PARAM_INT);  // Mootyper instance ID - it should be named as the first character of the module.
 $se = optional_param('exercise', 0, PARAM_INT);
 $md = optional_param('jmode', 0, PARAM_INT);
@@ -50,16 +50,16 @@ if ($md == 1) {
     $se = 0;
 }
 if ($id) {
-    $cm         = get_coursemodule_from_id('mootyper', $id, 0, false, MUST_EXIST);
-    $course     = $DB->get_record('course', array('id' => $cm->course), '*', MUST_EXIST);
+    $cm        = get_coursemodule_from_id('mootyper', $id, 0, false, MUST_EXIST);
+    $course    = $DB->get_record('course', array('id' => $cm->course), '*', MUST_EXIST);
     $mootyper  = $DB->get_record('mootyper', array('id' => $cm->instance), '*', MUST_EXIST);
 } else if ($n) {
     $mootyper  = $DB->get_record('mootyper', array('id' => $n), '*', MUST_EXIST);
-    $course     = $DB->get_record('course', array('id' => $mootyper->course), '*', MUST_EXIST);
-    $cm         = get_coursemodule_from_instance('mootyper', $mootyper->id, $course->id, false, MUST_EXIST);
-    $id = $cm->id; // Since we had ID of 0, we really need Course module ID for cvsexport, so set it.
+    $course    = $DB->get_record('course', array('id' => $mootyper->course), '*', MUST_EXIST);
+    $cm        = get_coursemodule_from_instance('mootyper', $mootyper->id, $course->id, false, MUST_EXIST);
+    $id        = $cm->id; // Since we had ID of 0, we really need Course module ID for cvsexport, so set it.
 } else {
-    print_error(get_string('mootypererror', 'mootyper'));
+    throw new moodle_exception(get_string('mootypererror', 'mootyper'));
 }
 $lsnname = $DB->get_record('mootyper_lessons', array('id' => $mootyper->lesson), '*', MUST_EXIST);
 $mtmode = $mootyper->isexam;
@@ -102,6 +102,11 @@ if (!has_capability('mod/mootyper:viewgrades', context_module::instance($cm->id)
     echo $OUTPUT->header();
     echo '<link rel="stylesheet" type="text/css" href="styles.css">';
     echo $OUTPUT->heading($mootyper->name);
+    $temp = '<span class="reportlink"><a href="index.php?id='
+        .$course->id.'">'
+        .get_string('viewallmootypers', 'mootyper')
+        .'</a></span>';
+    echo $temp;
     // 20200620 Changed $htmlout's to echo's.
     echo '<div align="center" style="font-size:1em;
         font-weight:bold;background: '.$color3.';
@@ -144,7 +149,8 @@ if (!has_capability('mod/mootyper:viewgrades', context_module::instance($cm->id)
     if ($currentgroup) {
         $groups = $currentgroup;
     } else {
-        $groups = '';
+        // 20220805 Changed from '' to 0 for PostreSQL.
+        $groups = 0;
     }
     echo '</td>';
 
@@ -168,7 +174,7 @@ if (!has_capability('mod/mootyper:viewgrades', context_module::instance($cm->id)
         // 20200620 Added class="custom-select singleselect" to look like group selector.
         echo '<select name="juser" onchange="this.form.submit()" class="custom-select singleselect">';
         echo '<option value="0">'.get_string('allstring', 'mootyper').'</option>';
-        // 20200621 Filter Student selector to only show group memebers when set to visible groups or separate groups.
+        // 20200621 Filter Student selector to only show group members when set to visible groups or separate groups.
         if (($usrs != false) && ($groupmode != false)) {
             foreach ($usrs as $x) {
                 if (($us == $x->id) && (groups_is_member($groups, $x->id))) {
@@ -191,7 +197,7 @@ if (!has_capability('mod/mootyper:viewgrades', context_module::instance($cm->id)
         echo '</select>';
         echo '</td>';
     }
-    // Show the Exercise selector.
+    // Show the Exercise selector. To work, the View must be set to, by exercise.
     if ($md == 0 || $md == 1 || $mtmode == 2) {
         $exes = lessons::get_exercises_by_lesson($mootyper->lesson);
         echo '<td>'.get_string('fexercise', 'mootyper').'  </td><td>';
@@ -230,6 +236,7 @@ if (!has_capability('mod/mootyper:viewgrades', context_module::instance($cm->id)
         $arrtextadds[10] = '<span class="arrow-s" style="font-size:1em;"></span>';
         $arrtextadds[11] = '<span class="arrow-s" style="font-size:1em;"></span>';
         $arrtextadds[12] = '<span class="arrow-s" style="font-size:1em;"></span>';
+        $arrtextadds[13] = '<span class="arrow-s" style="font-size:1em;"></span>';
         $arrtextadds[$orderby] = $des == -1 || $des == 1 ? '<span class="arrow-s" style="font-size:1em;">
                                  </span>' : '<span class="arrow-n" style="font-size:1em;"></span>';
 
@@ -252,6 +259,8 @@ if (!has_capability('mod/mootyper:viewgrades', context_module::instance($cm->id)
             .get_string('timetaken', 'mootyper').'</a>'.$arrtextadds[9].'</td>
             <td><a href="?id='.$id.'&n='.$n.'&orderby=12'.$lnkadd.'">'
             .get_string('wpm', 'mootyper').'</a>'.$arrtextadds[12].'</td>
+            <td><a href="?id='.$id.'&n='.$n.'&orderby=13'.$lnkadd.'">'
+            .get_string('gradenoun').'</a>'.$arrtextadds[13].'</td>
             <td>'.get_string('delete', 'mootyper').'</td></tr>';
 
         $labels = null; // 20200624 Set to use as a flag for graphing.
@@ -301,6 +310,7 @@ if (!has_capability('mod/mootyper:viewgrades', context_module::instance($cm->id)
                              <td>'.format_float($gr->precisionfield).'%</td>
                              <td>'.date(get_config('mod_mootyper', 'dateformat'), $gr->timetaken).'</td>
                              <td>'.format_float($gr->wpm).'</td>
+                             <td>'.format_float($gr->grade).'</td>
                              <td>'.$removelnk.'&nbsp;</td></tr>';
 
                 // Get information to draw the chart for all exercises in this lesson.
@@ -308,6 +318,7 @@ if (!has_capability('mod/mootyper:viewgrades', context_module::instance($cm->id)
                 $serieshitsperminute[] = $gr->hitsperminute; // Get the hits per minute value.
                 $seriesprecision[] = $gr->precisionfield;  // Get the precision percentage value.
                 $serieswpm[] = $gr->wpm; // Get the corrected words per minute rate.
+                $seriesgrade[] = $gr->grade; // Get the grade value.
             }
         }
 
@@ -318,64 +329,149 @@ if (!has_capability('mod/mootyper:viewgrades', context_module::instance($cm->id)
             $median = results::get_grades_median($grds2);
             $mode = results::get_grades_mode($grds2);
             $range = results::get_grades_range($grds2);
+            $agcount = results::get_grades_agcount($grds2);
+            $agmax = results::get_grades_agmax($grds2);
+            $agmin = results::get_grades_agmin($grds2);
+            $agsum = results::get_grades_agsum($grds2);
 
             $stil = 'background-color: '.(get_config('mod_mootyper', 'textbgc')).';';
             // 20200727 Print blank table row.
             echo '<tr align="center" style="border-top-style: solid;">
                 <td></td><td></td><td></td><td></td><td></td>
-                <td></td><td></td><td></td><td></td></tr>';
+                <td></td><td></td><td></td><td></td><td></td></tr>';
 
             // 20200727 Print means.
             echo '<tr align="center" style="border-top-style: solid;'.$stil.'">
                 <td><strong>'.get_string('mean', 'mootyper').': </strong></td><td></td>
-                <td>'.$mean['mistakes'].'</td>
+                <td align ="left">'.$mean['mistakes'].'</td>
                 <td>'.format_time($mean['timeinseconds']).'</td>
                 <td>'.format_float($mean['hitsperminute']).'</td>
                 <td>'.$mean['fullhits'].'</td>
                 <td>'.format_float($mean['precisionfield']).'%</td>
                 <td>'.date(get_config('mod_mootyper', 'dateformat'), $mean['timetaken']).'</td>
                 <td>'.format_float($mean['wpm']).'</td>
+                <td>'.format_float($mean['grade']).'</td>
                 <td></td>
                 </tr>';
 
             // 20200727 Print medians.
             echo '<tr align="center" style="border-top-style: solid;'.$stil.'">
                 <td><strong>'.get_string('median', 'mootyper').': </strong></td><td></td>
-                <td>'.$median['mistakes'].'</td>
+                <td align ="left">'.$median['mistakes'].'</td>
                 <td>'.format_time($median['timeinseconds']).'</td>
                 <td>'.format_float($median['hitsperminute']).'</td>
                 <td>'.$median['fullhits'].'</td>
                 <td>'.format_float($median['precisionfield']).'%</td>
                 <td>'.date(get_config('mod_mootyper', 'dateformat'), $median['timetaken']).'</td>
                 <td>'.format_float($median['wpm']).'</td>
+                <td>'.format_float($median['grade']).'</td>
                 <td></td>
                 </tr>';
 
             // 20200727 Print modes.
             echo '<tr align="center" style="border-top-style: solid;'.$stil.'">
                 <td><strong>'.get_string('mode', 'mootyper').': </strong></td><td></td>
-                <td>'.$mode['mistakes'].'</td>
+                <td align ="left">'.$mode['mistakes'].'</td>
                 <td>'.$mode['timeinseconds'].'</td>
                 <td>'.$mode['hitsperminute'].'</td>
                 <td>'.$mode['fullhits'].'</td>
                 <td>'.$mode['precisionfield'].'</td>
                 <td>'.$mode['timetaken'].'</td>
                 <td>'.$mode['wpm'].'</td>
+                <td>'.$mode['grade'].'</td>
                 <td></td>
                 </tr>';
 
             // 20200727 Print ranges.
             echo '<tr align="center" style="border-top-style: solid;'.$stil.'">
                 <td><strong>'.get_string('range', 'mootyper').': </strong></td><td></td>
-                <td>'.$range['mistakes'].'</td>
+                <td align ="left">'.$range['mistakes'].'</td>
                 <td>'.format_time($range['timeinseconds']).'</td>
                 <td>'.format_float($range['hitsperminute']).'</td>
                 <td>'.$range['fullhits'].'</td>
                 <td>'.format_float($range['precisionfield']).'%</td>
                 <td>'.$range['timetaken'].'</td>
                 <td>'.format_float($range['wpm']).'</td>
+                <td>'.format_float($range['grade']).'</td>
                 <td></td>
                 </tr>';
+
+            // 202230116 If assessed, print rating aggregate statistics.
+            if ($mootyper->assessed) {
+                // 202316 Add a section title.
+                echo '<tr align="left" style="border-top-style: solid;">
+                    <td colspan="9">'.get_string('rating', 'rating').' '.get_string('aggregatetype', 'rating').'</td></tr>';
+
+                // 202230116 Print rating aggregateavg.
+                echo '<tr align="left" style="border-top-style: solid;'.$stil.'">
+                    <td colspan="2"><strong>'.get_string('aggregateavg', 'rating').': </strong></td>
+                    <td align ="left" style="opacity: 0.5;">'.$mean['mistakes'].'</td>
+                    <td style="opacity: 0.5;">'.format_time($mean['timeinseconds']).'</td>
+                    <td style="opacity: 0.5;">'.format_float($mean['hitsperminute']).'</td>
+                    <td style="opacity: 0.5;">'.$mean['fullhits'].'</td>
+                    <td style="opacity: 0.5;">'.format_float($mean['precisionfield']).'%</td>
+                    <td style="opacity: 0.5;">'.date(get_config('mod_mootyper', 'dateformat'), $mean['timetaken']).'</td>
+                    <td style="opacity: 0.5;">'.format_float($mean['wpm']).'</td>
+                    <td>'.format_float($mean['grade']).'</td>
+                    <td>'.get_string('agavg', 'mootyper').'</td>
+                    </tr>';
+
+                // 202230116 Print rating aggregatecount. Hits per minute, Precision, Completed, and WPM are meaningless as a count.
+                echo '<tr align="left" style="border-top-style: solid;'.$stil.'">
+                    <td colspan="2"><strong>'.get_string('aggregatecount', 'rating').': </strong></td>
+                    <td align ="left" style="opacity: 0.5;">'.$agcount['mistakes'].'</td>
+                    <td style="opacity: 0.5;">'.format_time($agcount['timeinseconds']).'</td>
+                    <td style="opacity: 0.5;"> -- </td>
+                    <td style="opacity: 0.5;">'.$agcount['fullhits'].'</td>
+                    <td style="opacity: 0.5;"> -- </td>
+                    <td style="opacity: 0.5;"> -- </td>
+                    <td style="opacity: 0.5;"> -- </td>
+                    <td>'.format_float($agcount['grade']).'</td>
+                    <td>'.get_string('agcount', 'mootyper').'</td>
+                    </tr>';
+
+                // 202230116 Print rating aggregatemax.
+                echo '<tr align="left" style="border-top-style: solid;'.$stil.'">
+                    <td colspan="2"><strong>'.get_string('aggregatemax', 'rating').': </strong></td>
+                    <td align ="left" style="opacity: 0.5;">'.$agmax['mistakes'].'</td>
+                    <td style="opacity: 0.5;">'.format_time($agmax['timeinseconds']).'</td>
+                    <td style="opacity: 0.5;">'.format_float($agmax['hitsperminute']).'</td>
+                    <td style="opacity: 0.5;">'.$agmax['fullhits'].'</td>
+                    <td style="opacity: 0.5;">'.format_float($agmax['precisionfield']).'%</td>
+                    <td style="opacity: 0.5;">'.date(get_config('mod_mootyper', 'dateformat'), $agmax['timetaken']).'</td>
+                    <td style="opacity: 0.5;">'.format_float($agmax['wpm']).'</td>
+                    <td>'.format_float($agmax['grade']).'</td>
+                    <td>'.get_string('agmax', 'mootyper').'</td>
+                    </tr>';
+
+                // 202230116 Print rating aggregatemin.
+                echo '<tr align="left" style="border-top-style: solid;'.$stil.'">
+                    <td colspan="2"><strong>'.get_string('aggregatemin', 'rating').': </strong></td>
+                    <td align ="left" style="opacity: 0.5;">'.$agmin['mistakes'].'</td>
+                    <td style="opacity: 0.5;">'.format_time($agmin['timeinseconds']).'</td>
+                    <td style="opacity: 0.5;">'.format_float($agmin['hitsperminute']).'</td>
+                    <td style="opacity: 0.5;">'.$agmin['fullhits'].'</td>
+                    <td style="opacity: 0.5;">'.format_float($agmin['precisionfield']).'%</td>
+                    <td style="opacity: 0.5;">'.date(get_config('mod_mootyper', 'dateformat'), $agmin['timetaken']).'</td>
+                    <td style="opacity: 0.5;">'.format_float($agmin['wpm']).'</td>
+                    <td>'.format_float($agmin['grade']).'</td>
+                    <td>'.get_string('agmin', 'mootyper').'</td>
+                    </tr>';
+
+                // 202230116 Print rating aggregatesum. Precision, Completed, and WPM are meaningless as a sum.
+                echo '<tr align="left" style="border-top-style: solid;'.$stil.'">
+                    <td colspan="2"><strong>'.get_string('aggregatesum', 'rating').': </strong></td>
+                    <td align ="left" style="opacity: 0.5;">'.$agsum['mistakes'].'</td>
+                    <td style="opacity: 0.5;">'.format_time($agsum['timeinseconds']).'</td>
+                    <td style="opacity: 0.5;">'.format_float($agsum['hitsperminute']).'</td>
+                    <td style="opacity: 0.5;">'.$agsum['fullhits'].'</td>
+                    <td style="opacity: 0.5;"> -- </td>
+                    <td style="opacity: 0.5;"> -- </td>
+                    <td style="opacity: 0.5;"> -- </td>
+                    <td>'.format_float($agsum['grade']).'</td>
+                    <td>'.get_string('agsum', 'mootyper').'</td>
+                    </tr>';
+            }
             echo '</table>';
         }
     } else {
@@ -403,6 +499,7 @@ echo ' <a href="'.$CFG->wwwroot.'/mod/mootyper/csvexport.php?mootyperid='.$mooty
     .'&timelimit='.$mootyper->timelimit
     .'&requiredgoal='.$mootyper->requiredgoal
     .'&requiredwpm='.$mootyper->requiredwpm
+    .'&scale='.$mootyper->scale
     .'"class="btn btn-secondary" style="border-radius: 8px">'.get_string('csvexport', 'mootyper')
     .'</a>';
 
@@ -410,18 +507,21 @@ echo '</form>';
 echo '</div><br>';
 
 // 20200624 Must have data in $labels, must have grades in $grds, and branch 32 or higher, to graph anything.
+// Note: Graph is handled by ...moodle/lib/graphlib.php.
 if (($labels) && ($grds != false) && ($CFG->branch > 31)) {
     // There was data selected so create the info the api needs passed to it for each series we want to chart.
     $serie1 = new core\chart_series(get_string('hitsperminute', 'mootyper'), $serieshitsperminute);
     $serie2 = new core\chart_series(get_string('precision', 'mootyper'), $seriesprecision);
     $serie3 = new core\chart_series(get_string('wpm', 'mootyper'), $serieswpm);
+    $serie4 = new core\chart_series(get_string('gradenoun'), $seriesgrade);
 
     $chart = new core\chart_bar();  // Tell the api we want a bar chart.
     $chart->set_horizontal(true); // Calling set_horizontal() passing true as parameter will display horizontal bar charts.
     $chart->set_title(get_string('charttitleallgrades', 'mootyper')); // Tell the api what we want for a the chart title.
-    $chart->add_series($serie1);  // Pass the hits per minute data to the api.
+    // Temp $chart->add_series($serie1);  // Pass the hits per minute data to the api.
     $chart->add_series($serie2);  // Pass the precision data to the api.
     $chart->add_series($serie3);  // Pass the words per minute data to the api.
+    $chart->add_series($serie4);  // Pass the grade data to the api.
     $chart->set_labels($labels);  // Pass the exercise number data to the api.
     $chart->get_xaxis(0, true)->set_label(get_string('xaxislabel', 'mootyper'));  // Pass a label to add to the x-axis.
     $chart->get_yaxis(0, true)->set_label(get_string('fexercise', 'mootyper')); // Pass the label to add to the y-axis.

@@ -30,7 +30,7 @@
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later.
  */
 
-defined('MOODLE_INTERNAL') || die();
+defined('MOODLE_INTERNAL') || die(); // @codingStandardsIgnoreLine
 
 /**
  * Execute mootyper upgrade from the given old version.
@@ -307,7 +307,7 @@ function xmldb_mootyper_upgrade($oldversion) {
         // Mootyper savepoint reached.
         upgrade_mod_savepoint(true, 2019123100, 'mootyper');
     }
-    // Four new fields added for version 3.9.1.
+    // Five new fields added for version 3.9.1.
     if ($oldversion < 2020073100) {
 
         // Define field assessed to be added to mootyper.
@@ -358,7 +358,7 @@ function xmldb_mootyper_upgrade($oldversion) {
         // Mootyper savepoint reached.
         upgrade_mod_savepoint(true, 2020073100, 'mootyper');
     }
-    // Drop fields filepath and jspath and use relative paths instead.
+    // For v4.1.0. Drop fields filepath and jspath and use relative paths instead.
     if ($oldversion < 2022011700) {
         $table = new xmldb_table('mootyper_layouts');
         $field = new xmldb_field('jspath');
@@ -370,6 +370,21 @@ function xmldb_mootyper_upgrade($oldversion) {
             $dbman->drop_field($table, $field);
         }
         upgrade_mod_savepoint(true, 2022011700, 'mootyper');
+    }
+    // One new field added for v4.2.1.
+    if ($oldversion < 2022081000) {
+
+        // Define field completionlesson to be added to mootyper.
+        $table = new xmldb_table('mootyper');
+        $field = new xmldb_field('completionlesson', XMLDB_TYPE_INTEGER, '2', null, null, null, '0', 'countmistakes');
+
+        // Conditionally launch add field completionlesson.
+        if (!$dbman->field_exists($table, $field)) {
+            $dbman->add_field($table, $field);
+        }
+
+        // Mootyper savepoint reached.
+        upgrade_mod_savepoint(true, 2022081000, 'mootyper');
     }
     return true;
 }

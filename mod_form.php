@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * The main mootyper configuration form
+ * The main mootyper configuration form.
  *
  * It uses the standard core Moodle formslib. For more info about them, please
  * visit: http://docs.moodle.org/en/Development:lib/formslib.php
@@ -26,10 +26,7 @@
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later.
  */
 
-if (!defined('MOODLE_INTERNAL')) {
-    // It must be included from a Moodle page
-    die('Direct access to this script is forbidden.');
-}
+defined('MOODLE_INTERNAL') || die();
 
 require_once($CFG->dirroot.'/course/moodleform_mod.php');
 
@@ -105,15 +102,6 @@ class mod_mootyper_mod_form extends moodleform_mod {
 
         // MooTyper activity setup, Options settings.
         $mform->addElement('header', 'optionhdr', get_string('options', 'mootyper'));
-
-        /* TODO: Add a dropdown selector for isexam (the activity mode).
-        $modes = array(get_string('sflesson', 'mod_mootyper'),
-                      get_string('isexamtext', 'mod_mootyper'),
-                      get_string('practice', 'mod_mootyper'));
-        $mform->addElement('select', 'isexam', get_string('fmode', 'mootyper'), $modes);
-        $mform->addHelpButton('isexam', 'fmode', 'mootyper');
-        $mform->setDefault('isexam', $mootyperconfig->isexam);
-         */
 
         // TODO: Add a dropdown selector of lesson/category.
 

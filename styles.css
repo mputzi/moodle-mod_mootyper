@@ -35,6 +35,13 @@
     text-align: center;
 }
 
+#page-mod-mootyper-view .reportlink,
+#page-mod-mootyper-gview .reportlink,
+#page-mod-mootyper-owngrades .reportlink {
+    float: right;
+    padding: 15px;
+}
+
 #texttoenter {
     position: relative;
     margin: auto;

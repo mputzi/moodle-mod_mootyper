@@ -56,7 +56,7 @@ class restore_mootyper_activity_task extends restore_activity_task {
      *
      * @return array
      */
-    static public function define_decode_contents() {
+    public static function define_decode_contents() {
         $contents = array();
 
         $contents[] = new restore_decode_content('mootyper', array('intro'), 'mootyper');
@@ -70,7 +70,7 @@ class restore_mootyper_activity_task extends restore_activity_task {
      *
      * @return array of restore_decode_rule
      */
-    static public function define_decode_rules() {
+    public static function define_decode_rules() {
         $rules = array();
 
         $rules[] = new restore_decode_rule('MOOTYPERVIEWBYID',
@@ -86,13 +86,13 @@ class restore_mootyper_activity_task extends restore_activity_task {
 
     /**
      * Define the restore log rules that will be applied
-     * by the {@link restore_logs_processor} when restoring
+     * by the restore_logs_processor when restoring
      * mootyper logs. It must return one array
-     * of {@link restore_log_rule} objects.
+     * of restore_log_rule objects.
      *
-     * @return array of restore_log_rule
+     * @return restore_log_rule[]
      */
-    static public function define_restore_log_rules() {
+    public static function define_restore_log_rules() {
         $rules = array();
 
         $rules[] = new restore_log_rule('mootyper', 'add', 'view.php?id={course_module}', '{mootyper}');
@@ -104,17 +104,17 @@ class restore_mootyper_activity_task extends restore_activity_task {
 
     /**
      * Define the restore log rules that will be applied
-     * by the {@link restore_logs_processor} when restoring
+     * by the restore_logs_processor when restoring
      * course logs. It must return one array
-     * of {@link restore_log_rule} objects.
+     * of restore_log_rule objects.
      *
      * Note this rules are applied when restoring course logs
      * by the restore final task, but are defined here at
      * activity level. All them are rules not linked to any module instance (cmid = 0).
      *
-     * @return array
+     * @return restore_log_rule[]
      */
-    static public function define_restore_log_rules_for_course() {
+    public static function define_restore_log_rules_for_course() {
         $rules = array();
 
         return $rules;

@@ -37,15 +37,8 @@ global $DB, $OUTPUT, $PAGE, $USER;
 // 20200224 Switched $id to Course_module ID vice course ID.
 $id = optional_param('id', 0, PARAM_INT); // Course module ID.
 // Changed cmid to course id.
-$course = optional_param('course', '0', PARAM_INT); // Course ID.
-
-if (! $cm = get_coursemodule_from_id('mootyper', $id)) {
-    print_error("Course Module ID was incorrect");
-}
-
-if (! $course = $DB->get_record("course", array('id' => $cm->course))) {
-    print_error("Course is misconfigured");
-}
+$cm = get_coursemodule_from_id('mootyper', $id, 0, false, MUST_EXIST);
+$course = $DB->get_record('course', array('id' => $cm->course), '*', MUST_EXIST);
 
 require_login($course, true);
 $context = context_module::instance($cm->id);
@@ -141,13 +134,20 @@ if (lessons::is_editable_by_me($USER->id, $id, $lessonpo)) {
     // Build a link to let teachers add a new exercise to the Lesson currently being viewed.
     $jlnk3 = $CFG->wwwroot . '/mod/mootyper/eins.php?id='.$id.'&lesson='.$lessonpo;
 
-    // 20200628 Temp stuff  $vis, $vis->visible, and $vis->editable for development.
+    // 20200628 Following variable is temporary for development.
     $vis = $DB->get_record("mootyper_lessons", array('id' => $lessonpo));
+    // 20220125 Added words instead of numbers, to the button.
+    $visible = get_string('vaccess'.$vis->visible, 'mootyper');
+    $editable = get_string('eaccess'.$vis->editable, 'mootyper');
+
     // 20200614 Added a button for, Add a new exercise to the Lesson currently being viewed.
+    // 20220125 Modified the info on the buttons, words instead of numbers.
     echo ' <a onclick="return confirm(\''.get_string('eaddnewex', 'mootyper').$lessonpo.
         '\')" href="'.$jlnk3.'" class="btn btn-secondary" style="border-radius: 8px">'
-       .get_string('eaddnewex', 'mootyper').$lessonpo.' vis: '.$vis->visible.' ed: '.$vis->editable.'</a>';
-
+        .get_string('eaddnewex', 'mootyper').$lessonpo
+        .', '.get_string('authorid', 'mootyper').': '.$vis->authorid
+        .', '.get_string('visibility', 'mootyper').': '.$visible
+        .', '.get_string('editable', 'mootyper').': '.$editable.'</a>';
 } else {
     echo '</form><br>';
 }
@@ -162,7 +162,8 @@ echo '<table><tr><td '.$style1.'>'.get_string('ename', 'mootyper').'</td>
 
 // Print table row for each of the exercises in the lesson currently being viewed.
 $exercises = $DB->get_records("mootyper_exercises", array('lesson' => $lessonpo));
-
+// 20230110 PostgreSQL gets sloppy with the order, but this seems to fix it.
+sort($exercises);
 foreach ($exercises as $ex) {
     // 20210326 Shorten displayed exercisename as well as text to type.
     $strtocut = $ex->texttotype;
@@ -192,7 +193,6 @@ foreach ($exercises as $ex) {
               .get_string('eeditlabel', 'mootyper').'></a>';
 
     // 20210326 Shorten displayed exercisename as well as text to type.
-    //echo '<tr><td '.$style1.'>'.$ex->exercisename.'</td><td '.$style2.'>'.$strtocut.'</td>';
     echo '<tr><td '.$style2.'>'.$exnametocut.'</td><td '.$style2.'>'.$strtocut.'</td>';
 
     // If the user can edit or delete this lesson and its exercises, then add edit and delete tools.

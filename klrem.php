@@ -33,28 +33,48 @@ require(__DIR__ . '/../../config.php');
 
 global $DB;
 $id = optional_param('id', 0, PARAM_INT); // Course_module ID.
+$kb = optional_param('kb', '', PARAM_TEXT); // Name of the keyboard layout to delete.
 
-if (! $cm = get_coursemodule_from_id('mootyper', $id)) {
-    print_error("Course Module ID was incorrect");
-}
-
-if (! $course = $DB->get_record("course", array('id' => $cm->course))) {
-    print_error("Course is misconfigured");
-}
+$cm = get_coursemodule_from_id('mootyper', $id, 0, false, MUST_EXIST);
+$course = $DB->get_record('course', array('id' => $cm->course), '*', MUST_EXIST);
 
 require_login($course, true);
 $context = context_module::instance($cm->id);
+// 20220126 If we have a layout name, run the delete code.
+if ($kb) {
+    // 20220126 Search and retrieve the layout by name.
+    $kbrecord = $DB->get_record('mootyper_layouts', array('name' => $kb), '*', MUST_EXIST);
 
-$layoutid = optional_param('xxx' '', PARAM_TEXT);
-$layoutname = optional_param('xxx' '', PARAM_TEXT);
-// Added cmid so can exit back to MooTyper activity we came from.
-$cmid = optional_param('cmid', '0', PARAM_INT); // Course Module ID.
+    // 20220126 Get the absolute path to the current working directory.
+    $pathtodir = getcwd();
+    // 20220126 Create an absolute pointer to the php and js files that are to be deleted.
+    $filepointer1 = $pathtodir.'/layouts/'.$kb.'.php';
+    $filepointer2 = $pathtodir.'/layouts/'.$kb.'.js';
 
+    // 20220126 Use unlink() function to delete the two physical files for the layout being deleted.
+    if (!unlink($filepointer1)) {
+        echo ("$filepointer1 cannot be deleted due to an error.");
+        die;
+    }
+    if (!unlink($filepointer2)) {
+        echo ("$filepointer2 cannot be deleted due to an error.");
+        die;
+    }
 
-// put the actual delete here.
+    // 20220126 Delete the database record for the layout being deleted.
+    $DB->delete_records('mootyper_layouts', array('id' => $kbrecord->id));
 
-
-
-$cid = optional_param('id', 0, PARAM_INT);
-$webdir = $CFG->wwwroot . '/mod/mootyper/layouts.php?id='.$id.'&lesson='.$lessonpo;
+    // Trigger module layout_deleted event.
+    $params = array(
+        'objectid' => $course->id,
+        'context' => $context,
+        'other' => array(
+            'layout' => $kb,
+        )
+    );
+    $event = layout_deleted::create($params);
+    $event->trigger();
+}
+// 20220126 After deletion, return to the list of layouts so we can delete more, if we need to.
+$webdir = $CFG->wwwroot . '/mod/mootyper/layouts.php?id='.$id;
 header('Location: '.$webdir);

@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 namespace mod_mootyper\task;
-defined('MOODLE_INTERNAL') || die();
+defined('MOODLE_INTERNAL') || die(); // @codingStandardsIgnoreLine
 use context_module;
 use stdClass;
 
@@ -29,7 +29,7 @@ use stdClass;
 class cron_task extends \core\task\scheduled_task {
 
     // Use the logging trait to get some nice, juicy, logging.
-    // use \core\task\logging_trait;
+    // Uncomment as needed, use \core\task\logging_trait;.
 
     /**
      * Get a descriptive name for this task (shown to admins).

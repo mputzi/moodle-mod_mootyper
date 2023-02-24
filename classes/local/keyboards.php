@@ -24,7 +24,7 @@
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 namespace mod_mootyper\local;
-defined('MOODLE_INTERNAL') || die();
+defined('MOODLE_INTERNAL') || die(); // @codingStandardsIgnoreLine
 /**
  * Utility class for MooTyper keyboards.
  *
@@ -32,7 +32,7 @@ defined('MOODLE_INTERNAL') || die();
  * @copyright  AL Rachels (drachels@drachels.com)
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-class keyboards  {
+class keyboards {
 
     /**
      * Checks if a layout given by name is installed.
@@ -94,7 +94,7 @@ class keyboards  {
      * @param int $lid
      */
     public static function get_instance_layout_file($lid) {
-        global $CFG,$DB;
+        global $CFG, $DB;
         $dbrec = $DB->get_record('mootyper_layouts', array('id' => $lid));
         return "$CFG->dirroot/mod/mootyper/layouts/$dbrec->name.php";
     }
@@ -104,9 +104,8 @@ class keyboards  {
      * @param int $lid
      */
     public static function get_instance_layout_js_file($lid) {
-        global $CFG,$DB;
+        global $CFG, $DB;
         $dbrec = $DB->get_record('mootyper_layouts', array('id' => $lid));
         return "$CFG->wwwroot/mod/mootyper/layouts/$dbrec->name.js";
     }
-
 }

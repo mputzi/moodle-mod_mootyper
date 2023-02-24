@@ -22,7 +22,7 @@
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  **/
 
-defined('MOODLE_INTERNAL') || die();
+defined('MOODLE_INTERNAL') || die(); // @codingStandardsIgnoreLine
 
 /**
  * A custom renderer class that extends the plugin_renderer_base and is used by the mootyper module.
@@ -41,7 +41,7 @@ class mod_mootyper_renderer extends plugin_renderer_base {
      * @return string.
      */
     public function header($mootyper, $cm, $extrapagetitle = null) {
-        global $CFG;
+        global $CFG, $USER;
 
         $activityname = format_string($mootyper->name, true);
 
@@ -58,10 +58,24 @@ class mod_mootyper_renderer extends plugin_renderer_base {
         $this->page->set_heading($this->page->course->fullname);
         $output = $this->output->header();
 
-        if (has_capability('mod/mootyper:setup', $context)) {
-            $output .= $this->output->heading_with_help($activityname, 'overview', 'mootyper');
-        } else {
-            $output .= $this->output->heading($activityname);
+        if ($CFG->branch < 400) {
+            if (has_capability('mod/mootyper:setup', $context)) {
+                $output .= $this->output->heading_with_help($activityname, 'overview', 'mootyper');
+            } else {
+                $output .= $this->output->heading($activityname);
+            }
+        }
+
+        if ($CFG->branch > 310) {
+            // 20220214 New code from pull request. However, needs to take in to account to show
+            // completion only when all the exercises are done, or if it is an exam, after just
+            // the one exercise of the exam.
+            $cminfo = cm_info::create($cm);
+            $completiondetails = \core_completion\cm_completion_details::get_instance($cminfo, $USER->id);
+            $activitydates = \core\activity_dates::get_dates_for_module($cminfo, $USER->id);
+            if ($CFG->branch < 400) {
+                $output .= $this->output->activity_information($cminfo, $completiondetails, $activitydates);
+            }
         }
         return $output;
     }

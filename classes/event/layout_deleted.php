@@ -23,7 +23,7 @@
  */
 
 namespace mod_mootyper\event;
-defined('MOODLE_INTERNAL') || die();
+defined('MOODLE_INTERNAL') || die(); // @codingStandardsIgnoreLine
 
 /**
  * The mod_mootyper layout deleted event class.
@@ -58,7 +58,8 @@ class layout_deleted extends \core\event\base {
      * @return string
      */
     public function get_description() {
-        return "The user with id '$this->userid' deleted the 'keyboard' layout, '{$this->other['layout']}', while in the course with id, '$this->contextinstanceid'.";
+        return "The user with id '$this->userid' deleted the 'keyboard' layout,
+               '{$this->other['layout']}', while in the MooTyper course module with id, '$this->contextinstanceid'.";
     }
 
     /**

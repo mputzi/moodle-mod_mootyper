@@ -6,7 +6,7 @@ THE FOX AND THE GRAPES\n\nA Fox came at vintage time to a place where ripe grape
 /**/
 2 THE FOX AND THE GRAPES
 /**/
-THE WOLF AND THE CRANE\n\nA Wolf had a bone in his throat and ran up and down in the greatest agony, begging every animal he met to relieve him, hinting at the same time that there would be a substantial reward. A Crane, moved by his entreaties, ventured her long neck down the Wolf’s throat and drew forth the bone. When she had done it, she modestly asked for the promised reward. To which the Wolf, grinning and showing his teeth, replied, "Ungrateful creature, is it not enough that you have had your head in a Wolf’s mouth and brought it out safe?"
+THE WOLF AND THE CRANE\n\nA Wolf had a bone in his throat and ran up and down in the greatest agony, begging every animal he met to relieve him, hinting at the same time that there would be a substantial reward. A Crane, moved by his entreaties, ventured her long neck down the Wolf's throat and drew forth the bone. When she had done it, she modestly asked for the promised reward. To which the Wolf, grinning and showing his teeth, replied, "Ungrateful creature, is it not enough that you have had your head in a Wolf's mouth and brought it out safe?"
 /**/
 3 THE WOLF AND THE CRANE
 /**/
@@ -18,11 +18,11 @@ THE FROGS WHO ASKED FOR A KING\n\nThe commonwealth of Frogs, a discontented race
 /**/
 5 THE FROGS WHO ASKED FOR A KING
 /**/
-THE DONKEY IN THE LION’S SKIN\n\nA Donkey, having put on the skin of a Lion, which he found drying by the roadside, roamed about the forest and amused himself by frightening all the animals that he met. At length, meeting a Fox, he tried to frighten him also; but the Fox no sooner heard the sound of his voice than he exclaimed, "I might possibly have been frightened if I had not heard you bray."
+THE DONKEY IN THE LION'S SKIN\n\nA Donkey, having put on the skin of a Lion, which he found drying by the roadside, roamed about the forest and amused himself by frightening all the animals that he met. At length, meeting a Fox, he tried to frighten him also; but the Fox no sooner heard the sound of his voice than he exclaimed, "I might possibly have been frightened if I had not heard you bray."
 /**/
-6 THE DONKEY IN THE LION’S SKIN
+6 THE DONKEY IN THE LION'S SKIN
 /**/
-THE MICE IN COUNCIL\n\nThe Mice, being sadly distressed on account of their common enemy the Cat, called a council to devise means of ridding themselves of the annoyance. Many plans were proposed and rejected, till at last it was suggested by a young Mouse that a bell should be hung round the Cat’s neck, that having notice of her coming, they might escape to their holes.\n\nThe proposal was hailed with applause and agreed to unanimously. Whereupon an old Mouse, who had sat in silence, got up and said, "That is well, but who will bell the Cat?" The Mice looked one at another, but no one answered.\n\nThe old Mouse said, "It is easy to advise; what is wanted is some one to act."
+THE MICE IN COUNCIL\n\nThe Mice, being sadly distressed on account of their common enemy the Cat, called a council to devise means of ridding themselves of the annoyance. Many plans were proposed and rejected, till at last it was suggested by a young Mouse that a bell should be hung round the Cat's neck, that having notice of her coming, they might escape to their holes.\n\nThe proposal was hailed with applause and agreed to unanimously. Whereupon an old Mouse, who had sat in silence, got up and said, "That is well, but who will bell the Cat?" The Mice looked one at another, but no one answered.\n\nThe old Mouse said, "It is easy to advise; what is wanted is some one to act."
 /**/
 7 THE MICE IN COUNCIL
 /**/
@@ -38,7 +38,7 @@ THE CROW AND THE PITCHER\n\nA Crow who was nearly perishing with thirst spied a 
 /**/
 10 THE CROW AND THE PITCHER
 /**/
-THE ANT AND THE DOVE\n\nGoing to a fountain to quench his thirst, an Ant tumbled in and was ready to drown. But a Dove happened to be perching on a neighboring tree and saw the Ant’s danger. Plucking a leaf, the Dove dropped it down into the water, so that the Ant mounting upon it was blown safely to the shore. A Fowler, shortly after, spread his net to entrap the unwary Dove. This the Ant perceived, and bit the Fowler’s heel. Distracted by the pain, the Fowler dropped his net with a quick start, and the Dove, aroused to a sense of danger, flew away.\n\nOne good turn deserves another.
+THE ANT AND THE DOVE\n\nGoing to a fountain to quench his thirst, an Ant tumbled in and was ready to drown. But a Dove happened to be perching on a neighboring tree and saw the Ant's danger. Plucking a leaf, the Dove dropped it down into the water, so that the Ant mounting upon it was blown safely to the shore. A Fowler, shortly after, spread his net to entrap the unwary Dove. This the Ant perceived, and bit the Fowler's heel. Distracted by the pain, the Fowler dropped his net with a quick start, and the Dove, aroused to a sense of danger, flew away.\n\nOne good turn deserves another.
 /**/
 11 THE ANT AND THE DOVE
 /**/
@@ -54,7 +54,7 @@ THE FOX AND THE GOAT\n\nA Fox who had fallen into a deep well was casting about 
 /**/
 14 THE FOX AND THE GOAT
 /**/
-THE WOMAN AND HER HEN\n\nA thrifty Woman kept a Hen that could be depended on to lay an egg every morning. The watchful Woman thought within herself, "If I were to double my Hen’s allowance of barley, she would lay twice a day." So she tried her plan, and the Hen became so fat and sleek that she left off laying at all.\n\nThrift sometimes overreaches, and figures are not always facts.
+THE WOMAN AND HER HEN\n\nA thrifty Woman kept a Hen that could be depended on to lay an egg every morning. The watchful Woman thought within herself, "If I were to double my Hen's allowance of barley, she would lay twice a day." So she tried her plan, and the Hen became so fat and sleek that she left off laying at all.\n\nThrift sometimes overreaches, and figures are not always facts.
 /**/
 15 THE WOMAN AND HER HEN
 /**/
@@ -62,7 +62,7 @@ THE DOG IN THE MANGER\n\nA Dog once made his bed in a manger and lay there snarl
 /**/
 16 THE DOG IN THE MANGER
 /**/
-THE MOUSE, THE FROG, AND THE HAWK\n\nA Mouse in an evil day made the acquaintance of a Frog, and together they set off on their travels. On pretense of affection and of keeping his companion safe from harm, the Frog tied the Mouse’s forefoot to his own hind leg, and thus they proceeded. It worked well enough till they came to some water, and the Frog, bidding the Mouse to have good courage, plunged in and began to swim across. They were barely halfway when the Frog took a sudden plunge to the bottom, dragging the unfortunate Mouse after him. But the struggling of the Mouse made so great a commotion in the water that it attracted the attention of a Hawk, who, pouncing down and bearing away the Mouse, carried the Frog also.\n\nAlliances that are ill-matched generally end in disaster; and the one who compasses the destruction of his neighbor is often caught in his own snare.
+THE MOUSE, THE FROG, AND THE HAWK\n\nA Mouse in an evil day made the acquaintance of a Frog, and together they set off on their travels. On pretense of affection and of keeping his companion safe from harm, the Frog tied the Mouse's forefoot to his own hind leg, and thus they proceeded. It worked well enough till they came to some water, and the Frog, bidding the Mouse to have good courage, plunged in and began to swim across. They were barely halfway when the Frog took a sudden plunge to the bottom, dragging the unfortunate Mouse after him. But the struggling of the Mouse made so great a commotion in the water that it attracted the attention of a Hawk, who, pouncing down and bearing away the Mouse, carried the Frog also.\n\nAlliances that are ill-matched generally end in disaster; and the one who compasses the destruction of his neighbor is often caught in his own snare.
 /**/
 17 THE MOUSE, THE FROG, AND THE HAWK
 /**/

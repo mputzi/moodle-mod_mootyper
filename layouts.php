@@ -24,39 +24,15 @@
 
 use \mod_mootyper\event\course_module_viewed;
 use \mod_mootyper\local\keyboards;
-use \mod_mootyper\local\lessons;
 
 require_once('../../config.php');
-//require_once(__DIR__ . '/lib.php');
-//require_once(__DIR__ . '/locallib.php');
 
 global $DB, $OUTPUT, $PAGE;
-/*
-print_object('1 spacer in mootyper layouts.php.');
-print_object('2 spacer in mootyper layouts.php.');
-print_object('3 spacer in mootyper layouts.php.');
-print_object('4 spacer in mootyper layouts.php.');
-*/
+
 // Fetch URL parameters.
 $id = optional_param('id', 0, PARAM_INT); // Course ID.
-
-//print_object('In mootyper layouts.php printing $id. Currently, it is the mootyper activity id!');
-//print_object($id);
-
-if (! $cm = get_coursemodule_from_id('mootyper', $id)) {
-    print_error("Course Module ID was incorrect");
-}
-
-//print_object('In mootyper layouts.php printing $cm.');
-//print_object($cm);
-
-if (! $course = $DB->get_record("course", array('id' => $cm->course))) {
-    print_error("Course is misconfigured");
-}
-
-//print_object('In mootyper layouts.php printing $course.');
-//print_object($course);
-
+$cm = get_coursemodule_from_id('mootyper', $id, 0, false, MUST_EXIST);
+$course = $DB->get_record('course', array('id' => $cm->course), '*', MUST_EXIST);
 
 require_login($course, true, $cm);
 
@@ -64,18 +40,11 @@ $context = context_module::instance($cm->id);
 
 $mootyper = $DB->get_record('mootyper', array('id' => $cm->instance) , '*', MUST_EXIST);
 
-//print_object('In mootyper layouts.php printing $mootyper.');
-//print_object($mootyper);
-
 // Print the page header.
 $PAGE->set_url('/mod/mootyper/layouts.php', array('id' => $id));
-//$PAGE->set_pagelayout('course');
-
-//$PAGE->set_title(get_string('etitle', 'mootyper'));
 $PAGE->set_heading($course->fullname);
 
 $renderer = $PAGE->get_renderer('mod_mootyper');
-//echo $renderer->header($mootyper->title, $course->fullname);
 
 $returnedit = new moodle_url('/mod/mootyper/layouts.php', array('id' => $id));
 
@@ -85,16 +54,6 @@ $PAGE->set_cacheable(false);
 // Output starts here.
 echo $OUTPUT->header();
 echo $OUTPUT->heading(get_string('loheading', 'mootyper'));
-echo '<h2>Under development - Remove not implemented yet.</h2>';
-
-// This is copied from simplelesson.
-//$tabledata = table_data::get_edit_table_data($cm);
-//echo $renderer->edit_table_links($tabledata);
-//$linkdata = link_data::get_page_management_links($cm);
-//echo $renderer->page_management_links($linkdata);
-
-
-
 
 // 20200226 Switched from course id to current MooTyper id so
 // that I can use the current MooTyper keyboard background color.
@@ -106,72 +65,25 @@ echo '<div align="left" style="font-size:1em;
      -webkit-border-radius:16px;
      -moz-border-radius:16px;border-radius:16px;"><table>';
 
-//$layouts = get_keyboard_layouts_db(); // Function is in locallib.php.
 $layouts = keyboards::get_keyboard_layouts_db();
-
-   // print_object('In mootyper layouts.php after getting layouts and printing $layouts[55].');
-   // print_object($layouts[55]);
-
-//$layoutspo = optional_param('layouts', 1, PARAM_INT);
-$layoutspo = array();
-//$layoutspo = 0;
-
-
-
-// Cannot remember why I have this if here.
-//if ($layoutspo[0] == 0 && count($layouts) > 0) {
-//if ($layoutspo == 0 && count($layouts) > 0) {
-//    $layoutspo = $layouts[0];
-//}
-
-//$selectedlayoutindex = 0;
-/*
-for ($ij = 0; $ij < count($layouts); $ij++) {
-    if ($layouts[$ij] == $layoutspo) {
-        echo '<option selected="true" value="'.$layouts[$ij].'">'.$layouts[$ij]['name'].'</option>';
-        $selectedlessonindex = $ij;
-    } else {
-        echo '<option value="'.$layouts[$ij].'">'.$layouts[$ij].'</option>';
-    }
-}
-*/
-
-/*
-    // If user can edit, create a delete link to the current exercise.
-    $jlink1 = '<a onclick="return confirm(\''.get_string('deleteexconfirm', 'mootyper')
-              .$lessons[$selectedlessonindex]['lessonname']
-              .'\')" href="erem.php?id='.$id
-              .'&r='.$ex->id
-              .'&lesson='.$lessonpo
-              .'"><img src="pix/delete.png" alt="'
-              .get_string('delete', 'mootyper').'"></a>';
-*/
-
-
-// Will need to create a remove layout php file klrem.php, like the one
-// I have for exercise remove, erem.php.
-// Will need to pass the name of the layout to remove as at this point
-// the layout name is all we have to work with. MIGHT be able to backtrack
-// and get the id from $layouts.
-
-    // If user can edit, create a remove link to the current KB layout.
-    $jlink1 = '<a onclick="return confirm(\''.get_string('deleteexconfirm', 'mootyper')
-              .'"><img src="pix/delete.png" alt="'
-              .get_string('delete', 'mootyper').'"></a>';
-    
-//print_object($jlink1);
+// 20220126 Set up a return to page link to use after deleting a layout.
+$jlinkklrem = $CFG->wwwroot . '/mod/mootyper/klrem.php?id='.$id;
 
 echo '<div class="container">';
 echo '<table class="table table-hover">';
-echo '<thead><tr><th>Layout name</th><th>Remove</th>';
+echo '<thead><tr><th>'.get_string('layout', 'mootyper').'</th><th>'.get_string('delete', 'mootyper').'</th>';
 echo '</tr></thead>';
-
 echo '<tbody>';
 
-// Need to make it so only an admin can do a layout delete!
+// 20220126 Changed to button with popup confirm. Only an admin can do a layout delete!
 foreach ($layouts as $lo) {
-        // List the keyboards by name.
-        echo '<tr><td>'.$lo.'</td><td>'.$jlink1.'</td></tr>';
+    // 20220126 List the keyboards by name with a delete button.
+    echo '<tr><td>'.$lo.'</td><td>'
+        .'<a onclick="return confirm(\''.get_string('deletelsnconfirm', 'mootyper').$lo
+        .'\')" href="'.$jlinkklrem.'&kb='.$lo
+        .'" class="btn btn-warning" style="border-radius: 8px">'
+        .get_string('deletekb', 'mootyper', $lo)
+        .'</a></td></tr>';
 }
 echo '</tbody>';
 echo '</table>';
@@ -179,7 +91,6 @@ echo '</div>';
 
 // 20200226 Added a continue button that takes you back to the MooTyper you came from.
 $url = $CFG->wwwroot . '/mod/mootyper/view.php?id='.$id;
-
 echo '<br><a href="'.$url
     .'" class="btn btn-primary" style="border-radius: 8px">'
     .get_string('returnto', 'mootyper', $mootyper->name)

@@ -25,7 +25,7 @@
  */
 namespace mod_mootyper\local;
 use \mod_mootyper\local\lessons;
-defined('MOODLE_INTERNAL') || die();
+defined('MOODLE_INTERNAL') || die(); // @codingStandardsIgnoreLine
 /**
  * Utility class for counting keyboards and so on.
  *
@@ -33,7 +33,7 @@ defined('MOODLE_INTERNAL') || die();
  * @copyright  AL Rachels (drachels@drachels.com)
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-class lessons  {
+class lessons {
 
     /**
      * 3/22/16 Changed call from mod_setup so this is no longer used by exercises.php.
@@ -74,8 +74,8 @@ class lessons  {
     public static function get_mootyperlessons($u, $c) {
         global $CFG, $DB;
         $params = array();
-        $lstoreturn = array();           // DETERMINE IF USER IS INSIDE A COURSE???
-        // 11/24/2019 Changed SQL for Postgre compatibility based on issue #34.
+        $lstoreturn = array(); // DETERMINE IF USER IS INSIDE A COURSE???
+        // 20191124 Changed SQL for Postgre compatibility based on issue #34.
         $sql = "SELECT id, lessonname
             FROM ".$CFG->prefix."mootyper_lessons
             WHERE ((visible = 2 AND authorid = ".$u.") OR
@@ -83,13 +83,7 @@ class lessons  {
                 (visible = 0 AND ".self::is_user_enrolled($u, $c)." = 1) OR
                 (".self::can_view_edit_all($u, $c)." = 1))
             ORDER BY lessonname";
-        /*
-        /// This was taken out, because we have some context_module::instance confusion
-          OR
-                        (visible = 0)) OR ".self::can_view_edit_all($u, $c).")
-        /// ... 3/22/16 Was added again due to changes for 2.7.1 release.
 
-        */
         if ($lessons = $DB->get_records_sql($sql, $params)) {
             foreach ($lessons as $ex) {
                 $lss = array();

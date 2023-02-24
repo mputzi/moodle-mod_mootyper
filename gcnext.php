@@ -56,15 +56,16 @@ if (optional_param('rpAccInput', '', PARAM_FLOAT) >= optional_param('rpGoal', ''
 } else {
     $passfield = 0;
 }
-// Check to see if wpm rate was good enough to pass, only if accuracy passed.
-if ($passfield == 1) {
-    if (optional_param('rpWpmInput', '', PARAM_FLOAT) >= optional_param('rpWPM', '', PARAM_FLOAT)) {
-        $passfield = 1;
-    } else {
-        $passfield = 0;
-    }
+
+// Check to see if wpm rate was good enough to pass.
+if (($passfield == 1) && (optional_param('rpWpmInput', '', PARAM_FLOAT) >= optional_param('rpWPM', '', PARAM_FLOAT))) {
+    $passfield = 1;
+} else {
+    $passfield = 0;
 }
 
+// Need to add some code here to generate the $record->grade entry based on whether the grade is
+// based on both precision and wpm, just precision, or just wpm.
 $record = new stdClass();
 $record->mootyper = optional_param('rpSityperId', '', PARAM_INT);
 $record->userid = optional_param('rpUser', '', PARAM_INT);
@@ -85,13 +86,44 @@ $record->mistakedetails = optional_param('rpMistakeDetailsInput', '', PARAM_CLEA
 if (stripos($record->mistakedetails, "undefined") !== false) {
     $record->mistakedetails = get_string('nomistakes', 'mootyper');
 }
+
 // 20200808 Added code for using MooTyper exercise grades as Moodle Ratings.
-$mootyper  = $DB->get_record('mootyper', array('id' => $record->mootyper), '*', MUST_EXIST);
+$mootyper = $DB->get_record('mootyper', array('id' => $record->mootyper), '*', MUST_EXIST);
+
+// 20230102 Update $record->grade and $record->mistakedetails as needed to get the correct grade or rating.
+if (($mootyper->requiredgoal == 0) && ($mootyper->requiredwpm > 0)) {
+    // Results for WPM only.
+    // This gives incorrect results as it does not take into account the scale value!
+    $record->grade = (min($mootyper->scale, ($mootyper->scale * ((max(0, optional_param('rpWpmInput', '', PARAM_FLOAT)))
+                     / $mootyper->requiredwpm))));
+} else if (($mootyper->requiredgoal > 0) && ($mootyper->requiredwpm > 0)) {
+    // Results for both goal and wpm.
+    $halfscale = $mootyper->scale / 2;
+    $record->grade = (min(100, ($halfscale * (optional_param('rpAccInput', '', PARAM_FLOAT) / 100))
+                     + min($halfscale, ($halfscale * ((max(0, optional_param('rpWpmInput', '', PARAM_FLOAT)))
+                     / $mootyper->requiredwpm)))));
+} else if (($mootyper->requiredgoal > 0) && ($mootyper->requiredwpm == 0)) {
+    // Results for goal only.
+    $record->grade = (min(100, ($mootyper->scale * (optional_param('rpAccInput', '', PARAM_FLOAT) / 100))));
+
+
+} else if (($mootyper->requiredgoal == 0) && ($mootyper->requiredwpm == 0)) {
+    // Results for no goal and no wpm.
+    $record->grade = null;
+}
+// 20230103 Set decimal to two places.
+$record->grade = number_format($record->grade, 2);
+// 20230103 Add goal and wpm info to the mistake details.
+$record->mistakedetails .= get_string('reqgoalwpm', 'mootyper',
+                           ['goal' => $mootyper->requiredgoal,
+                           'wpm' => $mootyper->requiredwpm,
+                           'currentresult' => $record->grade]);
 
 $DB->insert_record('mootyper_grades', $record, false);
 
 // 20200808 Need id of the record we just inserted.
 $rec = results::get_grade_entry($mootyper->id, $record->userid, $record->exercise, $record->timetaken);
+
 // 20200808 Make grade entry depending on whether grade or rating.
 if ($mootyper->assessed) {
     // 20200808 Need code to place the exercise grade into the rating table.
@@ -101,7 +133,7 @@ if ($mootyper->assessed) {
     $ratingoptions->ratingarea = 'exercises';
     $ratingoptions->itemid = $rec->id;
     $ratingoptions->scaleid = $mootyper->scale;
-    $ratingoptions->rating = $record->grade;
+    $ratingoptions->rating = number_format($record->grade, 0);
     $ratingoptions->userid = $record->userid;
     $ratingoptions->timecreated = $record->timetaken;
     $ratingoptions->timemodified = $record->timetaken;

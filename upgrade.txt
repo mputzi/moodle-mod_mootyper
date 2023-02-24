@@ -8,19 +8,25 @@ in Moodle is provided in this plugin.
 "When looking at grades, exclamation marks are present if
 the person typed more than 60 chars in 5 seconds (which is
 kind of imposible)...or if the exercise took more than 10
-minutes to complete...so this is to warn teacher about a
-potential cheeters..."
+minutes to complete...so this is to warn a teacher about a
+potential cheeter..."
 
 Lessons - A selection of example lessons, are
 included. If you choose not to use them, you can delete
 them before triggering the installation, or you can
 delete them after the installation is completed. Lessons
-can be completed in practice mode or exam mode.
+can be completed in lesson mode, practice mode or exam mode.
 
 Keyboard Layouts - A selection of keyboard layouts
 are included. You can create your own and have it included
 by bumping the version number, then upgrading. Keyboard
-visualization during lessons is optional.
+visualization during lessons is optional. An admin can
+delete unwanted keyboard layouts at any time.
+
+After the V4.2.2 upgrade, any old MooTyper using, Whole grades,
+will need to be edited and then saved. No need to make any
+changes, just need to save to update the mdl_mootyper table
+for the scale entry. (rating and grades were added v3.9.1)
 
 Installation
 ============
@@ -42,14 +48,119 @@ If you like the plugin and want to say hi publicly instead of
 sending an email, leave a comment at
 
     https://moodle.org/plugins/mod_mootyper
+===============
+=== Deferred to next version. ===
+20230105 MooTyper_982 - Need to enable new grade chart bar and possibly add an on/off
+    toggle for each bar. Added a new series 4 for grades. Temporarily commented out
+    series 1 for hits per minute, resulting in a x-axis that goes from 0 to 100.
+
+
 
 Moodle Versions
 ===============
-=== 4.1.0 ===
-20220117 MooTyper_808 - Avoid storing absolute paths in database (mootyper_layouts).
-    Completed pull request and now testing MooTyper v4.1.0.
+=== 4.2.2 === posted 20230117
+20221008 MooTyper_930 - In exam mode, WPM by itself, does not generate a grade. See the
+    ticket for specific details. Added one string, modified a $sql, added automatic
+    feedback, and added multiple if checks to create the correct raw grade needed
+    by the Moodle rating and grading systems.
+20230103 MooTyper_980 - In practice and lesson modes, WPM by itself, does not generate
+    the correct rating for the grade book. Deferred to MooTyper_930 as the fix for it
+    will also fix this ticket.
+20230105 MooTyper_981 - Need new grade/rating coloumn for grade table on grade pages.
+    Made needed changes in gview.php, lib.php, owngrades.php, and results.php. I now
+    am getting a grade column when viewing the owngrades.php page and the gview.php
+    page. Might want to see about adding the grade data to the charts.
 
-=== 4.0.1 ===
+20230106 MooTyper_983 - Need new grade data added to CSV download file.  Made code
+    changes to gview.php and csvexport.php. Data is now in the download.
+20230107 MooTyper_984 - Sort controls on gview.php and owngrades.php pages are not
+    working correctly. Fixed them, both pages, and they now appear to be working
+    correctly.
+20230108 MooTyper_985 - Need date/time added to CSVexport file name. Added code
+    that pastes the current date and time into the file name, just before the .csv
+    at the end of the file name.
+20230108 MooTyper_986 - Postgresql generates errors in proposed MooTyper v4.2.2. 
+    The Moodle ratings table expects an integer, so I changed the code to give 0 decimals.
+    Also, with PostgreSQL the $exercises table order is scrambled. Fixed by sorting
+    the table before use. See the ticket for exact details.
+20230114 MooTyper_991 - Got debug message regarding duplicate values in column 'firstname'.
+    The function in lib.php had an SQL that was getting unique users by firstname. The
+    fix was to reorder the SQL and get the users id first. 
+20230116 MooTyper_992 - In gcnext.php, line 60 not giving fail when % fails and WPM passes.
+    Fixed by modifying line 60 to require %pass and WPMpass for green background, no
+    matter what the mode is. Otherwise the background should be red. See ticket for
+    details.
+20230116 MooTyper_993 - Need to see about adding Count, Max, Min, or Sum to the grades
+    reports based on rating setting. Have made needed code changes to result.php, gview.php,
+    and owngrades.php. The rating info only shows up when ratings are being used.
+
+=== 4.2.1 === released 20221207
+20200521 MooTyper_458v - Site admin should be able to see who created and can edit an
+    exercise or a lesson. Added the needed information code to eedit.php.
+20211121 MooTyper_757v - Issue#99 at github Error in phpUnit for core_calender.
+    20220413 Got a pull request that fixes this. More info at:
+    https://github.com/drachels/moodle-mod_mootyper/issues/99. I've applied
+    the pull request, but have not had time to verify the fix.
+20220413 MooTyper_843v - When using PostgreSQL, View all grades, is broken for, All
+    participants. In gview.php, about line 153, changed $groups = ''; to $groups = 0;
+20220505 MooTyper_836v - Completion file custom_completion.php needs work especially for
+    completexercise. 20220813 Added four missing functions for completionlesson to the
+    mod_form.php file so that now the extra selection check box shows when setting the
+    completion requirements.
+20220729 MooTyper_901v - Need two new strings in eedit.php about line 287 and 289
+    regarding changing lesson info. Added the two new strings, "This lesson was
+    included with the MooTyper plugin." and "Created in course:."
+20220816 MooTyper_908v - Grade to pass in Whole MooTyper grading should automatically
+    use the defaultprecision. Made changes in the mod_form.php file.
+20220922 MooTyper_923v - I think the, Export/edit exercises, link needs to be moved up
+    in the nav link hierarchy. In the lib.php file, down around line 1196, I moved the
+    code for the, Export/edit exercises, link so that it gets added to the navigation
+    hierarchy sooner. Still visible only if the teacher can edit the lesson being used.
+20221023 MooTyper_940v - Need to create new icons, monologo.svg and monologo.png.
+    Created both icons and they are being used in this Moodle 4.x.x site.
+20221127 MooTyper_967v - #108 From the MooTyper settings page, other Moodtype nav links
+    are broken. The fix is to specify the the complete path. e.g. $link = new
+    moodle_url('/mod/mootyper/eins.php', array('id' => $cm->id)); See ticket for
+    specific changes that were made.
+
+=== 4.2.0 === released 20220403
+20220128 MooTyper_814 - Need string for authorid on the exercises.php page button. Added
+    the string and code needed to display it about line 148 of file exercises.php. 
+20220128 MooTyper_699 - Create Hindi(HIV5) KB Layout. Created the initial versions of the
+    two files and started modifications.
+20220220 MooTyper_819 - Missing basic completion information on view page issue #102. The
+    same person who opened this issue, provided a solution via pull request that added the
+    needed code in the renderer.php file down around line 66.
+20220219 MooTyper_821 - Issue #104 - Data Privacy is broken. Made the needed changes then
+    also got a pull request for this. Export requests do work.
+20220322 MooTyper_799 - Need new Moodle 4.0 icon. Discovered I can just make two copies
+    of the switch with a branch check for greater than m3.11. The copy of the switch for
+    Moodle 4.0 and above should contain the new case FEATURE_MOD_PURPOSE: return
+    MOD_PURPOSE_ASSESSMENT; 
+
+=== 4.1.1 === released 20220128
+20220122 MooTyper_613 - Would be nice to have a link to index.php on grade pages.
+    Added links to index.php on the view.php, gview.php, and owngrades.php pages.
+    Added links for when lesson is complete and when exam is complete.
+20220125 MooTyper_547 - Duplicating a MooTyper does not set the cursor color correctly.
+    Originally thought I had this fixed in MooTyper v3.9.0. However, I finally have
+    tracked the problem to line 77, in file, backup_mootyper_stepslib.php where the
+    variable, cursocolor was mistyped as coursorcolor.
+20220125 MooTyper_718 - Exercises.php file need fix dev stuff in the big top button.
+    Modified the code in exercises.php so it now shows, Author ID: xx, Lesson visible
+    to: xxx, and Can edit: xxx. After testing, will need to turn Author ID: into
+    a language string.
+20220126 MooTyper_442 - Set return url in layouts.php, to return to same MooTyper.
+    Change button url and it appears to be working correctly. 
+20220126 MooTyper_415 - Need a layout add/remove page. Added and tested code. Switched
+    to using buttons with popup confirm window.
+
+=== 4.1.0 === released 2022011700
+20220117 MooTyper_808 - Avoid storing absolute paths in database (mootyper_layouts).
+    Completed pull request and now testing MooTyper v4.1.0. Duplicate of
+    MooTyper_635, which I closed also.
+
+=== 4.0.1 === released 2021072200
 20210416 MooTyper_701 - Exception - Return value of mootyper_grade_item_update() must
     be an instance of void, none returned. Made two changes in the moodle3dev lib.php
     file to remove the :void in the function line of the code.
@@ -71,8 +182,8 @@ Moodle Versions
     Removed the line of code and replaced with $PAGE-&gt;requires-&gt;jquery().
 
 
-=== 4.0.0 ===
-20210325  MooTyper_619/259 Need to add capability to add names to exercise name numbers.
+=== 4.0.0 === release 2021041600
+20210325 MooTyper_619/259 Need to add capability to add names to exercise name numbers.
     Done and testing.
 20210326 MooTyper_441/180 - Use current MooTyper for layouts.php background color. Implemented.
 20210327 MooTyper_459/198 - It would be nice if a Lesson name could be edited. Got this
@@ -85,8 +196,7 @@ Moodle Versions
 20210331 MooTyper_675/280 - Create Icelandic KB Layout. Created files and tested.
 20210408 MooTyper_694/298 - Invalid get_string() identifier: 'mootyper:rate' #95. Added string.
 
-
-=== 3.9.6 ===
+=== 3.9.6 === release 2021032000
 20201224 MooTyper_660 Aesop's Fables needs to be split into multiple files. Done.
 20201225 MooTyper_662 View.php has lots of space period space errors. Fixed as needed.
 20201230 MooTyper_663 owngrades.php grade table right border does not render in some
@@ -109,20 +219,19 @@ Moodle Versions
     and row 2 on the key to the right of P. THe highlight defaults to the row 2
     key without Alt being highlighted.
 
-
-=== 3.9.5 ===
+=== 3.9.5 === released 2020111000
 20201109 MooTyper_643 Bad grade can be wiped out by a page reload, fixed. Atchk.php
     was missing the, use \mod_mootyper\local\results;, and results::suspicion.
 
-=== 3.9.4 ===
+=== 3.9.4 === released 2020110100
 20201027 Fixed keytop round borders on Spanish, Portugues(P), and German V6 layouts.
 20201027 Added GermanWKeypad(V6)-icons KB layout.
 
-=== 3.9.3 ===
+=== 3.9.3 === released 2020090502
 20201016 Added SpanishWKeypad(V6) KB layout.
 20201018 Added PortuguesWKeypad(PortugueseV6) KB layout.
 
-=== 3.9.2 ===
+=== 3.9.2 === released 2020073100
 20200728 Added four new fields to table mootyper. assessed, asstimestart,
     assessedtimefinished, and scale.
 20200730 MooTyper_567, Investigate adding median, mode and range to the bottom
@@ -130,11 +239,11 @@ Moodle Versions
 20200808 MooTyper_562, Need to integrate MooTyper grades into Moodle
     Grades/Rating system, is FINALLY working. Still need to fix delete part.
 
-=== 3.9.1+ ===
+=== 3.9.1+ === released 20200810
 20200715 MooTyper_577, File upgrade.php missing final upgrade_mod_savepoint. Added
     missing line of code and pushed to github.
 
-=== 3.9.1 ===
+=== 3.9.1 === released 2020070800
 20200708 MooTyper_570, mod_setup.php can be directly accessed by students. 20200708
     Pushed to MT V3.9.1 code on github.
 20200708 MooTyper_569, lsnimport.php can be directly accessed by students. 20200708
@@ -179,7 +288,7 @@ Moodle Versions
 20200708 MooTyper_434, CSS .normal does not work correctly in current version.
     20200708 Pushed to MT V3.9.1 code on github. Made various tweaks to the css.
 
-=== 3.9.0 ===
+=== 3.9.0 === released 2020062003
 20200618 I have thrown away six months worth of development work, and as of today
     have started over. I am systematically going through all the code changes
     I developed, and am applying them here, while doing lots of testing to make
@@ -217,7 +326,7 @@ Moodle Versions
     check the lesson visibility. Hide Settings button if not editable by me.
 20200629 Released MooTyper v3.9.0. Closed 36 tickets with this release.
 
-=== 3.8.3 ===
+=== 3.8.3 === released 2019123002
 12/27/19 Issue #81 at github - Missing space between user name and exercise name in
 the graph when viewing all grades. Fixed and pushed to github master branch.
 12/28/19 TRK1_319 Mistake details error reporting added just below the status bar.
@@ -241,8 +350,7 @@ to the, Export to .csv, file output data.
 01/04/20 Spell checked lessons and switched some to paragraph format.
 01/04/20 Some code cleanup based on last version check on Moodle.
 
-
-=== 3.8.2 ===
+=== 3.8.2 === released 2019122501
 12/10/19 TRK1_314 Added lesson ID to the link, Add new exercise to this lesson, ID: XX.
 Also moved the link code so now inside the 'if' that checks and hides the link if the
 lesson and exercises are not editable by the person viewing the page. This move also
@@ -275,7 +383,7 @@ timelimit and for %. Fixed and testing. Added TRK1_328.
 was resetting to site defaultwpm each time you went to Settings page.
 12/26/19 TRK1_330 For convenience, I added a Cancel button to the settings page.
 
-=== 3.8.1 ===
+=== 3.8.1 === released 2019120800
 11/24/19 Fixed PostrgreSQL compatibility error in locallib.php function get_mootyperlessons.
 11/24/19 Fixed bug when going to eins.php. Undefined variable $lsnnamepo. When incoming
 optional parameter 'lesson' is blank due to starting a new lesson/category name,
@@ -303,8 +411,7 @@ final checking, but I have published it to github for feedback from pmaneggia.
 12/07/19 More code cleanup and bumped version for release.
 12/08/19 Made two small string changes and bumped version date for release.
 
-
-=== 3.8.0+ ===
+=== 3.8.0+ === released 2019112400
 11/19/19 TRK1_295 In file mod_setup down around line 448, I changed the Confirm button
 to use BS4 coding to make the Confirm compatible with Safari web browsers as
 well as all the others.
@@ -316,7 +423,7 @@ Currently, the table is using hover for the table class and light or success in 
 row classes. Light if the lesson or layout is already in the database and success if
 they are new and were just added.
 
-=== 3.8.0 ===
+=== 3.8.0 === released 2019111700
 10/28/19 Corrected comment style used in styles.css file. Also deleted all of the
 [[settings]] lines of code that were preventing Moodle from applying the file.
 10/28/19 Tweaked the Alt Gr when needed in all the layouts. Also eliminated an
@@ -356,7 +463,7 @@ from which you started, or first exercise in the list of them.
 11/17/19 TRK1_263 I have the export event working for the text link. Still needs work
 for the new BS4 button.
 
-=== 3.7.0 ===
+=== 3.7.0 === released 2019102100
 05/20/19 function get_keyboard_layouts_db() { in locallib.php so the list of keyboard
 layouts appears in alphabetical order.
 05/20/19 Removed jsTime, jsProgress, jsAcc, jsSpeed, textup, and textdown from styles.css.
@@ -370,7 +477,7 @@ was in the default settings for mode.
 10/21/19 Ran codechecker and udated README.md
 10/23/19 Released v3.7.0.
 
-=== 3.6.1 ===
+=== 3.6.1 === released 2019051800
 04/12/19 As of 11:30 AM, I have finally gotten my Korean(V5) keyboard to start
 recognizing Korean characters, without breaking other layouts.
 04/13/19 TRK1_200 When looking at the Lessons page generated by exercises.ph, I have
@@ -392,12 +499,12 @@ to github. This .js file implements color highlights.
 5/17/19 Fixed code getElementByID errors for regular keys in EnglishWKeypad(USV6)
 layout so you can type any letter or number.
 
-=== 3.6.0+ ===
+=== 3.6.0+ === released 2019041200
 04/12/19 Plus version release due to including the wrong typer.js file in the
 last 3.6.0 release. It had my console.log entries in it, and one of them was
 breaking the scroll function.
 
-=== 3.6.0 === Working on BETA
+=== 3.6.0 === Working on BETA released 2019032800
 03/01/19 Doing lots of code cleanup based on working on Roshine.
 03/02/19 Did lots more code cleanup based on changes to Roshine. Also worked
 on changing the look of the grades table generated by owngrades.php. Big change
@@ -460,7 +567,7 @@ instead of the improper, Remove.
 and Spanish(V5) keyboard layouts to github.
 3/28/19 Released version 3.6.0.
 
-=== 3.5.4+ ===
+=== 3.5.4+ === released 2019021600
 12/06/18 M36 - Started dev on adding Mode and Exercise category to the MooTyper
 activity Edit page. Got them both there with help. Exercise category still
 needs work as id is not matching the name correctly, yet.
@@ -482,7 +589,7 @@ for atchk.php and pushed change to github master branch.
 Instance was not being set at the right point in the add_instnace function.
 02/16/19 Created new release 3.5.4+ build 2019021600.
 
-=== 3.5.3 ===
+=== 3.5.3 === released 2018113000
 06/09/18 Worked on code cleanup in all the keyboard .js files.
 06/09/18 Major cleanup in Belgium(DutchV4).js file. - Working so far.
 06/12/18 Completed the same major cleanup in all the other .js kb files.
@@ -520,7 +627,7 @@ implemented.
 The g is lighting up when it should be shift+t or shift+b.
 11/30/18 Pushed all the working stuff to github for realease.
 
-=== 3.5.2 ===
+=== 3.5.2 === released 20180060300
 05/15/18 Fixed lesson export so \r\n is only \n.
 05/26/18 Added strings for GDPR.
 05/26/18 Added privacy.php file with code for GDPR.
@@ -543,7 +650,7 @@ to work for Moodle 2.7 thru Moodle 3.5.
 06/05/18 Tested each version - all okay.
 Bumped version to 3.5.2 and pushed to github.
 
-=== 3.5.1 STABLE ===
+=== 3.5.1 STABLE === release 2018051300
 04/08/18 Modified csvexport.php to include exercise name in the export file.
 04/09/18 Created prototype Korean(V4) keyboard layout. Still needs work.
 04/16/18 Began development of GDPR code for MooTyper in Moodle3.5.
@@ -564,7 +671,7 @@ for each of the keyboard layouts. Need to go through them again.
 05/14/18 Finsihed changes to the wpm formula and pushed to github.
 05/14/18 Posted new 3.5.1 version to Moodle.
 
-=== 3.5.0 STABLE ===
+=== 3.5.0 STABLE === release 2018040400
 03/26/18 Updated function doTheEnd in typer.js to do a final stauts bar update so the
 info on the staus bar is the same as the info in the grade view.
 03/27/18 Added scrolling text capability to the texttotype and hid the textarea.
@@ -586,7 +693,7 @@ Moodle 3.1 and below as they were not getting flipped as expected.
 04/04/18 Cleaned code and pushed to github for new release.
 
 
-=== 3.4.3 STABLE ===
+=== 3.4.3 STABLE === released 2018031200
 02/08/18 Started development on Hebrew(V4) Keyboard layout at request of Eyal Laifer.
 02/09/18 Abandoned files from Eyal and started over. By EOD I have Hebrew characters working
 but NOT the capitalized English characters.
@@ -608,7 +715,7 @@ three language strings for left, center, and right.
 to set alignment before starting to type, as setting alignment clears the textarea.
 03/12/18 Cleaned code and pushed to github for new release.
 
-=== 3.4.2 STABLE ===
+=== 3.4.2 STABLE === released 2017120402
 12/02/17 Created Portuguese(PortugalV4) keyboard layout and modified eeins.php and eedit.php
 to add «» characters.
 12/03/17 Finalized Portuguese(PortugalV4) keyboard layout and modified styles.css file
@@ -626,7 +733,7 @@ Séverin and I'll know for sure.
 12/18/17 Pushed code to github that as Course Reset capability for MooTyper.
 12/22/17 Released MooTyper 3.4.2 to Moodle.
 
-=== 3.4.1 STABLE ===
+=== 3.4.1 STABLE === released 2017120100
 11/11/17 Worked on fixing many of the JSDOC errors in all the layout .js files and typer.js.
 11/14/17 Moved statistics so they appear with a colored background, right above
 the text to type. Added the 2 grade and the settings links just above them.
@@ -649,7 +756,7 @@ time of creating a MooTyper activity.
 12/01/17 Released V4 versions of keyboard layouts.
 12/01/17 Released MooTyper 3.4.1.
 
-=== 3.4.0 STABLE ===
+=== 3.4.0 STABLE === released 2017110700
 11/06/17 Over the past two weeks I have been working on eliminating the last few
 instances of _POST and _GET. Finally got rid of the last one today in mod_setup.php.
 While working on this I also made a new log entry for removing a lesson and made the
@@ -658,11 +765,11 @@ Reworked the mod_form to include showkeyboard.
 11/07/17 Pushed latest to github. Works on Moodle 2.7 to Moodle 3.4.
 Charts are shown only when in Moodle 3.2 and higher.
 
-=== 3.3.2 STABLE ===
+=== 3.3.2 STABLE === released 2017102600
 10/26/17 Fixed a lot more of the warnings and errors listed on Moodle for 3.3.1 version.
 10/26/17 Pushed changes to github and published new version 3.3.2.
 
-=== 3.3.1 STABLE ===
+=== 3.3.1 STABLE === released 2017102500
 10/5/17 Changed t_crka to t_Crka to get rid of camelcase errors in all keyboard .js files.
 10/5/17 Added JSDoc comments to functions in typer.js and all keyboard .js files.
 10/5/17 Bumped version by 0.1.
@@ -678,7 +785,7 @@ either of those two lines, the code for suspicious grades did not work.
 10/25/17 Finished fixing _POST and _GET in all files pushed to git and published new version 3.3.1.
 
 
-=== 3.3.0 STABLE ===
+=== 3.3.0 STABLE === released 2017092901
 NOTE: Moodle 3.2 implements new Graph API, so this MooTyper will be
 for MooTyper 3.2 and 3.3 only.
 7/19/17 Started adding chart to owngrades.php, View own grades page.
@@ -839,7 +946,7 @@ duplicates without getting debug message in output file.
 10/11/16 Changed availability check code in view.php so that admin and teachers can always access
 a MooTyper activity to check grades. Only students are prevented if availability is closed.
 
-=== 3.1.2 ===
+=== 3.1.2 === released 2016080700
 07/18/2016 Implemented code to show entries in the Recent Activity Block.
 07/30/2016 Implemented code to use open and close dates for MooTyper activities.
 07/30/2016 Implemented renderer.php file and started creating functions in it.
@@ -974,7 +1081,7 @@ No updates for about a year and a half.
 
 === No releases for 2.4, 2.5, 2.6 ===
 
-=== 2.3 ===
+=== 2.3 === released 20140803
 
 * 2.6 (Build: 2014080300) (2014080300)Moodle 2.3
   Release date: Sunday, 3 August 2014, 7:51 AM

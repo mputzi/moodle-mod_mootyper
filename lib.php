@@ -27,7 +27,7 @@
  */
 use \mod_mootyper\local\lessons;
 
-defined('MOODLE_INTERNAL') || die();
+defined('MOODLE_INTERNAL') || die(); // @codingStandardsIgnoreLine
 
 define('MOOTYPER_EVENT_TYPE_OPEN', 'open');
 define('MOOTYPER_EVENT_TYPE_CLOSE', 'close');
@@ -41,33 +41,48 @@ define('MOOTYPER_EVENT_TYPE_CLOSE', 'close');
 /**
  * Returns the information on whether the module supports a feature.
  *
- * @see plugin_supports() in lib/moodlelib.php
- * @param string $feature FEATURE_xx constant for requested feature
- * @return mixed true if the feature is supported, null if unknown
+ * @uses FEATURE_MOD_PURPOSE:
+ * @uses FEATURE_BACKUP_MOODLE2
+ * @uses FEATURE_COMPLETION_TRACKS_VIEWS
+ * @uses FEATURE_COMPLETION_HAS_RULES
+ * @uses FEATURE_GRADE_HAS_GRADE
+ * @uses FEATURE_GRADE_OUTCOMES
+ * @uses FEATURE_GROUPS
+ * @uses FEATURE_GROUPINGS
+ * @uses FEATURE_GROUPMEMBERSONLY
+ * @uses FEATURE_MOD_INTRO
+ * @uses FEATURE_RATE
+ * @uses FEATURE_SHOW_DESCRIPTION
+ * @param string $feature
+ * @return mixed True if yes (some features may use other values)
  */
 function mootyper_supports($feature) {
     global $CFG;
-
+    if ((int)$CFG->branch > 311) {
+        if ($feature === FEATURE_MOD_PURPOSE) {
+            return MOD_PURPOSE_COLLABORATION;
+        }
+    }
     switch ($feature) {
-        case FEATURE_GROUPS;
-            return true;
-        case FEATURE_GROUPINGS:
-            return false;
-        case FEATURE_GROUPMEMBERSONLY:
-            return false;
-        case FEATURE_MOD_INTRO:
+        case FEATURE_BACKUP_MOODLE2:
             return true;
         case FEATURE_COMPLETION_TRACKS_VIEWS:
             return true;
         case FEATURE_COMPLETION_HAS_RULES:
-            return false;
+            return true;
         case FEATURE_GRADE_HAS_GRADE:
             return true;
         case FEATURE_GRADE_OUTCOMES:
             return false;
-        case FEATURE_RATE:
+        case FEATURE_GROUPS;
             return true;
-        case FEATURE_BACKUP_MOODLE2:
+        case FEATURE_GROUPINGS:
+            return true;
+        case FEATURE_GROUPMEMBERSONLY:
+            return true;
+        case FEATURE_MOD_INTRO:
+            return true;
+        case FEATURE_RATE:
             return true;
         case FEATURE_SHOW_DESCRIPTION:
             return true;
@@ -75,6 +90,7 @@ function mootyper_supports($feature) {
         default:
             return null;
     }
+
 }
 
 /**
@@ -89,9 +105,9 @@ function get_users_of_one_instance($mootyperid) {
     $toreturn = array();
     $gradestblname = $CFG->prefix."mootyper_grades";
     $userstblname = $CFG->prefix."user";
-    $sql = "SELECT DISTINCT ".$userstblname.".firstname, "
-                             .$userstblname.".lastname, "
-                             .$userstblname.".id".
+    $sql = "SELECT DISTINCT ".$userstblname.".id, "
+                             .$userstblname.".firstname, "
+                             .$userstblname.".lastname".
                      " FROM ".$gradestblname.
                 " LEFT JOIN ".$userstblname." ON ".$gradestblname.".userid = ".$userstblname.".id".
           " WHERE (mootyper=".$mootyperid.")";
@@ -133,6 +149,7 @@ function get_typer_grades_adv($mootyperid, $exerciseid, $userid=0, $orderby=-1, 
                     .$gradestblname.".timetaken, "
                     .$exertblname.".exercisename, "
                     .$gradestblname.".wpm,"
+                    .$gradestblname.".grade,"
                     .$gradestblname.".mistakedetails".
     " FROM ".$gradestblname.
     " LEFT JOIN ".$userstblname." ON ".$gradestblname.".userid = ".$userstblname.".id".
@@ -166,6 +183,8 @@ function get_typer_grades_adv($mootyperid, $exerciseid, $userid=0, $orderby=-1, 
         $oby = " ORDER BY ".$gradestblname.".pass";
     } else if ($orderby == 12) {
         $oby = " ORDER BY ".$gradestblname.".wpm";
+    } else if ($orderby == 13) {
+        $oby = " ORDER BY ".$gradestblname.".grade";
     } else {
         $oby = "";
     }
@@ -209,6 +228,7 @@ function get_typergradesuser($sid, $uid, $orderby=-1, $desc=false) {
                     .$gradestblname.".timetaken, "
                     .$exertblname.".exercisename, "
                     .$gradestblname.".wpm,"
+                    .$gradestblname.".grade,"
                     .$gradestblname.".mistakedetails".
     " FROM ".$gradestblname.
     " LEFT JOIN ".$userstblname." ON ".$gradestblname.".userid = ".$userstblname.".id".
@@ -239,6 +259,8 @@ function get_typergradesuser($sid, $uid, $orderby=-1, $desc=false) {
         $oby = " ORDER BY ".$exertblname.".exercisename";
     } else if ($orderby == 12) {
         $oby = " ORDER BY ".$gradestblname.".wpm";
+    } else if ($orderby == 13) {
+        $oby = " ORDER BY ".$gradestblname.".grade";
     } else {
         $oby = "";
     }
@@ -273,7 +295,7 @@ function mootyper_add_instance($mootyper, $mform = null) {
         $mootyper->assessed = 0;
     }
 
-    if (empty($mootyper->ratingtime) or empty($mootyper->assessed)) {
+    if (empty($mootyper->ratingtime) || empty($mootyper->assessed)) {
         $mootyper->assesstimestart  = 0;
         $mootyper->assesstimefinish = 0;
     }
@@ -428,6 +450,12 @@ function mootyper_update_instance($mootyper, $mform) {
 
     // 20200907 Skip grading options for Moodle less than v3.8.
     if ($CFG->branch > 37) {
+        // 20230117 Fixes whole grades MTs created prior to adding Moodle grading to MooTyper.
+        if (empty($oldmootyper->scale) && $oldmootyper->grade_mootyper > 0) {
+            $mootyper->scale = $mootyper->grade_mootyper;
+            // The whole mootyper grading.
+            $updategrades = true;
+        }
         if (empty($oldmootyper->grade_mootyper) || $oldmootyper->grade_mootyper <> $mootyper->grade_mootyper) {
             // The whole mootyper grading.
             $updategrades = true;
@@ -658,7 +686,7 @@ function mootyper_print_recent_activity($course, $viewfullnames, $timestart) {
  *
  * This callback function is supposed to populate the passed array with
  * custom activity records. These records are then rendered into HTML via
- * {@link mootyper_print_recent_mod_activity()}.
+ * mootyper_print_recent_mod_activity().
  *
  * @param array $activities sequentially indexed array of objects with the 'cmid' property
  * @param int $index the index in the $activities to use for the next record
@@ -762,8 +790,9 @@ function mootyper_scale_used_anywhere(int $scaleid): bool {
  * @uses GRADE_TYPE_NONE
  * @uses GRADE_TYPE_VALUE
  * @uses GRADE_TYPE_SCALE
- * @param stdClass $mootyper instance object with extra cmidnumber and modname property
- * @param mixed $grades Optional array/object of grade(s); 'reset' means reset grades in gradebook
+ * @param stdClass $mootyper Instance object with extra cmidnumber and modname property
+ * @param mixed $ratings
+ * @param mixed $mootypergrades
  * @return int 0 if ok
  */
 function mootyper_grade_item_update($mootyper, $ratings = null, $mootypergrades = null): void {
@@ -800,7 +829,7 @@ function mootyper_grade_item_update($mootyper, $ratings = null, $mootypergrades 
             // Note: We do not need to store the idnumber here.
         ];
 
-        if (!$mootyper->grade_mootyper) {
+        if (empty($mootyper->grade_mootyper)) {
             $item['gradetype'] = GRADE_TYPE_NONE;
         } else if ($mootyper->grade_mootyper > 0) {
             $item['gradetype'] = GRADE_TYPE_VALUE;
@@ -854,17 +883,15 @@ function mootyper_update_grades($mootyper, $userid=0): void {
     }
 
     $mootypergrades = null;
-    if ($mootyper->requiredgoal) {
-        $sql = <<<EOF
-SELECT
-    g.userid,
-    0 as datesubmitted,
-    g.grade as rawgrade,
-    g.timetaken as dategraded
-  FROM {mootyper} m
-  JOIN {mootyper_grades} g ON g.mootyper = m.id
- WHERE m.id = :mootyperid
-EOF;
+    if (($mootyper->requiredgoal) || ($mootyper->requiredwpm)) {
+        $sql = "SELECT g.userid,
+                       0 as datesubmitted,
+                       g.grade as rawgrade,
+                       g.timetaken as dategraded,
+                       g.mistakedetails
+                  FROM {mootyper} m
+                  JOIN {mootyper_grades} g ON g.mootyper = m.id
+                 WHERE m.id = :mootyperid";
 
         $params = [
             'mootyperid' => $mootyper->id,
@@ -879,6 +906,7 @@ EOF;
         if ($grades = $DB->get_recordset_sql($sql, $params)) {
             foreach ($grades as $userid => $grade) {
                 if ($grade->rawgrade != -1) {
+                    $grade->feedback = $grade->mistakedetails;
                     $mootypergrades[$userid] = $grade;
                 }
             }
@@ -958,7 +986,7 @@ function reset_mootyper_instance($mootyperid) {
  * Returns the lists of all browsable file areas within the given module context.
  *
  * The file area 'intro' for the activity introduction field is added automatically
- * by {@link file_browser::get_file_info_context_module()}
+ * by file_browser::get_file_info_context_module().
  *
  * @param stdClass $course
  * @param stdClass $cm
@@ -1124,8 +1152,8 @@ function mootyper_update_calendar(stdClass $mootyper, $cmid) {
  * This function is called when the context for the page is a mootyper module. This is not called by AJAX
  * so it is safe to rely on the $PAGE.
  *
- * @param settings_navigation $settingsnav {@link settings_navigation}
- * @param navigation_node $navref {@link navigation_node}
+ * @param settings_navigation $settingsnav
+ * @param navigation_node $navref
  */
 function mootyper_extend_settings_navigation(settings_navigation $settingsnav, navigation_node $navref) {
     global $PAGE, $DB, $USER;
@@ -1144,25 +1172,8 @@ function mootyper_extend_settings_navigation(settings_navigation $settingsnav, n
 
     // Link to the Add new lessons w/exercises page. Visible to any teacher.
     if (has_capability('mod/mootyper:aftersetup', $cm->context)) {
-        $link = new moodle_url('eins.php', array('id' => $cm->id));
+        $link = new moodle_url('/mod/mootyper/eins.php', array('id' => $cm->id));
         $linkname = get_string('eaddnew', 'mootyper');
-        $icon = new pix_icon('icon', '', 'mootyper', array('class' => 'icon'));
-        $node = $navref->add($linkname, $link, navigation_node::TYPE_SETTING, null, null, $icon);
-    }
-
-    // Link to Import new lessons w/exercises and new keyboard layouts. Visible to admin only.
-    // if (has_capability('mod/mootyper:aftersetup', $cm->context)) {
-    if (is_siteadmin()) {
-        $link = new moodle_url('lsnimport.php', array('id' => $cm->id));
-        $linkname = get_string('lsnimport', 'mootyper');
-        $icon = new pix_icon('icon', '', 'mootyper', array('class' => 'icon'));
-        $node = $navref->add($linkname, $link, navigation_node::TYPE_SETTING, null, null, $icon);
-    }
-
-    // 20201028 Link to remove keyboard layouts. Visible to siteadmin only.
-    if (is_siteadmin()) {
-        $link = new moodle_url('layouts.php', array('id' => $cm->id));
-        $linkname = get_string('loheading', 'mootyper');
         $icon = new pix_icon('icon', '', 'mootyper', array('class' => 'icon'));
         $node = $navref->add($linkname, $link, navigation_node::TYPE_SETTING, null, null, $icon);
     }
@@ -1175,17 +1186,27 @@ function mootyper_extend_settings_navigation(settings_navigation $settingsnav, n
         // 20200627 Modified to show link only if user can edit the current lesson.
         if ($lesson) {
             if (lessons::is_editable_by_me($USER->id, $mootyper->id, $lesson->id)) {
-                $link = new moodle_url('exercises.php', array('id' => $cm->id, 'lesson' => $mootyper->lesson));
+                $link = new moodle_url('/mod/mootyper/exercises.php', array('id' => $cm->id, 'lesson' => $mootyper->lesson));
                 $linkname = get_string('editexercises', 'mootyper');
-                /* For testing use this for extra details:
-                $linkname = get_string('editexercises', 'mootyper')
-                    .' - uid: '.$USER->id
-                    .' mtid: '.$mootyper->id
-                    .' lsnid: '.$lesson->id;
-                */
                 $icon = new pix_icon('icon', '', 'mootyper', array('class' => 'icon'));
                 $node = $navref->add($linkname, $link, navigation_node::TYPE_SETTING, null, null, $icon);
             }
         }
+    }
+
+    // Link to Import new lessons w/exercises and new keyboard layouts. Visible to admin only.
+    if (is_siteadmin()) {
+        $link = new moodle_url('/mod/mootyper/lsnimport.php', array('id' => $cm->id));
+        $linkname = get_string('lsnimport', 'mootyper');
+        $icon = new pix_icon('icon', '', 'mootyper', array('class' => 'icon'));
+        $node = $navref->add($linkname, $link, navigation_node::TYPE_SETTING, null, null, $icon);
+    }
+
+    // 20201028 Link to remove keyboard layouts. Visible to siteadmin only.
+    if (is_siteadmin()) {
+        $link = new moodle_url('/mod/mootyper/layouts.php', array('id' => $cm->id));
+        $linkname = get_string('loheading', 'mootyper');
+        $icon = new pix_icon('icon', '', 'mootyper', array('class' => 'icon'));
+        $node = $navref->add($linkname, $link, navigation_node::TYPE_SETTING, null, null, $icon);
     }
 }

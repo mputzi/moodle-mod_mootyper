@@ -108,8 +108,8 @@ if ($directionality === 'rtl') {
 </section>
 </div>
 </div>
-<?php
-// This part of the layout is used when using LTR language.
+    <?php
+    // This part of the layout is used when using LTR language.
 } else {
 ?>
 ">
@@ -187,6 +187,5 @@ if ($directionality === 'rtl') {
         </div>
 </section>
 </div>
-<?php
+    <?php
 }
-
