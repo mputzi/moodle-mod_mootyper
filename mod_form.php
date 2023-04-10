@@ -173,7 +173,9 @@ class mod_mootyper_mod_form extends moodleform_mod {
                 isset($mootyperconfig->defaultlayout_filenamewithoutfiletype) &&
                 keyboards::is_layout_installed("$mootyperconfig->defaultlayout_filenamewithoutfiletype")) {
             // We should overwrite and the layout is installed!
-            $mform->setDefault('layout', keyboards::get_id_of_layout_by_layoutname($mootyperconfig->defaultlayout_filenamewithoutfiletype));
+            $mform->setDefault('layout',
+                keyboards::get_id_of_layout_by_layoutname($mootyperconfig->defaultlayout_filenamewithoutfiletype
+                ));
         } else {
             // We should not overwrite or the laylout is not installed so we have to use the "normal" default.
             $mform->setDefault('layout', $mootyperconfig->defaultlayout);

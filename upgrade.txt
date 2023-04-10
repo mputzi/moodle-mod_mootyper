@@ -75,6 +75,11 @@ Moodle Versions
 20230224 MooTyper_699 - Create Hindi(HIV5) KB Layout. Dropping this ticket because the
     Hindi alphabet is not in the Courier New font file so it is not compatible with
     view.php and typer.js files.
+20230224 MooTyper_1013 - Need to see about selecting KB Layout based on name instead of ID.
+    New code provided as a merged pulled request for item #110.
+20230406 MooTyper_1032 - Invalid event functions defined in \mod_mootyper\event
+    \course_exercises_viewed. Deleted deprecated legacy log code as need in all the new,
+    MooTyper v4.2.3, files.
 
 
 

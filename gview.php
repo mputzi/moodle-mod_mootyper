@@ -517,7 +517,7 @@ if (($labels) && ($grds != false) && ($CFG->branch > 31)) {
 
     $chart = new core\chart_bar();  // Tell the api we want a bar chart.
     $chart->set_horizontal(true); // Calling set_horizontal() passing true as parameter will display horizontal bar charts.
-    $chart->set_title(get_string('charttitleallgrades', 'mootyper')); // Tell the api what we want for a the chart title.
+    $chart->set_title(get_string('charttitleallgrades', 'mootyper')); // Tell the api what we want for a chart title.
     // Temp $chart->add_series($serie1);  // Pass the hits per minute data to the api.
     $chart->add_series($serie2);  // Pass the precision data to the api.
     $chart->add_series($serie3);  // Pass the words per minute data to the api.

@@ -124,14 +124,16 @@ if ($ADMIN->fulltree) {
         3,
         $layouts));
 
-    // Check if the layout that might should be used by the layoutname is installed
-    $defaultlayoutid = keyboards::get_id_of_layout_by_layoutname(get_string('default_defaultlayout_filenamewithoutfiletype', 'mootyper'));
+    // Check if the layout that might should be used by the layoutname is installed.
+    $defaultlayoutid = keyboards::get_id_of_layout_by_layoutname(
+        get_string('default_defaultlayout_filenamewithoutfiletype', 'mootyper'
+        ));
     $description = get_string('defaultlayout_filenamewithoutfiletype_desc', 'mootyper');
     if ($defaultlayoutid == 0) {
-        $description = get_string('default_defaultlayout_filenamewithoutfiletype', 'mootyper') .  " does not exist. " . $description;
+        $description = get_string('default_defaultlayout_filenamewithoutfiletype', 'mootyper')." does not exist. ". $description;
     }
 
-    // Overwrite defaultlayout by layoutname
+    // Overwrite defaultlayout by layoutname.
     $settings->add(new admin_setting_configcheckbox("mod_mootyper/overwrite_defaultlayout",
         get_string('overwrite_defaultlayout', 'mootyper'), '', 1));
     $settings->add(new admin_setting_configtext("mod_mootyper/defaultlayout_filenamewithoutfiletype",
