@@ -57,7 +57,7 @@ sending an email, leave a comment at
 
 Moodle Versions
 ===============
-=== 4.2.3 === pending
+=== 4.2.3 === 20230420
 20230105 MooTyper_982 - Need to enable new, Grade, bar to the chart. Added a new
     series 4 for grades. Temporarily commented out series 1 for hits per minute,
     resulting in a x-axis that goes from 0 to 100.
