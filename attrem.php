@@ -40,9 +40,9 @@ $context = optional_param('context', 0, PARAM_INT);  // MooTyper id (mdl_mootype
 $gradeid = optional_param('g', 0, PARAM_INT);
 $mtmode = optional_param('mtmode', 0, PARAM_INT);
 
-$mootyper  = $DB->get_record('mootyper', array('id' => $mid), '*', MUST_EXIST);
-$course     = $mootyper->course;
-$cm         = get_coursemodule_from_instance('mootyper', $mootyper->id, $course->id, false, MUST_EXIST);
+$mootyper = $DB->get_record('mootyper', array('id' => $mid), '*', MUST_EXIST);
+$course = $mootyper->course;
+$cm = get_coursemodule_from_instance('mootyper', $mootyper->id, $course->id, false, MUST_EXIST);
 
 $context = context_module::instance($cm->id);
 require_login($course, true, $cm);

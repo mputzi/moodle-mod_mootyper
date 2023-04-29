@@ -296,7 +296,7 @@ function mootyper_add_instance($mootyper, $mform = null) {
     }
 
     if (empty($mootyper->ratingtime) || empty($mootyper->assessed)) {
-        $mootyper->assesstimestart  = 0;
+        $mootyper->assesstimestart = 0;
         $mootyper->assesstimefinish = 0;
     }
 
@@ -410,7 +410,7 @@ function mootyper_update_instance($mootyper, $mform) {
     }
 
     if (empty($mootyper->assessed)) {
-        $mootyper->assesstimestart  = 0;
+        $mootyper->assesstimestart = 0;
         $mootyper->assesstimefinish = 0;
     }
 
@@ -421,9 +421,9 @@ function mootyper_update_instance($mootyper, $mform) {
         $mootyper->timeclose = 0;
     }
 
-    $cmid       = $mootyper->coursemodule;
+    $cmid = $mootyper->coursemodule;
     $cmidnumber = $mootyper->cmidnumber;
-    $courseid   = $mootyper->course;
+    $courseid = $mootyper->course;
     $mootyper->id = $mootyper->instance;
     $context = context_module::instance($cmid);
     $mootyper->timemodified = time();
@@ -600,8 +600,8 @@ function mootyper_print_recent_activity($course, $viewfullnames, $timestart) {
     $newentries = $DB->get_records_sql($sql, $dbparams);
 
     $modinfo = get_fast_modinfo($course);
-    $show    = array();
-    $grader  = array();
+    $show = array();
+    $grader = array();
     $showrecententries = get_config('mod_mootyper', 'showrecentactivity');
 
     foreach ($newentries as $anentry) {
@@ -808,11 +808,11 @@ function mootyper_grade_item_update($mootyper, $ratings = null, $mootypergrades 
         $item['gradetype'] = GRADE_TYPE_NONE;
     } else if ($mootyper->scale > 0) {
         $item['gradetype'] = GRADE_TYPE_VALUE;
-        $item['grademax']  = $mootyper->scale;
-        $item['grademin']  = 0;
+        $item['grademax'] = $mootyper->scale;
+        $item['grademin'] = 0;
     } else if ($mootyper->scale < 0) {
         $item['gradetype'] = GRADE_TYPE_SCALE;
-        $item['scaleid']   = -$mootyper->scale;
+        $item['scaleid'] = -$mootyper->scale;
     }
     if ($ratings === 'reset') {
         $item['reset'] = true;

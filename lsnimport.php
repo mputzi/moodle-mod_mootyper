@@ -121,7 +121,7 @@ function add_keyboard_layout($dafile) {
     $periodpos = strrpos($dafile, '.');
     $layoutname = substr($dafile, 0, $periodpos);
     $record = (object) [
-        'name'     => $layoutname,
+        'name' => $layoutname,
     ];
     $DB->insert_record('mootyper_layouts', $record, true);
 }

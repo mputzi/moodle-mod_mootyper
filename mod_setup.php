@@ -38,16 +38,16 @@ require_once(__DIR__ . '/lib.php');
 global $USER;
 
 $id = optional_param('id', 0, PARAM_INT); // Course_module ID, or.
-$n  = optional_param('n', 0, PARAM_INT);  // Mootyper instance ID - it should be named as the first character of the module.
+$n = optional_param('n', 0, PARAM_INT);  // Mootyper instance ID - it should be named as the first character of the module.
 
 if ($id) {
-    $cm         = get_coursemodule_from_id('mootyper', $id, 0, false, MUST_EXIST);
-    $course     = $DB->get_record('course', array('id' => $cm->course), '*', MUST_EXIST);
-    $mootyper  = $DB->get_record('mootyper', array('id' => $cm->instance), '*', MUST_EXIST);
+    $cm = get_coursemodule_from_id('mootyper', $id, 0, false, MUST_EXIST);
+    $course = $DB->get_record('course', array('id' => $cm->course), '*', MUST_EXIST);
+    $mootyper = $DB->get_record('mootyper', array('id' => $cm->instance), '*', MUST_EXIST);
 } else if ($n) {
-    $mootyper  = $DB->get_record('mootyper', array('id' => $n), '*', MUST_EXIST);
-    $course     = $DB->get_record('course', array('id' => $mootyper->course), '*', MUST_EXIST);
-    $cm         = get_coursemodule_from_instance('mootyper', $mootyper->id, $course->id, false, MUST_EXIST);
+    $mootyper = $DB->get_record('mootyper', array('id' => $n), '*', MUST_EXIST);
+    $course = $DB->get_record('course', array('id' => $mootyper->course), '*', MUST_EXIST);
+    $cm = get_coursemodule_from_instance('mootyper', $mootyper->id, $course->id, false, MUST_EXIST);
 } else {
     throw new moodle_exception(get_string('mootypererror', 'mootyper'));
 }
@@ -286,7 +286,7 @@ if (isset($param1) && get_string('fconfirm', 'mootyper') == $param1) {
 
     global $DB, $CFG;
     // Update all the settings for this MooTyper instance when Confirm is clicked.
-    $mootyper  = $DB->get_record('mootyper', array('id' => $n), '*', MUST_EXIST);
+    $mootyper = $DB->get_record('mootyper', array('id' => $n), '*', MUST_EXIST);
     $mootyper->lesson = $lessonpo;
     $mootyper->isexam = $modepo;
     if ($modepo == 1) {

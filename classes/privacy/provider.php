@@ -168,7 +168,7 @@ class provider implements
         $params = [
             'modid' => $modid,
             'contextlevel' => CONTEXT_MODULE,
-            'contextid'    => $context->id,
+            'contextid' => $context->id,
         ];
         // Fetch all mootyper user grades.
         $sql = "

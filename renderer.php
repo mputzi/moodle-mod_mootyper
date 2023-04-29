@@ -96,7 +96,7 @@ class mod_mootyper_renderer extends plugin_renderer_base {
      */
     public function mootyper_inaccessible($message) {
         global $CFG;
-        $output  = $this->output->box_start('generalbox boxaligncenter');
+        $output = $this->output->box_start('generalbox boxaligncenter');
         $output .= $this->output->box_start('center');
         $output .= (get_string('notavailable', 'mootyper'));
         $output .= $message;
@@ -117,7 +117,7 @@ class mod_mootyper_renderer extends plugin_renderer_base {
      */
     public function login_prompt($mootyper, $failedattempt = false) {
         global $CFG;
-        $output  = $this->output->box_start('password-form');
+        $output = $this->output->box_start('password-form');
         $output .= $this->output->box_start('generalbox boxaligncenter');
         $output .= '<form id="password" method="post" action="'.$CFG->wwwroot.'/mod/mootyper/view.php" autocomplete="off">';
         $output .= '<fieldset class="invisiblefieldset center">';
