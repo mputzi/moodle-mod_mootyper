@@ -386,5 +386,54 @@ function xmldb_mootyper_upgrade($oldversion) {
         // Mootyper savepoint reached.
         upgrade_mod_savepoint(true, 2022081000, 'mootyper');
     }
+    // New completion fields added for v4.2.4.
+    if ($oldversion < 2023073000) {
+
+        // Define field completionexercise to be added to mootyper.
+        $table = new xmldb_table('mootyper');
+        $field = new xmldb_field('completionexercise', XMLDB_TYPE_INTEGER, '2', null, XMLDB_NOTNULL, null, '1', 'countmistakes');
+
+        // Conditionally launch add field completionexercise.
+        if (!$dbman->field_exists($table, $field)) {
+            $dbman->add_field($table, $field);
+        }
+
+        // Define field completionprecision to be added to mootyper.
+        $table = new xmldb_table('mootyper');
+        $field = new xmldb_field('completionprecision', XMLDB_TYPE_INTEGER, '2', null, XMLDB_NOTNULL, null, '0', 'completionlesson');
+
+        // Conditionally launch add field completionprecision.
+        if (!$dbman->field_exists($table, $field)) {
+            $dbman->add_field($table, $field);
+        }
+
+        // Define field completionwpm to be added to mootyper.
+        $table = new xmldb_table('mootyper');
+        $field = new xmldb_field('completionwpm', XMLDB_TYPE_INTEGER, '2', null, XMLDB_NOTNULL, null, '0', 'completionprecision');
+
+        // Conditionally launch add field completionwpm.
+        if (!$dbman->field_exists($table, $field)) {
+            $dbman->add_field($table, $field);
+        }
+
+        // Define field completionmootyperpass to be added to mootyper.
+        $table = new xmldb_table('mootyper');
+        $field = new xmldb_field('completionmootypergrade', XMLDB_TYPE_INTEGER, '2', null, XMLDB_NOTNULL, null, '0', 'completionwpm');
+
+        // Conditionally launch add field completionmootyperpass.
+        if (!$dbman->field_exists($table, $field)) {
+            $dbman->add_field($table, $field);
+        }
+
+        // Changing type of field mistakedetails on table mootyper_grades to char.
+        $table = new xmldb_table('mootyper_grades');
+        $field = new xmldb_field('mistakedetails', XMLDB_TYPE_CHAR, '1333', null, XMLDB_NOTNULL, null, null, 'wpm');
+
+        // Launch change of type for field mistakedetails.
+        $dbman->change_field_type($table, $field);
+
+        // Mootyper savepoint reached.
+        upgrade_mod_savepoint(true, 2023073000, 'mootyper');
+    }
     return true;
 }
