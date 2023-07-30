@@ -170,7 +170,8 @@ class lessons {
     public static function get_exercises_by_lesson($less) {
         global $USER, $CFG, $DB;
         $params = array();
-        $toreturn = array();
+        //$toreturn = array();
+        $lessonpo = array();
         $sql = "SELECT * FROM ".$CFG->prefix."mootyper_exercises WHERE lesson=".$less;
         if ($exercises = $DB->get_records_sql($sql, $params)) {
             foreach ($exercises as $ex) {
@@ -178,10 +179,14 @@ class lessons {
                 $exestoreturn['id'] = $ex->id;
                 $exestoreturn['exercisename'] = $ex->exercisename;
                 $exestoreturn['snumber'] = $ex->snumber;
-                $toreturn[] = $exestoreturn;
+                //$toreturn[] = $exestoreturn;
+                $lessonpo[] = $exestoreturn;
             }
         }
-        return $toreturn;
+        // print_object($lessonpo);
+
+        //return $toreturn;
+        return $lessonpo;
     }
 
     /**
