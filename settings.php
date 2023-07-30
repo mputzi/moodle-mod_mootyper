@@ -121,7 +121,7 @@ if ($ADMIN->fulltree) {
     $settings->add(new admin_setting_configselect('mod_mootyper/defaultlayout',
         get_string('defaultlayout', 'mootyper'),
         get_string('defaultlayout_desc', 'mootyper'),
-        3,
+        13,
         $layouts));
 
     // Check if the layout that might should be used by the layoutname is installed.
