@@ -83,7 +83,7 @@ $context = context_module::instance($cm->id);
 
 $mootyperoutput = $PAGE->get_renderer('mod_mootyper');
 
-// Output starts here.
+// Output starts here. Calls renderer.php line 43.
 echo $mootyperoutput->header($mootyper, $cm);
 
 // Get the color and text alignment configuration settings and use them in the MooTyper activity.
@@ -165,9 +165,11 @@ echo '<style>
     }
     </style>';
 
-if ($mootyper->intro) {
-    echo $OUTPUT->box(format_module_intro('mootyper', $mootyper, $cm->id) , 'generalbox mod_introbox', 'mootyperintro');
-}
+// 20230722 If I leave this uncommented, I wind up with two copies of the activity description.
+//if ($mootyper->intro) {
+//    echo $OUTPUT->box(format_module_intro('mootyper', $mootyper, $cm->id) , 'generalbox mod_introbox', 'mootyperintro');
+//}
+
 if ($mootyper->lesson != null) {
     // Availability restrictions applied to students only.
     if ((!(results::is_available($mootyper)))&& (!(has_capability('mod/mootyper:viewgrades', $context)))) {
