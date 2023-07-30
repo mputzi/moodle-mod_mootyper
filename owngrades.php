@@ -261,7 +261,7 @@ if (!has_capability('mod/mootyper:viewmygrades', context_module::instance($cm->i
                 <td>'.format_float($median['hitsperminute']).'</td>
                 <td>'.$median['fullhits'].'</td>
                 <td>'.format_float($median['precisionfield']).'%</td>
-                <td>'.date(get_config('mod_mootyper', 'dateformat'), $median['timetaken']).'</td>
+                <td>'.date(get_config('mod_mootyper', 'dateformat'), (round($median['timetaken']))).'</td>
                 <td>'.format_float($median['wpm']).'</td>
                 <td>'.format_float($median['grade']).'</td>
                 <td></td>
@@ -400,7 +400,101 @@ $params = array('objectid' => $course->id, 'context' => $context);
 $event = viewed_own_grades::create($params);
 $event->trigger();
 
-if (($grds != false) && ($CFG->branch > 31)) {  // If there are NOT any grades, DON'T draw the chart.
+// 20230517 Added selectors for Hits per minute, Precision, WPM, and Grade display selectors.
+echo '<form method="post">';
+$oldhpmpreference = get_user_preferences('mootyper_hpmpreference_'.$mootyper->id, 2);
+$hpmpreference = optional_param('hpmpreference', $oldhpmpreference, PARAM_INT);
+
+$oldprecisionpreference = get_user_preferences('mootyper_precisionpreference_'.$mootyper->id, 2);
+$precisionpreference = optional_param('precisionpreference', $oldprecisionpreference, PARAM_INT);
+
+$oldwpmpreference = get_user_preferences('mootyper_wpmpreference_'.$mootyper->id, 2);
+$wpmpreference = optional_param('wpmpreference', $oldwpmpreference, PARAM_INT);
+
+$oldgradepreference = get_user_preferences('mootyper_gradepreference_'.$mootyper->id, 2);
+$gradepreference = optional_param('gradepreference', $oldgradepreference, PARAM_INT);
+
+// 20230517 Added selector for hits per minute view. Default is ON.
+if ($hpmpreference != $oldhpmpreference) {
+    set_user_preference('mootyper_hpmpreference_'.$mootyper->id, $hpmpreference);
+}
+
+$listoptions = array(
+    1 => get_string('hpmhide', 'mootyper'),
+    2 => get_string('hpmshow', 'mootyper')
+);
+
+// This creates the dropdown list for how many entries to show on the page.
+$selection = html_writer::select($listoptions, 'hpmpreference', $hpmpreference, false, array(
+    'id' => 'pref_hpm',
+    'class' => 'custom-select'
+));
+echo get_string('rhitspermin', 'mootyper').': <select onchange="this.form.submit()" name="hpmpreference">';
+echo '<option selected="true" value="'.$selection.'</option>';
+echo '</select>';
+/////////////////////////////////////////////////////////////////////////////////////////////
+// 20230517 Added selector for precision view. Default is ON.
+if ($precisionpreference != $oldprecisionpreference) {
+    set_user_preference('mootyper_precisionpreference_'.$mootyper->id, $precisionpreference);
+}
+
+$listoptions = array(
+    1 => get_string('precisionhide', 'mootyper'),
+    2 => get_string('precisionshow', 'mootyper')
+);
+
+// This creates the dropdown list for how many entries to show on the page.
+$selection = html_writer::select($listoptions, 'precisionpreference', $precisionpreference, false, array(
+    'id' => 'pref_precision',
+    'class' => 'custom-select'
+));
+echo ' | '.get_string('precision', 'mootyper').': <select onchange="this.form.submit()" name="precisionpreference">';
+echo '<option selected="true" value="'.$selection.'</option>';
+echo '</select>';
+//////////////////////////////////////////////////////////////////////////////////////
+// 20230517 Added selector for wpm view. Default is ON.
+if ($wpmpreference != $oldwpmpreference) {
+    set_user_preference('mootyper_wpmpreference_'.$mootyper->id, $wpmpreference);
+}
+
+$listoptions = array(
+    1 => get_string('wpmhide', 'mootyper'),
+    2 => get_string('wpmshow', 'mootyper')
+);
+
+// This creates the dropdown list for how many entries to show on the page.
+$selection = html_writer::select($listoptions, 'wpmpreference', $wpmpreference, false, array(
+    'id' => 'pref_wpm',
+    'class' => 'custom-select'
+));
+echo ' | '.get_string('wpm', 'mootyper').': <select onchange="this.form.submit()" name="wpmpreference">';
+echo '<option selected="true" value="'.$selection.'</option>';
+echo '</select>';
+/////////////////////////////////////////////////////////////////////////////////////
+// 20230517 Added selector for grade view. Default is ON.
+if ($gradepreference != $oldgradepreference) {
+    set_user_preference('mootyper_gradepreference_'.$mootyper->id, $gradepreference);
+}
+
+$listoptions = array(
+    1 => get_string('gradehide', 'mootyper'),
+    2 => get_string('gradeshow', 'mootyper')
+);
+
+// This creates the dropdown list for how many entries to show on the page.
+$selection = html_writer::select($listoptions, 'gradepreference', $gradepreference, false, array(
+    'id' => 'pref_grade',
+    'class' => 'custom-select'
+));
+echo ' | '.get_string('grade_mootyper_title', 'mootyper').': <select onchange="this.form.submit()" name="gradepreference">';
+echo '<option selected="true" value="'.$selection.'</option>';
+echo '</select>';
+
+echo '</form>';
+// Process the chart. If there are NOT any grades, DON'T draw the chart.
+// Or if none of the series are visible, don't draw the chart.
+if ((($grds != false) && ($CFG->branch > 31))
+    && (($hpmpreference == 2) || ($precisionpreference == 2) || ($wpmpreference == 2) || ($gradepreference == 2))) {
     // Create the info the api needs passed to it for each series I want to chart.
     $serie1 = new core\chart_series(get_string('hitsperminute', 'mootyper'), $serieshitsperminute);
     $serie2 = new core\chart_series(get_string('precision', 'mootyper'), $seriesprecision);
@@ -410,11 +504,20 @@ if (($grds != false) && ($CFG->branch > 31)) {  // If there are NOT any grades, 
     $chart = new core\chart_bar();  // Tell the api I want a bar chart.
     $chart->set_horizontal(true); // Calling set_horizontal() passing true as parameter will display horizontal bar charts.
     $chart->set_title(get_string('charttitlemyowngrades', 'mootyper')); // Tell the api what I want for a chart title.
-    // Temp $chart->add_series($serie1);  // Pass the hits per minute data to the api.
-    $chart->add_series($serie2);  // Pass the precision data to the api.
-    $chart->add_series($serie3);  // Pass the words per minute data to the api.
-    $chart->add_series($serie4);  // Pass the grade data to the api.
-    $chart->set_labels($labels);  // Pass the exercise number data to the api.
+    // 20230517 Only add a chart series if it is not hidden.
+    if ($hpmpreference == 2) {
+        $chart->add_series($serie1);  // Pass the hits per minute data to the api.
+    }
+    if ($precisionpreference == 2) {
+        $chart->add_series($serie2);  // Pass the precision data to the api.
+    }
+    if ($wpmpreference == 2) {
+        $chart->add_series($serie3);  // Pass the words per minute data to the api.
+    }
+    if ($gradepreference == 2) {
+        $chart->add_series($serie4);  // Pass the grade data to the api.
+    }
+        $chart->set_labels($labels);  // Pass the exercise number data to the api.
     $chart->get_xaxis(0, true)->set_label(get_string('xaxislabel', 'mootyper'));  // Pass a label to add to the x-axis.
     $chart->get_yaxis(0, true)->set_label(get_string('fexercise', 'mootyper')); // Pass the label to add to the y-axis.
     echo $OUTPUT->render($chart); // Draw the chart on the output page.
