@@ -47,10 +47,26 @@ $string['charttitlemyowngrades'] = 'My Own Grades';
 $string['chere'] = 'Click here to start';
 $string['closebeforeopen'] = 'Could not update the MooTyper. You have specified a close date before the open date.';
 
-$string['completiondetail:lesson'] = 'Student must complete lesson:x {$a}';
-$string['completionlessondesc'] = 'Student must complete lesson:y {$a}';
-$string['completionlessongroup'] = 'Require completion';
-$string['completionlesson'] = 'Student must complete {$a->one} exercises for lesson {$a->two}. ';
+$string['completiondetail:exercise'] = 'Complete exercises: {$a}';
+$string['completiondetail:lesson'] = 'Complete lesson: {$a}';
+$string['completiondetail:precision'] = 'Achieve precision: {$a}';
+$string['completiondetail:wpm'] = 'Achieve WPM: {$a}';
+$string['completiondetail:mootypergrade'] = 'Achieve MooTyper Grade: {$a}';
+
+$string['completionexercise'] = 'Complete all the exercises in this lesson. ';
+$string['completionexercisegroup'] = 'Require exercise completion';
+
+$string['completionlesson'] = 'Complete this lesson to complete this MooTyper.';
+$string['completionlessongroup'] = 'Require lesson completion';
+
+$string['completionmootypergrade'] = 'Achieve this MooTyper Grade.';
+$string['completionmootypergradegroup'] = 'Require MooTyper Grade';
+
+$string['completionprecision'] = 'Achieve this precision to complete this MooTyper. ';
+$string['completionprecisiongroup'] = 'Require precision';
+
+$string['completionwpm'] = 'Achieve this WPM to complete this MooTyper. ';
+$string['completionwpmgroup'] = 'Require WPM';
 
 $string['configdateformat'] = 'This defines how dates are shown in grade reports. The default value, "M d, Y G:i" is Month, day, year and 24 hour format time. Refer to Date in the PHP manual for more examples and predefined date constants.';
 $string['configrequirepassword'] = 'Configure password';
@@ -66,7 +82,6 @@ $string['countmistypedspaces_help'] = 'If enabled, a mistyped space is counted a
 $string['course_exercises_viewed'] = 'Viewed exercises';
 
 $string['createdin'] = 'Created in course: ';
-
 
 $string['crontask'] = 'Background processing for MooTyper module';
 $string['csvexport'] = 'Export to .csv';
@@ -149,6 +164,8 @@ $string['fsecurity'] = 'Security';
 $string['fsettings'] = 'Settings';
 $string['fsetup'] = 'Setup';
 $string['fullhits'] = 'All hits';
+$string['gradehide'] = 'Hide Grade';
+$string['gradeshow'] = 'Show Grade';
 $string['gradesfilename'] = 'grades.csv';
 $string['gradeitemnameforwholemootyper'] = 'Whole mootyper grade for {$a->name}';
 $string['gradeitemnameforrating'] = 'Rating grade for {$a->name}';
@@ -159,6 +176,8 @@ $string['grade_mootyper_title'] = 'Grade';
 $string['grade_rating_name'] = 'Rating';
 $string['gviewmode'] = 'View';
 $string['hitsperminute'] = 'Hits/minute';
+$string['hpmhide'] = 'Hide Hits/minute';
+$string['hpmshow'] = 'Show Hits/minute';
 $string['incorrectmodule'] = 'Course Module ID was incorrect';
 
 $string['invalidaccess'] = 'Invalid access';
@@ -241,6 +260,8 @@ $string['pluginadministration'] = 'MooTyper Administration';
 $string['pluginname'] = 'MooTyper';
 $string['practice'] = 'Practice';
 $string['precision'] = 'Precision';
+$string['precisionhide'] = 'Hide Precision';
+$string['precisionshow'] = 'Show Precision';
 $string['privacy:metadata:mootyper_attempts'] = 'Stores data regarding the status of an attempt.';
 $string['privacy:metadata:mootyper_attempts:mootyperid'] = 'ID of the MooTyper activity for this attempt.';
 $string['privacy:metadata:mootyper_attempts:userid'] = 'Userid of person making this attempt.';
@@ -295,7 +316,7 @@ $string['statsbgc'] = 'Statistics background color';
 $string['statsbgc_help'] = 'This sets the background color of the statistics bar. You can enter a hex color or named color. e.g. #95fc89 or green';
 $string['statscolor_title'] = 'Statistics bar background color';
 $string['statscolor_descr'] = 'This sets the background color of the statistics bar.';
-$string['statscolor_colour'] = '#CCCCCC';
+$string['statscolor_colour'] = '#7FEF6C';
 $string['student'] = 'Student';
 $string['suspicion_title'] = 'Suspicious grade warning color';
 $string['suspicion_descr'] = 'This sets the marker color for a grade with suspicious results.';
@@ -303,12 +324,12 @@ $string['suspicion_colour'] = '#FFFF00';
 $string['testing'] = 'Testing code';
 $string['textbgc_title'] = 'Text background color';
 $string['textbgc_descr'] = 'This sets the background color of the exercise text.';
-$string['textbgc_colour'] = '#dddddd';
+$string['textbgc_colour'] = '#F0E68C ';
 $string['textbgc'] = 'Text background color';
 $string['textbgc_help'] = 'This sets the background color of the exercise text. You can enter a hex color or named color. e.g. #95fc89 or green';
 $string['texterrorcolor_title'] = 'Text error color';
 $string['texterrorcolor_descr'] = 'This sets the background color of a mistyped letter.';
-$string['texterrorcolor_colour'] = '#ff9999';
+$string['texterrorcolor_colour'] = '#FF9999';
 $string['texterrorcolor'] = 'Text error color';
 $string['texterrorcolor_help'] = 'This sets the background color of mistyped text. You can enter a hex color or named color. e.g. #95fc89 or green';
 $string['timeisup'] = 'Time is up';
@@ -327,4 +348,6 @@ $string['viewmygrades'] = 'View my grades';
 $string['visibility'] = 'Lesson visible to';
 $string['vmistakes'] = 'Mistakes';
 $string['wpm'] = 'WPM';
+$string['wpmhide'] = 'Hide WPM';
+$string['wpmshow'] = 'Show WPM';
 $string['xaxislabel'] = 'Range';
