@@ -46,7 +46,7 @@ class restore_mootyper_activity_task extends restore_activity_task {
      * Define (add) particular steps this activity can have.
      */
     protected function define_my_steps() {
-        // Choice only has one structure step.
+        // MooTyper only has one structure step.
         $this->add_step(new restore_mootyper_activity_structure_step('mootyper_structure', 'mootyper.xml'));
     }
 
