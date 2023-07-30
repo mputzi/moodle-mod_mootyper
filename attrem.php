@@ -52,7 +52,11 @@ if (isset($gradeid)) {
     // Changed from attempt_id to attemptid 20180129.
     $DB->delete_records('mootyper_attempts', array('id' => $dbgrade->attemptid));
     $DB->delete_records('mootyper_grades', array('id' => $dbgrade->id));
-
+print_object('At CP 1');
+print_object($gradeid);
+print_object($dbgrade->attemptid);
+print_object($dbgrade->id);
+//die;
     // 20200808 Delete ratings too.
     require_once($CFG->dirroot.'/rating/lib.php');
     $delopt = new stdClass;
@@ -62,10 +66,16 @@ if (isset($gradeid)) {
     $delopt->itemid = $dbgrade->id;
     $rm = new rating_manager();
     $rm->delete_ratings($delopt);
+
+    // 20230517 Added to recalculate grades when admin, teacher, or user deletes one of the entries.
+    mootyper_update_grades($mootyper, $dbgrade->userid);
 }
 
 // Return to the View my grades or View all grades page.
 if ($mtmode == 2) {
+    // 20230517 Added to recalculate grades when user deletes one of their entries.
+    //mootyper_update_grades($mootyper, $dbgrade->userid);
+
     // Trigger owngrades_deleted event for mode 2 only if on the, View own grades, page.
     $params = array(
         'objectid' => $mootyper->id,
