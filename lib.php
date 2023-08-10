@@ -41,33 +41,48 @@ define('MOOTYPER_EVENT_TYPE_CLOSE', 'close');
 /**
  * Returns the information on whether the module supports a feature.
  *
- * @see plugin_supports() in lib/moodlelib.php
- * @param string $feature FEATURE_xx constant for requested feature
- * @return mixed true if the feature is supported, null if unknown
+ * @uses FEATURE_MOD_PURPOSE:
+ * @uses FEATURE_BACKUP_MOODLE2
+ * @uses FEATURE_COMPLETION_TRACKS_VIEWS
+ * @uses FEATURE_COMPLETION_HAS_RULES
+ * @uses FEATURE_GRADE_HAS_GRADE
+ * @uses FEATURE_GRADE_OUTCOMES
+ * @uses FEATURE_GROUPS
+ * @uses FEATURE_GROUPINGS
+ * @uses FEATURE_GROUPMEMBERSONLY
+ * @uses FEATURE_MOD_INTRO
+ * @uses FEATURE_RATE
+ * @uses FEATURE_SHOW_DESCRIPTION
+ * @param string $feature
+ * @return mixed True if yes (some features may use other values)
  */
 function mootyper_supports($feature) {
     global $CFG;
-
+    if ((int)$CFG->branch > 311) {
+        if ($feature === FEATURE_MOD_PURPOSE) {
+            return MOD_PURPOSE_COLLABORATION;
+        }
+    }
     switch ($feature) {
-        case FEATURE_GROUPS;
-            return true;
-        case FEATURE_GROUPINGS:
-            return false;
-        case FEATURE_GROUPMEMBERSONLY:
-            return false;
-        case FEATURE_MOD_INTRO:
+        case FEATURE_BACKUP_MOODLE2:
             return true;
         case FEATURE_COMPLETION_TRACKS_VIEWS:
             return true;
         case FEATURE_COMPLETION_HAS_RULES:
-            return false;
+            return true;
         case FEATURE_GRADE_HAS_GRADE:
             return true;
         case FEATURE_GRADE_OUTCOMES:
             return false;
-        case FEATURE_RATE:
+        case FEATURE_GROUPS;
             return true;
-        case FEATURE_BACKUP_MOODLE2:
+        case FEATURE_GROUPINGS:
+            return true;
+        case FEATURE_GROUPMEMBERSONLY:
+            return true;
+        case FEATURE_MOD_INTRO:
+            return true;
+        case FEATURE_RATE:
             return true;
         case FEATURE_SHOW_DESCRIPTION:
             return true;
@@ -75,6 +90,7 @@ function mootyper_supports($feature) {
         default:
             return null;
     }
+
 }
 
 /**
@@ -89,9 +105,9 @@ function get_users_of_one_instance($mootyperid) {
     $toreturn = array();
     $gradestblname = $CFG->prefix."mootyper_grades";
     $userstblname = $CFG->prefix."user";
-    $sql = "SELECT DISTINCT ".$userstblname.".firstname, "
-                             .$userstblname.".lastname, "
-                             .$userstblname.".id".
+    $sql = "SELECT DISTINCT ".$userstblname.".id, "
+                             .$userstblname.".firstname, "
+                             .$userstblname.".lastname".
                      " FROM ".$gradestblname.
                 " LEFT JOIN ".$userstblname." ON ".$gradestblname.".userid = ".$userstblname.".id".
           " WHERE (mootyper=".$mootyperid.")";
@@ -133,6 +149,7 @@ function get_typer_grades_adv($mootyperid, $exerciseid, $userid=0, $orderby=-1, 
                     .$gradestblname.".timetaken, "
                     .$exertblname.".exercisename, "
                     .$gradestblname.".wpm,"
+                    .$gradestblname.".grade,"
                     .$gradestblname.".mistakedetails".
     " FROM ".$gradestblname.
     " LEFT JOIN ".$userstblname." ON ".$gradestblname.".userid = ".$userstblname.".id".
@@ -166,6 +183,8 @@ function get_typer_grades_adv($mootyperid, $exerciseid, $userid=0, $orderby=-1, 
         $oby = " ORDER BY ".$gradestblname.".pass";
     } else if ($orderby == 12) {
         $oby = " ORDER BY ".$gradestblname.".wpm";
+    } else if ($orderby == 13) {
+        $oby = " ORDER BY ".$gradestblname.".grade";
     } else {
         $oby = "";
     }
@@ -209,6 +228,7 @@ function get_typergradesuser($sid, $uid, $orderby=-1, $desc=false) {
                     .$gradestblname.".timetaken, "
                     .$exertblname.".exercisename, "
                     .$gradestblname.".wpm,"
+                    .$gradestblname.".grade,"
                     .$gradestblname.".mistakedetails".
     " FROM ".$gradestblname.
     " LEFT JOIN ".$userstblname." ON ".$gradestblname.".userid = ".$userstblname.".id".
@@ -239,6 +259,8 @@ function get_typergradesuser($sid, $uid, $orderby=-1, $desc=false) {
         $oby = " ORDER BY ".$exertblname.".exercisename";
     } else if ($orderby == 12) {
         $oby = " ORDER BY ".$gradestblname.".wpm";
+    } else if ($orderby == 13) {
+        $oby = " ORDER BY ".$gradestblname.".grade";
     } else {
         $oby = "";
     }
@@ -273,8 +295,8 @@ function mootyper_add_instance($mootyper, $mform = null) {
         $mootyper->assessed = 0;
     }
 
-    if (empty($mootyper->ratingtime) or empty($mootyper->assessed)) {
-        $mootyper->assesstimestart  = 0;
+    if (empty($mootyper->ratingtime) || empty($mootyper->assessed)) {
+        $mootyper->assesstimestart = 0;
         $mootyper->assesstimefinish = 0;
     }
 
@@ -339,7 +361,7 @@ function get_exercise_from_mootyper($mootyperid, $lessonid, $userid) {
     $table = 'mootyper_grades';
     $select = 'userid='.$userid.' AND mootyper='.$mootyperid.' AND pass=1'; // Is put into the where clause.
     $result = $DB->get_records_select($table, $select);
-
+    // Process result if it is not empty.
     if (!is_null($result) && count($result) > 0) {
         $max = 0;
         foreach ($result as $grd) {
@@ -349,8 +371,10 @@ function get_exercise_from_mootyper($mootyperid, $lessonid, $userid) {
                 $max = $zapst;
             }
         }
+        // Return with the lesson ID and the next exercise snumber.
         return $DB->get_record('mootyper_exercises', array('snumber' => ($max + 1), 'lesson' => $lessonid));
     } else {
+        // Return with the lesson ID and the first exercise snumber.
         return $DB->get_record('mootyper_exercises', array('snumber' => 1, 'lesson' => $lessonid));
     }
 }
@@ -388,7 +412,7 @@ function mootyper_update_instance($mootyper, $mform) {
     }
 
     if (empty($mootyper->assessed)) {
-        $mootyper->assesstimestart  = 0;
+        $mootyper->assesstimestart = 0;
         $mootyper->assesstimefinish = 0;
     }
 
@@ -399,9 +423,9 @@ function mootyper_update_instance($mootyper, $mform) {
         $mootyper->timeclose = 0;
     }
 
-    $cmid       = $mootyper->coursemodule;
+    $cmid = $mootyper->coursemodule;
     $cmidnumber = $mootyper->cmidnumber;
-    $courseid   = $mootyper->course;
+    $courseid = $mootyper->course;
     $mootyper->id = $mootyper->instance;
     $context = context_module::instance($cmid);
     $mootyper->timemodified = time();
@@ -428,6 +452,12 @@ function mootyper_update_instance($mootyper, $mform) {
 
     // 20200907 Skip grading options for Moodle less than v3.8.
     if ($CFG->branch > 37) {
+        // 20230117 Fixes whole grades MTs created prior to adding Moodle grading to MooTyper.
+        if (empty($oldmootyper->scale) && $oldmootyper->grade_mootyper > 0) {
+            $mootyper->scale = $mootyper->grade_mootyper;
+            // The whole mootyper grading.
+            $updategrades = true;
+        }
         if (empty($oldmootyper->grade_mootyper) || $oldmootyper->grade_mootyper <> $mootyper->grade_mootyper) {
             // The whole mootyper grading.
             $updategrades = true;
@@ -460,6 +490,7 @@ function mootyper_update_instance($mootyper, $mform) {
  */
 function mootyper_delete_instance($id) {
     global $DB;
+
     $mootyper = $DB->get_record('mootyper', array('id' => $id), '*', MUST_EXIST);
     mootyper_delete_all_grades($mootyper);
     if (! $mootyper = $DB->get_record('mootyper', array('id' => $id))) {
@@ -482,6 +513,7 @@ function mootyper_delete_instance($id) {
  */
 function mootyper_delete_all_checks($mid) {
     global $DB;
+
     $rcs = $DB->get_records('mootyper_attempts', array('mootyperid' => $mid));
     foreach ($rcs as $at) {
         $DB->delete_records('mootyper_checks', array('attemptid' => $at->id));
@@ -572,8 +604,8 @@ function mootyper_print_recent_activity($course, $viewfullnames, $timestart) {
     $newentries = $DB->get_records_sql($sql, $dbparams);
 
     $modinfo = get_fast_modinfo($course);
-    $show    = array();
-    $grader  = array();
+    $show = array();
+    $grader = array();
     $showrecententries = get_config('mod_mootyper', 'showrecentactivity');
 
     foreach ($newentries as $anentry) {
@@ -780,11 +812,11 @@ function mootyper_grade_item_update($mootyper, $ratings = null, $mootypergrades 
         $item['gradetype'] = GRADE_TYPE_NONE;
     } else if ($mootyper->scale > 0) {
         $item['gradetype'] = GRADE_TYPE_VALUE;
-        $item['grademax']  = $mootyper->scale;
-        $item['grademin']  = 0;
+        $item['grademax'] = $mootyper->scale;
+        $item['grademin'] = 0;
     } else if ($mootyper->scale < 0) {
         $item['gradetype'] = GRADE_TYPE_SCALE;
-        $item['scaleid']   = -$mootyper->scale;
+        $item['scaleid'] = -$mootyper->scale;
     }
     if ($ratings === 'reset') {
         $item['reset'] = true;
@@ -801,7 +833,7 @@ function mootyper_grade_item_update($mootyper, $ratings = null, $mootypergrades 
             // Note: We do not need to store the idnumber here.
         ];
 
-        if (!$mootyper->grade_mootyper) {
+        if (empty($mootyper->grade_mootyper)) {
             $item['gradetype'] = GRADE_TYPE_NONE;
         } else if ($mootyper->grade_mootyper > 0) {
             $item['gradetype'] = GRADE_TYPE_VALUE;
@@ -855,17 +887,15 @@ function mootyper_update_grades($mootyper, $userid=0): void {
     }
 
     $mootypergrades = null;
-    if ($mootyper->requiredgoal) {
-        $sql = <<<EOF
-SELECT
-    g.userid,
-    0 as datesubmitted,
-    g.grade as rawgrade,
-    g.timetaken as dategraded
-  FROM {mootyper} m
-  JOIN {mootyper_grades} g ON g.mootyper = m.id
- WHERE m.id = :mootyperid
-EOF;
+    if (($mootyper->requiredgoal) || ($mootyper->requiredwpm)) {
+        $sql = "SELECT g.userid,
+                       0 as datesubmitted,
+                       g.grade as rawgrade,
+                       g.timetaken as dategraded,
+                       g.mistakedetails
+                  FROM {mootyper} m
+                  JOIN {mootyper_grades} g ON g.mootyper = m.id
+                 WHERE m.id = :mootyperid";
 
         $params = [
             'mootyperid' => $mootyper->id,
@@ -880,6 +910,7 @@ EOF;
         if ($grades = $DB->get_recordset_sql($sql, $params)) {
             foreach ($grades as $userid => $grade) {
                 if ($grade->rawgrade != -1) {
+                    $grade->feedback = $grade->mistakedetails;
                     $mootypergrades[$userid] = $grade;
                 }
             }
@@ -935,21 +966,22 @@ function mootyper_reset_userdata($data) {
  */
 function reset_mootyper_instance($mootyperid) {
     global $DB;
+
     $attempts = $DB->get_records('mootyper_attempts', array('mootyperid' => $mootyperid));
+
     foreach ($attempts as $attempt) {
-        if (! $DB->delete_records('mootyper_attempts', array('id' => $mootyperid))) {
+        // 20230708 Added to delete any checks for this attempt.
+        $DB->delete_records('mootyper_checks', array('attemptid' => $attempt->id));
+        if (!$DB->delete_records('mootyper_attempts', array('id' => $mootyperid))) {
             return false;
         }
     }
-
-    if (! $DB->delete_records('mootyper_grades', array('mootyper' => $mootyperid))) {
+    if (!$DB->delete_records('mootyper_grades', array('mootyper' => $mootyperid))) {
         return false;
     }
-
-    if (! $DB->delete_records('mootyper_attempts', array('mootyperid' => $mootyperid))) {
+    if (!$DB->delete_records('mootyper_attempts', array('mootyperid' => $mootyperid))) {
         return false;
     }
-
     return true;
 }
 
@@ -983,7 +1015,6 @@ function mootyper_get_file_areas($course, $cm, $context) {
  */
 function mootyper_pluginfile($course, $cm, $context, $filearea, array $args, $forcedownload) {
     global $DB, $CFG;
-
     if ($context->contextlevel != CONTEXT_MODULE) {
         send_file_not_found();
     }
@@ -1145,24 +1176,8 @@ function mootyper_extend_settings_navigation(settings_navigation $settingsnav, n
 
     // Link to the Add new lessons w/exercises page. Visible to any teacher.
     if (has_capability('mod/mootyper:aftersetup', $cm->context)) {
-        $link = new moodle_url('eins.php', array('id' => $cm->id));
+        $link = new moodle_url('/mod/mootyper/eins.php', array('id' => $cm->id));
         $linkname = get_string('eaddnew', 'mootyper');
-        $icon = new pix_icon('icon', '', 'mootyper', array('class' => 'icon'));
-        $node = $navref->add($linkname, $link, navigation_node::TYPE_SETTING, null, null, $icon);
-    }
-
-    // Link to Import new lessons w/exercises and new keyboard layouts. Visible to admin only.
-    if (is_siteadmin()) {
-        $link = new moodle_url('lsnimport.php', array('id' => $cm->id));
-        $linkname = get_string('lsnimport', 'mootyper');
-        $icon = new pix_icon('icon', '', 'mootyper', array('class' => 'icon'));
-        $node = $navref->add($linkname, $link, navigation_node::TYPE_SETTING, null, null, $icon);
-    }
-
-    // 20201028 Link to remove keyboard layouts. Visible to siteadmin only.
-    if (is_siteadmin()) {
-        $link = new moodle_url('layouts.php', array('id' => $cm->id));
-        $linkname = get_string('loheading', 'mootyper');
         $icon = new pix_icon('icon', '', 'mootyper', array('class' => 'icon'));
         $node = $navref->add($linkname, $link, navigation_node::TYPE_SETTING, null, null, $icon);
     }
@@ -1175,11 +1190,236 @@ function mootyper_extend_settings_navigation(settings_navigation $settingsnav, n
         // 20200627 Modified to show link only if user can edit the current lesson.
         if ($lesson) {
             if (lessons::is_editable_by_me($USER->id, $mootyper->id, $lesson->id)) {
-                $link = new moodle_url('exercises.php', array('id' => $cm->id, 'lesson' => $mootyper->lesson));
+                $link = new moodle_url('/mod/mootyper/exercises.php', array('id' => $cm->id, 'lesson' => $mootyper->lesson));
                 $linkname = get_string('editexercises', 'mootyper');
                 $icon = new pix_icon('icon', '', 'mootyper', array('class' => 'icon'));
                 $node = $navref->add($linkname, $link, navigation_node::TYPE_SETTING, null, null, $icon);
             }
         }
     }
+
+    // Link to Import new lessons w/exercises and new keyboard layouts. Visible to admin only.
+    if (is_siteadmin()) {
+        $link = new moodle_url('/mod/mootyper/lsnimport.php', array('id' => $cm->id));
+        $linkname = get_string('lsnimport', 'mootyper');
+        $icon = new pix_icon('icon', '', 'mootyper', array('class' => 'icon'));
+        $node = $navref->add($linkname, $link, navigation_node::TYPE_SETTING, null, null, $icon);
+    }
+
+    // 20201028 Link to remove keyboard layouts. Visible to siteadmin only.
+    if (is_siteadmin()) {
+        $link = new moodle_url('/mod/mootyper/layouts.php', array('id' => $cm->id));
+        $linkname = get_string('loheading', 'mootyper');
+        $icon = new pix_icon('icon', '', 'mootyper', array('class' => 'icon'));
+        $node = $navref->add($linkname, $link, navigation_node::TYPE_SETTING, null, null, $icon);
+    }
+}
+
+/**
+ * Add a get_coursemodule_info function in case any mootyper wants to add 'extra' information
+ * for the course (see resource).
+ *
+ * Given a course_module stdClass, this function returns any "extra" information that may be needed
+ * when printing this activity in a course listing.  See get_array_of_activities() in course/lib.php.
+ *
+ * @param stdClass $coursemodule The coursemodule stdClass (record).
+ * @return cached_cm_info A stdClass of information that the courses
+ *                        will know about (most noticeably, an icon).
+ */
+function mootyper_get_coursemodule_info($coursemodule) {
+    global $DB;
+
+    //$debug = array();
+    //$debug['Entering mootyper_get_coursemodule_info($coursemodule) lib.php: '] = $coursemodule;
+
+    $dbparams = ['id' => $coursemodule->instance];
+    //$fields = 'id, name, intro, introformat, completionexercise, completionlesson, completionprecision, completionwpm, completionmootypergrade, timeopen, timeclose, assesstimestart, assesstimefinish, duedate, cutoffdate';
+    $fields = 'id, name, intro, introformat, completionexercise, completionlesson, completionprecision, completionwpm, completionmootypergrade, timeopen, timeclose, assesstimestart, assesstimefinish';
+    if (!$mootyper = $DB->get_record('mootyper', $dbparams, $fields)) {
+        return false;
+    }
+
+    $result = new cached_cm_info();
+    $result->name = $mootyper->name;
+
+    if ($coursemodule->showdescription) {
+        // Convert intro to html. Do not filter cached version, filters run at display time.
+        $result->content = format_module_intro('mootyper', $mootyper, $coursemodule->id, false);
+    }
+
+    // Populate the custom completion rules as key => value pairs, but only if the completion mode is 'automatic'.
+    if ($coursemodule->completion == COMPLETION_TRACKING_AUTOMATIC) {
+        $result->customdata['customcompletionrules']['completionexercise'] = $mootyper->completionexercise;
+        $result->customdata['customcompletionrules']['completionlesson'] = $mootyper->completionlesson;
+        $result->customdata['customcompletionrules']['completionprecision'] = $mootyper->completionprecision;
+        $result->customdata['customcompletionrules']['completionwpm'] = $mootyper->completionwpm;
+        $result->customdata['customcompletionrules']['completionmootypergrade'] = $mootyper->completionmootypergrade;
+    }
+
+    // Populate some other values that can be used in calendar or on dashboard.
+    //if ($mootyper->duedate) {
+    //    $result->customdata['duedate'] = $mootyper->duedate;
+    //}
+    //if ($mootyper->cutoffdate) {
+    //    $result->customdata['cutoffdate'] = $mootyper->cutoffdate;
+    //}
+    if ($mootyper->timeopen) {
+        $result->customdata['timeopen'] = $mootyper->timeopen;
+    }
+    if ($mootyper->timeclose) {
+        $result->customdata['timeclose'] = $mootyper->timeclose;
+    }
+    //if ($mootyper->assesstimestart) {
+    //    $result->customdata['assesstimestart'] = $mootyper->assesstimestart;
+    //}
+    //if ($mootyper->assesstimefinish) {
+    //    $result->customdata['assesstimefinish'] = $mootyper->assesstimefinish;
+    //}
+    //$debug['Exiting mootyper_get_coursemodule_info and printing $result lib.php: '] = $result;
+
+    //print_object($debug);
+    //die;
+
+    return $result;
+}
+
+/**
+ * Obtains the automatic completion state for this mootyper on any conditions
+ * in mootyper settings, such as requiredgoal or requiredwpm.
+ *
+ * @param stdClass $course Course
+ * @param stdClass $cm Course-module
+ * @param int $userid User ID
+ * @param bool $type Type of comparison (or/and; can be used as return value if no conditions)
+ * @return bool True if completed, false if not. (If no conditions, then return
+ *   value depends on comparison type).
+ */
+function mootyper_get_completion_state($course, $cm, $userid, $type) {
+    global $CFG, $DB;
+
+    $mootyper = $DB->get_record('mootyper', array('id' => $cm->instance), '*', MUST_EXIST);
+    //if (!$mootyper->completionexercise && !$mootyper->completionlesson && !$mootyper->completionprecision && !$mootyper->completionwpm && !$mootyper->completionmootypergrade) {
+    if (!$mootyper->completionexercise && !$mootyper->completionlesson && !$mootyper->completionprecision && !$mootyper->completionwpm && !$mootyper->completionmootypergrade) {
+        return $type;
+    }
+
+    $result = $type; // Default return value.
+
+    // Check if the user has completed all exercises with a pass result.
+    if ($mootyper->completionexercise) {
+        $value = $mootyper->completionexercise <=
+                 $DB->count_records('mootyper_grades', array('mootyper' => $mootyper->id, 'userid' => $userid, 'pass' => 1));
+        if ($type == COMPLETION_AND) {
+            $result = $result && $value;
+        } else {
+            $result = $result || $value;
+        }
+    }
+
+    // Check if the user has completed the lesson.
+    if ($mootyper->completionlesson) {
+        $sql = "SELECT COUNT(mtl.id),
+                       mt.id,
+                       mt.lesson,
+                       mtg.mootyper
+                       mtg.userid,
+                       mtg.grade,
+                       COUNT(mtg.exercise),
+                       COUNT(mtg.pass),
+                  FROM {mootyper_lessons} mtl
+                  JOIN {mootyper} mt
+                  JOIN {mootyper_exercises} mte
+                  JOIN {mootyper_grades} mtg
+
+                 WHERE mtl.id = mt.lesson
+                   AND mt.completionlesson >= 1
+                   AND mte.lesson = mt.lesson
+                   AND mtg.mootyper = :mootyper
+                   AND mt.id = mtg.mootyper
+                   AND mtg.userid = :userid
+                   AND mtg.grade > mt.grade_mootyper
+                   AND mtg.exercise = mte.id
+                   AND mtg.pass = 1";
+
+        $params = array('mootyper' => $mootyper->id, 'userid' => $userid);
+        $value = $mootyper->completionlesson <= 
+                     //$DB->count_records('mootyper_grades', array('mootyper' => $mootyper->id, 'userid' => $userid, 'pass' => 1));
+                     $DB->count_records_sql($sql, $params);
+        if ($type == COMPLETION_AND) {
+            $result = $result && $value;
+        } else {
+            $result = $result || $value;
+        }
+    }
+
+    // Check if the user has achieved the required precision.
+    if ($mootyper->completionprecision) {
+        $sql = "SELECT mtg.id,
+                       AVG(mtg.precisionfield),
+                       mtg.mootyper,
+                       mt.requiredgoal
+                  FROM {mootyper_grades} mtg
+                  JOIN {mootyper} mt
+                 WHERE mtg.userid = :userid
+                   AND mtg.mootyper = :mootyper
+                   AND mtg.precisionfield >= mt.requiredgoal";
+
+        $params = array('mootyper' => $mootyper->id, 'userid' => $userid);
+        $value = $mootyper->completionlesson <= 
+                     //$DB->count_records('mootyper_grades', array('mootyper' => $mootyper->id, 'userid' => $userid, 'pass' => 1));
+                     $DB->count_records_sql($sql, $params);
+        if ($type == COMPLETION_AND) {
+            $result = $result && $value;
+        } else {
+            $result = $result || $value;
+        }
+    }
+
+    // Check if the user has achieved the required wpm.
+    if ($mootyper->completionwpm) {
+        $sql = "SELECT mtg.id,
+                       AVG(mtg.wpm),
+                       mtg.mootyper,
+                       mt.requiredwpm
+                  FROM {mootyper_grades} mtg
+                  JOIN {mootyper} mt
+                 WHERE mtg.userid = :userid
+                   AND mtg.mootyper = :mootyper
+                   AND mtg.wpm >= mt.requiredwpm";
+
+        $params = array('mootyper' => $mootyper->id, 'userid' => $userid);
+        $value = $mootyper->completionwpm <= 
+                     //$DB->count_records('mootyper_grades', array('mootyper' => $mootyper->id, 'userid' => $userid, 'pass' => 1));
+                     $DB->count_records_sql($sql, $params);
+        if ($type == COMPLETION_AND) {
+            $result = $result && $value;
+        } else {
+            $result = $result || $value;
+        }
+    }
+
+    // Check for passing MooTyper grade.
+    if ($mootyper->completionmootypergrade) {
+         $sql = "SELECT mtg.id,
+                        AVG(mtg.grade),
+                        mtg.mootyper,
+                        mt.grade_mootyper
+                   FROM {mootyper_grades} mtg
+                   JOIN {mootyper} mt
+                  WHERE mtg.userid = :userid
+                    AND mtg.mootyper = :mootyper
+                    AND mtg.grade >= mt.grade_mootyper";
+
+        $params = array('mootyper' => $mootyper->id, 'userid' => $userid);
+        $value = $mootyper->completionmootypergrade <= 
+                     //$DB->count_records('mootyper_grades', array('mootyper' => $mootyper->id, 'userid' => $userid, 'pass' => 1));
+                     $DB->count_records_sql($sql, $params);
+        if ($type == COMPLETION_AND) {
+            $result = $result && $value;
+        } else {
+            $result = $result || $value;
+        }
+    }
+
+    return $result;
 }

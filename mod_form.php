@@ -54,7 +54,7 @@ class mod_mootyper_mod_form extends moodleform_mod {
     public function definition() {
         global $CFG, $COURSE, $DB;
 
-        $mform =& $this->_form;
+        $mform = $this->_form;
 
         // 20200630 Added to fix link to control access to the management link.
         $id = optional_param('update', 0, PARAM_INT); // Course module ID.
@@ -102,15 +102,6 @@ class mod_mootyper_mod_form extends moodleform_mod {
 
         // MooTyper activity setup, Options settings.
         $mform->addElement('header', 'optionhdr', get_string('options', 'mootyper'));
-
-        /* TODO: Add a dropdown selector for isexam (the activity mode).
-        $modes = array(get_string('sflesson', 'mod_mootyper'),
-                      get_string('isexamtext', 'mod_mootyper'),
-                      get_string('practice', 'mod_mootyper'));
-        $mform->addElement('select', 'isexam', get_string('fmode', 'mootyper'), $modes);
-        $mform->addHelpButton('isexam', 'fmode', 'mootyper');
-        $mform->setDefault('isexam', $mootyperconfig->isexam);
-         */
 
         // TODO: Add a dropdown selector of lesson/category.
 
@@ -178,8 +169,17 @@ class mod_mootyper_mod_form extends moodleform_mod {
         $layouts = keyboards::get_keyboard_layouts_db();
         $mform->addElement('select', 'layout', get_string('layout', 'mootyper'), $layouts);
         $mform->addHelpButton('layout', 'layout', 'mootyper');
-        $mform->setDefault('layout', $mootyperconfig->defaultlayout);
-
+        if (get_config('mod_mootyper', 'overwrite_defaultlayout') &&
+                isset($mootyperconfig->defaultlayout_filenamewithoutfiletype) &&
+                keyboards::is_layout_installed("$mootyperconfig->defaultlayout_filenamewithoutfiletype")) {
+            // We should overwrite and the layout is installed!
+            $mform->setDefault('layout',
+                keyboards::get_id_of_layout_by_layoutname($mootyperconfig->defaultlayout_filenamewithoutfiletype
+                ));
+        } else {
+            // We should not overwrite or the laylout is not installed so we have to use the "normal" default.
+            $mform->setDefault('layout', $mootyperconfig->defaultlayout);
+        }
         // Add setting for statistics bar background color.
         $attributes = 'size = "20"';
         $mform->setType('statsbgc', PARAM_NOTAGS);
@@ -345,7 +345,7 @@ class mod_mootyper_mod_form extends moodleform_mod {
     private function validation_mootyper_grade(array $data, array $files, array $errors) {
         global $COURSE;
 
-        $mform =& $this->_form;
+        $mform = $this->_form;
 
         $component = "mod_mootyper";
         $itemname = 'mootyper';
@@ -410,5 +410,123 @@ class mod_mootyper_mod_form extends moodleform_mod {
         }
 
         return $errors;
+    }
+
+    /**
+     * Add custom completion rules to the form.
+     *
+     * @return array Array of string IDs of added items, empty array if none.
+     */
+    public function add_completion_rules() {
+        $mform = $this->_form;
+
+        // Add setting for completion exercise.
+        $group = array();
+        $group[] = $mform->createElement('checkbox', 'completionexerciseenabled', '', get_string('completionexercise', 'mootyper'));
+        $mform->addGroup($group, 'completionexercisegroup', get_string('completionexercisegroup', 'mootyper'), array(' '), false);
+        $mform->disabledIf('completionexercise', 'completionexerciseenabled', 'notchecked');
+
+        // Add setting for completion lesson.
+        $group = array();
+        $group[] = $mform->createElement('checkbox', 'completionlessonenabled', '', get_string('completionlesson', 'mootyper'));
+        $mform->addGroup($group, 'completionlessongroup', get_string('completionlessongroup', 'mootyper'), array(' '), false);
+        $mform->disabledIf('completionlesson', 'completionlessonenabled', 'notchecked');
+
+        // Add setting for completion precision.
+        $group = array();
+        $group[] = $mform->createElement('checkbox', 'completionprecisionenabled', '', get_string('completionprecision', 'mootyper'));
+        $group[] = $mform->createElement('text', 'completionprecision', '', array('size' => 3));
+        $mform->setType('completionprecision', PARAM_INT);
+        $mform->addGroup($group, 'completionprecisiongroup', get_string('completionprecisiongroup', 'mootyper'), array(' '), false);
+        $mform->disabledIf('completionprecision', 'completionprecisionenabled', 'notchecked');
+
+        // Add setting for completion wpm.
+        $group = array();
+        $group[] = $mform->createElement('checkbox', 'completionwpmenabled', '', get_string('completionwpm', 'mootyper'));
+        $group[] = $mform->createElement('text', 'completionwpm', '', array('size' => 3));
+        $mform->setType('completionwpm', PARAM_INT);
+        $mform->addGroup($group, 'completionwpmgroup', get_string('completionwpmgroup', 'mootyper'), array(' '), false);
+        $mform->disabledIf('completionwpm', 'completionwpmenabled', 'notchecked');
+
+        // Add setting for completion mootyper grade.
+        $group = array();
+        $group[] = $mform->createElement('checkbox', 'completionmootypergradeenabled', '', get_string('completionmootypergrade', 'mootyper'));
+        $group[] = $mform->createElement('text', 'completionmootypergrade', '', array('size' => 3));
+        $mform->setType('completionmootypergrade', PARAM_INT);
+        $mform->addGroup($group, 'completionmootypergradegroup', get_string('completionmootypergradegroup', 'mootyper'), array(' '), false);
+        $mform->disabledIf('completionmootypergrade', 'completionmootypergradeenabled', 'notchecked');
+
+        return array('completionexercisegroup', 'completionlessongroup', 'completionprecisiongroup', 'completionwpmgroup', 'completionmootypergradegroup');
+    }
+
+    /**
+     * Called during validation to see whether some module-specific completion rules are selected.
+     *
+     * @param array $data Input data not yet validated.
+     * @return bool True if one or more rules is enabled, false if none are.
+     */
+    public function completion_rule_enabled($data) {
+        return (!empty($data['completionexerciseenabled']) && $data['completionexercise'] != 0)
+            || (!empty($data['completionexlessonenabled']) && $data['completionlesson'] != 0)
+            || (!empty($data['completionprecisiontenabled']) && $data['completionprecision'] != 0)
+            || (!empty($data['completionwpmenabled']) && $data['completionwpm'] != 0)
+            || (!empty($data['completionmootypergradeenabled']) && $data['completionmootypergrade'] != 0)
+            ;
+    }
+
+    /**
+     * Return submitted data if properly submitted or returns NULL if validation fails or
+     * if there is no submitted data.
+     *
+     * Do not override this method, override data_postprocessing() instead.
+     *
+     * @return object submitted data; NULL if not valid or not submitted or cancelled
+     */
+    public function get_data() {
+        $data = parent::get_data();
+        if ($data) {
+            $itemname = 'mootyper';
+            $component = 'mod_mootyper';
+        }
+
+        return $data;
+    }
+
+    /**
+     * Any data processing needed before the form is displayed
+     * (needed to set up draft areas for editor and filemanager elements)
+     * @param array $defaultvalues
+     */
+    public function data_preprocessing(&$defaultvalues) {
+        parent::data_preprocessing($defaultvalues);
+
+        // Set up the completion checkboxes which aren't part of standard data.
+        // We also make the default value (if you turn on the checkbox) for those
+        // numbers to be 1, this will not apply unless checkbox is ticked.
+        $defaultvalues['completionexerciseenabled'] =
+            !empty($defaultvalues['completionexercise']) ? 1 : 0;
+        if (empty($defaultvalues['completionexercise'])) {
+            $defaultvalues['completionexercise'] = 1;
+        }
+        $defaultvalues['completionlessonenabled'] =
+            !empty($defaultvalues['completionlesson']) ? 1 : 0;
+        if (empty($defaultvalues['completionlesson'])) {
+            $defaultvalues['completionlesson'] = 1;
+        }
+        $defaultvalues['completionprecisionenabled'] =
+            !empty($defaultvalues['completionprecision']) ? 1 : 0;
+        if (empty($defaultvalues['completionprecision'])) {
+            $defaultvalues['completionprecision'] = 1;
+        }
+        $defaultvalues['completionwpmenabled'] =
+            !empty($defaultvalues['completionwpm']) ? 1 : 0;
+        if (empty($defaultvalues['completionwpm'])) {
+            $defaultvalues['completionwpm'] = 1;
+        }
+        $defaultvalues['completionmootypergradeenabled'] =
+            !empty($defaultvalues['completionmootypergrade']) ? 1 : 0;
+        if (empty($defaultvalues['completionmootypergrade'])) {
+            $defaultvalues['completionmootypergrade'] = 1;
+        }
     }
 }

@@ -25,7 +25,6 @@
 defined('MOODLE_INTERNAL') || die;
 
 require_once($CFG->dirroot . '/mod/mootyper/backup/moodle2/backup_mootyper_stepslib.php'); // Because it exists (must).
-// require_once($CFG->dirroot . '/mod/mootyper/backup/moodle2/backup_mootyper_settingslib.php'); // Because it exists (optional).
 
 /**
  * Mootyper backup task that provides all the settings and steps to perform one complete backup of the activity.
@@ -47,7 +46,7 @@ class backup_mootyper_activity_task extends backup_activity_task {
      * Define (add) particular steps this activity can have.
      */
     protected function define_my_steps() {
-        // Choice only has one structure step.
+        // MooTyper only has one structure step.
         $this->add_step(new backup_mootyper_activity_structure_step('mootyper_structure', 'mootyper.xml'));
     }
 

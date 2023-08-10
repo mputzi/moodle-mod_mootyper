@@ -41,7 +41,11 @@ class mod_mootyper_renderer extends plugin_renderer_base {
      * @return string.
      */
     public function header($mootyper, $cm, $extrapagetitle = null) {
-        global $CFG;
+        global $CFG, $USER;
+
+        //$debug = array();
+        //$debug['Entering renderer.php function header($mootyper): '] = $mootyper;
+        //$debug['Entering renderer.php function header($cm): '] = $cm;
 
         $activityname = format_string($mootyper->name, true);
 
@@ -58,11 +62,44 @@ class mod_mootyper_renderer extends plugin_renderer_base {
         $this->page->set_heading($this->page->course->fullname);
         $output = $this->output->header();
 
-        if (has_capability('mod/mootyper:setup', $context)) {
-            $output .= $this->output->heading_with_help($activityname, 'overview', 'mootyper');
-        } else {
-            $output .= $this->output->heading($activityname);
+        if ($CFG->branch < 400) {
+            if (has_capability('mod/mootyper:setup', $context)) {
+                $output .= $this->output->heading_with_help($activityname, 'overview', 'mootyper');
+            } else {
+                $output .= $this->output->heading($activityname);
+            }
         }
+
+        if ($CFG->branch > 310) {
+            // 20220214 New code from pull request. However, needs to take in to account to show
+            // completion only when all the exercises are done, or if it is an exam, after just
+            // the one exercise of the exam.
+            $cminfo = cm_info::create($cm);
+            $completiondetails = \core_completion\cm_completion_details::get_instance($cminfo, $USER->id);
+            $activitydates = \core\activity_dates::get_dates_for_module($cminfo, $USER->id);
+
+            //$debug['In renderer.php and checking $CFG->branch which should be greater than 310: '] = $CFG->branch;
+            //$debug['In renderer.php and checking $cminfo: '] = $cminfo;
+            //$debug['In renderer.php and checking $completiondetails: '] = $completiondetails;
+            //$debug['In renderer.php and checking $activitydates: '] = $activitydates;
+
+//print_object('in the renderer and branch is greater than 310//////////////////////////////////////////////');
+//print_object('in the renderer and branch is greater than 310//////////////////////////////////////////////');
+//print_object('in the renderer and branch is greater than 310//////////////////////////////////////////////');
+
+//die;
+            if ($CFG->branch < 400) {
+                //$debug['In renderer.php and checking $CFG->branch which should be less than 400: '] = $CFG->branch;
+
+                $output .= $this->output->activity_information($cminfo, $completiondetails, $activitydates);
+            }
+        }
+
+        //$debug['Leaving renderer.php and printing $debug: '] = "This is the debug listing========================";
+
+        //print_object($debug);
+        // die;
+
         return $output;
     }
 
@@ -82,7 +119,7 @@ class mod_mootyper_renderer extends plugin_renderer_base {
      */
     public function mootyper_inaccessible($message) {
         global $CFG;
-        $output  = $this->output->box_start('generalbox boxaligncenter');
+        $output = $this->output->box_start('generalbox boxaligncenter');
         $output .= $this->output->box_start('center');
         $output .= (get_string('notavailable', 'mootyper'));
         $output .= $message;
@@ -103,7 +140,7 @@ class mod_mootyper_renderer extends plugin_renderer_base {
      */
     public function login_prompt($mootyper, $failedattempt = false) {
         global $CFG;
-        $output  = $this->output->box_start('password-form');
+        $output = $this->output->box_start('password-form');
         $output .= $this->output->box_start('generalbox boxaligncenter');
         $output .= '<form id="password" method="post" action="'.$CFG->wwwroot.'/mod/mootyper/view.php" autocomplete="off">';
         $output .= '<fieldset class="invisiblefieldset center">';

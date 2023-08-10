@@ -72,14 +72,4 @@ class course_exercises_viewed extends \core\event\base {
     public function get_url() {
         return new \moodle_url('/mod/mootyper/exercises.php', array('id' => $this->objectid));
     }
-
-    /**
-     * Return the legacy event log data.
-     *
-     * @return array|null
-     */
-    protected function get_legacy_logdata() {
-        return array($this->courseid, 'mootyper', 'view mootyper', 'exercises.php?id=' . $this->objectid,
-            $this->objectid, $this->contextinstanceid);
-    }
 }

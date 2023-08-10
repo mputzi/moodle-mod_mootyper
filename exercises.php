@@ -145,7 +145,7 @@ if (lessons::is_editable_by_me($USER->id, $id, $lessonpo)) {
     echo ' <a onclick="return confirm(\''.get_string('eaddnewex', 'mootyper').$lessonpo.
         '\')" href="'.$jlnk3.'" class="btn btn-secondary" style="border-radius: 8px">'
         .get_string('eaddnewex', 'mootyper').$lessonpo
-        .' Author ID: '.$vis->authorid
+        .', '.get_string('authorid', 'mootyper').': '.$vis->authorid
         .', '.get_string('visibility', 'mootyper').': '.$visible
         .', '.get_string('editable', 'mootyper').': '.$editable.'</a>';
 } else {
@@ -162,7 +162,8 @@ echo '<table><tr><td '.$style1.'>'.get_string('ename', 'mootyper').'</td>
 
 // Print table row for each of the exercises in the lesson currently being viewed.
 $exercises = $DB->get_records("mootyper_exercises", array('lesson' => $lessonpo));
-
+// 20230110 PostgreSQL gets sloppy with the order, but this seems to fix it.
+sort($exercises);
 foreach ($exercises as $ex) {
     // 20210326 Shorten displayed exercisename as well as text to type.
     $strtocut = $ex->texttotype;

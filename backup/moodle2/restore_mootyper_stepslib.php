@@ -25,7 +25,7 @@
 defined('MOODLE_INTERNAL') || die(); // @codingStandardsIgnoreLine
 
 /**
- * Define the complete assignment structure for restore, with file and id annotations.
+ * Define the complete mootyper structure for restore, with file and id annotations.
  *
  * Structure step to restore one mootyper activity.
  *
@@ -36,22 +36,33 @@ defined('MOODLE_INTERNAL') || die(); // @codingStandardsIgnoreLine
 class restore_mootyper_activity_structure_step extends restore_activity_structure_step {
 
     /**
+     * @var stdClass data Can only be inserted after the MooTyper activity
+     * data is stored and we know the exercise, lesson, and layout id. Therefore,
+     * process_mootyper sets this, and then inform_new_usage_id saves it.
+     */
+    protected $currentattemptdata;
+    protected $newmootyperdata;
+    protected $newexercisedata;
+
+    /**
      * Define the structure of the restore workflow.
      *
      * @return restore_path_element $structure
      */
     protected function define_structure() {
-
         $paths = array();
         // To know if we are including userinfo.
         $userinfo = $this->get_setting_value('userinfo');
-
         // Define each element separated.
         $paths[] = new restore_path_element('mootyper', '/activity/mootyper');
+        $paths[] = new restore_path_element('mootyper_attempt', '/activity/mootyper/attempts/attempt');
+        $paths[] = new restore_path_element('mootyper_check', '/activity/mootyper/attempts/attempt/checks/check');
+        $paths[] = new restore_path_element('mootyper_layout', '/activity/mootyper/layouts/layout');
+        $paths[] = new restore_path_element('mootyper_lesson', '/activity/mootyper/lessons/lesson');
+        $paths[] = new restore_path_element('mootyper_exercise', '/activity/mootyper/exercises/exercise');
         if ($userinfo) {
             $paths[] = new restore_path_element('mootyper_grade', '/activity/mootyper/grades/grade');
         }
-
         // Return the paths wrapped into standard activity structure.
         return $this->prepare_activity_structure($paths);
     }
@@ -64,73 +75,48 @@ class restore_mootyper_activity_structure_step extends restore_activity_structur
      */
     protected function process_mootyper($data) {
         global $DB;
-
         $data = (object)$data;
         $oldid = $data->id;
+        $oldexercise = $data->exercise;
+        $oldlesson = $data->lesson;
+        $oldlayout = $data->layout;
         $data->course = $this->get_courseid();
-
         $data->timecreated = $this->apply_date_offset($data->timecreated);
         $data->timemodified = $this->apply_date_offset($data->timemodified);
-
         // Insert the mootyper record.
         $newitemid = $DB->insert_record('mootyper', $data);
-        // Immediately after inserting "activity" record, call this.
+        $this->currentattemptdata = $data;
         $this->apply_activity_instance($newitemid);
+        $this->newmootyperdata = $DB->get_record('mootyper', array('id' => $newitemid));
     }
 
     /**
-     * Process a submission restore
+     * Process a submission restore.
      * @param object $data The data in object form
      * @return void
      */
     protected function process_mootyper_attempt($data) {
         global $DB;
-
         $data = (object)$data;
         $oldid = $data->id;
-
-        $data->mootyper = $this->get_new_parentid('mootyper');
+        $data->mootyperid = $this->get_new_parentid('mootyper');
         $data->userid = $this->get_mappingid('user', $data->userid);
-        $data->time = $this->apply_date_offset($data->time);
-
         $newitemid = $DB->insert_record('mootyper_attempts', $data);
         $this->set_mapping('mootyper_attempt', $oldid, $newitemid);
     }
     /**
-     * Process a check restore - TODO: Check and remove as I am pretty sure this function is not needed.
+     * Process a check restore.
      * @param object $data The data in object form
      * @return void
      */
     protected function process_mootyper_check($data) {
         global $DB;
-
         $data = (object)$data;
-        $oldid = $data->id;
-
-        $data->mootyper = $this->get_new_parentid('mootyper');
-        $data->starttime = $this->apply_date_offset($data->starttime);
-        $data->endtime = $this->apply_date_offset($data->endtime);
-
+        $oldattemptid = $data->attemptid;
+        $data->course = $this->get_courseid();
+        $data->mootyperid = $this->get_new_parentid('mootyper');
+        $data->attemptid = $this->get_mappingid('mootyper_attempt', $data->attemptid);
         $newitemid = $DB->insert_record('mootyper_checks', $data);
-    }
-
-    /**
-     * Process a grade restore
-     * @param object $data The data in object form
-     * @return void
-     */
-    protected function process_mootyper_grade($data) {
-        global $DB;
-
-        $data = (object)$data;
-        $oldid = $data->id;
-
-        $data->mootyper = $this->get_new_parentid('mootyper');
-        $data->userid = $this->get_mappingid('user', $data->userid);
-        $data->timetaken = $this->apply_date_offset($data->timetaken);
-
-        $newitemid = $DB->insert_record('mootyper_grades', $data);
-        $this->set_mapping('mootyper_grade', $oldid, $newitemid);
     }
 
     /**
@@ -140,14 +126,20 @@ class restore_mootyper_activity_structure_step extends restore_activity_structur
      */
     protected function process_mootyper_layout($data) {
         global $DB;
-
         $data = (object)$data;
+        $mootyper = $this->currentattemptdata;
+        $newmootyper = $this->newmootyperdata;
         $oldid = $data->id;
-
-        $data->mootyper = $this->get_new_parentid('mootyper');
-
-        $newitemid = $DB->insert_record('mootyper_layouts', $data);
-        $this->set_mapping('mootyper_layout', $oldid, $newitemid);
+        $layout = $DB->get_record('mootyper_layouts', array('name' => $data->name));
+        if (!$layout) {
+            $data->mootyper = $this->get_new_parentid('mootyper');
+            // Do this only if the layout does not already exist!
+            $newitemid = $DB->insert_record('mootyper_layouts', $data);
+            $this->set_mapping('mootyper_layout', $oldid, $newitemid);
+        } else {
+            $newmootyper->layout = $layout->id;
+            $this->newmootyperdata = $newmootyper;
+        }
     }
     /**
      * Process a lesson restore
@@ -156,41 +148,103 @@ class restore_mootyper_activity_structure_step extends restore_activity_structur
      */
     protected function process_mootyper_lesson($data) {
         global $DB;
-
         $data = (object)$data;
-        $oldid = $data->id;
-
-        $data->mootyper = $this->get_new_parentid('mootyper');
-
-        $newitemid = $DB->insert_record('mootyper_lessons', $data);
-        $this->set_mapping('mootyper_lesson', $oldid, $newitemid);
+        $newmootyper = $this->newmootyperdata;
+        $newexercisedata = $this->newexercisedata;
+        $lesson = $DB->get_record('mootyper_lessons', array('lessonname' => $data->lessonname));
+        if (!$lesson) {
+            $oldid = $data->id;
+            $data->mootyper = $this->get_new_parentid('mootyper');
+            $newitemid = $DB->insert_record('mootyper_lessons', $data);
+            $this->set_mapping('mootyper_lesson', $oldid, $newitemid);
+            $newmootyper->lesson = $newitemid;
+        } else {
+            $newmootyper->lesson = $lesson->id;
+        }
     }
 
     /**
-     * Process an exercise restore
+     * Process an exercise restore.
      * @param object $data The data in object form
      * @return void
      */
     protected function process_mootyper_exercise($data) {
         global $DB;
+        $debug['CP666661-enter-process_mootyper_exercise($data): '] = 'Entering function process_mootyper_exercise($data).';
 
         $data = (object)$data;
         $oldid = $data->id;
-        $oldlesson = $data->lesson;
 
-        $data->mootyper = $this->get_new_parentid('lesson');
+        // Get the current copy of the mootyper activity.
+        $newmootyper = $this->newmootyperdata;
+        $this->newexercisedata = $data;
+        $newexercisedata = $this->newexercisedata;
 
-        $newitemid = $DB->insert_record('mootyper_exercises', $data);
-        $this->set_mapping('mootyper_exercise', $oldid, $newitemid);
-        $this->set_mapping('mootyper_exercise', $oldlesson, $newitemid);
+        // If there are any exercises for this lesson, go ahead and process them.
+        // Should only find a maximum of one exercise.
+        if ($exercises = $DB->get_records('mootyper_exercises', array('lesson' => $newmootyper->lesson, 'snumber' => $data->snumber))) {
+            // Make sure we are using the right exercise.
+            foreach ($exercises as $exercise) {
+                if (($exercise->texttotype = $data->texttotype)
+                    && ($exercise->exercisename = $data->exercisename)
+                    && ($exercise->lesson = $newmootyper->lesson)
+                    && ($exercise->snumber = $data->snumber)) {
+
+                    $newexercisedata->id = $exercise->id;
+                    $this->set_mapping('mootyper_exercise', $oldid, $exercise->id);
+                    // If this mootyper is an exam, update the exam exerciseid in the mootyper.
+                    if (($newmootyper->isexam = 1) && ($newmootyper->exercise = $oldid)) {
+                        ($newmootyper->exercise = $exercise->id);
+                    }
+                }
+            }
+
+        // This exercise is not in the database so add it.
+        } else {
+            // Process data to get the ID.
+            $data->mootyper = $this->get_new_parentid('mootyper'); // Fixed. Was using lesson which was wrong.
+
+            // Insert new lesson ID into our current data.
+            $data->lesson = $newmootyper->lesson;
+
+            $newitemid = $DB->insert_record('mootyper_exercises', $data);
+
+            $this->set_mapping('mootyper_exercise', $oldid, $newitemid);
+            $data->id = $newitemid;
+        }
     }
 
     /**
-     * Once the database tables have been fully restored, restore the files
+     * Process a grade restore
+     * @param object $data The data in object form
+     * @return void
+     */
+    protected function process_mootyper_grade($data) {
+        global $DB;
+        $data = (object)$data;
+        $oldid = $data->id;
+        $data->mootyper = $this->get_new_parentid('mootyper');
+        $data->userid = $this->get_mappingid('user', $data->userid);
+        $data->exercise = $this->get_mappingid('mootyper_exercise', $data->exercise);
+        $data->attemptid = $this->get_mappingid('mootyper_attempt', $data->attemptid);
+        $data->timetaken = $this->apply_date_offset($data->timetaken);
+        $newitemid = $DB->insert_record('mootyper_grades', $data);
+        $this->set_mapping('mootyper_grade', $oldid, $newitemid);
+        $newgrade = $DB->get_record('mootyper_grades', array('id' => $newitemid));
+    }
+
+
+    /**
+     * Once the database tables have been fully restored, restore the files.
      * @return void
      */
     protected function after_execute() {
+        global $DB;
+        $newmootyper = $this->newmootyperdata;
+        $DB->update_record('mootyper', $newmootyper);
         // Add mootyper related files, no need to match by itemname (just internally handled context).
         $this->add_related_files('mod_mootyper', 'intro', null);
+        $this->add_related_files('mod_mootyper', 'introattachment', null);
+
     }
 }

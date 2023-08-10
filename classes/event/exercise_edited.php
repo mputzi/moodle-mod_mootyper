@@ -69,14 +69,4 @@ class exercise_edited extends \core\event\base {
     public function get_url() {
         return new \moodle_url('/mod/mootyper/exercises.php', array('id' => $this->contextinstanceid));
     }
-
-    /**
-     * replace add_to_log() statement.
-     *
-     * @return array of parameters to be passed to legacy add_to_log() function.
-     */
-    protected function get_legacy_logdata() {
-        $url = new \moodle_url('exercises.php', array('id' => $this->contextinstanceid));
-        return array($this->courseid, 'mootyper', 'exercises', $url->out(), $this->objectid, $this->contextinstanceid);
-    }
 }

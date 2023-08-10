@@ -26,7 +26,7 @@ defined('MOODLE_INTERNAL') || die(); // @codingStandardsIgnoreLine
 
 
 /**
- * Define the complete mootyper structure for backup, with file and id annotations
+ * Define the complete mootyper structure for backup, with file and id annotations.
  *
  * @package mod_mootyper
  * @copyright 2016 onwards AL Rachels (drachels@drachels.co9m)
@@ -35,7 +35,7 @@ defined('MOODLE_INTERNAL') || die(); // @codingStandardsIgnoreLine
 class backup_mootyper_activity_structure_step extends backup_activity_structure_step {
 
     /**
-     * Define the structure for the assign activity
+     * Define the structure for the MooTyper activity.
      * @return void
      */
     protected function define_structure() {
@@ -76,8 +76,13 @@ class backup_mootyper_activity_structure_step extends backup_activity_structure_
                                               'textalign',
                                               'cursorcolor',
                                               'textbgc',
-                                              'texterrorcolor'.
-                                              'countmistakes'));
+                                              'texterrorcolor',
+                                              'countmistakes',
+                                              'completionexercise',
+                                              'completionlesson',
+                                              'completionprecision',
+                                              'completionwpm',
+                                              'completionmootypergrade'));
 
         $attempts = new backup_nested_element('attempts');
 
@@ -104,6 +109,20 @@ class backup_mootyper_activity_structure_step extends backup_activity_structure_
                                              'lesson',
                                              'snumber'));
 
+        $layouts = new backup_nested_element('layouts');
+
+        $layout = new backup_nested_element('layout', array('id'), array(
+                                            'name'));
+
+        $lessons = new backup_nested_element('lessons');
+
+        $lesson = new backup_nested_element('lesson', array('id'), array(
+                                            'lessonname',
+                                            'authorid',
+                                            'visible',
+                                            'editable',
+                                            'courseid'));
+
         $grades = new backup_nested_element('grades');
 
         $grade = new backup_nested_element('grade', array('id'), array(
@@ -122,28 +141,12 @@ class backup_mootyper_activity_structure_step extends backup_activity_structure_
                                                  'wpm',
                                                  'mistakedetails'));
 
-        $layouts = new backup_nested_element('layouts');
-
-        $layout = new backup_nested_element('layout', array('id'), array(
-                                            'name'));
-
-        $lessons = new backup_nested_element('lessons');
-
-        $lesson = new backup_nested_element('lesson', array('id'), array(
-                                            'lessonname',
-                                            'authorid'.
-                                            'visible',
-                                            'editable',
-                                            'courseid'));
         // Build the tree.
         $mootyper->add_child($attempts);
         $attempts->add_child($attempt);
 
-        $mootyper->add_child($checks);
+        $attempt->add_child($checks);
         $checks->add_child($check);
-
-        $mootyper->add_child($grades);
-        $grades->add_child($grade);
 
         $mootyper->add_child($layouts);
         $layouts->add_child($layout);
@@ -151,8 +154,41 @@ class backup_mootyper_activity_structure_step extends backup_activity_structure_
         $mootyper->add_child($lessons);
         $lessons->add_child($lesson);
 
+        $mootyper->add_child($exercises);
+        $exercises->add_child($exercise);
+
+        $mootyper->add_child($grades);
+        $grades->add_child($grade);
+
         // Define sources.
         $mootyper->set_source_table('mootyper', array('id' => backup::VAR_ACTIVITYID));
+        $attempt->set_source_table('mootyper_attempts', array('mootyperid' => backup::VAR_PARENTID), 'id ASC');
+        $check->set_source_table('mootyper_checks', array('attemptid' => backup::VAR_PARENTID), 'id ASC');
+
+        // 20230709 Retrieve the layout data used in this MooTyper activity.
+        $layout->set_source_sql('
+            SELECT m.id, m.layout, mlay.*
+              FROM {mootyper} AS m
+              JOIN {mootyper_layouts} AS mlay
+             WHERE m.layout = mlay.id AND m.id = ?',
+            array(backup::VAR_PARENTID), 'layout');
+
+        // 20230709 Retrieve lesson data used in this MooTyper activity.
+        $lesson->set_source_sql('
+            SELECT m.id, m.lesson, mles.*
+              FROM {mootyper} AS m
+              JOIN {mootyper_lessons} AS mles
+             WHERE m.lesson = mles.id AND m.id = ?',
+            array(backup::VAR_PARENTID), 'lesson');
+
+        // 20230709 Retrieve all the exercises data that belongs to the lesson used in this MooTyper activity.
+        $exercise->set_source_sql('
+            SELECT m.id, m.lesson, m.exercise, mles.id, me.*
+              FROM {mootyper} AS m
+              JOIN {mootyper_lessons} AS mles
+              JOIN {mootyper_exercises} AS me
+             WHERE m.lesson = mles.id AND me.lesson = mles.id AND m.id = ?',
+            array(backup::VAR_PARENTID), 'exercise');
 
         // All the rest of elements only happen if we are including user info.
         if ($userinfo) {
@@ -160,6 +196,11 @@ class backup_mootyper_activity_structure_step extends backup_activity_structure_
         }
 
         // Define id annotations.
+        $attempt->annotate_ids('mootyper', 'mootyperid');
+        $check->annotate_ids('attempts', 'attemptid');
+        $layout->annotate_ids('layouts', 'id');
+        $lesson->annotate_ids('lessons', 'id');
+        $exercise->annotate_ids('exercises', 'id');
         $grade->annotate_ids('mootyper', 'mootyper');
         $grade->annotate_ids('user', 'userid');
 
